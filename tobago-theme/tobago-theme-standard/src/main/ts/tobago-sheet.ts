@@ -18,6 +18,7 @@
 import {Page} from "./tobago-page";
 import {Key} from "./tobago-key";
 import {Css} from "./tobago-css";
+import {ClientBehaviors} from "./tobago-client-behaviors";
 
 interface MousemoveData {
   columnIndex: number;
@@ -613,6 +614,7 @@ Type: ${data.type}`);
 
   clickOnCheckboxForAll(event: MouseEvent): void {
     const selectedSet = new Set<number>(JSON.parse(this.getHiddenSelected().value));
+    const oldSelectedSet = new Set<number>(selectedSet);
     const checkbox = event.currentTarget as HTMLInputElement;
     if (checkbox.checked) {
       this.selectAll(selectedSet);
@@ -620,6 +622,7 @@ Type: ${data.type}`);
       this.deselectAll(selectedSet);
     }
     this.getHiddenSelected().value = JSON.stringify(Array.from(selectedSet)); // write back to element
+    this.fireSelectionChange(oldSelectedSet, selectedSet);
   }
 
   clickOnRow(event: MouseEvent): void {
@@ -639,7 +642,7 @@ Type: ${data.type}`);
       const selector = this.getSelectorCheckbox(row);
       const selectionMode = this.dataset.tobagoSelectionMode;
       const selectedSet = new Set<number>(JSON.parse(this.getHiddenSelected().value));
-
+      const oldSelectedSet = new Set<number>(selectedSet);
       if ((!event.ctrlKey && !event.metaKey && !selector)
           || selectionMode === "single" || selectionMode === "singleOrNone") {
         this.deselectAll(selectedSet);
@@ -659,6 +662,19 @@ Type: ${data.type}`);
         this.toggleSelection(selectedSet, row, selector);
       }
       this.getHiddenSelected().value = JSON.stringify(Array.from(selectedSet)); // write back to element
+      this.fireSelectionChange(oldSelectedSet, selectedSet);
+    }
+  }
+
+  private fireSelectionChange(oldSelectedSet: Set<number>, newSelectedSet: Set<number>) {
+    const fireEvent = (oldSelectedSet, newSelectedSet) =>
+        oldSelectedSet.size == newSelectedSet.size && [...oldSelectedSet].every((x) => newSelectedSet.has(x));
+    if (fireEvent) {
+      this.dispatchEvent(new CustomEvent(ClientBehaviors.ROW_SELECTION_CHANGE, {
+        detail: {
+          selection: newSelectedSet,
+        },
+      }));
     }
   }
 

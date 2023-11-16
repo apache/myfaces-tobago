@@ -161,4 +161,12 @@ public class SheetController implements Serializable {
   public SelectItem[] getSelectableModes() {
     return SHEET_SELECTABLE;
   }
+
+  public String getSelectedRows() {
+    if (sheetState != null) {
+      return sheetState.getSelectedRows().stream().map(Object::toString).collect(Collectors.joining(", "));
+    } else {
+      return "";
+    }
+  }
 }

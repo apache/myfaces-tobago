@@ -21,23 +21,43 @@ package org.apache.myfaces.tobago.component;
 
 public enum ClientBehaviors {
 
-  action, // pure JSF (not a JavaScript event
-  blur,
-  change,
-  click,
-  complete,
-  dblclick,
-  focus,
-  keydown,
-  keypress,
-  keyup,
-  input,
-  load,
-  mouseover,
-  mouseout,
-  reload, // tbd - may be called timeout?
-  resize,
-  suggest; // tbd
+  action("action"), // pure JSF (not a JavaScript event
+  blur("blur"),
+  change("change"),
+  click("click"),
+  complete("complete"),
+  dblclick("dblclick"),
+  focus("focus"),
+  keydown("keydown"),
+  keypress("keypress"),
+  keyup("keyup"),
+  input("input"),
+  load("load"),
+  mouseover("mouseover"),
+  mouseout("mouseout"),
+  reload("reload"), // tbd - may be called timeout?
+  resize("resize"),
+  suggest("suggest"),
+  rowSelectionChange("tobago.sheet.rowSelectionChange");
+
+  private final String jsEvent;
+
+  ClientBehaviors(final String value) {
+    this.jsEvent = value;
+  }
+
+  public String getJsEvent() {
+    return jsEvent;
+  }
+
+  public static ClientBehaviors getEnum(String value) {
+    for (ClientBehaviors clientBehavior : ClientBehaviors.values()) {
+      if (clientBehavior.getJsEvent() != null && clientBehavior.getJsEvent().equals(value)) {
+        return clientBehavior;
+      }
+    }
+    return ClientBehaviors.valueOf(value);
+  }
 
   public static final String ACTION = "action";
   public static final String BLUR = "blur";
@@ -56,5 +76,6 @@ public enum ClientBehaviors {
   public static final String RELOAD = "reload"; // tbd - may be called timeout?
   public static final String RESIZE = "resize";
   public static final String SUGGEST = "suggest"; // tbd
+  public static final String ROW_SELECTION_CHANGE = "tobago.sheet.rowSelectionChange";
 
 }
