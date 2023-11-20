@@ -99,6 +99,7 @@ class Behavior extends HTMLElement {
             }
           }
         }
+        event.stopPropagation();
         faces.ajax.request(
             this.actionElement,
             event,
@@ -110,6 +111,7 @@ class Behavior extends HTMLElement {
             });
         break;
       case BehaviorMode.full:
+        event.stopPropagation();
         setTimeout(this.submit.bind(this), this.delay);
         break;
       default:
