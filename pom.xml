@@ -58,7 +58,7 @@
     <jetty.version>9.4.50.v20221201</jetty.version>
     <tomcat9.version>9.0.82</tomcat9.version>
     <joinfaces.version>4.7.17</joinfaces.version>
-    <spring-boot.version>2.7.17</spring-boot.version>
+    <spring-boot.version>2.7.18</spring-boot.version>
     <spring.version>5.3.31</spring.version>
     <jackson.version>2.16.0</jackson.version>
   </properties>
