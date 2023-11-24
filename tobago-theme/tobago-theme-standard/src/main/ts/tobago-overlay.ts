@@ -110,7 +110,7 @@ export class Overlay extends HTMLElement {
    * wait, error, ajax, drop-zone
    */
   get type(): string {
-    let attribute = this.getAttribute("type");
+    const attribute = this.getAttribute("type");
     if (attribute) {
       return attribute;
     } else {

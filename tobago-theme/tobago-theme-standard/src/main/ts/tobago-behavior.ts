@@ -81,8 +81,7 @@ class Behavior extends HTMLElement {
         if (this.render) {
           // prepare overlay for all by AJAX reloaded elements
           const partialIds = this.render.split(" ");
-          for (let i = 0; i < partialIds.length; i++) {
-            const partialId = partialIds[i];
+          for (const partialId of partialIds) {
             const partialElement = document.getElementById(partialId);
             if (partialElement) {
               let id: string;
