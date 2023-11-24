@@ -50,6 +50,11 @@ jobs:
             find . \( -path '*/target/surefire-reports/*.xml' -o -path '*/target/failsafe-reports/*.xml' -o -path '*/target/rat.txt' -o -path '*/target/checkstyle-result.xml' -o -path '*/target/dependency-check-report.xml' \) | zip -q reports.zip -@
             exit 1
           fi
+      - name: Ui testing
+        if: github.actor != 'dependabot[bot]'
+        run: |
+          cd tobago-example/tobago-example-demo
+          mvn clean verify -Pdocker -Pintegration-tests
       - name: Reports
         uses: actions/upload-artifact@v3
         if: failure()
