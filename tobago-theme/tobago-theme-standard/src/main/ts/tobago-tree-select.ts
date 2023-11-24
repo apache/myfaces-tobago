@@ -52,7 +52,7 @@ export class TreeSelect extends HTMLElement {
     }
   }
 
-  selectChildren(treeSelectChildren: NodeListOf<TreeSelect>, checked: boolean, treeNodeIds: Array<string>): void {
+  selectChildren(treeSelectChildren: NodeListOf<TreeSelect>, checked: boolean, treeNodeIds: string[]): void {
     for (const treeSelect of treeSelectChildren) {
       if (treeSelect.input.checked !== checked) {
         treeSelect.input.checked = checked;

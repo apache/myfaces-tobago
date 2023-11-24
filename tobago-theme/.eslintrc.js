@@ -29,24 +29,11 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    "@typescript-eslint/array-type": "warn",
-    "@typescript-eslint/consistent-indexed-object-style": "warn",
-    "@typescript-eslint/consistent-type-assertions": "warn",
-    "@typescript-eslint/consistent-type-definitions": "warn",
-    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-unused-vars": "off",
-    "@typescript-eslint/prefer-for-of": "warn",
-    "max-len": [
-      "error",
-      {
-        "code": 120
-      }
-    ],
-    "no-constant-condition": "warn",
-    "no-inner-declarations": "warn",
-    "no-irregular-whitespace": "warn",
-    "no-multiple-empty-lines": "error",
-    "prefer-const": "warn",
-    "prefer-rest-params": "warn"
+    "@typescript-eslint/semi": "error",
+    "max-len": ["error", {"code": 120}],
+    "no-irregular-whitespace": "off",
+    "no-multiple-empty-lines": "error"
   }
 }

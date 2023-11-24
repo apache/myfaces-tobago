@@ -434,8 +434,7 @@ export class Sheet extends HTMLElement {
     let updates: NodeListOf<Element>;
     if (event.status === "complete") {
       updates = event.responseXML.querySelectorAll("update");
-      for (let i = 0; i < updates.length; i++) {
-        const update = updates[i];
+      for (const update of updates) {
         const id = update.getAttribute("id");
         if (this.id === id) { // is a Faces element id, but not a technical id from the framework
           console.debug(`[tobago-sheet][complete] Update after faces.ajax complete: #${id}`); // @DEV_ONLY
