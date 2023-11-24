@@ -287,8 +287,7 @@ class Dropdown extends HTMLElement {
 
   private getFocusedDropdownItem(dropdownItems: DropdownItem[]): DropdownItem {
     if (dropdownItems) {
-      for (let i = 0; i < dropdownItems.length; i++) {
-        const dropdownItem = dropdownItems[i];
+      for (const dropdownItem of dropdownItems) {
         const focusedDropdownItem = this.getFocusedDropdownItem(dropdownItem.children);
         if (focusedDropdownItem != null) {
           return focusedDropdownItem;

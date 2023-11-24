@@ -213,7 +213,7 @@ export abstract class SelectListBase extends HTMLElement {
   }
 
   private tbodyClickEvent(event: MouseEvent): void {
-    const target = <HTMLElement>event.target;
+    const target = event.target as HTMLElement;
     const row = target.closest("tr");
     this.select(row);
   }

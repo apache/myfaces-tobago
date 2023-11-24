@@ -17,9 +17,7 @@
 
 // Faces JS declarations. It's the best of what I've found out - with no guaranty!
 
-declare type Context = {
-  [key: string]: any;
-};
+type Context = Record<string, any>;
 
 declare interface EventData {
   type: string;

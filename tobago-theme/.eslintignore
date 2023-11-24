@@ -3,3 +3,4 @@ lib/
 node_modules/
 target/
 *.js
+tobago-polyfill.ts

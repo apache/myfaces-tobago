@@ -33,7 +33,7 @@ class SelectManyList extends SelectListBase {
 
     // init badges
     this.querySelectorAll("option:checked").forEach(
-        option => this.sync(<HTMLOptionElement>option)
+        option => this.sync((option as HTMLOptionElement))
     );
   }
 
@@ -119,7 +119,7 @@ class SelectManyList extends SelectListBase {
   }
 
   private removeBadge(event: MouseEvent): void {
-    const target = <HTMLElement>event.target;
+    const target = event.target as HTMLElement;
     const group: HTMLElement = target.closest(".btn-group");
     const itemValue = group.dataset.tobagoValue;
     const option: HTMLOptionElement = this.hiddenSelect.querySelector(`[value="${itemValue}"]`);
