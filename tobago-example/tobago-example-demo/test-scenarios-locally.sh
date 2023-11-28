@@ -23,10 +23,6 @@
 
 WORK=test-scenarios-locally/$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
-JAVA_HOME_8=/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home
-JAVA_HOME_11=/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home
-JAVA_HOME_17=/Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home
-
 ${JAVA_HOME_8}/bin/java -version
 if [ $? != 0 ]; then
   echo "Java 8 (LTS) not found!"
