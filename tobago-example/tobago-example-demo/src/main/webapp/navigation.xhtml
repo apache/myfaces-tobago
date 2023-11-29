@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -17,13 +16,13 @@
  * limitations under the License.
 -->
 
-<f:subview id="navigator"
+<f:subview id="#{navigationName}"
            xmlns:f="jakarta.faces.core"
            xmlns:tc="http://myfaces.apache.org/tobago/component">
-  <tc:tree id="nav" value="#{navigationTree.tree}" var="node" state="#{navigationState.state}">
+  <tc:tree id="#{navigationId}" value="#{navigationTree.tree}" var="node" state="#{navigationState.state}">
     <tc:treeNode id="node">
       <tc:link
-              id="cmd"
+              id="#{linkId}"
               label="» #{node.label}"
               outcome="#{node.outcome}"/>
     </tc:treeNode>

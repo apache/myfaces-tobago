@@ -15,6 +15,15 @@
  * limitations under the License.
  */
 
+.hide-navigation{
+  display: none;
+}
+
+.navigation-box{
+  --bs-card-border-radius: 0;
+  border: none;
+}
+
 .box-shadow {
   box-shadow: 0 0 5px 5px rgba(200, 200, 200, 0.5);
 }
