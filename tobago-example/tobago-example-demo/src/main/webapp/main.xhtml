@@ -52,13 +52,40 @@
 
       <ui:include src="/menu.xhtml"/>
 
+      <tc:box label="Menu" id="small-view-menu" collapsed="true" collapsedMode="hidden">
+          <f:facet name="bar">
+            <tc:buttons>
+              <tc:button id="show-menu" image="bi-arrow-bar-down" omit="true">
+                <tc:operation name="show" for="small-view-menu"/>
+              </tc:button>
+              <tc:button id="hide-menu" image="bi-arrow-bar-up" omit="true">
+                <tc:operation name="hide" for="small-view-menu"/>
+              </tc:button>
+            </tc:buttons>
+          </f:facet>
+          <tc:style customClass="scrollableBox d-block d-lg-none navigation-box"/>
+          <tc:style overflowY="scroll" height="20rem" selector=".scrollableBox .card-body"/>
+          <tc:panel id="clientPanel" collapsedMode="hidden">
+            <ui:include src="/navigation.xhtml">
+              <ui:param name="navigationName" value="navigation-small"/>
+              <ui:param name="navigationId" value="nav-small"/>
+              <ui:param name="linkId" value="cmd-small"/>
+            </ui:include>
+          </tc:panel>
+      </tc:box>
+
       <tc:panel>
         <tc:style customClass="#{navigationState.viewSource ? '' : 'container-lg'}"/>
 
-        <tc:segmentLayout small="4seg 8seg" medium="3seg 9seg" large="2seg 10seg">
+        <tc:segmentLayout  large="2seg 10seg">
           <f:event type="preRenderView" listener="#{navigationState.sync}"/>
           <tc:panel>
-            <ui:include src="/navigation.xhtml"/>
+            <tc:style customClass="d-lg-block hide-navigation"/>
+            <ui:include src="/navigation.xhtml">
+              <ui:param name="navigationName" value="navigation"/>
+              <ui:param name="navigationId" value="nav"/>
+              <ui:param name="linkId" value="cmd"/>
+            </ui:include>
           </tc:panel>
 
           <tc:splitLayout columns="1fr">
