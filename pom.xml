@@ -878,7 +878,19 @@
     </pluginRepository>
   </pluginRepositories>
 -->
-
+  <repositories>
+    <repository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>apache.snapshots</id>
+      <name>Apache Snapshot Repository</name>
+      <url>https://repository.apache.org/snapshots</url>
+    </repository>
+  </repositories>
   <profiles>
     <profile>
       <id>apache-release</id>
