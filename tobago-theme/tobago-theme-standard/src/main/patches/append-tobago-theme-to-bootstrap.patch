@@ -1,5 +1,5 @@
 Index: scss/bootstrap.scss
-Info: This patch is valid for Bootstrap 4.1.1
+Info: This patch is valid for Bootstrap 4.6.2
 <+>UTF-8
 ===================================================================
 --- scss/bootstrap.scss
@@ -14,8 +14,8 @@ Info: This patch is valid for Bootstrap 4.1.1
  @import "root";
  @import "reboot";
  @import "type";
-@@ -40,3 +43,6 @@
- @import "carousel";
+@@ -45,3 +48,6 @@
+ @import "spinners";
  @import "utilities";
  @import "print";
 +
