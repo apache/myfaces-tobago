@@ -39,52 +39,15 @@
   </modules>
 
   <build>
-    <!-- For the examples mvn jetty:run should work.
-         For Debugging with jetty set following options
-            MAVEN_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005"
-     -->
-    <plugins>
-      <plugin>
-        <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-        <configuration>
-          <!-- use this to change the context path: -->
-          <!--
-                      <webApp>
-                        <contextPath>/example</contextPath>
-                      </webApp>
-          -->
-          <!-- use this to change the port: -->
-          <!--
-                      <httpConnector>
-                        <port>7080</port>
-                      </httpConnector>
-          -->
-        </configuration>
-      </plugin>
-    </plugins>
-
     <pluginManagement>
       <plugins>
         <plugin>
           <groupId>org.eclipse.jetty</groupId>
           <artifactId>jetty-maven-plugin</artifactId>
           <version>${jetty.version}</version>
-          <!-- for jetty 10 please activate the profile jee8 -->
           <configuration>
-            <!--
-            to run the webapp in jetty in development mode use
-            mvn clean jetty:run -Pdev -Pjetty
-             -->
             <scanIntervalSeconds>5</scanIntervalSeconds>
           </configuration>
-          <dependencies>
-            <dependency> <!-- add JAXB to run the demo with Java 11 and higher -->
-              <groupId>javax.xml.bind</groupId>
-              <artifactId>jaxb-api</artifactId>
-              <version>2.3.1</version>
-            </dependency>
-          </dependencies>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -381,30 +344,23 @@
     </profile>
 
     <profile>
-      <!-- only use for jetty with MyFaces, do not use with Mojarra -->
       <id>jetty</id>
+      <build>
+        <!-- For the examples "mvn clean -Pjetty jetty:run" should work.
+        to run the webapp in jetty in development mode use: mvn clean -Pjetty -Pdev jetty:run
+        For Debugging with jetty set following options
+        MAVEN_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005" -->
+        <plugins>
+          <plugin>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-maven-plugin</artifactId>
+          </plugin>
+        </plugins>
+      </build>
       <dependencies>
         <dependency>
           <groupId>org.slf4j</groupId>
           <artifactId>jcl-over-slf4j</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-jsf</artifactId>
-          <version>${openwebbeans.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-web</artifactId>
-          <version>${openwebbeans.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-resource</artifactId>
-          <version>${openwebbeans.version}</version>
-          <scope>runtime</scope>
         </dependency>
         <dependency>
           <groupId>org.apache.myfaces.tobago</groupId>
@@ -413,29 +369,20 @@
           <scope>runtime</scope>
         </dependency>
         <dependency>
-          <groupId>jakarta.inject</groupId>
-          <artifactId>jakarta.inject-api</artifactId>
-          <version>1.0.5</version>
-          <scope>compile</scope>
-        </dependency>
-        <dependency>
           <groupId>jakarta.enterprise</groupId>
           <artifactId>jakarta.enterprise.cdi-api</artifactId>
           <scope>compile</scope>
         </dependency>
-        <dependency>
-          <groupId>org.apache.bval</groupId>
-          <artifactId>bval-jsr</artifactId>
-          <scope>compile</scope>
+        <dependency> <!-- add JAXB to run the demo with Java 11 and higher -->
+          <groupId>javax.xml.bind</groupId>
+          <artifactId>jaxb-api</artifactId>
+          <version>2.3.1</version>
         </dependency>
       </dependencies>
     </profile>
 
     <profile>
       <id>tomcat</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
       <build>
         <plugins>
           <plugin>
@@ -461,38 +408,8 @@
       </build>
       <dependencies>
         <dependency>
-          <groupId>org.apache.myfaces.core</groupId>
-          <artifactId>myfaces-api</artifactId>
-          <version>${myfaces23.version}</version>
-          <scope>compile</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.myfaces.core</groupId>
-          <artifactId>myfaces-impl</artifactId>
-          <version>${myfaces23.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
           <groupId>org.slf4j</groupId>
           <artifactId>jcl-over-slf4j</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-jsf</artifactId>
-          <version>${openwebbeans.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-web</artifactId>
-          <version>${openwebbeans.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.openwebbeans</groupId>
-          <artifactId>openwebbeans-resource</artifactId>
-          <version>${openwebbeans.version}</version>
-          <scope>runtime</scope>
         </dependency>
         <dependency>
           <groupId>org.apache.myfaces.tobago</groupId>
@@ -510,23 +427,6 @@
           <groupId>jakarta.enterprise</groupId>
           <artifactId>jakarta.enterprise.cdi-api</artifactId>
           <scope>compile</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.bval</groupId>
-          <artifactId>bval-jsr</artifactId>
-          <scope>compile</scope>
-        </dependency>
-        <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
-          <version>1.2</version>
-          <scope>runtime</scope>
-        </dependency>
-        <!-- this enables the development mode -->
-        <dependency>
-          <groupId>org.apache.myfaces.tobago</groupId>
-          <artifactId>tobago-config-dev</artifactId>
-          <version>${project.version}</version>
         </dependency>
         <dependency> <!-- add JAXB to run the demo with Java 11 and higher -->
           <groupId>javax.xml.bind</groupId>
