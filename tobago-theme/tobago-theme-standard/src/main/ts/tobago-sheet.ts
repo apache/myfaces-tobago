@@ -36,11 +36,17 @@ interface MousedownOnRowData {
 export class Sheet extends HTMLElement {
 
   static readonly SCROLL_BAR_SIZE: number = Sheet.getScrollBarSize();
+  private static readonly SUFFIX_LAZY_UPDATE: string = "::lazy-update";
 
   mousemoveData: MousemoveData;
   mousedownOnRowData: MousedownOnRowData;
 
   lastCheckMillis: number;
+
+  private lazyActive: boolean;
+  private sheetLoader: HTMLElement;
+  private previousScrollHeight: number;
+  private upperRowsUpdate: boolean;
 
   constructor() {
     super();
@@ -76,12 +82,6 @@ export class Sheet extends HTMLElement {
   }
 
   connectedCallback(): void {
-
-    if (this.lazyUpdate) {
-      // nothing to do here, will be done in method lazyResponse()
-      return;
-    }
-
     // synchronize column widths ----------------------------------------------------------------------------------- //
 
     // basic idea: there are two possible sources for the sizes:
@@ -241,11 +241,8 @@ export class Sheet extends HTMLElement {
         }
       }
 
-      this.sheetBody.scrollTop = firstShownRow.offsetTop;
       sheetBody.addEventListener("scroll", this.lazyCheck.bind(this));
-
-      // initial
-      this.lazyCheck();
+      this.sheetBody.scrollTop = firstShownRow.offsetTop; //triggers scroll event -> lazyCheck()
     }
 
     // ---------------------------------------------------------------------------------------- //
@@ -274,19 +271,6 @@ export class Sheet extends HTMLElement {
   }
 
   // attribute getter + setter ---------------------------------------------------------- //
-
-  get lazyActive(): boolean {
-    return this.hasAttribute("lazy-active");
-  }
-
-  set lazyActive(update: boolean) {
-    if (update) {
-      this.setAttribute("lazy-active", "");
-    } else {
-      this.removeAttribute("lazy-active");
-    }
-  }
-
   get lazy(): boolean {
     return this.hasAttribute("lazy");
   }
@@ -301,22 +285,6 @@ export class Sheet extends HTMLElement {
 
   get lazyUpdate(): boolean {
     return this.hasAttribute("lazy-update");
-  }
-
-  get lazyUpdateUpperRows(): boolean {
-    return this.getAttribute("lazy-update-upper-rows") === "true";
-  }
-
-  set lazyUpdateUpperRows(value: boolean) {
-    this.setAttribute("lazy-update-upper-rows", String(value));
-  }
-
-  get lazyUpdatePreviousBodyScrollHeight(): number {
-    return Number(this.getAttribute("lazy-update-previous-body-scroll-height"));
-  }
-
-  set lazyUpdatePreviousBodyScrollHeight(value: number) {
-    this.setAttribute("lazy-update-previous-body-scroll-height", String(value));
   }
 
   get rows(): number {
@@ -374,7 +342,6 @@ export class Sheet extends HTMLElement {
    * Checks if a lazy update is required, because there are unloaded rows in the visible area.
    */
   lazyCheck(event?: Event): void {
-
     if (this.lazyActive) {
       // nothing to do, because there is an active AJAX running
       return;
@@ -393,7 +360,7 @@ export class Sheet extends HTMLElement {
       const rootNode = this.getRootNode() as ShadowRoot | Document;
       const input = rootNode.getElementById(this.id + ":pageActionlazy") as HTMLInputElement;
       input.value = String(1 + next); //input.value rowIndex starts at 1 (not 0)
-      this.lazyUpdatePreviousBodyScrollHeight = this.sheetBody.scrollHeight;
+      this.previousScrollHeight = this.sheetBody.scrollHeight;
       this.reloadWithAction(input);
     }
   }
@@ -405,7 +372,7 @@ export class Sheet extends HTMLElement {
 
     for (let rowIndex = firstVisibleRowIndex + 1; rowIndex < firstVisibleRowIndex + rows; rowIndex++) {
       if (rowIndex >= 0 && rowIndex < rowElements.length && rowElements[rowIndex].hasAttribute("dummy")) {
-        this.lazyUpdateUpperRows = false;
+        this.upperRowsUpdate = false;
         if (rowElements[firstVisibleRowIndex].hasAttribute("dummy")) {
           return firstVisibleRowIndex;
         } else if (rowIndex + rows - 1 < rowElements.length) {
@@ -418,7 +385,7 @@ export class Sheet extends HTMLElement {
 
     for (let rowIndex = firstVisibleRowIndex; rowIndex > firstVisibleRowIndex - rows; rowIndex--) {
       if (rowIndex >= 0 && rowIndex < rowElements.length && rowElements[rowIndex].hasAttribute("dummy")) {
-        this.lazyUpdateUpperRows = true;
+        this.upperRowsUpdate = true;
         if (rowIndex - rows + 1 >= 0) {
           return rowIndex - rows + 1;
         } else {
@@ -439,50 +406,42 @@ export class Sheet extends HTMLElement {
         if (this.id === id) { // is a Faces element id, but not a technical id from the framework
           console.debug(`[tobago-sheet][complete] Update after faces.ajax complete: #${id}`); // @DEV_ONLY
 
-          const sheet = document.getElementById(id);
-          sheet.id = `${id}::lazy-temporary`;
+          update.id = update.id + Sheet.SUFFIX_LAZY_UPDATE; //hide from faces.js
 
-          const page = Page.page(this);
-          page.insertAdjacentHTML("beforeend", `<div id="${id}"></div>`);
-          const sheetLoader = document.getElementById(id);
+          this.sheetLoader = document.createElement("div");
+          this.sheetLoader.innerHTML = update.textContent;
         }
       }
     } else if (event.status === "success") {
       updates = event.responseXML.querySelectorAll("update");
-      for (let i = 0; i < updates.length; i++) {
-        const update = updates[i];
+      for (const update of updates) {
         const id = update.getAttribute("id");
-        if (this.id === `${id}::lazy-temporary`) { // is a Faces element id, but not a technical id from the framework
+        if (this.id + Sheet.SUFFIX_LAZY_UPDATE === id) {
           console.debug(`[tobago-sheet][success] Update after faces.ajax complete: #${id}`); // @DEV_ONLY
 
-          // sync the new rows into the sheet
-          const sheetLoader = document.getElementById(id);
-          const sheet = document.getElementById(`${id}::lazy-temporary`);
-          sheet.id = id;
-          const tbody = sheet.querySelector(".tobago-body tbody");
+          const tbody = this.querySelector(".tobago-body tbody");
 
-          const newRows = sheetLoader.querySelectorAll(".tobago-body tbody>tr");
-          for (i = 0; i < newRows.length; i++) {
-            const newRow = newRows[i];
+          const newRows = this.sheetLoader.querySelectorAll(".tobago-body tbody>tr");
+          for (const newRow of newRows) {
             const rowIndex = Number(newRow.getAttribute("row-index"));
             const row = tbody.querySelector(`tr[row-index='${rowIndex}']`);
-            // replace the old row with the new row
             row.insertAdjacentElement("afterend", newRow);
-            tbody.removeChild(row);
+            row.remove();
           }
 
-          sheetLoader.parentElement.removeChild(sheetLoader);
-          this.lazyActive = false;
+          this.sheetLoader.remove();
         }
       }
 
       const scrollTop: number = JSON.parse(this.getHiddenScrollPosition().value)[1];
-      if (this.lazyUpdateUpperRows) {
-        const additionalHeight: number = this.sheetBody.scrollHeight - this.lazyUpdatePreviousBodyScrollHeight;
+      if (this.upperRowsUpdate) {
+        const additionalHeight: number = this.sheetBody.scrollHeight - this.previousScrollHeight;
         this.sheetBody.scrollTop = scrollTop + additionalHeight;
       } else {
         this.sheetBody.scrollTop = scrollTop;
       }
+
+      this.lazyActive = false;
     }
   }
 
@@ -507,7 +466,7 @@ Type: ${data.type}`);
         source.id,
         null,
         {
-          "jakarta.faces.behavior.event": "reload",
+          "jakarta.faces.behavior.event": lazy ? "lazy" : "reload",
           execute: executeIds,
           render: renderIds,
           onevent: lazy ? this.lazyResponse.bind(this) : undefined,
@@ -822,8 +781,7 @@ Type: ${data.type}`);
   }
 
   getHiddenScrollPosition(): HTMLInputElement {
-    const rootNode = this.getRootNode() as ShadowRoot | Document;
-    return rootNode.getElementById(this.id + "::scrollPosition") as HTMLInputElement;
+    return this.querySelector("input[id$='::scrollPosition']");
   }
 
   getHiddenExpanded(): HTMLInputElement {

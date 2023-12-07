@@ -136,8 +136,8 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       ComponentUtils.setAttribute(component, Attributes.selectedListString, selectedRows);
     }
 
-    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("jakarta.faces.source");
-    component.setLazyUpdate(sourceId != null && sourceId.equals(clientId + SUFFIX_LAZY));
+    final String event = facesContext.getExternalContext().getRequestParameterMap().get("jakarta.faces.behavior.event");
+    component.setLazyUpdate("lazy".equals(event));
 
     final String value
         = facesContext.getExternalContext().getRequestParameterMap().get(clientId + SUFFIX_SCROLL_POSITION);
