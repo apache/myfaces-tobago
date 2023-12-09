@@ -128,6 +128,9 @@ updates:
       - dependency-name: "jakarta.validation:jakarta.validation-api"
         versions:
           - ">= 3.0.0"
+      - dependency-name: "org.apache.bval:bval-jsr"
+        versions:
+          - ">= 3.0.0"
       - dependency-name: "jakarta.el:jakarta.el-api"
         versions:
           - ">= 4.0.0"
@@ -226,6 +229,9 @@ updates:
       - dependency-name: "jakarta.validation:jakarta.validation-api"
         versions:
           - ">= 3.0.0"
+      - dependency-name: "org.apache.bval:bval-jsr"
+        versions:
+          - ">= 3.0.0"
       - dependency-name: "jakarta.el:jakarta.el-api"
         versions:
           - ">= 4.0.0"
@@ -315,6 +321,9 @@ updates:
       - dependency-name: "org.apache.openwebbeans:openwebbeans-spi"
         versions:
           - ">= 1.5.0"
+      - dependency-name: "org.apache.bval:bval-jsr"
+        versions:
+          - ">= 3.0.0"
       - dependency-name: "org.apache.maven.plugins:maven-antrun-plugin"
         versions:
           - ">= 3.0.0"
