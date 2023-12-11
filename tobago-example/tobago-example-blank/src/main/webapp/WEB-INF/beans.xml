@@ -17,31 +17,8 @@
  * limitations under the License.
 -->
 
-<tobago-config
-    xmlns="http://myfaces.apache.org/tobago/tobago-config"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-5.1.xsd"
-    version="5.1">
-
-  <name>tobago-example-blank</name>
-
-  <ordering>
-    <after>
-      <name>tobago-theme-standard</name>
-      <name>tobago-theme-charlotteville</name>
-      <name>tobago-theme-roxborough</name>
-      <name>tobago-theme-speyside</name>
-      <name>tobago-theme-scarborough</name>
-    </after>
-  </ordering>
-
-  <theme-config>
-    <default-theme>speyside</default-theme>
-  </theme-config>
-
-<!--
-  <create-session-secret>false</create-session-secret>
-  <check-session-secret>false</check-session-secret>
--->
-
-</tobago-config>
+<beans xmlns="https://jakarta.ee/xml/ns/jakartaee"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/beans_4_0.xsd"
+       version="4.0">
+</beans>
