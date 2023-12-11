@@ -40,31 +40,6 @@
   </modules>
 
   <build>
-    <!-- For the examples mvn jetty:run should work.
-         For Debugging with jetty set following options
-            MAVEN_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005"
-     -->
-    <plugins>
-      <plugin>
-        <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-        <configuration>
-          <!-- use this to change the context path: -->
-          <!--
-                      <webApp>
-                        <contextPath>/example</contextPath>
-                      </webApp>
-          -->
-          <!-- use this to change the port: -->
-          <!--
-                      <httpConnector>
-                        <port>7080</port>
-                      </httpConnector>
-          -->
-        </configuration>
-      </plugin>
-    </plugins>
-
     <pluginManagement>
       <plugins>
         <plugin>
@@ -72,11 +47,7 @@
           <artifactId>jetty-maven-plugin</artifactId>
           <version>${jetty.version}</version>
           <configuration>
-            <!--
-            to run the webapp in jetty in development mode use
-            mvn clean jetty:run -Pdev -Pjetty
-             -->
-            <scanIntervalSeconds>5</scanIntervalSeconds>
+            <scan>5</scan>
           </configuration>
         </plugin>
       </plugins>
@@ -231,17 +202,23 @@
     </profile>
 
     <profile>
-      <!-- only use for jetty with MyFaces, do not use with Mojarra -->
       <id>jetty</id>
+      <build>
+        <!-- For the examples "mvn clean -Pjetty jetty:run" should work.
+        to run the webapp in jetty in development mode use: mvn clean -Pjetty -Pdev jetty:run
+        For Debugging with jetty set following options
+        MAVEN_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005" -->
+        <plugins>
+          <plugin>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-maven-plugin</artifactId>
+          </plugin>
+        </plugins>
+      </build>
       <dependencies>
         <dependency>
           <groupId>org.slf4j</groupId>
           <artifactId>jcl-over-slf4j</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>jakarta.inject</groupId>
-          <artifactId>jakarta.inject-api</artifactId>
-          <scope>compile</scope>
         </dependency>
         <dependency>
           <groupId>jakarta.enterprise</groupId>
@@ -253,19 +230,11 @@
           <artifactId>weld-servlet-shaded</artifactId>
           <scope>runtime</scope>
         </dependency>
-        <dependency>
-          <groupId>org.hibernate.validator</groupId>
-          <artifactId>hibernate-validator</artifactId>
-          <scope>compile</scope>
-        </dependency>
       </dependencies>
     </profile>
 
     <profile>
       <id>tomcat</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
       <build>
         <plugins>
           <plugin>
@@ -285,41 +254,14 @@
                 <containerId>tomcat10x</containerId>
                 <type>embedded</type>
               </container>
-              <deployables>
-                <deployable>
-                  <groupId>org.apache.myfaces.tobago</groupId>
-                  <artifactId>tobago-example-demo</artifactId>
-                  <type>war</type>
-                  <properties>
-                    <context>/</context>
-                  </properties>
-                </deployable>
-              </deployables>
             </configuration>
           </plugin>
         </plugins>
       </build>
       <dependencies>
         <dependency>
-          <groupId>org.apache.myfaces.core</groupId>
-          <artifactId>myfaces-api</artifactId>
-          <version>${myfaces40.version}</version>
-          <scope>compile</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.myfaces.core</groupId>
-          <artifactId>myfaces-impl</artifactId>
-          <version>${myfaces40.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
           <groupId>org.slf4j</groupId>
           <artifactId>jcl-over-slf4j</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>jakarta.inject</groupId>
-          <artifactId>jakarta.inject-api</artifactId>
-          <scope>compile</scope>
         </dependency>
         <dependency>
           <groupId>jakarta.enterprise</groupId>
@@ -327,25 +269,9 @@
           <scope>compile</scope>
         </dependency>
         <dependency>
-          <groupId>jakarta.servlet.jsp.jstl</groupId>
-          <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
           <groupId>org.jboss.weld.servlet</groupId>
           <artifactId>weld-servlet-shaded</artifactId>
           <scope>runtime</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.hibernate.validator</groupId>
-          <artifactId>hibernate-validator</artifactId>
-          <scope>compile</scope>
-        </dependency>
-        <!-- this enables the development mode -->
-        <dependency>
-          <groupId>org.apache.myfaces.tobago</groupId>
-          <artifactId>tobago-config-dev</artifactId>
-          <version>${project.version}</version>
         </dependency>
       </dependencies>
     </profile>
