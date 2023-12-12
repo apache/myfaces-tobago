@@ -40,6 +40,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.behavior.AjaxBehavior;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class InRendererUnitTest extends RendererTestBase {
 
@@ -553,5 +554,31 @@ public class InRendererUnitTest extends RendererTestBase {
     c.encodeAll(facesContext);
 
     Assertions.assertEquals(loadHtml("renderer/in/autocomplete-on.html"), formattedResult());
+  }
+
+  @Test
+  public void ajaxKeyupDelay1000() throws IOException {
+    final AjaxBehavior behavior =
+        (AjaxBehavior) facesContext.getApplication().createBehavior(AjaxBehavior.BEHAVIOR_ID);
+    behavior.setDelay("1000");
+    behavior.setRender(Collections.singletonList("id"));
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+    c.addClientBehavior("keyup", behavior);
+    c.encodeAll(facesContext);
+    Assertions.assertEquals(loadHtml("renderer/in/ajaxKeyupDelay1000.html"), formattedResult());
+  }
+
+  @Test
+  public void ajaxKeyupDelayNone() throws IOException {
+    final AjaxBehavior behavior =
+        (AjaxBehavior) facesContext.getApplication().createBehavior(AjaxBehavior.BEHAVIOR_ID);
+    behavior.setDelay("none");
+    behavior.setRender(Collections.singletonList("id"));
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+    c.addClientBehavior("keyup", behavior);
+    c.encodeAll(facesContext);
+    Assertions.assertEquals(loadHtml("renderer/in/ajaxKeyupDelayNone.html"), formattedResult());
   }
 }

@@ -105,7 +105,8 @@ class Behavior extends HTMLElement {
               "javax.faces.behavior.event": this.event,
               execute: this.execute,
               render: this.render,
-              resetValues: this.resetValues
+              resetValues: this.resetValues,
+              delay: this.delay
             });
         break;
       case BehaviorMode.full:
