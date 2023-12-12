@@ -77,6 +77,7 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
     String fieldId = null;
     boolean omit = false;
     boolean resetValues = false;
+    Integer delay = null;
 
     final String confirmation = ComponentUtils.getConfirmation(uiComponent);
     if (behavior instanceof AjaxBehavior) {
@@ -85,6 +86,17 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
         return null;
       }
       resetValues = ajaxBehavior.isResetValues();
+      String delayStr = ajaxBehavior.getDelay();
+      if (delayStr != null) {
+        if (!"none".equalsIgnoreCase(delayStr)) {
+          try {
+            delay = Integer.parseInt(delayStr);
+          } catch (NumberFormatException e) {
+            LOG.warn("Wrong delay attribute format '{}' of AjaxBehavior '{}' clientId '{}'!",
+                delayStr, eventName, clientId);
+          }
+        }
+      }
       final Collection<String> execute = ajaxBehavior.getExecute();
       final Collection<String> render = ajaxBehavior.getRender();
       clientId = uiComponent.getClientId(facesContext);
@@ -134,7 +146,7 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
         executeIds,
         renderIds,
         confirmation,
-        null,
+        delay,
         collapse,
         omit);
 
