@@ -1047,7 +1047,7 @@
                 </goals>
                 <phase>generate-resources</phase>
                 <configuration>
-                  <arguments>version ${version} --allow-same-version</arguments>
+                  <arguments>version ${project.version} --allow-same-version</arguments>
                 </configuration>
               </execution>
 
