@@ -80,11 +80,10 @@ public abstract class AbstractUISheet extends AbstractUIData
   public static final String SORTER_ID = "sorter";
   public static final String NOT_SORTABLE_COL_MESSAGE_ID = "org.apache.myfaces.tobago.UISheet.SORTING_COL";
   public static final String NOT_SORTABLE_MESSAGE_ID = "org.apache.myfaces.tobago.UISheet.SORTING";
-  private static final String LAZY_UPDATE = "isLazyUpdate";
-
   private SheetState state;
   private transient MeasureList columnLayout;
   private transient boolean autoLayout;
+  private transient boolean lazyUpdate;
 
   private transient Grid headerGrid;
 
@@ -510,13 +509,11 @@ public abstract class AbstractUISheet extends AbstractUIData
         first = getFirstRowIndexOfLastPage();
         break;
       case toRow:
+        first = getToRow(pageEvent);
+        break;
       case lazy:
-        first = pageEvent.getValue() - 1;
-        if (hasRowCount() && first > getFirstRowIndexOfLastPage()) {
-          first = getFirstRowIndexOfLastPage();
-        } else if (first < 0) {
-          first = 0;
-        }
+        first = getToRow(pageEvent);
+        setLazyUpdate(true);
         break;
       case toPage:
         final int pageIndex = pageEvent.getValue() - 1;
@@ -542,13 +539,23 @@ public abstract class AbstractUISheet extends AbstractUIData
     getState().setFirst(first);
   }
 
+  private int getToRow(PageActionEvent pageEvent) {
+    int first;
+    first = pageEvent.getValue() - 1;
+    if (hasRowCount() && first > getFirstRowIndexOfLastPage()) {
+      first = getFirstRowIndexOfLastPage();
+    } else if (first < 0) {
+      first = 0;
+    }
+    return first;
+  }
+
   public boolean getLazyUpdate() {
-    Object lazyUpdate = getStateHelper().get(LAZY_UPDATE);
-    return lazyUpdate != null && (boolean) lazyUpdate;
+    return lazyUpdate;
   }
 
   public void setLazyUpdate(boolean lazyUpdate) {
-    getStateHelper().put(LAZY_UPDATE, lazyUpdate);
+    this.lazyUpdate = lazyUpdate;
   }
 
   @Override
