@@ -310,7 +310,8 @@ export class Sheet extends HTMLElement {
     let rowIndex: number;
     while (min < max) {
       rowIndex = Math.round((max - min) / 2) + min;
-      if (rowElements[rowIndex].offsetTop > this.sheetBody.scrollTop) {
+      if (rowElements[rowIndex] === undefined
+          || rowElements[rowIndex].offsetTop > this.sheetBody.scrollTop) {
         rowIndex--;
         max = rowIndex;
       } else {
