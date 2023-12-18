@@ -70,7 +70,7 @@
     "@trevoreyre/autocomplete-js": "^2.4.1",
     "bootstrap": "5.3.2",
     "bootstrap-icons": "1.11.1",
-    "lit-html": "^3.0.2"
+    "lit-html": "^3.1.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.7",
