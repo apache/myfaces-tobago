@@ -155,6 +155,7 @@ public enum Attributes {
   large,
   layoutOrder,
   lazy,
+  lazyRows,
   left,
   level,
   lang,

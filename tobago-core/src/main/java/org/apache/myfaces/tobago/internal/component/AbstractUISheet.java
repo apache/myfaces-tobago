@@ -84,6 +84,7 @@ public abstract class AbstractUISheet extends AbstractUIData
   private transient MeasureList columnLayout;
   private transient boolean autoLayout;
   private transient boolean lazyUpdate;
+  private transient int lazyFirstRow;
 
   private transient Grid headerGrid;
 
@@ -91,17 +92,9 @@ public abstract class AbstractUISheet extends AbstractUIData
   public void encodeAll(FacesContext facesContext) throws IOException {
 
     if (isLazy()) {
-      if (getRows() == 0) {
-        LOG.warn("Sheet id={} has lazy=true set, but not set the rows attribute!", getClientId(facesContext));
-      }
-      if (getShowRowRange() != ShowPosition.none) {
-        LOG.warn("Sheet id={} has lazy=true set, but also set showRowRange!=none!", getClientId(facesContext));
-      }
-      if (getShowPageRange() != ShowPosition.none) {
-        LOG.warn("Sheet id={} has lazy=true set, but also set showPageRange!=none!", getClientId(facesContext));
-      }
-      if (getShowDirectLinks() != ShowPosition.none) {
-        LOG.warn("Sheet id={} has lazy=true set, but also set showDirectLinks!=none!", getClientId(facesContext));
+      if (getRows() > 0) {
+        LOG.warn("Sheet id={} has lazy=true AND the rows attribute set. Use 'lazyRows' instead.",
+            getClientId(facesContext));
       }
     }
 
@@ -448,7 +441,7 @@ public abstract class AbstractUISheet extends AbstractUIData
                   event != null
                       ? event
                       : new SortActionEvent(this,
-                      (UIColumn) findComponent(getSheetState(facesContext).getSortedColumnId()))});
+                          (UIColumn) findComponent(getSheetState(facesContext).getSortedColumnId()))});
         } catch (final Exception e) {
           LOG.warn("Sorting not possible!", e);
         }
@@ -558,6 +551,14 @@ public abstract class AbstractUISheet extends AbstractUIData
     this.lazyUpdate = lazyUpdate;
   }
 
+  public int getLazyFirstRow() {
+    return lazyFirstRow;
+  }
+
+  public void setLazyFirstRow(int lazyFirstRow) {
+    this.lazyFirstRow = lazyFirstRow;
+  }
+
   @Override
   public boolean isRendersRowContainer() {
     return true;
@@ -596,4 +597,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   public abstract boolean isLazy();
 
   public abstract Integer getMaxSortColumns();
+
+  public abstract Integer getLazyRows();
 }
