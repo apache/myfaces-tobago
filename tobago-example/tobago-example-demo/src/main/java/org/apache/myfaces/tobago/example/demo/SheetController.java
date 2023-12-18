@@ -19,6 +19,13 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.component.UIData;
+import jakarta.faces.event.ActionEvent;
+import jakarta.faces.event.FacesEvent;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.model.SelectItem;
 import org.apache.myfaces.tobago.model.Selectable;
@@ -26,13 +33,6 @@ import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.SessionScoped;
-import jakarta.faces.component.UIData;
-import jakarta.faces.event.FacesEvent;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
 
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
@@ -74,6 +74,9 @@ public class SheetController implements Serializable {
   private List<Markup> markup;
   private int columnEventSample;
   private Selectable selectable = Selectable.multi;
+  private SheetState lazyTwoState;
+  private int actionCount = 0;
+  private int actionListenerCount = 0;
 
   @PostConstruct
   private void init() {
@@ -168,5 +171,29 @@ public class SheetController implements Serializable {
     } else {
       return "";
     }
+  }
+
+  public SheetState getLazyTwoState() {
+    return lazyTwoState;
+  }
+
+  public void setLazyTwoState(SheetState lazyTwoState) {
+    this.lazyTwoState = lazyTwoState;
+  }
+
+  public void increaseActionCount() {
+    actionCount++;
+  }
+
+  public void increaseActionListenerCount(ActionEvent event) {
+    actionListenerCount++;
+  }
+
+  public int getActionCount() {
+    return actionCount;
+  }
+
+  public int getActionListenerCount() {
+    return actionListenerCount;
   }
 }

@@ -136,6 +136,12 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       ComponentUtils.setAttribute(component, Attributes.selectedListString, selectedRows);
     }
 
+    key = "tobago.sheet.lazyFirstRow";
+    if (requestParameterMap.containsKey(key)) {
+      component.setLazyUpdate(true);
+      component.setLazyFirstRow(Integer.parseInt(requestParameterMap.get(key)));
+    }
+
     final String value
         = facesContext.getExternalContext().getRequestParameterMap().get(clientId + SUFFIX_SCROLL_POSITION);
     if (value != null) {
@@ -278,6 +284,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     writer.writeAttribute(CustomAttributes.ROWS, component.getRows());
     writer.writeAttribute(CustomAttributes.ROW_COUNT, Integer.toString(component.getRowCount()), false);
     writer.writeAttribute(CustomAttributes.LAZY, component.isLazy());
+    writer.writeAttribute(CustomAttributes.LAZY_ROWS, component.isLazy() ? component.getLazyRows() : null);
     writer.writeAttribute(CustomAttributes.LAZY_UPDATE, component.getLazyUpdate());
 
     final boolean autoLayout = component.isAutoLayout();
@@ -612,9 +619,11 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
     boolean emptySheet = true;
     // rows = 0 means: show all
-    final int last = sheet.isRowsUnlimited() ? Integer.MAX_VALUE : sheet.getFirst() + sheet.getRows();
+    final int first = (sheet.isLazy() && sheet.isRowsUnlimited()) ? sheet.getLazyFirstRow() : sheet.getFirst();
+    final int last = (sheet.isLazy() && sheet.isRowsUnlimited()) ? sheet.getLazyFirstRow() + sheet.getLazyRows()
+        : sheet.isRowsUnlimited() ? Integer.MAX_VALUE : sheet.getFirst() + sheet.getRows();
 
-    for (int rowIndex = sheet.getFirst(); rowIndex < last; rowIndex++) {
+    for (int rowIndex = first; rowIndex < last; rowIndex++) {
       sheet.setRowIndex(rowIndex);
       if (!sheet.isRowAvailable()) {
         break;

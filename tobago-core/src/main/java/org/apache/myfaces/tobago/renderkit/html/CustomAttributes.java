@@ -50,6 +50,7 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
    * Lazy loading in sheet.
    */
   LAZY("lazy"),
+  LAZY_ROWS("lazy-rows"),
   /**
    * Is this request/response an update of lazy loaded data in sheet.
    */
