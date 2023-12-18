@@ -19,10 +19,10 @@
 
 package org.apache.myfaces.tobago.component;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.lang.invoke.MethodHandles;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Name constants of the attributes of the Tobago components.
@@ -81,6 +81,7 @@ public enum Attributes {
   confirmation,
   content,
   converter,
+  converterMessage,
   customClass,
   /**
    * @deprecated since 4.0.0
@@ -367,6 +368,7 @@ public enum Attributes {
   @Deprecated
   renderRangeExtern,
   required,
+  requiredMessage,
   resizable,
   rev,
   right,
@@ -450,6 +452,7 @@ public enum Attributes {
   unselectedLabel,
   update,
   validator,
+  validatorMessage,
   viewport,
   waitOverlayDelayAjax,
   waitOverlayDelayFull,
@@ -457,12 +460,13 @@ public enum Attributes {
   widthList,
   zIndex;
 
+  private static final Map<String, Attributes> NAME_MAP = Stream.of(values())
+          .collect(Collectors.toMap(Attributes::getName, Function.identity()));
+
   /**
    * This constants are needed for annotations, because they can't use the enums.
    */
   public static final String EXECUTE = "execute";
-
-  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private final String explicit;
 
@@ -483,15 +487,7 @@ public enum Attributes {
   }
 
   public static Attributes valueOfFailsafe(final String name) {
-    try {
-      return Attributes.valueOf(name);
-    } catch (final IllegalArgumentException e) {
-      if (name.equals("for")) {
-        return Attributes.forValue;
-      }
-      LOG.warn("Can't find enum for {} with name '{}'", Attributes.class.getName(), name);
-      return null;
-    }
+    return NAME_MAP.get(name);
   }
 
 }
