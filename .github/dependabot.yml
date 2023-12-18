@@ -366,6 +366,10 @@ updates:
       - dependency-name: "ch.qos.logback:*"
         versions:
           - ">= 1.3.0"
+      # plexus-utils 4 is for Maven 4
+      - dependency-name: "org.codehaus.plexus:plexus-utils"
+        versions:
+          - ">= 4.0.0"
 
   - package-ecosystem: "github-actions"
     directory: "/"
