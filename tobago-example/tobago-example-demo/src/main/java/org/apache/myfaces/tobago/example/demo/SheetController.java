@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIData;
+import javax.faces.event.ActionEvent;
 import javax.faces.event.FacesEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -73,6 +74,9 @@ public class SheetController implements Serializable {
   private List<Markup> markup;
   private int columnEventSample;
   private Selectable selectable = Selectable.multi;
+  private SheetState lazyTwoState;
+  private int actionCount = 0;
+  private int actionListenerCount = 0;
 
   @PostConstruct
   private void init() {
@@ -167,5 +171,29 @@ public class SheetController implements Serializable {
     } else {
       return "";
     }
+  }
+
+  public SheetState getLazyTwoState() {
+    return lazyTwoState;
+  }
+
+  public void setLazyTwoState(SheetState lazyTwoState) {
+    this.lazyTwoState = lazyTwoState;
+  }
+
+  public void increaseActionCount() {
+    actionCount++;
+  }
+
+  public void increaseActionListenerCount(ActionEvent event) {
+    actionListenerCount++;
+  }
+
+  public int getActionCount() {
+    return actionCount;
+  }
+
+  public int getActionListenerCount() {
+    return actionListenerCount;
   }
 }
