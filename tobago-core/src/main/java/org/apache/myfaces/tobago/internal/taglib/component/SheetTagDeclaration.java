@@ -272,6 +272,13 @@ public interface SheetTagDeclaration
   void setLazy(String lazy);
 
   /**
+   * Indicate how many rows are loaded at once when lazy loading is enabled. Default is 50.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "50")
+  void setLazyRows(String lazy);
+
+  /**
    * Flag indicating if paging arrows are shown near direct links
    *
    * @since 2.0.0

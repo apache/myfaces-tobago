@@ -189,24 +189,13 @@ export class Sheet extends HTMLElement {
 
     // add selection listeners ------------------------------------------------------------------------------------ //
     const selectionMode = this.dataset.tobagoSelectionMode;
-    if (selectionMode === "single" || selectionMode === "singleOrNone" || selectionMode === "multi") {
-
-      for (const row of this.getRowElements()) {
-        row.addEventListener("mousedown", this.mousedownOnRow.bind(this));
-
-        row.addEventListener("click", this.clickOnRow.bind(this));
-      }
+    for (const row of this.getRowElements()) {
+      this.initListeners(row);
     }
+
     if (selectionMode === "multi" && this.getSelectorAllCheckbox()) {
       const selectedSet = new Set<number>(JSON.parse(this.getHiddenSelected().value));
       this.calculateSelectorAllChecked(selectedSet);
-    }
-
-    for (const checkbox of this.querySelectorAll(
-        ".tobago-body td > input.tobago-selected")) {
-      checkbox.addEventListener("click", (event) => {
-        event.preventDefault();
-      });
     }
 
     // lazy load by scrolling ----------------------------------------------------------------- //
@@ -270,6 +259,19 @@ export class Sheet extends HTMLElement {
     }
   }
 
+  private initListeners(row: HTMLTableRowElement): void {
+    const selectionMode = this.dataset.tobagoSelectionMode;
+    if (selectionMode === "single" || selectionMode === "singleOrNone" || selectionMode === "multi") {
+      row.addEventListener("mousedown", this.mousedownOnRow.bind(this));
+      row.addEventListener("click", this.clickOnRow.bind(this));
+    }
+
+    const checkbox = row.querySelector("td > input.tobago-selected");
+    checkbox?.addEventListener("click", (event) => {
+      event.preventDefault();
+    });
+  }
+
   // attribute getter + setter ---------------------------------------------------------- //
   get lazy(): boolean {
     return this.hasAttribute("lazy");
@@ -285,6 +287,10 @@ export class Sheet extends HTMLElement {
 
   get lazyUpdate(): boolean {
     return this.hasAttribute("lazy-update");
+  }
+
+  get lazyRows(): number {
+    return parseInt(this.getAttribute("lazy-rows"));
   }
 
   get rows(): number {
@@ -360,14 +366,26 @@ export class Sheet extends HTMLElement {
       this.lazyActive = true;
       const rootNode = this.getRootNode() as ShadowRoot | Document;
       const input = rootNode.getElementById(this.id + ":pageActionlazy") as HTMLInputElement;
-      input.value = String(1 + next); //input.value rowIndex starts at 1 (not 0)
+      input.value = String(next + 1); //input.value rowIndex starts at 1 (not 0)
       this.previousScrollHeight = this.sheetBody.scrollHeight;
-      this.reloadWithAction(input);
+      console.debug(`reload sheet with action '${input.id}'`); // @DEV_ONLY
+
+      faces.ajax.request(
+          input.id,
+          null,
+          {
+            "jakarta.faces.behavior.event": "lazy",
+            "tobago.sheet.lazyFirstRow": next,
+            execute: this.id,
+            render: this.id,
+            onevent: this.lazyResponse.bind(this),
+            onerror: this.lazyError.bind(this)
+          });
     }
   }
 
   nextLazyLoad(): number {
-    const rows = this.rows;
+    const rows = this.rows > 0 ? this.rows : this.lazyRows;
     const rowElements = this.tableBody.rows;
     const firstVisibleRowIndex = this.firstVisibleRowIndex;
 
@@ -422,12 +440,14 @@ export class Sheet extends HTMLElement {
 
           const tbody = this.querySelector(".tobago-body tbody");
 
-          const newRows = this.sheetLoader.querySelectorAll(".tobago-body tbody>tr");
+          const newRows = this.sheetLoader.querySelectorAll<HTMLTableRowElement>(".tobago-body tbody>tr");
           for (const newRow of newRows) {
             const rowIndex = Number(newRow.getAttribute("row-index"));
             const row = tbody.querySelector(`tr[row-index='${rowIndex}']`);
             row.insertAdjacentElement("afterend", newRow);
             row.remove();
+
+            this.initListeners(newRow);
           }
 
           this.sheetLoader.remove();
@@ -454,25 +474,6 @@ Response Code: ${data.responseCode}
 Response Text: ${data.responseText}
 Status: ${data.status}
 Type: ${data.type}`);
-  }
-
-  // tbd: how to do this in Tobago 5?
-  reloadWithAction(source: HTMLElement): void {
-    console.debug(`reload sheet with action '${source.id}'`); // @DEV_ONLY
-    const executeIds = this.id;
-    const renderIds = this.id;
-    const lazy = this.lazy;
-
-    faces.ajax.request(
-        source.id,
-        null,
-        {
-          "jakarta.faces.behavior.event": lazy ? "lazy" : "reload",
-          execute: executeIds,
-          render: renderIds,
-          onevent: lazy ? this.lazyResponse.bind(this) : undefined,
-          onerror: lazy ? this.lazyError.bind(this) : undefined
-        });
   }
 
   loadColumnWidths(): number[] {
@@ -592,8 +593,6 @@ Type: ${data.type}`);
   }
 
   scrollAction(event: Event): void {
-    console.debug("scroll");
-
     const sheetBody = event.currentTarget as HTMLElement;
 
     this.syncScrolling();
