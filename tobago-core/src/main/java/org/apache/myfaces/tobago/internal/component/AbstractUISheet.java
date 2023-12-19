@@ -91,10 +91,18 @@ public abstract class AbstractUISheet extends AbstractUIData
   @Override
   public void encodeAll(FacesContext facesContext) throws IOException {
 
-    if (isLazy()) {
-      if (getRows() > 0) {
-        LOG.warn("Sheet id={} has lazy=true AND the rows attribute set. Use 'lazyRows' instead.",
-            getClientId(facesContext));
+    if (isLazy() && getRows() > 0) {
+      LOG.warn("Sheet id={} has lazy=true AND the rows attribute set. Use 'lazyRows' instead.",
+          getClientId(facesContext));
+
+      if (getShowRowRange() != ShowPosition.none) {
+        LOG.warn("Sheet id={} has lazy=true set, but also set showRowRange!=none!", getClientId(facesContext));
+      }
+      if (getShowPageRange() != ShowPosition.none) {
+        LOG.warn("Sheet id={} has lazy=true set, but also set showPageRange!=none!", getClientId(facesContext));
+      }
+      if (getShowDirectLinks() != ShowPosition.none) {
+        LOG.warn("Sheet id={} has lazy=true set, but also set showDirectLinks!=none!", getClientId(facesContext));
       }
     }
 
