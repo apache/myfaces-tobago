@@ -50,7 +50,7 @@
     <checkstyle-rules.version>23</checkstyle-rules.version>
 
     <!-- Note: defined here in master pom, because of problems with enforcer plugin -->
-    <jetty.version>11.0.18</jetty.version>
+    <jetty.version>11.0.19</jetty.version>
     <tomcat.version>10.1.13</tomcat.version>
     <joinfaces.version>5.1.3</joinfaces.version>
     <spring-boot.version>3.1.3</spring-boot.version>
