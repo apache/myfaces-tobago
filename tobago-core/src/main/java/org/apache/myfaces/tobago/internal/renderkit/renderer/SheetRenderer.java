@@ -346,11 +346,9 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
         component.getState().getScrollPosition().encode(),
         component.getClientId(facesContext) + SUFFIX_SCROLL_POSITION);
 
-    if (selectable != Selectable.none) {
-      encodeHiddenInput(writer,
-          JsonUtils.encode(selectedRows),
-          sheetId + SUFFIX_SELECTED);
-    }
+    encodeHiddenInput(writer,
+        JsonUtils.encode(selectedRows),
+        sheetId + SUFFIX_SELECTED);
 
     if (component.isLazy()) {
       encodeHiddenInput(writer, null, sheetId + SUFFIX_LAZY);
@@ -700,7 +698,8 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
               final AbstractUIColumnSelector selector = (AbstractUIColumnSelector) column;
               writer.startElement(HtmlElements.INPUT);
               writer.writeNameAttribute(sheetId + "_data_row_selector_" + rowIndex);
-              if (selectable.isSingle()) {
+              Selectable currentSelectable = getSelectionMode(selectable, selector);
+              if (currentSelectable.isSingle()) {
                 writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO);
               } else {
                 writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
@@ -780,6 +779,16 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     writer.endElement(HtmlElements.DIV);
 
 // END RENDER BODY CONTENT
+  }
+
+  private static Selectable getSelectionMode(Selectable selectable, AbstractUIColumnSelector selector) {
+    if (selectable == Selectable.none) {
+      Selectable selectorSelectable = selector.getSelectable();
+      if (selectorSelectable != null) {
+        return selectorSelectable;
+      }
+    }
+    return selectable;
   }
 
   private void encodeHiddenInput(final TobagoResponseWriter writer, final String value, final String idWithSuffix)
@@ -959,15 +968,20 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
             writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
 
             encodeBehavior(writer, behaviorCommands);
-
-            if (column instanceof AbstractUIColumnSelector && selectable.isMulti()) {
+            if (column instanceof AbstractUIColumnSelector) {
+              Selectable currentSelectable = getSelectionMode(selectable, (AbstractUIColumnSelector) column);
               writer.startElement(HtmlElements.INPUT);
-              writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
+              if (currentSelectable.isMulti()) {
+                writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
+                writer.writeAttribute(
+                    HtmlAttributes.TITLE,
+                    ResourceUtils.getString(facesContext, "sheet.selectAll"),
+                    true);
+              } else {
+                writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
+              }
               writer.writeClassAttribute(TobagoClass.SELECTED);
-              writer.writeAttribute(
-                  HtmlAttributes.TITLE,
-                  ResourceUtils.getString(facesContext, "sheet.selectAll"),
-                  true);
+              writer.writeAttribute(DataAttributes.SELECTION_MODE, currentSelectable.name(), false);
               writer.endElement(HtmlElements.INPUT);
             } else {
               cellComponent.encodeAll(facesContext);

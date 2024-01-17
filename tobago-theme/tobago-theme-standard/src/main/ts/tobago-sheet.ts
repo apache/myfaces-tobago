@@ -188,12 +188,22 @@ export class Sheet extends HTMLElement {
     sheetBody.addEventListener("scroll", this.scrollAction.bind(this));
 
     // add selection listeners ------------------------------------------------------------------------------------ //
-    const selectionMode = this.dataset.tobagoSelectionMode;
-    for (const row of this.getRowElements()) {
-      this.initListeners(row);
+    let selectionMode = this.dataset.tobagoSelectionMode;
+    if (selectionMode !== "none") {
+      for (const row of this.getRowElements()) {
+        this.initTableRowForSelection(row, selectionMode);
+      }
+    } else {
+      selectionMode = this.getSelectorAllCheckbox()?.dataset.tobagoSelectionMode;
+      if (selectionMode) {
+        const cells: NodeListOf<HTMLTableCellElement> = this.getBodyTable().querySelectorAll("tbody>tr>td:first-child");
+        for (const cell of cells) {
+          this.initTableCellForSelection(cell, selectionMode);
+        }
+      }
     }
 
-    if (selectionMode === "multi" && this.getSelectorAllCheckbox()) {
+    if (selectionMode === "multi") {
       const selectedSet = new Set<number>(JSON.parse(this.getHiddenSelected().value));
       this.calculateSelectorAllChecked(selectedSet);
     }
@@ -259,13 +269,31 @@ export class Sheet extends HTMLElement {
     }
   }
 
-  private initListeners(row: HTMLTableRowElement): void {
-    const selectionMode = this.dataset.tobagoSelectionMode;
-    if (selectionMode === "single" || selectionMode === "singleOrNone" || selectionMode === "multi") {
+  private getSelectionMode() {
+    let selectionMode = this.dataset.tobagoSelectionMode;
+    if (selectionMode === "none") {
+      const selectorAllCheckbox = this.getSelectorAllCheckbox();
+      selectionMode = selectorAllCheckbox?.dataset.tobagoSelectionMode;
+    }
+    return selectionMode;
+  }
+
+  private initTableCellForSelection(cell: HTMLTableCellElement, columnSelectionMode: string) {
+    if (columnSelectionMode === "single" || columnSelectionMode === "singleOrNone" || columnSelectionMode === "multi") {
+      cell.addEventListener("mousedown", this.mousedownOnRow.bind(this));
+      cell.addEventListener("click", this.clickOnRow.bind(this));
+    }
+    const checkbox = cell.querySelector("input.tobago-selected");
+    checkbox?.addEventListener("click", (event) => {
+      event.preventDefault();
+    });
+  }
+
+  private initTableRowForSelection(row: HTMLTableRowElement, sheetSelectionMode: string): void {
+    if (sheetSelectionMode === "single" || sheetSelectionMode === "singleOrNone" || sheetSelectionMode === "multi") {
       row.addEventListener("mousedown", this.mousedownOnRow.bind(this));
       row.addEventListener("click", this.clickOnRow.bind(this));
     }
-
     const checkbox = row.querySelector("td > input.tobago-selected");
     checkbox?.addEventListener("click", (event) => {
       event.preventDefault();
@@ -439,15 +467,19 @@ export class Sheet extends HTMLElement {
           console.debug(`[tobago-sheet][success] Update after jsf.ajax complete: #${id}`); // @DEV_ONLY
 
           const tbody = this.querySelector(".tobago-body tbody");
-
           const newRows = this.sheetLoader.querySelectorAll<HTMLTableRowElement>(".tobago-body tbody>tr");
+          const sheetSelectionMode = this.dataset.tobagoSelectionMode;
+          const columnSelectorSelectionMode = this.getSelectorAllCheckbox()?.dataset.tobagoSelectionMode;
           for (const newRow of newRows) {
             const rowIndex = Number(newRow.getAttribute("row-index"));
             const row = tbody.querySelector(`tr[row-index='${rowIndex}']`);
             row.insertAdjacentElement("afterend", newRow);
             row.remove();
-
-            this.initListeners(newRow);
+            if (sheetSelectionMode !== "none") {
+              this.initTableRowForSelection(newRow, sheetSelectionMode);
+            } else if (columnSelectorSelectionMode) {
+              this.initTableCellForSelection(row.querySelector("td:first-child"), columnSelectorSelectionMode);
+            }
           }
 
           this.sheetLoader.remove();
@@ -655,8 +687,7 @@ Type: ${data.type}`);
         clickElement = clickElement.parentElement;
       }
     }
-
-    const row = event.currentTarget as HTMLTableRowElement;
+    const row = clickElement as HTMLTableRowElement;
     if (row.classList.contains(Css.TOBAGO_SELECTED) || !Sheet.isInputElement(row)) {
 
       if (this.mousedownOnRowData) { // integration test: mousedownOnRowData may be 'null'
@@ -670,7 +701,7 @@ Type: ${data.type}`);
 
       const rows = this.getRowElements();
       const selector = this.getSelectorCheckbox(row);
-      const selectionMode = this.dataset.tobagoSelectionMode;
+      const selectionMode = this.getSelectionMode();
       const selectedSet = new Set<number>(JSON.parse(this.getHiddenSelected().value));
       const oldSelectedSet = new Set<number>(selectedSet);
       if ((!event.ctrlKey && !event.metaKey && !selector)

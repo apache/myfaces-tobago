@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.model.Selectable;
+
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.ColumnSelectorTagDeclaration}
  */
@@ -32,4 +34,6 @@ public abstract class AbstractUIColumnSelector extends AbstractUIColumnBase {
 */
 
   public abstract boolean isDisabled();
+
+  public abstract Selectable getSelectable();
 }
