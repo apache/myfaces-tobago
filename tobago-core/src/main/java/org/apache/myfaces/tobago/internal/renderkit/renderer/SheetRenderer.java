@@ -785,7 +785,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     if (selectable == Selectable.none) {
       Selectable selectorSelectable = selector.getSelectable();
       if (selectorSelectable != null) {
-        selectable = selectorSelectable;
+        return selectorSelectable;
       }
     }
     return selectable;
@@ -969,7 +969,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
             encodeBehavior(writer, behaviorCommands);
             if (column instanceof AbstractUIColumnSelector) {
-              Selectable currentSelectable = getSelectionMode(selectable, ((AbstractUIColumnSelector) column));
+              Selectable currentSelectable = getSelectionMode(selectable, (AbstractUIColumnSelector) column);
               writer.startElement(HtmlElements.INPUT);
               if (currentSelectable.isMulti()) {
                 writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
