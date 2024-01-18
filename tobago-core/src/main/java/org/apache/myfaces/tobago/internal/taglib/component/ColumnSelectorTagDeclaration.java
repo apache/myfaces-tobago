@@ -56,7 +56,7 @@ public interface ColumnSelectorTagDeclaration
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.model.Selectable",
       allowedValues = {
-          Selectable.NONE, Selectable.SINGLE, Selectable.SINGLE_OR_NONE, Selectable.MULTI
+          Selectable.SINGLE, Selectable.SINGLE_OR_NONE, Selectable.MULTI
       })
   void setSelectable(String selectable);
 }
