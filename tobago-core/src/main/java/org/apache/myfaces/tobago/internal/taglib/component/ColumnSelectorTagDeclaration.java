@@ -20,11 +20,14 @@
 package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
+import org.apache.myfaces.tobago.model.Selectable;
 
 import javax.faces.component.UIColumn;
 
@@ -44,4 +47,16 @@ import javax.faces.component.UIColumn;
     allowedChildComponenents = "NONE")
 public interface ColumnSelectorTagDeclaration
     extends HasIdBindingAndRendered, IsVisual, IsDisabled {
+
+  /**
+   * Indicating the selection mode of the columnSelector. Only effective if sheet selection mode is none.
+   * Use case: Show details with tc:row event and columnSelector for action on selected rows.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.model.Selectable",
+      allowedValues = {
+          Selectable.SINGLE, Selectable.SINGLE_OR_NONE, Selectable.MULTI
+      })
+  void setSelectable(String selectable);
 }
