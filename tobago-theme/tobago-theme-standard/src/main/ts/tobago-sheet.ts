@@ -281,7 +281,7 @@ export class Sheet extends HTMLElement {
   private initTableCellForSelection(cell: HTMLTableCellElement, columnSelectionMode: string) {
     if (columnSelectionMode === "single" || columnSelectionMode === "singleOrNone" || columnSelectionMode === "multi") {
       cell.addEventListener("mousedown", this.mousedownOnRow.bind(this));
-      cell.addEventListener("click", this.clickOnRow.bind(this));
+      cell.addEventListener("click", this.clickOnColumnSelector.bind(this));
     }
     const checkbox = cell.querySelector("input.tobago-selected");
     checkbox?.addEventListener("click", (event) => {
@@ -655,7 +655,10 @@ Type: ${data.type}`);
     this.getHiddenSelected().value = JSON.stringify(Array.from(selectedSet)); // write back to element
     this.fireSelectionChange(oldSelectedSet, selectedSet);
   }
-
+  clickOnColumnSelector(event: MouseEvent): void {
+    event.stopPropagation();
+    this.clickOnRow(event);
+  }
   clickOnRow(event: MouseEvent): void {
     let clickElement: HTMLElement = event.target as HTMLElement;
     while (clickElement.tagName !== "TR") {
