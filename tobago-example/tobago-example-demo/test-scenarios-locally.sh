@@ -79,6 +79,7 @@ mkdir -p ${WORK}
 check() {
 #  JAVA_VERSION=$1
 #  COMMAND_LINE=$2
+  CONTEXT_PATH=$4
 
   COUNTER=$((COUNTER+1))
 
@@ -86,7 +87,7 @@ check() {
   echo "+ Java version: $1"
   echo "+ Command line: $2"
   echo "+ Label:        $3"
-  echo "+ Mode:         $4"
+  echo "+ Context path: $4"
   echo "+ Run:          #${COUNTER}"
   echo "+--------------------------------------------------------------------------------------------------+"
 
@@ -136,7 +137,7 @@ check() {
   sleep 10
   echo "Now testing..."
 
-  STATUS=$(curl -o ${WORK}/JSR_303.xhtml -w "%{http_code}" http://localhost:${PORT}/content/170-validation/01/JSR_303.xhtml)
+  STATUS=$(curl -o ${WORK}/JSR_303.xhtml -w "%{http_code}" http://localhost:${PORT}${CONTEXT_PATH}content/170-validation/01/JSR_303.xhtml)
 
   if [[ $? -gt 0 ]] ; then
     error "The curl command has failed!" ${PID}
@@ -162,9 +163,9 @@ check() {
 # xxx -Pprod doesn't exist, but this is no problem
 for MODE in "dev" "prod" ; do
   for JAVA_VERSION in 11 17 ; do
-    check ${JAVA_VERSION} "mvn clean jetty:run -P${MODE} -Pjetty"                     "Jetty 11 with MyFaces 4.0"
-    check ${JAVA_VERSION} "mvn clean jetty:run -P${MODE} -Pjetty -Djsf=mojarra-4.0"   "Jetty 11 with Mojarra 4.0"
-    check ${JAVA_VERSION} "mvn clean package cargo:run -P${MODE} -Ptomcat"             "Tomcat 10 with MyFaces 4.0"
+    check ${JAVA_VERSION} "mvn clean jetty:run -P${MODE} -Pjetty"                   "Jetty 11 with MyFaces 4.0"  "/"
+    check ${JAVA_VERSION} "mvn clean jetty:run -P${MODE} -Pjetty -Djsf=mojarra-4.0" "Jetty 11 with Mojarra 4.0"  "/"
+    check ${JAVA_VERSION} "mvn clean package cargo:run -P${MODE} -Ptomcat"          "Tomcat 10 with MyFaces 4.0" "/tobago-example-demo"
   done
 done
 
