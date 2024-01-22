@@ -180,9 +180,9 @@ public class TobagoResponseWriterUnitTest extends AbstractTobagoTestBase {
     c.getPassThroughAttributes().put("step", 1);
     c.getPassThroughAttributes().put("type", "number");
     c.encodeAll(facesContext);
-    Assertions.assertEquals("\n<tobago-in id='id' class='tobago-auto-spacing'>\n" +
-        " <input name='id' id='id::field' class='form-control' step='1' type='number'>\n" +
-        "</tobago-in>", getLastWritten());
+    Assertions.assertEquals("\n<tobago-in id='id' class='tobago-auto-spacing'>\n"
+        + " <input name='id' id='id::field' class='form-control' step='1' type='number'>\n"
+        + "</tobago-in>", getLastWritten());
   }
 
   @Test
@@ -193,9 +193,9 @@ public class TobagoResponseWriterUnitTest extends AbstractTobagoTestBase {
     c.getPassThroughAttributes().put("test", 1);
     c.getPassThroughAttributes().put(Renderer.PASSTHROUGH_RENDERER_LOCALNAME_KEY, HtmlElements.TEXTAREA.getValue());
     c.encodeAll(facesContext);
-    Assertions.assertEquals("\n<tobago-in id='id' class='tobago-auto-spacing'>\n" +
-        " <textarea type='text' name='id' id='id::field' class='form-control' test='1'></textarea>\n" +
-        "</tobago-in>", getLastWritten());
+    Assertions.assertEquals("\n<tobago-in id='id' class='tobago-auto-spacing'>\n"
+        + " <textarea type='text' name='id' id='id::field' class='form-control' test='1'></textarea>\n"
+        + "</tobago-in>", getLastWritten());
 
   }
 }

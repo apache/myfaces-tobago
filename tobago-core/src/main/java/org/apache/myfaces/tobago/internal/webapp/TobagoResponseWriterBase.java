@@ -195,7 +195,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
         Object value = entry.getValue();
         if (value instanceof ValueExpression) {
-          value = ((ValueExpression)value).getValue(FacesContext.getCurrentInstance().getELContext());
+          value = ((ValueExpression) value).getValue(FacesContext.getCurrentInstance().getELContext());
         }
         // Faces 2.2 In the renderkit javadoc of jsf 2.2 spec says this
         // (Rendering Pass Through Attributes):
@@ -211,7 +211,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
         // same here. After all, it is resposibility of the one who set the passthrough
         // attribute to do the proper encoding in cases when a URI is provided. However,
         // that does not means the attribute should not be encoded as other attributes.
-        writeAttributeInternal(writer, entry.getKey(), value.toString(), true);;
+        writeAttributeInternal(writer, entry.getKey(), value.toString(), true);
       }
     }
   }
@@ -241,7 +241,6 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     final boolean inline = HtmlElements.isInline(name);
     this.component = currentComponent;
     startElementInternal(writer, name, inline);
-    level++;
   }
 
   public void startElement(final HtmlElements name, final UIComponent currentComponent) throws IOException {
@@ -252,12 +251,12 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
   @Override
   public void startElement(final HtmlElements name) throws IOException {
     startElementInternal(writer, name.getValue(), name.isInline());
-    level++;
   }
 
-  protected void startElementInternal(final Writer sink, final String name, boolean inline)
+  protected void startElementInternal(final Writer sink, final String name, final boolean inline)
       throws IOException {
     String localElementName = null;
+    boolean localElementInline = inline;
     if (component != null && component.getPassThroughAttributes(false) != null) {
       Map<String, Object> passThroughAttributes = component.getPassThroughAttributes(false);
       Object value = passThroughAttributes.get(Renderer.PASSTHROUGH_RENDERER_LOCALNAME_KEY);
@@ -268,11 +267,11 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
         localElementName = value.toString().toLowerCase(Locale.ROOT).trim();
         if (!name.equals(localElementName)) {
           levelToChangedElementTag.put(level, localElementName);
-          inline = HtmlElements.isInline(localElementName);
+          localElementInline = HtmlElements.isInline(localElementName);
         }
       }
     }
-    if (inline) {
+    if (localElementInline) {
       inlineStack++;
     }
     if (startStillOpen) {
@@ -291,6 +290,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
       sink.write(name);
     }
     startStillOpen = true;
+    level++;
   }
 
   @Override
@@ -439,13 +439,16 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     // name as a renderer specific attribute,
     // the pass through attribute takes precedence.
     String attributeName = name.getValue();
-    if (component != null && component.getPassThroughAttributes(false) != null && component.getPassThroughAttributes(false).containsKey(attributeName) ) {
+    if (component != null && component.getPassThroughAttributes(false) != null
+        && component.getPassThroughAttributes(false).containsKey(attributeName)) {
       return;
     }
     writeAttributeInternal(sink, attributeName, value, escape);
   }
 
-  private void writeAttributeInternal(Writer sink,  String attributeName, String value, boolean escape) throws IOException {
+  private void writeAttributeInternal(
+      final Writer sink, final String attributeName, final String value, final boolean escape)
+      throws IOException {
     if (value != null) {
       sink.write(' ');
       sink.write(attributeName);
