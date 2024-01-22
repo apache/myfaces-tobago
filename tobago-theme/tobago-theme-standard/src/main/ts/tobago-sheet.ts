@@ -97,7 +97,7 @@ export class Sheet extends HTMLElement {
     console.info("columnWidths: %s", JSON.stringify(columnWidths));
     if (columnWidths && columnWidths.length === 0) { // active, but empty
       // otherwise use the layout definition
-      const tokens: any[] = JSON.parse(this.dataset.tobagoLayout).columns;
+      let tokens: any[] = JSON.parse(this.dataset.tobagoLayout).columns;
       const columnRendered = this.isColumnRendered();
 
       const headerCols = this.getHeaderCols();
@@ -111,6 +111,11 @@ export class Sheet extends HTMLElement {
 
       console.assert(headerCols.length - 1 === bodyCols.length,
           "header and body column number doesn't match: %d != %d ", headerCols.length - 1, bodyCols.length);
+
+      while (tokens.length < headerCols.length - 2) {
+        tokens = [...tokens, ...tokens];
+      }
+      tokens = tokens.slice(0, headerCols.length - 2);
 
       let sumRelative = 0; // tbd: is this needed?
       let widthRelative = tableWidth;
@@ -655,10 +660,12 @@ Type: ${data.type}`);
     this.getHiddenSelected().value = JSON.stringify(Array.from(selectedSet)); // write back to element
     this.fireSelectionChange(oldSelectedSet, selectedSet);
   }
+
   clickOnColumnSelector(event: MouseEvent): void {
     event.stopPropagation();
     this.clickOnRow(event);
   }
+
   clickOnRow(event: MouseEvent): void {
     let clickElement: HTMLElement = event.target as HTMLElement;
     while (clickElement.tagName !== "TR") {
