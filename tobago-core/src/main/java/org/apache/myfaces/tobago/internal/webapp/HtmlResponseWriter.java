@@ -86,6 +86,7 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
 
   @Override
   protected void closeEmptyTag() throws IOException {
+    handlePassThroughAttributes();
     getWriter().write(">");
   }
 

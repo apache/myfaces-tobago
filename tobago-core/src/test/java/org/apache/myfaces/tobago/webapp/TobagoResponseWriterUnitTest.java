@@ -19,11 +19,16 @@
 
 package org.apache.myfaces.tobago.webapp;
 
-import org.apache.myfaces.test.base.junit.AbstractJsfTestCase;
+import jakarta.faces.render.Renderer;
+import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.component.Tags;
+import org.apache.myfaces.tobago.component.UIIn;
+import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
 import org.apache.myfaces.tobago.internal.webapp.XmlResponseWriter;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +37,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 
-public class TobagoResponseWriterUnitTest extends AbstractJsfTestCase {
+public class TobagoResponseWriterUnitTest extends AbstractTobagoTestBase {
 
   private StringWriter stringWriter;
   private TobagoResponseWriter writer;
@@ -151,5 +156,46 @@ public class TobagoResponseWriterUnitTest extends AbstractJsfTestCase {
         = new XmlResponseWriter(stringWriter, "text/xml", StandardCharsets.ISO_8859_1);
     xmlResponseWriter.writeText("123".toCharArray(), 0, 3);
     Assertions.assertEquals("123", stringWriter.toString());
+  }
+
+  @Test
+  public void testPassthrough() throws IOException {
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+    c.getPassThroughAttributes().put("step", 1);
+    c.getPassThroughAttributes().put("type", "number");
+    writer.startElement(HtmlElements.INPUT.getValue(), c);
+    writer.writeAttribute(HtmlAttributes.VALUE.getValue(), "100", null);
+    writer.endElement(HtmlElements.INPUT.getValue());
+
+    Assertions.assertEquals("\n<input value='100' step='1' type='number'>",
+        stringWriter.toString());
+  }
+
+  @Test
+  public void testPassthroughWithRenderer() throws IOException {
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+
+    c.getPassThroughAttributes().put("step", 1);
+    c.getPassThroughAttributes().put("type", "number");
+    c.encodeAll(facesContext);
+    Assertions.assertEquals("\n<tobago-in id='id' class='tobago-auto-spacing'>\n" +
+        " <input name='id' id='id::field' class='form-control' step='1' type='number'>\n" +
+        "</tobago-in>", getLastWritten());
+  }
+
+  @Test
+  public void testPassthroughReplaceElementTag() throws IOException {
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+
+    c.getPassThroughAttributes().put("test", 1);
+    c.getPassThroughAttributes().put(Renderer.PASSTHROUGH_RENDERER_LOCALNAME_KEY, HtmlElements.TEXTAREA.getValue());
+    c.encodeAll(facesContext);
+    Assertions.assertEquals("\n<tobago-in id='id' class='tobago-auto-spacing'>\n" +
+        " <textarea type='text' name='id' id='id::field' class='form-control' test='1'></textarea>\n" +
+        "</tobago-in>", getLastWritten());
+
   }
 }

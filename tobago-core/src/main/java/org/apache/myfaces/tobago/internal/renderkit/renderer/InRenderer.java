@@ -98,7 +98,7 @@ public class InRenderer<T extends AbstractUIIn> extends DecorationPositionRender
     }
     encodeGroupAddon(facesContext, writer, before, false);
 
-    writer.startElement(HtmlElements.INPUT);
+    writer.startElement(HtmlElements.INPUT, component);
 
     if (component.getAccessKey() != null) {
       writer.writeAttribute(HtmlAttributes.ACCESSKEY, Character.toString(component.getAccessKey()), false);

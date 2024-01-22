@@ -48,6 +48,8 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   @Override
   public abstract void startElement(String name, UIComponent component) throws IOException;
 
+  public abstract void startElement(HtmlElements name, UIComponent component) throws IOException;
+
   public abstract void startElement(HtmlElements name) throws IOException;
 
   /**
