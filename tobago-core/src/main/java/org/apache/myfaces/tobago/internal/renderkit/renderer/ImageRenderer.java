@@ -66,7 +66,7 @@ public class ImageRenderer<T extends AbstractUIImage> extends RendererBase<T> {
           disabled ? BootstrapClass.DISABLED : null,
           component.getCustomClass());
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-      writer.startElement(HtmlElements.IMG);
+      writer.startElement(HtmlElements.IMG, component);
       writer.writeAttribute(HtmlAttributes.SRC, value, true);
       writer.writeAttribute(HtmlAttributes.ALT, alt != null ? alt : "", true);
       writer.endElement(HtmlElements.IMG);

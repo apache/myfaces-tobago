@@ -211,7 +211,15 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
         // same here. After all, it is resposibility of the one who set the passthrough
         // attribute to do the proper encoding in cases when a URI is provided. However,
         // that does not means the attribute should not be encoded as other attributes.
-        writeAttributeInternal(writer, entry.getKey(), value.toString(), true);
+        // TODO boolean should be handled in writeAttributeInternal
+        if (value instanceof Boolean) {
+          if (!Boolean.FALSE.equals(value)) {
+            writer.write(' ');
+            writer.write(entry.getKey());
+          }
+        } else {
+          writeAttributeInternal(writer, entry.getKey(), value.toString(), true);
+        }
       }
     }
   }
