@@ -23,6 +23,7 @@ import jakarta.faces.render.Renderer;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UIIn;
+import org.apache.myfaces.tobago.component.UITextarea;
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
 import org.apache.myfaces.tobago.internal.webapp.XmlResponseWriter;
@@ -173,7 +174,21 @@ public class TobagoResponseWriterUnitTest extends AbstractTobagoTestBase {
   }
 
   @Test
-  public void testPassthroughWithRenderer() throws IOException {
+  public void testPassthroughChangeElementTag() throws IOException {
+    final UIIn c = (UIIn) ComponentUtils.createComponent(
+        facesContext, Tags.in.componentType(), RendererTypes.In, "id");
+    c.getPassThroughAttributes().put("step", 1);
+    c.getPassThroughAttributes().put(Renderer.PASSTHROUGH_RENDERER_LOCALNAME_KEY, HtmlElements.TEXTAREA.getValue());
+    writer.startElement(HtmlElements.INPUT.getValue(), c);
+    writer.writeAttribute(HtmlAttributes.VALUE.getValue(), "100", null);
+    writer.endElement(HtmlElements.INPUT.getValue());
+
+    Assertions.assertEquals("\n<textarea value='100' step='1'></textarea>",
+        stringWriter.toString());
+  }
+
+  @Test
+  public void testPassthroughInRenderer() throws IOException {
     final UIIn c = (UIIn) ComponentUtils.createComponent(
         facesContext, Tags.in.componentType(), RendererTypes.In, "id");
 
@@ -186,7 +201,7 @@ public class TobagoResponseWriterUnitTest extends AbstractTobagoTestBase {
   }
 
   @Test
-  public void testPassthroughReplaceElementTag() throws IOException {
+  public void testPassthroughChangeElementTagInRender() throws IOException {
     final UIIn c = (UIIn) ComponentUtils.createComponent(
         facesContext, Tags.in.componentType(), RendererTypes.In, "id");
 
@@ -197,5 +212,17 @@ public class TobagoResponseWriterUnitTest extends AbstractTobagoTestBase {
         + " <textarea type='text' name='id' id='id::field' class='form-control' test='1'></textarea>\n"
         + "</tobago-in>", getLastWritten());
 
+  }
+
+  @Test
+  public void testPassthroughWithTextareaRenderer() throws IOException {
+    final UITextarea c = (UITextarea) ComponentUtils.createComponent(
+        facesContext, Tags.textarea.componentType(), RendererTypes.Textarea, "id");
+
+    c.getPassThroughAttributes().put("spellcheck", true);
+    c.encodeAll(facesContext);
+    Assertions.assertEquals("\n<tobago-textarea id='id' class='tobago-auto-spacing'>\n"
+        + " <textarea name='id' id='id::field' class='form-control' spellcheck='true'></textarea>\n"
+        + "</tobago-textarea>", getLastWritten());
   }
 }
