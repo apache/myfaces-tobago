@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UIImage;
 import org.apache.myfaces.tobago.component.UIIn;
+import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.component.UITextarea;
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
@@ -237,5 +238,17 @@ public class TobagoResponseWriterUnitTest extends AbstractTobagoTestBase {
     Assertions.assertEquals("\n<tobago-image id='id'>\n"
         + " <img alt='' spellcheck>\n"
         + "</tobago-image>", getLastWritten());
+  }
+
+  @Test
+  public void testPassthroughWithOutRenderer() throws IOException {
+    final UIOut c = (UIOut) ComponentUtils.createComponent(
+        facesContext, Tags.out.componentType(), RendererTypes.Out, "id");
+
+    c.getPassThroughAttributes().put("spellcheck", true);
+    c.encodeAll(facesContext);
+    Assertions.assertEquals("\n<tobago-out id='id' class='tobago-auto-spacing'>"
+        + "<span class='form-control-plaintext' spellcheck></span>"
+        + "</tobago-out>", getLastWritten());
   }
 }
