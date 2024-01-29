@@ -63,6 +63,11 @@ class Dropdown extends HTMLElement {
     if (this.closest("tr") != null) {
       this.addEventListener("click", (event) => {
         event.stopPropagation();
+        if (this.expanded) {
+          this.hideDropdown();
+        } else {
+          this.showDropdown();
+        }
       });
     }
   }
