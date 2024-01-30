@@ -34,6 +34,7 @@ import org.apache.myfaces.tobago.component.UIColumn;
 import org.apache.myfaces.tobago.component.UIDate;
 import org.apache.myfaces.tobago.component.UIFile;
 import org.apache.myfaces.tobago.component.UIGridLayout;
+import org.apache.myfaces.tobago.component.UIImage;
 import org.apache.myfaces.tobago.component.UIIn;
 import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.component.UILinks;
@@ -80,6 +81,7 @@ import org.apache.myfaces.tobago.internal.renderkit.renderer.ColumnRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.DateRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.FileRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.GridLayoutRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.ImageRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.InRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.LinkRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.LinksRenderer;
@@ -176,6 +178,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(Tags.column.componentType(), UIColumn.class.getName());
     application.addComponent(Tags.file.componentType(), UIFile.class.getName());
     application.addComponent(Tags.gridLayout.componentType(), UIGridLayout.class.getName());
+    application.addComponent(Tags.image.componentType(), UIImage.class.getName());
     application.addComponent(Tags.in.componentType(), UIIn.class.getName());
     application.addComponent(Tags.link.componentType(), UILink.class.getName());
     application.addComponent(Tags.links.componentType(), UILinks.class.getName());
@@ -226,6 +229,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     renderKit.addRenderer(UIFile.COMPONENT_FAMILY, RendererTypes.FILE, new FileRenderer<UIFile>());
     renderKit.addRenderer(UIGridLayout.COMPONENT_FAMILY, RendererTypes.GRID_LAYOUT,
         new GridLayoutRenderer<UIGridLayout>());
+    renderKit.addRenderer(UIImage.COMPONENT_FAMILY, RendererTypes.IMAGE, new ImageRenderer<UIImage>());
     renderKit.addRenderer(UIIn.COMPONENT_FAMILY, RendererTypes.IN, new InRenderer<UIIn>());
     renderKit.addRenderer(UILink.COMPONENT_FAMILY, RendererTypes.LINK, new LinkRenderer<UILink>());
     renderKit.addRenderer(UILinks.COMPONENT_FAMILY, RendererTypes.LINKS, new LinksRenderer<UILinks>());
