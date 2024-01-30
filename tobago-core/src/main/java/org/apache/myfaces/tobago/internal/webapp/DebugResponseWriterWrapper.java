@@ -182,9 +182,19 @@ public class DebugResponseWriterWrapper extends TobagoResponseWriter {
   }
 
   @Override
+  public void startElement(final HtmlElements name, UIComponent component) throws IOException {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("start element: '{}'", name);
+    }
+    stack.push(name);
+    responseWriter.startElement(name, component);
+
+    usedAttributes.clear();
+  }
+  @Override
   public void startElement(final HtmlElements name) throws IOException {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("start element: '" + name + "'");
+      LOG.debug("start element: '{}'", name);
     }
     stack.push(name);
     responseWriter.startElement(name);

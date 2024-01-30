@@ -88,7 +88,8 @@ public class OutRenderer<T extends AbstractUIOut> extends DecorationPositionRend
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final Markup markup = component.getMarkup() != null ? component.getMarkup() : Markup.NULL;
 
-    writer.startElement(isInside(facesContext, HtmlElements.TOBAGO_IN) ? HtmlElements.TOBAGO_OUT : HtmlElements.SPAN);
+    boolean inside = isInside(facesContext, HtmlElements.TOBAGO_IN);
+    writer.startElement(inside ? HtmlElements.TOBAGO_OUT : HtmlElements.SPAN, component);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
     writer.writeClassAttribute(
@@ -97,8 +98,7 @@ public class OutRenderer<T extends AbstractUIOut> extends DecorationPositionRend
         markup.contains(Markup.LARGE) ? BootstrapClass.FORM_CONTROL_LG : null,
         markup.contains(Markup.SMALL) ? BootstrapClass.FORM_CONTROL_SM : null,
         component.getCustomClass(),
-        isInside(facesContext, HtmlElements.TOBAGO_IN)
-            ? BootstrapClass.INPUT_GROUP_TEXT : BootstrapClass.FORM_CONTROL_PLAINTEXT,
+        inside ? BootstrapClass.INPUT_GROUP_TEXT : BootstrapClass.FORM_CONTROL_PLAINTEXT,
         BootstrapClass.textColor(markup),
         BootstrapClass.fontStyle(markup));
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);

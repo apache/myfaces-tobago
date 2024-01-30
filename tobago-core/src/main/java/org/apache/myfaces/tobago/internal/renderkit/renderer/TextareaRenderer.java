@@ -86,7 +86,7 @@ public class TextareaRenderer<T extends AbstractUITextarea> extends DecorationPo
     final Markup markup = component.getMarkup() != null ? component.getMarkup() : Markup.NULL;
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    writer.startElement(HtmlElements.TEXTAREA);
+    writer.startElement(HtmlElements.TEXTAREA, component);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(fieldId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
