@@ -43,6 +43,11 @@ public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
   }
 
   @Override
+  public void startElement(final HtmlElements name, final UIComponent component) throws IOException {
+    responseWriter.startElement(name.getValue(), component);
+  }
+
+  @Override
   public void startElement(final HtmlElements name) throws IOException {
     responseWriter.startElement(name.getValue(), null);
   }
