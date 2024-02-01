@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="jakarta.faces.facelets">
+
+  <tc:segmentLayout extraSmall="3seg">
+    <tc:in id="inSmall" markup="small"/>
+    <tc:selectOneChoice id="selectOneChoiceSmall" markup="small">
+      <tc:selectItem itemLabel="One" itemValue="one"/>
+      <tc:selectItem itemLabel="Two" itemValue="two"/>
+    </tc:selectOneChoice>
+    <tc:selectOneList id="selectOneListSmall" markup="small">
+      <tc:selectItem itemLabel="One" itemValue="one"/>
+      <tc:selectItem itemLabel="Two" itemValue="two"/>
+    </tc:selectOneList>
+    <tc:selectManyList id="selectManyListSmall" markup="small">
+      <tc:selectItem itemLabel="One" itemValue="one"/>
+      <tc:selectItem itemLabel="Two" itemValue="two"/>
+      <tc:selectItem itemLabel="Three" itemValue="three"/>
+      <tc:selectItem itemLabel="Four" itemValue="four"/>
+      <tc:selectItem itemLabel="Five" itemValue="five"/>
+    </tc:selectManyList>
+
+    <tc:in id="inNormal"/>
+    <tc:selectOneChoice id="selectOneChoiceNormal">
+      <tc:selectItem itemLabel="One" itemValue="one"/>
+      <tc:selectItem itemLabel="Two" itemValue="two"/>
+    </tc:selectOneChoice>
+    <tc:selectOneList id="selectOneListNormal">
+      <tc:selectItem itemLabel="One" itemValue="one"/>
+      <tc:selectItem itemLabel="Two" itemValue="two"/>
+    </tc:selectOneList>
+    <tc:selectManyList id="selectManyListNormal">
+      <tc:selectItem itemLabel="One" itemValue="one"/>
+      <tc:selectItem itemLabel="Two" itemValue="two"/>
+      <tc:selectItem itemLabel="Three" itemValue="three"/>
+      <tc:selectItem itemLabel="Four" itemValue="four"/>
+      <tc:selectItem itemLabel="Five" itemValue="five"/>
+    </tc:selectManyList>
+
+    <tc:in id="inLarge" markup="large"/>
+    <tc:selectOneChoice id="selectOneChoiceLarge" markup="large">
+      <tc:selectItem itemLabel="One" itemValue="one"/>
+      <tc:selectItem itemLabel="Two" itemValue="two"/>
+    </tc:selectOneChoice>
+    <tc:selectOneList id="selectOneListLarge" markup="large">
+      <tc:selectItem itemLabel="One" itemValue="one"/>
+      <tc:selectItem itemLabel="Two" itemValue="two"/>
+    </tc:selectOneList>
+    <tc:selectManyList id="selectManyListLarge" markup="large">
+      <tc:selectItem itemLabel="One" itemValue="one"/>
+      <tc:selectItem itemLabel="Two" itemValue="two"/>
+      <tc:selectItem itemLabel="Three" itemValue="three"/>
+      <tc:selectItem itemLabel="Four" itemValue="four"/>
+      <tc:selectItem itemLabel="Five" itemValue="five"/>
+    </tc:selectManyList>
+  </tc:segmentLayout>
+</ui:composition>
