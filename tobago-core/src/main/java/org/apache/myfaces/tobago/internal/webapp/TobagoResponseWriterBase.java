@@ -253,12 +253,12 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
   public void startElement(final HtmlElements name, final UIComponent currentComponent) throws IOException {
     this.component = currentComponent;
-    startElement(name);
+    startElementInternal(writer, name.getValue(), name.isInline());
   }
 
   @Override
   public void startElement(final HtmlElements name) throws IOException {
-    startElementInternal(writer, name.getValue(), name.isInline());
+     startElement(name, null);
   }
 
   protected void startElementInternal(final Writer sink, final String name, final boolean inline)
