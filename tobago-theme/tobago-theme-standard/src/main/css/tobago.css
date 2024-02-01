@@ -13281,10 +13281,12 @@ tobago-select-one-list .tobago-select-field .tobago-filter:focus {
 tobago-select-one-list .tobago-select-field .tobago-filter:-moz-read-only {
   width: 0;
   min-width: 0;
+  flex-grow: 0;
 }
 tobago-select-one-list .tobago-select-field .tobago-filter:read-only {
   width: 0;
   min-width: 0;
+  flex-grow: 0;
 }
 tobago-select-one-list .tobago-options.tobago-dropdown-menu {
   /* Use .tobago-dropdown-menu instead of .dropdown-menu to prevent Bootstrap from creating a dropdown instance.
@@ -13456,10 +13458,12 @@ tobago-select-many-list .tobago-select-field .tobago-filter:focus {
 tobago-select-many-list .tobago-select-field .tobago-filter:-moz-read-only {
   width: 0;
   min-width: 0;
+  flex-grow: 0;
 }
 tobago-select-many-list .tobago-select-field .tobago-filter:read-only {
   width: 0;
   min-width: 0;
+  flex-grow: 0;
 }
 tobago-select-many-list .tobago-options.tobago-dropdown-menu {
   /* Use .tobago-dropdown-menu instead of .dropdown-menu to prevent Bootstrap from creating a dropdown instance.
