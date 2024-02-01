@@ -149,7 +149,11 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.SEARCH);
     writer.writeIdAttribute(filterId);
-    writer.writeClassAttribute(TobagoClass.FILTER, BootstrapClass.FORM_CONTROL);
+    writer.writeClassAttribute(
+        TobagoClass.FILTER,
+        BootstrapClass.FORM_CONTROL,
+        markup.contains(Markup.LARGE) ? BootstrapClass.FORM_CONTROL_LG : null,
+        markup.contains(Markup.SMALL) ? BootstrapClass.FORM_CONTROL_SM : null);
     writer.writeAttribute(HtmlAttributes.AUTOCOMPLETE, "off", false);
     writer.writeAttribute(HtmlAttributes.READONLY, filter == null || filter.isEmpty());
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
@@ -217,8 +221,9 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
     writer.endElement(HtmlElements.DIV);
   }
 
-  private void encodeSelectItem(FacesContext facesContext, TobagoResponseWriter writer, T component, SelectItem item,
-        Object[] values, String[] submittedValues, boolean disabled, boolean group) throws IOException {
+  private void encodeSelectItem(
+      FacesContext facesContext, TobagoResponseWriter writer, T component, SelectItem item,
+      Object[] values, String[] submittedValues, boolean disabled, boolean group) throws IOException {
     Object itemValue = item.getValue();
     // when using selectItem tag with a literal value: use the converted value
     if (itemValue instanceof String && values != null && values.length > 0 && !(values[0] instanceof String)) {
