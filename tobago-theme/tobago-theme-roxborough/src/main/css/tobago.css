@@ -13317,6 +13317,7 @@ tobago-select-one-list .tobago-select-field .tobago-filter {
   flex: 1 0 0;
   min-width: 1rem;
   background-color: transparent;
+  min-height: 0;
 }
 tobago-select-one-list .tobago-select-field .tobago-filter:focus {
   box-shadow: none;
@@ -13494,6 +13495,7 @@ tobago-select-many-list .tobago-select-field .tobago-filter {
   flex: 1 0 0;
   min-width: 1rem;
   background-color: transparent;
+  min-height: 0;
 }
 tobago-select-many-list .tobago-select-field .tobago-filter:focus {
   box-shadow: none;
