@@ -121,7 +121,11 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.SEARCH);
     writer.writeIdAttribute(filterId);
-    writer.writeClassAttribute(TobagoClass.FILTER, BootstrapClass.FORM_CONTROL);
+    writer.writeClassAttribute(
+        TobagoClass.FILTER,
+        BootstrapClass.FORM_CONTROL,
+        markup.contains(Markup.LARGE) ? BootstrapClass.FORM_CONTROL_LG : null,
+        markup.contains(Markup.SMALL) ? BootstrapClass.FORM_CONTROL_SM : null);
     writer.writeAttribute(HtmlAttributes.AUTOCOMPLETE, "off", false);
     writer.writeAttribute(HtmlAttributes.READONLY, filter == null || filter.isEmpty());
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
@@ -172,7 +176,7 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
               disabled || item.isDisabled(), true);
         }
       } else {
-        encodeSelectItem(facesContext, writer, component, item,  value, submittedValue, disabled, false);
+        encodeSelectItem(facesContext, writer, component, item, value, submittedValue, disabled, false);
       }
     }
 
@@ -189,8 +193,9 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
     writer.endElement(HtmlElements.DIV);
   }
 
-  private void encodeSelectItem(FacesContext facesContext, TobagoResponseWriter writer, T component, SelectItem item,
-        Object value, Object submittedValue, boolean disabled, boolean group) throws IOException {
+  private void encodeSelectItem(
+      FacesContext facesContext, TobagoResponseWriter writer, T component, SelectItem item,
+      Object value, Object submittedValue, boolean disabled, boolean group) throws IOException {
 
     Object itemValue = item.getValue();
     // when using selectItem tag with a literal value: use the converted value
