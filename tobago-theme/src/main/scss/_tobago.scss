@@ -279,6 +279,7 @@ $tobago-flex-layout-spacing: 0.5rem;
       &:read-only {
         width: 0;
         min-width: 0;
+        flex-grow: 0;
       }
     }
   }
