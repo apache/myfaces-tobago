@@ -24,8 +24,12 @@ class SelectManyList extends SelectListBase {
     super();
   }
 
+  get badges(): HTMLDivElement {
+    return this.selectField.querySelector(".tobago-badges");
+  }
+
   get badgeCloseButtons(): NodeListOf<HTMLButtonElement> {
-    return this.selectField.querySelectorAll("button.btn.badge");
+    return this.badges.querySelectorAll("button.btn.badge");
   }
 
   connectedCallback(): void {
@@ -84,7 +88,7 @@ class SelectManyList extends SelectListBase {
       span.className = "btn-group";
       span.role = "group";
       span.dataset.tobagoValue = itemValue;
-      this.filterInput.insertAdjacentElement("beforebegin", span);
+      this.badges.insertAdjacentElement("beforeend", span);
       render(this.getRowTemplate(row.innerText, option.disabled || this.hiddenSelect.disabled, tabIndex), span);
 
       row.classList.add(Css.TABLE_PRIMARY); // highlight list row
@@ -125,9 +129,9 @@ class SelectManyList extends SelectListBase {
     const option: HTMLOptionElement = this.hiddenSelect.querySelector(`[value="${itemValue}"]`);
     option.selected = false;
 
-    const badge = this.selectField.querySelector(`[data-tobago-value="${itemValue}"]`);
+    const badge = this.badges.querySelector(`[data-tobago-value="${itemValue}"]`);
     const previousBadge = badge.previousElementSibling;
-    const nextBadge = badge.nextElementSibling.tagName === "SPAN" ? badge.nextElementSibling : null;
+    const nextBadge = badge.nextElementSibling?.tagName === "SPAN" ? badge.nextElementSibling : null;
     if (previousBadge) {
       previousBadge.querySelector<HTMLButtonElement>("button.btn.badge").focus();
     } else if (nextBadge) {

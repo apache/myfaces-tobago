@@ -243,7 +243,6 @@ $tobago-flex-layout-spacing: 0.5rem;
 
   .tobago-select-field {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
 
     &.dropdown-toggle::after {
@@ -269,7 +268,7 @@ $tobago-flex-layout-spacing: 0.5rem;
       border-radius: 0;
       padding: 0;
       flex: 1 0 0;
-      min-width: 1rem;
+      min-width: 3rem;
       background-color: transparent;
       min-height: 0; //Overwrite min-height of form-control-sm/lg; TOBAGO-2281
 
@@ -1402,8 +1401,6 @@ tobago-select-one-list {
   @include selectListBase();
 
   .tobago-select-field {
-    flex-wrap: nowrap;
-
     span {
       white-space: nowrap;
       overflow: hidden;
@@ -1432,17 +1429,28 @@ tobago-select-one-radio {
 tobago-select-many-list {
   @include selectListBase();
 
+  &.tobago-focus[filter] .tobago-select-field {
+    flex-wrap: wrap;
+  }
+
   .tobago-select-field {
     .btn-group + .tobago-filter {
       margin-left: 0.25rem;
     }
 
-    .btn-group {
-      margin-right: 0.25rem;
+    .tobago-badges {
+      display: flex;
+      flex-wrap: wrap;
 
-      tobago-badge {
-        overflow: hidden;
-        text-overflow: ellipsis;
+      .btn-group {
+        margin-right: 0.25rem;
+        margin-top: 1px;
+        margin-bottom: 1px;
+
+        tobago-badge {
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
       }
     }
   }
