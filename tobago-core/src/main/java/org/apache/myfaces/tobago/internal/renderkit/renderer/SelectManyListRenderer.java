@@ -146,6 +146,10 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
     writer.writeAttribute(Arias.EXPANDED, Boolean.FALSE.toString(), false);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
 
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(TobagoClass.BADGES);
+    writer.endElement(HtmlElements.DIV);
+
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.SEARCH);
     writer.writeIdAttribute(filterId);
