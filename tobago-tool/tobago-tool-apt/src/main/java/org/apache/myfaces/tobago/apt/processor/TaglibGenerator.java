@@ -474,11 +474,11 @@ public class TaglibGenerator extends AbstractGenerator {
     final Element taglib;
     taglib = document.createElement("facelet-taglib");
     taglib.setAttribute("id", taglibAnnotation.shortName());
-    taglib.setAttribute("xmlns", "http://xmlns.jcp.org/xml/ns/javaee");
+    taglib.setAttribute("xmlns", "https://jakarta.ee/xml/ns/jakartaee");
     taglib.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
     taglib.setAttribute("xsi:schemaLocation",
-        "http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_3.xsd");
-    taglib.setAttribute("version", "2.3");
+        "https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facelettaglibrary_4_0.xsd");
+    taglib.setAttribute("version", "4.0");
     return taglib;
   }
 
