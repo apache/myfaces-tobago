@@ -119,6 +119,10 @@ public class TobagoConfigMerger {
         tobagoConfig.setEnableTobagoExceptionHandler(fragment.getEnableTobagoExceptionHandler());
       }
 
+      if (fragment.getEnableAuthorizationHelper() != null) {
+        tobagoConfig.setEnableAuthorizationHelper(fragment.getEnableAuthorizationHelper());
+      }
+
       // theme definition
       for (final ThemeImpl theme : fragment.getThemeDefinitions()) {
         tobagoConfig.addAvailableTheme(theme);

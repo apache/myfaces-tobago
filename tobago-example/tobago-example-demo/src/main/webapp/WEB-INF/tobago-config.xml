@@ -20,8 +20,8 @@
 <tobago-config
     xmlns="http://myfaces.apache.org/tobago/tobago-config"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-5.1.xsd"
-    version="5.1">
+    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-5.2.xsd"
+    version="5.2">
 
   <name>demo</name>
 
@@ -35,7 +35,7 @@
     </after>
   </ordering>
 
-<!-- using all available themes, if this is not set XXX to be implemented TOBAGO-1664 -->
+  <!-- using all available themes, if this is not set XXX to be implemented TOBAGO-1664 -->
   <theme-config>
     <default-theme>standard</default-theme>
     <supported-theme>scarborough</supported-theme>
@@ -74,22 +74,25 @@
   <!-- "disable" is the default -->
   <!--<security-annotation>disable</security-annotation>-->
 
-<!-- this is the default...
-  <sanitizer>
-    <sanitizer-class>org.apache.myfaces.tobago.sanitizer.JsoupSanitizer</sanitizer-class>
-    <properties>
-      &lt;!&ndash;
-       Use one of: basic, basicWithImages, relaxed, simpleText or none
-       &ndash;&gt;
-      <entry key="safelist">relaxed</entry>
-    </properties>
-  </sanitizer>
--->
+  <!-- this is the default...
+    <sanitizer>
+      <sanitizer-class>org.apache.myfaces.tobago.sanitizer.JsoupSanitizer</sanitizer-class>
+      <properties>
+        &lt;!&ndash;
+         Use one of: basic, basicWithImages, relaxed, simpleText or none
+         &ndash;&gt;
+        <entry key="safelist">relaxed</entry>
+      </properties>
+    </sanitizer>
+  -->
 
   <!-- "false" disables the TobagoExceptionHandler -->
   <!--<enable-tobago-exception-handler>false</enable-tobago-exception-handler>-->
 
   <!-- true is the default -->
   <!--<decode-line-feed>false</decode-line-feed>-->
+
+  <!-- "false" disabled the AuthorizationHelper -->
+  <!--<enable-authorization-helper>false</enable-authorization-helper>-->
 
 </tobago-config>
