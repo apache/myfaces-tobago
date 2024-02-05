@@ -13250,7 +13250,6 @@ tobago-select-one-list .tobago-select-item span {
 }
 tobago-select-one-list .tobago-select-field {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
 }
 tobago-select-one-list .tobago-select-field.dropdown-toggle::after {
@@ -13272,7 +13271,7 @@ tobago-select-one-list .tobago-select-field .tobago-filter {
   border-radius: 0;
   padding: 0;
   flex: 1 0 0;
-  min-width: 1rem;
+  min-width: 3rem;
   background-color: transparent;
   min-height: 0;
 }
@@ -13327,9 +13326,6 @@ tobago-select-one-list .tobago-options .table tfoot tr.tobago-no-entries {
 }
 tobago-select-one-list .tobago-options .table tfoot tr.tobago-no-entries td {
   border-bottom-width: 0;
-}
-tobago-select-one-list .tobago-select-field {
-  flex-wrap: nowrap;
 }
 tobago-select-one-list .tobago-select-field span {
   white-space: nowrap;
@@ -13428,7 +13424,6 @@ tobago-select-many-list .tobago-select-item span {
 }
 tobago-select-many-list .tobago-select-field {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
 }
 tobago-select-many-list .tobago-select-field.dropdown-toggle::after {
@@ -13450,7 +13445,7 @@ tobago-select-many-list .tobago-select-field .tobago-filter {
   border-radius: 0;
   padding: 0;
   flex: 1 0 0;
-  min-width: 1rem;
+  min-width: 3rem;
   background-color: transparent;
   min-height: 0;
 }
@@ -13506,13 +13501,22 @@ tobago-select-many-list .tobago-options .table tfoot tr.tobago-no-entries {
 tobago-select-many-list .tobago-options .table tfoot tr.tobago-no-entries td {
   border-bottom-width: 0;
 }
+tobago-select-many-list.tobago-focus[filter] .tobago-select-field {
+  flex-wrap: wrap;
+}
 tobago-select-many-list .tobago-select-field .btn-group + .tobago-filter {
   margin-left: 0.25rem;
 }
-tobago-select-many-list .tobago-select-field .btn-group {
-  margin-right: 0.25rem;
+tobago-select-many-list .tobago-select-field .tobago-badges {
+  display: flex;
+  flex-wrap: wrap;
 }
-tobago-select-many-list .tobago-select-field .btn-group tobago-badge {
+tobago-select-many-list .tobago-select-field .tobago-badges .btn-group {
+  margin-right: 0.25rem;
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+tobago-select-many-list .tobago-select-field .tobago-badges .btn-group tobago-badge {
   overflow: hidden;
   text-overflow: ellipsis;
 }
