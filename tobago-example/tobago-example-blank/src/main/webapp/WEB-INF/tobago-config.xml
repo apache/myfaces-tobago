@@ -20,8 +20,8 @@
 <tobago-config
     xmlns="http://myfaces.apache.org/tobago/tobago-config"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-5.1.xsd"
-    version="5.1">
+    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-5.2.xsd"
+    version="5.2">
 
   <name>tobago-example-blank</name>
 

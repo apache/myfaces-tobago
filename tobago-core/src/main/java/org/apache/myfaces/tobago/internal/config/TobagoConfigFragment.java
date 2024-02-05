@@ -51,6 +51,7 @@ public class TobagoConfigFragment {
   private Properties sanitizerProperties;
   private final Map<String, String> mimeTypes;
   private Boolean enableTobagoExceptionHandler;
+  private Boolean enableAuthorizationHelper;
 
   public TobagoConfigFragment() {
     before = new ArrayList<>();
@@ -218,6 +219,14 @@ public class TobagoConfigFragment {
 
   public void setEnableTobagoExceptionHandler(Boolean enableTobagoExceptionHandler) {
     this.enableTobagoExceptionHandler = enableTobagoExceptionHandler;
+  }
+
+  public Boolean getEnableAuthorizationHelper() {
+    return enableAuthorizationHelper;
+  }
+
+  public void setEnableAuthorizationHelper(Boolean enableAuthorizationHelper) {
+    this.enableAuthorizationHelper = enableAuthorizationHelper;
   }
 
   @Override
