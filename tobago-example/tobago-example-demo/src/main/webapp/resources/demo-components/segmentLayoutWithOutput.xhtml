@@ -19,14 +19,16 @@
     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:cc="jakarta.faces.composite"
+      xmlns:dc="jakarta.faces.composite/demo-components"
       xmlns:tc="http://myfaces.apache.org/tobago/component">
 <cc:interface>
-  <cc:attribute name="label"/>
-  <cc:attribute name="value"/>
-  <cc:attribute name="asText" default="false"/>
+  <cc:attribute name="outputValue"/>
+  <cc:attribute name="outValue"/>
 </cc:interface>
 <cc:implementation>
-  <tc:in id="in" label="#{cc.attrs.label}" value="#{cc.attrs.value}" rendered="#{!cc.attrs.asText}"/>
-  <tc:out id="out" label="#{cc.attrs.label}" value="#{cc.attrs.value}" rendered="#{cc.attrs.asText}"/>
+  <tc:segmentLayout large="3seg 9seg">
+    <dc:output name="#{cc.attrs.outputValue}"/>
+    <tc:out value="#{cc.attrs.outValue}"/>
+  </tc:segmentLayout>
 </cc:implementation>
 </html>
