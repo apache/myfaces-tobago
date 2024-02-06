@@ -138,79 +138,27 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
       ResponseUtils.ensureNosniffHeader(facesContext);
     }
 
-    final Theme theme = tobagoContext.getTheme();
-
     final String clientId = component.getClientId(facesContext);
-    final boolean productionMode = facesContext.isProjectStage(ProjectStage.Production);
     final Markup markup = component.getMarkup();
     final TobagoClass spread = markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null;
-    final String title = component.getLabel();
 
     final Locale locale = viewRoot.getLocale();
-    writer.startElement(HtmlElements.HTML);
-    if (locale != null) {
-      final String language = locale.getLanguage();
-      if (language != null) {
-        writer.writeAttribute(HtmlAttributes.LANG, language, false);
+
+    if (!facesContext.getPartialViewContext().isAjaxRequest()) {
+      writer.startElement(HtmlElements.HTML);
+      if (locale != null) {
+        final String language = locale.getLanguage();
+        if (language != null) {
+          writer.writeAttribute(HtmlAttributes.LANG, language, false);
+        }
       }
+      writer.writeClassAttribute(spread);
+
+      encodeHead(facesContext, component, tobagoContext, writer, viewRoot, contextPath);
+
+      writer.startElement(HtmlElements.BODY);
+      writer.writeClassAttribute(spread);
     }
-    writer.writeClassAttribute(spread);
-
-    writer.startElement(HtmlElements.HEAD);
-
-    final HeadResources headResources = new HeadResources(
-        facesContext, viewRoot.getComponentResources(facesContext, HEAD_TARGET), writer.getCharacterEncoding());
-
-    // meta tags
-    for (final UIComponent metas : headResources.getMetas()) {
-      metas.encodeAll(facesContext);
-    }
-
-    // title
-    writer.startElement(HtmlElements.TITLE);
-    writer.writeText(title != null ? title : "");
-    writer.endElement(HtmlElements.TITLE);
-
-    // style files from theme
-    AbstractUIStyle style = null;
-    for (final ThemeStyle themeStyle : theme.getStyleResources(productionMode)) {
-      if (style == null) {
-        style = (AbstractUIStyle) facesContext.getApplication()
-            .createComponent(facesContext, Tags.style.componentType(), RendererTypes.Style.name());
-        style.setTransient(true);
-      }
-      style.setFile(contextPath + themeStyle.getName());
-      style.encodeAll(facesContext);
-    }
-
-    // style files individual files
-    for (final UIComponent styles : headResources.getStyles()) {
-      styles.encodeAll(facesContext);
-    }
-
-    // script files from theme
-    for (final ThemeScript themeScript : theme.getScriptResources(productionMode)) {
-      final AbstractUIScript script = (AbstractUIScript) facesContext.getApplication()
-          .createComponent(facesContext, Tags.script.componentType(), RendererTypes.Script.name());
-      script.setTransient(true);
-      script.setFile(contextPath + themeScript.getName());
-      script.setType(themeScript.getType());
-      script.encodeAll(facesContext);
-    }
-
-    // script files individual files
-    for (final UIComponent scripts : headResources.getScripts()) {
-      scripts.encodeAll(facesContext);
-    }
-
-    for (final UIComponent misc : headResources.getMisc()) {
-      misc.encodeAll(facesContext);
-    }
-
-    writer.endElement(HtmlElements.HEAD);
-
-    writer.startElement(HtmlElements.BODY);
-    writer.writeClassAttribute(spread);
 
     writer.startElement(HtmlElements.TOBAGO_PAGE);
 
@@ -300,20 +248,66 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     }
   }
 
-// TODO: this is needed for the "BACK-BUTTON-PROBLEM"
-// but may no longer needed
-/*
-    if (ViewHandlerImpl.USE_VIEW_MAP) {
-      writer.startElement(HtmlElements.INPUT, null);
-      writer.writeAttribute(HtmlAttributes.type, "hidden", null);
-      writer.writeNameAttribute(ViewHandlerImpl.PAGE_ID);
-      writer.writeIdAttribute(ViewHandlerImpl.PAGE_ID);
-      Object value = facesContext.getViewRoot().getAttributes().get(
-          ViewHandlerImpl.PAGE_ID);
-      writer.writeAttribute(HtmlAttributes.value, (value != null ? value : ""), null);
-      writer.endElement(HtmlElements.INPUT);
+  private void encodeHead(
+      final FacesContext facesContext, final T component, final TobagoContext tobagoContext,
+      final TobagoResponseWriter writer, final UIViewRoot viewRoot, final String contextPath) throws IOException {
+    final String title = component.getLabel();
+    final Theme theme = tobagoContext.getTheme();
+    final boolean productionMode = facesContext.isProjectStage(ProjectStage.Production);
+
+    writer.startElement(HtmlElements.HEAD);
+
+    final HeadResources headResources = new HeadResources(
+        facesContext, viewRoot.getComponentResources(facesContext, HEAD_TARGET), writer.getCharacterEncoding());
+
+    // meta tags
+    for (final UIComponent metas : headResources.getMetas()) {
+      metas.encodeAll(facesContext);
     }
-*/
+
+    // title
+    writer.startElement(HtmlElements.TITLE);
+    writer.writeText(title != null ? title : "");
+    writer.endElement(HtmlElements.TITLE);
+
+    // style files from theme
+    AbstractUIStyle style = null;
+    for (final ThemeStyle themeStyle : theme.getStyleResources(productionMode)) {
+      if (style == null) {
+        style = (AbstractUIStyle) facesContext.getApplication()
+            .createComponent(facesContext, Tags.style.componentType(), RendererTypes.Style.name());
+        style.setTransient(true);
+      }
+      style.setFile(contextPath + themeStyle.getName());
+      style.encodeAll(facesContext);
+    }
+
+    // style files individual files
+    for (final UIComponent styles : headResources.getStyles()) {
+      styles.encodeAll(facesContext);
+    }
+
+    // script files from theme
+    for (final ThemeScript themeScript : theme.getScriptResources(productionMode)) {
+      final AbstractUIScript script = (AbstractUIScript) facesContext.getApplication()
+          .createComponent(facesContext, Tags.script.componentType(), RendererTypes.Script.name());
+      script.setTransient(true);
+      script.setFile(contextPath + themeScript.getName());
+      script.setType(themeScript.getType());
+      script.encodeAll(facesContext);
+    }
+
+    // script files individual files
+    for (final UIComponent scripts : headResources.getScripts()) {
+      scripts.encodeAll(facesContext);
+    }
+
+    for (final UIComponent misc : headResources.getMisc()) {
+      misc.encodeAll(facesContext);
+    }
+
+    writer.endElement(HtmlElements.HEAD);
+  }
 
   @Override
   public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
@@ -331,15 +325,17 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     writer.endElement(HtmlElements.NOSCRIPT);
     writer.endElement(HtmlElements.TOBAGO_PAGE);
 
-    final List<UIComponent> bodyResources = viewRoot.getComponentResources(facesContext, BODY_TARGET);
-    for (final UIComponent bodyResource : bodyResources) {
-      bodyResource.encodeAll(facesContext);
+    if (!facesContext.getPartialViewContext().isAjaxRequest()) {
+      final List<UIComponent> bodyResources = viewRoot.getComponentResources(facesContext, BODY_TARGET);
+      for (final UIComponent bodyResource : bodyResources) {
+        bodyResource.encodeAll(facesContext);
+      }
+
+      writer.endElement(HtmlElements.BODY);
+      writer.endElement(HtmlElements.HTML);
+
+      AccessKeyLogger.logStatus(facesContext);
     }
-
-    writer.endElement(HtmlElements.BODY);
-    writer.endElement(HtmlElements.HTML);
-
-    AccessKeyLogger.logStatus(facesContext);
   }
 
   private String getMethod(final AbstractUIPage page) {

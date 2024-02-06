@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import {elementByIdFn, querySelectorFn} from "/script/tobago-test.js";
+import {elementByIdFn, querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("no layout manager", function (done) {
@@ -38,5 +38,22 @@ it("no layout manager", function (done) {
   test.do(() => expect(input().value).toBe(""));
   test.do(() => expect(output().textContent).toBe(""));
 
+  test.start();
+});
+
+it("no layout manager", function (done) {
+  const html = querySelectorAllFn("html")
+  const body = querySelectorFn("body")
+  const ajaxButton = elementByIdFn("page:mainForm:ajaxPageReload");
+  const timestampComponent = querySelectorFn("#page\\:mainForm\\:timestamp .form-control-plaintext");
+
+  let timestamp;
+
+  const test = new JasmineTestTool(done);
+  test.do(() => expect(html().length).toBe(1));
+  test.do(() => timestamp = timestampComponent().textContent);
+  test.event("click", ajaxButton, () => timestamp !== timestampComponent().textContent);
+  test.do(() => expect(html().length).toBe(1));
+  test.do(() => expect(getComputedStyle(body()).overflow).not.toBe("hidden"));
   test.start();
 });
