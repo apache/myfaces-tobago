@@ -54,13 +54,15 @@ export class Overlay extends HTMLElement {
     this.classList.add(Css.SHOW);
     let icon;
     switch (this.type) {
-      case "error":
+      case OverlayType.error:
         icon = "<i class='bi-flash fs-1'></i>";
         break;
-      case "drop-zone":
+      case OverlayType.dropZone:
         icon = "<i class='bi-upload fs-1'></i>";
         break;
-      case "wait":
+      case OverlayType.submit:
+        this.hideScrollbar();
+      case OverlayType.ajax:
         icon = "<span class='spinner-border'></span>";
         break;
       default:
@@ -72,14 +74,10 @@ export class Overlay extends HTMLElement {
     const forElement = document.getElementById(this.for);
     if (forElement) {
       forElement.classList.add(Css.POSITION_RELATIVE);
-      if (forElement.tagName === "TOBAGO-PAGE") {
-        this.hideScrollbar();
-      } else {
-        this.style.position = "absolute";
-        const boundingClientRect = forElement.getBoundingClientRect();
-        this.style.width = `${boundingClientRect.width}px`;
-        this.style.height = `${boundingClientRect.height}px`;
-      }
+      this.style.position = "absolute";
+      const boundingClientRect = forElement.getBoundingClientRect();
+      this.style.width = `${boundingClientRect.width}px`;
+      this.style.height = `${boundingClientRect.height}px`;
     }
   }
 
@@ -138,7 +136,6 @@ export class Overlay extends HTMLElement {
   set delay(delay: number) {
     this.setAttribute("delay", String(delay));
   }
-
 }
 
 document.addEventListener("tobago.init", function (event: Event): void {
