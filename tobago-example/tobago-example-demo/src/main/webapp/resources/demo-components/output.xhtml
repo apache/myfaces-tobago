@@ -16,17 +16,14 @@
  * limitations under the License.
 -->
 <!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:cc="http://xmlns.jcp.org/jsf/composite"
       xmlns:tc="http://myfaces.apache.org/tobago/component">
 <cc:interface>
-  <cc:attribute name="label"/>
-  <cc:attribute name="value"/>
-  <cc:attribute name="asText" default="false"/>
+  <cc:attribute name="name"/>
 </cc:interface>
 <cc:implementation>
-  <tc:in id="in" label="#{cc.attrs.label}" value="#{cc.attrs.value}" rendered="#{!cc.attrs.asText}"/>
-  <tc:out id="out" label="#{cc.attrs.label}" value="#{cc.attrs.value}" rendered="#{cc.attrs.asText}"/>
+  <tc:out value="#{cc.attrs.name}"/>
 </cc:implementation>
 </html>
