@@ -33,6 +33,7 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/semi": "error",
     "max-len": ["error", {"code": 120}],
+    "no-fallthrough": "off",
     "no-irregular-whitespace": "off",
     "no-multiple-empty-lines": "error"
   }

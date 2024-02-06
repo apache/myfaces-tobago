@@ -92,7 +92,7 @@ class Behavior extends HTMLElement {
                 id = partialElement.id;
               }
               partialElement.insertAdjacentHTML("beforeend",
-                  Overlay.htmlText(id, OverlayType.wait, Page.page(this).waitOverlayDelayAjax));
+                  Overlay.htmlText(id, OverlayType.ajax, Page.page(this).waitOverlayDelayAjax));
             } else {
               console.warn("No element found by id='%s' for overlay!", partialId);
             }
