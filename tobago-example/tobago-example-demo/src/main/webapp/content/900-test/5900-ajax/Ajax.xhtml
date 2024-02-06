@@ -32,4 +32,14 @@
     </tc:button>
   </tc:form>
 
+  <tc:button id="ajaxPageReload" label="Ajax page reload">
+    <f:ajax render=":::page"/>
+  </tc:button>
+  <tc:button id="ajaxPageReloadWait" label="Ajax page reload (wait 3 s)"
+             action="#{partialReloadController.waitAndReload3}">
+    <f:ajax render=":::page"/>
+  </tc:button>
+
+  <tc:out id="timestamp" label="Timestamp" value="#{ajaxSpecialCharacterController.timestamp}"/>
+
 </ui:composition>

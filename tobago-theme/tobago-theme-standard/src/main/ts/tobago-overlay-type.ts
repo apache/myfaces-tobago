@@ -18,5 +18,6 @@
 export enum OverlayType {
   dropZone = "drop-zone",
   error = "error",
-  wait = "wait"
+  submit = "submit",
+  ajax = "ajax"
 }

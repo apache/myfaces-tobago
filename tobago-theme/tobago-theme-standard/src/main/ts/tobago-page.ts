@@ -82,7 +82,7 @@ export class Page extends HTMLElement {
     this.submitActive = true;
     if (!decoupled) {
       this.body.insertAdjacentHTML("beforeend",
-          Overlay.htmlText(this.id, OverlayType.wait, this.waitOverlayDelayFull));
+          Overlay.htmlText(this.id, OverlayType.submit, this.waitOverlayDelayFull));
     }
     console.debug(this.body.querySelector("tobago-overlay"));
   }
