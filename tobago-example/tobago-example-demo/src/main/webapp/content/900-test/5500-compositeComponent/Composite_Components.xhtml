@@ -25,43 +25,43 @@
   <ui:param name="title" value="Composite Components"/>
 
   <tc:section label="no layout manager">
-    <dc:inputAsText id="noLayoutIn" value="tc:in"/>
-    <dc:inputAsText id="noLayoutOut" value="tc:out" asText="true"/>
-    <dc:inputAsText id="noLayoutNotRendered" value="this should NOT be rendered" rendered="false"/>
+    <dc:inputAsTextPanelWrapper id="noLayoutIn" value="tc:in"/>
+    <dc:inputAsTextPanelWrapper id="noLayoutOut" value="tc:out" asText="true"/>
+    <dc:inputAsTextPanelWrapper id="noLayoutNotRendered" value="this should NOT be rendered" rendered="false"/>
   </tc:section>
   <tc:section label="flowLayout">
     <tc:flowLayout>
-      <dc:inputAsText id="flowLayoutIn" value="tc:in"/>
-      <dc:inputAsText id="flowLayoutOut" value="tc:out" asText="true"/>
-      <dc:inputAsText id="flowLayoutNotRendered" value="this should NOT be rendered" rendered="false"/>
+      <dc:inputAsTextPanelWrapper id="flowLayoutIn" value="tc:in"/>
+      <dc:inputAsTextPanelWrapper id="flowLayoutOut" value="tc:out" asText="true"/>
+      <dc:inputAsTextPanelWrapper id="flowLayoutNotRendered" value="this should NOT be rendered" rendered="false"/>
     </tc:flowLayout>
   </tc:section>
   <tc:section label="flexLayout">
     <tc:flexLayout columns="1fr 1fr">
-      <dc:inputAsText id="flexLayoutIn" value="tc:in"/>
-      <dc:inputAsText id="flexLayoutOut" value="tc:out" asText="true"/>
-      <dc:inputAsText id="flexLayoutNotRendered" value="this should NOT be rendered" rendered="false"/>
+      <dc:inputAsTextPanelWrapper id="flexLayoutIn" value="tc:in"/>
+      <dc:inputAsTextPanelWrapper id="flexLayoutOut" value="tc:out" asText="true"/>
+      <dc:inputAsTextPanelWrapper id="flexLayoutNotRendered" value="this should NOT be rendered" rendered="false"/>
     </tc:flexLayout>
   </tc:section>
   <tc:section label="segmentLayout">
     <tc:segmentLayout medium="6seg">
-      <dc:inputAsText id="segLayoutIn" value="tc:in"/>
-      <dc:inputAsText id="segLayoutOut" value="tc:out" asText="true"/>
-      <dc:inputAsText id="segLayoutNotRendered" value="this should NOT be rendered" rendered="false"/>
+      <dc:inputAsTextPanelWrapper id="segLayoutIn" value="tc:in"/>
+      <dc:inputAsTextPanelWrapper id="segLayoutOut" value="tc:out" asText="true"/>
+      <dc:inputAsTextPanelWrapper id="segLayoutNotRendered" value="this should NOT be rendered" rendered="false"/>
     </tc:segmentLayout>
   </tc:section>
   <tc:section label="gridLayout">
     <tc:gridLayout columns="1fr 1fr" rows="auto">
-      <dc:inputAsText id="gridLayoutIn" value="tc:in"/>
-      <dc:inputAsText id="gridLayoutOut" value="tc:out" asText="true"/>
-      <dc:inputAsText id="gridLayoutNotRendered" value="this should NOT be rendered" rendered="false"/>
+      <dc:inputAsTextPanelWrapper id="gridLayoutIn" value="tc:in"/>
+      <dc:inputAsTextPanelWrapper id="gridLayoutOut" value="tc:out" asText="true"/>
+      <dc:inputAsTextPanelWrapper id="gridLayoutNotRendered" value="this should NOT be rendered" rendered="false"/>
     </tc:gridLayout>
   </tc:section>
   <tc:section label="splitLayout">
     <tc:splitLayout columns="1fr 1fr">
-      <dc:inputAsText id="splitLayoutIn" value="tc:in"/>
-      <dc:inputAsText id="splitLayoutOut" value="tc:out" asText="true"/>
-      <dc:inputAsText id="splitLayoutNotRendered" value="this should NOT be rendered" rendered="false"/>
+      <dc:inputAsTextPanelWrapper id="splitLayoutIn" value="tc:in"/>
+      <dc:inputAsTextPanelWrapper id="splitLayoutOut" value="tc:out" asText="true"/>
+      <dc:inputAsTextPanelWrapper id="splitLayoutNotRendered" value="this should NOT be rendered" rendered="false"/>
     </tc:splitLayout>
   </tc:section>
 </ui:composition>
