@@ -24,6 +24,7 @@
   <cc:attribute name="label"/>
   <cc:attribute name="value"/>
   <cc:attribute name="asText" default="false"/>
+  <cc:clientBehavior name="change" event="change" targets="in"/>
 </cc:interface>
 <cc:implementation>
   <tc:in id="in" label="#{cc.attrs.label}" value="#{cc.attrs.value}" rendered="#{!cc.attrs.asText}"/>

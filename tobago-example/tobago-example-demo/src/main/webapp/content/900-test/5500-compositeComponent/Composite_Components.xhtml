@@ -19,6 +19,7 @@
 
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:dc="http://xmlns.jcp.org/jsf/composite/demo-components"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
@@ -63,5 +64,10 @@
       <dc:inputAsTextPanelWrapper id="splitLayoutOut" value="tc:out" asText="true"/>
       <dc:inputAsTextPanelWrapper id="splitLayoutNotRendered" value="this should NOT be rendered" rendered="false"/>
     </tc:splitLayout>
+  </tc:section>
+  <tc:section label="clientBehavior">
+    <dc:inputAsText id="clientBehavior">
+      <f:ajax event="change" execute="@this" render="clientBehavior" />
+    </dc:inputAsText>
   </tc:section>
 </ui:composition>
