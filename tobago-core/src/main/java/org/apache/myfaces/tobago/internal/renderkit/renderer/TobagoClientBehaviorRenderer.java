@@ -108,7 +108,7 @@ public class TobagoClientBehaviorRenderer extends jakarta.faces.render.ClientBeh
       executeIds = ComponentUtils.evaluateClientIds(facesContext, uiComponent, execute.toArray(new String[0]));
       if (executeIds == null) {
         executeIds = clientId;
-      } else if(!executeIds.contains(clientId)) {
+      } else if (!executeIds.contains(clientId)) {
         executeIds = executeIds + " " + clientId;
       }
       if (uiComponent instanceof AbstractUICommand) { // <f:ajax> inside of a command
