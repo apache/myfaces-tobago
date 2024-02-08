@@ -648,6 +648,30 @@ public final class ComponentUtils {
    * </p>
    */
   public static UIComponent findComponent(final UIComponent from, final String relativeId) {
+    return findComponent(FacesContext.getCurrentInstance(), from, relativeId);
+  }
+    /**
+     * <p>
+     * The search depends on the number of prefixed colons in the relativeId:
+     * </p>
+     * <dl>
+     * <dd>number of prefixed colons == 0</dd>
+     * <dt>fully relative</dt>
+     * <dd>number of prefixed colons == 1</dd>
+     * <dt>absolute (still normal findComponent syntax)</dt>
+     * <dd>number of prefixed colons == 2</dd>
+     * <dt>search in the current naming container (same as 0 colons)</dt>
+     * <dd>number of prefixed colons == 3</dd>
+     * <dt>search in the parent naming container of the current naming container</dt>
+     * <dd>number of prefixed colons &gt; 3</dd>
+     * <dt>go to the next parent naming container for each additional colon</dt>
+     * </dl>
+     * <p>
+     * If a literal is specified: to use more than one identifier the identifiers must be space delimited.
+     * </p>
+     */
+  public static UIComponent findComponent(
+      final FacesContext facesContext, final UIComponent from, final String relativeId) {
     UIComponent from1 = from;
     String relativeId1 = relativeId;
     final int idLength = relativeId1.length();
@@ -659,8 +683,9 @@ public final class ComponentUtils {
 
     // Figure out how many colons
     int colonCount = 0;
+    char separatorChar = UINamingContainer.getSeparatorChar(facesContext);
     while (colonCount < idLength) {
-      if (relativeId1.charAt(colonCount) != UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance())) {
+      if (relativeId1.charAt(colonCount) != separatorChar) {
         break;
       }
       colonCount++;
@@ -692,9 +717,15 @@ public final class ComponentUtils {
     final List<String> result = new ArrayList<>(componentIds.length);
     for (final String id : componentIds) {
       if (!StringUtils.isBlank(id)) {
-        final String clientId = evaluateClientId(context, component, id);
-        if (clientId != null) {
-          result.add(clientId);
+        if (id.startsWith("@this:") && id.endsWith(component.getId())) {
+          // case for cc:clientBehavior with targets attribute
+          // @this:<id>)
+          result.add(component.getClientId(context));
+        } else {
+          final String clientId = evaluateClientId(context, component, id);
+          if (clientId != null) {
+            result.add(clientId);
+          }
         }
       }
     }
@@ -710,7 +741,7 @@ public final class ComponentUtils {
    */
   public static String evaluateClientId(
       final FacesContext context, final UIComponent component, final String componentId) {
-    final UIComponent partiallyComponent = ComponentUtils.findComponent(component, componentId);
+    final UIComponent partiallyComponent = ComponentUtils.findComponent(context, component, componentId);
     if (partiallyComponent != null) {
       final String clientId = partiallyComponent.getClientId(context);
       if (partiallyComponent instanceof AbstractUISheet) {
