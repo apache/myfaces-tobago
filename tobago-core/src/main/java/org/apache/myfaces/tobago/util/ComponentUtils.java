@@ -717,10 +717,13 @@ public final class ComponentUtils {
     final List<String> result = new ArrayList<>(componentIds.length);
     for (final String id : componentIds) {
       if (!StringUtils.isBlank(id)) {
-        if (id.startsWith("@this:") && id.endsWith(component.getId())) {
-          // case for cc:clientBehavior with targets attribute
-          // @this:<id>)
-          result.add(component.getClientId(context));
+        if (id.startsWith("@this:")) {
+          if (id.endsWith(component.getId())) {
+            // case for cc:clientBehavior with targets attribute
+            // @this:<id>)
+            result.add(component.getClientId(context));
+          }
+          // skip the others clientBehavior targets
         } else {
           final String clientId = evaluateClientId(context, component, id);
           if (clientId != null) {
