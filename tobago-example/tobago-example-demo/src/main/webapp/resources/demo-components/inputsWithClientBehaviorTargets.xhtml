@@ -16,18 +16,20 @@
  * limitations under the License.
 -->
 <!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:tc="http://myfaces.apache.org/tobago/component">
 <cc:interface>
   <cc:attribute name="label"/>
   <cc:attribute name="value"/>
-  <cc:attribute name="asText" default="false"/>
-  <cc:clientBehavior name="change" event="change" targets="in"/>
+  <cc:clientBehavior name="change" event="change" targets="in1 in2"/>
 </cc:interface>
 <cc:implementation>
-  <tc:in id="in" label="#{cc.attrs.label}" value="#{cc.attrs.value}" rendered="#{!cc.attrs.asText}"/>
-  <tc:out id="out" label="#{cc.attrs.label}" value="#{cc.attrs.value}" rendered="#{cc.attrs.asText}"/>
+  <tc:in id="in1" label="#{cc.attrs.label}" value="#{cc.attrs.value}" >
+    <f:ajax execute="@this"/>
+  </tc:in>
+  <tc:in id="in2" label="#{cc.attrs.label}" value="#{cc.attrs.value}"/>
 </cc:implementation>
 </html>
