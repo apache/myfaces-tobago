@@ -66,8 +66,8 @@
     </tc:splitLayout>
   </tc:section>
   <tc:section label="clientBehavior">
-    <dc:inputAsText id="clientBehavior">
+    <dc:inputsWithClientBehaviorTargets id="clientBehavior" label="label" value="test">
       <f:ajax event="change" execute="@this" render="clientBehavior" />
-    </dc:inputAsText>
+    </dc:inputsWithClientBehaviorTargets>
   </tc:section>
 </ui:composition>
