@@ -37,6 +37,7 @@ public class BadgeRenderer<T extends AbstractUIBadge> extends RendererBase<T> {
   public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final Markup markup = component.getMarkup() != null ? component.getMarkup() : Markup.NULL;
+    final String image = component.getImage();
     final String tip = component.getTip();
     final String value = getCurrentValue(facesContext, component);
 
@@ -49,11 +50,14 @@ public class BadgeRenderer<T extends AbstractUIBadge> extends RendererBase<T> {
         isInside(facesContext, HtmlElements.TOBAGO_BUTTONS) ? BootstrapClass.BTN : null,
         component.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
+    HtmlRendererUtils.encodeIconOrImage(writer, image);
     if (tip != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     }
     if (value != null) {
+      writer.startElement(HtmlElements.SPAN);
       writer.writeText(value);
+      writer.endElement(HtmlElements.SPAN);
     }
   }
 
