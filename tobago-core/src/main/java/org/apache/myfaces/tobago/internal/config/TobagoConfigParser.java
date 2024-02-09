@@ -104,7 +104,6 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private static final int SANITIZER_CLASS = -974266412;
   private static final int DECODE_LINE_FEED = -1764519240;
   private static final int ENABLE_TOBAGO_EXCEPTION_HANDLER = 1967055403;
-  private static final int ENABLE_AUTHORIZATION_HELPER = -860851828;
   private static final int SCRIPT = -907685685;
   private static final int STYLE = 109780401;
   private static final int PROPERTIES = -926053069;
@@ -462,10 +461,6 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
         tobagoConfig.setEnableTobagoExceptionHandler(Boolean.parseBoolean(text));
         break;
 
-      case ENABLE_AUTHORIZATION_HELPER:
-        tobagoConfig.setEnableAuthorizationHelper(Boolean.parseBoolean(text));
-        break;
-
       case ENTRY:
         properties.setProperty(entryKey, text);
         entryKey = null;
@@ -533,9 +528,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
 
     final SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
     final Schema schema;
-    if ("5.2".equals(version.getVersion())) {
-      schema = schemaFactory.newSchema(getClass().getResource(TOBAGO_CONFIG_XSD_5_2));
-    } else if ("5.1".equals(version.getVersion())) {
+    if ("5.1".equals(version.getVersion())) {
       schema = schemaFactory.newSchema(getClass().getResource(TOBAGO_CONFIG_XSD_5_1));
     } else if ("5.0".equals(version.getVersion())) {
       schema = schemaFactory.newSchema(getClass().getResource(TOBAGO_CONFIG_XSD_5_0));
