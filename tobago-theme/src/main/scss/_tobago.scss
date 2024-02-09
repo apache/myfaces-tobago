@@ -84,7 +84,7 @@ $tobago-flex-layout-spacing: 0.5rem;
   }
 }
 
-@mixin buttonLinkImageTextSpacing() {
+@mixin imageTextSpacing() {
   > img + span {
     margin-left: .4em;
   }
@@ -393,6 +393,7 @@ $tobago-flex-layout-spacing: 0.5rem;
 
 tobago-badge {
   @include badgeBtn();
+  @include imageTextSpacing();
 
   &.btn {
     cursor: initial; //revert cursor attribute on .btn class
@@ -465,7 +466,7 @@ tobago-box {
 
 .tobago-button {
   @include buttonLinkDisabledCursor();
-  @include buttonLinkImageTextSpacing();
+  @include imageTextSpacing();
   @include badgeBtn();
   @include markupHideToggleIcon();
 
@@ -859,7 +860,7 @@ tobago-links {
 /* link ----------------------------------------------------------- */
 
 .tobago-link {
-  @include buttonLinkImageTextSpacing();
+  @include imageTextSpacing();
   @include markupHideToggleIcon();
   white-space: nowrap;
 
@@ -1783,7 +1784,7 @@ tobago-tab.tobago-bar {
 tobago-tab-group {
   tobago-tab {
     > .nav-link {
-      @include buttonLinkImageTextSpacing();
+      @include imageTextSpacing();
     }
   }
 }
