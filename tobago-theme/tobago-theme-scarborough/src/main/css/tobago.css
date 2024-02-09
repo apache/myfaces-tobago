@@ -12066,6 +12066,12 @@ tobago-badge {
 tobago-badge.badge.btn {
   --bs-btn-border-width: 0;
 }
+tobago-badge > img + span {
+  margin-left: 0.4em;
+}
+tobago-badge > i + span {
+  margin-left: 0.4em;
+}
 tobago-badge.btn {
   cursor: initial;
 }
