@@ -122,13 +122,10 @@ public abstract class AbstractUICommandBase extends UICommand
 
   private boolean isAllowed() {
     final FacesContext facesContext = getFacesContext();
-    final TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
-    if (tobagoConfig.isEnableAuthorizationHelper()) {
-      final AuthorizationHelper authorizationHelper = AuthorizationHelper.getInstance(facesContext);
-      final MethodExpression actionExpression = getActionExpression();
-      if (actionExpression != null) {
-        return authorizationHelper.isAuthorized(facesContext, this, actionExpression.getExpressionString());
-      }
+    final AuthorizationHelper authorizationHelper = AuthorizationHelper.getInstance(facesContext);
+    final MethodExpression actionExpression = getActionExpression();
+    if (actionExpression != null) {
+      return authorizationHelper.isAuthorized(facesContext, this, actionExpression.getExpressionString());
     }
     return true;
   }
