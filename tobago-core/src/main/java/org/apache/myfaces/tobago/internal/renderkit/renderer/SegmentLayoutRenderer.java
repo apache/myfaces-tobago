@@ -75,10 +75,10 @@ public class SegmentLayoutRenderer<T extends AbstractUISegmentLayout> extends Re
     TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     component.visitTree(VisitContext.createVisitContext(facesContext), (context, target) -> {
-      if (!target.getClientId().endsWith(component.getClientId())
+      if (!target.getClientId(facesContext).equals(component.getClientId(facesContext))
           && target instanceof Visual && !((Visual) target).isPlain()) {
         try {
-          encodeChild(context.getFacesContext(), writer, generator, target);
+          encodeChild(facesContext, writer, generator, target);
         } catch(IOException ioException) {
           throw new FacesException(ioException);
         }
