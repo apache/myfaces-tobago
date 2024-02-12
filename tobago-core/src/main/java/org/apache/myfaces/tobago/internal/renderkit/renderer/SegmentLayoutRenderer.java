@@ -19,8 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import jakarta.faces.FacesException;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitResult;
 import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout;
 import org.apache.myfaces.tobago.layout.SegmentJustify;
@@ -28,14 +32,12 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Renders the 12 columns grid layout.
@@ -66,19 +68,25 @@ public class SegmentLayoutRenderer<T extends AbstractUISegmentLayout> extends Re
 
   @Override
   public void encodeChildrenInternal(final FacesContext facesContext, final T component) throws IOException {
-    final TobagoResponseWriter writer = getResponseWriter(facesContext);
-
     if (!component.isRendered()) {
       return;
     }
+    BootstrapClass.Generator generator = new BootstrapClass.Generator(component);
+    TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    final List<UIComponent> children = ComponentUtils.findLayoutChildren(component);
-    final BootstrapClass.Generator generator = new BootstrapClass.Generator(component);
-    for (final UIComponent child : children) {
-      if (child.isRendered()) {
-        encodeChild(facesContext, writer, generator, child);
+    component.visitTree(VisitContext.createVisitContext(facesContext), (context, target) -> {
+      if (!target.getClientId().endsWith(component.getClientId())
+          && target instanceof Visual && !((Visual) target).isPlain()) {
+        try {
+          encodeChild(context.getFacesContext(), writer, generator, target);
+        } catch(IOException ioException) {
+          throw new FacesException(ioException);
+        }
+        return VisitResult.REJECT;
+      } else {
+        return VisitResult.ACCEPT;
       }
-    }
+    });
   }
 
   private void encodeChild(
