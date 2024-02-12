@@ -76,10 +76,11 @@ public class SegmentLayoutRenderer<T extends AbstractUISegmentLayout> extends Re
 
     component.visitTree(VisitContext.createVisitContext(facesContext), (context, target) -> {
       if (!target.getClientId(facesContext).equals(component.getClientId(facesContext))
-          && target instanceof Visual && !((Visual) target).isPlain()) {
+          && (target instanceof Visual && !((Visual) target).isPlain()
+          || UIComponent.isCompositeComponent(target) && !target.isRendered())) {
         try {
           encodeChild(facesContext, writer, generator, target);
-        } catch(IOException ioException) {
+        } catch (IOException ioException) {
           throw new FacesException(ioException);
         }
         return VisitResult.REJECT;
