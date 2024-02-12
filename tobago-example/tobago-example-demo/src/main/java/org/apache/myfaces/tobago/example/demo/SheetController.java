@@ -77,6 +77,7 @@ public class SheetController implements Serializable {
   private SheetState lazyTwoState;
   private int actionCount = 0;
   private int actionListenerCount = 0;
+  private List<SolarObject> emptyList = new ArrayList<>();
 
   @PostConstruct
   private void init() {
@@ -195,5 +196,9 @@ public class SheetController implements Serializable {
 
   public int getActionListenerCount() {
     return actionListenerCount;
+  }
+
+  public List<SolarObject> getEmptyList() {
+    return emptyList;
   }
 }

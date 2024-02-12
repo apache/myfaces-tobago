@@ -33,6 +33,7 @@ public enum Facets {
    */
   @Deprecated
   contextMenu,
+  empty,
   footer,
   label,
   header,
@@ -55,6 +56,7 @@ public enum Facets {
    */
   @Deprecated
   public static final String CONTEXT_MENU = "contextMenu";
+  public static final String EMPTY = "empty";
   public static final String FOOTER = "footer";
   public static final String LABEL = "label";
   public static final String HEADER = "header";

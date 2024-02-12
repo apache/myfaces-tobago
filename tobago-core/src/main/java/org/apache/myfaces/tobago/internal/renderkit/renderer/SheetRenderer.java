@@ -758,10 +758,15 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       }
       writer.startElement(HtmlElements.TD);
       writer.writeAttribute(HtmlAttributes.COLSPAN, countColumns);
-      writer.startElement(HtmlElements.DIV);
-      writer.writeClassAttribute(BootstrapClass.TEXT_CENTER);
-      writer.writeText(ResourceUtils.getString(facesContext, "sheet.empty"));
-      writer.endElement(HtmlElements.DIV);
+      final UIComponent emptyFacet = ComponentUtils.getFacet(sheet, Facets.empty);
+      if (emptyFacet != null) {
+        emptyFacet.encodeAll(facesContext);
+      } else {
+        writer.startElement(HtmlElements.DIV);
+        writer.writeClassAttribute(BootstrapClass.TEXT_CENTER);
+        writer.writeText(ResourceUtils.getString(facesContext, "sheet.empty"));
+        writer.endElement(HtmlElements.DIV);
+      }
       writer.endElement(HtmlElements.TD);
       if (!autoLayout) {
         writer.startElement(HtmlElements.TD);
