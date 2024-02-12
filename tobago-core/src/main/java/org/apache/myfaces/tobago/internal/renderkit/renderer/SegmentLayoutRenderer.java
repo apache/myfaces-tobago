@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import jakarta.faces.FacesException;
 import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitHint;
 import jakarta.faces.component.visit.VisitResult;
 import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
@@ -38,11 +39,15 @@ import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 
 import java.io.IOException;
+import java.util.EnumSet;
+import java.util.Set;
 
 /**
  * Renders the 12 columns grid layout.
  */
 public class SegmentLayoutRenderer<T extends AbstractUISegmentLayout> extends RendererBase<T> {
+
+  private static final Set<VisitHint> SET_SKIP_UNRENDERED = EnumSet.of(VisitHint.SKIP_UNRENDERED);
 
   @Override
   public boolean getRendersChildren() {
@@ -73,11 +78,10 @@ public class SegmentLayoutRenderer<T extends AbstractUISegmentLayout> extends Re
     }
     BootstrapClass.Generator generator = new BootstrapClass.Generator(component);
     TobagoResponseWriter writer = getResponseWriter(facesContext);
-
-    component.visitTree(VisitContext.createVisitContext(facesContext), (context, target) -> {
+    component.visitTree(VisitContext.createVisitContext(facesContext, null, SET_SKIP_UNRENDERED),
+        (context, target) -> {
       if (!target.getClientId(facesContext).equals(component.getClientId(facesContext))
-          && (target instanceof Visual && !((Visual) target).isPlain()
-          || UIComponent.isCompositeComponent(target) && !target.isRendered())) {
+          && target instanceof Visual && !((Visual) target).isPlain()) {
         try {
           encodeChild(facesContext, writer, generator, target);
         } catch (IOException ioException) {
