@@ -288,6 +288,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case BEFORE:
       case AFTER:
       case THEME_CONFIG:
+      case DECODE_LINE_FEED:
       case DEFAULT_THEME:
       case SUPPORTED_THEME:
       case THEME_COOKIE:
@@ -296,6 +297,7 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
       case MARKUP:
       case CREATE_SESSION_SECRET:
       case CHECK_SESSION_SECRET:
+      case ENABLE_TOBAGO_EXCEPTION_HANDLER:
       case SECURITY_ANNOTATION:
       case PREVENT_FRAME_ATTACKS:
       case SET_NOSNIFF_HEADER:
