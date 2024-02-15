@@ -25,6 +25,7 @@ import jakarta.faces.component.visit.VisitHint;
 import jakarta.faces.component.visit.VisitResult;
 import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
+import org.apache.myfaces.tobago.component.UIStyle;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISegmentLayout;
@@ -81,9 +82,17 @@ public class SegmentLayoutRenderer<T extends AbstractUISegmentLayout> extends Re
     component.visitTree(VisitContext.createVisitContext(facesContext, null, SET_SKIP_UNRENDERED),
         (context, target) -> {
       if (!target.getClientId(facesContext).equals(component.getClientId(facesContext))
-          && target instanceof Visual && !((Visual) target).isPlain()) {
+          && (target instanceof Visual && !((Visual) target).isPlain()
+          || target.getRendererType() != null && target.getRendererType().startsWith("jakarta.faces"))) {
         try {
           encodeChild(facesContext, writer, generator, target);
+        } catch (IOException ioException) {
+          throw new FacesException(ioException);
+        }
+        return VisitResult.REJECT;
+      } else if (target instanceof UIStyle) {
+        try {
+          target.encodeAll(facesContext);
         } catch (IOException ioException) {
           throw new FacesException(ioException);
         }
