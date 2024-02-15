@@ -82,9 +82,9 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
     encodeBeginOuter(facesContext, component);
 
     if (anchor) {
-      writer.startElement(HtmlElements.A);
+      writer.startElement(HtmlElements.A, component);
     } else {
-      writer.startElement(HtmlElements.BUTTON);
+      writer.startElement(HtmlElements.BUTTON, component);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
     }
     writer.writeIdAttribute(component.getFieldId(facesContext));

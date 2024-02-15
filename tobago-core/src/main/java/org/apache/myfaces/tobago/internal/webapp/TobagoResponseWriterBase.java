@@ -246,12 +246,14 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
   @Override
   public void startElement(final String name, final UIComponent currentComponent) throws IOException {
+    closeOpenTag();
     final boolean inline = HtmlElements.isInline(name);
     this.component = currentComponent;
     startElementInternal(writer, name, inline);
   }
 
   public void startElement(final HtmlElements name, final UIComponent currentComponent) throws IOException {
+    closeOpenTag();
     this.component = currentComponent;
     startElementInternal(writer, name.getValue(), name.isInline());
   }
@@ -281,9 +283,6 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     }
     if (localElementInline) {
       inlineStack++;
-    }
-    if (startStillOpen) {
-      sink.write('>');
     }
     if (inlineStack <= 1) {
       sink.write('\n');
