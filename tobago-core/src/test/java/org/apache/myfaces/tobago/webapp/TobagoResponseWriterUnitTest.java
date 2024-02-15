@@ -22,8 +22,10 @@ package org.apache.myfaces.tobago.webapp;
 import javax.faces.render.Renderer;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
+import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.component.UIImage;
 import org.apache.myfaces.tobago.component.UIIn;
+import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.component.UITextarea;
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
@@ -250,5 +252,33 @@ public class TobagoResponseWriterUnitTest extends AbstractTobagoTestBase {
     Assertions.assertEquals("\n<tobago-out id='id' class='tobago-auto-spacing'>"
         + "<span class='form-control-plaintext' spellcheck></span>"
         + "</tobago-out>", getLastWritten());
+  }
+
+  @Test
+  public void testPassthroughWithButtonRenderer() throws IOException {
+    final UIButton b = (UIButton) ComponentUtils.createComponent(
+        facesContext, Tags.button.componentType(), RendererTypes.Button, "id");
+
+    b.setLabel("button");
+    b.getPassThroughAttributes().put("aria-label", "label");
+    b.encodeAll(facesContext);
+    Assertions.assertEquals("\n<button type='button' id='id' name='id' "
+        + "class='tobago-button btn btn-secondary tobago-auto-spacing' aria-label='label'>"
+        + "<tobago-behavior event='click' client-id='id'></tobago-behavior>"
+        + "<span>button</span></button>", getLastWritten());
+  }
+
+  @Test
+  public void testPassthroughWithLinkRenderer() throws IOException {
+    final UILink l = (UILink) ComponentUtils.createComponent(
+        facesContext, Tags.link.componentType(), RendererTypes.Link, "id");
+
+    l.setLabel("link");
+    l.getPassThroughAttributes().put("aria-label", "label");
+    l.encodeAll(facesContext);
+    Assertions.assertEquals("\n<button type='button' id='id' name='id' "
+        + "class='tobago-link btn btn-link tobago-auto-spacing' aria-label='label'>"
+        + "<tobago-behavior event='click' client-id='id'></tobago-behavior>"
+        + "<span>link</span></button>", getLastWritten());
   }
 }
