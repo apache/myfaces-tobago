@@ -25,13 +25,13 @@ it("Check DOM of segement layout", function () {
   const style = elementByIdFn("page:mainForm:style");
   const segmentLayoutOutputs = querySelectorAllFn("tobago-segment-layout[id^='page:mainForm:segmentLayoutComposite'] tobago-out span");
 
-  // expect(segmentLayout().children.length).toBe(4);
-  // expect(segmentLayout().querySelectorAll("div").length).toBe(3);
+  expect(segmentLayout().children.length).toBe(4);
+  expect(segmentLayout().querySelectorAll("div").length).toBe(3);
   expect(segLayoutIn()).not.toBeNull();
   expect(segLayoutOut()).not.toBeNull();
   expect(segLayoutNotRendered()).toBeNull();
-  // expect(style()).not.toBeNull();
-  // expect(style().parentElement.tagName).toBe("TOBAGO-SEGMENT-LAYOUT");
+  expect(style()).not.toBeNull();
+  expect(style().parentElement.tagName).toBe("TOBAGO-SEGMENT-LAYOUT");
   expect(segmentLayoutOutputs().length).toBe(2);
   expect(segmentLayoutOutputs()[0].textContent).toBe("composite-composite output value");
   expect(segmentLayoutOutputs()[1].textContent).toBe("composite out value");
