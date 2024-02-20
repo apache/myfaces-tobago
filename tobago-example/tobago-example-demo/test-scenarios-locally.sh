@@ -41,6 +41,12 @@ if [ $? != 0 ]; then
   exit 1
 fi
 
+${JAVA_HOME_21}/bin/java -version
+if [ $? != 0 ]; then
+  echo "Java 21 (LTS) not found!"
+  exit 1
+fi
+
 isPortInUse() {
 #  PORT=$1
   if lsof -Pi :$1 -sTCP:LISTEN -t >/dev/null ; then
@@ -112,6 +118,9 @@ check() {
   17)
     export JAVA_HOME=${JAVA_HOME_17}
     ;;
+  21)
+    export JAVA_HOME=${JAVA_HOME_21}
+    ;;
   *)
     echo "Unknown java version ${JAVA_VERSION}"
     exit 1
@@ -165,7 +174,7 @@ check() {
 
 # xxx -Pprod doesn't exist, but this is no problem
 for MODE in "dev" "prod" ; do
-  for JAVA_VERSION in 8 11 17 ; do
+  for JAVA_VERSION in 8 11 17 21; do
 
     check ${JAVA_VERSION} "mvn clean jetty:run -P${MODE} -Pjetty"              "Jetty 9 with MyFaces 2.3"
 
