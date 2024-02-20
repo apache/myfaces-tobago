@@ -35,6 +35,12 @@ if [ $? != 0 ]; then
   exit 1
 fi
 
+${JAVA_HOME_21}/bin/java -version
+if [ $? != 0 ]; then
+  echo "Java 21 (LTS) not found!"
+  exit 1
+fi
+
 isPortInUse() {
 #  PORT=$1
   if lsof -Pi :$1 -sTCP:LISTEN -t >/dev/null ; then
@@ -98,15 +104,15 @@ check() {
   fi
 
   case "$1" in
-  8)
-    export JAVA_HOME=${JAVA_HOME_8}
-    ;;
   11)
     export JAVA_HOME=${JAVA_HOME_11}
     ;;
   17)
     export JAVA_HOME=${JAVA_HOME_17}
     ;;
+  21)
+      export JAVA_HOME=${JAVA_HOME_21}
+      ;;
   *)
     echo "Unknown java version ${JAVA_VERSION}"
     exit 1
@@ -162,10 +168,10 @@ check() {
 
 # xxx -Pprod doesn't exist, but this is no problem
 for MODE in "dev" "prod" ; do
-  for JAVA_VERSION in 11 17 ; do
+  for JAVA_VERSION in 11 17 21; do
     check ${JAVA_VERSION} "mvn clean jetty:run -P${MODE} -Pjetty"                   "Jetty 11 with MyFaces 4.0"  "/"
     check ${JAVA_VERSION} "mvn clean jetty:run -P${MODE} -Pjetty -Djsf=mojarra-4.0" "Jetty 11 with Mojarra 4.0"  "/"
-    check ${JAVA_VERSION} "mvn clean package cargo:run -P${MODE} -Ptomcat"          "Tomcat 10 with MyFaces 4.0" "/tobago-example-demo"
+    check ${JAVA_VERSION} "mvn clean package cargo:run -P${MODE} -Ptomcat"          "Tomcat 10 with MyFaces 4.0" "/tobago-example-demo/"
   done
 done
 
