@@ -25,6 +25,6 @@
     shortName = "tc",
     uri = "http://myfaces.apache.org/tobago/component",
     name = "tobago",
-    displayName = "Tobago Components 6.3.0-SNAPSHOT")
+    displayName = "Tobago Components 6.3.0")
 
 package org.apache.myfaces.tobago.internal.taglib.component;
