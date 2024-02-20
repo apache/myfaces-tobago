@@ -234,7 +234,7 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
         LOG.warn("Unexpected value for column width list: '" + widthListString + "'");
       }
     }
-    if (currentWidthList != null && currentWidthList.size() != renderedColumns.size() + 1) {
+    if (currentWidthList != null && currentWidthList.size() != renderedColumns.size()) {
       currentWidthList = null;
     }
 
@@ -282,26 +282,11 @@ public abstract class AbstractUISheetLayout extends AbstractUILayoutBase impleme
       parseFixedWidth(layoutInfo, renderedColumns, columnSelectorWidth);
       layoutInfo.parseColumnLayout(space.getPixel());
       currentWidthList = layoutInfo.getSpaceList();
-
-      int freeWidth = space.getPixel();
-      for (Integer width : currentWidthList) {
-        freeWidth -= width;
-      }
-
-      if (needVerticalScrollbar) {
-        if (freeWidth > 0) {
-          currentWidthList.add(freeWidth + verticalScrollbarWeight.getPixel()); // filler column
-        } else {
-          currentWidthList.add(verticalScrollbarWeight.getPixel()); // filler column
-        }
-      } else {
-        currentWidthList.add(Math.max(freeWidth, 0)); // empty filler column
-      }
     }
 
-    if (renderedColumns.size() + 1 != currentWidthList.size()) {
+    if (renderedColumns.size() != currentWidthList.size()) {
       LOG.warn("widthList.size() = " + currentWidthList.size()
-          + " != columns.size() = " + renderedColumns.size() + " + 1. The widthList: "
+          + " != columns.size() = " + renderedColumns.size() + ". The widthList: "
           + LayoutInfo.listToTokenString(currentWidthList));
     } else {
       data.setWidthList(currentWidthList);

@@ -300,6 +300,8 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         writer.writeAttribute(HtmlAttributes.WIDTH, columnWidth);
         writer.endElement(HtmlElements.COL);
       }
+      writer.startElement(HtmlElements.COL, null); //filler col
+      writer.endElement(HtmlElements.COL);
       writer.endElement(HtmlElements.COLGROUP);
     }
 
@@ -784,11 +786,13 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
     if (columnWidths != null) {
       writer.startElement(HtmlElements.COLGROUP, null);
-      for (int i = 0; i < columnWidths.size(); i++) {
+      for (Integer columnWidth : columnWidths) {
         writer.startElement(HtmlElements.COL, null);
-        writer.writeAttribute(HtmlAttributes.WIDTH, columnWidths.get(i));
+        writer.writeAttribute(HtmlAttributes.WIDTH, columnWidth);
         writer.endElement(HtmlElements.COL);
       }
+      writer.startElement(HtmlElements.COL, null); //filler col
+      writer.endElement(HtmlElements.COL);
       writer.endElement(HtmlElements.COLGROUP);
     }
 
