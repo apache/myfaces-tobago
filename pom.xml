@@ -1041,17 +1041,6 @@
               </execution>
 
               <execution>
-                <id>npm version</id>
-                <goals>
-                  <goal>npm</goal>
-                </goals>
-                <phase>generate-resources</phase>
-                <configuration>
-                  <arguments>version ${project.version} --allow-same-version</arguments>
-                </configuration>
-              </execution>
-
-              <execution>
                 <id>npm install (load dependencies, etc.)</id>
                 <goals>
                   <goal>npm</goal>
