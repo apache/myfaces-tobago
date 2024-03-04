@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-.hide-navigation{
+.hide-navigation {
   display: none;
 }
 
-.navigation-box{
+.navigation-box {
   --bs-card-border-radius: 0;
   border: none;
 }
@@ -117,4 +117,8 @@ tobago-tree {
     border-left: 7px solid;
     border-right: 13px solid;
   }
+}
+
+.popover-600 {
+  --bs-popover-max-width: 600px;
 }
