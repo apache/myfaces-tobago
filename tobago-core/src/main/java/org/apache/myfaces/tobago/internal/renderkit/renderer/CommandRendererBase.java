@@ -69,6 +69,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
     final LabelWithAccessKey label = new LabelWithAccessKey(component);
     final String image = component.getImage();
     final UIComponent labelFacet = ComponentUtils.getFacet(component, Facets.label);
+    final UIComponent popoverFacet = ComponentUtils.getFacet(component, Facets.popover);
     final boolean anchor = (component.getLink() != null || component.getOutcome() != null) && !disabled;
     final String target = component.getTarget();
     final boolean autoSpacing = component.getAutoSpacing(facesContext);
@@ -141,6 +142,14 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
 
     if (!disabled) {
       encodeBehavior(writer, facesContext, component);
+    }
+
+    if (popoverFacet != null) {
+      insideBegin(facesContext, Facets.popover);
+      for (final UIComponent child : RenderUtils.getFacetChildren(popoverFacet)) {
+        child.encodeAll(facesContext);
+      }
+      insideEnd(facesContext, Facets.popover);
     }
 
     HtmlRendererUtils.encodeIconOrImage(writer, image);

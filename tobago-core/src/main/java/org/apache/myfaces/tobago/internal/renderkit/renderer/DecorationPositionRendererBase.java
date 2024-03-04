@@ -35,6 +35,7 @@ import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
@@ -288,10 +289,8 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
       final TobagoResponseWriter writer, final CssItem buttonColor, final Icons icon, final String title,
       final String content, final Integer tabIndex) throws IOException {
     writer.startElement(HtmlElements.TOBAGO_POPOVER);
-    writer.writeAttribute(DataAttributes.BS_TOGGLE, "popover", false);
-    writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-    writer.writeAttribute(DataAttributes.BS_CONTENT, content, true);
-    writer.writeAttribute(DataAttributes.BS_TRIGGER, "focus", false);
+    writer.writeAttribute(CustomAttributes.LABEL, title, true);
+    writer.writeAttribute(HtmlAttributes.VALUE, content, true);
 
     writer.startElement(HtmlElements.A);
     writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex != null ? tabIndex : 0);

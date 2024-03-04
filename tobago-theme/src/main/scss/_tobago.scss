@@ -56,6 +56,12 @@ $tobago-flex-layout-spacing: 0.5rem;
 }
 
 /* mixins ---------------------------------------------------------- */
+@mixin aAndButtonBase() {
+  tobago-popover {
+    display: none;
+  }
+}
+
 @mixin adjustCustomControlLabel() {
   .form-check-label {
     &:after {
@@ -389,6 +395,14 @@ $tobago-flex-layout-spacing: 0.5rem;
   "mb-3". But we shouldn't use "mb-3", because it's adding an "!important" to the margin-bottom. With "!important" added
   custom styling is much more complicated. */
   margin-bottom: $spacer;
+}
+
+a {
+  @include aAndButtonBase();
+}
+
+button {
+  @include aAndButtonBase();
 }
 
 tobago-badge {
@@ -973,15 +987,6 @@ button {
   }
 }
 
-.tobago-popover-box {
-  display: none;
-  width: max-content;
-
-  &.show {
-    display: block;
-  }
-}
-
 a.tobago-messages-button, a.tobago-help-button, a.tobago-popover-button {
   padding-left: 0.4em;
   padding-right: 0.4em;
@@ -1029,11 +1034,6 @@ tobago-messages {
   .tobago-messages {
     //this is for TobagoClassUnitTest
   }
-}
-
-.popover .popover-body {
-  // allow linebreaks for messages / help text
-  white-space: pre-line;
 }
 
 /* nav ----------------------------------------------------------- */
@@ -1119,6 +1119,10 @@ tobago-page {
   }
 
   .tobago-page-popoverStore {
+    .popover .popover-body {
+      // allow linebreaks for messages / help text
+      white-space: pre-line;
+    }
   }
 
   .tobago-page-toastStore {
@@ -1177,8 +1181,8 @@ tobago-panel {
   display: block;
 }
 
-/* popover ------------------------------------------------------------- */
 tobago-popover {
+  display: inline-block;
 }
 
 tobago-popup {
