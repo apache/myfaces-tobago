@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasDecorationPosition;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasEscape;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
@@ -120,16 +121,8 @@ import java.text.MessageFormat;
     })
 
 public interface OutTagDeclaration
-    extends HasIdBindingAndRendered, HasConverter, HasTip, HasValue, IsVisual,
+    extends HasIdBindingAndRendered, HasConverter, HasTip, HasValue, IsVisual, HasEscape,
     HasSanitize, HasLabel, HasLabelLayout, IsPlain, HasAutoSpacing, HasDecorationPosition {
-
-  /**
-   * Flag indicating that characters that are
-   * sensitive in HTML and XML markup must be escaped.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
-  void setEscape(String escape);
 
   /**
    * Flag indicating that new-line characters will be converted to HTML &lt;br&gt;.

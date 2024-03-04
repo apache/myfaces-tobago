@@ -25,6 +25,7 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
   COLLAPSE_TARGET("collapse-target"),
   CONFIRMATION("confirmation"),
   CLIENT_ID("client-id"),
+  CUSTOM_CLASS("custom-class"),
   DATE_PATTERN("date-pattern"),
   DELAY("delay"),
   DROP_ZONE("drop-zone"),
@@ -32,6 +33,7 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
   /**
    * &lt;f:ajax&gt; attribute
    */
+  ESCAPE("escape"),
   EXECUTE("execute"),
   EXPANDABLE("expandable"),
   FIELD_ID("field-id"),
@@ -49,6 +51,7 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
   /**
    * Lazy loading in sheet.
    */
+  LABEL("label"),
   LAZY("lazy"),
   LAZY_ROWS("lazy-rows"),
   /**
@@ -62,6 +65,7 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
   OMIT("omit"),
   ORIENTATION("orientation"),
   PARENT("parent"),
+  SANITIZE("sanitize"),
   SELECTABLE("selectable"),
   SELECTED("selected"),
   /**
