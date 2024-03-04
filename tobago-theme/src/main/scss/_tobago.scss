@@ -1118,6 +1118,9 @@ tobago-page {
     z-index: $zindex-popover;
   }
 
+  .tobago-page-popoverStore {
+  }
+
   .tobago-page-toastStore {
     .toast {
       &.tobago-hideCloseButton .tobago-close {

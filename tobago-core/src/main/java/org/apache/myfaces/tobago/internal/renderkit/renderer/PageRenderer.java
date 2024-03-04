@@ -229,6 +229,10 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     writer.writeClassAttribute(TobagoClass.PAGE__MENU_STORE);
     writer.endElement(HtmlElements.DIV);
 
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(TobagoClass.PAGE__POPOVER_STORE);
+    writer.endElement(HtmlElements.DIV);
+
     // placeholder for toasts
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(TobagoClass.PAGE__TOAST_STORE);
