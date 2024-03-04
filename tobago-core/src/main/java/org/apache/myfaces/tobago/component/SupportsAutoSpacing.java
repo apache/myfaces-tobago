@@ -19,9 +19,8 @@
 
 package org.apache.myfaces.tobago.component;
 
-import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-
 import jakarta.faces.context.FacesContext;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 
 import java.util.Map;
 
@@ -44,6 +43,7 @@ public interface SupportsAutoSpacing {
           && attributes.get(HtmlElements.TOBAGO_TREE) == null
           && attributes.get(HtmlElements.TOBAGO_LINKS) == null
           && attributes.get(HtmlElements.TOBAGO_BUTTONS) == null
+          && attributes.get(HtmlElements.TOBAGO_POPOVER) == null
           && attributes.get(Facets.before) == null
           && attributes.get(Facets.after) == null
           && attributes.get(Facets.label) == null

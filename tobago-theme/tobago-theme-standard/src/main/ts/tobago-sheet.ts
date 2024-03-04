@@ -675,6 +675,7 @@ Type: ${data.type}`);
           || clickElement.tagName === "TOBAGO-DROPDOWN"
           || clickElement.tagName === "TOBAGO-FILE"
           || clickElement.tagName === "TOBAGO-IN"
+          || clickElement.tagName === "TOBAGO-POPOVER"
           || clickElement.tagName === "TOBAGO-RANGE"
           || clickElement.tagName === "TOBAGO-SELECT-BOOLEAN-CHECKBOX"
           || clickElement.tagName === "TOBAGO-SELECT-BOOLEAN-TOGGLE"

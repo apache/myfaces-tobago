@@ -63,6 +63,7 @@ public enum Tags {
   out,
   page,
   panel,
+  popover,
   popup,
   progress,
   reload,
@@ -138,6 +139,7 @@ public enum Tags {
   public static final String OUT = "out";
   public static final String PAGE = "page";
   public static final String PANEL = "panel";
+  public static final String POPOVER = "popover";
   public static final String POPUP = "popup";
   public static final String PROGRESS = "progress";
   public static final String RELOAD = "reload";
