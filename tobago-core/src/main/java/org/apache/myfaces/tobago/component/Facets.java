@@ -40,6 +40,7 @@ public enum Facets {
   pagerPage,
   pagerPageDirect,
   pagerRow,
+  popover,
   radio,
   reload,
   sorter;
@@ -63,6 +64,7 @@ public enum Facets {
   public static final String PAGER_PAGE = "pagerPage";
   public static final String PAGER_PAGE_DIRECT = "pagerPageDirect";
   public static final String PAGER_ROW = "pagerRow";
+  public static final String POPOVER = "popover";
   public static final String RADIO = "radio";
   /**
    * TODO: Must be replaced by a behavior

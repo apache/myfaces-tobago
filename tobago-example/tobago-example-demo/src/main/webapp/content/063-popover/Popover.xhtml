@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="jakarta.faces.core"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="jakarta.faces.facelets">
+
+  <p>An extended tooltip can be created with <code class="language-markup">&lt;tc:popover/></code>.</p>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:popover/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.tobagoTld}/tc/popover.html"/></p>
+
+  <tc:section label="Basic example">
+    <p>Put a popover in a popover facet of a button.</p>
+
+    <demo-highlight language="markup">&lt;tc:button label="Simple Popover" omit="true">
+  &lt;f:facet name="popover">
+    &lt;tc:popover label="Popover title" value="Popover content"/>
+  &lt;/f:facet>
+&lt;/tc:button></demo-highlight>
+
+    <tc:button label="Simple Popover" omit="true">
+      <f:facet name="popover">
+        <tc:popover label="Popover title" value="Popover content"/>
+      </f:facet>
+    </tc:button>
+  </tc:section>
+
+  <tc:section label="Custom CSS class">
+    <p>To assign a CSS class on the popover window use the <code
+        class="language-markup">&lt;tc:style customClass="..."/></code> attribute.</p>
+    <p>In the following example, the width is changed to 600px using a CSS class. By default the width of a popover
+      window is <code>276px;</code>. It can be changed with <code>$popover-max-width</code> (SCSS variable when
+      compiling a theme) or <code>--bs-popover-max-width</code> (CSS). See:
+      <tc:link label="Bootstrap Popover CSS" image="bi-box-arrow-up-right"
+               link="https://getbootstrap.com/docs/5.3/components/popovers/#css" target="_blank"/></p>
+
+    <demo-highlight language="markup">&lt;tc:button label="Popover with a width of 600px" omit="true">
+  &lt;f:facet name="popover">
+    &lt;tc:popover label="Lorem Ipsum" value="\#{popoverController.loremIpsum}">
+      &lt;tc:style customClass="popover-600"/>
+    &lt;/tc:popover>
+  &lt;/f:facet>
+&lt;/tc:button></demo-highlight>
+
+    <tc:button label="Popover with a width of 600px" omit="true">
+      <f:facet name="popover">
+        <tc:popover label="Lorem Ipsum" value="#{popoverController.loremIpsum}">
+          <tc:style customClass="popover-600"/>
+        </tc:popover>
+      </f:facet>
+    </tc:button>
+  </tc:section>
+
+  <tc:section label="Escape and sanitize">
+    <p>HTML/XML code will be escaped by default.</p>
+    <tc:button label="Default (escape=true, sanitize=auto)" omit="true">
+      <f:facet name="popover">
+        <tc:popover value="#{popoverController.html}"/>
+      </f:facet>
+    </tc:button>
+    <p>You can turn it off with the <code>escape</code> attribute.</p>
+    <tc:button label="Escape off (escape=false, sanitize=auto)" omit="true">
+      <f:facet name="popover">
+        <tc:popover value="#{popoverController.html}" escape="false"/>
+      </f:facet>
+    </tc:button>
+    <p>Although the HTML code is not escaped, the text is not colored because the code is sanitzed.
+      "Sanitize" remove HTML/XML-Tags from a given string if not escaped. It can be configured in the tobago-config.xml.
+      If you want to write your own sanitizer, you have to implement
+      <code>org.apache.myfaces.tobago.sanitizer.Sanitizer</code>.
+      Use <code>sanitize=never</code> to deactivate this.</p>
+    <tc:button label="Escape and sanitize off (escape=false, sanitize=never)" omit="true">
+      <f:facet name="popover">
+        <tc:popover value="#{popoverController.html}" escape="false" sanitize="never"/>
+      </f:facet>
+    </tc:button>
+  </tc:section>
+
+</ui:composition>

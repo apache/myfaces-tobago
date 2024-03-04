@@ -17,6 +17,10 @@
 
 import {Popover} from "bootstrap";
 
+enum SanitizeMode {
+  auto, never
+}
+
 class TobagoPopover extends HTMLElement {
 
   private instance: Popover;
@@ -26,18 +30,50 @@ class TobagoPopover extends HTMLElement {
   }
 
   connectedCallback(): void {
-    this.instance = new Popover(this.trigger, {
-      container: this.popoverStore
+    this.instance = new Popover(this.baseElement, {
+      container: this.popoverStore,
+      customClass: this.customClass,
+      title: this.label,
+      content: this.value,
+      html: !this.escape,
+      sanitize: this.sanitize === SanitizeMode.auto,
+      trigger: "focus"
     });
   }
 
-  get trigger(): HTMLElement {
-    return this;
+  get baseElement(): HTMLElement {
+    if (this.parentElement?.tagName === "A" || this.parentElement?.tagName === "BUTTON") {
+      return this.parentElement;
+    } else {
+      return this;
+    }
   }
 
   get popoverStore(): HTMLDivElement {
     const root = document.getRootNode() as ShadowRoot | Document;
     return root.querySelector<HTMLDivElement>(".tobago-page-popoverStore");
+  }
+
+  get customClass(): string {
+    const customClass = this.getAttribute("custom-class");
+    return customClass ? customClass : "";
+  }
+
+  get label(): string {
+    const label = this.getAttribute("label");
+    return label ? label : "";
+  }
+
+  get value(): string {
+    return this.getAttribute("value");
+  }
+
+  get escape(): boolean {
+    return this.getAttribute("escape") !== "false";
+  }
+
+  get sanitize(): SanitizeMode {
+    return SanitizeMode[this.getAttribute("sanitize")];
   }
 }
 
