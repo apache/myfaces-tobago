@@ -51,7 +51,7 @@
     <maven-pmd-plugin.version>3.20.0</maven-pmd-plugin.version>
     <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
     <junit-jupiter.version>5.10.2</junit-jupiter.version>
-    <testcontainers.version>1.19.6</testcontainers.version>
+    <testcontainers.version>1.19.7</testcontainers.version>
     <checkstyle-rules.version>23</checkstyle-rules.version>
 
     <!-- Note: defined here in master pom, because of problems with enforcer plugin -->
