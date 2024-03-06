@@ -476,11 +476,6 @@ Tobago.Sheet.adjustTableWidth = function(bodyDiv) {
     var tableWidth = table.css("width").replace("px", "") * 1;
     console.log("tableWidth : " + tableWidth); // @DEV_ONLY
     if (tableWidth < bodyDivWidth) {
-
-      var fillerWidth = bodyDiv.prev().find("col").last().attr("width").replace("px", "") * 1;
-      console.log("set filler col width : " + fillerWidth); // @DEV_ONLY
-      table.find("col").last().attr("width", fillerWidth);
-
       console.log("set table width : " + bodyDivWidth); // @DEV_ONLY
       table.css("width", bodyDivWidth);
     }
