@@ -9,19 +9,12 @@
     "sourceMap": true,
     "inlineSources": true,
     "removeComments": false,
-    "noEmitOnError": true,
-    "moduleResolution": "node",
-    "esModuleInterop": true
+    "noEmitOnError": true
   },
   "include": [
-//    "tobago-theme-standard/src/main/ts/tobago-all.ts",
-//    "tobago-theme-standard/src/main/ts/faces.d.ts",
     "tobago-theme-standard/src/main/ts/*.ts"
   ],
   "exclude": [
-    "node_modules",
-    "node",
-    "tobago-theme-standard/npm/dist"
-  ],
-  "_comment for moduleResolution": "this is to fix a compiler problem with @babel/types, see: https://github.com/microsoft/TypeScript/issues/11103"
+    "node_modules"
+  ]
 }

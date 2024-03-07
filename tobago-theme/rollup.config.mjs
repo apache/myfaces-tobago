@@ -22,7 +22,7 @@ import terser from "@rollup/plugin-terser";
 import commonjs from "@rollup/plugin-commonjs";
 
 export default {
-  input: 'tobago-theme-standard/src/main/ts/tobago-all.ts',
+  input: 'tobago-theme-standard/src/main/ts/tobago-init.ts',
   output: [
     {
       file: 'tobago-theme-standard/src/main/js/tobago.js',
