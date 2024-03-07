@@ -15,20 +15,19 @@
  * limitations under the License.
  */
 
+// custom elements
 import "./tobago-bar";
 import "./tobago-behavior";
-import "./tobago-behavior-mode";
-import "./tobago-collapsible-operation";
-import "./tobago-dropdown";
 import "./tobago-date";
+import "./tobago-dropdown";
 import "./tobago-file";
 import "./tobago-focus";
 import "./tobago-footer";
 import "./tobago-in";
 import "./tobago-messages";
 import "./tobago-overlay";
+import "./tobago-page";
 import "./tobago-panel";
-import "./tobago-polyfill";
 import "./tobago-popover";
 import "./tobago-popup";
 import "./tobago-range";
@@ -36,8 +35,8 @@ import "./tobago-reload";
 import "./tobago-scroll";
 import "./tobago-select-boolean-checkbox";
 import "./tobago-select-boolean-toggle";
-import "./tobago-select-many-list";
 import "./tobago-select-many-checkbox";
+import "./tobago-select-many-list";
 import "./tobago-select-many-listbox";
 import "./tobago-select-many-shuttle";
 import "./tobago-select-one-choice";
@@ -47,7 +46,6 @@ import "./tobago-select-one-radio";
 import "./tobago-sheet";
 import "./tobago-split-layout";
 import "./tobago-stars";
-import "./tobago-suggest";
 import "./tobago-tab";
 import "./tobago-textarea";
 import "./tobago-toasts";
@@ -55,6 +53,9 @@ import "./tobago-tree";
 import "./tobago-tree-listbox";
 import "./tobago-tree-node";
 import "./tobago-tree-select";
+
+//polyfill
+import "./tobago-polyfill";
 
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded",
