@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-.hide-navigation{
+.hide-navigation {
   display: none;
 }
 
-.navigation-box{
+.navigation-box {
   --bs-card-border-radius: 0;
   border: none;
 }
@@ -68,11 +68,11 @@ demo-highlight {
 }
 
 .planet {
-  background-color: #5cb85c;
+  --bs-table-bg: #5cb85c;
 }
 
 .old-planet {
-  background-color: #b3d4fc;
+  --bs-table-bg: #b3d4fc;
 }
 
 .tobago-sheet-cell-markup-sun {
