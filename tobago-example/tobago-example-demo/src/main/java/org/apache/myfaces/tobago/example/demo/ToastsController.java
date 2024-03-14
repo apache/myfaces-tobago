@@ -31,6 +31,7 @@ import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -44,10 +45,9 @@ public class ToastsController implements Serializable {
 
   private final List<ToastFacesMessage> toastFacesMessages = new ArrayList<>();
   private final List<Progress> progressBars = new ArrayList<>();
-  private final List<CustomToast> customToasts = new ArrayList<>();
+  private final List<CustomCssToast> customCssToasts = new ArrayList<>();
   private String severity;
   private ScheduledExecutorService scheduledExecutorService;
-  private String customToastMessage;
 
   public List<ToastFacesMessage> getToastFacesMessages() {
     return toastFacesMessages;
@@ -94,20 +94,12 @@ public class ToastsController implements Serializable {
     }
   }
 
-  public List<CustomToast> getCustomToasts() {
-    return customToasts;
+  public List<CustomCssToast> getCustomCssToasts() {
+    return customCssToasts;
   }
 
-  public void createCustomToast() {
-    customToasts.add(new CustomToast(customToastMessage));
-  }
-
-  public String getCustomToastMessage() {
-    return customToastMessage;
-  }
-
-  public void setCustomToastMessage(String customToastMessage) {
-    this.customToastMessage = customToastMessage;
+  public void createCustomCssToast() {
+    customCssToasts.add(new CustomCssToast());
   }
 
   public static class ToastFacesMessage implements Toast {
@@ -174,12 +166,15 @@ public class ToastsController implements Serializable {
     }
   }
 
-  public static class CustomToast implements Toast {
+  public static class CustomCssToast implements Toast {
     private final String id = String.valueOf(UUID.randomUUID());
-    private final String text;
+    private final String cssClass;
 
-    public CustomToast(String text) {
-      this.text = text;
+    public CustomCssToast() {
+      String[] cssClasses = {
+          "text-bg-primary", "text-bg-success", "text-bg-danger", "text-bg-warning", "text-bg-info", "text-bg-dark"};
+      Random random = new Random();
+      cssClass = cssClasses[random.nextInt(cssClasses.length)];
     }
 
     @Override
@@ -187,8 +182,8 @@ public class ToastsController implements Serializable {
       return id;
     }
 
-    public String getText() {
-      return text;
+    public String getCssClass() {
+      return cssClass;
     }
   }
 }

@@ -35,7 +35,22 @@
 
   <tc:section label="ToastFacesMessage">
     <p>FacesMessage but as a toast.</p>
-    <tc:selectOneChoice label="Severity" value="#{toastsController.severity}">
+
+    <demo-highlight language="markup">&lt;tc:toasts id="toastFacesMessages" value="\#{toastsController.toastFacesMessages}"
+           var="toastFacesMessage" placement="bottomLeft">
+  &lt;f:facet name="header">
+    &lt;tc:panel>
+      &lt;tc:style customClass="rounded me-2 \#{toastFacesMessage.severityColor}"
+                width="1.25rem" height="1.25rem"/>
+    &lt;/tc:panel>
+    &lt;strong>
+      &lt;tc:out value="\#{toastFacesMessage.severityText}" plain="true"/>
+    &lt;/strong>
+  &lt;/f:facet>
+  &lt;tc:out value="\#{toastFacesMessage.text}" plain="true"/>
+&lt;/tc:toasts></demo-highlight>
+
+    <tc:selectOneChoice id="severitySelection" label="Severity" value="#{toastsController.severity}">
       <tc:selectItem itemLabel="Information" itemValue="info"/>
       <tc:selectItem itemLabel="Warning" itemValue="warn"/>
       <tc:selectItem itemLabel="Error" itemValue="error"/>
@@ -44,7 +59,7 @@
     </tc:selectOneChoice>
     <tc:button label="ToastFacesMessage" action="#{toastsController.createToastFacesMessage()}"/>
     <tc:button label="ToastFacesMessage (AJAX)" action="#{toastsController.createToastFacesMessage()}">
-      <f:ajax execute="toastFacesMessages" render="toastFacesMessages"/>
+      <f:ajax execute="severitySelection toastFacesMessages" render="toastFacesMessages"/>
     </tc:button>
 
     <tc:toasts id="toastFacesMessages" value="#{toastsController.toastFacesMessages}" var="toastFacesMessage"
@@ -63,8 +78,23 @@
   </tc:section>
 
   <tc:section label="Progress bar">
-    <p>Create a toast with a progress bar. The toast is removed after the progress is 100%.
-      The close button is hidden.</p>
+    <p>Create a toast with a progress bar. Automatic dispose after a specific time is disabled
+      (<code>disposeDelay="-1"</code>). The close button is hidden (<code>markup="hideCloseButton"</code>).
+      The component is refreshed every 100ms. After the progress bar has reached 100%, the progress bar object is
+      removed from the list (<code>value="\#{toastsController.progressBars}"</code>. After the next refresh the related
+      toast will also be removed from the page.</p>
+
+    <demo-highlight language="markup">&lt;tc:toasts id="progressBarToasts" value="\#{toastsController.progressBars}"
+           var="progress" disposeDelay="-1" markup="hideCloseButton">
+  &lt;f:facet name="reload">
+    &lt;tc:reload frequency="100"/>
+  &lt;/f:facet>
+  &lt;f:facet name="header">
+    &lt;tc:out value="Progress" plain="true"/>
+  &lt;/f:facet>
+  &lt;tc:progress value="\#{progress.value}" max="\#{progress.max}"/>
+&lt;/tc:toasts></demo-highlight>
+
     <tc:button label="Progress bar toast" action="#{toastsController.createProgressBarToast()}"/>
     <tc:button label="Progress bar toast (AJAX)" action="#{toastsController.createProgressBarToast()}">
       <f:ajax execute="progressBarToasts" render="progressBarToasts"/>
@@ -82,29 +112,29 @@
     </tc:toasts>
   </tc:section>
 
-  <tc:section label="Custom toast">
-    <p>Create a custom toast. The message can be written in the input field. The toast also contains an AJAX refresh
-      button for the following timestamp.</p>
-    <tc:in id="customToastMessage" label="Message" value="#{toastsController.customToastMessage}"/>
-    <tc:button label="Custom toast" action="#{toastsController.createCustomToast()}"/>
-    <tc:button label="Custom toast (AJAX)" action="#{toastsController.createCustomToast()}">
+  <tc:section label="Custom CSS class">
+    <p>To put a custom CSS class on a toast, use
+      <code class="language-markup">&lt;tc:style customClass="..."/></code>.</p>
+
+    <demo-highlight language="markup">&lt;tc:toasts id="customToasts" value="\#{toastsController.customCssToasts}" var="customToast">
+  &lt;tc:style customClass="\#{customToast.cssClass}"/>
+  &lt;f:facet name="header">
+    &lt;tc:out value="Custom toast" plain="true"/>
+  &lt;/f:facet>
+  &lt;tc:out value="The used CSS class is: \#{customToast.cssClass}" plain="true"/>
+&lt;/tc:toasts></demo-highlight>
+
+    <tc:button label="Custom CSS toast" action="#{toastsController.createCustomCssToast()}"/>
+    <tc:button label="Custom CSS toast (AJAX)" action="#{toastsController.createCustomCssToast()}">
       <f:ajax execute="customToastMessage customToasts" render="customToasts"/>
     </tc:button>
 
-    <tc:out id="now" label="Timestamp" value="#{eventController.currentTimestamp}"/>
-
-    <tc:toasts id="customToasts" value="#{toastsController.customToasts}" var="customToast" disposeDelay="-1">
-      <tc:style customClass="customCssClass"/>
+    <tc:toasts id="customToasts" value="#{toastsController.customCssToasts}" var="customToast">
+      <tc:style customClass="#{customToast.cssClass}"/>
       <f:facet name="header">
         <tc:out value="Custom toast" plain="true"/>
       </f:facet>
-      <tc:out value="Message: #{customToast.text}" plain="true"/>
-      <tc:panel>
-        <tc:style height="1rem"/>
-      </tc:panel>
-      <tc:button label="refresh timestamp">
-        <f:ajax render=":::now"/>
-      </tc:button>
+      <tc:out value="The used CSS class is: #{customToast.cssClass}" plain="true"/>
     </tc:toasts>
   </tc:section>
 </ui:composition>
