@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIData;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
@@ -40,9 +42,6 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -73,6 +72,7 @@ public class TreeListboxRenderer<T extends AbstractUITreeListbox> extends Render
 
     writer.startElement(HtmlElements.TOBAGO_TREE_LISTBOX);
     writer.writeIdAttribute(clientId);
+    writer.writeClassAttribute(component.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     writer.writeAttribute(DataAttributes.SELECTION_MODE, component.getSelectable().name(), false);
 
