@@ -72,6 +72,7 @@ public class TreeListboxRenderer<T extends AbstractUITreeListbox> extends Render
 
     writer.startElement(HtmlElements.TOBAGO_TREE_LISTBOX);
     writer.writeIdAttribute(clientId);
+    writer.writeClassAttribute(component.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     writer.writeAttribute(DataAttributes.SELECTION_MODE, component.getSelectable().name(), false);
 
