@@ -64,12 +64,11 @@ import org.apache.myfaces.tobago.component.UITabGroup;
 import org.apache.myfaces.tobago.component.UITextarea;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeIndent;
+import org.apache.myfaces.tobago.component.UITreeLabel;
+import org.apache.myfaces.tobago.component.UITreeListbox;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.component.UITreeSelect;
 import org.apache.myfaces.tobago.config.TobagoConfig;
-
-import static org.apache.myfaces.tobago.config.TobagoConfig.TOBAGO_CONFIG;
-
 import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.BadgeRenderer;
@@ -110,13 +109,12 @@ import org.apache.myfaces.tobago.internal.renderkit.renderer.TabRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.TextareaRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.TobagoClientBehaviorRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.TreeIndentRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.TreeLabelRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.TreeListboxRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.TreeNodeRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.TreeRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.TreeSelectRenderer;
 import org.apache.myfaces.tobago.internal.webapp.HtmlResponseWriter;
-
-import static org.apache.myfaces.tobago.util.ResourceUtils.TOBAGO_RESOURCE_BUNDLE;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -130,6 +128,9 @@ import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Locale;
+
+import static org.apache.myfaces.tobago.config.TobagoConfig.TOBAGO_CONFIG;
+import static org.apache.myfaces.tobago.util.ResourceUtils.TOBAGO_RESOURCE_BUNDLE;
 
 /**
  * <p>Abstract JUnit test case base class, which sets up the JavaServer Faces
@@ -207,8 +208,10 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(Tags.tabGroup.componentType(), UITabGroup.class.getName());
     application.addComponent(Tags.textarea.componentType(), UITextarea.class.getName());
     application.addComponent(Tags.tree.componentType(), UITree.class.getName());
-    application.addComponent(Tags.treeNode.componentType(), UITreeNode.class.getName());
     application.addComponent(Tags.treeIndent.componentType(), UITreeIndent.class.getName());
+    application.addComponent(Tags.treeLabel.componentType(), UITreeLabel.class.getName());
+    application.addComponent(Tags.treeListbox.componentType(), UITreeListbox.class.getName());
+    application.addComponent(Tags.treeNode.componentType(), UITreeNode.class.getName());
     application.addComponent(Tags.treeSelect.componentType(), UITreeSelect.class.getName());
     application.addComponent(UIParameter.COMPONENT_TYPE, UIParameter.class.getName());
 
@@ -268,9 +271,12 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     renderKit.addRenderer(UITabGroup.COMPONENT_FAMILY, RendererTypes.TAB_GROUP, new TabGroupRenderer<UITabGroup>());
     renderKit.addRenderer(UITextarea.COMPONENT_FAMILY, RendererTypes.TEXTAREA, new TextareaRenderer<UITextarea>());
     renderKit.addRenderer(UITree.COMPONENT_FAMILY, RendererTypes.TREE, new TreeRenderer<UITree>());
-    renderKit.addRenderer(UITreeNode.COMPONENT_FAMILY, RendererTypes.TREE_NODE, new TreeNodeRenderer<UITreeNode>());
     renderKit.addRenderer(UITreeIndent.COMPONENT_FAMILY, RendererTypes.TREE_INDENT,
         new TreeIndentRenderer<UITreeIndent>());
+    renderKit.addRenderer(UITreeLabel.COMPONENT_FAMILY, RendererTypes.TREE_LABEL, new TreeLabelRenderer<UITreeLabel>());
+    renderKit.addRenderer(UITreeListbox.COMPONENT_FAMILY, RendererTypes.TREE_LISTBOX,
+        new TreeListboxRenderer<UITreeListbox>());
+    renderKit.addRenderer(UITreeNode.COMPONENT_FAMILY, RendererTypes.TREE_NODE, new TreeNodeRenderer<UITreeNode>());
     renderKit.addRenderer(UITreeSelect.COMPONENT_FAMILY, RendererTypes.TREE_SELECT,
         new TreeSelectRenderer<UITreeSelect>());
 
