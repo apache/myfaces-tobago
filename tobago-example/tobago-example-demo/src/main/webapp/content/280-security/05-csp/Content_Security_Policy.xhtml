@@ -47,11 +47,9 @@
           value="When you can read this text, the content was manipulated by JavaScript. It seems, your browser doesn't support CSP!"/>
       <i class="bi-exclamation-triangle fs-2 text-danger"></i>
     </tc:panel>
-    <script type="application/javascript">
-      document.addEventListener("DOMContentLoaded", function (event) {
-        document.getElementById("page:mainForm:panel-good").classList.add("d-none");
-        document.getElementById("page:mainForm:panel-bad").classList.remove("d-none");
-      });</script>
+    <!--@formatter:off-->
+    <script type="application/javascript">document.addEventListener("DOMContentLoaded", function (event) {document.getElementById("page:mainForm:panel-good").classList.add("d-none");document.getElementById("page:mainForm:panel-bad").classList.remove("d-none");});</script>
+    <!--@formatter:on-->
   </tc:box>
 
 </ui:composition>
