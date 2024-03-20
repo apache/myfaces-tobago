@@ -35,7 +35,7 @@
     </after>
   </ordering>
 
-<!-- using all available themes, if this is not set XXX to be implemented TOBAGO-1664 -->
+  <!-- using all available themes, if this is not set XXX to be implemented TOBAGO-1664 -->
   <theme-config>
     <default-theme>standard</default-theme>
     <supported-theme>scarborough</supported-theme>
@@ -47,14 +47,14 @@
   </theme-config>
 
   <!-- currently you need to switch this check off for quarkus -->
-<!--  <check-session-secret>false</check-session-secret>-->
+  <!--  <check-session-secret>false</check-session-secret>-->
 
   <!-- This is needed for the testing functionality of the demo, it works with iframes -->
   <prevent-frame-attacks>false</prevent-frame-attacks>
 
   <content-security-policy mode="on">
-    <!-- script-src: 'unsafe-inline' is required for WebSockets -->
-    <directive name="script-src">'unsafe-inline'</directive>
+    <!-- script-src: 'unsafe-inline' is required for WebSockets but breaks the CSP example -->
+    <!-- <directive name="script-src">'unsafe-inline'</directive> -->
 
     <!-- needed for <tc:object> demo -->
     <directive name="child-src">https://www.openstreetmap.org</directive>
@@ -62,8 +62,6 @@
 
     <!-- needed for the test suite -->
     <directive name="child-src">'self'</directive>
-
-    <!-- needed for the test suite -->
     <directive name="frame-ancestors">'self'</directive>
 
     <!-- needed for the tinymce editor demo -->
@@ -79,17 +77,17 @@
   <!-- "disable" is the default -->
   <!--<security-annotation>disable</security-annotation>-->
 
-<!-- this is the default...
-  <sanitizer>
-    <sanitizer-class>org.apache.myfaces.tobago.sanitizer.JsoupSanitizer</sanitizer-class>
-    <properties>
-      &lt;!&ndash;
-       Use one of: basic, basicWithImages, relaxed, simpleText or none
-       &ndash;&gt;
-      <entry key="safelist">relaxed</entry>
-    </properties>
-  </sanitizer>
--->
+  <!-- this is the default...
+    <sanitizer>
+      <sanitizer-class>org.apache.myfaces.tobago.sanitizer.JsoupSanitizer</sanitizer-class>
+      <properties>
+        &lt;!&ndash;
+         Use one of: basic, basicWithImages, relaxed, simpleText or none
+         &ndash;&gt;
+        <entry key="safelist">relaxed</entry>
+      </properties>
+    </sanitizer>
+  -->
 
   <!-- "false" disables the TobagoExceptionHandler -->
   <!--<enable-tobago-exception-handler>false</enable-tobago-exception-handler>-->
