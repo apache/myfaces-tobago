@@ -182,6 +182,7 @@ public enum HtmlElements {
   TOBAGO_SELECT_ONE_RADIO("tobago-select-one-radio"),
   TOBAGO_SEPARATOR("tobago-separator"),
   TOBAGO_SHEET("tobago-sheet"),
+  TOBAGO_SIDEBAR("tobago-sidebar"),
   TOBAGO_SPLIT_LAYOUT("tobago-split-layout"),
   TOBAGO_STARS("tobago-stars"),
   TOBAGO_SUGGEST("tobago-suggest"),

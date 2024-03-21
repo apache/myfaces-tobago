@@ -21,6 +21,7 @@ import {CollapseOperation} from "./tobago-collapse-operation";
 import {BehaviorMode} from "./tobago-behavior-mode";
 import {Css} from "./tobago-css";
 import {Popup} from "./tobago-popup";
+import {Sidebar} from "./tobago-sidebar";
 
 export class Collapse {
 
@@ -44,7 +45,7 @@ export class Collapse {
     }
     if (newCollapsed) {
       Collapse.fireEvent(target, "hide");
-      if (target instanceof Popup) {
+      if (target instanceof Popup || target instanceof Sidebar) {
         target.clientBehaviorHide(behaviorMode);
       } else {
         target.classList.add(Css.TOBAGO_COLLAPSED);
@@ -52,7 +53,7 @@ export class Collapse {
       Collapse.fireEvent(target, "hidden");
     } else {
       Collapse.fireEvent(target, "show");
-      if (target instanceof Popup) {
+      if (target instanceof Popup || target instanceof Sidebar) {
         target.clientBehaviorShow(behaviorMode);
       } else {
         target.classList.remove(Css.TOBAGO_COLLAPSED);

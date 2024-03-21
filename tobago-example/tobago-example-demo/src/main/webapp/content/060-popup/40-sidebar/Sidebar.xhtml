@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="jakarta.faces.core"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="jakarta.faces.facelets">
+
+  <p>A sidebar is created with <code class="language-markup">&lt;tc:sidebar/></code>. It's based one the
+    <tc:link label="Collapsible" outcome="/content/130-collapsible/01-overview/Overview.xhtml"/> concept.</p>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:sidebar/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.tobagoTld}/tc/sidebar.html"/>
+    |
+    <tc:link label="&lt;tc:operation/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.tobagoTld}/tc/operation.html"/></p>
+
+  <tc:section label="Server side (Ajax)">
+    <demo-highlight language="markup">&lt;tc:button label="Open sidebar">
+  &lt;tc:operation for="ajaxSidebar" name="show"/>
+  &lt;f:ajax execute="ajaxSidebar" render="ajaxSidebar"/>
+&lt;/tc:button>
+&lt;tc:sidebar id="ajaxSidebar">
+  &lt;f:facet name="label">Server side (Ajax)&lt;/f:facet>
+  &lt;f:facet name="bar">
+    &lt;tc:link image="bi-x-lg">
+      &lt;tc:operation name="hide" for="ajaxSidebar"/>
+      &lt;f:ajax execute="ajaxSidebar" render="ajaxSidebar"/>
+    &lt;/tc:link>
+  &lt;/f:facet>
+  Content of the server side sidebar.
+&lt;/tc:sidebar></demo-highlight>
+    <tc:button label="Open sidebar">
+      <tc:operation for="ajaxSidebar" name="show"/>
+      <f:ajax execute="ajaxSidebar" render="ajaxSidebar"/>
+    </tc:button>
+    <tc:sidebar id="ajaxSidebar">
+      <f:facet name="label">Server side (Ajax)</f:facet>
+      <f:facet name="bar">
+        <tc:link image="bi-x-lg">
+          <tc:operation name="hide" for="ajaxSidebar"/>
+          <f:ajax execute="ajaxSidebar" render="ajaxSidebar"/>
+        </tc:link>
+      </f:facet>
+      Content of the server side sidebar.
+    </tc:sidebar>
+  </tc:section>
+
+  <tc:section label="Client side">
+    <demo-highlight language="markup">&lt;tc:button label="Open sidebar" omit="true">
+  &lt;tc:operation for="clientSidebar" name="show"/>
+&lt;/tc:button>
+&lt;tc:sidebar id="clientSidebar" collapsedMode="hidden">
+  &lt;f:facet name="label">Client side&lt;/f:facet>
+  &lt;f:facet name="bar">
+    &lt;tc:link image="bi-x-lg" omit="true">
+      &lt;tc:operation name="hide" for="clientSidebar"/>
+    &lt;/tc:link>
+  &lt;/f:facet>
+  Content of the client side sidebar.
+&lt;/tc:sidebar></demo-highlight>
+    <tc:button label="Open sidebar" omit="true">
+      <tc:operation for="clientSidebar" name="show"/>
+    </tc:button>
+    <tc:sidebar id="clientSidebar" collapsedMode="hidden">
+      <f:facet name="label">Client side</f:facet>
+      <f:facet name="bar">
+        <tc:link image="bi-x-lg" omit="true">
+          <tc:operation name="hide" for="clientSidebar"/>
+        </tc:link>
+      </f:facet>
+      Content of the client side sidebar.
+    </tc:sidebar>
+  </tc:section>
+
+  <tc:section label="Placement">
+    <p>Use the <code class="language-markup">placement</code> attribute to set the position of the sidebar.
+      Possible values are <code>top</code>, <code>left</code>, <code>right</code> and <code>bottom</code>.
+    </p>
+
+    <tc:button label="Open top sidebar" omit="true">
+      <tc:operation for="topSidebar" name="show"/>
+    </tc:button>
+    <tc:button label="Open left sidebar" omit="true">
+      <tc:operation for="leftSidebar" name="show"/>
+    </tc:button>
+    <tc:button label="Open right sidebar" omit="true">
+      <tc:operation for="rightSidebar" name="show"/>
+    </tc:button>
+    <tc:button label="Open bottom sidebar" omit="true">
+      <tc:operation for="bottomSidebar" name="show"/>
+    </tc:button>
+
+    <tc:sidebar id="topSidebar" collapsedMode="hidden" placement="top">
+      <p>Content of the top sidebar.</p>
+      <tc:link label="Close sidebar" omit="true">
+        <tc:operation for="topSidebar" name="hide"/>
+      </tc:link>
+    </tc:sidebar>
+    <tc:sidebar id="leftSidebar" collapsedMode="hidden" placement="left">
+      <p>Content of the left sidebar.</p>
+      <tc:link label="Close sidebar" omit="true">
+        <tc:operation for="leftSidebar" name="hide"/>
+      </tc:link>
+    </tc:sidebar>
+    <tc:sidebar id="rightSidebar" collapsedMode="hidden" placement="right">
+      <p>Content of the right sidebar.</p>
+      <tc:link label="Close sidebar" omit="true">
+        <tc:operation for="rightSidebar" name="hide"/>
+      </tc:link>
+    </tc:sidebar>
+    <tc:sidebar id="bottomSidebar" collapsedMode="hidden" placement="bottom">
+      <p>Content of the bottom sidebar.</p>
+      <tc:link label="Close sidebar" omit="true">
+        <tc:operation for="bottomSidebar" name="hide"/>
+      </tc:link>
+    </tc:sidebar>
+  </tc:section>
+
+  <tc:section label="Events">
+    <p>A JavaScript custom event is fired if a <code
+        class="language-markup">&lt;tc:sidebar/></code> is collapsed or expanded.</p>
+    <p><code>tobago.sidebar.show</code> is fired before the box is expanded.</p>
+    <p><code>tobago.sidebar.shown</code> is fired after the box is expanded. (Does not wait for a possible Ajax reload.)
+    </p>
+    <p><code>tobago.sidebar.hide</code> is fired before the box is collaped.</p>
+    <p>
+      <code>tobago.sidebar.hidden</code> is fired after the box is collapsed. (Does not wait for a possible Ajax reload.)
+    </p>
+  </tc:section>
+</ui:composition>
