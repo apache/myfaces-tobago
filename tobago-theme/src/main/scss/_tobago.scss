@@ -1368,6 +1368,33 @@ tobago-section {
   }
 }
 
+tobago-sidebar {
+  display: block;
+
+  > .offcanvas-header {
+    > .offcanvas-title {
+      font-size: 1.25rem;
+    }
+
+    > .tobago-bar {
+      margin-left: auto;
+
+      .tobago-link {
+        color: $btn-close-color;
+        opacity: $btn-close-opacity;
+
+        &:hover {
+          opacity: $btn-close-hover-opacity;
+        }
+
+        &:focus {
+          opacity: $btn-close-focus-opacity;
+        }
+      }
+    }
+  }
+}
+
 /* stars rating ------------------------------------------------------------ */
 
 tobago-stars {

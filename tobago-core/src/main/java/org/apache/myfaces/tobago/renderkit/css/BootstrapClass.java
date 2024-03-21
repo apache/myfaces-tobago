@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.renderkit.css;
 
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIComponent;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsSegmentLayout;
 import org.apache.myfaces.tobago.context.Markup;
@@ -33,9 +35,6 @@ import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.layout.VerticalAlign;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.component.UIComponent;
 
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
@@ -505,6 +504,14 @@ public enum BootstrapClass implements CssItem {
   NAVBAR_NAV("navbar-nav"),
   NAVBAR_TOGGLER("navbar-toggler"),
   NAVBAR_TOGGLER_ICON("navbar-toggler-icon"),
+  OFFCANVAS("offcanvas"),
+  OFFCANVAS_BODY("offcanvas-body"),
+  OFFCANVAS_BOTTOM("offcanvas-bottom"),
+  OFFCANVAS_END("offcanvas-end"),
+  OFFCANVAS_HEADER("offcanvas-header"),
+  OFFCANVAS_START("offcanvas-start"),
+  OFFCANVAS_TITLE("offcanvas-title"),
+  OFFCANVAS_TOP("offcanvas-top"),
   OFFSET_1("offset-1"),
   OFFSET_2("offset-2"),
   OFFSET_3("offset-3"),

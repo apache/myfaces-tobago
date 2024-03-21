@@ -51,6 +51,7 @@ import "./tobago-select-one-list";
 import "./tobago-select-one-listbox";
 import "./tobago-select-one-radio";
 import "./tobago-sheet";
+import "./tobago-sidebar";
 import "./tobago-split-layout";
 import "./tobago-stars";
 import "./tobago-tab";

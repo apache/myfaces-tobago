@@ -402,6 +402,10 @@ PlacementProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
+SidebarPlacementProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
 LocalDateProperty(property) ::= <<
 <NormalProperty(property)>
 >>

@@ -92,6 +92,7 @@ public enum Tags {
   selectReference,
   separator,
   sheet,
+  sidebar,
   splitLayout,
   stars,
   style,
@@ -173,6 +174,7 @@ public enum Tags {
   public static final String SELECT_REFERENCE = "selectReference";
   public static final String SEPARATOR = "separator";
   public static final String SHEET = "sheet";
+  public static final String SIDEBAR = "sidebar";
   public static final String SPLIT_LAYOUT = "splitLayout";
   public static final String STARS = "stars";
   public static final String STYLE = "style";
