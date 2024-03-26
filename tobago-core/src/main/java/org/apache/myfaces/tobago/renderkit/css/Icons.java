@@ -53,10 +53,11 @@ public enum Icons implements CssItem {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  private static final Pattern PATTERN = Pattern.compile("^(bi|fa|(fas|far|fal|fad)\\sfa)-[\\w\\d-]+$");
   private static final Pattern PATTERN_BI = Pattern.compile("^bi-[\\w\\d-]+$");
   private static final Pattern PATTERN_FA = Pattern.compile("^fa-[\\w\\d-]+$");
   private static final Pattern PATTERN_FA5 = Pattern.compile("^(fas|far|fal|fad)\\sfa-[\\w\\d-]+$");
+  private static final Pattern PATTERN_FA6 =
+      Pattern.compile("^(fa-sharp )?fa-(solid|regular|light|duotone|thin) fa-[\\w\\d-]+$");
 
   private final String clazz;
 
@@ -70,7 +71,7 @@ public enum Icons implements CssItem {
   }
 
   public static boolean matches(final String value) {
-    return value != null && PATTERN.matcher(value).matches();
+    return custom(value).getName() != null;
   }
 
   public static CssItem custom(final String name) {
@@ -85,16 +86,18 @@ public enum Icons implements CssItem {
         if (PATTERN_BI.matcher(name).matches()) {
           return name;
         }
-        if (PATTERN_FA.matcher(name).matches()) {
-          return "fa " + name;
+        if (PATTERN_FA6.matcher(name).matches()) {
+          return name;
         }
         if (PATTERN_FA5.matcher(name).matches()) {
           return name;
+        }
+        if (PATTERN_FA.matcher(name).matches()) {
+          return "fa " + name;
         }
         LOG.warn("Unknown icon format for name: '" + name + "'");
         return null;
       }
     };
   }
-
 }

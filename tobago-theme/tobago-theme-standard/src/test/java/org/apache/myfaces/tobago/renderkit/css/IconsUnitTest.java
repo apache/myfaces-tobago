@@ -83,4 +83,21 @@ public class IconsUnitTest {
     Assertions.assertFalse(Icons.matches("fax fa-code"));
     Assertions.assertNull(Icons.custom("fax fa-code").getName());
   }
+
+  @Test
+  public void iconFontawesome6() {
+    Assertions.assertTrue(Icons.matches("fa-solid fa-code"));
+    Assertions.assertTrue(Icons.matches("fa-regular fa-code"));
+    Assertions.assertTrue(Icons.matches("fa-light fa-code"));
+    Assertions.assertTrue(Icons.matches("fa-duotone fa-code"));
+    Assertions.assertTrue(Icons.matches("fa-thin fa-code"));
+    Assertions.assertTrue(Icons.matches("fa-sharp fa-solid fa-code"));
+    Assertions.assertTrue(Icons.matches("fa-sharp fa-regular fa-code"));
+    Assertions.assertTrue(Icons.matches("fa-sharp fa-light fa-code"));
+    Assertions.assertTrue(Icons.matches("fa-sharp fa-thin fa-code"));
+    Assertions.assertTrue(Icons.matches("fa-solid fa-magnifying-glass"));
+    Assertions.assertFalse(Icons.matches("fa-asdf fa-magnifying-glass"));
+    Assertions.assertFalse(Icons.matches("fa-sharp fa-asdf fa-magnifying-glass"));
+    Assertions.assertFalse(Icons.matches("fa-shark fa-regular fa-magnifying-glass"));
+  }
 }
