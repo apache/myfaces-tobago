@@ -21,25 +21,13 @@ package org.apache.myfaces.tobago.internal.taglib.declaration;
 
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
 
-public interface HasSanitize {
+public interface HasEscape {
+
   /**
-   * Should HTML content sanitized?
-   * The effect of sanitizing depends on the configuration.
-   * The value "auto" means, that sanitizing take place for
-   * <ul>
-   *   <li>tc:out when escape="false" or</li>
-   *   <li>tc:popover when escape="false" or</li>
-   *   <li>tc:textarea when attribute data-html-editor is set,</li>
-   * </ul>
-   * because that are the critical parts.
+   * Flag indicating that characters that are sensitive in HTML and XML markup must be escaped.
    */
   @TagAttribute
-  @UIComponentTagAttribute(
-      type = "org.apache.myfaces.tobago.sanitizer.SanitizeMode",
-      defaultValue = SanitizeMode.AUTO,
-      allowedValues = {SanitizeMode.AUTO, SanitizeMode.NEVER},
-      defaultCode = "org.apache.myfaces.tobago.sanitizer.SanitizeMode.auto")
-  void setSanitize(String sanitize);
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
+  void setEscape(String escape);
 }

@@ -32,6 +32,7 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
   /**
    * &lt;f:ajax&gt; attribute
    */
+  ESCAPE("escape"),
   EXECUTE("execute"),
   EXPANDABLE("expandable"),
   FIELD_ID("field-id"),
@@ -62,6 +63,7 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
   OMIT("omit"),
   ORIENTATION("orientation"),
   PARENT("parent"),
+  SANITIZE("sanitize"),
   SELECTABLE("selectable"),
   SELECTED("selected"),
   /**
