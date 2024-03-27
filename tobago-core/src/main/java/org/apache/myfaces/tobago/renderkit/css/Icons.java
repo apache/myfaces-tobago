@@ -55,9 +55,9 @@ public enum Icons implements CssItem {
 
   private static final Pattern PATTERN_BI = Pattern.compile("^bi-[\\w\\d-]+$");
   private static final Pattern PATTERN_FA = Pattern.compile("^fa-[\\w\\d-]+$");
-  private static final Pattern PATTERN_FA5 = Pattern.compile("^(fas|far|fal|fad)\\sfa-[\\w\\d-]+$");
+  private static final Pattern PATTERN_FA5 = Pattern.compile("^(fas|far|fal|fad|fab)\\sfa-[\\w\\d-]+$");
   private static final Pattern PATTERN_FA6 =
-      Pattern.compile("^(fa-sharp )?fa-(solid|regular|light|duotone|thin) fa-[\\w\\d-]+$");
+      Pattern.compile("^(fa-sharp\\s)?fa-(solid|regular|light|duotone|thin)\\sfa-[\\w\\d-]+$");
 
   private final String clazz;
 

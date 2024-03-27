@@ -25,63 +25,37 @@ import org.junit.jupiter.api.Test;
 public class IconsUnitTest {
 
   @Test
-  public void iconBi() {
+  public void bootstrapIcons() {
     Assertions.assertTrue(Icons.matches("bi-code"));
     Assertions.assertEquals("bi-code", Icons.custom("bi-code").getName());
-  }
-
-  @Test
-  public void iconBiJpg() {
     Assertions.assertFalse(Icons.matches("bi-code.jpg"));
     Assertions.assertNull(Icons.custom("bi-code.jpg").getName());
   }
 
   @Test
-  public void iconFa() {
+  public void iconFontawesome4() {
     Assertions.assertTrue(Icons.matches("fa-code"));
     Assertions.assertEquals("fa fa-code", Icons.custom("fa-code").getName());
-  }
-
-  @Test
-  public void iconFx() {
     Assertions.assertFalse(Icons.matches("fx-code"));
     Assertions.assertNull(Icons.custom("fx-code").getName());
   }
 
   @Test
-  public void iconFas() {
+  public void iconFontawesome5() {
     Assertions.assertTrue(Icons.matches("fas fa-code"));
     Assertions.assertEquals("fas fa-code", Icons.custom("fas fa-code").getName());
-  }
-
-  @Test
-  public void iconFar() {
     Assertions.assertTrue(Icons.matches("far fa-code"));
     Assertions.assertEquals("far fa-code", Icons.custom("far fa-code").getName());
-  }
-
-  @Test
-  public void iconFarFaAngleLeft() {
     Assertions.assertTrue(Icons.matches("far fa-angle-left"));
     Assertions.assertEquals("far fa-angle-left", Icons.custom("far fa-angle-left").getName());
-  }
-
-  @Test
-  public void iconFal() {
     Assertions.assertTrue(Icons.matches("fal fa-code"));
     Assertions.assertEquals("fal fa-code", Icons.custom("fal fa-code").getName());
-  }
-
-  @Test
-  public void iconFad() {
     Assertions.assertTrue(Icons.matches("fad fa-code"));
     Assertions.assertEquals("fad fa-code", Icons.custom("fad fa-code").getName());
-  }
-
-  @Test
-  public void iconFax() {
     Assertions.assertFalse(Icons.matches("fax fa-code"));
     Assertions.assertNull(Icons.custom("fax fa-code").getName());
+    Assertions.assertTrue(Icons.matches("fab fa-elementor"));
+    Assertions.assertEquals("fab fa-elementor", Icons.custom("fab fa-elementor").getName());
   }
 
   @Test
