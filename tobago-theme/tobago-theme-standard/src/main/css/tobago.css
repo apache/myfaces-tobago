@@ -13596,12 +13596,8 @@ tobago-sheet header .table {
   margin-bottom: 0;
 }
 tobago-sheet header .table th {
-  font-weight: normal;
   position: relative;
   overflow: hidden;
-}
-tobago-sheet header .table th tobago-out {
-  font-weight: bold;
 }
 tobago-sheet header:hover .tobago-resize {
   background-color: #e9ecef;
