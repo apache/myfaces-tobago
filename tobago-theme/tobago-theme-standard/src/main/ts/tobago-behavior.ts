@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-import {Collapse} from "./tobago-popup";
+import {Collapse} from "./tobago-collapse";
 import {Page} from "./tobago-page";
-import {CollapseOperation} from "./tobago-collapsible-operation";
+import {CollapseOperation} from "./tobago-collapse-operation";
 import {BehaviorMode} from "./tobago-behavior-mode";
 import {Overlay} from "./tobago-overlay";
 import {OverlayType} from "./tobago-overlay-type";
