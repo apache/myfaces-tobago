@@ -45,12 +45,14 @@ public class PopupRenderer<T extends AbstractUIPopup> extends CollapsiblePanelRe
     final String clientId = component.getClientId(facesContext);
     final boolean collapsed = component.isCollapsed();
     final Markup markup = component.getMarkup();
+    final boolean staticBackdrop = component.isStaticBackdrop();
     final UIComponent labelFacet = ComponentUtils.getFacet(component, Facets.label);
     final UIComponent barFacet = ComponentUtils.getFacet(component, Facets.bar);
     final UIComponent footerFacet = ComponentUtils.getFacet(component, Facets.footer);
 
-    // this makes the popup NOT closable with a click to the background
-    ComponentUtils.putDataAttribute(component, "bs-backdrop", "static");
+    if (staticBackdrop) {
+      ComponentUtils.putDataAttribute(component, "bs-backdrop", "static");
+    }
 
     writer.startElement(HtmlElements.TOBAGO_POPUP);
     writer.writeIdAttribute(clientId);
