@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
@@ -32,9 +34,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-
 import java.io.IOException;
 
 public class PopupRenderer<T extends AbstractUIPopup> extends CollapsiblePanelRendererBase<T> {
@@ -46,12 +45,14 @@ public class PopupRenderer<T extends AbstractUIPopup> extends CollapsiblePanelRe
     final String clientId = component.getClientId(facesContext);
     final boolean collapsed = component.isCollapsed();
     final Markup markup = component.getMarkup();
+    final boolean staticBackdrop = component.isStaticBackdrop();
     final UIComponent labelFacet = ComponentUtils.getFacet(component, Facets.label);
     final UIComponent barFacet = ComponentUtils.getFacet(component, Facets.bar);
     final UIComponent footerFacet = ComponentUtils.getFacet(component, Facets.footer);
 
-    // this makes the popup NOT closable with a click to the background
-    ComponentUtils.putDataAttribute(component, "bs-backdrop", "static");
+    if (staticBackdrop) {
+      ComponentUtils.putDataAttribute(component, "bs-backdrop", "static");
+    }
 
     writer.startElement(HtmlElements.TOBAGO_POPUP);
     writer.writeIdAttribute(clientId);

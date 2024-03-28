@@ -19,6 +19,14 @@ import {Modal} from "bootstrap";
 import {BehaviorMode} from "./tobago-behavior-mode";
 import {Collapse} from "./tobago-collapse";
 
+const BootstrapPopupEvent = {
+  HIDE: "hide.bs.modal",
+  HIDDEN: "hidden.bs.modal",
+  HIDE_PREVENTED: "hidePrevented.bs.modal",
+  SHOW: "show.bs.modal",
+  SHOWN: "shown.bs.modal"
+};
+
 export class Popup extends HTMLElement {
 
   modal: Modal;
@@ -33,6 +41,22 @@ export class Popup extends HTMLElement {
     if (!this.collapsed) {
       this.clientBehaviorShow();
     }
+
+    this.addEventListener(BootstrapPopupEvent.HIDDEN, () => {
+      /**
+       * Notify server if popup is closed by clicking on the backdrop or press ESC.
+       */
+      if (this.connected) {
+        this.collapsed = true;
+
+        faces.ajax.request(
+            this,
+            null,
+            {
+              "tobago.collapsible.processState": "true"
+            });
+      }
+    });
   }
 
   disconnectedCallback(): void {
@@ -61,6 +85,14 @@ export class Popup extends HTMLElement {
 
   get collapsed(): boolean {
     return JSON.parse(Collapse.findHidden(this).value);
+  }
+
+  set collapsed(collapsed: boolean) {
+    Collapse.findHidden(this).value = String(collapsed);
+  }
+
+  get connected(): boolean {
+    return this.parentElement != null;
   }
 }
 
