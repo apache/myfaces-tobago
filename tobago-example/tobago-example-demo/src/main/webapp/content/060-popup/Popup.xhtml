@@ -162,8 +162,30 @@
     </tc:popup>
   </tc:section>
 
+  <tc:section label="Static backdrop">
+    <p>By default the popup can be closed by clicking on the backdrop or by pressing the ESC key.
+      This can be changed with the <code>staticBackdrop</code> attribute. The default value is "false".
+      It can be changed in the <code>tobago-config.xml</code>.</p>
+
+    <tc:button id="showStaticBackdrop" label="Open staticBackdrop Popup" omit="true">
+      <tc:operation name="show" for="staticBackdrop"/>
+    </tc:button>
+
+    <tc:popup id="staticBackdrop" collapsedMode="hidden" staticBackdrop="true">
+      <f:facet name="label">
+        Static Backdrop
+      </f:facet>
+      <f:facet name="bar">
+        <tc:link id="hideStaticBackdropTrue" image="bi-x-lg" omit="true">
+          <tc:operation name="hide" for="staticBackdrop"/>
+        </tc:link>
+      </f:facet>
+      <p>This popup can only be closed by clicking on the X button.</p>
+    </tc:popup>
+  </tc:section>
+
   <tc:section label="Plain Popup">
-<!--    todo-->
+    <!-- todo-->
     <tc:badge markup="warning">!</tc:badge> missing content
   </tc:section>
 
@@ -189,10 +211,11 @@
 
     <!--    todo-->
     <p>
-    <tc:badge markup="warning">tbd (to be defined)!</tc:badge> in this example the "show" should be
-    called directly, and not after the ajax call is complete. On the other and, to avoid flickering,
-    the popup should be shown after the ajax call.
-    (<tc:link link="https://issues.apache.org/jira/browse/TOBAGO-2083" label="Jira TOBAGO-2083" image="bi-box-arrow-up-right"/>)
+      <tc:badge markup="warning">tbd (to be defined)!</tc:badge> in this example the "show" should be
+      called directly, and not after the ajax call is complete. On the other and, to avoid flickering,
+      the popup should be shown after the ajax call.
+      (<tc:link link="https://issues.apache.org/jira/browse/TOBAGO-2083" label="Jira TOBAGO-2083"
+                image="bi-box-arrow-up-right"/>)
     </p>
 
     <tc:button id="openRefreshPopup" label="Open Popup" immediate="true">

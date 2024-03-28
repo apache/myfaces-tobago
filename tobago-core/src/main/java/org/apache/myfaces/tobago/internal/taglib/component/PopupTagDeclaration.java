@@ -62,6 +62,17 @@ public interface PopupTagDeclaration
     extends HasIdBindingAndRendered, IsVisual, HasTip {
 
   /**
+   * If "true", a click on the backdrop does not close the popup.
+   * Default value is "false" and can be configured in the tobago-config.xml.
+   */
+  @TagAttribute()
+  @UIComponentTagAttribute(
+      type = "boolean",
+      defaultCode = "Boolean.parseBoolean(org.apache.myfaces.tobago.context."
+          + "TobagoContext.getInstance(getFacesContext()).getTheme().getTagAttributeDefault(TAG, \"staticBackdrop\"))")
+  void setStaticBackdrop(String staticBackdrop);
+
+  /**
    * Indicating the collapsed state of this component.
    */
   @TagAttribute
