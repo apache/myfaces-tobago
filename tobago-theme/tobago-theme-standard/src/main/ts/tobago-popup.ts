@@ -17,8 +17,7 @@
 
 import {Modal} from "bootstrap";
 import {BehaviorMode} from "./tobago-behavior-mode";
-import {CollapseOperation} from "./tobago-collapsible-operation";
-import {Css} from "./tobago-css";
+import {Collapse} from "./tobago-collapse";
 
 export class Popup extends HTMLElement {
 
@@ -70,40 +69,3 @@ document.addEventListener("tobago.init", function (event: Event): void {
     window.customElements.define("tobago-popup", Popup);
   }
 });
-
-export class Collapse {
-
-  static findHidden(element: HTMLElement): HTMLInputElement {
-    const rootNode = element.getRootNode() as ShadowRoot | Document;
-    return rootNode.getElementById(element.id + "::collapse") as HTMLInputElement;
-  }
-
-  static execute = function (operation: CollapseOperation, target: HTMLElement, behaviorMode: BehaviorMode): void {
-    const hidden = Collapse.findHidden(target);
-    let newCollapsed;
-    switch (operation) {
-      case CollapseOperation.hide:
-        newCollapsed = true;
-        break;
-      case CollapseOperation.show:
-        newCollapsed = false;
-        break;
-      default:
-        console.error("unknown operation: '%s'", operation);
-    }
-    if (newCollapsed) {
-      if (target instanceof Popup) {
-        target.clientBehaviorHide(behaviorMode);
-      } else {
-        target.classList.add(Css.TOBAGO_COLLAPSED);
-      }
-    } else {
-      if (target instanceof Popup) {
-        target.clientBehaviorShow(behaviorMode);
-      } else {
-        target.classList.remove(Css.TOBAGO_COLLAPSED);
-      }
-    }
-    hidden.value = newCollapsed;
-  };
-}
