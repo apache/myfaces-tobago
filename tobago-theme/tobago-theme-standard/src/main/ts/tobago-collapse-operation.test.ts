@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import {CollapseOperation} from "./tobago-collapsible-operation";
+import {CollapseOperation} from "./tobago-collapse-operation";
 
 test("enum values to strings", () => {
   expect(CollapseOperation[CollapseOperation.show]).toBe("show");
