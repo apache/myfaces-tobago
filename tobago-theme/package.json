@@ -67,7 +67,7 @@
     "dev-ts-cp": "ncp tobago-theme-standard/src/main/js ../tobago-example/tobago-example-demo/target/tobago-theme-standard/META-INF/resources/tobago/standard/${npm_package_version}/js"
   },
   "dependencies": {
-    "@trevoreyre/autocomplete-js": "^2.4.1",
+    "@trevoreyre/autocomplete-js": "^3.0.1",
     "bootstrap": "5.3.3",
     "bootstrap-icons": "1.11.3",
     "lit-html": "^3.1.2"
@@ -91,7 +91,7 @@
     "ncp": "^2.0.0",
     "npm-run-all": "^4.1.5",
     "postcss-cli": "^11.0.0",
-    "rollup": "^4.13.2",
+    "rollup": "^4.14.0",
     "sass": "^1.72.0",
     "ts-jest": "^29.1.2",
     "typescript": "^5.4.3"
