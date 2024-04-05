@@ -167,6 +167,9 @@ updates:
       - dependency-name: "io.quarkus:quarkus-maven-plugin"
         versions:
           - ">= 2.0.0"
+      - dependency-name: "quarkus.version"
+        versions:
+          - ">= 2.0.0"
       - dependency-name: "org.apache.tomcat.embed:*"
         versions:
           - ">= 10.0.0"
@@ -322,6 +325,9 @@ updates:
         versions:
           - ">= 1.5.0"
       - dependency-name: "org.apache.openwebbeans:openwebbeans-spi"
+        versions:
+          - ">= 1.5.0"
+      - dependency-name: "openwebbeans.version"
         versions:
           - ">= 1.5.0"
       - dependency-name: "org.apache.bval:bval-jsr"
