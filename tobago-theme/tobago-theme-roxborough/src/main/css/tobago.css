@@ -12055,6 +12055,14 @@ textarea.form-control-lg {
   margin-bottom: 1rem;
 }
 
+a tobago-popover {
+  display: none;
+}
+
+button tobago-popover {
+  display: none;
+}
+
 tobago-badge {
   background-color: #6c00cb;
 }
@@ -12868,15 +12876,6 @@ button.nav-link { /* bootstrap don't know button.nav-link*/
   margin-bottom: 0.25rem;
 }
 
-.tobago-popover-box {
-  display: none;
-  width: -moz-max-content;
-  width: max-content;
-}
-.tobago-popover-box.show {
-  display: block;
-}
-
 a.tobago-messages-button, a.tobago-help-button, a.tobago-popover-button {
   padding-left: 0.4em;
   padding-right: 0.4em;
@@ -12910,10 +12909,6 @@ tobago-messages .alert.alert-dismissible.alert-warning:before {
 tobago-messages .alert.alert-dismissible.alert-info:before {
   content: "\f646";
 }
-.popover .popover-body {
-  white-space: pre-line;
-}
-
 /* nav ----------------------------------------------------------- */
 /* no bottom border in navtabs, if panel-body under it */
 .nav-tabs {
@@ -12997,6 +12992,9 @@ tobago-page .tobago-page-menuStore .tobago-dropdown-menu .form-check.form-switch
 tobago-page .tobago-page-menuStore .tobago-dropdown-menu label[for] {
   width: 100%;
 }
+tobago-page .tobago-page-popoverStore .popover .popover-body {
+  white-space: pre-line;
+}
 tobago-page .tobago-page-toastStore .toast.tobago-hideCloseButton .tobago-close {
   display: none;
 }
@@ -13035,7 +13033,10 @@ tobago-panel {
   display: block;
 }
 
-/* popover ------------------------------------------------------------- */
+tobago-popover {
+  display: inline-block;
+}
+
 tobago-popup .modal-header .modal-title {
   margin-right: auto;
 }
