@@ -289,6 +289,9 @@ updates:
       - dependency-name: "com.google.javascript:closure-compiler"
         versions:
           - "> v20220502" # v20220502 is the last version which can be used with Java 8.
+      - dependency-name: "org.apache.deltaspike.modules:deltaspike-jsf-module-impl"
+        versions:
+          - ">= 2.0.0"
 
   - package-ecosystem: "maven"
     directory: "/"
@@ -382,6 +385,9 @@ updates:
       - dependency-name: "com.google.javascript:closure-compiler"
         versions:
           - "> v20220502" # v20220502 is the last version which can be used with Java 8.
+      - dependency-name: "org.apache.deltaspike.modules:deltaspike-jsf-module-impl"
+        versions:
+          - ">= 2.0.0"
 
   - package-ecosystem: "github-actions"
     directory: "/"
