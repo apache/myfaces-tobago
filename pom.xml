@@ -59,7 +59,7 @@
     <tomcat9.version>9.0.83</tomcat9.version>
     <joinfaces.version>4.7.18</joinfaces.version>
     <spring-boot.version>2.7.18</spring-boot.version>
-    <spring.version>5.3.33</spring.version>
+    <spring.version>5.3.34</spring.version>
     <jackson.version>2.17.0</jackson.version>
   </properties>
 
