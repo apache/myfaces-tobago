@@ -163,9 +163,9 @@
   </tc:section>
 
   <tc:section label="Static backdrop">
-    <p>By default the popup can be closed by clicking on the backdrop or by pressing the ESC key.
-      This can be changed with the <code>staticBackdrop</code> attribute. The default value is "false".
-      It can be changed in the <code>tobago-config.xml</code>.</p>
+    <p>By default the popup can be closed by clicking on the backdrop. To prevent this, set
+      <code>staticBackdrop="true"</code>. Default value is "false". It can be configured in the
+      <code>tobago-config.xml</code>.</p>
 
     <tc:button id="showStaticBackdrop" label="Open staticBackdrop Popup" omit="true">
       <tc:operation name="show" for="staticBackdrop"/>
