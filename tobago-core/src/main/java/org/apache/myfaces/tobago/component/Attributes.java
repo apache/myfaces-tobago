@@ -428,7 +428,6 @@ public enum Attributes {
   stateChangeListener,
   stateChangeListenerExpression,
   statePreview,
-  staticBackdrop,
   step,
   style,
   switchType,

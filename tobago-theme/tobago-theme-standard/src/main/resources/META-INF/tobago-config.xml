@@ -74,7 +74,7 @@
           <attribute name="helpPosition" default="buttonRight"/>
         </tag>
         <tag name="popup">
-          <attribute name="staticBackdrop" default="false"/>
+          <attribute name="modal" default="false"/>
         </tag>
         <tag name="range">
           <attribute name="labelLayout" default="flexLeft"/>
