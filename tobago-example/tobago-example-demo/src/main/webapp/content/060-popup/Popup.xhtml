@@ -162,22 +162,22 @@
     </tc:popup>
   </tc:section>
 
-  <tc:section label="Static backdrop">
+  <tc:section label="Modal">
     <p>By default the popup can be closed by clicking on the backdrop. To prevent this, set
-      <code>staticBackdrop="true"</code>. Default value is "false". It can be configured in the
+      <code>modal="true"</code>. Default value is "false". It can be configured in the
       <code>tobago-config.xml</code>.</p>
 
-    <tc:button id="showStaticBackdrop" label="Open staticBackdrop Popup" omit="true">
-      <tc:operation name="show" for="staticBackdrop"/>
+    <tc:button id="showModal" label="Open modal Popup" omit="true">
+      <tc:operation name="show" for="modal"/>
     </tc:button>
 
-    <tc:popup id="staticBackdrop" collapsedMode="hidden" staticBackdrop="true">
+    <tc:popup id="modal" collapsedMode="hidden" modal="true">
       <f:facet name="label">
-        Static Backdrop
+        Modal
       </f:facet>
       <f:facet name="bar">
-        <tc:link id="hideStaticBackdropTrue" image="bi-x-lg" omit="true">
-          <tc:operation name="hide" for="staticBackdrop"/>
+        <tc:link id="hideModal" image="bi-x-lg" omit="true">
+          <tc:operation name="hide" for="modal"/>
         </tc:link>
       </f:facet>
       <p>This popup can only be closed by clicking on the X button.</p>
