@@ -45,12 +45,12 @@ public class PopupRenderer<T extends AbstractUIPopup> extends CollapsiblePanelRe
     final String clientId = component.getClientId(facesContext);
     final boolean collapsed = component.isCollapsed();
     final Markup markup = component.getMarkup();
-    final boolean staticBackdrop = component.isStaticBackdrop();
+    final boolean modal = component.isModal();
     final UIComponent labelFacet = ComponentUtils.getFacet(component, Facets.label);
     final UIComponent barFacet = ComponentUtils.getFacet(component, Facets.bar);
     final UIComponent footerFacet = ComponentUtils.getFacet(component, Facets.footer);
 
-    if (staticBackdrop) {
+    if (modal) {
       ComponentUtils.putDataAttribute(component, "bs-backdrop", "static");
     }
 

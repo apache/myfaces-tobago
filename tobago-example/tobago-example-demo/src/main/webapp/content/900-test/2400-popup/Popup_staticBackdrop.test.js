@@ -18,13 +18,13 @@
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 import {elementByIdFn, querySelectorFn} from "/script/tobago-test.js";
 
-it("Open 'staticBackdroo=false'-Popup, close it, press 'Submit'", function (done) {
+it("Open 'modal=false'-Popup, close it, press 'Submit'", function (done) {
   const timestampOutput = querySelectorFn("#page\\:mainForm\\:timestamp .form-control-plaintext");
-  const openButton = elementByIdFn("page:mainForm:showStaticBackdropFalse");
+  const openButton = elementByIdFn("page:mainForm:showModalFalse");
   const submit = elementByIdFn("page:mainForm:submit");
   const wrapper = elementByIdFn("page:mainForm:popupWrapper");
-  const popup = elementByIdFn("page:mainForm:staticBackdropFalse");
-  const collapse = elementByIdFn("page:mainForm:staticBackdropFalse::collapse");
+  const popup = elementByIdFn("page:mainForm:modalFalse");
+  const collapse = elementByIdFn("page:mainForm:modalFalse::collapse");
   const backdropClick = elementByIdFn("backdropClick");
 
   let timestamp;
@@ -53,15 +53,15 @@ it("Open 'staticBackdroo=false'-Popup, close it, press 'Submit'", function (done
   test.start();
 });
 
-it("Open 'staticBackdroo=true'-Popup, close it, press 'Submit'", function (done) {
+it("Open 'modal=true'-Popup, close it, press 'Submit'", function (done) {
   const body = querySelectorFn("body");
   const timestampOutput = querySelectorFn("#page\\:mainForm\\:timestamp .form-control-plaintext");
-  const openButton = elementByIdFn("page:mainForm:showStaticBackdropTrue");
+  const openButton = elementByIdFn("page:mainForm:showModalTrue");
   const submit = elementByIdFn("page:mainForm:submit");
   const wrapper = elementByIdFn("page:mainForm:popupWrapper");
-  const popup = elementByIdFn("page:mainForm:staticBackdropTrue");
-  const collapse = elementByIdFn("page:mainForm:staticBackdropTrue::collapse");
-  const closeButton = elementByIdFn("page:mainForm:staticBackdropTrue:hideStaticBackdropTrue");
+  const popup = elementByIdFn("page:mainForm:modalTrue");
+  const collapse = elementByIdFn("page:mainForm:modalTrue::collapse");
+  const closeButton = elementByIdFn("page:mainForm:modalTrue:hideModalTrue");
 
   let timestamp;
   let shownEventCount = 0;
