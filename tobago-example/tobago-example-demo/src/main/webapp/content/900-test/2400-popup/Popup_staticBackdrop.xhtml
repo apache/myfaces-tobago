@@ -25,32 +25,32 @@
 
   <tc:out id="timestamp" label="Timestamp" value="#{eventController.currentTimestamp}"/>
 
-  <tc:button id="showStaticBackdropFalse" label="staticBackdrop=false">
-    <tc:operation name="show" for="staticBackdropFalse"/>
-    <f:ajax execute="staticBackdropFalse" render="staticBackdropFalse"/>
+  <tc:button id="showModalFalse" label="modal=false">
+    <tc:operation name="show" for="modalFalse"/>
+    <f:ajax execute="modalFalse" render="modalFalse"/>
   </tc:button>
-  <tc:button id="showStaticBackdropTrue" label="staticBackdrop=true">
-    <tc:operation name="show" for="staticBackdropTrue"/>
-    <f:ajax execute="staticBackdropTrue" render="staticBackdropTrue"/>
+  <tc:button id="showModalTrue" label="modal=true">
+    <tc:operation name="show" for="modalTrue"/>
+    <f:ajax execute="modalTrue" render="modalTrue"/>
   </tc:button>
   <tc:button id="submit" label="Submit"/>
 
   <tc:panel id="popupWrapper">
-    <tc:popup id="staticBackdropFalse" collapsedMode="hidden" staticBackdrop="false">
+    <tc:popup id="modalFalse" collapsedMode="hidden" modal="false">
       <f:facet name="label">
-        staticBackdrop=false
+        modal=false (default)
       </f:facet>
       <p>Close this popup by clicking on the backdrop.</p>
       <button id="backdropClick" type="button" data-bs-dismiss="modal">Simulate click on backdrop</button>
     </tc:popup>
-    <tc:popup id="staticBackdropTrue" collapsedMode="hidden" staticBackdrop="true">
+    <tc:popup id="modalTrue" collapsedMode="hidden" modal="true">
       <f:facet name="label">
-        staticBackdrop=true
+        modal=true
       </f:facet>
       <f:facet name="bar">
-        <tc:link id="hideStaticBackdropTrue" image="bi-x-lg">
-          <tc:operation name="hide" for="staticBackdropTrue"/>
-          <f:ajax execute="staticBackdropTrue" render="staticBackdropTrue"/>
+        <tc:link id="hideModalTrue" image="bi-x-lg">
+          <tc:operation name="hide" for="modalTrue"/>
+          <f:ajax execute="modalTrue" render="modalTrue"/>
         </tc:link>
       </f:facet>
       <p>Close this popup by clicking on the X.</p>

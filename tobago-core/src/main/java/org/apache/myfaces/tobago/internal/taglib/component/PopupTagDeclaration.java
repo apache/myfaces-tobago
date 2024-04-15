@@ -69,8 +69,8 @@ public interface PopupTagDeclaration
   @UIComponentTagAttribute(
       type = "boolean",
       defaultCode = "Boolean.parseBoolean(org.apache.myfaces.tobago.context."
-          + "TobagoContext.getInstance(getFacesContext()).getTheme().getTagAttributeDefault(TAG, \"staticBackdrop\"))")
-  void setStaticBackdrop(String staticBackdrop);
+          + "TobagoContext.getInstance(getFacesContext()).getTheme().getTagAttributeDefault(TAG, \"modal\"))")
+  void setModal(String modal);
 
   /**
    * Indicating the collapsed state of this component.

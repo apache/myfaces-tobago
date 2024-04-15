@@ -39,5 +39,5 @@ public abstract class AbstractUIPopup extends AbstractUICollapsiblePanel impleme
     }
   }
 
-  public abstract boolean isStaticBackdrop();
+  public abstract boolean isModal();
 }
