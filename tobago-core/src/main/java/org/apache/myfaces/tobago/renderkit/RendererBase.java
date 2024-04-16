@@ -19,6 +19,24 @@
 
 package org.apache.myfaces.tobago.renderkit;
 
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.EditableValueHolder;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.component.ValueHolder;
+import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.component.behavior.ClientBehavior;
+import jakarta.faces.component.behavior.ClientBehaviorBase;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.ConverterException;
+import jakarta.faces.model.SelectItem;
+import jakarta.faces.model.SelectItemGroup;
+import jakarta.faces.render.ClientBehaviorRenderer;
+import jakarta.faces.render.Renderer;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
@@ -49,25 +67,6 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import jakarta.el.ValueExpression;
-import jakarta.faces.component.EditableValueHolder;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIInput;
-import jakarta.faces.component.ValueHolder;
-import jakarta.faces.component.behavior.AjaxBehavior;
-import jakarta.faces.component.behavior.ClientBehavior;
-import jakarta.faces.component.behavior.ClientBehaviorBase;
-import jakarta.faces.component.behavior.ClientBehaviorContext;
-import jakarta.faces.component.behavior.ClientBehaviorHolder;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.context.ResponseWriter;
-import jakarta.faces.convert.Converter;
-import jakarta.faces.convert.ConverterException;
-import jakarta.faces.model.SelectItem;
-import jakarta.faces.model.SelectItemGroup;
-import jakarta.faces.render.ClientBehaviorRenderer;
-import jakarta.faces.render.Renderer;
 
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
@@ -185,26 +184,51 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
   }
 
   protected void insideBegin(final FacesContext facesContext, final HtmlElements inside) {
-    facesContext.getAttributes().put(inside, Boolean.TRUE);
+    insideBegin(facesContext, (Object) inside);
   }
 
   protected void insideEnd(final FacesContext facesContext, final HtmlElements inside) {
-    facesContext.getAttributes().remove(inside);
+    insideEnd(facesContext, (Object) inside);
   }
 
   protected boolean isInside(final FacesContext facesContext, final HtmlElements inside) {
-    return facesContext.getAttributes().get(inside) != null;
+    return isInside(facesContext, (Object) inside);
   }
 
   protected void insideBegin(final FacesContext facesContext, final Facets inside) {
-    facesContext.getAttributes().put(inside, Boolean.TRUE);
+    insideBegin(facesContext, (Object) inside);
   }
 
   protected void insideEnd(final FacesContext facesContext, final Facets inside) {
-    facesContext.getAttributes().remove(inside);
+    insideEnd(facesContext, (Object) inside);
   }
 
   protected boolean isInside(final FacesContext facesContext, final Facets inside) {
+    return isInside(facesContext, (Object) inside);
+  }
+
+  private void insideBegin(final FacesContext facesContext, final Object inside) {
+    Integer insideCount = (Integer) facesContext.getAttributes().get(inside);
+    if (insideCount == null) {
+      insideCount = 0;
+    }
+    facesContext.getAttributes().put(inside, ++insideCount);
+  }
+
+  private void insideEnd(final FacesContext facesContext, final Object inside) {
+    Integer insideCount = (Integer) facesContext.getAttributes().get(inside);
+    if (insideCount != null) {
+      insideCount--;
+
+      if (insideCount > 0) {
+        facesContext.getAttributes().put(inside, insideCount);
+      } else {
+        facesContext.getAttributes().remove(inside);
+      }
+    }
+  }
+
+  private boolean isInside(final FacesContext facesContext, final Object inside) {
     return facesContext.getAttributes().get(inside) != null;
   }
 
