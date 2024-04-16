@@ -184,26 +184,51 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
   }
 
   protected void insideBegin(final FacesContext facesContext, final HtmlElements inside) {
-    facesContext.getAttributes().put(inside, Boolean.TRUE);
+    insideBegin(facesContext, (Object) inside);
   }
 
   protected void insideEnd(final FacesContext facesContext, final HtmlElements inside) {
-    facesContext.getAttributes().remove(inside);
+    insideEnd(facesContext, (Object) inside);
   }
 
   protected boolean isInside(final FacesContext facesContext, final HtmlElements inside) {
-    return facesContext.getAttributes().get(inside) != null;
+    return isInside(facesContext, (Object) inside);
   }
 
   protected void insideBegin(final FacesContext facesContext, final Facets inside) {
-    facesContext.getAttributes().put(inside, Boolean.TRUE);
+    insideBegin(facesContext, (Object) inside);
   }
 
   protected void insideEnd(final FacesContext facesContext, final Facets inside) {
-    facesContext.getAttributes().remove(inside);
+    insideEnd(facesContext, (Object) inside);
   }
 
   protected boolean isInside(final FacesContext facesContext, final Facets inside) {
+    return isInside(facesContext, (Object) inside);
+  }
+
+  private void insideBegin(final FacesContext facesContext, final Object inside) {
+    Integer insideCount = (Integer) facesContext.getAttributes().get(inside);
+    if (insideCount == null) {
+      insideCount = 0;
+    }
+    facesContext.getAttributes().put(inside, ++insideCount);
+  }
+
+  private void insideEnd(final FacesContext facesContext, final Object inside) {
+    Integer insideCount = (Integer) facesContext.getAttributes().get(inside);
+    if (insideCount != null) {
+      insideCount--;
+
+      if (insideCount > 0) {
+        facesContext.getAttributes().put(inside, insideCount);
+      } else {
+        facesContext.getAttributes().remove(inside);
+      }
+    }
+  }
+
+  private boolean isInside(final FacesContext facesContext, final Object inside) {
     return facesContext.getAttributes().get(inside) != null;
   }
 
