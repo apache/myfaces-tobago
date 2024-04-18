@@ -39,6 +39,12 @@ import java.io.IOException;
 public class PopupRenderer<T extends AbstractUIPopup> extends CollapsiblePanelRendererBase<T> {
 
   @Override
+  public void decodeInternal(final FacesContext facesContext, final T component) {
+    super.decodeInternal(facesContext, component);
+    component.processState();
+  }
+
+  @Override
   public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);

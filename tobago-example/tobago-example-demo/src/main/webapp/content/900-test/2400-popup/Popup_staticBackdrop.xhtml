@@ -35,6 +35,12 @@
   </tc:button>
   <tc:button id="submit" label="Submit"/>
 
+  <tc:separator/>
+  <tc:button id="showPopup3" label="Open Popup 3" action="#{popupController.openPopup3}">
+    <f:ajax execute="popup3" render="popup3 popup3Collapsed"/>
+  </tc:button>
+  <tc:out id="popup3Collapsed" label="popup3Collapsed" value="#{popupController.popup3Collapsed}"/>
+
   <tc:panel id="popupWrapper">
     <tc:popup id="modalFalse" collapsedMode="hidden" modal="false">
       <f:facet name="label">
@@ -54,6 +60,11 @@
         </tc:link>
       </f:facet>
       <p>Close this popup by clicking on the X.</p>
+    </tc:popup>
+    <tc:popup id="popup3" collapsedMode="hidden" modal="false" collapsed="#{popupController.popup3Collapsed}">
+      <f:facet name="label">Popup 3</f:facet>
+      <p>Close this popup by clicking on the backdrop.</p>
+      <button id="popup3BackdropClick" type="button" data-bs-dismiss="modal">Simulate click on backdrop</button>
     </tc:popup>
   </tc:panel>
 </ui:composition>
