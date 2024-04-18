@@ -22,19 +22,16 @@ package org.apache.myfaces.tobago.internal.component;
 import jakarta.faces.component.NamingContainer;
 import jakarta.faces.context.FacesContext;
 
-import java.util.Map;
-
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.PopupTagDeclaration}
  */
 public abstract class AbstractUIPopup extends AbstractUICollapsiblePanel implements NamingContainer {
 
   @Override
-  public void processDecodes(final FacesContext facesContext) {
-    super.processDecodes(facesContext);
-
-    final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    if (Boolean.parseBoolean(requestParameterMap.get("tobago.collapsible.processState"))) {
+  public void processUpdates(final FacesContext facesContext) {
+    super.processUpdates(facesContext);
+    if (getSubmittedCollapsed()) {
+      // process state when the popup is closed by clicking on the background or pressing ESC.
       processState();
     }
   }
