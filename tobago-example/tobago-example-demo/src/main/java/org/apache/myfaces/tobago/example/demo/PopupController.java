@@ -19,17 +19,24 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.enterprise.context.SessionScoped;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.time.LocalTime;
 
 @SessionScoped
 @Named
 public class PopupController implements Serializable {
 
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
   private boolean popup1Collapsed = true;
+  private boolean popup3Collapsed = true;
   private String popup1Text;
   private String popup2Text;
   private String time;
@@ -77,5 +84,17 @@ public class PopupController implements Serializable {
   public void refreshContent(final AjaxBehaviorEvent event) throws InterruptedException {
     Thread.sleep(2000);
     time = LocalTime.now().toString();
+  }
+
+  public boolean isPopup3Collapsed() {
+    return popup3Collapsed;
+  }
+
+  public void setPopup3Collapsed(boolean popup3Collapsed) {
+    this.popup3Collapsed = popup3Collapsed;
+  }
+
+  public void openPopup3() {
+    popup3Collapsed = false;
   }
 }

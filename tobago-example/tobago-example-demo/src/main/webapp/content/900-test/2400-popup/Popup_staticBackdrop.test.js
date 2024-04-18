@@ -86,3 +86,43 @@ it("Open 'modal=true'-Popup, close it, press 'Submit'", function (done) {
 
   test.start();
 });
+
+it("Open Popup 3, close it, press 'Submit'", function (done) {
+  const timestampOutput = querySelectorFn("#page\\:mainForm\\:timestamp .form-control-plaintext");
+  const openButton = elementByIdFn("page:mainForm:showPopup3");
+  const submit = elementByIdFn("page:mainForm:submit");
+  const wrapper = elementByIdFn("page:mainForm:popupWrapper");
+  const popup = elementByIdFn("page:mainForm:popup3");
+  const collapse = elementByIdFn("page:mainForm:popup3::collapse");
+  const backdropClick = elementByIdFn("popup3BackdropClick");
+  const popup3CollapsedOutput = querySelectorFn("#page\\:mainForm\\:popup3Collapsed .form-control-plaintext");
+
+  let timestamp;
+  let shownEventCount = 0;
+  let hiddenEventCount = 0;
+  wrapper().addEventListener("shown.bs.modal", () => shownEventCount++);
+  wrapper().addEventListener("hidden.bs.modal", () => hiddenEventCount++);
+
+  const test = new JasmineTestTool(done);
+  test.do(() => expect(popup().classList).not.toContain("show"));
+  test.do(() => expect(collapse().getAttribute("value")).toBe("true"));
+  test.do(() => expect(popup3CollapsedOutput().textContent).toBe("true"));
+
+  test.event("click", openButton, () => shownEventCount === 1);
+  test.do(() => expect(popup().classList).toContain("show"));
+  test.do(() => expect(collapse().getAttribute("value")).toBe("false"));
+  test.do(() => expect(popup3CollapsedOutput().textContent).toBe("false"));
+
+  test.event("click", backdropClick, () => hiddenEventCount === 1);
+  test.do(() => expect(popup().classList).not.toContain("show"));
+  test.do(() => expect(collapse().getAttribute("value")).toBe("true"));
+  test.do(() => expect(popup3CollapsedOutput().textContent).toBe("false"));
+
+  test.do(() => timestamp = Number(timestampOutput().textContent));
+  test.event("click", submit, () => Number(timestampOutput().textContent) > timestamp);
+  test.do(() => expect(popup().classList).not.toContain("show"));
+  test.do(() => expect(collapse().getAttribute("value")).toBe("true"));
+  test.do(() => expect(popup3CollapsedOutput().textContent).toBe("true"));
+
+  test.start();
+});
