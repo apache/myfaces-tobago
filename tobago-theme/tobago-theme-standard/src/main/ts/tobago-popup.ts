@@ -44,17 +44,10 @@ export class Popup extends HTMLElement {
 
     this.addEventListener(BootstrapPopupEvent.HIDDEN, () => {
       /**
-       * Notify server if popup is closed by clicking on the backdrop or press ESC.
+       * Make sure that collapsed=true is set when the popup is closed by clicking on the background or pressing ESC.
        */
       if (this.connected) {
         this.collapsed = true;
-
-        faces.ajax.request(
-            this,
-            null,
-            {
-              "tobago.collapsible.processState": "true"
-            });
       }
     });
   }

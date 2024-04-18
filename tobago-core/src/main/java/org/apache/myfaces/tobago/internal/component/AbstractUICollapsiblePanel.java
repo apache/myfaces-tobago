@@ -19,13 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.model.CollapseMode;
-
 import jakarta.el.ValueExpression;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
+import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.model.CollapseMode;
 
 /**
  * Base class for collapsible panels.
@@ -92,6 +91,10 @@ public abstract class AbstractUICollapsiblePanel extends AbstractUIPanelBase {
   public abstract void setCollapsed(boolean collapsed);
 
   public abstract CollapseMode getCollapsedMode();
+
+  public Boolean getSubmittedCollapsed() {
+    return submittedCollapsed;
+  }
 
   public void setSubmittedCollapsed(final Boolean submittedCollapsed) {
     this.submittedCollapsed = submittedCollapsed;
