@@ -93,6 +93,10 @@ public abstract class AbstractUICollapsiblePanel extends AbstractUIPanelBase {
 
   public abstract CollapseMode getCollapsedMode();
 
+  public Boolean getSubmittedCollapsed() {
+    return submittedCollapsed;
+  }
+
   public void setSubmittedCollapsed(final Boolean submittedCollapsed) {
     this.submittedCollapsed = submittedCollapsed;
   }
