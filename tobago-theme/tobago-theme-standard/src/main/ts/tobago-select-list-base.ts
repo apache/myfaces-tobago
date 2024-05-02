@@ -19,6 +19,7 @@ import {createPopper, Instance} from "@popperjs/core";
 import {Css} from "./tobago-css";
 import {TobagoFilterRegistry} from "./tobago-filter-registry";
 import {Key} from "./tobago-key";
+import {MenuStore} from "./tobago-menu-store";
 
 export abstract class SelectListBase extends HTMLElement {
   private popper: Instance;
@@ -63,7 +64,7 @@ export abstract class SelectListBase extends HTMLElement {
 
   get dropdownMenu(): HTMLDivElement {
     const root = this.getRootNode() as ShadowRoot | Document;
-    return root.querySelector(`.tobago-dropdown-menu[name='${this.id}']`);
+    return root.querySelector(`.${Css.TOBAGO_DROPDOWN_MENU}[name='${this.id}']`);
   }
 
   get options(): HTMLElement {
@@ -161,6 +162,7 @@ export abstract class SelectListBase extends HTMLElement {
         break;
       case Key.TAB:
         this.removePreselection();
+        this.filterInput.focus({preventScroll: true});
         break;
       default:
         this.filterInput.focus({preventScroll: true});
@@ -274,6 +276,8 @@ export abstract class SelectListBase extends HTMLElement {
 
   protected showDropdown(): void {
     if (this.dropdownMenu && !this.dropdownMenu.classList.contains(Css.SHOW)) {
+      MenuStore.appendChild(this.dropdownMenu);
+
       this.selectField.classList.add(Css.SHOW);
       this.selectField.ariaExpanded = "true";
       this.dropdownMenu.classList.add(Css.SHOW);
@@ -284,6 +288,8 @@ export abstract class SelectListBase extends HTMLElement {
 
   protected hideDropdown(): void {
     if (this.dropdownMenu?.classList.contains(Css.SHOW)) {
+      this.appendChild(this.dropdownMenu);
+
       this.selectField.classList.remove(Css.SHOW);
       this.selectField.ariaExpanded = "false";
       this.dropdownMenu.classList.remove(Css.SHOW);
