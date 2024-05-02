@@ -47,17 +47,17 @@ it("Standard: select 'Mars', select 'Saturn'", function (done) {
 
 it("Filter (contains)", function (done) {
   const searchFn = elementByIdFn("page:mainForm:selectedFilter::filter");
-  const hiddenRowsFn = querySelectorAllFn("#page\\:mainForm\\:selectedFilter tr.d-none:not(.tobago-no-entries)");
-  const mercuryRowFn = querySelectorFn("#page\\:mainForm\\:selectedFilter tr[data-tobago-value='Mercury']");
-  const venusRowFn = querySelectorFn("#page\\:mainForm\\:selectedFilter tr[data-tobago-value='Venus']");
-  const earthRowFn = querySelectorFn("#page\\:mainForm\\:selectedFilter tr[data-tobago-value='Earth']");
-  const marsRowFn = querySelectorFn("#page\\:mainForm\\:selectedFilter tr[data-tobago-value='Mars']");
-  const jupiterRowFn = querySelectorFn("#page\\:mainForm\\:selectedFilter tr[data-tobago-value='Jupiter']");
-  const saturnRowFn = querySelectorFn("#page\\:mainForm\\:selectedFilter tr[data-tobago-value='Saturn']");
-  const uranusRowFn = querySelectorFn("#page\\:mainForm\\:selectedFilter tr[data-tobago-value='Uranus']");
-  const neptuneRowFn = querySelectorFn("#page\\:mainForm\\:selectedFilter tr[data-tobago-value='Neptune']");
-  const plutoRowFn = querySelectorFn("#page\\:mainForm\\:selectedFilter tr[data-tobago-value='Pluto']");
-  const noEntriesRowFn = querySelectorFn("#page\\:mainForm\\:selectedFilter tr.tobago-no-entries");
+  const hiddenRowsFn = querySelectorAllFn(".tobago-options[name='page:mainForm:selectedFilter'] tr.d-none:not(.tobago-no-entries)");
+  const mercuryRowFn = querySelectorFn(".tobago-options[name='page:mainForm:selectedFilter'] tr[data-tobago-value='Mercury']");
+  const venusRowFn = querySelectorFn(".tobago-options[name='page:mainForm:selectedFilter'] tr[data-tobago-value='Venus']");
+  const earthRowFn = querySelectorFn(".tobago-options[name='page:mainForm:selectedFilter'] tr[data-tobago-value='Earth']");
+  const marsRowFn = querySelectorFn(".tobago-options[name='page:mainForm:selectedFilter'] tr[data-tobago-value='Mars']");
+  const jupiterRowFn = querySelectorFn(".tobago-options[name='page:mainForm:selectedFilter'] tr[data-tobago-value='Jupiter']");
+  const saturnRowFn = querySelectorFn(".tobago-options[name='page:mainForm:selectedFilter'] tr[data-tobago-value='Saturn']");
+  const uranusRowFn = querySelectorFn(".tobago-options[name='page:mainForm:selectedFilter'] tr[data-tobago-value='Uranus']");
+  const neptuneRowFn = querySelectorFn(".tobago-options[name='page:mainForm:selectedFilter'] tr[data-tobago-value='Neptune']");
+  const plutoRowFn = querySelectorFn(".tobago-options[name='page:mainForm:selectedFilter'] tr[data-tobago-value='Pluto']");
+  const noEntriesRowFn = querySelectorFn(".tobago-options[name='page:mainForm:selectedFilter'] tr.tobago-no-entries");
 
   const test = new JasmineTestTool(done);
   test.setup(() => hiddenRowsFn().length === 0, () => searchFn().value = "", "input", searchFn);
