@@ -289,7 +289,9 @@ $tobago-flex-layout-spacing: 0.5rem;
       }
     }
   }
+}
 
+@mixin selectListOptions() {
   .tobago-options {
     &.tobago-dropdown-menu {
       /* Use .tobago-dropdown-menu instead of .dropdown-menu to prevent Bootstrap from creating a dropdown instance.
@@ -1109,13 +1111,13 @@ tobago-page {
 
   .tobago-page-menuStore {
     @include tobagoDropdownMenu();
+    @include selectListOptions();
 
     position: absolute;
     top: 0;
     left: 0;
     width: 0;
     height: 0;
-    z-index: $zindex-popover;
   }
 
   .tobago-page-popoverStore {
@@ -1407,6 +1409,7 @@ tobago-select-one-choice {
 
 tobago-select-one-list {
   @include selectListBase();
+  @include selectListOptions();
 
   .tobago-select-field {
     span {
@@ -1436,6 +1439,7 @@ tobago-select-one-radio {
 
 tobago-select-many-list {
   @include selectListBase();
+  @include selectListOptions();
 
   &.tobago-focus[filter] .tobago-select-field {
     flex-wrap: wrap;
