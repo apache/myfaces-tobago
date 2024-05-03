@@ -30,7 +30,7 @@ public abstract class AbstractUIPopup extends AbstractUICollapsiblePanel impleme
   @Override
   public void processUpdates(final FacesContext facesContext) {
     super.processUpdates(facesContext);
-    if (getSubmittedCollapsed()) {
+    if (getSubmittedCollapsed() != null && getSubmittedCollapsed()) {
       // process state when the popup is closed by clicking on the background or pressing ESC.
       processState();
     }
