@@ -51,6 +51,7 @@ public enum TobagoClass implements CssItem {
   CIRCLE__9("tobago-circle-9"),
   CLOSE("tobago-close"),
   COLLAPSED("tobago-collapsed"),
+  COLUMN__PANEL("tobago-column-panel"),
   CONTROLS("tobago-controls"),
   DELETED("tobago-deleted"),
   DESCENDING("tobago-descending"),

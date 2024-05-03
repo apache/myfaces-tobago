@@ -34,7 +34,7 @@ it("focus row index 500 and scroll up", function (done) {
 
   const test = new JasmineTestTool(done);
   test.do(() => timestamp = Date.now());
-  test.wait(() => Date.now() - timestamp > 100);
+  test.wait(() => Date.now() - timestamp > 200);
   test.do(() => focusRowIndex(500));
   test.wait(() => isLoaded(500));
   test.do(() => expect(isLoaded(499)).toBeFalse());
@@ -42,7 +42,7 @@ it("focus row index 500 and scroll up", function (done) {
   test.do(() => expect(isLoaded(530)).toBeFalse());
 
   test.do(() => timestamp = Date.now());
-  test.wait(() => Date.now() - timestamp > 100);
+  test.wait(() => Date.now() - timestamp > 200);
   test.do(() => focusRowIndex(499));
   test.wait(() => isLoaded(470));
   test.do(() => expect(isLoaded(469)).toBeFalse());
@@ -67,13 +67,13 @@ it("focus row index 2, select row 1 and 40, then press 'Period'", function (done
   const test = new JasmineTestTool(done);
   test.setup(() => selectedInput().value === "[]", null, "click", resetSelectedButton);
   test.do(() => timestamp = Date.now());
-  test.wait(() => Date.now() - timestamp > 100);
+  test.wait(() => Date.now() - timestamp > 200);
   test.do(() => focusRowIndex(2));
   test.wait(() => isLoaded(30));
   test.do(() => expect(isLoaded(0, 59)).toBeTrue());
   test.do(() => expect(isLoaded(60)).toBeFalse());
   test.do(() => timestamp = Date.now());
-  test.wait(() => Date.now() - timestamp > 100);
+  test.wait(() => Date.now() - timestamp > 200);
   test.event("click", row1, () => selectedInput().value === "[1]");
   test.event("click", row40, () => selectedInput().value === "[1,40]");
   test.event("click", periodButton, () => Number(actionCountOut().textContent) > actionCount);

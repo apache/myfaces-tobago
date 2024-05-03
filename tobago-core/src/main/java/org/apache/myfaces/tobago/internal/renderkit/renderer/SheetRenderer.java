@@ -737,7 +737,8 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
       if (panel != null) {
         writer.startElement(HtmlElements.TR);
-        writer.writeClassAttribute(panel.getCustomClass());
+        writer.writeNameAttribute(String.valueOf(rowIndex));
+        writer.writeClassAttribute(TobagoClass.COLUMN__PANEL, panel.getCustomClass());
         writer.startElement(HtmlElements.TD);
         writer.writeAttribute(HtmlAttributes.COLSPAN, colSpan);
         panel.encodeAll(facesContext);
