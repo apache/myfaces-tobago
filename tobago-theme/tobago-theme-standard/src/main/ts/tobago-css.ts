@@ -47,6 +47,7 @@ export enum Css {
   TOAST_CONTAINER = "toast-container",
   TOAST_HEADER = "toast-header",
   TOBAGO_COLLAPSED = "tobago-collapsed",
+  TOBAGO_COLUMN_PANEL = "tobago-column-panel",
   TOBAGO_DISABLED = "tobago-disabled",
   TOBAGO_DROP_ZONE = "tobago-drop-zone",
   TOBAGO_DROPDOWN_MENU = "tobago-dropdown-menu",
