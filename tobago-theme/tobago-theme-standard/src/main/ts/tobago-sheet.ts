@@ -75,7 +75,7 @@ export class Sheet extends HTMLElement {
     return ["INPUT", "TEXTAREA", "SELECT", "A", "BUTTON"].indexOf(element.tagName) > -1;
   }
 
-  private static getRowTemplate(columns: number, rowIndex: number): string {
+  private static getDummyRowTemplate(columns: number, rowIndex: number): string {
     return `<tr row-index="${rowIndex}" dummy="dummy">
 <td colspan="${columns}"> </td>
 </tr>`;
@@ -219,34 +219,20 @@ export class Sheet extends HTMLElement {
 
     if (lazy) {
       // prepare the sheet with some auto-created (empty) rows
-      const rowCount = this.rowCount;
-      const sheetBody = this.sheetBody;
       const tableBody = this.tableBody;
       const columns = tableBody.rows[0].cells.length;
-      const firstShownRow = tableBody.rows[0];
-      let current: HTMLTableRowElement = tableBody.rows[0]; // current row in this algorithm, begin with first
-      // the algorithm goes straight through all rows, not selectors, because of performance
-      for (let i = 0; i < rowCount; i++) {
-        if (current) {
-          const rowIndex = Number(current.getAttribute("row-index"));
-          if (i < rowIndex) {
-            const template = Sheet.getRowTemplate(columns, i);
-            current.insertAdjacentHTML("beforebegin", template);
-          } else if (i === rowIndex) {
-            current = current.nextElementSibling as HTMLTableRowElement;
-            // } else { TBD: I think this is not possible
-            //   const template = Sheet.getRowTemplate(columns, i);
-            //   current.insertAdjacentHTML("afterend", template);
-            //   current = current.nextElementSibling as HTMLTableRowElement;
-          }
-        } else {
-          const template = Sheet.getRowTemplate(columns, i);
-          tableBody.insertAdjacentHTML("beforeend", template);
-        }
+
+      const firstRow: HTMLTableRowElement = tableBody.rows[0];
+      for (let i = 0; i < this.getRowIndex(firstRow); i++) {
+        firstRow.insertAdjacentHTML("beforebegin", Sheet.getDummyRowTemplate(columns, i));
+      }
+      const lastRow: HTMLTableRowElement = tableBody.rows[tableBody.rows.length - 1];
+      for (let i = this.getRowIndex(lastRow) + 1; i < this.rowCount; i++) {
+        tableBody.insertAdjacentHTML("beforeend", Sheet.getDummyRowTemplate(columns, i));
       }
 
-      sheetBody.addEventListener("scroll", this.lazyCheck.bind(this));
-      this.sheetBody.scrollTop = firstShownRow.offsetTop; //triggers scroll event -> lazyCheck()
+      this.sheetBody.addEventListener("scroll", this.lazyCheck.bind(this));
+      this.sheetBody.scrollTop = firstRow.offsetTop; //triggers scroll event -> lazyCheck()
     }
 
     // ---------------------------------------------------------------------------------------- //
@@ -346,19 +332,19 @@ export class Sheet extends HTMLElement {
     const rowElements = this.tableBody.rows;
     let min = 0;
     let max = rowElements.length;
-    let rowIndex: number;
+    let index: number;
     while (min < max) {
-      rowIndex = Math.round((max - min) / 2) + min;
-      if (rowElements[rowIndex] === undefined
-          || rowElements[rowIndex].offsetTop > this.sheetBody.scrollTop) {
-        rowIndex--;
-        max = rowIndex;
+      index = Math.round((max - min) / 2) + min;
+      if (rowElements[index] === undefined
+          || rowElements[index].offsetTop > this.sheetBody.scrollTop) {
+        index--;
+        max = index;
       } else {
-        min = rowIndex;
+        min = index;
       }
     }
 
-    return rowIndex;
+    return this.getRowIndex(rowElements[index]);
   }
 
   // -------------------------------------------------------------------------------------- //
@@ -419,34 +405,57 @@ export class Sheet extends HTMLElement {
 
   nextLazyLoad(): number {
     const rows = this.rows > 0 ? this.rows : this.lazyRows;
-    const rowElements = this.tableBody.rows;
     const firstVisibleRowIndex = this.firstVisibleRowIndex;
+    const firstVisibleRow = this.tableBody.querySelector(`tr[row-index='${firstVisibleRowIndex}']`);
 
-    for (let rowIndex = firstVisibleRowIndex + 1; rowIndex < firstVisibleRowIndex + rows; rowIndex++) {
-      if (rowIndex >= 0 && rowIndex < rowElements.length && rowElements[rowIndex].hasAttribute("dummy")) {
-        this.upperRowsUpdate = false;
-        if (rowElements[firstVisibleRowIndex].hasAttribute("dummy")) {
-          return firstVisibleRowIndex;
-        } else if (rowIndex + rows - 1 < rowElements.length) {
-          return rowIndex;
-        } else {
-          return rowElements.length - rows;
-        }
+    const maxNextLazyLoad = firstVisibleRowIndex + rows - 1;
+    const nextDummyRowIndex = this.getNextDummyRowIndex(firstVisibleRow.nextElementSibling, rows - 1);
+    if (nextDummyRowIndex && nextDummyRowIndex <= maxNextLazyLoad) {
+      this.upperRowsUpdate = false;
+      if (firstVisibleRow.hasAttribute("dummy")) {
+        return firstVisibleRowIndex;
+      } else {
+        return nextDummyRowIndex;
       }
     }
 
-    for (let rowIndex = firstVisibleRowIndex; rowIndex > firstVisibleRowIndex - rows; rowIndex--) {
-      if (rowIndex >= 0 && rowIndex < rowElements.length && rowElements[rowIndex].hasAttribute("dummy")) {
-        this.upperRowsUpdate = true;
-        if (rowIndex - rows + 1 >= 0) {
-          return rowIndex - rows + 1;
-        } else {
-          return 0;
-        }
-      }
+    const minNextLazyLoad = firstVisibleRowIndex - rows;
+    const prevDummyRowIndex = this.getPreviousDummyRowIndex(firstVisibleRow, rows);
+    if (prevDummyRowIndex && prevDummyRowIndex >= minNextLazyLoad) {
+      this.upperRowsUpdate = true;
+      const prevLazyLoad = prevDummyRowIndex - rows + 1;
+      return prevLazyLoad >= 0 ? prevLazyLoad : 0;
     }
 
     return null;
+  }
+
+  private getNextDummyRowIndex(row: Element, iterationCount: number): number {
+    if (row && iterationCount > 0) {
+      if (row.hasAttribute("dummy")) {
+        return Number(row.getAttribute("row-index"));
+      } else if (row.classList.contains(Css.TOBAGO_COLUMN_PANEL)) {
+        return this.getNextDummyRowIndex(row.nextElementSibling, iterationCount);
+      } else {
+        return this.getNextDummyRowIndex(row.nextElementSibling, --iterationCount);
+      }
+    } else {
+      return null;
+    }
+  }
+
+  private getPreviousDummyRowIndex(row: Element, iterationCount: number): number {
+    if (row && iterationCount > 0) {
+      if (row.hasAttribute("dummy")) {
+        return Number(row.getAttribute("row-index"));
+      } else if (row.classList.contains(Css.TOBAGO_COLUMN_PANEL)) {
+        return this.getPreviousDummyRowIndex(row.previousElementSibling, iterationCount);
+      } else {
+        return this.getPreviousDummyRowIndex(row.previousElementSibling, --iterationCount);
+      }
+    } else {
+      return null;
+    }
   }
 
   lazyResponse(event: EventData): void {
@@ -476,14 +485,26 @@ export class Sheet extends HTMLElement {
           const sheetSelectionMode = this.dataset.tobagoSelectionMode;
           const columnSelectorSelectionMode = this.getSelectorAllCheckbox()?.dataset.tobagoSelectionMode;
           for (const newRow of newRows) {
-            const rowIndex = Number(newRow.getAttribute("row-index"));
-            const row = tbody.querySelector(`tr[row-index='${rowIndex}']`);
-            row.insertAdjacentElement("afterend", newRow);
-            row.remove();
-            if (sheetSelectionMode !== "none") {
-              this.initTableRowForSelection(newRow, sheetSelectionMode);
-            } else if (columnSelectorSelectionMode) {
-              this.initTableCellForSelection(row.querySelector("td:first-child"), columnSelectorSelectionMode);
+            if (newRow.hasAttribute("row-index")) {
+              const rowIndex = Number(newRow.getAttribute("row-index"));
+              const row = tbody.querySelector(`tr[row-index='${rowIndex}']`);
+              row.insertAdjacentElement("afterend", newRow);
+              row.remove();
+              if (sheetSelectionMode !== "none") {
+                this.initTableRowForSelection(newRow, sheetSelectionMode);
+              } else if (columnSelectorSelectionMode) {
+                this.initTableCellForSelection(row.querySelector("td:first-child"), columnSelectorSelectionMode);
+              }
+            } else if (newRow.classList.contains(Css.TOBAGO_COLUMN_PANEL)) {
+              const rowIndex = Number(newRow.getAttribute("name"));
+              const columnPanel = tbody.querySelector(`tr[name='${rowIndex}'].${Css.TOBAGO_COLUMN_PANEL}`);
+              if (columnPanel) {
+                columnPanel.insertAdjacentElement("afterend", newRow);
+                columnPanel.remove();
+              } else {
+                const row = tbody.querySelector(`tr[row-index='${rowIndex}']`);
+                row.insertAdjacentElement("afterend", newRow);
+              }
             }
           }
 
@@ -501,6 +522,15 @@ export class Sheet extends HTMLElement {
 
       this.lazyActive = false;
     }
+  }
+
+  private getRowIndex(row: HTMLTableRowElement): number {
+    if (row.hasAttribute("row-index")) {
+      return Number(row.getAttribute("row-index"));
+    } else if (row.classList.contains(Css.TOBAGO_COLUMN_PANEL)) {
+      return Number(row.getAttribute("name"));
+    }
+    return null;
   }
 
   lazyError(data: ErrorData): void {
