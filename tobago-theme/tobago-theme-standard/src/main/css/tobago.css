@@ -3396,7 +3396,7 @@ textarea.form-control-lg {
   margin-left: 0;
 }
 
-.dropdown-menu, tobago-select-many-list .tobago-options.tobago-dropdown-menu, tobago-select-one-list .tobago-options.tobago-dropdown-menu, tobago-page .tobago-page-menuStore .tobago-dropdown-menu, tobago-dropdown .tobago-dropdown-menu {
+.dropdown-menu, tobago-select-many-list .tobago-options.tobago-dropdown-menu, tobago-select-one-list .tobago-options.tobago-dropdown-menu, tobago-page .tobago-page-menuStore .tobago-options.tobago-dropdown-menu, tobago-page .tobago-page-menuStore .tobago-dropdown-menu, tobago-dropdown .tobago-dropdown-menu {
   --bs-dropdown-zindex: 1000;
   --bs-dropdown-min-width: 10rem;
   --bs-dropdown-padding-x: 0;
@@ -12933,7 +12933,6 @@ tobago-page .tobago-page-menuStore {
   left: 0;
   width: 0;
   height: 0;
-  z-index: 1070;
 }
 tobago-page .tobago-page-menuStore .tobago-dropdown-menu {
   /* Use .tobago-dropdown-menu instead of .dropdown-menu to prevent Bootstrap from creating a dropdown instance.
@@ -12948,6 +12947,45 @@ tobago-page .tobago-page-menuStore .tobago-dropdown-menu .form-check.form-switch
 }
 tobago-page .tobago-page-menuStore .tobago-dropdown-menu label[for] {
   width: 100%;
+}
+tobago-page .tobago-page-menuStore .tobago-options.tobago-dropdown-menu {
+  /* Use .tobago-dropdown-menu instead of .dropdown-menu to prevent Bootstrap from creating a dropdown instance.
+     This leads to javascript error if arrow up/down is pressed. */
+}
+tobago-page .tobago-page-menuStore .tobago-options.list-group-item {
+  padding: 0;
+  overflow-y: auto;
+}
+tobago-page .tobago-page-menuStore .tobago-options .table {
+  margin-bottom: 0;
+}
+tobago-page .tobago-page-menuStore .tobago-options .table.tobago-large {
+  font-size: 1.25rem;
+}
+tobago-page .tobago-page-menuStore .tobago-options .table.tobago-small {
+  font-size: 0.875rem;
+}
+tobago-page .tobago-page-menuStore .tobago-options .table tbody tr {
+  cursor: pointer;
+}
+tobago-page .tobago-page-menuStore .tobago-options .table tbody tr.tobago-disabled {
+  background-color: var(--bs-secondary-bg);
+  cursor: initial;
+  pointer-events: none;
+}
+tobago-page .tobago-page-menuStore .tobago-options .table tbody tr.tobago-preselect {
+  --bs-table-accent-bg: var(--bs-table-hover-bg);
+  color: var(--bs-table-hover-color);
+}
+tobago-page .tobago-page-menuStore .tobago-options .table tbody tr:last-of-type td {
+  border-bottom-width: 0;
+}
+tobago-page .tobago-page-menuStore .tobago-options .table tfoot tr.tobago-no-entries {
+  color: var(--bs-tertiary-color);
+  text-align: center;
+}
+tobago-page .tobago-page-menuStore .tobago-options .table tfoot tr.tobago-no-entries td {
+  border-bottom-width: 0;
 }
 tobago-page .tobago-page-popoverStore .popover .popover-body {
   white-space: pre-line;
