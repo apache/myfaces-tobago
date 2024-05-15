@@ -108,6 +108,7 @@ the staging location).
   > &lt;name>
 * For a positive result wait at least 72 hours.
 * Once a vote is successful, post the result to the dev list.
+  If the result mail should also count as a vote, add a "this email counts as my binding +1".
 
 ## Publishing
 
