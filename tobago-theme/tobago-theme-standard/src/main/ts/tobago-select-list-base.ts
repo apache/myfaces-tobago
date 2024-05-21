@@ -122,6 +122,10 @@ export abstract class SelectListBase extends HTMLElement {
     this.options.addEventListener("dblclick", () => this.hiddenSelect.dispatchEvent(new Event("dblclick")));
   }
 
+  disconnectedCallback(): void {
+    this.dropdownMenu?.remove();
+  }
+
   protected abstract globalClickEvent(event: MouseEvent): void;
 
   /**
