@@ -37,11 +37,12 @@ public class Command {
   private Collapse collapse;
   private Boolean omit;
   private Boolean resetValues;
+  private Boolean stopPropagation;
 
   public Command(
       final String clientId, final String fieldId, final Boolean transition, final String target, final String execute,
       final String render, final String confirmation, final Integer delay,
-      final Collapse collapse, final Boolean omit) {
+      final Collapse collapse, final Boolean omit, final Boolean stopPropagation) {
     this.clientId = clientId;
     this.fieldId = fieldId;
     this.transition = transition != null ? transition : true;
@@ -52,6 +53,7 @@ public class Command {
     this.delay = delay;
     this.collapse = collapse;
     this.omit = omit;
+    this.stopPropagation = stopPropagation;
   }
 
   public String getClientId() {
@@ -146,6 +148,10 @@ public class Command {
     this.resetValues = resetValues;
   }
 
+  public Boolean getStopPropagation() {
+    return stopPropagation;
+  }
+
   public void merge(final Command c) {
 
     //XXX TBD: check if this is okay.
@@ -191,6 +197,9 @@ public class Command {
     }
     if (resetValues == null) {
       resetValues = c.resetValues;
+    }
+    if (stopPropagation == null) {
+      stopPropagation = c.stopPropagation;
     }
   }
 }

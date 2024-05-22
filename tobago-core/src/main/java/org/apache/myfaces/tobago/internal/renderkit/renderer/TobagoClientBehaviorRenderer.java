@@ -19,6 +19,16 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.ActionSource;
+import jakarta.faces.component.EditableValueHolder;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.component.behavior.ClientBehavior;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AjaxBehaviorEvent;
+import jakarta.faces.event.PhaseId;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
@@ -33,17 +43,6 @@ import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import jakarta.el.ValueExpression;
-import jakarta.faces.component.ActionSource;
-import jakarta.faces.component.EditableValueHolder;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.behavior.AjaxBehavior;
-import jakarta.faces.component.behavior.ClientBehavior;
-import jakarta.faces.component.behavior.ClientBehaviorContext;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.AjaxBehaviorEvent;
-import jakarta.faces.event.PhaseId;
 
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
@@ -79,6 +78,7 @@ public class TobagoClientBehaviorRenderer extends jakarta.faces.render.ClientBeh
     boolean omit = false;
     boolean resetValues = false;
     Integer delay = null;
+    Boolean stopPropagation = null;
 
     final String confirmation = ComponentUtils.getConfirmation(uiComponent);
     if (behavior instanceof AjaxBehavior) {
@@ -133,6 +133,7 @@ public class TobagoClientBehaviorRenderer extends jakarta.faces.render.ClientBeh
             collapse = createCollapsible(facesContext, event);
           }
           omit = event.isOmit() || StringUtils.isNotBlank(RenderUtils.generateUrl(facesContext, event));
+          stopPropagation = event.getStopPropagation();
         }
       }
     } else {
@@ -149,7 +150,8 @@ public class TobagoClientBehaviorRenderer extends jakarta.faces.render.ClientBeh
         confirmation,
         delay,
         collapse,
-        omit);
+        omit,
+        stopPropagation);
 
     if (resetValues) {
       command.setResetValues(true);

@@ -68,6 +68,7 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
   SANITIZE("sanitize"),
   SELECTABLE("selectable"),
   SELECTED("selected"),
+  STOP_PROPAGATION("stop-propagation"),
   /**
    * &lt;f:ajax&gt; attribute
    */

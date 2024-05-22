@@ -19,6 +19,18 @@
 
 package org.apache.myfaces.tobago.internal.util;
 
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIPanel;
+import jakarta.faces.component.UIParameter;
+import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.component.behavior.ClientBehavior;
+import jakarta.faces.component.behavior.ClientBehaviorBase;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.ClientBehaviorRenderer;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
@@ -36,19 +48,6 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import jakarta.faces.application.ViewHandler;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIPanel;
-import jakarta.faces.component.UIParameter;
-import jakarta.faces.component.behavior.AjaxBehavior;
-import jakarta.faces.component.behavior.ClientBehavior;
-import jakarta.faces.component.behavior.ClientBehaviorBase;
-import jakarta.faces.component.behavior.ClientBehaviorContext;
-import jakarta.faces.component.behavior.ClientBehaviorHolder;
-import jakarta.faces.context.ExternalContext;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.render.ClientBehaviorRenderer;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -345,7 +344,8 @@ public final class RenderUtils {
           ComponentUtils.getConfirmation(holder),
           null,
           TobagoClientBehaviorRenderer.createCollapsible(facesContext, holder),
-          holder.isOmit()));
+          holder.isOmit(),
+          null));
     }
 
     return commandMap;

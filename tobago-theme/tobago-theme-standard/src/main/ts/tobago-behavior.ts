@@ -63,6 +63,9 @@ class Behavior extends HTMLElement {
   }
 
   callback(event?: Event): void {
+    if (this.stopPropagation) {
+      event.stopPropagation();
+    }
 
     if (this.confirmation) {
       if (!window.confirm(this.confirmation)) {
@@ -287,6 +290,10 @@ class Behavior extends HTMLElement {
     } else {
       this.removeAttribute("decoupled");
     }
+  }
+
+  get stopPropagation(): boolean {
+    return this.hasAttribute("stop-propagation");
   }
 
   get actionElement(): HTMLElement {
