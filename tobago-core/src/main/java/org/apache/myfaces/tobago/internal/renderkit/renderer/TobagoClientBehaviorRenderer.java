@@ -44,12 +44,13 @@ import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.PhaseId;
+import javax.faces.render.ClientBehaviorRenderer;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehaviorRenderer {
+public class TobagoClientBehaviorRenderer extends ClientBehaviorRenderer {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -78,6 +79,7 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
     boolean omit = false;
     boolean resetValues = false;
     Integer delay = null;
+    Boolean stopPropagation = null;
 
     final String confirmation = ComponentUtils.getConfirmation(uiComponent);
     if (behavior instanceof AjaxBehavior) {
@@ -132,6 +134,7 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
             collapse = createCollapsible(facesContext, event);
           }
           omit = event.isOmit() || StringUtils.isNotBlank(RenderUtils.generateUrl(facesContext, event));
+          stopPropagation = event.getStopPropagation();
         }
       }
     } else {
@@ -148,7 +151,8 @@ public class TobagoClientBehaviorRenderer extends javax.faces.render.ClientBehav
         confirmation,
         delay,
         collapse,
-        omit);
+        omit,
+        stopPropagation);
 
     if (resetValues) {
       command.setResetValues(true);
