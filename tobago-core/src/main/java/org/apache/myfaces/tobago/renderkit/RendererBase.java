@@ -281,6 +281,8 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
       throws IOException {
     writer.startElement(HtmlElements.TOBAGO_BEHAVIOR);
     writer.writeAttribute(CustomAttributes.EVENT, behaviors.getJsEvent(), false);
+    writer.writeAttribute(CustomAttributes.STOP_PROPAGATION,
+        command.getStopPropagation() != null && command.getStopPropagation());
     writer.writeAttribute(CustomAttributes.CLIENT_ID, command.getClientId(), false);
     if (StringUtils.notEquals(command.getClientId(), command.getFieldId())) {
       writer.writeAttribute(CustomAttributes.FIELD_ID, command.getFieldId(), false);
@@ -354,7 +356,8 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
           ComponentUtils.getConfirmation(holder),
           null,
           TobagoClientBehaviorRenderer.createCollapsible(facesContext, holder),
-          holder.isOmit()));
+          holder.isOmit(),
+          null));
     }
 
     return commandMap;

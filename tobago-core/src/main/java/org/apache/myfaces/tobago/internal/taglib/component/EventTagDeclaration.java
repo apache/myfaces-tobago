@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.UICommand;
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -38,9 +40,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabledBySecurit
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsImmediateCommand;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsOmit;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsTransition;
-
-import jakarta.el.ValueExpression;
-import jakarta.faces.component.UICommand;
 
 /**
  * Add an event behavior to the component.
@@ -85,4 +84,10 @@ public interface EventTagDeclaration
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.component.ClientBehaviors")
   void setEvent(ValueExpression event);
 
+  /**
+   * Prevent the JavaScript event from bubbling up.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  void setStopPropagation(String stopPropagation);
 }

@@ -19,9 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.ClientBehaviors;
-
 import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.EventTagDeclaration}
@@ -31,4 +30,6 @@ public abstract class AbstractUIEvent extends AbstractUICommandBase implements C
   public abstract ClientBehaviors getEvent();
 
   public abstract void setEvent(ClientBehaviors event);
+
+  public abstract Boolean getStopPropagation();
 }
