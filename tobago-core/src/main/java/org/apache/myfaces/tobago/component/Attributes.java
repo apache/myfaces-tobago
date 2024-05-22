@@ -429,6 +429,7 @@ public enum Attributes {
   stateChangeListenerExpression,
   statePreview,
   step,
+  stopPropagation,
   style,
   switchType,
   tabChangeListener,
@@ -462,7 +463,7 @@ public enum Attributes {
   zIndex;
 
   private static final Map<String, Attributes> NAME_MAP = Stream.of(values())
-          .collect(Collectors.toMap(Attributes::getName, Function.identity()));
+      .collect(Collectors.toMap(Attributes::getName, Function.identity()));
 
   /**
    * This constants are needed for annotations, because they can't use the enums.

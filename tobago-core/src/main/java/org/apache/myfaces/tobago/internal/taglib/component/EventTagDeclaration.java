@@ -85,4 +85,10 @@ public interface EventTagDeclaration
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.component.ClientBehaviors")
   void setEvent(ValueExpression event);
 
+  /**
+   * Prevent the JavaScript event from bubbling up.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  void setStopPropagation(String stopPropagation);
 }

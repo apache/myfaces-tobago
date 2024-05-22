@@ -344,7 +344,8 @@ public final class RenderUtils {
           ComponentUtils.getConfirmation(holder),
           null,
           TobagoClientBehaviorRenderer.createCollapsible(facesContext, holder),
-          holder.isOmit()));
+          holder.isOmit(),
+          null));
     }
 
     return commandMap;
@@ -402,11 +403,11 @@ public final class RenderUtils {
       final Map<String, List<ClientBehavior>> clientBehaviors = clientBehaviorHolder.getClientBehaviors();
       if (clientBehaviors != null && !clientBehaviors.isEmpty()) {
         final Map<String, String> paramMap = facesContext.getExternalContext().getRequestParameterMap();
-        final String behaviorEventName = paramMap.get("javax.faces.behavior.event");
+        final String behaviorEventName = paramMap.get("jakarta.faces.behavior.event");
         if (behaviorEventName != null) {
           final List<ClientBehavior> clientBehaviorList = clientBehaviors.get(behaviorEventName);
           if (clientBehaviorList != null && !clientBehaviorList.isEmpty()) {
-            final String clientId = paramMap.get("javax.faces.source");
+            final String clientId = paramMap.get("jakarta.faces.source");
             if (component.getClientId(facesContext).equals(clientId)) {
               for (final ClientBehavior clientBehavior : clientBehaviorList) {
                 clientBehavior.decode(facesContext, component);
