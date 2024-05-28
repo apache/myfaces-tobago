@@ -136,7 +136,9 @@ public class UISelect2ComponentUtil {
       }
     }
     if (!done) {
-      ((UIComponent) component).getChildren().add(new UICustomItemContainer(validCustomItemMap));
+      UICustomItemContainer uiCustomItemContainer = new UICustomItemContainer(validCustomItemMap);
+      uiCustomItemContainer.setId(((UIComponent) component).getId() + "_customItemContainer");
+      ((UIComponent) component).getChildren().add(uiCustomItemContainer);
     }
 
     if (component instanceof AbstractUISelectManyBox) {
