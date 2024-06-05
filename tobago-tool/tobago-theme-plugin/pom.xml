@@ -65,8 +65,8 @@
       <version>3.6.2</version>
       <exclusions>
         <exclusion>
-          <groupId>org.codehaus.plexus</groupId>
-          <artifactId>plexus-archiver</artifactId>
+          <groupId>org.iq80.snappy</groupId>
+          <artifactId>snappy</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.codehaus.plexus</groupId>
@@ -75,9 +75,9 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>org.codehaus.plexus</groupId>
-      <artifactId>plexus-archiver</artifactId>
-      <version>4.9.2</version>
+      <groupId>org.iq80.snappy</groupId>
+      <artifactId>snappy</artifactId>
+      <version>0.5</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
