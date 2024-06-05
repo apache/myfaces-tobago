@@ -115,7 +115,8 @@ public abstract class AbstractUICollapsiblePanel extends AbstractUIPanelBase {
         if (!valueExpression.isReadOnly(elContext)) {
           valueExpression.setValue(elContext, submittedCollapsed);
         } else {
-          LOG.warn("Component clientId={} ValueExpression of collapsed attribute is readonly. Can not process state.", getClientId(FacesContext.getCurrentInstance()));
+          LOG.warn("Component clientId={} ValueExpression of collapsed attribute is readonly. Can not process state.",
+              getClientId(FacesContext.getCurrentInstance()));
         }
       } else {
         setCollapsed(submittedCollapsed);
