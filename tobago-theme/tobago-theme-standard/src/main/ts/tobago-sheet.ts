@@ -45,8 +45,6 @@ export class Sheet extends HTMLElement {
 
   private lazyActive: boolean;
   private sheetLoader: HTMLElement;
-  private previousScrollHeight: number;
-  private upperRowsUpdate: boolean;
 
   constructor() {
     super();
@@ -183,9 +181,11 @@ export class Sheet extends HTMLElement {
     const sheetBody = this.getBody();
 
     // restore scroll position
-    const value = JSON.parse(this.getHiddenScrollPosition().getAttribute("value")) as number[];
-    sheetBody.scrollLeft = value[0];
-    sheetBody.scrollTop = value[1];
+    if (!this.lazy) {
+      const scrollPosition = this.scrollPosition;
+      sheetBody.scrollLeft = scrollPosition[0];
+      sheetBody.scrollTop = scrollPosition[1];
+    }
 
     this.syncScrolling();
 
@@ -214,10 +214,7 @@ export class Sheet extends HTMLElement {
     }
 
     // lazy load by scrolling ----------------------------------------------------------------- //
-
-    const lazy = this.lazy;
-
-    if (lazy) {
+    if (this.lazy) {
       // prepare the sheet with some auto-created (empty) rows
       const tableBody = this.tableBody;
       const columns = tableBody.rows[0].cells.length;
@@ -232,7 +229,12 @@ export class Sheet extends HTMLElement {
       }
 
       this.sheetBody.addEventListener("scroll", this.lazyCheck.bind(this));
-      this.sheetBody.scrollTop = firstRow.offsetTop; //triggers scroll event -> lazyCheck()
+
+      const lazyScrollPosition = this.lazyScrollPosition;
+      const firstVisibleRow
+          = this.tableBody.querySelector<HTMLTableRowElement>(`tr[row-index='${lazyScrollPosition[0]}']`);
+      this.sheetBody.scrollTop
+          = firstVisibleRow.offsetTop + lazyScrollPosition[1]; //triggers scroll event -> lazyCheck()
     }
 
     // ---------------------------------------------------------------------------------------- //
@@ -292,6 +294,18 @@ export class Sheet extends HTMLElement {
   }
 
   // attribute getter + setter ---------------------------------------------------------- //
+  get scrollPosition(): number[] {
+    return JSON.parse(this.hiddenInputScrollPosition.value);
+  }
+
+  set scrollPosition(value: number[]) {
+    this.hiddenInputScrollPosition.value = JSON.stringify(value);
+  }
+
+  private get hiddenInputScrollPosition(): HTMLInputElement {
+    return this.querySelector("input[id$='::scrollPosition']");
+  }
+
   get lazy(): boolean {
     return this.hasAttribute("lazy");
   }
@@ -302,6 +316,18 @@ export class Sheet extends HTMLElement {
     } else {
       this.removeAttribute("lazy");
     }
+  }
+
+  get lazyScrollPosition(): number[] {
+    return JSON.parse(this.hiddenInputLazyScrollPosition.value);
+  }
+
+  set lazyScrollPosition(value: number[]) {
+    this.hiddenInputLazyScrollPosition.value = JSON.stringify(value);
+  }
+
+  private get hiddenInputLazyScrollPosition(): HTMLInputElement {
+    return this.querySelector("input[id$='::lazyScrollPosition']");
   }
 
   get lazyUpdate(): boolean {
@@ -386,7 +412,6 @@ export class Sheet extends HTMLElement {
       const rootNode = this.getRootNode() as ShadowRoot | Document;
       const input = rootNode.getElementById(this.id + ":pageActionlazy") as HTMLInputElement;
       input.value = String(next + 1); //input.value rowIndex starts at 1 (not 0)
-      this.previousScrollHeight = this.sheetBody.scrollHeight;
       console.debug(`reload sheet with action '${input.id}'`); // @DEV_ONLY
 
       jsf.ajax.request(
@@ -411,7 +436,6 @@ export class Sheet extends HTMLElement {
     const maxNextLazyLoad = firstVisibleRowIndex + rows - 1;
     const nextDummyRowIndex = this.getNextDummyRowIndex(firstVisibleRow.nextElementSibling, rows - 1);
     if (nextDummyRowIndex && nextDummyRowIndex <= maxNextLazyLoad) {
-      this.upperRowsUpdate = false;
       if (firstVisibleRow.hasAttribute("dummy")) {
         return firstVisibleRowIndex;
       } else {
@@ -422,7 +446,6 @@ export class Sheet extends HTMLElement {
     const minNextLazyLoad = firstVisibleRowIndex - rows;
     const prevDummyRowIndex = this.getPreviousDummyRowIndex(firstVisibleRow, rows);
     if (prevDummyRowIndex && prevDummyRowIndex >= minNextLazyLoad) {
-      this.upperRowsUpdate = true;
       const prevLazyLoad = prevDummyRowIndex - rows + 1;
       return prevLazyLoad >= 0 ? prevLazyLoad : 0;
     }
@@ -512,13 +535,10 @@ export class Sheet extends HTMLElement {
         }
       }
 
-      const scrollTop: number = JSON.parse(this.getHiddenScrollPosition().value)[1];
-      if (this.upperRowsUpdate) {
-        const additionalHeight: number = this.sheetBody.scrollHeight - this.previousScrollHeight;
-        this.sheetBody.scrollTop = scrollTop + additionalHeight;
-      } else {
-        this.sheetBody.scrollTop = scrollTop;
-      }
+      const lazyScrollPosition = this.lazyScrollPosition;
+      const firstRow
+          = this.tableBody.querySelector<HTMLTableRowElement>(`tr[row-index='${lazyScrollPosition[0]}']`);
+      this.sheetBody.scrollTop = firstRow.offsetTop + lazyScrollPosition[1];
 
       this.lazyActive = false;
     }
@@ -660,14 +680,20 @@ Type: ${data.type}`);
   }
 
   scrollAction(event: Event): void {
-    const sheetBody = event.currentTarget as HTMLElement;
-
     this.syncScrolling();
+    const sheetBody = event.currentTarget as HTMLElement;
+    const scrollLeft = Math.round(sheetBody.scrollLeft);
 
-    // store the position in a hidden field
-    const hidden = this.getHiddenScrollPosition();
-    hidden.setAttribute("value",
-        JSON.stringify([Math.round(sheetBody.scrollLeft), Math.round(sheetBody.scrollTop)]));
+    if (this.lazy) {
+      const firstVisibleRowIndex = this.firstVisibleRowIndex;
+      const firstVisibleRow
+          = this.tableBody.querySelector<HTMLTableRowElement>(`tr[row-index='${firstVisibleRowIndex}']`);
+      const firstVisibleRowScrollTop = sheetBody.scrollTop - firstVisibleRow.offsetTop;
+
+      this.lazyScrollPosition = [firstVisibleRowIndex, Math.round(firstVisibleRowScrollTop), scrollLeft];
+    } else {
+      this.scrollPosition = [scrollLeft, Math.round(sheetBody.scrollTop)];
+    }
   }
 
   mousedownOnRow(event: MouseEvent): void {

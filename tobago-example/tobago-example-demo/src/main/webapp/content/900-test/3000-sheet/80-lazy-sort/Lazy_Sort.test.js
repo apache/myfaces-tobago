@@ -18,27 +18,16 @@
 import {elementByIdFn, querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
-it("initial load", function (done) {
-  const submit = elementByIdFn("page:mainForm:submit");
-  const sheet = elementByIdFn("page:mainForm:sheet");
-
-  let dataTobagoFirst;
-
-  const test = new JasmineTestTool(done);
-  test.do(() => dataTobagoFirst = Number(sheet().getAttribute("data-tobago-first")));
-  test.setup(() => isLoaded(dataTobagoFirst - 20) && isLoaded(dataTobagoFirst), null, "click", submit);
-  test.do(() => expect(isLoaded(dataTobagoFirst - 21)).toBeFalse());
-  test.do(() => expect(isLoaded(dataTobagoFirst - 20, dataTobagoFirst + 19)).toBeTrue());
-  test.do(() => expect(isLoaded(dataTobagoFirst + 20)).toBeFalse());
-  test.start();
-});
-
 it("focus row index 5 (min row index is 0) and scroll up", function (done) {
+  const submit = elementByIdFn("page:mainForm:submit");
   let timestamp;
 
   const test = new JasmineTestTool(done);
+  test.do(() => focusRowIndex(100));
+  test.wait(() => isLoaded(100));
+  test.setup(() => isLoaded(100) && !isLoaded(5), () => focusRowIndex(100), "click", submit);
   test.do(() => timestamp = Date.now());
-  test.wait(() => Date.now() - timestamp > 100);
+  test.wait(() => Date.now() - timestamp > 1000);
   test.do(() => focusRowIndex(5));
   test.wait(() => isLoaded(5));
   test.do(() => expect(isLoaded(4)).toBeFalse());
