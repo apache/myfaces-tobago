@@ -19,12 +19,17 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import jakarta.el.ELContext;
 import jakarta.el.ValueExpression;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.model.CollapseMode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
 
 /**
  * Base class for collapsible panels.
@@ -32,6 +37,8 @@ import org.apache.myfaces.tobago.model.CollapseMode;
 public abstract class AbstractUICollapsiblePanel extends AbstractUIPanelBase {
 
   private transient Boolean submittedCollapsed;
+
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   public void processDecodes(final FacesContext facesContext) {
@@ -104,7 +111,13 @@ public abstract class AbstractUICollapsiblePanel extends AbstractUIPanelBase {
     if (submittedCollapsed != null) {
       final ValueExpression valueExpression = getValueExpression(Attributes.collapsed.name());
       if (valueExpression != null) {
-        valueExpression.setValue(FacesContext.getCurrentInstance().getELContext(), submittedCollapsed);
+        ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+        if (!valueExpression.isReadOnly(elContext)) {
+          valueExpression.setValue(elContext, submittedCollapsed);
+        } else {
+          LOG.warn("Component clientId={} ValueExpression of collapsed attribute is readonly. Can not process state.",
+              getClientId(FacesContext.getCurrentInstance()));
+        }
       } else {
         setCollapsed(submittedCollapsed);
       }
