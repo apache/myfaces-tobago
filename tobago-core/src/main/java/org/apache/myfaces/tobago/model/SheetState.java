@@ -36,6 +36,7 @@ public class SheetState implements Serializable, ScrollPositionState {
   private List<Integer> columnWidths;
   private List<Integer> selectedRows;
   private ScrollPosition scrollPosition;
+  private LazyScrollPosition lazyScrollPosition;
   private ExpandedState expandedState;
   private SelectedState selectedState;
 
@@ -74,6 +75,11 @@ public class SheetState implements Serializable, ScrollPositionState {
       scrollPosition.clear();
     } else {
       scrollPosition = new ScrollPosition();
+    }
+    if (lazyScrollPosition != null) {
+      lazyScrollPosition.clear();
+    } else {
+      lazyScrollPosition = new LazyScrollPosition();
     }
   }
 
@@ -196,6 +202,14 @@ public class SheetState implements Serializable, ScrollPositionState {
 
   public void setScrollPosition(final ScrollPosition scrollPosition) {
     this.scrollPosition = scrollPosition;
+  }
+
+  public LazyScrollPosition getLazyScrollPosition() {
+    return lazyScrollPosition;
+  }
+
+  public void setLazyScrollPosition(LazyScrollPosition lazyScrollPosition) {
+    this.lazyScrollPosition = lazyScrollPosition;
   }
 
   public ExpandedState getExpandedState() {
