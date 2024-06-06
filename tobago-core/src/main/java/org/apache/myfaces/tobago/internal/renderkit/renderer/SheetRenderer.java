@@ -103,6 +103,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
   private static final String SUFFIX_SCROLL_POSITION = ComponentUtils.SUB_SEPARATOR + "scrollPosition";
   private static final String SUFFIX_SELECTED = ComponentUtils.SUB_SEPARATOR + "selected";
   private static final String SUFFIX_LAZY = NamingContainer.SEPARATOR_CHAR + "pageActionlazy";
+  private static final String SUFFIX_LAZY_SCROLL_POSITION = ComponentUtils.SUB_SEPARATOR + "lazyScrollPosition";
   private static final String SUFFIX_PAGE_ACTION = "pageAction";
 
   @Override
@@ -136,14 +137,20 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       ComponentUtils.setAttribute(component, Attributes.selectedListString, selectedRows);
     }
 
-    key = "tobago.sheet.lazyFirstRow";
-    if (requestParameterMap.containsKey(key)) {
-      component.setLazyUpdate(true);
-      component.setLazyFirstRow(Integer.parseInt(requestParameterMap.get(key)));
+    if (component.isLazy()) {
+      final String lazyScrollPosition = requestParameterMap.get(clientId + SUFFIX_LAZY_SCROLL_POSITION);
+      if (lazyScrollPosition != null) {
+        state.getLazyScrollPosition().update(lazyScrollPosition);
+      }
+
+      key = "tobago.sheet.lazyFirstRow";
+      if (requestParameterMap.containsKey(key)) {
+        component.setLazyUpdate(true);
+        component.setLazyFirstRow(Integer.parseInt(requestParameterMap.get(key)));
+      }
     }
 
-    final String value
-        = facesContext.getExternalContext().getRequestParameterMap().get(clientId + SUFFIX_SCROLL_POSITION);
+    final String value = requestParameterMap.get(clientId + SUFFIX_SCROLL_POSITION);
     if (value != null) {
       state.getScrollPosition().update(value);
     }
@@ -352,6 +359,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
     if (component.isLazy()) {
       encodeHiddenInput(writer, null, sheetId + SUFFIX_LAZY);
+      encodeHiddenInput(writer, state.getLazyScrollPosition().encode(), sheetId + SUFFIX_LAZY_SCROLL_POSITION);
     }
 
     final List<Integer> expandedValue = component.isTreeModel() ? new ArrayList<>() : null;

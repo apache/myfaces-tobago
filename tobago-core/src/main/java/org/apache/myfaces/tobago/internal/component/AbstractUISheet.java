@@ -122,6 +122,10 @@ public abstract class AbstractUISheet extends AbstractUIData
       }
     }
 
+    if (isLazy() && !getLazyUpdate()) {
+      setLazyFirstRow(theState.getLazyScrollPosition().getFirstVisibleRow());
+    }
+
     super.encodeBegin(facesContext);
   }
 

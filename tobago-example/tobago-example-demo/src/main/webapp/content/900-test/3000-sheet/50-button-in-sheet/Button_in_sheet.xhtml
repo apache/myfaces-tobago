@@ -28,27 +28,40 @@
   <tc:sheet id="sheet" value="#{sheetController.solarList}" var="object" rows="4">
     <tc:style maxHeight="500px"/>
     <tc:column label="Name">
-      <tc:button id="submitButton" label="Submit"/>
-      <tc:button id="ajaxButton" label="Ajax"/>
+      <tc:button id="submitButton" label="Submit">
+        <tc:event stopPropagation="true"/>
+      </tc:button>
+      <tc:button id="ajaxButton" label="Ajax">
+        <tc:event stopPropagation="true">
+          <f:ajax render=":::timestamp"/>
+        </tc:event>
+      </tc:button>
       <tc:link id="link" label="apache" link="https://www.apache.org/"/>
     </tc:column>
     <tc:column label="Orbit">
       <tc:panel>
-        <tc:button id="submitPanelButton" label="Submit"/>
+        <tc:button id="submitPanelButton" label="Submit">
+          <tc:event stopPropagation="true"/>
+        </tc:button>
         <tc:button id="ajaxPanelButton" label="Ajax">
-          <f:ajax render=":::timestamp"/>
+          <tc:event stopPropagation="true">
+            <f:ajax render=":::timestamp"/>
+          </tc:event>
         </tc:button>
       </tc:panel>
       <tc:out id="outOrbit" value="#{object.orbit}" labelLayout="skip"/>
     </tc:column>
     <tc:column label="Period (Days)">
-      <tc:selectOneListbox id="list" label="List" size="3">
-        <tc:selectItem itemLabel="Alpha"/>
-        <tc:selectItem itemLabel="Beta"/>
-        <tc:selectItem itemLabel="Gamma"/>
-        <tc:selectItem itemLabel="Delta"/>
-        <f:ajax render=":::timestamp"/>
-      </tc:selectOneListbox>
+      <tc:panel>
+        <tc:selectOneListbox id="list" size="3">
+          <tc:selectItem itemLabel="Alpha"/>
+          <tc:selectItem itemLabel="Beta"/>
+          <tc:selectItem itemLabel="Gamma"/>
+          <tc:selectItem itemLabel="Delta"/>
+          <f:ajax render=":::timestamp"/>
+        </tc:selectOneListbox>
+        <tc:event event="click" stopPropagation="true" omit="true"/>
+      </tc:panel>
       <tc:out value="#{object.period}" labelLayout="skip"/>
     </tc:column>
     <tc:column label="Discoverer">
