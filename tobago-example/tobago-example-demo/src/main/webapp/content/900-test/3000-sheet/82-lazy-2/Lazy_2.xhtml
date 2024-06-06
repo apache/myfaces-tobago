@@ -24,9 +24,9 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
   <tc:button id="submit" label="submit"/>
   <tc:button id="ajax" label="Ajax">
-    <f:ajax execute="sheet" render="sheet"/>
+    <f:ajax execute="sheet" render="sheet timestamp"/>
   </tc:button>
-  <tc:button id="resetSelected" label="resetSelected" action="#{sheetController.lazyTwoState.resetSelected()}"/>
+  <tc:button id="reset" label="Reset" action="#{sheetController.lazyTwoState.reset()}"/>
   <tc:panel id="parameter">
     <tc:out id="timestamp" label="Timestamp" value="#{eventController.currentTimestamp}"/>
     <tc:out id="selectedRows" label="Selected" value="#{sheetController.lazyTwoState.selectedRows}"/>
