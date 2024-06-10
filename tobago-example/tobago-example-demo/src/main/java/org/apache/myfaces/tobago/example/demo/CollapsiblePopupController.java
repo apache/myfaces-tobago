@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -31,6 +32,12 @@ public class CollapsiblePopupController implements Serializable {
   private String input1;
   private String input2;
   private String input3;
+  private boolean showCollapsedAttributePopup;
+
+  @PostConstruct
+  public void init() {
+    this.showCollapsedAttributePopup = false;
+  }
 
   public boolean isCollapsed() {
     return collapsed;
@@ -70,5 +77,21 @@ public class CollapsiblePopupController implements Serializable {
 
   public void setInput3(String input3) {
     this.input3 = input3;
+  }
+
+  public void showPopup() {
+    showCollapsedAttributePopup = true;
+  }
+
+  public void hidePopup() {
+    showCollapsedAttributePopup = false;
+  }
+
+  public boolean isShowCollapsedAttributePopup() {
+    return showCollapsedAttributePopup;
+  }
+
+  public void setShowCollapsedAttributePopup(boolean showCollapsedAttributePopup) {
+    this.showCollapsedAttributePopup = showCollapsedAttributePopup;
   }
 }
