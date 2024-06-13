@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLocalMenu;
 import org.apache.myfaces.tobago.model.SuggestFilter;
 
 import javax.faces.component.UIInput;
@@ -57,7 +58,7 @@ import javax.faces.component.UIInput;
             name = ClientBehaviors.SUGGEST,
             isDefault = true)
     }*/)
-public interface SuggestTagDeclaration extends HasIdBindingAndRendered {
+public interface SuggestTagDeclaration extends HasIdBindingAndRendered, HasLocalMenu {
 
   /**
    * Minimum number of characters to type before the list will be requested.
@@ -133,15 +134,6 @@ public interface SuggestTagDeclaration extends HasIdBindingAndRendered {
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setUpdate(String update);
-
-  /**
-   * <p>
-   * If a suggest menu is available, it will be rendered on the component, not in the '.tobago-page-menuStore'.
-   * </p>
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  void setLocalMenu(String localMenu);
 
   /**
    * The query is the string typed by the user.
