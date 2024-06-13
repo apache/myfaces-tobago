@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.component;
 
 import jakarta.el.ELContext;
 import jakarta.el.ValueExpression;
+import jakarta.faces.application.ProjectStage;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -111,12 +112,19 @@ public abstract class AbstractUICollapsiblePanel extends AbstractUIPanelBase {
     if (submittedCollapsed != null) {
       final ValueExpression valueExpression = getValueExpression(Attributes.collapsed.name());
       if (valueExpression != null) {
-        ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ELContext elContext = facesContext.getELContext();
         if (!valueExpression.isReadOnly(elContext)) {
           valueExpression.setValue(elContext, submittedCollapsed);
         } else {
-          LOG.warn("Component clientId={} ValueExpression of collapsed attribute is readonly. Can not process state.",
-              getClientId(FacesContext.getCurrentInstance()));
+          final boolean developmentMode = facesContext.isProjectStage(ProjectStage.Development);
+          String msg
+              = "Component clientId={} ValueExpression of collapsed attribute is readonly. Can not process state.";
+          if (developmentMode) {
+            LOG.warn(msg, getClientId(facesContext));
+          } else {
+            LOG.debug(msg, getClientId(facesContext));
+          }
         }
       } else {
         setCollapsed(submittedCollapsed);
