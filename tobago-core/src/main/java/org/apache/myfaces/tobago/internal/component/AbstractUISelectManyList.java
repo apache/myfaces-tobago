@@ -71,6 +71,8 @@ public abstract class AbstractUISelectManyList extends AbstractUISelectManyBase
 
   public abstract String getFilter();
 
+  public abstract boolean isLocalMenu();
+
   @Override
   public boolean isNextToRenderIsLabel() {
     return nextToRenderIsLabel;
