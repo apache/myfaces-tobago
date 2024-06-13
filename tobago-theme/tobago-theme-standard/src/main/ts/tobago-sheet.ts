@@ -697,38 +697,7 @@ Type: ${data.type}`);
   }
 
   clickOnRow(event: MouseEvent): void {
-    let clickElement: HTMLElement = event.target as HTMLElement;
-    while (clickElement.tagName !== "TR") {
-      if (clickElement.tagName === "A"
-          || clickElement.tagName === "BUTTON"
-          || clickElement.tagName === "TOBAGO-DATE"
-          || clickElement.tagName === "TOBAGO-DROPDOWN"
-          || clickElement.tagName === "TOBAGO-FILE"
-          || clickElement.tagName === "TOBAGO-IN"
-          || clickElement.tagName === "TOBAGO-POPOVER"
-          || clickElement.tagName === "TOBAGO-RANGE"
-          || clickElement.tagName === "TOBAGO-SELECT-BOOLEAN-CHECKBOX"
-          || clickElement.tagName === "TOBAGO-SELECT-BOOLEAN-TOGGLE"
-          || clickElement.tagName === "TOBAGO-SELECT-MANY-CHECKBOX"
-          || clickElement.tagName === "TOBAGO-SELECT-MANY-LIST"
-          || clickElement.tagName === "TOBAGO-SELECT-MANY-LISTBOX"
-          || clickElement.tagName === "TOBAGO-SELECT-MANY-SHUTTLE"
-          || clickElement.tagName === "TOBAGO-SELECT-ONE-CHOICE"
-          || clickElement.tagName === "TOBAGO-SELECT-ONE-LIST"
-          || clickElement.tagName === "TOBAGO-SELECT-ONE-LISTBOX"
-          || clickElement.tagName === "TOBAGO-SELECT-ONE-RADIO"
-          || clickElement.tagName === "TOBAGO-STARS"
-          || clickElement.tagName === "TOBAGO-TAB-GROUP"
-          || clickElement.tagName === "TOBAGO-TEXTAREA"
-          || clickElement.tagName === "TOBAGO-TREE"
-          || clickElement.tagName === "BUTTON") {
-        // click on a button/link/form-component should not select row TOBAGO-2263
-        return;
-      } else {
-        clickElement = clickElement.parentElement;
-      }
-    }
-    const row = clickElement as HTMLTableRowElement;
+    const row = event.currentTarget as HTMLTableRowElement;
     if (row.classList.contains(Css.TOBAGO_SELECTED) || !Sheet.isInputElement(row)) {
 
       if (this.mousedownOnRowData) { // integration test: mousedownOnRowData may be 'null'
