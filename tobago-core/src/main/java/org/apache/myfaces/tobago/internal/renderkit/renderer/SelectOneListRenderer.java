@@ -266,6 +266,7 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
       throws IOException {
     super.writeAdditionalAttributes(facesContext, writer, input);
     writer.writeAttribute(CustomAttributes.FILTER, input.getFilter(), true);
+    writer.writeAttribute(CustomAttributes.LOCAL_MENU, input.isLocalMenu());
   }
 
   @Override

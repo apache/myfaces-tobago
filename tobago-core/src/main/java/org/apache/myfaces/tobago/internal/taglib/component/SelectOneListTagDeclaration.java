@@ -36,6 +36,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasHelp;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLocalMenu;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasRequiredMessageForSelect;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
@@ -84,5 +85,5 @@ public interface SelectOneListTagDeclaration
     extends HasId, IsDisabled, IsRendered, HasBinding, HasTip, HasHelp, IsReadonly, HasConverter, IsRequiredForSelect,
     HasLabel, HasValidator, HasValue, HasValueChangeListener, HasLabelLayout, HasValidatorMessage, HasConverterMessage,
     HasRequiredMessageForSelect, HasTabIndex, IsFocus, IsVisual, HasAutoSpacing, HasFilter, IsExpanded,
-    HasDecorationPosition {
+    HasDecorationPosition, HasLocalMenu {
 }
