@@ -100,6 +100,7 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
       throws IOException {
     super.writeAdditionalAttributes(facesContext, writer, input);
     writer.writeAttribute(CustomAttributes.FILTER, input.getFilter(), true);
+    writer.writeAttribute(CustomAttributes.LOCAL_MENU, input.isLocalMenu());
   }
 
   private void encodeHiddenSelect(

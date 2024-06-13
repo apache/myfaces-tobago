@@ -88,9 +88,8 @@ export abstract class SelectListBase extends HTMLElement {
     return this.tbody.querySelector<HTMLTableRowElement>("." + Css.TOBAGO_PRESELECT);
   }
 
-  get menuStore(): HTMLDivElement {
-    const root = this.getRootNode() as ShadowRoot | Document;
-    return root.querySelector(".tobago-page-menuStore");
+  get localMenu(): boolean {
+    return this.hasAttribute("local-menu");
   }
 
   connectedCallback(): void {
@@ -280,7 +279,9 @@ export abstract class SelectListBase extends HTMLElement {
 
   protected showDropdown(): void {
     if (this.dropdownMenu && !this.dropdownMenu.classList.contains(Css.SHOW)) {
-      MenuStore.appendChild(this.dropdownMenu);
+      if (!this.localMenu) {
+        MenuStore.appendChild(this.dropdownMenu);
+      }
 
       this.selectField.classList.add(Css.SHOW);
       this.selectField.ariaExpanded = "true";
@@ -292,7 +293,9 @@ export abstract class SelectListBase extends HTMLElement {
 
   protected hideDropdown(): void {
     if (this.dropdownMenu?.classList.contains(Css.SHOW)) {
-      this.appendChild(this.dropdownMenu);
+      if (!this.localMenu) {
+        this.appendChild(this.dropdownMenu);
+      }
 
       this.selectField.classList.remove(Css.SHOW);
       this.selectField.ariaExpanded = "false";
