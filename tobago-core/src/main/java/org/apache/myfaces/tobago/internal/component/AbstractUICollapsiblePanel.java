@@ -29,6 +29,7 @@ import java.lang.invoke.MethodHandles;
 
 import javax.el.ELContext;
 import javax.el.ValueExpression;
+import javax.faces.application.ProjectStage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
@@ -112,12 +113,19 @@ public abstract class AbstractUICollapsiblePanel extends AbstractUIPanelBase {
     if (submittedCollapsed != null) {
       final ValueExpression valueExpression = getValueExpression(Attributes.collapsed.name());
       if (valueExpression != null) {
-        ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ELContext elContext = facesContext.getELContext();
         if (!valueExpression.isReadOnly(elContext)) {
           valueExpression.setValue(elContext, submittedCollapsed);
         } else {
-          LOG.warn("Component clientId={} ValueExpression of collapsed attribute is readonly. Can not process state.",
-              getClientId(FacesContext.getCurrentInstance()));
+          final boolean developmentMode = facesContext.isProjectStage(ProjectStage.Development);
+          String msg
+              = "Component clientId={} ValueExpression of collapsed attribute is readonly. Can not process state.";
+          if (developmentMode) {
+            LOG.warn(msg, getClientId(facesContext));
+          } else {
+            LOG.debug(msg, getClientId(facesContext));
+          }
         }
       } else {
         setCollapsed(submittedCollapsed);
