@@ -105,6 +105,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
   private static final String SUFFIX_LAZY = NamingContainer.SEPARATOR_CHAR + "pageActionlazy";
   private static final String SUFFIX_LAZY_SCROLL_POSITION = ComponentUtils.SUB_SEPARATOR + "lazyScrollPosition";
   private static final String SUFFIX_PAGE_ACTION = "pageAction";
+  private static final String SUFFIX_COLUMN_SELECTOR = ComponentUtils.SUB_SEPARATOR + "columnSelector";
 
   @Override
   public void decodeInternal(final FacesContext facesContext, final T component) {
@@ -847,6 +848,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       final List<AbstractUIColumnBase> columns)
       throws IOException {
 
+    final String sheetClientId = sheet.getClientId(facesContext);
     final Selectable selectable = sheet.getSelectable();
     final Grid grid = sheet.getHeaderGrid();
     final boolean autoLayout = sheet.isAutoLayout();
@@ -996,6 +998,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
               } else {
                 writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
               }
+              writer.writeNameAttribute(sheetClientId + SUFFIX_COLUMN_SELECTOR);
               writer.writeClassAttribute(TobagoClass.SELECTED);
               writer.writeAttribute(DataAttributes.SELECTION_MODE, currentSelectable.name(), false);
               writer.endElement(HtmlElements.INPUT);
