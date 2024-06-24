@@ -22,7 +22,11 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-  <tc:sheet id="sheet1" var="object" value="#{sheetController.solarList}" rows="5">
+  <tc:button id="reloadPage" label="reload page"
+             link="#{request.contextPath}/content/900-test/3000-sheet/90-sheet-in-sheet/Sheet_in_sheet.xhtml"/>
+
+  <tc:sheet id="mainSheet" var="object" value="#{sheetController.solarList}" rows="5">
+    <tc:columnSelector/>
     <tc:column label="Name">
       <tc:out id="name" value="#{object.name}"/>
     </tc:column>
@@ -33,20 +37,20 @@
       <tc:out value="#{object.period}"/>
     </tc:column>
     <tc:columnPanel>
-      <tc:style customClass="row-expand"/>
       <tc:panel>
-        <tc:style customClass="row-expand-content"/>
-        <tc:sheet id="sheet2" value="#{sheetController.solarList}" var="delta" rows="1">
-          <tc:column label="Name">
-            <tc:out value="#{delta.name}"/>
-          </tc:column>
-          <tc:column label="Orbit">
-            <tc:out value="#{delta.orbit}"/>
-          </tc:column>
-          <tc:column label="Period (Days)">
-            <tc:out value="#{delta.period}"/>
-          </tc:column>
-        </tc:sheet>
+        <tc:event omit="true" stopPropagation="true">
+          <tc:sheet id="subSheet" value="#{sheetController.solarList}" var="delta" rows="5">
+            <tc:column label="Name">
+              <tc:out value="#{delta.name}"/>
+            </tc:column>
+            <tc:column label="Orbit">
+              <tc:out value="#{delta.orbit}"/>
+            </tc:column>
+            <tc:column label="Period (Days)">
+              <tc:out value="#{delta.period}"/>
+            </tc:column>
+          </tc:sheet>
+        </tc:event>
       </tc:panel>
     </tc:columnPanel>
   </tc:sheet>
