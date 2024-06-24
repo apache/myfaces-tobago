@@ -19,6 +19,8 @@ import {Page} from "./tobago-page";
 import {Key} from "./tobago-key";
 import {Css} from "./tobago-css";
 import {ClientBehaviors} from "./tobago-client-behaviors";
+import {ColumnSelector} from "./tobago-column-selector";
+import {Selectable} from "./tobago-selectable";
 
 interface MousemoveData {
   columnIndex: number;
@@ -33,10 +35,20 @@ interface MousedownOnRowData {
   y: number;
 }
 
+export enum SelectMode {
+  none,
+  singleMode,
+  ctrlMode_singleOrNone,
+  ctrlMode_multi,
+  shiftMode
+}
+
 export class Sheet extends HTMLElement {
 
   static readonly SCROLL_BAR_SIZE: number = Sheet.getScrollBarSize();
   private static readonly SUFFIX_LAZY_UPDATE: string = "::lazy-update";
+
+  private columnSelector: ColumnSelector;
 
   mousemoveData: MousemoveData;
   mousedownOnRowData: MousedownOnRowData;
@@ -69,10 +81,6 @@ export class Sheet extends HTMLElement {
     return 100 - widthWithScroll;
   }
 
-  private static isInputElement(element: HTMLElement): boolean {
-    return ["INPUT", "TEXTAREA", "SELECT", "A", "BUTTON"].indexOf(element.tagName) > -1;
-  }
-
   private static getDummyRowTemplate(columns: number, rowIndex: number): string {
     return `<tr row-index="${rowIndex}" dummy="dummy">
 <td colspan="${columns}"> </td>
@@ -80,6 +88,10 @@ export class Sheet extends HTMLElement {
   }
 
   connectedCallback(): void {
+    if (this.querySelector("thead input.tobago-selected[name='" + this.id + "::columnSelector']")) {
+      this.columnSelector = new ColumnSelector(this);
+    }
+
     // synchronize column widths ----------------------------------------------------------------------------------- //
 
     // basic idea: there are two possible sources for the sizes:
@@ -193,25 +205,12 @@ export class Sheet extends HTMLElement {
     sheetBody.addEventListener("scroll", this.scrollAction.bind(this));
 
     // add selection listeners ------------------------------------------------------------------------------------ //
-    let selectionMode = this.dataset.tobagoSelectionMode;
-    if (selectionMode !== "none") {
-      for (const row of this.getRowElements()) {
-        this.initTableRowForSelection(row, selectionMode);
-      }
-    } else {
-      selectionMode = this.getSelectorAllCheckbox()?.dataset.tobagoSelectionMode;
-      if (selectionMode) {
-        const cells: NodeListOf<HTMLTableCellElement> = this.getBodyTable().querySelectorAll("tbody>tr>td:first-child");
-        for (const cell of cells) {
-          this.initTableCellForSelection(cell, selectionMode);
-        }
-      }
+    this.getRowElements().forEach((row) => this.initSelectionListener(row));
+    if (this.columnSelector && this.columnSelector.headerElement.type === "checkbox") {
+      this.columnSelector.headerElement.addEventListener("click", this.initSelectAllCheckbox.bind(this));
     }
-
-    if (selectionMode === "multi") {
-      const selectedSet = new Set<number>(JSON.parse(this.getHiddenSelected().value));
-      this.calculateSelectorAllChecked(selectedSet);
-    }
+    this.addEventListener(ClientBehaviors.ROW_SELECTION_CHANGE, this.syncSelected.bind(this));
+    this.syncSelected(null); //TOBAGO-2254
 
     // lazy load by scrolling ----------------------------------------------------------------- //
     if (this.lazy) {
@@ -237,12 +236,6 @@ export class Sheet extends HTMLElement {
           = firstVisibleRow.offsetTop + lazyScrollPosition[1]; //triggers scroll event -> lazyCheck()
     }
 
-    // ---------------------------------------------------------------------------------------- //
-
-    for (const checkbox of this.querySelectorAll("thead .tobago-selected")) {
-      checkbox.addEventListener("click", this.clickOnCheckboxForAll.bind(this));
-    }
-
     // init paging by pages ---------------------------------------------------------------------------------------- //
 
     for (const pagingText of this.querySelectorAll(".tobago-paging")) {
@@ -262,37 +255,6 @@ export class Sheet extends HTMLElement {
     }
   }
 
-  private getSelectionMode() {
-    let selectionMode = this.dataset.tobagoSelectionMode;
-    if (selectionMode === "none") {
-      const selectorAllCheckbox = this.getSelectorAllCheckbox();
-      selectionMode = selectorAllCheckbox?.dataset.tobagoSelectionMode;
-    }
-    return selectionMode;
-  }
-
-  private initTableCellForSelection(cell: HTMLTableCellElement, columnSelectionMode: string) {
-    if (columnSelectionMode === "single" || columnSelectionMode === "singleOrNone" || columnSelectionMode === "multi") {
-      cell.addEventListener("mousedown", this.mousedownOnRow.bind(this));
-      cell.addEventListener("click", this.clickOnColumnSelector.bind(this));
-    }
-    const checkbox = cell.querySelector("input.tobago-selected");
-    checkbox?.addEventListener("click", (event) => {
-      event.preventDefault();
-    });
-  }
-
-  private initTableRowForSelection(row: HTMLTableRowElement, sheetSelectionMode: string): void {
-    if (sheetSelectionMode === "single" || sheetSelectionMode === "singleOrNone" || sheetSelectionMode === "multi") {
-      row.addEventListener("mousedown", this.mousedownOnRow.bind(this));
-      row.addEventListener("click", this.clickOnRow.bind(this));
-    }
-    const checkbox = row.querySelector("td > input.tobago-selected");
-    checkbox?.addEventListener("click", (event) => {
-      event.preventDefault();
-    });
-  }
-
   // attribute getter + setter ---------------------------------------------------------- //
   get scrollPosition(): number[] {
     return JSON.parse(this.hiddenInputScrollPosition.value);
@@ -304,6 +266,30 @@ export class Sheet extends HTMLElement {
 
   private get hiddenInputScrollPosition(): HTMLInputElement {
     return this.querySelector("input[id$='::scrollPosition']");
+  }
+
+  public get selectable(): Selectable {
+    return Selectable[this.dataset.tobagoSelectionMode];
+  }
+
+  get selected(): Set<number> {
+    return new Set<number>(JSON.parse(this.hiddenInputSelected.value));
+  }
+
+  set selected(value: Set<number>) {
+    this.hiddenInputSelected.value = JSON.stringify(Array.from(value));
+  }
+
+  private get hiddenInputSelected(): HTMLInputElement {
+    return this.querySelector("input[id$='::selected']");
+  }
+
+  get lastClickedRowIndex(): number {
+    return Number(this.dataset.tobagoLastClickedRowIndex);
+  }
+
+  set lastClickedRowIndex(value: number) {
+    this.dataset.tobagoLastClickedRowIndex = String(value);
   }
 
   get lazy(): boolean {
@@ -336,6 +322,10 @@ export class Sheet extends HTMLElement {
 
   get lazyRows(): number {
     return parseInt(this.getAttribute("lazy-rows"));
+  }
+
+  get first(): number {
+    return parseInt(this.dataset.tobagoFirst);
   }
 
   get rows(): number {
@@ -501,32 +491,26 @@ export class Sheet extends HTMLElement {
         if (this.id + Sheet.SUFFIX_LAZY_UPDATE === id) {
           console.debug(`[tobago-sheet][success] Update after faces.ajax complete: #${id}`); // @DEV_ONLY
 
-          const tbody = this.querySelector(".tobago-body tbody");
           const newRows = this.sheetLoader.querySelectorAll<HTMLTableRowElement>(".tobago-body tbody>tr");
-          const sheetSelectionMode = this.dataset.tobagoSelectionMode;
-          const columnSelectorSelectionMode = this.getSelectorAllCheckbox()?.dataset.tobagoSelectionMode;
           for (const newRow of newRows) {
             if (newRow.hasAttribute("row-index")) {
               const rowIndex = Number(newRow.getAttribute("row-index"));
-              const row = tbody.querySelector(`tr[row-index='${rowIndex}']`);
+              const row = this.tableBody.querySelector(`tr[row-index='${rowIndex}']`);
               row.insertAdjacentElement("afterend", newRow);
               row.remove();
-              if (sheetSelectionMode !== "none") {
-                this.initTableRowForSelection(newRow, sheetSelectionMode);
-              } else if (columnSelectorSelectionMode) {
-                this.initTableCellForSelection(row.querySelector("td:first-child"), columnSelectorSelectionMode);
-              }
             } else if (newRow.classList.contains(Css.TOBAGO_COLUMN_PANEL)) {
               const rowIndex = Number(newRow.getAttribute("name"));
-              const columnPanel = tbody.querySelector(`tr[name='${rowIndex}'].${Css.TOBAGO_COLUMN_PANEL}`);
+              const columnPanel = this.tableBody.querySelector(`tr[name='${rowIndex}'].${Css.TOBAGO_COLUMN_PANEL}`);
               if (columnPanel) {
                 columnPanel.insertAdjacentElement("afterend", newRow);
                 columnPanel.remove();
               } else {
-                const row = tbody.querySelector(`tr[row-index='${rowIndex}']`);
+                const row = this.tableBody.querySelector(`tr[row-index='${rowIndex}']`);
                 row.insertAdjacentElement("afterend", newRow);
               }
             }
+
+            this.initSelectionListener(newRow);
           }
 
           this.sheetLoader.remove();
@@ -694,70 +678,178 @@ Type: ${data.type}`);
     }
   }
 
-  mousedownOnRow(event: MouseEvent): void {
-    console.debug("mousedownOnRow");
-    this.mousedownOnRowData = {
-      x: event.clientX,
-      y: event.clientY
-    };
-  }
+  private initSelectionListener(row: HTMLTableRowElement): void {
+    let clickElement: HTMLTableRowElement | HTMLTableCellElement;
 
-  clickOnCheckboxForAll(event: MouseEvent): void {
-    const selectedSet = new Set<number>(JSON.parse(this.getHiddenSelected().value));
-    const oldSelectedSet = new Set<number>(selectedSet);
-    const checkbox = event.currentTarget as HTMLInputElement;
-    if (checkbox.checked) {
-      this.selectAll(selectedSet);
-    } else {
-      this.deselectAll(selectedSet);
+    if (this.columnSelector && this.columnSelector.disabled) {
+      return;
+    } else if ([Selectable.single, Selectable.singleOrNone, Selectable.multi].includes(this.selectable)) {
+      clickElement = row;
+    } else if (this.selectable === Selectable.none && this.columnSelector
+        && [Selectable.single, Selectable.singleOrNone, Selectable.multi].includes(this.columnSelector.selectable)
+        && !row.classList.contains(Css.TOBAGO_COLUMN_PANEL)) {
+      clickElement = row.querySelector("td:first-child");
+      clickElement.addEventListener("click", (event) => event.stopPropagation()); //TOBAGO-2276
+    } else if (this.columnSelector && this.columnSelector.selectable === Selectable.none) {
+      const rowElement = this.columnSelector.rowElement(row);
+      if (rowElement) {
+        rowElement.addEventListener("click", (event) => event.preventDefault());
+      }
     }
-    this.getHiddenSelected().value = JSON.stringify(Array.from(selectedSet)); // write back to element
-    this.fireSelectionChange(oldSelectedSet, selectedSet);
+
+    if (clickElement) {
+      clickElement.addEventListener("mousedown", (event: MouseEvent) => {
+        this.mousedownOnRowData = {
+          x: event.clientX,
+          y: event.clientY
+        };
+      });
+
+      clickElement.addEventListener("click", (event: MouseEvent) => {
+        const row: HTMLTableRowElement = (event.currentTarget as HTMLElement).closest("tr");
+
+        if (this.mousedownOnRowData) { // integration test: mousedownOnRowData may be 'null'
+          if (Math.abs(this.mousedownOnRowData.x - event.clientX)
+              + Math.abs(this.mousedownOnRowData.y - event.clientY) > 5) {
+            // The user has moved the mouse. We assume, the user want to select some text inside the sheet,
+            // so we don't select the row.
+            return;
+          }
+        }
+
+        const selectable = this.columnSelector ? this.columnSelector.selectable : this.selectable;
+        const ctrlPressed = event.ctrlKey || event.metaKey;
+        const shiftPressed = event.shiftKey && this.lastClickedRowIndex > -1;
+
+        /* eslint-disable max-len */
+        // @formatter:off
+        const selectMode: SelectMode
+        = !this.columnSelector && selectable === Selectable.single                                 ? SelectMode.singleMode
+        : !this.columnSelector && selectable === Selectable.singleOrNone && !ctrlPressed           ? SelectMode.singleMode
+        : !this.columnSelector && selectable === Selectable.singleOrNone && ctrlPressed            ? SelectMode.ctrlMode_singleOrNone
+        : !this.columnSelector && selectable === Selectable.multi && !ctrlPressed && !shiftPressed ? SelectMode.singleMode
+        : !this.columnSelector && selectable === Selectable.multi && ctrlPressed                   ? SelectMode.ctrlMode_multi
+        : !this.columnSelector && selectable === Selectable.multi && shiftPressed                  ? SelectMode.shiftMode
+        : this.columnSelector  && selectable === Selectable.single                                 ? SelectMode.singleMode
+        : this.columnSelector  && selectable === Selectable.singleOrNone                           ? SelectMode.ctrlMode_singleOrNone
+        : this.columnSelector  && selectable === Selectable.multi && !shiftPressed                 ? SelectMode.ctrlMode_multi
+        : this.columnSelector  && selectable === Selectable.multi && shiftPressed                  ? SelectMode.shiftMode
+        : SelectMode.none;
+        // @formatter:on
+        /* eslint-enable max-len */
+
+        const selected = this.selected;
+        const rowIndex = Number(row.classList.contains(Css.TOBAGO_COLUMN_PANEL)
+            ? row.getAttribute("name") : row.getAttribute("row-index"));
+
+        switch (selectMode) {
+          case SelectMode.singleMode:
+            selected.clear();
+            selected.add(rowIndex);
+            break;
+          case SelectMode.ctrlMode_singleOrNone:
+            if (selected.has(rowIndex)) {
+              selected.delete(rowIndex);
+            } else {
+              selected.clear();
+              selected.add(rowIndex);
+            }
+            break;
+          case SelectMode.ctrlMode_multi:
+            if (selected.has(rowIndex)) {
+              selected.delete(rowIndex);
+            } else {
+              selected.add(rowIndex);
+            }
+            break;
+          case SelectMode.shiftMode:
+            for (let i = Math.min(rowIndex, this.lastClickedRowIndex);
+                 i <= Math.max(rowIndex, this.lastClickedRowIndex); i++) {
+              selected.add(i);
+            }
+            break;
+        }
+
+        this.lastClickedRowIndex = rowIndex;
+        this.fireSelectionChange(this.selected, selected);
+        this.selected = selected;
+      });
+    }
   }
 
-  clickOnColumnSelector(event: MouseEvent): void {
-    event.stopPropagation();
-    this.clickOnRow(event);
+  private initSelectAllCheckbox(event: MouseEvent): void {
+    const selected = this.selected;
+
+    if (this.lazy || this.rows === 0) {
+      if (selected.size === this.rowCount) {
+        selected.clear();
+      } else {
+        for (let i = 0; i < this.rowCount; i++) {
+          selected.add(i);
+        }
+      }
+    } else {
+      const rowIndexes: number[] = [];
+      this.getRowElements().forEach((rowElement) => {
+        if (rowElement.hasAttribute("row-index")) {
+          rowIndexes.push(Number(rowElement.getAttribute("row-index")));
+        }
+      });
+
+      let everyRowAlreadySelected = true;
+      rowIndexes.forEach((rowIndex, index, array) => {
+        if (!selected.has(rowIndex)) {
+          everyRowAlreadySelected = false;
+          selected.add(rowIndex);
+        }
+      });
+
+      if (everyRowAlreadySelected) {
+        rowIndexes.forEach((rowIndex, index, array) => {
+          selected.delete(rowIndex);
+        });
+      }
+    }
+
+    this.fireSelectionChange(this.selected, selected);
+    this.selected = selected;
   }
 
-  clickOnRow(event: MouseEvent): void {
-    const row = event.currentTarget as HTMLTableRowElement;
-    if (row.classList.contains(Css.TOBAGO_SELECTED) || !Sheet.isInputElement(row)) {
+  private syncSelected(event: CustomEvent) {
+    const selected = event ? event.detail.selection : this.selected;
 
-      if (this.mousedownOnRowData) { // integration test: mousedownOnRowData may be 'null'
-        if (Math.abs(this.mousedownOnRowData.x - event.clientX)
-            + Math.abs(this.mousedownOnRowData.y - event.clientY) > 5) {
-          // The user has moved the mouse. We assume, the user want to select some text inside the sheet,
-          // so we doesn't select the row.
-          return;
+    this.getRowElements().forEach((rowElement) => {
+      const isColumnPanel = rowElement.classList.contains(Css.TOBAGO_COLUMN_PANEL);
+      const rowIndex = Number(isColumnPanel ? rowElement.getAttribute("name") : rowElement.getAttribute("row-index"));
+      const inputElement = !isColumnPanel ? this.columnSelector?.rowElement(rowElement) : null;
+
+      if (selected.has(rowIndex)) {
+        rowElement.classList.add(Css.TOBAGO_SELECTED);
+        rowElement.classList.add(Css.TABLE_INFO);
+        if (inputElement) {
+          inputElement.checked = true;
+        }
+      } else {
+        rowElement.classList.remove(Css.TOBAGO_SELECTED);
+        rowElement.classList.remove(Css.TABLE_INFO);
+        if (inputElement) {
+          inputElement.checked = false;
         }
       }
+    });
 
-      const rows = this.getRowElements();
-      const selector = this.getSelectorCheckbox(row);
-      const selectionMode = this.getSelectionMode();
-      const selectedSet = new Set<number>(JSON.parse(this.getHiddenSelected().value));
-      const oldSelectedSet = new Set<number>(selectedSet);
-      if ((!event.ctrlKey && !event.metaKey && !selector)
-          || selectionMode === "single" || selectionMode === "singleOrNone") {
-        this.deselectAll(selectedSet);
-        this.resetSelected(selectedSet);
-      }
-
-      const lastClickedRowIndex = parseInt(this.dataset.tobagoLastClickedRowIndex);
-      if (event.shiftKey && selectionMode === "multi" && lastClickedRowIndex > -1) {
-        if (lastClickedRowIndex <= row.sectionRowIndex) {
-          this.selectRange(
-              selectedSet, rows, lastClickedRowIndex, row.sectionRowIndex, true, false);
-        } else {
-          this.selectRange(
-              selectedSet, rows, row.sectionRowIndex, lastClickedRowIndex, true, false);
+    if (this.columnSelector && this.columnSelector.headerElement.type === "checkbox") {
+      if (this.lazy || this.rows === 0) {
+        this.columnSelector.headerElement.checked = selected.size === this.rowCount;
+      } else {
+        let everyRowSelected = true;
+        for (let i = this.first; i < this.first + this.rows; i++) {
+          if (!selected.has(i)) {
+            everyRowSelected = false;
+          }
         }
-      } else if (selectionMode !== "singleOrNone" || !this.isRowSelected(selectedSet, row)) {
-        this.toggleSelection(selectedSet, row, selector);
+        this.columnSelector.headerElement.checked = everyRowSelected;
       }
-      this.getHiddenSelected().value = JSON.stringify(Array.from(selectedSet)); // write back to element
-      this.fireSelectionChange(oldSelectedSet, selectedSet);
     }
   }
 
@@ -840,151 +932,13 @@ Type: ${data.type}`);
     return this.querySelectorAll("tobago-sheet>.tobago-body>table>colgroup>col");
   }
 
-  getHiddenSelected(): HTMLInputElement {
-    const rootNode = this.getRootNode() as ShadowRoot | Document;
-    return rootNode.getElementById(this.id + "::selected") as HTMLInputElement;
-  }
-
-  getHiddenScrollPosition(): HTMLInputElement {
-    return this.querySelector("input[id$='::scrollPosition']");
-  }
-
   getHiddenExpanded(): HTMLInputElement {
     const rootNode = this.getRootNode() as ShadowRoot | Document;
     return rootNode.getElementById(this.id + "::expanded") as HTMLInputElement;
   }
 
-  /**
-   * Get the element, which indicates the selection
-   */
-  getSelectorCheckbox(row: HTMLTableRowElement): HTMLInputElement {
-    return row.querySelector("tr>td>input.tobago-selected");
-  }
-
-  private getSelectorAllCheckbox(): HTMLInputElement {
-    return this.querySelector("thead>tr>th>span>input.tobago-selected");
-  }
-
-  private calculateSelectorAllChecked(selectedSet: Set<number>) {
-    const selectorAll = this.getSelectorAllCheckbox();
-    if (selectorAll) {
-      let selected = false;
-      for (const row of this.getRowElements()) {
-        const checkbox: HTMLInputElement = this.getSelectorCheckbox(row);
-        if (checkbox === null || !checkbox.disabled) {
-          const rowIndex = Number(row.getAttribute("row-index"));
-          if (selectedSet.has(rowIndex)) {
-            selected = true;
-          } else {
-            selected = false;
-            break;
-          }
-        }
-      }
-      selectorAll.checked = selected;
-    }
-  }
-
   getRowElements(): NodeListOf<HTMLTableRowElement> {
-    return this.getBodyTable().querySelectorAll("tbody>tr");
-  }
-
-  getFirst(): number {
-    return parseInt(this.dataset.tobagoFirst);
-  }
-
-  isRowSelected(selectedSet: Set<number>, row: HTMLTableRowElement): boolean {
-    return selectedSet.has(parseInt(row.dataset.tobagoRowIndex));
-  }
-
-  resetSelected(selectedSet: Set<number>): void {
-    selectedSet.clear();
-  }
-
-  toggleSelection(selectedSet: Set<number>, row: HTMLTableRowElement, checkbox: HTMLInputElement): void {
-    this.dataset.tobagoLastClickedRowIndex = String(row.sectionRowIndex);
-    if (checkbox === null || !checkbox.disabled) {
-      const rowIndex = Number(row.getAttribute("row-index"));
-      if (selectedSet.has(rowIndex)) {
-        this.deselectRow(selectedSet, rowIndex, row, checkbox);
-      } else {
-        this.selectRow(selectedSet, rowIndex, row, checkbox);
-      }
-    }
-    this.calculateSelectorAllChecked(selectedSet);
-  }
-
-  selectAll(selectedSet: Set<number>): void {
-    const rows = this.getRowElements();
-    this.selectRange(selectedSet, rows, 0, rows.length - 1, true, false);
-  }
-
-  deselectAll(selectedSet: Set<number>): void {
-    const rows = this.getRowElements();
-    this.selectRange(selectedSet, rows, 0, rows.length - 1, false, true);
-  }
-
-  toggleAll(selectedSet: Set<number>): void {
-    const rows = this.getRowElements();
-    this.selectRange(selectedSet, rows, 0, rows.length - 1, true, true);
-  }
-
-  selectRange(
-      selectedSet: Set<number>, rows: NodeListOf<HTMLTableRowElement>, first: number, last: number,
-      selectDeselected: boolean, deselectSelected: boolean): void {
-    for (let i = first; i <= last; i++) {
-      const row: HTMLTableRowElement = rows.item(i);
-      const checkbox: HTMLInputElement = this.getSelectorCheckbox(row);
-      if (checkbox === null || !checkbox.disabled) {
-        const rowIndex = Number(row.getAttribute("row-index"));
-        const on = selectedSet.has(rowIndex);
-        if (selectDeselected && !on) {
-          this.selectRow(selectedSet, rowIndex, row, checkbox);
-        } else if (deselectSelected && on) {
-          this.deselectRow(selectedSet, rowIndex, row, checkbox);
-        }
-      }
-    }
-    this.calculateSelectorAllChecked(selectedSet);
-  }
-
-  /**
-   * @param selectedSet value of the hidden input-element to store the selection.
-   * @param rowIndex int: zero based index of the row.
-   * @param row tr-element: the row.
-   * @param checkbox input-element: selector in the row.
-   */
-  selectRow(
-      selectedSet: Set<number>, rowIndex: number, row: HTMLTableRowElement, checkbox?: HTMLInputElement): void {
-    selectedSet.add(rowIndex);
-    row.classList.add(Css.TOBAGO_SELECTED);
-    row.classList.add(Css.TABLE_INFO);
-    if (checkbox) {
-      checkbox.checked = true;
-      setTimeout(function (): void {
-        checkbox.checked = true;
-      }, 0);
-    }
-  }
-
-  /**
-   * @param selectedSet value of the hidden input-element to store the selection.
-   * @param rowIndex int: zero based index of the row.
-   * @param row tr-element: the row.
-   * @param checkbox input-element: selector in the row.
-   */
-  deselectRow(
-      selectedSet: Set<number>, rowIndex: number, row: HTMLTableRowElement, checkbox?: HTMLInputElement): void {
-    selectedSet.delete(rowIndex);
-    row.classList.remove(Css.TOBAGO_SELECTED);
-    row.classList.remove(Css.TABLE_INFO);
-    if (checkbox) {
-      checkbox.checked = false;
-      // XXX check if this is still needed... Async because of TOBAGO-1312
-      setTimeout(function (): void {
-        checkbox.checked = false;
-      }, 0);
-    }
+    return this.getBodyTable().querySelectorAll(":scope > tbody > tr");
   }
 }
 
