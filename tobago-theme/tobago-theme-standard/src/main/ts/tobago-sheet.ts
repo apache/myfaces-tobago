@@ -482,9 +482,8 @@ export class Sheet extends HTMLElement {
   }
 
   lazyResponse(event: EventData): void {
-    let updates: NodeListOf<Element>;
-    if (event.status === "complete") {
-      updates = event.responseXML.querySelectorAll("update");
+    const updates: NodeListOf<Element> = event.responseXML?.querySelectorAll("update");
+    if (updates && event.status === "complete") {
       for (const update of updates) {
         const id = update.getAttribute("id");
         if (this.id === id) { // is a Faces element id, but not a technical id from the framework
@@ -496,8 +495,7 @@ export class Sheet extends HTMLElement {
           this.sheetLoader.innerHTML = update.textContent;
         }
       }
-    } else if (event.status === "success") {
-      updates = event.responseXML.querySelectorAll("update");
+    } else if (updates && event.status === "success") {
       for (const update of updates) {
         const id = update.getAttribute("id");
         if (this.id + Sheet.SUFFIX_LAZY_UPDATE === id) {
