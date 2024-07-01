@@ -983,7 +983,8 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
             encodeBehavior(writer, behaviorCommands);
             if (column instanceof AbstractUIColumnSelector) {
-              Selectable currentSelectable = getSelectionMode(selectable, (AbstractUIColumnSelector) column);
+              final AbstractUIColumnSelector selector = (AbstractUIColumnSelector) column;
+              Selectable currentSelectable = getSelectionMode(selectable, selector);
               writer.startElement(HtmlElements.INPUT);
               if (currentSelectable.isMulti()) {
                 writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
@@ -991,6 +992,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
                     HtmlAttributes.TITLE,
                     ResourceUtils.getString(facesContext, "sheet.selectAll"),
                     true);
+                writer.writeAttribute(HtmlAttributes.DISABLED, selector.isDisabled());
               } else {
                 writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
               }
