@@ -64,6 +64,7 @@ class JasmineTestTool {
   steps = [];
   done;
   timeout;
+  waitTimestamp;
 
   /**
    * @param done function from Jasmine; must called if all Steps done or timeout
@@ -170,6 +171,20 @@ class JasmineTestTool {
     this.steps.push({
       type: "wait",
       func: fn,
+      substep: 1
+    });
+  }
+
+  waitMs(milliseconds) {
+    this.steps.push({
+      type: "do",
+      func: () => this.waitTimestamp = Date.now() + milliseconds,
+      substep: 1
+    });
+
+    this.steps.push({
+      type: "wait",
+      func: () => Date.now() > this.waitTimestamp,
       substep: 1
     });
   }
