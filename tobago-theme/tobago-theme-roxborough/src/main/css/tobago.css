@@ -13774,6 +13774,9 @@ tobago-sheet .tobago-body .table {
 tobago-sheet .tobago-body .table td {
   overflow: hidden;
 }
+tobago-sheet .tobago-body .table td.tobago-behavior-container {
+  display: none;
+}
 tobago-sheet .tobago-body .table td tobago-tree-node[data-tobago-level="0"] {
   margin-left: 0rem;
 }
