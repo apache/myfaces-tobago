@@ -277,7 +277,18 @@ export class Sheet extends HTMLElement {
   }
 
   set selected(value: Set<number>) {
+    const oldSelectedSet = this.selected;
     this.hiddenInputSelected.value = JSON.stringify(Array.from(value));
+
+    const fireSelectionChangeEvent = oldSelectedSet.size !== value.size
+        || ![...oldSelectedSet].every((x) => value.has(x));
+    if (fireSelectionChangeEvent) {
+      this.dispatchEvent(new CustomEvent(ClientBehaviors.ROW_SELECTION_CHANGE, {
+        detail: {
+          selection: value,
+        },
+      }));
+    }
   }
 
   private get hiddenInputSelected(): HTMLInputElement {
@@ -771,7 +782,6 @@ Type: ${data.type}`);
         }
 
         this.lastClickedRowIndex = rowIndex;
-        this.fireSelectionChange(this.selected, selected);
         this.selected = selected;
       });
     }
@@ -811,7 +821,6 @@ Type: ${data.type}`);
       }
     }
 
-    this.fireSelectionChange(this.selected, selected);
     this.selected = selected;
   }
 
@@ -850,18 +859,6 @@ Type: ${data.type}`);
         }
         this.columnSelector.headerElement.checked = everyRowSelected;
       }
-    }
-  }
-
-  private fireSelectionChange(oldSelectedSet: Set<number>, newSelectedSet: Set<number>) {
-    const fireEvent = (oldSelectedSet, newSelectedSet) =>
-        oldSelectedSet.size == newSelectedSet.size && [...oldSelectedSet].every((x) => newSelectedSet.has(x));
-    if (fireEvent) {
-      this.dispatchEvent(new CustomEvent(ClientBehaviors.ROW_SELECTION_CHANGE, {
-        detail: {
-          selection: newSelectedSet,
-        },
-      }));
     }
   }
 
