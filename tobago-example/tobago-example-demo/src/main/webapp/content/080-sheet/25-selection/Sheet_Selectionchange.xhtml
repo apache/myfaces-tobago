@@ -24,11 +24,12 @@
                 xmlns:ui="jakarta.faces.facelets">
 
   <tc:panel id="panel">
-    <tc:out label="Timestamp" value="#{eventController.currentTimestamp}"/>
-    <tc:out label="selectedRows" value="#{sheetController.selectedRows}"/>
+    <tc:out id="timestamp" label="Timestamp" value="#{eventController.currentTimestamp}"/>
+    <tc:out id="selectedRows" label="selectedRows" value="#{sheetController.selectedRows}"/>
+    <tc:button id="resetSelected" label="Reset selected" action="#{sheetController.sheetState.resetSelected()}"/>
   </tc:panel>
 
-  <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" rows="4" state="#{sheetController.sheetState}">
+  <tc:sheet id="sheet" value="#{sheetController.solarList}" var="object" rows="4" state="#{sheetController.sheetState}">
     <tc:style maxHeight="500px"/>
     <f:ajax event="tobago.sheet.rowSelectionChange" render="::panel"/>
     <tc:columnSelector/>
