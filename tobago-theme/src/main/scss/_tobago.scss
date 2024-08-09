@@ -1645,6 +1645,10 @@ tobago-sheet {
       td {
         overflow: hidden;
 
+        &.tobago-behavior-container {
+          display: none;
+        }
+
         @include treeNodeMarginLeftLevel();
 
         > input.tobago-selected {
