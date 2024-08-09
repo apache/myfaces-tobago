@@ -340,7 +340,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
       final ArrayList<Boolean> encodedRendered = new ArrayList<>();
       for (final AbstractUIColumnBase column : columns) {
-        if (!(column instanceof AbstractUIRow)) {
+        if (!(column instanceof AbstractUIRow) && !(column instanceof AbstractUIColumnPanel)) {
           encodedRendered.add(column.isRendered());
         }
       }
@@ -735,10 +735,14 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
         }
       }
 
-      colSpan++;
+      if (!autoLayout) {
+        writer.startElement(HtmlElements.TD);
+        writer.endElement(HtmlElements.TD);
+        colSpan++;
+      }
+
       writer.startElement(HtmlElements.TD);
-      writer.startElement(HtmlElements.DIV);
-      writer.endElement(HtmlElements.DIV);
+      writer.writeClassAttribute(TobagoClass.BEHAVIOR__CONTAINER);
       encodeBehavior(writer, facesContext, row);
       writer.endElement(HtmlElements.TD);
 
@@ -863,7 +867,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       }
       for (int j = 0; j < columns.size(); j++) {
         final AbstractUIColumnBase column = columns.get(j);
-        if (!column.isRendered() || column instanceof AbstractUIRow) {
+        if (!column.isRendered() || column instanceof AbstractUIRow || column instanceof AbstractUIColumnPanel) {
           offset++;
         } else {
           final Cell cell = grid.getCell(j - offset, i);
@@ -1048,7 +1052,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
     int i = 0;
     for (final AbstractUIColumnBase column : columns) {
-      if (!(column instanceof AbstractUIRow)) {
+      if (!(column instanceof AbstractUIRow) && !(column instanceof AbstractUIColumnPanel)) {
         if (column.isRendered()) {
           final Integer width = columnWidths.get(i);
           writeCol(writer, width >= 0 ? width : null);

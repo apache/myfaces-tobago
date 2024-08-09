@@ -36,6 +36,7 @@ public enum TobagoClass implements CssItem {
   AUTO__SPACING("tobago-auto-spacing"),
   BAR("tobago-bar"),
   BADGES("tobago-badges"),
+  BEHAVIOR__CONTAINER("tobago-behavior-container"),
   BODY("tobago-body"),
   BOX__HEADER("tobago-box-header"),
   // tbd: can this be removed, when using <tobago-button>?
