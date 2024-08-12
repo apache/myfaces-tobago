@@ -400,9 +400,10 @@ getJasmineRequireObj().base = function(j$, jasmineGlobal) {
   };
 
   /**
-   * Get an {@link AsymmetricEqualityTester}, usable in any {@link matchers|matcher} that uses Jasmine's equality (e.g. {@link matchers#toEqual|toEqual}, {@link matchers#toContain|toContain}, or {@link matchers#toHaveBeenCalledWith|toHaveBeenCalledWith}),
-   * that will succeed if the actual value being compared is an instance of the specified class/constructor.
-   * @name jasmine.any
+   * Get an {@link AsymmetricEqualityTester} that will succeed if the actual
+   * value being compared is an instance of the specified class/constructor.
+   * @name asymmetricEqualityTesters.any
+   * @emittedName jasmine.any
    * @since 1.3.0
    * @function
    * @param {Constructor} clazz - The constructor to check against.
@@ -412,9 +413,10 @@ getJasmineRequireObj().base = function(j$, jasmineGlobal) {
   };
 
   /**
-   * Get an {@link AsymmetricEqualityTester}, usable in any {@link matchers|matcher} that uses Jasmine's equality (e.g. {@link matchers#toEqual|toEqual}, {@link matchers#toContain|toContain}, or {@link matchers#toHaveBeenCalledWith|toHaveBeenCalledWith}),
-   * that will succeed if the actual value being compared is not `null` and not `undefined`.
-   * @name jasmine.anything
+   * Get an {@link AsymmetricEqualityTester} that will succeed if the actual
+   * value being compared is not `null` and not `undefined`.
+   * @name asymmetricEqualityTesters.anything
+   * @emittedName jasmine.anything
    * @since 2.2.0
    * @function
    */
@@ -423,9 +425,10 @@ getJasmineRequireObj().base = function(j$, jasmineGlobal) {
   };
 
   /**
-   * Get an {@link AsymmetricEqualityTester}, usable in any {@link matchers|matcher} that uses Jasmine's equality (e.g. {@link matchers#toEqual|toEqual}, {@link matchers#toContain|toContain}, or {@link matchers#toHaveBeenCalledWith|toHaveBeenCalledWith}),
-   * that will succeed if the actual value being compared is `true` or anything truthy.
-   * @name jasmine.truthy
+   * Get an {@link AsymmetricEqualityTester} that will succeed if the actual
+   * value being compared is `true` or anything truthy.
+   * @name asymmetricEqualityTesters.truthy
+   * @emittedName jasmine.truthy
    * @since 3.1.0
    * @function
    */
@@ -434,9 +437,11 @@ getJasmineRequireObj().base = function(j$, jasmineGlobal) {
   };
 
   /**
-   * Get an {@link AsymmetricEqualityTester}, usable in any {@link matchers|matcher} that uses Jasmine's equality (e.g. {@link matchers#toEqual|toEqual}, {@link matchers#toContain|toContain}, or {@link matchers#toHaveBeenCalledWith|toHaveBeenCalledWith}),
-   * that will succeed if the actual value being compared is  `null`, `undefined`, `0`, `false` or anything falsey.
-   * @name jasmine.falsy
+   * Get an {@link AsymmetricEqualityTester} that will succeed if the actual
+   * value being compared is  `null`, `undefined`, `0`, `false` or anything
+   * falsy.
+   * @name asymmetricEqualityTesters.falsy
+   * @emittedName jasmine.falsy
    * @since 3.1.0
    * @function
    */
@@ -445,9 +450,10 @@ getJasmineRequireObj().base = function(j$, jasmineGlobal) {
   };
 
   /**
-   * Get an {@link AsymmetricEqualityTester}, usable in any {@link matchers|matcher} that uses Jasmine's equality (e.g. {@link matchers#toEqual|toEqual}, {@link matchers#toContain|toContain}, or {@link matchers#toHaveBeenCalledWith|toHaveBeenCalledWith}),
-   * that will succeed if the actual value being compared is empty.
-   * @name jasmine.empty
+   * Get an {@link AsymmetricEqualityTester} that will succeed if the actual
+   * value being compared is empty.
+   * @name asymmetricEqualityTesters.empty
+   * @emittedName jasmine.empty
    * @since 3.1.0
    * @function
    */
@@ -456,10 +462,10 @@ getJasmineRequireObj().base = function(j$, jasmineGlobal) {
   };
 
   /**
-   * Get an {@link AsymmetricEqualityTester}, usable in any {@link matchers|matcher}
-   * that passes if the actual value is the same as the sample as determined
-   * by the `===` operator.
-   * @name jasmine.is
+   * Get an {@link AsymmetricEqualityTester} that passes if the actual value is
+   * the same as the sample as determined by the `===` operator.
+   * @name asymmetricEqualityTesters.is
+   * @emittedName jasmine.is
    * @function
    * @param {Object} sample - The value to compare the actual to.
    */
@@ -468,9 +474,10 @@ getJasmineRequireObj().base = function(j$, jasmineGlobal) {
   };
 
   /**
-   * Get an {@link AsymmetricEqualityTester}, usable in any {@link matchers|matcher} that uses Jasmine's equality (e.g. {@link matchers#toEqual|toEqual}, {@link matchers#toContain|toContain}, or {@link matchers#toHaveBeenCalledWith|toHaveBeenCalledWith}),
-   * that will succeed if the actual value being compared is not empty.
-   * @name jasmine.notEmpty
+   * Get an {@link AsymmetricEqualityTester} that will succeed if the actual
+   * value being compared is not empty.
+   * @name asymmetricEqualityTesters.notEmpty
+   * @emittedName jasmine.notEmpty
    * @since 3.1.0
    * @function
    */
@@ -479,9 +486,10 @@ getJasmineRequireObj().base = function(j$, jasmineGlobal) {
   };
 
   /**
-   * Get an {@link AsymmetricEqualityTester}, usable in any {@link matchers|matcher} that uses Jasmine's equality (e.g. {@link matchers#toEqual|toEqual}, {@link matchers#toContain|toContain}, or {@link matchers#toHaveBeenCalledWith|toHaveBeenCalledWith}),
-   * that will succeed if the actual value being compared contains at least the keys and values.
-   * @name jasmine.objectContaining
+   * Get an {@link AsymmetricEqualityTester} that will succeed if the actual
+   * value being compared contains at least the specified keys and values.
+   * @name asymmetricEqualityTesters.objectContaining
+   * @emittedName jasmine.objectContaining
    * @since 1.3.0
    * @function
    * @param {Object} sample - The subset of properties that _must_ be in the actual.
@@ -491,9 +499,10 @@ getJasmineRequireObj().base = function(j$, jasmineGlobal) {
   };
 
   /**
-   * Get an {@link AsymmetricEqualityTester}, usable in any {@link matchers|matcher} that uses Jasmine's equality (e.g. {@link matchers#toEqual|toEqual}, {@link matchers#toContain|toContain}, or {@link matchers#toHaveBeenCalledWith|toHaveBeenCalledWith}),
-   * that will succeed if the actual value is a `String` that matches the `RegExp` or `String`.
-   * @name jasmine.stringMatching
+   * Get an {@link AsymmetricEqualityTester} that will succeed if the actual
+   * value is a `String` that matches the `RegExp` or `String`.
+   * @name asymmetricEqualityTesters.stringMatching
+   * @emittedName jasmine.stringMatching
    * @since 2.2.0
    * @function
    * @param {RegExp|String} expected
@@ -503,9 +512,10 @@ getJasmineRequireObj().base = function(j$, jasmineGlobal) {
   };
 
   /**
-   * Get an {@link AsymmetricEqualityTester}, usable in any {@link matchers|matcher} that uses Jasmine's equality (e.g. {@link matchers#toEqual|toEqual}, {@link matchers#toContain|toContain}, or {@link matchers#toHaveBeenCalledWith|toHaveBeenCalledWith}),
-   * that will succeed if the actual value is a `String` that contains the specified `String`.
-   * @name jasmine.stringContaining
+   * Get an {@link AsymmetricEqualityTester} that will succeed if the actual
+   * value is a `String` that contains the specified `String`.
+   * @name asymmetricEqualityTesters.stringContaining
+   * @emittedName jasmine.stringContaining
    * @since 3.10.0
    * @function
    * @param {String} expected
@@ -515,9 +525,10 @@ getJasmineRequireObj().base = function(j$, jasmineGlobal) {
   };
 
   /**
-   * Get an {@link AsymmetricEqualityTester}, usable in any {@link matchers|matcher} that uses Jasmine's equality (e.g. {@link matchers#toEqual|toEqual}, {@link matchers#toContain|toContain}, or {@link matchers#toHaveBeenCalledWith|toHaveBeenCalledWith}),
-   * that will succeed if the actual value is an `Array` that contains at least the elements in the sample.
-   * @name jasmine.arrayContaining
+   * Get an {@link AsymmetricEqualityTester} that will succeed if the actual
+   * value is an `Array` that contains at least the elements in the sample.
+   * @name asymmetricEqualityTesters.arrayContaining
+   * @emittedName jasmine.arrayContaining
    * @since 2.2.0
    * @function
    * @param {Array} sample
@@ -527,9 +538,11 @@ getJasmineRequireObj().base = function(j$, jasmineGlobal) {
   };
 
   /**
-   * Get an {@link AsymmetricEqualityTester}, usable in any {@link matchers|matcher} that uses Jasmine's equality (e.g. {@link matchers#toEqual|toEqual}, {@link matchers#toContain|toContain}, or {@link matchers#toHaveBeenCalledWith|toHaveBeenCalledWith}),
-   * that will succeed if the actual value is an `Array` that contains all of the elements in the sample in any order.
-   * @name jasmine.arrayWithExactContents
+   * Get an {@link AsymmetricEqualityTester} that will succeed if the actual
+   * value is an `Array` that contains all of the elements in the sample in
+   * any order.
+   * @name asymmetricEqualityTesters.arrayWithExactContents
+   * @emittedName jasmine.arrayWithExactContents
    * @since 2.8.0
    * @function
    * @param {Array} sample
@@ -539,10 +552,11 @@ getJasmineRequireObj().base = function(j$, jasmineGlobal) {
   };
 
   /**
-   * Get an {@link AsymmetricEqualityTester}, usable in any {@link matchers|matcher} that uses Jasmine's equality (e.g. {@link matchers#toEqual|toEqual}, {@link matchers#toContain|toContain}, or {@link matchers#toHaveBeenCalledWith|toHaveBeenCalledWith}),
-   * that will succeed if every key/value pair in the sample passes the deep equality comparison
+   * Get an {@link AsymmetricEqualityTester} that will succeed if every
+   * key/value pair in the sample passes the deep equality comparison
    * with at least one key/value pair in the actual value being compared
-   * @name jasmine.mapContaining
+   * @name asymmetricEqualityTesters.mapContaining
+   * @emittedName jasmine.mapContaining
    * @since 3.5.0
    * @function
    * @param {Map} sample - The subset of items that _must_ be in the actual.
@@ -552,10 +566,11 @@ getJasmineRequireObj().base = function(j$, jasmineGlobal) {
   };
 
   /**
-   * Get an {@link AsymmetricEqualityTester}, usable in any {@link matchers|matcher} that uses Jasmine's equality (e.g. {@link matchers#toEqual|toEqual}, {@link matchers#toContain|toContain}, or {@link matchers#toHaveBeenCalledWith|toHaveBeenCalledWith}),
-   * that will succeed if every item in the sample passes the deep equality comparison
+   * Get an {@link AsymmetricEqualityTester} that will succeed if every item
+   * in the sample passes the deep equality comparison
    * with at least one item in the actual value being compared
-   * @name jasmine.setContaining
+   * @name asymmetricEqualityTesters.setContaining
+   * @emittedName jasmine.setContaining
    * @since 3.5.0
    * @function
    * @param {Set} sample - The subset of items that _must_ be in the actual.
@@ -611,14 +626,26 @@ getJasmineRequireObj().base = function(j$, jasmineGlobal) {
    * handling will be restored when the promise returned from the callback is
    * settled.
    *
+   * When the JavaScript runtime reports an uncaught error or unhandled rejection,
+   * the spy will be called with a single parameter representing Jasmine's best
+   * effort at describing the error. This parameter may be of any type, because
+   * JavaScript allows anything to be thrown or used as the reason for a
+   * rejected promise, but Error instances and strings are most common.
+   *
    * Note: The JavaScript runtime may deliver uncaught error events and unhandled
    * rejection events asynchronously, especially in browsers. If the event
    * occurs after the promise returned from the callback is settled, it won't
    * be routed to the spy even if the underlying error occurred previously.
-   * It's up to you to ensure that the returned promise isn't resolved until
-   * all of the error/rejection events that you want to handle have occurred.
+   * It's up to you to ensure that all of the error/rejection events that you
+   * want to handle have occurred before you resolve the promise returned from
+   * the callback.
    *
-   * You must await the return value of spyOnGlobalErrorsAsync.
+   * You must ensure that the `it`/`beforeEach`/etc fn that called
+   * `spyOnGlobalErrorsAsync` does not signal completion until after the
+   * promise returned by `spyOnGlobalErrorsAsync` is resolved. Normally this is
+   * done by `await`ing the returned promise. Leaving the global error spy
+   * installed after the `it`/`beforeEach`/etc fn that installed it signals
+   * completion is likely to cause problems and is not supported.
    * @name jasmine.spyOnGlobalErrorsAsync
    * @function
    * @async
@@ -3655,19 +3682,24 @@ getJasmineRequireObj().Expectation = function(j$) {
   }
 
   /**
-   * Add some context for an {@link expect}
+   * Add some context to be included in matcher failures for an
+   * {@link expect|expectation}, so that it can be more easily distinguished
+   * from similar expectations.
    * @function
    * @name matchers#withContext
    * @since 3.3.0
    * @param {String} message - Additional context to show when the matcher fails
    * @return {matchers}
+   * @example
+   * expect(things[0]).withContext('thing 0').toEqual('a');
+   * expect(things[1]).withContext('thing 1').toEqual('b');
    */
   Expectation.prototype.withContext = function withContext(message) {
     return addFilter(this, new ContextAddingFilter(message));
   };
 
   /**
-   * Invert the matcher following this {@link expect}
+   * Invert the matcher following this {@link expect|expectation}
    * @member
    * @name matchers#not
    * @since 1.3.0
@@ -4070,6 +4102,7 @@ getJasmineRequireObj().GlobalErrors = function(j$) {
 
     function dispatchBrowserError(error, event) {
       if (overrideHandler) {
+        // See discussion of spyOnGlobalErrorsAsync in base.js
         overrideHandler(error);
         return;
       }
@@ -4113,6 +4146,7 @@ getJasmineRequireObj().GlobalErrors = function(j$) {
         const handler = handlers[handlers.length - 1];
 
         if (overrideHandler) {
+          // See discussion of spyOnGlobalErrorsAsync in base.js
           overrideHandler(error);
           return;
         }
@@ -6524,7 +6558,7 @@ getJasmineRequireObj().toHaveSize = function(j$) {
    * array = [1,2];
    * expect(array).toHaveSize(2);
    */
-  function toHaveSize() {
+  function toHaveSize(matchersUtil) {
     return {
       compare: function(actual, expected) {
         const result = {
@@ -6539,12 +6573,29 @@ getJasmineRequireObj().toHaveSize = function(j$) {
           throw new Error('Cannot get size of ' + actual + '.');
         }
 
+        let actualSize;
         if (j$.isSet(actual) || j$.isMap(actual)) {
-          result.pass = actual.size === expected;
+          actualSize = actual.size;
         } else if (isLength(actual.length)) {
-          result.pass = actual.length === expected;
+          actualSize = actual.length;
         } else {
-          result.pass = Object.keys(actual).length === expected;
+          actualSize = Object.keys(actual).length;
+        }
+
+        result.pass = actualSize === expected;
+
+        if (!result.pass) {
+          result.message = function() {
+            return (
+              'Expected ' +
+              matchersUtil.pp(actual) +
+              ' with size ' +
+              actualSize +
+              ' to have size ' +
+              expected +
+              '.'
+            );
+          };
         }
 
         return result;
@@ -7684,8 +7735,8 @@ getJasmineRequireObj().QueueRunner = function(j$) {
   }
 
   QueueRunner.prototype.execute = function() {
-    this.handleFinalError = error => {
-      this.onException(error);
+    this.handleFinalError = (error, event) => {
+      this.onException(errorOrMsgForGlobalError(error, event));
     };
     this.globalErrors.pushListener(this.handleFinalError);
     this.run(0);
@@ -7715,10 +7766,8 @@ getJasmineRequireObj().QueueRunner = function(j$) {
       this.recordError_(iterativeIndex);
     };
 
-    function handleError(error) {
-      // TODO probably shouldn't next() right away here.
-      // That makes debugging async failures much more confusing.
-      onException(error);
+    function handleError(error, event) {
+      onException(errorOrMsgForGlobalError(error, event));
     }
     const cleanup = once(() => {
       if (timeoutId !== void 0) {
@@ -7902,6 +7951,17 @@ getJasmineRequireObj().QueueRunner = function(j$) {
         fn();
       }
     };
+  }
+
+  function errorOrMsgForGlobalError(error, event) {
+    // TODO: In cases where error is a string or undefined, the error message
+    // that gets sent to reporters will be `${message} thrown`, which could
+    // be improved to not say "thrown" when the cause wasn't necessarily
+    // an exception or to provide hints about throwing Errors rather than
+    // strings.
+    return (
+      error || (event && event.message) || 'Global error event with no message'
+    );
   }
 
   return QueueRunner;
@@ -8408,6 +8468,12 @@ getJasmineRequireObj().interface = function(jasmine, env) {
     }),
 
     /**
+     * <p>Members of the jasmine global.</p>
+     * <p>Note: The members of the
+     * {@link asymmetricEqualityTesters|asymmetricEqualityTesters namespace}
+     * are also accessed via the jasmine global, but due to jsdoc limitations
+     * they are not listed here.</p>
+     *
      * @namespace jasmine
      */
     jasmine: jasmine
@@ -8540,6 +8606,28 @@ getJasmineRequireObj().interface = function(jasmine, env) {
   jasmine.setDefaultSpyStrategy = function(defaultStrategyFn) {
     return env.setDefaultSpyStrategy(defaultStrategyFn);
   };
+
+  /**
+   * {@link AsymmetricEqualityTester|Asymmetric equality testers} allow for
+   * non-exact matching in matchers that use Jasmine's deep value equality
+   * semantics, such as {@link matchers#toEqual|toEqual},
+   * {@link matchers#toContain|toContain}, and
+   * {@link matchers#toHaveBeenCalledWith|toHaveBeenCalledWith}.
+   *
+   * @example
+   * const someComplexObject = {
+   *   foo: 'bar',
+   *   baz: 'a string that contains "something"',
+   *   qux: 'whatever'
+   * };
+   * // Passes.
+   * expect(someComplexObject).toEqual(jasmine.objectContaining({
+   *   foo: 'bar',
+   *   baz: jasmine.stringContaining('something')
+   * });
+   *
+   * @namespace asymmetricEqualityTesters
+   */
 
   return jasmineInterface;
 };
@@ -9746,11 +9834,20 @@ getJasmineRequireObj().StackTrace = function(j$) {
     // e.g. "  at /some/path:4320:20
     { re: /\s*at (.+)$/, fileLineColIx: 1, style: 'v8' },
 
-    // PhantomJS on OS X, Safari, Firefox
+    // Safari, most Firefox stack frames
     // e.g. "run@http://localhost:8888/__jasmine__/jasmine.js:4320:27"
     // or "http://localhost:8888/__jasmine__/jasmine.js:4320:27"
     {
       re: /^(?:(([^@\s]+)@)|@)?([^\s]+)$/,
+      fnIx: 2,
+      fileLineColIx: 3,
+      style: 'webkit'
+    },
+
+    // Some Firefox stack frames when the developer tools are open
+    // e.g. "promise callback*specStarted@http://localhost:8888/__jasmine__/jasmine.js:1880:41"
+    {
+      re: /^^(?:((?:promise callback|[^\s]+ handler)\*([^@\s]+)@)|@)?([^\s]+)$/,
       fnIx: 2,
       fileLineColIx: 3,
       style: 'webkit'
@@ -10813,5 +10910,5 @@ getJasmineRequireObj().UserContext = function(j$) {
 };
 
 getJasmineRequireObj().version = function() {
-  return '5.1.2';
+  return '5.2.0';
 };
