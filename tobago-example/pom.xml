@@ -28,7 +28,7 @@
 
   <properties>
     <tobago.basedir>${project.basedir}/..</tobago.basedir>
-    <jetty.version>9.4.54.v20240208</jetty.version>
+    <jetty.version>9.4.55.v20240627</jetty.version>
   </properties>
 
   <modules>
