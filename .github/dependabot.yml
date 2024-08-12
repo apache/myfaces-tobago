@@ -300,6 +300,10 @@ updates:
       - dependency-name: "org.apache.deltaspike.modules:deltaspike-jsf-module-impl"
         versions:
           - ">= 2.0.0"
+      # vdldoc 2.1 requires Java 11
+      - dependency-name: "com.github.matinh.vdldoc:vdldoc-maven-plugin"
+        versions:
+          - ">= 2.1"
 
   - package-ecosystem: "maven"
     directory: "/"
