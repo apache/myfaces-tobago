@@ -286,6 +286,8 @@ export class Sheet extends HTMLElement {
       this.dispatchEvent(new CustomEvent(ClientBehaviors.ROW_SELECTION_CHANGE, {
         detail: {
           selection: value,
+          rowsOnPage: this.rowsOnPage,
+          rowCount: this.rowCount
         },
       }));
     }
@@ -345,6 +347,14 @@ export class Sheet extends HTMLElement {
 
   get rowCount(): number {
     return parseInt(this.getAttribute("row-count"));
+  }
+
+  get rowsOnPage(): number {
+    if (this.lazy || this.rows === 0 || this.rows >= this.rowCount) {
+      return this.rowCount;
+    } else {
+      return Math.min(this.rowCount - this.first, this.rows);
+    }
   }
 
   get sheetBody(): HTMLDivElement {
