@@ -725,6 +725,12 @@ li.tobago-menu-markup-selected {
   display: none;
 }
 
+/* Switches display off, while loading to avoid flickering.
+remove this class from DOM with JavaScript after the init process */
+.tobago-page-initializing {
+  display: none;
+}
+
 /* panel -------------------------------------------------------------- */
 
 .tobago-panel {
