@@ -326,7 +326,9 @@ public class PageRenderer extends PageRendererBase {
     if (preventFrameAttacks && !FacesContextUtils.isAjax(facesContext)) {
       writer.writeClassAttribute(Classes.create(page, "preventFrameAttacks", Markup.NULL));
     }
-    writer.writeClassAttribute(Classes.create(page, "initializing", Markup.NULL));
+    if (!FacesContextUtils.isAjax(facesContext)) {
+      writer.writeClassAttribute(Classes.create(page, "initializing", Markup.NULL));
+    }
     writer.writeAttribute(HtmlAttributes.ACTION, formAction, true);
     if (partialAction != null) {
       writer.writeAttribute(DataAttributes.PARTIAL_ACTION, partialAction, true);
