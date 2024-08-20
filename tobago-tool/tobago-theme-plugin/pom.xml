@@ -89,6 +89,15 @@
       <artifactId>plexus-utils</artifactId>
       <version>3.5.1</version>
     </dependency>
+    <!--
+      this is to avoid the following vulnerabilities in
+      plexus-xml-3.0.0.jar: CVE-2022-4245(4.3), CVE-2022-4244(7.5)
+      -->
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-xml</artifactId>
+      <version>4.0.4</version>
+    </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-artifact</artifactId>
