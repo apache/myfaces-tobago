@@ -33,16 +33,18 @@ export class Overlay extends HTMLElement {
     return `<tobago-overlay type='${type}' for='${id}' delay='${delay}' class='modal-backdrop fade'></tobago-overlay>`;
   }
 
+  private timeout;
+
   constructor() {
     super();
   }
 
   connectedCallback(): void {
-    setTimeout(this.render.bind(this), this.delay);
+    this.timeout = setTimeout(this.render.bind(this), this.delay);
   }
 
   disconnectedCallback() {
-    console.log("disconnected from the DOM");
+    clearTimeout(this.timeout);
     const forElement = document.getElementById(this.for);
     if (forElement) {
       forElement.classList.remove(Css.POSITION_RELATIVE);
