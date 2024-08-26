@@ -142,6 +142,7 @@ class SelectManyList extends SelectListBase {
     }
 
     this.sync(option);
+    this.hiddenSelect.dispatchEvent(new Event("change", {bubbles: true}));
   }
 
   protected leaveComponent(): void {
