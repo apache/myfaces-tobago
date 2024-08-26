@@ -18,7 +18,7 @@
  */
 
 /**
- * <b>Tobago Framework Sandbox Tag Library 2.5.2 -
+ * <b>Tobago Framework Sandbox Tag Library 2.5.3 -
  * (C) Copyright 2002-2024 The Apache Software Foundation</b>
  *
  * <b>Warning: The sandbox tag library contains unstable components.
@@ -28,6 +28,6 @@
     shortName = "tcs",
     uri = "http://myfaces.apache.org/tobago/sandbox",
     name = "tobago-sandbox",
-    displayName = "Tobago Sandbox 2.5.2")
+    displayName = "Tobago Sandbox 2.5.3")
 
 package org.apache.myfaces.tobago.internal.taglib.sandbox;
