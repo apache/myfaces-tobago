@@ -37,9 +37,10 @@ it("Client: Select Tab 3", function (done) {
 });
 
 it("Ajax: Select Tab 3", function (done) {
-  let hiddenInputFn = elementByIdFn("page:mainForm:tabGroupAjax::index");
-  let tab1Fn = querySelectorFn("#page\\:mainForm\\:tab1Ajax .nav-link");
-  let tab3Fn = querySelectorFn("#page\\:mainForm\\:tab3Ajax .nav-link");
+  const tabGroup = elementByIdFn("page:mainForm:tabGroupAjax");
+  const hiddenInputFn = elementByIdFn("page:mainForm:tabGroupAjax::index");
+  const tab1Fn = querySelectorFn("#page\\:mainForm\\:tab1Ajax .nav-link");
+  const tab3Fn = querySelectorFn("#page\\:mainForm\\:tab3Ajax .nav-link");
 
   const test = new JasmineTestTool(done);
   test.setup(() => hiddenInputFn().value === "0",
@@ -51,6 +52,11 @@ it("Ajax: Select Tab 3", function (done) {
   test.do(() => expect(hiddenInputFn().value).toBe("3"));
   test.do(() => expect(tab1Fn().classList).not.toContain("active"));
   test.do(() => expect(tab3Fn().classList).toContain("active"));
+
+  test.do(() => expect(tabGroup().classList).not.toContain("position-relative"));
+  test.waitMs(3000);
+  test.do(() => expect(tabGroup().classList).not.toContain("position-relative"));
+
   test.start();
 });
 
