@@ -1207,6 +1207,38 @@ tobago-paginator-list, tobago-paginator-number, tobago-paginator-row {
   }
 }
 
+/* paginator-list ------------------------------------------------------------- */
+
+tobago-paginator-list {
+}
+
+/* paginator-number ------------------------------------------------------------- */
+
+tobago-paginator-number {
+}
+
+/* paginator-row ------------------------------------------------------------- */
+
+tobago-paginator-row {
+
+}
+
+tobago-paginator-list, tobago-paginator-number, tobago-paginator-row {
+  margin-top: 1rem;
+  margin-bottom: 0;
+
+  .page-link {
+    cursor: pointer;
+
+    input {
+      text-align: center;
+      display: none;
+      margin: -4px 0;
+      width: 3em;
+    }
+  }
+}
+
 /* panel ------------------------------------------------------------- */
 
 // todo: remove

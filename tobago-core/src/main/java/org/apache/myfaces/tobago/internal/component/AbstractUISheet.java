@@ -547,33 +547,6 @@ public abstract class AbstractUISheet extends AbstractUIData
     getState().setFirst(first);
   }
 
-  private int getToRow(PageActionEvent pageEvent) {
-    int first;
-    first = pageEvent.getValue() - 1;
-    if (hasRowCount() && first > getFirstRowIndexOfLastPage()) {
-      first = getFirstRowIndexOfLastPage();
-    } else if (first < 0) {
-      first = 0;
-    }
-    return first;
-  }
-
-  public boolean getLazyUpdate() {
-    return lazyUpdate;
-  }
-
-  public void setLazyUpdate(boolean lazyUpdate) {
-    this.lazyUpdate = lazyUpdate;
-  }
-
-  public int getLazyFirstRow() {
-    return lazyFirstRow;
-  }
-
-  public void setLazyFirstRow(int lazyFirstRow) {
-    this.lazyFirstRow = lazyFirstRow;
-  }
-
   public AjaxBehavior createReloadBehavior(final AbstractUISheet sheet) {
     final AjaxBehavior reloadBehavior = findReloadBehavior(sheet);
     final ArrayList<String> renderIds = new ArrayList<>();
@@ -600,6 +573,33 @@ public abstract class AbstractUISheet extends AbstractUIData
     } else {
       return null;
     }
+  }
+
+  private int getToRow(PageActionEvent pageEvent) {
+    int first;
+    first = pageEvent.getValue() - 1;
+    if (hasRowCount() && first > getFirstRowIndexOfLastPage()) {
+      first = getFirstRowIndexOfLastPage();
+    } else if (first < 0) {
+      first = 0;
+    }
+    return first;
+  }
+
+  public boolean getLazyUpdate() {
+    return lazyUpdate;
+  }
+
+  public void setLazyUpdate(boolean lazyUpdate) {
+    this.lazyUpdate = lazyUpdate;
+  }
+
+  public int getLazyFirstRow() {
+    return lazyFirstRow;
+  }
+
+  public void setLazyFirstRow(int lazyFirstRow) {
+    this.lazyFirstRow = lazyFirstRow;
   }
 
   @Override
