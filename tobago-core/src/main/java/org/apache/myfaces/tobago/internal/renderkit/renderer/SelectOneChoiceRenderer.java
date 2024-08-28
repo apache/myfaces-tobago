@@ -73,6 +73,7 @@ public class SelectOneChoiceRenderer<T extends AbstractUISelectOneChoice> extend
     writer.writeNameAttribute(clientId);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
+    writer.writeAttribute(HtmlAttributes.REQUIRED, component.isRequired());
     writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
 
     writer.writeClassAttribute(
