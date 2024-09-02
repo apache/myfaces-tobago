@@ -95,21 +95,23 @@
     <p>The <code class="language-markup">&lt;tc:tabChangeListener/></code> tag is used to bind a
       <code>TabChangeListener</code>. The <code>TabChangeListener</code> is an interface,
       which is implemented in this example by <code>SimpleTabChangeListener</code>.</p>
-    <code class="language-markup">&lt;tc:tabChangeListener type="org.apache.myfaces.tobago.example
-      .demo.actionlistener.SimpleTabChangeListener"
+    <code
+        class="language-markup">&lt;tc:tabChangeListener type="org.apache.myfaces.tobago.example.demo.actionlistener.SimpleTabChangeListener"
       binding="\#{tabController.tabChangeListener}"/></code>
-    <tc:tabGroup switchType="reloadTab">
-      <f:ajax render="outPanel"/>
+    <tc:tabGroup id="tabgroup" switchType="reloadTab">
       <tc:tabChangeListener type="org.apache.myfaces.tobago.example.demo.actionlistener.SimpleTabChangeListener"
                             binding="#{tabController.tabChangeListener}"/>
-      <tc:tab label="One">
+      <tc:tab id="tab1" label="One">
+        <f:ajax render="::outPanel"/>
         <p>Changed to tab one.</p>
       </tc:tab>
-      <tc:tab label="Two">
-       <!-- <f:ajax render=":page:header:headerInfo"/> -->
+      <tc:tab id="tab2" label="Two">
+        <f:ajax render="::outPanel"/>
+        <!-- <f:ajax render=":page:header:headerInfo"/> -->
         <p>Changed to tab two.</p>
       </tc:tab>
-      <tc:tab label="Three">
+      <tc:tab id="tab3" label="Three">
+        <f:ajax render="::outPanel"/>
         <p>Changed to tab three.</p>
       </tc:tab>
     </tc:tabGroup>
