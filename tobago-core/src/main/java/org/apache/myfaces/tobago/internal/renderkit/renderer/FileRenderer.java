@@ -94,7 +94,9 @@ public class FileRenderer<T extends AbstractUIFile>
             final String fileName = part.getSubmittedFileName();
             final String contentType = part.getContentType();
             LOG.debug("Uploaded file '{}', size={}, type='{}'.", fileName, part.getSize(), contentType);
-            if (StringUtils.isBlank(fileName)) {
+            if (part.getSize() == 0) {
+              LOG.debug("Ignoring empty file for clientId='{}'.", clientId);
+            } else if (StringUtils.isBlank(fileName)) {
               LOG.warn("No fileName provided for clientId='{}'.", clientId);
             } else if (StringUtils.isBlank(contentType)) {
               LOG.warn("No contentType provided for clientId='{}'.", clientId);
