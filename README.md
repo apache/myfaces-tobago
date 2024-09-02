@@ -69,12 +69,12 @@ You can also run the demo with different servers and JSF implementations
 **Jetty, MyFaces and Weld**
 
 ```shell
-mvn -f tobago-example/tobago-example-demo/pom.xml clean package jetty:run -Pjetty
+mvn -f tobago-example/tobago-example-demo/pom.xml clean package jetty:run -Pjetty -Pdev
 ```
 
 **Jetty, Mojarra and Weld**
 ```shell
-mvn -f tobago-example/tobago-example-demo/pom.xml clean package jetty:run -Pjetty -Djsf=mojarra-4.0
+mvn -f tobago-example/tobago-example-demo/pom.xml clean package jetty:run -Pjetty -Pdev -Djsf=mojarra-4.0
 ```
 
 **Tomcat**
