@@ -43,7 +43,7 @@ public abstract class AbstractUISelectOneBase extends javax.faces.component.UISe
 
   @Override
   public void validate(final FacesContext facesContext) {
-    if (isRequired() && !isReadonly()) {
+    if (isRequired() && !isReadonly() && !isDisabled()) {
       final Object submittedValue = getSubmittedValue();
       if (submittedValue == null || "".equals(submittedValue)) {
         if (getRequiredMessage() != null) {
