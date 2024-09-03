@@ -33,7 +33,7 @@ public class LazyScrollPosition implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  private Integer[] data = new Integer[]{0, 0, 0};
+  private Integer[] data = new Integer[]{0, Integer.MIN_VALUE, 0};
 
   public String encode() {
     return JsonUtils.encode(data);
@@ -41,7 +41,7 @@ public class LazyScrollPosition implements Serializable {
 
   public void clear() {
     data[0] = 0;
-    data[1] = 0;
+    data[1] = Integer.MIN_VALUE;
     data[2] = 0;
   }
 
