@@ -532,8 +532,9 @@ export class Sheet extends HTMLElement {
               const rowIndex = Number(newRow.getAttribute("name"));
               const columnPanel = this.tableBody.querySelector(`tr[name='${rowIndex}'].${Css.TOBAGO_COLUMN_PANEL}`);
               if (columnPanel) {
-                columnPanel.insertAdjacentElement("afterend", newRow);
+                const previousElement = columnPanel.previousElementSibling;
                 columnPanel.remove();
+                previousElement.insertAdjacentElement("afterend", newRow);
               } else {
                 const row = this.tableBody.querySelector(`tr[row-index='${rowIndex}']`);
                 row.insertAdjacentElement("afterend", newRow);

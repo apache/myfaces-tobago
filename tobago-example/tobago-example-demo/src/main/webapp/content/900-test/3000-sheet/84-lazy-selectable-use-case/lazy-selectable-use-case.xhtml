@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - Licensed to the Apache Software Foundation (ASF) under one
+  - or more contributor license agreements.  See the NOTICE file
+  - distributed with this work for additional information
+  - regarding copyright ownership.  The ASF licenses this file
+  - to you under the Apache License, Version 2.0 (the
+  - "License"); you may not use this file except in compliance
+  - with the License.  You may obtain a copy of the License at
+  -
+  -   http://www.apache.org/licenses/LICENSE-2.0
+  -
+  - Unless required by applicable law or agreed to in writing,
+  - software distributed under the License is distributed on an
+  - "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  - KIND, either express or implied.  See the License for the
+  - specific language governing permissions and limitations
+  - under the License.
+  -->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="jakarta.faces.core"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="jakarta.faces.facelets">
+
+  <p>A checkbox can be clicked to select a row. The column can be clicked to show the related details.</p>
+
+  <tc:selectOneRadio id="changeAjaxOrFsr" value="#{selectableUseCaseController.columnEvent}">
+    <tc:selectItem itemValue="ajax" itemLabel="AJAX"/>
+    <tc:selectItem itemValue="fsr" itemLabel="Full server request"/>
+    <f:ajax render="example"/>
+  </tc:selectOneRadio>
+  <tc:selectOneRadio id="changeSelectable" value="#{selectableUseCaseController.selectable}">
+    <tc:selectItem itemValue="single" itemLabel="selectable=single"/>
+    <tc:selectItem itemValue="singleOrNone" itemLabel="selectable=singleOrNone"/>
+    <tc:selectItem itemValue="multi" itemLabel="selectable=multi"/>
+    <f:ajax render="example"/>
+  </tc:selectOneRadio>
+  <tc:button id="reset" label="Reset" action="#{selectableUseCaseController.reset}"/>
+
+  <tc:out id="timestamp" label="Timestamp" value="#{eventController.currentTimestamp}"/>
+
+  <tc:segmentLayout id="example" medium="5seg 7seg">
+    <tc:box label="Solar Objects">
+      <tc:selectBooleanCheckbox id="checkAjax" value="#{selectableUseCaseController.columnEvent == 'ajax'}"
+                                itemLabel="AJAX" readonly="true"/>
+      <tc:selectBooleanCheckbox id="checkFullServerRequest" value="#{selectableUseCaseController.columnEvent == 'fsr'}"
+                                itemLabel="Full server request" readonly="true"/>
+      <tc:in id="checkSelectable" value="#{selectableUseCaseController.selectable}" readonly="true">
+        <f:facet name="before">selectable</f:facet>
+      </tc:in>
+
+      <tc:button id="ajaxButton" label="Ajax">
+        <f:ajax execute="solar" render="timestamp solar"/>
+      </tc:button>
+      <tc:sheet id="solar" value="#{selectableUseCaseController.solarList}" var="object" columns="auto 1fr"
+                state="#{selectableUseCaseController.sheetState}" lazy="true" lazyRows="50"
+                markup="small" selectable="none">
+        <tc:style maxHeight="486px"/>
+        <tc:columnSelector selectable="#{selectableUseCaseController.selectable}"/>
+        <tc:column label="Name">
+          <tc:out value="#{object.name}" id="t_name" labelLayout="skip"/>
+        </tc:column>
+        <tc:row id="rowAjax" rendered="#{selectableUseCaseController.columnEvent == 'ajax'}">
+          <f:ajax render=":::timestamp solar :::detail" listener="#{selectableUseCaseController.selectSolarObject}"
+                  id="columnEventAjax"/>
+        </tc:row>
+        <tc:columnPanel>
+          <tc:button id="updateTimestamp" label="Update Timestamp">
+            <f:ajax render=":::timestamp"/>
+          </tc:button>
+        </tc:columnPanel>
+        <tc:row id="rowFSR" rendered="#{selectableUseCaseController.columnEvent == 'fsr'}">
+          <tc:event actionListener="#{selectableUseCaseController.selectSolarObject}" immediate="true"
+                    id="columnEventClick"
+                    event="click">
+            <tc:resetInputActionListener/>
+          </tc:event>
+        </tc:row>
+      </tc:sheet>
+    </tc:box>
+
+    <tc:box id="detail" label="Details">
+      <tc:in id="name" label="Name" value="#{selectableUseCaseController.selectedSolarObject.name}"/>
+      <tc:in label="Number" value="#{selectableUseCaseController.selectedSolarObject.number}"/>
+      <tc:in label="Orbit" value="#{selectableUseCaseController.selectedSolarObject.orbit}"/>
+      <tc:in label="Distance" value="#{selectableUseCaseController.selectedSolarObject.distance}"/>
+      <tc:in label="Period" value="#{selectableUseCaseController.selectedSolarObject.period}"/>
+      <tc:in label="Obliquity" value="#{selectableUseCaseController.selectedSolarObject.incl}"/>
+      <tc:in label="Eccentricity" value="#{selectableUseCaseController.selectedSolarObject.eccen}"/>
+      <tc:in label="Discoverer" value="#{selectableUseCaseController.selectedSolarObject.discoverer}"/>
+      <tc:in label="Discover Year" value="#{selectableUseCaseController.selectedSolarObject.discoverYear}"/>
+    </tc:box>
+  </tc:segmentLayout>
+</ui:composition>
