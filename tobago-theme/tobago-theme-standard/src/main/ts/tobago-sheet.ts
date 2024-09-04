@@ -517,8 +517,17 @@ export class Sheet extends HTMLElement {
             if (newRow.hasAttribute("row-index")) {
               const rowIndex = Number(newRow.getAttribute("row-index"));
               const row = this.tableBody.querySelector(`tr[row-index='${rowIndex}']`);
-              row.insertAdjacentElement("afterend", newRow);
-              row.remove();
+              const previousElement = row.previousElementSibling;
+              // first remove the old element and then add the new element
+              // otherwise eventlisteners cannot be registered
+              if (previousElement == null) {
+                const parentElement = row.parentElement;
+                row.remove();
+                parentElement.insertAdjacentElement("afterbegin", newRow);
+              } else {
+                row.remove();
+                previousElement.insertAdjacentElement("afterend", newRow);
+              }
             } else if (newRow.classList.contains(Css.TOBAGO_COLUMN_PANEL)) {
               const rowIndex = Number(newRow.getAttribute("name"));
               const columnPanel = this.tableBody.querySelector(`tr[name='${rowIndex}'].${Css.TOBAGO_COLUMN_PANEL}`);
