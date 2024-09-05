@@ -43,18 +43,27 @@ export class Collapse {
         console.error("unknown operation: '%s'", operation);
     }
     if (newCollapsed) {
+      Collapse.fireEvent(target, "hide");
       if (target instanceof Popup) {
         target.clientBehaviorHide(behaviorMode);
       } else {
         target.classList.add(Css.TOBAGO_COLLAPSED);
       }
+      Collapse.fireEvent(target, "hidden");
     } else {
+      Collapse.fireEvent(target, "show");
       if (target instanceof Popup) {
         target.clientBehaviorShow(behaviorMode);
       } else {
         target.classList.remove(Css.TOBAGO_COLLAPSED);
       }
+      Collapse.fireEvent(target, "shown");
     }
     hidden.value = newCollapsed;
   };
+
+  static fireEvent(target: HTMLElement, eventName: string) {
+    const fullEventName = "tobago." + target.tagName.substring(7).toLowerCase() + "." + eventName;
+    target.dispatchEvent(new CustomEvent(fullEventName, {bubbles: true}));
+  }
 }
