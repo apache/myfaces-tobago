@@ -38,7 +38,8 @@ public enum ClientBehaviors {
   reload("reload"), // tbd - may be called timeout?
   resize("resize"),
   suggest("suggest"),
-  rowSelectionChange("tobago.sheet.rowSelectionChange");
+  rowSelectionChange("tobago.sheet.rowSelectionChange"),
+  tabChange("tabChange");
 
   private final String jsEvent;
 
@@ -77,5 +78,6 @@ public enum ClientBehaviors {
   public static final String RESIZE = "resize";
   public static final String SUGGEST = "suggest"; // tbd
   public static final String ROW_SELECTION_CHANGE = "tobago.sheet.rowSelectionChange";
+  public static final String TAB_CHANGE = "tabChange";
 
 }

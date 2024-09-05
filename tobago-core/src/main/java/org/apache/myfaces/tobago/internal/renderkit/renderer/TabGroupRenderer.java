@@ -78,39 +78,33 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
   public void processEvent(final ComponentSystemEvent event) {
 
     final AbstractUITabGroup tabGroup = (AbstractUITabGroup) event.getComponent();
-
-    for (final UIComponent child : tabGroup.getChildren()) {
-      if (child instanceof AbstractUITab) {
-        final AbstractUITab tab = (AbstractUITab) child;
-        final FacesContext facesContext = FacesContext.getCurrentInstance();
-        final ClientBehaviors click = ClientBehaviors.click;
-        switch (tabGroup.getSwitchType()) {
-          case none:
-            break;
-          case client:
-            // todo: implement a client behavior which can call local scripts (respect CSP)
-            break;
-          case reloadTab:
-            final AjaxBehavior ajaxBehavior = new AjaxBehavior();
-            final Collection<String> ids = Collections.singleton(
-                UINamingContainer.getSeparatorChar(facesContext) + tabGroup.getClientId(facesContext));
-            ajaxBehavior.setExecute(ids);
-            ajaxBehavior.setRender(ids);
-            tab.addClientBehavior(click.name(), ajaxBehavior);
-            break;
-          case reloadPage:
-            final AbstractUIEvent component = (AbstractUIEvent) ComponentUtils.createComponent(
-                facesContext, Tags.event.componentType(), RendererTypes.Event, "_click");
-            component.setEvent(click);
-            tab.getChildren().add(component);
-            final EventBehavior eventBehavior = new EventBehavior();
-            eventBehavior.setFor(component.getId());
-            tab.addClientBehavior(click.name(), eventBehavior);
-            break;
-          default:
-            LOG.error("Unknown switch type: '{}'", tabGroup.getSwitchType());
-        }
-      }
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final ClientBehaviors tabChange = ClientBehaviors.tabChange;
+    switch (tabGroup.getSwitchType()) {
+      case none:
+        break;
+      case client:
+        // todo: implement a client behavior which can call local scripts (respect CSP)
+        break;
+      case reloadTab:
+        final AjaxBehavior ajaxBehavior = new AjaxBehavior();
+        final Collection<String> ids = Collections.singleton(
+            UINamingContainer.getSeparatorChar(facesContext) + tabGroup.getClientId(facesContext));
+        ajaxBehavior.setExecute(ids);
+        ajaxBehavior.setRender(ids);
+        tabGroup.addClientBehavior(tabChange.name(), ajaxBehavior);
+        break;
+      case reloadPage:
+        final AbstractUIEvent component = (AbstractUIEvent) ComponentUtils.createComponent(
+            facesContext, Tags.event.componentType(), RendererTypes.Event, tabGroup.getId() + "_click");
+        component.setEvent(tabChange);
+        tabGroup.getChildren().add(component);
+        final EventBehavior eventBehavior = new EventBehavior();
+        eventBehavior.setFor(component.getId());
+        tabGroup.addClientBehavior(tabChange.name(), eventBehavior);
+        break;
+      default:
+        LOG.error("Unknown switch type: '{}'", tabGroup.getSwitchType());
     }
   }
 
