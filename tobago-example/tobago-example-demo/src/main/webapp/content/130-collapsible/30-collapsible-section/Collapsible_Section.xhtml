@@ -119,4 +119,17 @@
       </tc:section>
     </tc:form>
   </tc:section>
+
+  <tc:section label="Events">
+    <p>A JavaScript custom event is fired if a <code
+        class="language-markup">&lt;tc:section/></code> is collapsed or expanded.</p>
+    <p><code>tobago.section.show</code> is fired before the section is expanded.</p>
+    <p>
+      <code>tobago.section.shown</code> is fired after the section is expanded. (Does not wait for a possible Ajax reload.)
+    </p>
+    <p><code>tobago.section.hide</code> is fired before the section is collaped.</p>
+    <p>
+      <code>tobago.section.hidden</code> is fired after the section is collapsed. (Does not wait for a possible Ajax reload.)
+    </p>
+  </tc:section>
 </ui:composition>
