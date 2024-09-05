@@ -146,4 +146,14 @@
       <tc:button id="submitAjaxBox" label="Submit"/>
     </tc:form>
   </tc:section>
+
+  <tc:section label="Events">
+    <p>A JavaScript custom event is fired if a <code
+        class="language-markup">&lt;tc:box/></code> is collapsed or expanded.</p>
+    <p><code>tobago.box.show</code> is fired before the box is expanded.</p>
+    <p><code>tobago.box.shown</code> is fired after the box is expanded. (Does not wait for a possible Ajax reload.)</p>
+    <p><code>tobago.box.hide</code> is fired before the box is collaped.</p>
+    <p><code>tobago.box.hidden</code> is fired after the box is collapsed. (Does not wait for a possible Ajax reload.)
+    </p>
+  </tc:section>
 </ui:composition>
