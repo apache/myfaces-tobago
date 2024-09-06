@@ -138,7 +138,7 @@ class Toasts extends HTMLElement {
       states.get(id).state = StateEnum.showed;
       this.states = states;
       faces.ajax.request(this.id, null, {
-        "javax.faces.behavior.event": "toastShown",
+        "jakarta.faces.behavior.event": "toastShown",
         execute: this.id
       });
     });
@@ -152,7 +152,7 @@ class Toasts extends HTMLElement {
       states.get(id).state = StateEnum.closed;
       this.states = states;
       faces.ajax.request(this.id, null, {
-        "javax.faces.behavior.event": "toastHide",
+        "jakarta.faces.behavior.event": "toastHide",
         execute: this.id
       });
     });
