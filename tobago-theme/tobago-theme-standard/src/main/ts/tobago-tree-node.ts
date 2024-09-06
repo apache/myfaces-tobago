@@ -84,7 +84,9 @@ export class TreeNode extends HTMLElement {
         this.id,
         event,
         {
-          "jakarta.faces.behavior.event": "change",
+          params: {
+            "jakarta.faces.behavior.event": "change"
+          },
           execute: parentId,
           render: render ? parentId : null
         });
