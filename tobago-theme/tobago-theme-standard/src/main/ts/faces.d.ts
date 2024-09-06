@@ -15,7 +15,15 @@
  * limitations under the License.
  */
 
-// Faces JS declarations. It's the best of what I've found out - with no guaranty!
+interface Options {
+  execute?: string,
+  render?: string,
+  onevent?: Function,
+  onerror?: Function,
+  params?: Context,
+  delay?: number,
+  resetValues?: boolean,
+}
 
 type Context = Record<string, any>;
 
@@ -41,25 +49,16 @@ declare interface ErrorData {
   responseCode: number;
 }
 
-declare let faces: faces;
+declare const faces: Faces;
 
-interface faces {
-  ajax: {
-    request(
-        element: Element,
-        event: Event,
-        options?: Context);
+interface Faces {
+  ajax: Ajax;
+}
 
-    request(
-        id: string,
-        event: Event,
-        options?: Context);
+interface Ajax {
+  request(element: Element | string, event?: Event, options?: Options): void;
 
-    addOnEvent(
-        eventFunc: (event: EventData) => void);
+  addOnEvent(eventFunc: (data: EventData) => void): void;
 
-    addOnError(
-        errorFunc: (data: ErrorData) => void);
-  };
-
+  addOnError(errorFunc: (data: ErrorData) => void): void;
 }

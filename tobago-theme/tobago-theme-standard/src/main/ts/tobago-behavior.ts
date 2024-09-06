@@ -105,7 +105,9 @@ class Behavior extends HTMLElement {
             this.actionElement,
             event,
             {
-              "jakarta.faces.behavior.event": this.event,
+              params: {
+                "jakarta.faces.behavior.event": this.event
+              },
               execute: this.execute,
               render: this.render,
               resetValues: this.resetValues,

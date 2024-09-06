@@ -48,7 +48,9 @@ class TobagoReload extends HTMLElement {
             reloadId,
             null,
             {
-              "jakarta.faces.behavior.event": "reload",
+              params: {
+                "jakarta.faces.behavior.event": "reload"
+              },
               execute: `${reloadId} ${componentId}`,
               render: `${reloadId} ${componentId}`
             });
