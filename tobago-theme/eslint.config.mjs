@@ -61,6 +61,7 @@ export default [{
   rules: {
     "@stylistic/ts/semi": "error",
     "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unsafe-function-type": "off",
     "@typescript-eslint/no-unused-expressions": "off",
     "@typescript-eslint/no-unused-vars": "off",
     "max-len": ["error", {code: 120,}],

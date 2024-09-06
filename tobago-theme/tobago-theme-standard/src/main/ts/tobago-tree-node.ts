@@ -84,7 +84,9 @@ export class TreeNode extends HTMLElement {
         this.id,
         event,
         {
-          "javax.faces.behavior.event": "change",
+          params: {
+            "javax.faces.behavior.event": "change"
+          },
           execute: parentId,
           render: render ? parentId : null
         });
