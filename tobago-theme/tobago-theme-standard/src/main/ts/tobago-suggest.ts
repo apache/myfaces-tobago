@@ -63,7 +63,9 @@ export class Suggest {
             this.resolve = resolve;
             const suggestId = this.suggest.id;
             jsf.ajax.request(suggestId, null, {
-              "javax.faces.behavior.event": "suggest",
+              params: {
+                "javax.faces.behavior.event": "suggest"
+              },
               execute: suggestId,
               render: suggestId
             });

@@ -429,8 +429,10 @@ export class Sheet extends HTMLElement {
           input.id,
           null,
           {
-            "javax.faces.behavior.event": "lazy",
-            "tobago.sheet.lazyFirstRow": next,
+            params: {
+              "javax.faces.behavior.event": "lazy",
+              "tobago.sheet.lazyFirstRow": next
+            },
             execute: this.id,
             render: this.id,
             onevent: this.lazyResponse.bind(this),
@@ -905,7 +907,9 @@ Type: ${data.type}`);
           input.id,
           null,
           {
-            "javax.faces.behavior.event": "reload",
+            params: {
+              "javax.faces.behavior.event": "reload"
+            },
             execute: this.id,
             render: this.id
           });
