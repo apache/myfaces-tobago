@@ -63,7 +63,9 @@ export class Suggest {
             this.resolve = resolve;
             const suggestId = this.suggest.id;
             faces.ajax.request(suggestId, null, {
-              "jakarta.faces.behavior.event": "suggest",
+              params: {
+                "jakarta.faces.behavior.event": "suggest"
+              },
               execute: suggestId,
               render: suggestId
             });

@@ -100,4 +100,16 @@
       </tc:popup>
     </tc:form>
   </tc:section>
+
+  <tc:section label="Events">
+    <p>A JavaScript custom event is fired if a <code
+        class="language-markup">&lt;tc:popup/></code> is collapsed or expanded.</p>
+    <p><code>tobago.popup.show</code> is fired before the popup is expanded.</p>
+    <p><code>tobago.popup.shown</code> is fired after the popup is expanded. (Does not wait for a possible Ajax reload.)
+    </p>
+    <p><code>tobago.popup.hide</code> is fired before the popup is collaped.</p>
+    <p>
+      <code>tobago.popup.hidden</code> is fired after the popup is collapsed. (Does not wait for a possible Ajax reload.)
+    </p>
+  </tc:section>
 </ui:composition>
