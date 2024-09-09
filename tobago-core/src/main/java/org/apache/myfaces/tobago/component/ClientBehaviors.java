@@ -39,7 +39,7 @@ public enum ClientBehaviors {
   resize("resize"),
   suggest("suggest"),
   rowSelectionChange("tobago.sheet.rowSelectionChange"),
-  tabChange("tabChange");
+  tabChange("tobago.tabGroup.tabChange");
 
   private final String jsEvent;
 
@@ -78,6 +78,6 @@ public enum ClientBehaviors {
   public static final String RESIZE = "resize";
   public static final String SUGGEST = "suggest"; // tbd
   public static final String ROW_SELECTION_CHANGE = "tobago.sheet.rowSelectionChange";
-  public static final String TAB_CHANGE = "tabChange";
+  public static final String TAB_CHANGE = "tobago.tabGroup.tabChange";
 
 }

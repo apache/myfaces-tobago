@@ -92,16 +92,16 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
             UINamingContainer.getSeparatorChar(facesContext) + tabGroup.getClientId(facesContext));
         ajaxBehavior.setExecute(ids);
         ajaxBehavior.setRender(ids);
-        tabGroup.addClientBehavior(tabChange.name(), ajaxBehavior);
+        tabGroup.addClientBehavior(tabChange.getJsEvent(), ajaxBehavior);
         break;
       case reloadPage:
         final AbstractUIEvent component = (AbstractUIEvent) ComponentUtils.createComponent(
-            facesContext, Tags.event.componentType(), RendererTypes.Event, tabGroup.getId() + "_click");
+            facesContext, Tags.event.componentType(), RendererTypes.Event, tabGroup.getId() + "_tabChange");
         component.setEvent(tabChange);
         tabGroup.getChildren().add(component);
         final EventBehavior eventBehavior = new EventBehavior();
         eventBehavior.setFor(component.getId());
-        tabGroup.addClientBehavior(tabChange.name(), eventBehavior);
+        tabGroup.addClientBehavior(tabChange.getJsEvent(), eventBehavior);
         break;
       default:
         LOG.error("Unknown switch type: '{}'", tabGroup.getSwitchType());

@@ -34,5 +34,5 @@ export enum ClientBehaviors {
   RESIZE = "resize",
   SUGGEST = "suggest",
   ROW_SELECTION_CHANGE = "tobago.sheet.rowSelectionChange",
-  TAB_CHANGE = "tabChange"
+  TAB_CHANGE = "tobago.tabGroup.tabChange"
 }
