@@ -52,9 +52,8 @@ import javax.faces.component.UIPanel;
     rendererType = RendererTypes.TAB_GROUP,
     allowedChildComponenents = "org.apache.myfaces.tobago.Tab",
     behaviors = {
-        @Behavior(
-            name = ClientBehaviors.CLICK,
-            isDefault = true)
+        @Behavior(name = ClientBehaviors.TAB_CHANGE, isDefault = true),
+        @Behavior(name = ClientBehaviors.CLICK)
     },
     markups = {
         @Markup(
