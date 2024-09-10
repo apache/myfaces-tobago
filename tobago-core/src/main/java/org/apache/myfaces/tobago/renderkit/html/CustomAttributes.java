@@ -60,6 +60,7 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
   LAZY_UPDATE("lazy-update"),
   LOCALE("locale"),
   LOCAL_MENU("local-menu"),
+  MAX_SIZE("max-size"),
   MAX_ITEMS("max-items"),
   MIN_CHARS("min-chars"),
   OMIT("omit"),
