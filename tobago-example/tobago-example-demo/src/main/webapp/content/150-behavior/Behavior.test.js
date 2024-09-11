@@ -81,3 +81,13 @@ it("f:ajax and tc:event", function (done) {
   test.do(() => expect(outFn().textContent).toBe("Ajax"));
   test.start();
 });
+
+it("Custom event", function (done) {
+  let button = elementByIdFn("page:mainForm:customEventButton");
+  let output = elementByIdFn("page:mainForm:customEventOutput");
+
+  const test = new JasmineTestTool(done);
+  test.do(() => output().textContent === "");
+  test.event("click", button, () => output().textContent.startsWith("my-event fired at "));
+  test.start();
+});

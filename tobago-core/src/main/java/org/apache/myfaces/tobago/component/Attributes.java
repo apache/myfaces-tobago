@@ -81,6 +81,7 @@ public enum Attributes {
   createSpan,
   css,
   cssClassesBlocks,
+  customEventName,
   dateStyle,
   defaultCommand,
   delay,
