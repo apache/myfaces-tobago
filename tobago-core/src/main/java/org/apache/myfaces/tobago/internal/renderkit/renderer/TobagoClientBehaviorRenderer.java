@@ -79,6 +79,7 @@ public class TobagoClientBehaviorRenderer extends jakarta.faces.render.ClientBeh
     boolean resetValues = false;
     Integer delay = null;
     Boolean stopPropagation = null;
+    String jsEventName = getJsEventName(behaviorContext);
 
     final String confirmation = ComponentUtils.getConfirmation(uiComponent);
     if (behavior instanceof AjaxBehavior) {
@@ -151,7 +152,8 @@ public class TobagoClientBehaviorRenderer extends jakarta.faces.render.ClientBeh
         delay,
         collapse,
         omit,
-        stopPropagation);
+        stopPropagation,
+        jsEventName);
 
     if (resetValues) {
       command.setResetValues(true);
@@ -163,6 +165,12 @@ public class TobagoClientBehaviorRenderer extends jakarta.faces.render.ClientBeh
 
     // XXX the return value is a string, but we should use a CommandMap
     return "dummy";
+  }
+
+  public static String getJsEventName(final ClientBehaviorContext behaviorContext) {
+    final String rendererType = behaviorContext.getComponent().getRendererType();
+    final ClientBehaviors eventName = ClientBehaviors.getEnum(behaviorContext.getEventName());
+    return "tobago." + Character.toLowerCase(rendererType.charAt(0)) + rendererType.substring(1) + "." + eventName;
   }
 
   @Override

@@ -334,6 +334,9 @@ public final class RenderUtils {
         commandMap = new CommandMap();
       }
       final AbstractUICommand holder = (AbstractUICommand) clientBehaviorHolder;
+      final ClientBehaviorContext clientBehaviorContext
+          = getClientBehaviorContext(facesContext, clientBehaviorHolder, ClientBehaviors.click.name());
+      final String jsEventName = TobagoClientBehaviorRenderer.getJsEventName(clientBehaviorContext);
       commandMap.addCommand(ClientBehaviors.click, new Command(
           holder.getClientId(facesContext),
           holder.getFieldId(facesContext),
@@ -345,7 +348,8 @@ public final class RenderUtils {
           null,
           TobagoClientBehaviorRenderer.createCollapsible(facesContext, holder),
           holder.isOmit(),
-          null));
+          null,
+          jsEventName));
     }
 
     return commandMap;

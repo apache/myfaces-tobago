@@ -264,7 +264,7 @@ public class TobagoResponseWriterUnitTest extends AbstractTobagoTestBase {
     b.encodeAll(facesContext);
     Assertions.assertEquals("\n<button type='button' id='id' name='id' "
         + "class='tobago-button btn btn-secondary tobago-auto-spacing' aria-label='label'>"
-        + "<tobago-behavior event='click' client-id='id'></tobago-behavior>"
+        + "<tobago-behavior event='click' client-id='id' js-event-name='tobago.button.click'></tobago-behavior>"
         + "<span>button</span></button>", getLastWritten());
   }
 
@@ -278,7 +278,7 @@ public class TobagoResponseWriterUnitTest extends AbstractTobagoTestBase {
     l.encodeAll(facesContext);
     Assertions.assertEquals("\n<button type='button' id='id' name='id' "
         + "class='tobago-link btn btn-link tobago-auto-spacing' aria-label='label'>"
-        + "<tobago-behavior event='click' client-id='id'></tobago-behavior>"
+        + "<tobago-behavior event='click' client-id='id' js-event-name='tobago.link.click'></tobago-behavior>"
         + "<span>link</span></button>", getLastWritten());
   }
 }

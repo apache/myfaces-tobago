@@ -306,6 +306,7 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
     if (resetValues != null && resetValues) {
       writer.writeAttribute(CustomAttributes.RESET_VALUES, resetValues);
     }
+    writer.writeAttribute(CustomAttributes.JS_EVENT_NAME, command.getJsEventName(), true);
     // todo: all the other attributes
     writer.endElement(HtmlElements.TOBAGO_BEHAVIOR);
   }
@@ -346,6 +347,9 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
         commandMap = new CommandMap();
       }
       final AbstractUICommand holder = (AbstractUICommand) clientBehaviorHolder;
+      final ClientBehaviorContext clientBehaviorContext
+          = getClientBehaviorContext(facesContext, clientBehaviorHolder, ClientBehaviors.click.name());
+      final String jsEventName = TobagoClientBehaviorRenderer.getJsEventName(clientBehaviorContext);
       commandMap.addCommand(ClientBehaviors.click, new Command(
           holder.getClientId(facesContext),
           holder.getFieldId(facesContext),
@@ -357,7 +361,8 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
           null,
           TobagoClientBehaviorRenderer.createCollapsible(facesContext, holder),
           holder.isOmit(),
-          null));
+          null,
+          jsEventName));
     }
 
     return commandMap;
