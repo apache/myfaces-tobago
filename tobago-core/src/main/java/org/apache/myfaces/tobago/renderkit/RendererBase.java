@@ -306,6 +306,7 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
     if (resetValues != null && resetValues) {
       writer.writeAttribute(CustomAttributes.RESET_VALUES, resetValues);
     }
+    writer.writeAttribute(CustomAttributes.CUSTOM_EVENT_NAME, command.getCustomEventName(), true);
     // todo: all the other attributes
     writer.endElement(HtmlElements.TOBAGO_BEHAVIOR);
   }
@@ -357,6 +358,7 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
           null,
           TobagoClientBehaviorRenderer.createCollapsible(facesContext, holder),
           holder.isOmit(),
+          null,
           null));
     }
 
