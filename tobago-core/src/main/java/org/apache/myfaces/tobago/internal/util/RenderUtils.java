@@ -339,6 +339,7 @@ public final class RenderUtils {
           null,
           TobagoClientBehaviorRenderer.createCollapsible(facesContext, holder),
           holder.isOmit(),
+          null,
           null));
     }
 

@@ -17,21 +17,7 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
-
-import jakarta.faces.component.behavior.ClientBehaviorHolder;
-import org.apache.myfaces.tobago.component.ClientBehaviors;
-
-/**
- * {@link org.apache.myfaces.tobago.internal.taglib.component.EventTagDeclaration}
- */
-public abstract class AbstractUIEvent extends AbstractUICommandBase implements ClientBehaviorHolder {
-
-  public abstract ClientBehaviors getEvent();
-
-  public abstract void setEvent(ClientBehaviors event);
-
-  public abstract Boolean getStopPropagation();
-
-  public abstract String getCustomEventName();
-}
+document.addEventListener("DOMContentLoaded", function (event) {
+  document.querySelector("body").addEventListener("my-event", () =>
+      document.querySelector(".custom-event-result").textContent = "my-event fired at " + new Date());
+});
