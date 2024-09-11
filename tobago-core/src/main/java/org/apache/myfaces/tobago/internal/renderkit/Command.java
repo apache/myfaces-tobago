@@ -38,11 +38,12 @@ public class Command {
   private Boolean omit;
   private Boolean resetValues;
   private Boolean stopPropagation;
+  private String customEventName;
 
   public Command(
       final String clientId, final String fieldId, final Boolean transition, final String target, final String execute,
       final String render, final String confirmation, final Integer delay,
-      final Collapse collapse, final Boolean omit, final Boolean stopPropagation) {
+      final Collapse collapse, final Boolean omit, final Boolean stopPropagation, final String customEventName) {
     this.clientId = clientId;
     this.fieldId = fieldId;
     this.transition = transition != null ? transition : true;
@@ -54,6 +55,7 @@ public class Command {
     this.collapse = collapse;
     this.omit = omit;
     this.stopPropagation = stopPropagation;
+    this.customEventName = customEventName;
   }
 
   public String getClientId() {
@@ -152,6 +154,10 @@ public class Command {
     return stopPropagation;
   }
 
+  public String getCustomEventName() {
+    return customEventName;
+  }
+
   public void merge(final Command c) {
 
     //XXX TBD: check if this is okay.
@@ -200,6 +206,9 @@ public class Command {
     }
     if (stopPropagation == null) {
       stopPropagation = c.stopPropagation;
+    }
+    if (customEventName == null) {
+      customEventName = c.customEventName;
     }
   }
 }

@@ -91,4 +91,14 @@ public interface EventTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Boolean")
   void setStopPropagation(String stopPropagation);
+
+  /**
+   * If set, an additional custom event
+   * (<a href="https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent">CustomEvent</a>) triggers after the
+   * original event of the component (e.g. “click” on a tc:button). The name of the custom event is defined by this
+   * attribute.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  void setCustomEventName(String customEventName);
 }

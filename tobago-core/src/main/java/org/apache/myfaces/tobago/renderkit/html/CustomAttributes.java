@@ -26,6 +26,7 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
   CONFIRMATION("confirmation"),
   CLIENT_ID("client-id"),
   CUSTOM_CLASS("custom-class"),
+  CUSTOM_EVENT_NAME("custom-event-name"),
   DATE_PATTERN("date-pattern"),
   DELAY("delay"),
   DROP_ZONE("drop-zone"),
