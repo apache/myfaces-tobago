@@ -16,6 +16,7 @@
  */
 
 import {Css} from "./tobago-css";
+import {ClientBehaviors} from "./tobago-client-behaviors";
 
 class TabGroup extends HTMLElement {
 
@@ -77,7 +78,7 @@ export class Tab extends HTMLElement {
     const tabGroup = this.tabGroup;
     const old = tabGroup.getSelectedTab();
     tabGroup.selected = this.index;
-
+    const fireTabChange = old.index != this.index;
     switch (tabGroup.switchType) {
       case "client":
         old.navLink.classList.remove(Css.ACTIVE);
@@ -86,10 +87,15 @@ export class Tab extends HTMLElement {
         this.content.classList.add(Css.ACTIVE);
         break;
       case "reloadTab":
+        if (fireTabChange) {
+          this.fireTabChangeEvent(tabGroup);
+        }
         // will be done by <tobago-behavior>
         break;
       case "reloadPage":
-        // will be done by <tobago-behavior>
+        if (fireTabChange) {
+          this.fireTabChangeEvent(tabGroup);
+        }
         break;
       case "none": // todo
         console.error("Not implemented yet: %s", tabGroup.switchType);
@@ -98,6 +104,14 @@ export class Tab extends HTMLElement {
         console.error("Unknown switchType='%s'", tabGroup.switchType);
         break;
     }
+  }
+
+  private fireTabChangeEvent(tabGroup: TabGroup) {
+    tabGroup.dispatchEvent(new CustomEvent(ClientBehaviors.TAB_CHANGE, {
+      detail: {
+        index: this.index
+      },
+    }));
   }
 
   get content(): HTMLElement {
