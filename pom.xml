@@ -37,8 +37,7 @@
     <mojarra40.version>4.0.8</mojarra40.version>
     <slf4j.version>2.0.16</slf4j.version>
     <logback.version>1.5.7</logback.version>
-    <maven.compile.source>1.8</maven.compile.source>
-    <maven.compile.target>1.8</maven.compile.target>
+    <maven.compiler.release>8</maven.compiler.release>
     <maven.compile.encoding>UTF-8</maven.compile.encoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -586,8 +585,6 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.11.0</version>
           <configuration>
-            <source>${maven.compile.source}</source>
-            <target>${maven.compile.target}</target>
             <encoding>${maven.compile.encoding}</encoding>
             <showWarnings>true</showWarnings>
             <useIncrementalCompilation>false</useIncrementalCompilation><!-- see MCOMPILER-209 -->
@@ -626,7 +623,6 @@
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>3.6.3</version>
           <configuration>
-            <source>${maven.compile.source}</source>
             <!-- switched off check in Java 8 -->
             <additionalparam>
                 -Xdoclint:accessibility
