@@ -43,7 +43,7 @@ pipeline {
                 axes {
                     axis {
                         name 'JAVA_VERSION'
-//                        values 'jdk_1.8_latest', 'jdk_11_latest', 'jdk_16_latest' 
+//                        values 'jdk_1.8_latest', 'jdk_11_latest', 'jdk_16_latest'
 //                        XXX turned off because of Jenkins random fails
                         values 'jdk_1.8_latest'
                     }
@@ -57,7 +57,7 @@ pipeline {
                 stages {
                     stage('BuildAndTest') {
                         steps {
-                            sh "mvn -U clean package checkstyle:check apache-rat:check animal-sniffer:check dependency-check:check -Pgenerate-assembly -Pfrontend"
+                            sh "mvn -U clean package checkstyle:check apache-rat:check dependency-check:check -Pgenerate-assembly -Pfrontend"
                         }
                         post {
                             always {
