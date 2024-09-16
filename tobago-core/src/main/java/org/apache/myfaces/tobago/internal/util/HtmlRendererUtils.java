@@ -152,8 +152,13 @@ public final class HtmlRendererUtils {
   public static void writeDataAttributes(
       final FacesContext context, final TobagoResponseWriter writer, final UIComponent component)
       throws IOException {
+    writeDataAttributes(context, writer, ComponentUtils.getDataAttributes(component));
+  }
 
-    final Map<Object, Object> dataAttributes = ComponentUtils.getDataAttributes(component);
+  public static void writeDataAttributes(
+      final FacesContext context, final TobagoResponseWriter writer, final Map<Object, Object> dataAttributes)
+      throws IOException {
+
     if (dataAttributes == null) {
       return;
     }

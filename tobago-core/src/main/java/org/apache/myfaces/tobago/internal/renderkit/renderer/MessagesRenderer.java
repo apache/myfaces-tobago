@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.application.TobagoFacesMessage;
 import org.apache.myfaces.tobago.internal.component.AbstractUIMessages;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -95,6 +96,10 @@ public class MessagesRenderer<T extends AbstractUIMessages> extends RendererBase
             BootstrapClass.FADE,
             BootstrapClass.SHOW);
         HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
+        if (message instanceof TobagoFacesMessage) {
+          final TobagoFacesMessage tobagoFacesMessage = (TobagoFacesMessage) message;
+          HtmlRendererUtils.writeDataAttributes(facesContext, writer, tobagoFacesMessage.getDataAttributes());
+        }
         writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.ALERT.toString(), false);
 
         writer.startElement(HtmlElements.BUTTON);
