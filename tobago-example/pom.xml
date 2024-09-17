@@ -35,7 +35,6 @@
     <module>tobago-example-blank</module>
     <module>tobago-example-demo</module>
     <module>tobago-example-assembly</module>
-    <module>tobago-example-spring-boot</module>
   </modules>
 
   <build>
@@ -112,6 +111,12 @@
   </dependencies>
 
   <profiles>
+    <profile>
+      <id>spring-boot-module</id>
+      <modules>
+        <module>tobago-example-spring-boot</module>
+      </modules>
+    </profile>
 
     <profile>
       <id>dev</id>
