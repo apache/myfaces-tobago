@@ -5,7 +5,6 @@
 
 # Apache Tobago
 
-
 ## Building
 
 You need Maven 3 (at least 3.0.4) and Java 8 or later to build Tobago.
@@ -83,7 +82,7 @@ Switch to **special** subdirectory and call Maven to run the demo:
 
 ```
 cd tobago-example/tobago-example-spring-boot
-mvn clean spring-boot:run
+mvn clean -Pspring-boot-module spring-boot:run
 ```
 
 Browse to the local URL http://localhost:8080/
