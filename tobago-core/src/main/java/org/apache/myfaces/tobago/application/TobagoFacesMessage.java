@@ -26,7 +26,23 @@ public class TobagoFacesMessage extends LabelValueExpressionFacesMessage {
 
     private final Map<Object, Object> dataAttributes = new HashMap<>();
 
-    public Map<Object, Object> getDataAttributes() {
+  public TobagoFacesMessage() {
+    super();
+  }
+
+  public TobagoFacesMessage(final Severity severity, final String summary, final String detail) {
+    super(severity, summary, detail);
+  }
+
+  public TobagoFacesMessage(final String summary, final String detail) {
+    super(summary, detail);
+  }
+
+  public TobagoFacesMessage(final String summary) {
+    super(summary);
+  }
+
+  public Map<Object, Object> getDataAttributes() {
         return dataAttributes;
     }
 
