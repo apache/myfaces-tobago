@@ -42,6 +42,6 @@ export class ColumnSelector {
   public get disabled(): boolean {
     const rowElement = this.sheet
         .querySelector<HTMLInputElement>("tr[row-index] input[name^='" + this.sheet.id + "_data_row_selector']");
-    return rowElement.disabled;
+    return rowElement && rowElement.disabled;
   }
 }
