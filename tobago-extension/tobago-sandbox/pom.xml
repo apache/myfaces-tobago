@@ -102,21 +102,11 @@
             </configuration>
           </execution>
         </executions>
-        <dependencies>
-          <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-jdk14</artifactId>
-            <version>${slf4j.version}</version>
-          </dependency>
-        </dependencies>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>${maven.compile.source}</source>
-          <target>${maven.compile.target}</target>
-          <encoding>${maven.compile.encoding}</encoding>
           <showWarnings>true</showWarnings>
           <excludes>
             <exclude>workaround-because-otherwise-this-will-be-excluded-in-the-next-step</exclude>
@@ -129,9 +119,6 @@
             <id>compile</id>
             <goals><goal>compile</goal></goals>
             <configuration>
-              <source>${maven.compile.source}</source>
-              <target>${maven.compile.target}</target>
-              <encoding>${maven.compile.encoding}</encoding>
               <showWarnings>true</showWarnings>
               <includes>
                 <include>org/apache/myfaces/tobago/internal/taglib/*</include>

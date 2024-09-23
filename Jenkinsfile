@@ -43,7 +43,7 @@ pipeline {
                 axes {
                     axis {
                         name 'JAVA_VERSION'
-                        values 'jdk_1.8_latest'  /*, 'JDK 11 (latest)'  Tobago 2 officially supports Java 5, but Java 11 compiles no target for Java 5  */
+                        values 'jdk_17_latest'
                     }
                 }
 
@@ -55,7 +55,7 @@ pipeline {
                 stages {
                     stage('BuildAndTest') {
                         steps {
-                            sh "mvn clean package checkstyle:check apache-rat:check animal-sniffer:check dependency-check:check -Pgenerate-assembly -U"
+                            sh "mvn clean package checkstyle:check apache-rat:check dependency-check:check -Pgenerate-assembly -U"
                         }
                         post {
                             always {
@@ -71,7 +71,7 @@ pipeline {
         stage('Deploy') {
             tools {
                 maven "maven_latest"
-                jdk "jdk_1.8_latest"
+                jdk "jdk_17_latest"
             }
             steps {
                 sh "mvn clean deploy -Pgenerate-assembly"
