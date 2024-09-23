@@ -40,6 +40,8 @@ public class PopupController implements Serializable {
   private String popup1Text;
   private String popup2Text;
   private String time;
+  private String popupAjax;
+  private String popupClient;
 
   public boolean isPopup1Collapsed() {
     return popup1Collapsed;
@@ -96,5 +98,21 @@ public class PopupController implements Serializable {
 
   public void openPopup3() {
     popup3Collapsed = false;
+  }
+
+  public String getPopupAjax() {
+    return popupAjax;
+  }
+
+  public void setPopupAjax(String popupAjax) {
+    this.popupAjax = popupAjax;
+  }
+
+  public String getPopupClient() {
+    return popupClient;
+  }
+
+  public void setPopupClient(String popupClient) {
+    this.popupClient = popupClient;
   }
 }
