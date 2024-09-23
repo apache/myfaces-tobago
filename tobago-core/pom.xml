@@ -34,9 +34,6 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <proc>none</proc>
-          <source>${maven.compile.source}</source>
-          <target>${maven.compile.target}</target>
-          <encoding>${maven.compile.encoding}</encoding>
           <showWarnings>true</showWarnings>
           <useIncrementalCompilation>false</useIncrementalCompilation><!-- see MCOMPILER-209 and MCOMPILER-235 -->
           <!-- <compilerArgument>-Xlint:all,-serial,-fallthrough</compilerArgument>-->
