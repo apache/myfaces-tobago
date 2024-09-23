@@ -27,9 +27,9 @@
   <packaging>pom</packaging>
   <name>Apache Tobago</name>
   <version>2.5.4-SNAPSHOT</version>
-  <description>The goal of Tobago is to provide the community with a well designed set of user interface components based on JSF and run on MyFaces.</description>
+  <description>The goal of Tobago is to provide the community with a well-designed set of user interface components based on JSF and run on MyFaces.</description>
   <prerequisites>
-    <maven>3.0.4</maven>
+    <maven>${required.maven.version}</maven>
   </prerequisites>
   <url>http://myfaces.apache.org/tobago</url>
   <inceptionYear>2002</inceptionYear>
@@ -57,7 +57,7 @@
     <jsf.target>2.0</jsf.target>
     <required.maven.version>3.8.1</required.maven.version>
     <maven-checkstyle-plugin.version>3.5.0</maven-checkstyle-plugin.version>
-    <checkstyle.version>9.3</checkstyle.version>
+    <checkstyle.version>10.18.1</checkstyle.version>
     <checkstyle-rules.version>24</checkstyle-rules.version>
     <tobago.basedir>${project.basedir}</tobago.basedir>
   </properties>
@@ -882,8 +882,8 @@
                 <configuration>
                   <rules>
                     <requireJavaVersion>
-                      <message>Tobago must be compiled with Java 8</message>
-                      <version>[1.8.0-100,1.8.0-999]</version>
+                      <message>Tobago must be built with Java 17 or higher!</message>
+                      <version>[17,)</version>
                     </requireJavaVersion>
                     <requireReleaseDeps>
                       <message>No snapshots allowed in a release!</message>
