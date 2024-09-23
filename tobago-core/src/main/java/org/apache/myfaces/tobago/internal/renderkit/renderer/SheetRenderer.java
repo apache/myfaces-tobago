@@ -72,6 +72,7 @@ import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.Arias;
 import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -713,6 +714,10 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
               } else {
                 writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
               }
+              writer.writeAttribute(HtmlAttributes.TITLE,
+                  ResourceUtils.getString(facesContext, "sheet.selectRow"), true);
+              writer.writeAttribute(Arias.LABEL,
+                  ResourceUtils.getString(facesContext, "sheet.selectRow"), true);
               writer.writeAttribute(HtmlAttributes.CHECKED, selected);
               writer.writeAttribute(HtmlAttributes.DISABLED, selector.isDisabled());
               writer.writeClassAttribute(
@@ -994,10 +999,10 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
               writer.startElement(HtmlElements.INPUT);
               if (currentSelectable.isMulti()) {
                 writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX);
-                writer.writeAttribute(
-                    HtmlAttributes.TITLE,
-                    ResourceUtils.getString(facesContext, "sheet.selectAll"),
-                    true);
+                writer.writeAttribute(HtmlAttributes.TITLE,
+                    ResourceUtils.getString(facesContext, "sheet.selectAll"), true);
+                writer.writeAttribute(Arias.LABEL,
+                    ResourceUtils.getString(facesContext, "sheet.selectAll"), true);
                 writer.writeAttribute(HtmlAttributes.DISABLED, selector.isDisabled());
               } else {
                 writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
