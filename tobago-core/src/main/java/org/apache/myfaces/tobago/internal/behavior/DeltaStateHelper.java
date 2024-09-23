@@ -19,13 +19,13 @@
 
 package org.apache.myfaces.tobago.internal.behavior;
 
+import org.apache.myfaces.tobago.exception.TobagoException;
+
 import jakarta.el.ValueExpression;
 import jakarta.faces.component.StateHelper;
 import jakarta.faces.component.StateHolder;
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.context.FacesContext;
-import org.apache.myfaces.tobago.exception.TobagoException;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -447,7 +447,7 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
    */
   @Override
   public Object saveState(final FacesContext context) {
-    final Map serializableMap = (isInitialStateMarked()) ? deltas : fullState;
+    final Map serializableMap = isInitialStateMarked() ? deltas : fullState;
 
     if (serializableMap == null || serializableMap.size() == 0) {
       return null;

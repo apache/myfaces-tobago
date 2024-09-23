@@ -43,10 +43,9 @@ Checklist of tasks to perform for each release. For general information about Ap
   >
   > Regards,
   > &lt;name>
-* Perform basic checks on an unmodified checkout for all modules. Use JDK 8 or higher for Tobago 2, 4 and 5. Since
-  Tobago 6, use JDK 11 or higher.
+* Perform basic checks on an unmodified checkout for all modules. Use JDK 17 or higher for all builds.
   ```
-  mvn clean install && mvn checkstyle:check apache-rat:check animal-sniffer:check dependency-check:check
+  mvn clean install && mvn checkstyle:check apache-rat:check dependency-check:check
   ```
 
 ## Building the Release

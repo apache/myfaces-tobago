@@ -27,7 +27,7 @@ updates:
     schedule:
       interval: "daily"
     ignore:
-      # since 3.3.0 maven-source-plugin must not configured twice; try upgrade if using myfaces-master-pom version 20
+      # since 3.3.0 maven-source-plugin must not be configured twice; try upgrade if using myfaces-master-pom version 20
       - dependency-name: "org.apache.maven.plugins:maven-source-plugin"
         versions:
           - ">= 3.3.0"
@@ -104,7 +104,7 @@ updates:
     schedule:
       interval: "daily"
     ignore:
-      # since 3.3.0 maven-source-plugin must not configured twice; try upgrade if using myfaces-master-pom version 20
+      # since 3.3.0 maven-source-plugin must not be configured twice; try upgrade if using myfaces-master-pom version 20
       - dependency-name: "org.apache.maven.plugins:maven-source-plugin"
         versions:
           - ">= 3.3.0"
