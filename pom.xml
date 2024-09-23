@@ -36,7 +36,7 @@
     <myfaces40.version>4.0.1</myfaces40.version>
     <mojarra40.version>4.0.8</mojarra40.version>
     <slf4j.version>2.0.16</slf4j.version>
-    <logback.version>1.5.7</logback.version>
+    <logback.version>1.5.8</logback.version>
     <maven.compiler.release>8</maven.compiler.release>
     <maven.compile.encoding>UTF-8</maven.compile.encoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
