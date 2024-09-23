@@ -51,7 +51,7 @@ public class PictureServlet extends NonFacesRequestServlet {
           IOUtils.copy(inputStream, response.getOutputStream());
         } catch (final IOException e) {
           LOG.error("", e);
-        } finally{
+        } finally {
           IOUtils.closeQuietly(inputStream);
         }
       }
