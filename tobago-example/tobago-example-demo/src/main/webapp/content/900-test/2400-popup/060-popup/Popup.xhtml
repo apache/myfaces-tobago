@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core">
+
+  <p>A popup dialog is created with <code class="language-markup">&lt;tc:popup/></code>.
+    It can be filled with other components.</p>
+  <p>The popup dialog is based on the
+    <tc:link label="Collapsible"
+             outcome="/content/130-collapsible/Collapsible.xhtml"/> concept.</p>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:popup/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.tobagoTld}/tc/popup.html"/>
+    |
+    <tc:link label="&lt;tc:operation/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.tobagoTld}/tc/operation.html"/></p>
+
+  <tc:section label="Client Side Popup">
+    <tc:form id="form2">
+      <p>To create a client side popup you have to know about <code>collapsedMode</code>.
+        The mode indicated whether a collapsed popup should be rendered.
+        If <code>collapsedMode="absent"</code>, which is default, a hidden popup dialog will no be rendered.
+        If <code>collapsedMode="hidden"</code>, a hidden popup dialog will be rendered on the page, but hidden by CSS.
+      </p>
+      <p>Be careful with validations. For example, hidden required input fields will be validated after submit.</p>
+      <p>So to create the popup, use
+        <code class="language-markup">&lt;tc:popup collapsedMode="hidden"></code>.
+        The attribute <code class="language-markup">collapsed="true"</code> is default,
+        because the popup should normally not be opened after loading the page.
+        The hidden popup must be already rendered, so the client don't have to send any requests to the server.</p>
+      <p>Client side opening and closing can be done with the
+        <code class="language-markup">&lt;tc:operation name="show|hide" for="[ID]"/></code> tag.
+        The attribute <code>name</code> must be set and can have the value 'show' and 'hide'
+        which is to show and hide the popup, obviously.
+        The other mandatory attribute is the <code>for</code> attribute.
+        It contain the ID of the popup on which the transition should be executed.</p>
+
+      <demo-highlight language="markup">&lt;tc:button label="Open" omit="true">
+  &lt;tc:operation name="show" for="clientPopup"/>
+&lt;/tc:button>
+      </demo-highlight>
+      <tc:button id="open" label="Open" omit="true">
+        <tc:operation name="show" for="clientPopup"/>
+      </tc:button>
+      <tc:in readonly="true" id="out" label="Text from Popup" value="#{popupController.popup2Text}"/>
+
+      <tc:popup id="clientPopup" collapsedMode="hidden">
+        <f:facet name="label">
+          Client Side Popup
+        </f:facet>
+        <f:facet name="bar">
+          <tc:link image="bi-x-lg" omit="true">
+            <tc:operation name="hide" for="clientPopup"/>
+          </tc:link>
+        </f:facet>
+        <tc:panel id="clientPopupMessages">
+          <tc:messages id="messages"/>
+        </tc:panel>
+        <p>This is a popup dialog with an input field.</p>
+
+        <b>Submit</b>
+        <demo-highlight language="markup">&lt;tc:button label="Submit">
+          &lt;f:ajax execute="in" render="in :::out clientPopupMessages"/>
+          &lt;/tc:button>
+        </demo-highlight>
+        <p>The 'Submit'-button send an ajax request to submit the value in the input field.
+        </p>
+
+        <b>Submit &amp; Close</b>
+        <demo-highlight language="markup">&lt;tc:button label="Submit &amp; Close">
+          &lt;tc:operation name="hide" for="clientPopup"/>
+          &lt;/tc:button>
+        </demo-highlight>
+        <p>The 'Submit &amp; Close'-button execute a submit and run the operation 'hide' to close the popup.</p>
+
+        <b>Cancel</b>
+        <demo-highlight language="markup">&lt;tc:button label="Cancel" omit="true">
+          &lt;tc:operation name="hide" for="clientPopup"/>
+          &lt;/tc:button>
+        </demo-highlight>
+        <p>The 'Cancel'-button execute a 'hide'-operation to close the popup.
+          Also the attribute <code>omit="true"</code> is set to prevent submit.</p>
+
+        <tc:in id="in2" label="Required Field" required="true" value="#{popupController.popup2Text}"/>
+        <tc:date id="d2" label="Date Field"/>
+
+        <f:facet name="footer">
+          <tc:button id="submit2" label="Submit">
+            <f:ajax execute="in2" render="in2 :::out clientPopupMessages"/>
+          </tc:button>
+          <tc:button id="submitClose2" label="Submit &amp; Close">
+            <tc:operation name="hide" for="clientPopup"/>
+            <f:ajax execute="in2" render="in2 :::out clientPopupMessages clientPopup :page:messages"/>
+          </tc:button>
+          <tc:button id="cancel2" label="Cancel" omit="true">
+            <tc:operation name="hide" for="clientPopup"/>
+          </tc:button>
+        </f:facet>
+      </tc:popup>
+    </tc:form>
+  </tc:section>
+
+  <tc:section id="markup" label="Markup">
+    <p>The width of the popups can be changed by markups.</p>
+    <p><code class="language-markup">&lt;tc:popup ... markup="extraLarge"></code> or
+      <code class="language-markup">"large"</code> or
+      <code class="language-markup">"small"</code></p>
+    <tc:button id="dropdownButton" label="Open" omit="true">
+      <tc:link id="extraLargePopupLink" label="Extra Large Popup" omit="true">
+        <tc:operation name="show" for="extraLargePopup"/>
+      </tc:link>
+      <tc:link id="largePopupLink" label="Large Popup" omit="true">
+        <tc:operation name="show" for="largePopup"/>
+      </tc:link>
+      <tc:link id="smallPopupLink" label="Small Popup" omit="true">
+        <tc:operation name="show" for="smallPopup"/>
+      </tc:link>
+    </tc:button>
+    <tc:popup id="extraLargePopup" collapsedMode="hidden" markup="extraLarge">
+      <tc:box label="Extra Large">
+        <p>A popup with markup <code>extraLarge</code>.</p>
+        <tc:button id="closeExtraLargePopup" label="Close" omit="true">
+          <tc:operation name="hide" for="extraLargePopup"/>
+        </tc:button>
+      </tc:box>
+    </tc:popup>
+    <tc:popup id="largePopup" collapsedMode="hidden" markup="large">
+      <tc:box label="Large">
+        <p>A popup with markup <code>large</code>.</p>
+        <tc:button id="closeLargePopup" label="Close" omit="true">
+          <tc:operation name="hide" for="largePopup"/>
+        </tc:button>
+      </tc:box>
+    </tc:popup>
+    <tc:popup id="smallPopup" collapsedMode="hidden" markup="small">
+      <tc:box label="Small">
+        <p>A popup with markup <code>small</code>.</p>
+        <tc:button id="closeSmallPopup" label="Close" omit="true">
+          <tc:operation name="hide" for="smallPopup"/>
+        </tc:button>
+      </tc:box>
+    </tc:popup>
+  </tc:section>
+
+  <tc:section label="Modal">
+    <p>By default the popup can be closed by clicking on the backdrop. To prevent this, set
+      <code>modal="true"</code>. Default value is "false". It can be configured in the
+      <code>tobago-config.xml</code>.</p>
+
+    <tc:button id="showModal" label="Open modal Popup" omit="true">
+      <tc:operation name="show" for="modal"/>
+    </tc:button>
+
+    <tc:popup id="modal" collapsedMode="hidden" modal="true">
+      <f:facet name="label">
+        Modal
+      </f:facet>
+      <f:facet name="bar">
+        <tc:link id="hideModal" image="bi-x-lg" omit="true">
+          <tc:operation name="hide" for="modal"/>
+        </tc:link>
+      </f:facet>
+      <p>This popup can only be closed by clicking on the X button.</p>
+    </tc:popup>
+  </tc:section>
+
+  <tc:section label="Plain Popup">
+    <!-- todo-->
+    <tc:badge markup="warning">!</tc:badge> missing content
+  </tc:section>
+
+  <tc:section label="Popup opend after AJAX call">
+    <tc:button label="Open Popup" immediate="true" id="ajaxButton">
+      <tc:operation name="show" for="ajaxPopup"/>
+      <f:ajax render="ajaxPopup" execute="ajaxPopup"/>
+    </tc:button>
+
+    <tc:popup id="ajaxPopup" collapsedMode="absent" markup="small">
+      <tc:box label="Popup">
+        Simple Popup loaded by AJAX.
+        <tc:button label="Close" omit="true">
+          <tc:operation name="hide" for="ajaxPopup"/>
+        </tc:button>
+      </tc:box>
+    </tc:popup>
+  </tc:section>
+
+  <tc:section label="Refresh Content">
+    <p>The content of the popup will be refreshed with AJAX after opening the popup. The refresh method waits two
+      seconds before execution.</p>
+
+    <!--    todo-->
+    <p>
+      <tc:badge markup="warning">tbd (to be defined)!</tc:badge> in this example the "show" should be
+      called directly, and not after the ajax call is complete. On the other and, to avoid flickering,
+      the popup should be shown after the ajax call.
+      (<tc:link link="https://issues.apache.org/jira/browse/TOBAGO-2083" label="Jira TOBAGO-2083"
+                image="bi-box-arrow-up-right"/>)
+    </p>
+
+    <tc:button id="openRefreshPopup" label="Open Popup" immediate="true">
+      <tc:operation name="show" for="refreshPopup"/>
+      <f:ajax render="@this refreshPopup" execute="refreshPopup" listener="#{popupController.refreshContent}"/>
+    </tc:button>
+
+    <tc:panel id="wrapperForIntegrationTest">
+      <tc:popup id="refreshPopup" collapsedMode="absent" markup="small">
+        <tc:box id="refreshPopupContent" label="Current Time">
+          <tc:out label="Current Time" value="#{popupController.time}"/>
+          <tc:button id="closeRefreshPopup" label="Close" omit="true">
+            <tc:operation name="hide" for="refreshPopup"/>
+          </tc:button>
+        </tc:box>
+      </tc:popup>
+    </tc:panel>
+  </tc:section>
+</ui:composition>
