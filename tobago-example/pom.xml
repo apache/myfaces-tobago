@@ -35,8 +35,7 @@
     <module>tobago-example-blank</module>
     <module>tobago-example-demo</module>
     <module>tobago-example-assembly</module>
-    <!-- Spring Boot 3 demo deactivated because it requires Java 17. -->
-<!--    <module>tobago-example-spring-boot</module>-->
+    <module>tobago-example-spring-boot</module>
   </modules>
 
   <build>
