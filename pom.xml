@@ -26,8 +26,8 @@
   <artifactId>tobago</artifactId>
   <packaging>pom</packaging>
   <name>Apache Tobago</name>
-  <version>4.6.1-SNAPSHOT</version>
-  <description>The goal of Tobago is to provide the community with a well designed set of user interface components based on JSF and run on MyFaces.</description>
+  <version>4.7.0-SNAPSHOT</version>
+  <description>The goal of Tobago is to provide the community with a well-designed set of user interface components based on JSF and run on MyFaces.</description>
   <url>http://myfaces.apache.org/tobago</url>
   <inceptionYear>2002</inceptionYear>
 
