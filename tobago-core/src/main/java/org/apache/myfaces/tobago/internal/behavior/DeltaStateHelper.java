@@ -441,7 +441,7 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
    */
   @Override
   public Object saveState(final FacesContext context) {
-    final Map serializableMap = (isInitialStateMarked()) ? deltas : fullState;
+    final Map serializableMap = isInitialStateMarked() ? deltas : fullState;
 
     if (serializableMap == null || serializableMap.size() == 0) {
       return null;
