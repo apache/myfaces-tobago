@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago</artifactId>
-    <version>6.5.1-SNAPSHOT</version>
+    <version>6.6.0-SNAPSHOT</version>
   </parent>
   <packaging>pom</packaging>
   <name>Tobago Examples</name>
@@ -35,8 +35,7 @@
     <module>tobago-example-blank</module>
     <module>tobago-example-demo</module>
     <module>tobago-example-assembly</module>
-    <!-- Spring Boot 3 demo deactivated because it requires Java 17. -->
-<!--    <module>tobago-example-spring-boot</module>-->
+    <module>tobago-example-spring-boot</module>
   </modules>
 
   <build>

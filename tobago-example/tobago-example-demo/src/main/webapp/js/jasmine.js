@@ -2430,7 +2430,9 @@ getJasmineRequireObj().MapContaining = function(j$) {
   }
 
   MapContaining.prototype.asymmetricMatch = function(other, matchersUtil) {
-    if (!j$.isMap(other)) return false;
+    if (!j$.isMap(other)) {
+      return false;
+    }
 
     for (const [key, value] of this.sample) {
       // for each key/value pair in `sample`
@@ -2569,7 +2571,9 @@ getJasmineRequireObj().SetContaining = function(j$) {
   }
 
   SetContaining.prototype.asymmetricMatch = function(other, matchersUtil) {
-    if (!j$.isSet(other)) return false;
+    if (!j$.isSet(other)) {
+      return false;
+    }
 
     for (const item of this.sample) {
       // for each item in `sample` there should be at least one matching item in `other`
@@ -2876,7 +2880,8 @@ getJasmineRequireObj().clearStack = function(j$) {
   const maxInlineCallCount = 10;
 
   function browserQueueMicrotaskImpl(global) {
-    const { setTimeout, queueMicrotask } = global;
+    const unclampedSetTimeout = getUnclampedSetTimeout(global);
+    const { queueMicrotask } = global;
     let currentCallCount = 0;
     return function clearStack(fn) {
       currentCallCount++;
@@ -2885,7 +2890,7 @@ getJasmineRequireObj().clearStack = function(j$) {
         queueMicrotask(fn);
       } else {
         currentCallCount = 0;
-        setTimeout(fn);
+        unclampedSetTimeout(fn);
       }
     };
   }
@@ -2899,6 +2904,37 @@ getJasmineRequireObj().clearStack = function(j$) {
   }
 
   function messageChannelImpl(global) {
+    const { setTimeout } = global;
+    const postMessage = getPostMessage(global);
+
+    let currentCallCount = 0;
+    return function clearStack(fn) {
+      currentCallCount++;
+
+      if (currentCallCount < maxInlineCallCount) {
+        postMessage(fn);
+      } else {
+        currentCallCount = 0;
+        setTimeout(fn);
+      }
+    };
+  }
+
+  function getUnclampedSetTimeout(global) {
+    const { setTimeout } = global;
+    if (j$.util.isUndefined(global.MessageChannel)) {
+      return setTimeout;
+    }
+
+    const postMessage = getPostMessage(global);
+    return function unclampedSetTimeout(fn) {
+      postMessage(function() {
+        setTimeout(fn);
+      });
+    };
+  }
+
+  function getPostMessage(global) {
     const { MessageChannel, setTimeout } = global;
     const channel = new MessageChannel();
     let head = {};
@@ -2922,17 +2958,9 @@ getJasmineRequireObj().clearStack = function(j$) {
       }
     };
 
-    let currentCallCount = 0;
-    return function clearStack(fn) {
-      currentCallCount++;
-
-      if (currentCallCount < maxInlineCallCount) {
-        tail = tail.next = { task: fn };
-        channel.port2.postMessage(0);
-      } else {
-        currentCallCount = 0;
-        setTimeout(fn);
-      }
+    return function postMessage(fn) {
+      tail = tail.next = { task: fn };
+      channel.port2.postMessage(0);
     };
   }
 
@@ -2942,20 +2970,25 @@ getJasmineRequireObj().clearStack = function(j$) {
       global.process.versions &&
       typeof global.process.versions.node === 'string';
 
-    const SAFARI =
+    // Windows builds of WebKit have a fairly generic user agent string when no application name is provided:
+    // e.g. "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/605.1.15 (KHTML, like Gecko)"
+    const SAFARI_OR_WIN_WEBKIT =
       global.navigator &&
-      /^((?!chrome|android).)*safari/i.test(global.navigator.userAgent);
+      /(^((?!chrome|android).)*safari)|(Win64; x64\) AppleWebKit\/[0-9.]+ \(KHTML, like Gecko\)$)/i.test(
+        global.navigator.userAgent
+      );
 
     if (NODE_JS) {
       // Unlike browsers, Node doesn't require us to do a periodic setTimeout
       // so we avoid the overhead.
       return nodeQueueMicrotaskImpl(global);
     } else if (
-      SAFARI ||
+      SAFARI_OR_WIN_WEBKIT ||
       j$.util.isUndefined(global.MessageChannel) /* tests */
     ) {
-      // queueMicrotask is dramatically faster than MessageChannel in Safari,
-      // at least through version 16.
+      // queueMicrotask is dramatically faster than MessageChannel in Safari
+      // and other WebKit-based browsers, such as the one distributed by Playwright
+      // to test Safari-like behavior on Windows.
       // Some of our own integration tests provide a mock queueMicrotask in all
       // environments because it's simpler to mock than MessageChannel.
       return browserQueueMicrotaskImpl(global);
@@ -6650,7 +6683,10 @@ getJasmineRequireObj().toHaveSpyInteractions = function(j$) {
         let hasSpy = false;
         const calledSpies = [];
         for (const spy of Object.values(actual)) {
-          if (!j$.isSpy(spy)) continue;
+          if (!j$.isSpy(spy)) {
+            continue;
+          }
+
           hasSpy = true;
 
           if (spy.calls.any()) {
@@ -8051,6 +8087,32 @@ getJasmineRequireObj().ReportDispatcher = function(j$) {
 };
 
 getJasmineRequireObj().reporterEvents = function() {
+  /**
+   * Used to tell Jasmine what optional or uncommonly implemented features
+   * the reporter supports. If not specified, the defaults described in
+   * {@link ReporterCapabilities} will apply.
+   * @name Reporter#reporterCapabilities
+   * @type ReporterCapabilities | undefined
+   * @since 5.0
+   */
+  /**
+   * Used to tell Jasmine what optional or uncommonly implemented features
+   * the reporter supports.
+   * @interface ReporterCapabilities
+   * @see Reporter#reporterCapabilities
+   * @since 5.0
+   */
+  /**
+   * Indicates whether the reporter supports parallel execution. Jasmine will
+   * not allow parallel execution unless all reporters that are in use set this
+   * capability to true.
+   * @name ReporterCapabilities#parallel
+   * @type boolean | undefined
+   * @default false
+   * @see running_specs_in_parallel
+   * @since 5.0
+   */
+
   const events = [
     /**
      * `jasmineStarted` is called after all of the specs have been loaded, but just before execution starts.
@@ -9448,6 +9510,16 @@ getJasmineRequireObj().SpyRegistry = function(j$) {
       });
 
       obj[methodName] = spiedMethod;
+
+      // Check if setting the property actually worked. Some objects, such as
+      // localStorage in Firefox and later Safari versions, have no-op setters.
+      if (obj[methodName] !== spiedMethod) {
+        throw new Error(
+          j$.formatErrorMsg('<spyOn>')(
+            `Can't spy on ${methodName} because assigning to it had no effect`
+          )
+        );
+      }
 
       return spiedMethod;
     };
@@ -10910,5 +10982,5 @@ getJasmineRequireObj().UserContext = function(j$) {
 };
 
 getJasmineRequireObj().version = function() {
-  return '5.2.0';
+  return '5.3.0';
 };

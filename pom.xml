@@ -26,7 +26,7 @@
   <artifactId>tobago</artifactId>
   <packaging>pom</packaging>
   <name>Apache Tobago</name>
-  <version>6.5.1-SNAPSHOT</version>
+  <version>6.6.0-SNAPSHOT</version>
   <description>
     The goal of Tobago is to provide the community with a well-designed set of user interface components
     based on JSF and run on MyFaces.
@@ -46,17 +46,17 @@
     <required.maven.version>3.8.1</required.maven.version>
     <maven-pmd-plugin.version>3.25.0</maven-pmd-plugin.version>
     <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
-    <junit-jupiter.version>5.11.0</junit-jupiter.version>
+    <junit-jupiter.version>5.11.1</junit-jupiter.version>
     <testcontainers.version>1.20.1</testcontainers.version>
     <checkstyle-rules.version>24</checkstyle-rules.version>
 
     <!-- Note: defined here in master pom, because of problems with enforcer plugin -->
     <jetty.version>11.0.24</jetty.version>
-    <tomcat.version>10.1.13</tomcat.version>
-    <joinfaces.version>5.1.3</joinfaces.version>
-    <spring-boot.version>3.1.3</spring-boot.version>
-    <spring.version>6.0.11</spring.version>
-    <jackson.version>2.15.2</jackson.version>
+    <tomcat.version>10.1.30</tomcat.version>
+    <joinfaces.version>5.1.12</joinfaces.version>
+    <spring-boot.version>3.3.4</spring-boot.version>
+    <spring.version>6.1.13</spring.version>
+    <jackson.version>2.17.2</jackson.version>
   </properties>
 
   <issueManagement>
