@@ -41,7 +41,7 @@ public class FileItemValidator implements Validator, StateHolder {
   public static final String VALIDATOR_ID = "org.apache.myfaces.tobago.FileItem";
   public static final String SIZE_LIMIT_MESSAGE_ID = "org.apache.myfaces.tobago.FileItemValidator.SIZE_LIMIT";
   public static final String CONTENT_TYPE_MESSAGE_ID = "org.apache.myfaces.tobago.FileItemValidator.CONTENT_TYPE";
-  private Integer maxSize = null;
+  private Long maxSize = null;
   private String[] contentType;
   private boolean transientValue;
 
@@ -83,11 +83,11 @@ public class FileItemValidator implements Validator, StateHolder {
     }
   }
 
-  public int getMaxSize() {
+  public long getMaxSize() {
     return maxSize;
   }
 
-  public void setMaxSize(final int maxSize) {
+  public void setMaxSize(final long maxSize) {
     if (maxSize > 0) {
       this.maxSize = maxSize;
     }
@@ -112,7 +112,7 @@ public class FileItemValidator implements Validator, StateHolder {
   @Override
   public void restoreState(final FacesContext context, final Object state) {
     final Object[] values = (Object[]) state;
-    maxSize = (Integer) values[0];
+    maxSize = (Long) values[0];
     contentType = (String[]) values[1];
   }
 

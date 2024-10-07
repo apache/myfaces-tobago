@@ -205,6 +205,17 @@ public class FileRenderer<T extends AbstractUIFile>
     }
   }
 
+  private Long createMaxSizeFromValidators(final AbstractUIFile file) {
+    long maxSize = Long.MAX_VALUE;
+    for (final Validator validator : file.getValidators()) {
+      if (validator instanceof FileItemValidator) {
+        final FileItemValidator fileItemValidator = (FileItemValidator) validator;
+        maxSize = Long.min(maxSize, fileItemValidator.getMaxSize());
+      }
+    }
+    return maxSize != Long.MAX_VALUE ? maxSize : null;
+  }
+
   @Override
   protected void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
@@ -221,6 +232,8 @@ public class FileRenderer<T extends AbstractUIFile>
       final String forId = ComponentUtils.evaluateClientId(facesContext, input, dropZone);
       writer.writeAttribute(CustomAttributes.DROP_ZONE, forId, true);
     }
+    final Long maxSize = createMaxSizeFromValidators(input);
+    writer.writeAttribute(CustomAttributes.MAX_SIZE, maxSize);
   }
 
   @Override
