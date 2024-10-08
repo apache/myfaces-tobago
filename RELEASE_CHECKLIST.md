@@ -29,7 +29,7 @@ Checklist of tasks to perform for each release. For general information about Ap
   KEYS file can be committed. Change the [KEYS](https://dist.apache.org/repos/dist/release/myfaces/KEYS) file as it will
   be copied to the Apache site.
 * Ensure that all open bugs and issues in [Jira](https://issues.apache.org/jira/browse/TOBAGO) have been either fixed or
-  moved to an other release version.
+  moved to another release version.
 * Ensure that all examples are working with the release candidate.
 * Since Tobago 5: Ensure that the Skript ./test-scenarios-locally.sh runs sucessfully.
 * Check the scheduled version number against "semantic versioning".
@@ -124,7 +124,7 @@ the staging location).
     * tobago/tobago-vm/apache-proxy/index.html
     * tobago/tobago-vm/docker-compose.yml
 * Update the site
-  * Updating the release and version information in other branches, e. g.:
+  * Updating the release and version information in other branches, e.g.:
     * tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/Release.java
   * Updating Tag Library Documentation (TLD)
     * generate in myfaces-tobago folder with:<br/>
@@ -139,7 +139,7 @@ the staging location).
 * Remove old download artifacts from the site (see script ./drop-artifacts.sh). Older releases are automatic available
   in the [archive](http://archive.apache.org/dist/myfaces/).
 * Remove old snapshots in the maven snapshot repository. This is done automatically, it is only needed, when there are
-  dead development ends, e. g. last alpha or beta version like 3.0.0-beta-2-SNAPSHOT which will no longer developed.
+  dead development ends, e.g. last alpha or beta version like 3.0.0-beta-2-SNAPSHOT which will no longer developed.
 * Create and send announcement
   > Subject: [ANNOUNCE] Apache Tobago &lt;version> released
   >
