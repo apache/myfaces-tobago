@@ -207,8 +207,8 @@ public class DateRenderer<T extends AbstractUIDate> extends DecorationPositionRe
   }
 
   /**
-   * Creates a converter (if not defined any) which satifies the requirements of HTML5 like described here:
-   * <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Date_and_time_formats">MDN</a>
+   * Creates a converter (if not defined any) which satifies the requirements of HTML5.
+   * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Date_and_time_formats">MDN Web Docs</a>
    */
   @Override
   protected Converter getConverter(FacesContext facesContext, T component, Object value) {
