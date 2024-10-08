@@ -61,6 +61,7 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
   LOCALE("locale"),
   LOCAL_MENU("local-menu"),
   MAX_SIZE("max-size"),
+  MAX_SIZE_MESSAGE("max-size-message"),
   MAX_ITEMS("max-items"),
   MIN_CHARS("min-chars"),
   OMIT("omit"),

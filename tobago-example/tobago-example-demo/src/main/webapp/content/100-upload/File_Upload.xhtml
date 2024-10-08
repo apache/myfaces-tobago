@@ -34,15 +34,23 @@
     <tc:file placeholder="select a file" label="Upload" value="#{uploadController.fileBasic}"/>
     <tc:file label="Read Only" readonly="true" value="#{uploadController.fileBasic}"/>
     <tc:file label="Disabled" disabled="true" value="#{uploadController.fileBasic}"/>
+
+    For this demo the required attribute is set to false, for better playing around with is. You may
+    activate it with the switch below.
+    <tc:selectBooleanToggle label="Activate Required" value="#{uploadController.activateRequired}">
+      <f:ajax render="required"/>
+    </tc:selectBooleanToggle>
+    <tc:file label="Required" required="#{uploadController.activateRequired}" value="#{uploadController.fileRequired}"
+             id="required"/>
     <tc:button label="Upload" action="#{uploadController.uploadBasic}"/>
   </tc:section>
 
-  <tc:section id="s2" label="Content type">
+  <tc:section id="s2" label="Content type and size">
     <p>You can filter files using the <code class="language-markup">&lt;tc:validateFileItem/></code> tag within
       the <code class="language-markup">&lt;tc:file/></code>.
-      In the following example only images and PDF files are excepted.</p>
+      In the following example only images and PDF files are excepted. Max size is 1 MB</p>
     <tc:file label="Upload image/PDF" value="#{uploadController.fileContentType}">
-      <tc:validateFileItem contentType="image/*,application/pdf"/>
+      <tc:validateFileItem maxSize="1048576" contentType="image/*,application/pdf"/>
     </tc:file>
     <tc:button label="Upload" action="#{uploadController.uploadContentType}"/>
   </tc:section>

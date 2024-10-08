@@ -40,12 +40,14 @@ public class UploadController implements Serializable {
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private Part fileBasic;
+  private Part fileRequired;
   private Part fileContentType;
   private Part[] fileMulti;
   private Part fileAjax;
   private Part fileDropZone;
   private Part[] fileDropZoneAjax;
   private final List<UploadItem> uploadItems = new ArrayList<>();
+  private boolean activateRequired = false;
 
   public String uploadBasic() {
     upload(fileBasic, "uploadBasic");
@@ -101,6 +103,14 @@ public class UploadController implements Serializable {
     this.fileBasic = fileBasic;
   }
 
+  public Part getFileRequired() {
+    return fileRequired;
+  }
+
+  public void setFileRequired(Part fileRequired) {
+    this.fileRequired = fileRequired;
+  }
+
   public Part getFileContentType() {
     return fileContentType;
   }
@@ -143,5 +153,13 @@ public class UploadController implements Serializable {
 
   public List<UploadItem> getUploadItems() {
     return uploadItems;
+  }
+
+  public boolean isActivateRequired() {
+    return activateRequired;
+  }
+
+  public void setActivateRequired(boolean activateRequired) {
+    this.activateRequired = activateRequired;
   }
 }
