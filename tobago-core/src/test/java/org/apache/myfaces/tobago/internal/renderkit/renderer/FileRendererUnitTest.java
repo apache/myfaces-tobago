@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UIFile;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.validator.FileItemValidator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -39,6 +40,20 @@ public class FileRendererUnitTest extends RendererTestBase {
     c.encodeAll(facesContext);
 
     Assertions.assertEquals(loadHtml("renderer/file/file-label.html"), formattedResult());
+  }
+
+  @Test
+  public void fileValidator() throws IOException {
+    final UIFile c = (UIFile) ComponentUtils.createComponent(
+        facesContext, Tags.file.componentType(), RendererTypes.File, "id");
+    c.setLabel("label");
+    final FileItemValidator validator = new FileItemValidator();
+    validator.setMaxSize(1000L);
+    validator.setContentType(new String[]{".png", "applicaiton/pdf"});
+    c.addValidator(validator);
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/file/file-validator.html"), formattedResult());
   }
 
   @Test

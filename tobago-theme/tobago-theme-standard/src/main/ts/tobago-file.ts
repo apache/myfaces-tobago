@@ -43,6 +43,10 @@ export class File extends HTMLElement {
     return Number.isNaN(number) ? 0 : number;
  }
 
+  get maxSizeMessage(): string {
+    return this.getAttribute("max-size-message");
+ }
+
   static isTypeFile(event: DragEvent): boolean {
     if (event.dataTransfer) {
       for (const item of event.dataTransfer.items) {
@@ -120,7 +124,7 @@ export class File extends HTMLElement {
       let error = false;
       for (const file of files) {
         if (file.size > this.maxSize) {
-          window.alert(`The file ${file.name} is too big! Maximum size is ${this.maxSize} bytes.`);
+          window.alert(this.maxSizeMessage);
           input.value = "";
           error = true;
         }
