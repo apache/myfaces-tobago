@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.ResourceUtils;
 import org.apache.myfaces.tobago.validator.FileItemValidator;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -47,8 +48,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public class FileRenderer<T extends AbstractUIFile>
@@ -205,6 +208,17 @@ public class FileRenderer<T extends AbstractUIFile>
     }
   }
 
+  private long createMaxSizeFromValidators(final AbstractUIFile file) {
+    long maxSize = Long.MAX_VALUE;
+    for (final Validator validator : file.getValidators()) {
+      if (validator instanceof FileItemValidator) {
+        final FileItemValidator fileItemValidator = (FileItemValidator) validator;
+        maxSize = Long.min(maxSize, fileItemValidator.getMaxSize());
+      }
+    }
+    return maxSize != Long.MAX_VALUE ? maxSize : 0;
+  }
+
   @Override
   protected void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
@@ -220,6 +234,14 @@ public class FileRenderer<T extends AbstractUIFile>
     if (dropZone != null) {
       final String forId = ComponentUtils.evaluateClientId(facesContext, input, dropZone);
       writer.writeAttribute(CustomAttributes.DROP_ZONE, forId, true);
+    }
+    final long maxSize = createMaxSizeFromValidators(input);
+    if (maxSize > 0) {
+      writer.writeAttribute(CustomAttributes.MAX_SIZE, maxSize);
+      final Locale locale = facesContext.getViewRoot().getLocale();
+      final MessageFormat maxSizeMessage
+          = new MessageFormat(ResourceUtils.getString(facesContext, "file.maxSizeMessage"), locale);
+      writer.writeAttribute(CustomAttributes.MAX_SIZE_MESSAGE, maxSizeMessage.format(new Object[]{maxSize}), true);
     }
   }
 

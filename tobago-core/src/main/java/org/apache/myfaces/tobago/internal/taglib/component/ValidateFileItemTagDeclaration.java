@@ -36,9 +36,18 @@ import javax.el.ValueExpression;
     faceletHandler = "org.apache.myfaces.tobago.facelets.TobagoValidateHandler")
 public interface ValidateFileItemTagDeclaration {
 
-  @TagAttribute(name = "maxSize", type = "java.lang.Integer")
+  /**
+   * The maximum size of the file in bytes.
+   */
+  @TagAttribute(name = "maxSize", type = "java.lang.Long")
   void setMaxSize(ValueExpression maxSize);
 
+  /**
+   * A list of allowed content types or extensions of the file.
+   * Examples: "image/png,application/pdf,.xml,.doc".
+   * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file">MDN Web Docs</a>
+   *
+   */
   @TagAttribute(name = "contentType", type = "java.lang.String")
   void setContentType(ValueExpression contentType);
 

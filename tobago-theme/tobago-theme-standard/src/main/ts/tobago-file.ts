@@ -38,6 +38,15 @@ export class File extends HTMLElement {
     return dropZone;
   }
 
+  get maxSize(): number {
+    const number = Number.parseInt(this.getAttribute("max-size"));
+    return Number.isNaN(number) ? 0 : number;
+ }
+
+  get maxSizeMessage(): string {
+    return this.getAttribute("max-size-message");
+ }
+
   static isTypeFile(event: DragEvent): boolean {
     if (event.dataTransfer) {
       for (const item of event.dataTransfer.items) {
@@ -58,6 +67,11 @@ export class File extends HTMLElement {
       dropZone.addEventListener("dragover", this.dragover.bind(this));
       dropZone.addEventListener("dragleave", this.dragleave.bind(this));
       dropZone.addEventListener("drop", this.drop.bind(this));
+    }
+
+    const maxSize = this.maxSize;
+    if (maxSize > 0) {
+      this.input.addEventListener("change", this.checkFileSize.bind(this));
     }
   }
 
@@ -100,6 +114,25 @@ export class File extends HTMLElement {
 
       this.input.files = event.dataTransfer.files;
       this.input.dispatchEvent(new Event("change"));
+    }
+  }
+
+  checkFileSize(event: InputEvent) {
+    const input = event.currentTarget as HTMLInputElement;
+    const files = input.files;
+    if (files) {
+      let error = false;
+      for (const file of files) {
+        if (file.size > this.maxSize) {
+          window.alert(this.maxSizeMessage);
+          input.value = "";
+          error = true;
+        }
+      }
+      if (error) {
+        event.preventDefault;
+        event.stopPropagation();
+      }
     }
   }
 }
