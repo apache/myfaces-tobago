@@ -85,7 +85,7 @@ public class FileItemValidator implements Validator, StateHolder {
   }
 
   public long getMaxSize() {
-    return maxSize;
+    return maxSize != null ? maxSize : 0;
   }
 
   public void setMaxSize(final long maxSize) {

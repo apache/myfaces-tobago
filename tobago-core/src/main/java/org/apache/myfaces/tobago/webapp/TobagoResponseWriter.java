@@ -130,7 +130,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   }
 
   /**
-   * Writes a {@link Integer} attribute, if the value is not {@code null}. The value will not be escaped.
+   * Writes a {@link Long} attribute, if the value is not {@code null}. The value will not be escaped.
    */
   public void writeAttribute(final MarkupLanguageAttributes name, final Long number) throws IOException {
     if (number != null) {
