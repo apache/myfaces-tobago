@@ -30,6 +30,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Provides the possibility to get information about various logging APIs available in the current setup.
@@ -272,7 +273,8 @@ public class LoggingController {
       }
 
       if (SLF4J.equals(id) || JCL.equals(id)) {
-        final String methodName = "is" + level.substring(0, 1).toUpperCase() + level.substring(1) + "Enabled";
+        final String methodName
+            = "is" + level.substring(0, 1).toUpperCase(Locale.ROOT) + level.substring(1) + "Enabled";
         final Object hasLevel = c.getClass().getMethod(methodName).invoke(c);
         return (Boolean) hasLevel;
       }
@@ -286,7 +288,7 @@ public class LoggingController {
       final Class<?> levelClass = Class.forName(clazz);
       final Method isLoggable = c.getClass().getMethod(enabledMethod, levelClass);
       final Method parse = levelClass.getMethod(levelMethod, String.class);
-      final Object levelObject = parse.invoke(null, level.toUpperCase());
+      final Object levelObject = parse.invoke(null, level.toUpperCase(Locale.ROOT));
       final Object hasLevel = isLoggable.invoke(c, levelObject);
       return (Boolean) hasLevel;
     }

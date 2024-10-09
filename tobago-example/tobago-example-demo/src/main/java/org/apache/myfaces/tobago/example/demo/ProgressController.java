@@ -26,6 +26,7 @@ import javax.swing.DefaultBoundedRangeModel;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 @SessionScoped
 @Named
@@ -56,17 +57,17 @@ public class ProgressController implements Serializable {
   }
 
   public double getCurrentHours() {
-    final SimpleDateFormat sdf = new SimpleDateFormat("HH");
-    return Double.valueOf(sdf.format(getCurrentDate()));
+    final SimpleDateFormat sdf = new SimpleDateFormat("HH", Locale.ROOT);
+    return Double.parseDouble(sdf.format(getCurrentDate()));
   }
 
   public double getCurrentMinutes() {
-    final SimpleDateFormat sdf = new SimpleDateFormat("mm");
-    return Double.valueOf(sdf.format(getCurrentDate()));
+    final SimpleDateFormat sdf = new SimpleDateFormat("mm", Locale.ROOT);
+    return Double.parseDouble(sdf.format(getCurrentDate()));
   }
 
   public double getCurrentSeconds() {
-    final SimpleDateFormat sdf = new SimpleDateFormat("ss");
-    return Double.valueOf(sdf.format(getCurrentDate()));
+    final SimpleDateFormat sdf = new SimpleDateFormat("ss", Locale.ROOT);
+    return Double.parseDouble(sdf.format(getCurrentDate()));
   }
 }

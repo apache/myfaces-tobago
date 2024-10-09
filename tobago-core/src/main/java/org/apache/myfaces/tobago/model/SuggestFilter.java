@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.model;
 
+import java.util.Locale;
+
 public enum SuggestFilter {
 
   all,
@@ -30,13 +32,13 @@ public enum SuggestFilter {
   public static final String CONTAINS = "contains";
 
   public String getValue() {
-    return name().toLowerCase();
+    return name().toLowerCase(Locale.ROOT);
   }
 
   public static SuggestFilter parse(final String string) {
     if (string == null) {
       return null;
     }
-    return valueOf(string.toUpperCase());
+    return valueOf(string.toUpperCase(Locale.ROOT));
   }
 }

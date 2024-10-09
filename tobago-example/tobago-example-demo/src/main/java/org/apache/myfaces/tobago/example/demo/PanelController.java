@@ -24,6 +24,7 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 @RequestScoped
 @Named
@@ -36,7 +37,7 @@ public class PanelController implements Serializable {
   }
 
   public boolean isOddDecaSecond() {
-    String second = new SimpleDateFormat("ss").format(getCurrentDate());
+    String second = new SimpleDateFormat("ss", Locale.ROOT).format(getCurrentDate());
     return second.startsWith("1") || second.startsWith("3") || second.startsWith("5");
   }
 

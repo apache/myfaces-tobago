@@ -114,7 +114,7 @@ public class ClassesGenerator extends AbstractGenerator {
     if (componentTag.generate()) {
       final Tag tag = declaration.getAnnotation(Tag.class);
       final String generic = "org.apache.myfaces.tobago.internal.component.AbstractUI"
-          + tag.name().substring(0, 1).toUpperCase() + tag.name().substring(1);
+          + tag.name().substring(0, 1).toUpperCase(Locale.ROOT) + tag.name().substring(1);
       final StringTemplate componentStringTemplate = componentStringTemplateGroup.getInstanceOf("component");
       final ComponentInfo componentInfo = new ComponentInfo(declaration, componentTag);
       componentInfo.setSuperClass(generic);

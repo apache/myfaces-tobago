@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.invoke.MethodHandles;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 /**
@@ -62,7 +63,7 @@ public enum Icons implements CssItem {
   private final String clazz;
 
   Icons() {
-    this.clazz = "bi-" + name().toLowerCase().replaceAll("_", "-");
+    this.clazz = "bi-" + name().toLowerCase(Locale.ROOT).replaceAll("_", "-");
   }
 
   @Override

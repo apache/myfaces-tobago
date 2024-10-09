@@ -22,6 +22,8 @@ package org.apache.myfaces.tobago.renderkit.html;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Locale;
+
 public class DataAttributesUnitTest {
 
   @Test
@@ -41,7 +43,7 @@ public class DataAttributesUnitTest {
           ? value.substring("data-tobago-".length())
           : value.substring("data-".length());
       final String name = d.name();
-      Assertions.assertEquals(name, extension.toUpperCase().replaceAll("-", "_"));
+      Assertions.assertEquals(name, extension.toUpperCase(Locale.ROOT).replaceAll("-", "_"));
     }
   }
 }
