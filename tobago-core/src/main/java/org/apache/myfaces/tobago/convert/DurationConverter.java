@@ -28,12 +28,10 @@ import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.ConverterException;
-
 import java.lang.invoke.MethodHandles;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.StringTokenizer;
 
 /**
@@ -81,7 +79,6 @@ public class DurationConverter implements Converter {
     final double factor = getUnitFactor(component);
     aDouble = aDouble * factor;
 
-    final NumberFormat format = new DecimalFormat("00");
     long value = Double.valueOf(aDouble).longValue();
     final int seconds = (int) (value % 60);
     value = value / 60;
@@ -90,11 +87,11 @@ public class DurationConverter implements Converter {
     final String string;
     if (value > 0) {
       string = (negative ? "-" : "") + value + ":"
-          + format.format(minutes) + ":"
-          + format.format(seconds);
+          + String.format(Locale.ROOT, "%02d", minutes) + ":"
+          + String.format(Locale.ROOT, "%02d", seconds);
     } else {
       string = (negative ? "-" : "") + minutes + ":"
-          + format.format(seconds);
+          + String.format(Locale.ROOT, "%02d", seconds);
     }
     LOG.debug("string = '{}'", string);
     return string;

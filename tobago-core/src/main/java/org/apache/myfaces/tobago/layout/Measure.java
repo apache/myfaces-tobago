@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
+import java.util.Locale;
 
 /**
  * In PDLs the class {@link org.apache.myfaces.tobago.layout.MeasureEditor} will convert the string literals.
@@ -113,7 +114,7 @@ public final class Measure implements Serializable {
       for (int i = 4; i >= 2; i--) {
         final int pos = length - i;
         if (length >= i && Character.isLetter(s.charAt(pos))) {
-          return new Measure(s.substring(0, pos), Unit.valueOf(s.substring(pos).toUpperCase()));
+          return new Measure(s.substring(0, pos), Unit.valueOf(s.substring(pos).toUpperCase(Locale.ROOT)));
         }
       }
       return new Measure(s, defaultUnit);
@@ -214,7 +215,7 @@ public final class Measure implements Serializable {
     private final String value;
 
     Unit() {
-      value = name().equals("PERCENT") ? "%" : name().toLowerCase();
+      value = name().equals("PERCENT") ? "%" : name().toLowerCase(Locale.ROOT);
     }
 
     String getValue() {

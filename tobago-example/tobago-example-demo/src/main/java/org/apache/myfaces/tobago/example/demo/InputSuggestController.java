@@ -30,11 +30,11 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.component.UIInput;
 import jakarta.faces.model.SelectItem;
 import jakarta.inject.Named;
-
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @SessionScoped
 @Named
@@ -166,7 +166,7 @@ public class InputSuggestController implements Serializable {
           items.add(item);
         }
       } else {
-        if (dataRow[2].toLowerCase().startsWith(prefix.toLowerCase())) {
+        if (dataRow[2].toLowerCase(Locale.ROOT).startsWith(prefix.toLowerCase(Locale.ROOT))) {
           final AutoSuggestItem item = new AutoSuggestItem();
           item.setLabel(dataRow[0]);
           item.setValue(dataRow[2]);

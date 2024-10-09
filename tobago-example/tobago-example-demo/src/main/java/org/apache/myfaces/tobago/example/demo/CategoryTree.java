@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.context.Markup;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 public class CategoryTree {
 
@@ -34,8 +35,8 @@ public class CategoryTree {
 
   public static DefaultMutableTreeNode createSample() {
 
-    final InputStreamReader reader
-        = new InputStreamReader(AstroData.class.getResourceAsStream("category-tree.json"));
+    final InputStreamReader reader = new InputStreamReader(
+        AstroData.class.getResourceAsStream("category-tree.json"), StandardCharsets.UTF_8);
 
     final Gson gson = new GsonBuilder().create();
     final CategoryNode node = gson.fromJson(reader, new TypeToken<CategoryNode>() {

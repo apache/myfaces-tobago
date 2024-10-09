@@ -82,12 +82,12 @@ import jakarta.faces.event.ActionEvent;
 import jakarta.faces.event.AjaxBehaviorEvent;
 import jakarta.faces.event.ValueChangeEvent;
 import jakarta.inject.Named;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -241,7 +241,7 @@ public class EventController implements Serializable {
 
     EventsOnComponent(final UIComponentBase component) {
       final String simpleName = component.getClass().getSimpleName();
-      tagName = simpleName.substring(2, 3).toLowerCase() + simpleName.substring(3);
+      tagName = simpleName.substring(2, 3).toLowerCase(Locale.ROOT) + simpleName.substring(3);
       if (component.getEventNames() != null) {
         this.eventNames.addAll(component.getEventNames());
       }
