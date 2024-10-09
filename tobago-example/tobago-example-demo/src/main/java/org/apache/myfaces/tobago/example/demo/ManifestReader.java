@@ -35,6 +35,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.Locale;
 import java.util.TimeZone;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
@@ -75,7 +76,7 @@ public class ManifestReader {
           jar.add(new ManifestEntry(key.toString(), attributes.get(key).toString()));
         }
         if (name.startsWith("tobago-core")) {
-          final DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+          final DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ROOT);
           format.setTimeZone(TimeZone.getTimeZone("UTC"));
           try {
             buildTime = format.parse(attributes.getValue("Build-Time"));

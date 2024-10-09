@@ -19,6 +19,10 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.faces.context.ExternalContext;
@@ -26,10 +30,6 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.ServletContext;
-import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,6 +41,7 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -102,7 +103,7 @@ public class NavigationTree implements Serializable {
   public List<NavigationNode> search(final String searchString) {
     List<NavigationNode> result = new ArrayList<>(20);
     for (String s : searchIndex.keySet()) {
-      if (s.contains(searchString.toLowerCase())) {
+      if (s.contains(searchString.toLowerCase(Locale.ROOT))) {
         result.add(searchIndex.get(s));
       }
 //      if (result.size() >= 20) {

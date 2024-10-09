@@ -28,6 +28,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class HtmlElementsUnitTest {
 
@@ -39,10 +40,10 @@ public class HtmlElementsUnitTest {
       final String value = element.getValue();
       Assertions.assertEquals(
           value,
-          element.name().toLowerCase().replaceAll("_", "-"),
+          element.name().toLowerCase(Locale.ROOT).replaceAll("_", "-"),
           "Check to lower: '" + element + "'");
       Assertions.assertEquals(
-          value.toUpperCase().replaceAll("-", "_"),
+          value.toUpperCase(Locale.ROOT).replaceAll("-", "_"),
           element.name(),
           "Check to upper: '" + element + "'");
     }

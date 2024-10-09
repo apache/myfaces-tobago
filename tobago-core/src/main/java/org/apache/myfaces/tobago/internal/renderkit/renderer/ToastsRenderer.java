@@ -19,8 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
 import org.apache.myfaces.tobago.application.Toast;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.context.Markup;
@@ -45,6 +43,8 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.time.LocalTime;
