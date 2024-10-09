@@ -48,6 +48,7 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
    */
   INDEX("index"),
   ITEMS("items"),
+  JS_EVENT_NAME("js-event-name"),
   /**
    * Lazy loading in sheet.
    */
