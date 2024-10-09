@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.apt.generate;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class ClassUtils {
@@ -60,7 +61,7 @@ public class ClassUtils {
   public static String getSmallSimpleName(final String qualifiedName) {
     final String simpleName = getSimpleName(qualifiedName);
     if (simpleName != null && simpleName.length() > 2) {
-      return simpleName.substring(2, 3).toLowerCase() + simpleName.substring(3);
+      return simpleName.substring(2, 3).toLowerCase(Locale.ROOT) + simpleName.substring(3);
     } else {
       return simpleName;
     }

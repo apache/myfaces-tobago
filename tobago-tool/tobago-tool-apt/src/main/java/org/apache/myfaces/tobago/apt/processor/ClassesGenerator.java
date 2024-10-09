@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.apt.processor;
 
-import jakarta.faces.component.UIComponent;
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
@@ -33,6 +32,7 @@ import org.apache.myfaces.tobago.apt.generate.ComponentInfo;
 import org.apache.myfaces.tobago.apt.generate.ComponentPropertyInfo;
 import org.apache.myfaces.tobago.apt.generate.PropertyInfo;
 
+import jakarta.faces.component.UIComponent;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
@@ -115,7 +115,7 @@ public class ClassesGenerator extends AbstractGenerator {
     if (componentTag.generate()) {
       final Tag tag = declaration.getAnnotation(Tag.class);
       final String generic = "org.apache.myfaces.tobago.internal.component.AbstractUI"
-          + tag.name().substring(0, 1).toUpperCase() + tag.name().substring(1);
+          + tag.name().substring(0, 1).toUpperCase(Locale.ROOT) + tag.name().substring(1);
       final StringTemplate componentStringTemplate = componentStringTemplateGroup.getInstanceOf("component");
       final ComponentInfo componentInfo = new ComponentInfo(declaration, componentTag);
       componentInfo.setSuperClass(generic);

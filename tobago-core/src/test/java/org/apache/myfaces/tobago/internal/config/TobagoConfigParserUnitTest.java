@@ -32,6 +32,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -176,7 +177,7 @@ public class TobagoConfigParserUnitTest {
     // check hash code values
     for (final Field field : fields) {
       final int hash = field.getInt(dummy);
-      final String name = field.getName().toLowerCase().replace('_', '-');
+      final String name = field.getName().toLowerCase(Locale.ROOT).replace('_', '-');
       Assertions.assertEquals(name.hashCode(), hash, "Are the constants correct?");
     }
   }

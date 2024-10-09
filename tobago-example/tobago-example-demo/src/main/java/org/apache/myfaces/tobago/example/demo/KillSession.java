@@ -27,6 +27,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Simple Servlet to kill the user session.
@@ -40,9 +41,9 @@ public class KillSession extends HttpServlet {
     final HttpSession session = request.getSession(false);
     if (session != null) {
       session.invalidate();
-      response.getOutputStream().write("The user session was killed!".getBytes());
+      response.getOutputStream().write("The user session was killed!".getBytes(StandardCharsets.UTF_8));
     } else {
-      response.getOutputStream().write("There is no user session to kill!".getBytes());
+      response.getOutputStream().write("There is no user session to kill!".getBytes(StandardCharsets.UTF_8));
     }
   }
 }
