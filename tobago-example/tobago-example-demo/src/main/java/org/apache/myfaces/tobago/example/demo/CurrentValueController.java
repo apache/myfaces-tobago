@@ -23,6 +23,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.time.LocalDate;
 import java.util.Currency;
+import java.util.Locale;
 
 @Named
 @RequestScoped
@@ -40,7 +41,7 @@ public class CurrentValueController {
   }
 
   public String toUpperCase(final String text) {
-    return text != null ? text.toUpperCase() : null;
+    return text != null ? text.toUpperCase(Locale.ROOT) : null;
   }
 
   public LocalDate plus50(final LocalDate base) {

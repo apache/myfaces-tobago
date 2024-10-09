@@ -29,6 +29,7 @@ import javax.inject.Named;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -52,7 +53,7 @@ public class AstroData implements Serializable {
   public AstroData() {
 
     final InputStreamReader reader
-        = new InputStreamReader(AstroData.class.getResourceAsStream("astro-data.json"));
+        = new InputStreamReader(AstroData.class.getResourceAsStream("astro-data.json"), StandardCharsets.UTF_8);
 
     Gson gson = new GsonBuilder().create();
     dataList = gson.fromJson(reader, new TypeToken<ArrayList<SolarObject>>() {

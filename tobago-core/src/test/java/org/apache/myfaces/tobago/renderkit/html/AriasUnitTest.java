@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
+import java.util.Locale;
 
 public class AriasUnitTest {
 
@@ -36,7 +37,7 @@ public class AriasUnitTest {
 
       final String extension = value.substring("aria-".length());
       final String name = field.getName();
-      Assertions.assertEquals(name, extension.toUpperCase());
+      Assertions.assertEquals(name, extension.toUpperCase(Locale.ROOT));
     }
   }
 

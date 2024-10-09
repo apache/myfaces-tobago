@@ -34,6 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.lang.invoke.MethodHandles;
 import java.text.MessageFormat;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
 
 public class DebugPhaseListener implements PhaseListener {
@@ -83,10 +84,14 @@ public class DebugPhaseListener implements PhaseListener {
         for (final Iterator<FacesMessage> messageIterator
              = facesContext.getMessages(clientId); messageIterator.hasNext(); ) {
           final FacesMessage msg = messageIterator.next();
-          LOG.info(MessageFormat.format("Faces message found."
-                  + "\n  Component: {0} \n  Severity : {1}"
-                  + "\n  Summary  : {2} \n  Detail   : {3}",
-              clientId, msg.getSeverity(), msg.getSummary(), msg.getDetail()));
+          MessageFormat messageFormat = new MessageFormat("""
+              Faces message found.
+                Component: {0}
+                Severity : {1}
+                Summary  : {2}
+                Detail   : {3}""", Locale.ROOT);
+          LOG.info(messageFormat.format(new Object[]{
+              clientId, msg.getSeverity(), msg.getSummary(), msg.getDetail()}));
         }
       }
     }

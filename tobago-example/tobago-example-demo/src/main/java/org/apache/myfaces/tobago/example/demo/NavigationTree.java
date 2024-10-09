@@ -41,6 +41,7 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -102,7 +103,7 @@ public class NavigationTree implements Serializable {
   public List<NavigationNode> search(final String searchString) {
     List<NavigationNode> result = new ArrayList<>(20);
     for (String s : searchIndex.keySet()) {
-      if (s.contains(searchString.toLowerCase())) {
+      if (s.contains(searchString.toLowerCase(Locale.ROOT))) {
         result.add(searchIndex.get(s));
       }
 //      if (result.size() >= 20) {
