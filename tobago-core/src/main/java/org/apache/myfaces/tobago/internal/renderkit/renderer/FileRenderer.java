@@ -195,9 +195,12 @@ public class FileRenderer<T extends AbstractUIFile>
     for (final Validator validator : file.getValidators()) {
       if (validator instanceof FileItemValidator) {
         final FileItemValidator fileItemValidator = (FileItemValidator) validator;
-        for (final String contentType : fileItemValidator.getContentType()) {
-          builder.append(",");
-          builder.append(contentType);
+        final String[] contentTypes = fileItemValidator.getContentType();
+        if (contentTypes != null) {
+          for (final String contentType : contentTypes) {
+            builder.append(",");
+            builder.append(contentType);
+          }
         }
       }
     }
