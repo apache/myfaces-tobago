@@ -23,12 +23,6 @@
 
 WORK=test-scenarios-locally/$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
-${JAVA_HOME_11}/bin/java -version
-if [ $? != 0 ]; then
-  echo "Java 11 (LTS) not found!"
-  exit 1
-fi
-
 ${JAVA_HOME_17}/bin/java -version
 if [ $? != 0 ]; then
   echo "Java 17 (LTS) not found!"
@@ -104,9 +98,6 @@ check() {
   fi
 
   case "$1" in
-  11)
-    export JAVA_HOME=${JAVA_HOME_11}
-    ;;
   17)
     export JAVA_HOME=${JAVA_HOME_17}
     ;;
@@ -168,7 +159,7 @@ check() {
 
 # xxx -Pprod doesn't exist, but this is no problem
 for MODE in "dev" "prod" ; do
-  for JAVA_VERSION in 11 17 21; do
+  for JAVA_VERSION in 17 21; do
     check ${JAVA_VERSION} "mvn clean jetty:run -P${MODE} -Pjetty"                   "Jetty 11 with MyFaces 4.0"  "/"
     check ${JAVA_VERSION} "mvn clean jetty:run -P${MODE} -Pjetty -Djsf=mojarra-4.0" "Jetty 11 with Mojarra 4.0"  "/"
     check ${JAVA_VERSION} "mvn clean package cargo:run -P${MODE} -Ptomcat"          "Tomcat 10 with MyFaces 4.0" "/tobago-example-demo/"
