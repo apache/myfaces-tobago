@@ -23,18 +23,6 @@
 
 WORK=test-scenarios-locally/$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
-${JAVA_HOME_8}/bin/java -version
-if [ $? != 0 ]; then
-  echo "Java 8 (LTS) not found!"
-  exit 1
-fi
-
-${JAVA_HOME_11}/bin/java -version
-if [ $? != 0 ]; then
-  echo "Java 11 (LTS) not found!"
-  exit 1
-fi
-
 ${JAVA_HOME_17}/bin/java -version
 if [ $? != 0 ]; then
   echo "Java 17 (LTS) not found!"
@@ -109,12 +97,6 @@ check() {
   fi
 
   case "$1" in
-  8)
-    export JAVA_HOME=${JAVA_HOME_8}
-    ;;
-  11)
-    export JAVA_HOME=${JAVA_HOME_11}
-    ;;
   17)
     export JAVA_HOME=${JAVA_HOME_17}
     ;;
@@ -174,19 +156,11 @@ check() {
 
 # xxx -Pprod doesn't exist, but this is no problem
 for MODE in "dev" "prod" ; do
-  for JAVA_VERSION in 8 11 17 21; do
-
+  for JAVA_VERSION in 17 21; do
     check ${JAVA_VERSION} "mvn clean jetty:run -P${MODE} -Pjetty"              "Jetty 9 with MyFaces 2.3"
-
-    if [[ ${JAVA_VERSION} -ge 11 ]]; then # Jetty 10 needs at least JDK 11
-      check ${JAVA_VERSION} "mvn clean jetty:run -P${MODE} -Pjetty -Pjee8"     "Jetty 10 with MyFaces 2.3"
-    fi
-
+    check ${JAVA_VERSION} "mvn clean jetty:run -P${MODE} -Pjetty -Pjee8"     "Jetty 10 with MyFaces 2.3"
     check ${JAVA_VERSION} "mvn clean jetty:run -P${MODE} -Djsf=mojarra-2.3"    "Jetty 9 with Mojarra 2.3"
-
-    if [[ ${JAVA_VERSION} -le 11 ]]; then # TomEE 8 seems not to run with JDK higher than 11
-      check ${JAVA_VERSION} "mvn clean package tomee:run -P${MODE} -Ptomee"    "TomEE 8 with MyFaces 2.3"
-    fi
+    check ${JAVA_VERSION} "mvn clean package tomee:run -P${MODE} -Ptomee"    "TomEE 8 with MyFaces 2.3"
   done
 done
 
