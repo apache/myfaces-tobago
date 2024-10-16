@@ -232,8 +232,10 @@ export class Sheet extends HTMLElement {
       const lazyScrollPosition = this.lazyScrollPosition;
       const firstVisibleRow
           = this.tableBody.querySelector<HTMLTableRowElement>(`tr[row-index='${lazyScrollPosition[0]}']`);
-      this.sheetBody.scrollTop
-          = firstVisibleRow.offsetTop + lazyScrollPosition[1]; //triggers scroll event -> lazyCheck()
+      if (firstVisibleRow) {
+        this.sheetBody.scrollTop
+            = firstVisibleRow.offsetTop + lazyScrollPosition[1]; //triggers scroll event -> lazyCheck()
+      }
     }
 
     // init paging by pages ---------------------------------------------------------------------------------------- //
@@ -553,7 +555,9 @@ export class Sheet extends HTMLElement {
       const lazyScrollPosition = this.lazyScrollPosition;
       const firstRow
           = this.tableBody.querySelector<HTMLTableRowElement>(`tr[row-index='${lazyScrollPosition[0]}']`);
-      this.sheetBody.scrollTop = firstRow.offsetTop + lazyScrollPosition[1];
+      if (firstRow) {
+        this.sheetBody.scrollTop = firstRow.offsetTop + lazyScrollPosition[1];
+      }
 
       this.lazyActive = false;
     }
