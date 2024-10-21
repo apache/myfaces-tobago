@@ -846,7 +846,7 @@
         <enabled>false</enabled>
       </releases>
       <snapshots>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
       </snapshots>
       <id>apache.snapshots</id>
       <name>Apache Snapshot Repository</name>
