@@ -43,6 +43,7 @@ Checklist of tasks to perform for each release. For general information about Ap
   >
   > Regards,
   > &lt;name>
+* Ensure that there is no dependency with a SNAPSHOT version (e.g. for checkstyle-rules).
 * Perform basic checks on an unmodified checkout for all modules. Use JDK 17 or higher for all builds.
   ```
   mvn clean install && mvn checkstyle:check apache-rat:check dependency-check:check
@@ -55,8 +56,8 @@ Checklist of tasks to perform for each release. For general information about Ap
   SNAPSHOT suffix):
   * package.json
   * package-lock.json
-  * package-info.java
-  * Release.java
+  * package-info.java (check also version in comment)
+  * Release.java (don't add new SNAPSHOT version)
   * ApiController.java
 * Prepare the release with (the release-plugin make use of
   the [maven-gpg-plugin](https://maven.apache.org/plugins/maven-gpg-plugin/)):
@@ -73,6 +74,7 @@ Checklist of tasks to perform for each release. For general information about Ap
   * package.json
   * package-lock.json
   * package-info.java
+  * Release.java (add new SNAPSHOT version)
 
 ## Staging repository
 
@@ -107,7 +109,8 @@ the staging location).
   > &lt;name>
 * For a positive result wait at least 72 hours.
 * Once a vote is successful, post the result to the dev list.
-  If the result mail should also count as a vote, add a "this email counts as my binding +1".
+  If the result mail should also count as a vote, add a "this email counts as my binding +1". To make it even clearer,
+  also send a standard +1 voting mail.
 
 ## Publishing
 
@@ -117,25 +120,30 @@ the staging location).
 * Add the release version and date to
   the [Apache Committee Report Helper](https://reporter.apache.org/addrelease.html?myfaces).
   Full version name is "tobago-{VERSION}".
-* Update the next SNAPSHOT version on tobago-demo.apache.org
-  * Checkout:
-    * https://github.com/apache/myfaces-homepage.git
-  * Edit versions in:
-    * tobago/tobago-vm/apache-proxy/index.html
-    * tobago/tobago-vm/docker-compose.yml
-* Update the site
-  * Updating the release and version information in other branches, e.g.:
-    * tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/Release.java
-  * Updating Tag Library Documentation (TLD)
+* Update _myfaces-homepage_ repository
+  * Checkout: https://github.com/apache/myfaces-homepage.git
+  * Update the next SNAPSHOT version on tobago-demo.apache.org.
+    * Edit versions in:
+      * tobago/tobago-vm/apache-proxy/index.html
+      * tobago/tobago-vm/docker-compose.yml
+  * Updating Tag Library Documentation (TLD).
     * generate in myfaces-tobago folder with:<br/>
       ```
       mvn clean package -Pgenerate-assembly
       ```
     * Copy from "myfaces-tobago/tobago-core/target/tlddoc" to "myfaces-homepage/tobago/doc/{tobago-version}/tld"
-    * Commit and push: "docs: TLD docs for Tobago release {tobago-version}"
-  * Updating "tobago.md" and "tobago-download.md" in the MyFaces homepage project "myfaces-homepage".
+  * Updating "tobago.md" and "tobago-download.md".
     * myfaces-homepage/tobago.md
     * myfaces-homepage/tobago-download.md
+  * Commit and push: "Tobago {tobago-version} release"
+    * description:
+      ```
+      * update demos
+      * update TLDs
+      * update readmes
+      ```
+* Updating the release and version information in other branches, e.g.:
+  * tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/Release.java
 * Remove old download artifacts from the site (see script ./drop-artifacts.sh). Older releases are automatic available
   in the [archive](http://archive.apache.org/dist/myfaces/).
 * Remove old snapshots in the maven snapshot repository. This is done automatically, it is only needed, when there are
