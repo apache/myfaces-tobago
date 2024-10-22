@@ -36,7 +36,6 @@
     <selenium.version>3.141.59</selenium.version>
     <meecrowave.version>1.2.15</meecrowave.version>
     <tomcat.version>9.0.95</tomcat.version>
-    <exec.version>3.4.1</exec.version>
     <finalName>tobago-example-demo</finalName>
   </properties>
 
