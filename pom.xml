@@ -780,6 +780,8 @@
           <configuration>
             <failBuildOnCVSS>0</failBuildOnCVSS>
             <suppressionFile>tobago/dependency-check-suppression-for-tobago-6.x.xml</suppressionFile>
+            <!-- nvdApiKey can be set in your settings.xml -->
+<!--            <nvdApiKey>${nvdApiKey}</nvdApiKey>-->
           </configuration>
           <dependencies>
             <dependency>
@@ -844,19 +846,6 @@
     </pluginRepository>
   </pluginRepositories>
 -->
-  <repositories>
-    <repository>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <id>apache.snapshots</id>
-      <name>Apache Snapshot Repository</name>
-      <url>https://repository.apache.org/snapshots</url>
-    </repository>
-  </repositories>
   <profiles>
     <profile>
       <id>apache-release</id>
