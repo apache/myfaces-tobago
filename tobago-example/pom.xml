@@ -481,9 +481,9 @@
                  -->
             <groupId>org.apache.tomee.maven</groupId>
             <artifactId>tomee-maven-plugin</artifactId>
-            <version>8.0.14</version>
+            <version>8.0.16</version>
             <configuration>
-              <tomeeVersion>8.0.14</tomeeVersion>
+              <tomeeVersion>8.0.16</tomeeVersion>
               <tomeeClassifier>plus</tomeeClassifier>
               <!--<tomeeHttpPort>9090</tomeeHttpPort>-->
               <context>ROOT</context>
