@@ -74,6 +74,24 @@ class Behavior extends HTMLElement {
       }
     }
 
+    switch (this.mode) {
+      case BehaviorMode.ajax:
+        if (!this.validate(this.execute)) {
+          console.warn("Validation failed! No request will be sent.");
+          return;
+        }
+        break;
+      case BehaviorMode.full:
+        // todo: not implemented/activated yet, because this implementation doesn't support sub-forms
+        // if (!this.validate(Page.page(this).id)) {
+        //   console.warn("Validation failed! No request will be sent.");
+        //   return;
+        // }
+        break;
+      default:
+        // nothing to do
+    }
+
     if (this.collapseOperation && this.collapseTarget) {
       const rootNode = this.getRootNode() as ShadowRoot | Document;
       Collapse.execute(this.collapseOperation, rootNode.getElementById(this.collapseTarget), this.mode);
@@ -89,7 +107,7 @@ class Behavior extends HTMLElement {
             if (partialElement) {
               let id: string;
               if (partialElement.tagName === "TOBAGO-POPUP") {
-                // popup needs no overlay, is has no area to show
+                // popup needs no overlay, it has no area to show
                 id = partialElement.querySelector(".modal-dialog").id;
               } else {
                 id = partialElement.id;
@@ -101,6 +119,43 @@ class Behavior extends HTMLElement {
             }
           }
         }
+        /*
+        // TODO: Sketch for Progressbar
+        // register callback for the AJAX-event
+        faces.ajax.addOnEvent(function (data) {
+          if (data.status === "success") {
+            // Access the XmlHttpRequest-Object after successful AJAX-request
+            const xhr: XMLHttpRequest = data.source;
+            // Event listener to monitor the upload progress
+            console.log("xhr", xhr);
+            if (xhr) {
+              console.log("xhr.upload", xhr.upload);
+              if (xhr.upload) {
+                xhr.upload.onprogress = function (event) {
+                  if (event.lengthComputable) {
+                    // Calculate the percentage of upload completed
+                    const percentComplete = (event.loaded / event.total) * 100;
+                    console.info(`Progress: ${Math.round(percentComplete)}%`);
+                  }
+                };
+              } else {
+                console.error("xhr.upload null");
+              }
+            } else {
+              console.error("xhr null");
+            }
+            console.log("AJAX-request success.");
+          } else if (data.status === "begin") {
+            console.log("AJAX-request begin.");
+          } else if (data.status === "complete") {
+            console.log("AJAX-request complete.");
+          }
+        });
+        // register error handling
+        faces.ajax.addOnError(function (data) {
+          console.error("Error AJAX-request:", data);
+        });
+        */
         faces.ajax.request(
             this.actionElement,
             event,
@@ -165,6 +220,31 @@ class Behavior extends HTMLElement {
       if (this.target || this.decoupled) {
         page.submitActive = false;
       }
+    }
+  }
+
+  validate(ids: string): boolean {
+    let allValid = true;
+    if (ids) {
+      console.debug("Is all valid? ids=", ids);
+      for (const id of ids.split(/\s+/)) {
+        const element = document.getElementById(id);
+        if (element) {
+          const formElements = element.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(
+              "input, textarea, select"
+          );
+          for (const formElement of formElements) {
+            if (!formElement.checkValidity()) {
+              console.debug("invalid", formElement.id);
+              allValid = false;
+            } else {
+              console.debug("valid", formElement.id);
+            }
+          }
+        }
+      }
+      console.debug("Is all valid?", allValid);
+      return allValid;
     }
   }
 

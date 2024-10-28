@@ -82,6 +82,7 @@
     <p>Ajax can be activated by adding <code class="language-markup">&lt;f:ajax/></code>
       to the <code class="language-markup">&lt;tc:file/></code> tag.</p>
     <tc:file label="Ajax" value="#{uploadController.fileAjax}" id="fileAjax">
+      <tc:validateFileItem maxSize="1048576"/>
       <f:ajax listener="#{uploadController.uploadAjax}" render="s3 list :page:messages"/>
     </tc:file>
   </tc:section>
