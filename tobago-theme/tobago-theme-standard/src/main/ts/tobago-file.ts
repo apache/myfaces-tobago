@@ -121,16 +121,21 @@ export class File extends HTMLElement {
     const input = event.currentTarget as HTMLInputElement;
     const files = input.files;
     if (files) {
+      input.setCustomValidity("");
       let error = false;
       for (const file of files) {
         if (file.size > this.maxSize) {
-          window.alert(this.maxSizeMessage);
           input.value = "";
+          input.setCustomValidity(this.maxSizeMessage);
+          input.reportValidity();
           error = true;
+          break;
         }
       }
       if (error) {
-        event.preventDefault;
+        // only when error to prevent green checks, because we can't be sure, this is really valid (TBD)
+        this.classList.add("was-validated");
+        event.preventDefault();
         event.stopPropagation();
       }
     }

@@ -15,9 +15,13 @@
  * limitations under the License.
  */
 
+/*
+formal ordering rules:
+- "tobago-file" must be before "tobago-behavior"
+*/
+
 // custom elements
 import "./tobago-bar";
-import "./tobago-behavior";
 import "./tobago-date";
 import "./tobago-dropdown";
 import "./tobago-file";
@@ -53,6 +57,8 @@ import "./tobago-tree";
 import "./tobago-tree-listbox";
 import "./tobago-tree-node";
 import "./tobago-tree-select";
+// the behavior must be registered after the custom elements, because of validation
+import "./tobago-behavior";
 
 //polyfill
 import "./tobago-polyfill";
