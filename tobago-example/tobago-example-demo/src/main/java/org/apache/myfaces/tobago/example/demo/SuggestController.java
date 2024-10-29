@@ -25,12 +25,10 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.component.UIInput;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -71,28 +69,6 @@ public class SuggestController implements Serializable {
   public List<String> getAllSolarObjects() {
     LOG.info("Found all {} items", solarObjects.size());
     return solarObjects;
-  }
-
-  /**
-   * @deprecated use &lt;tc:selectItems/&gt; instead
-   */
-  @Deprecated
-  public List<String> getInputSuggestItems(final UIInput component) {
-    String substring = (String) component.getSubmittedValue();
-    if (substring == null) {
-      substring = "";
-    }
-    LOG.info("Creating items for substring: '" + substring + "'");
-    final List<String> result = new ArrayList<>();
-    for (final String name : solarObjects) {
-      if (StringUtils.containsIgnoreCase(name, substring)) {
-        result.add(name);
-      }
-      if (result.size() > 100) { // this value should not be smaller than the value of the suggest control
-        break;
-      }
-    }
-    return result;
   }
 
   public String getSelection1() {

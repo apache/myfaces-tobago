@@ -53,9 +53,9 @@ public interface FormTagDeclaration extends HasBinding, HasId, IsVisual, IsPlain
   /**
    * Flag indicating this component should rendered as an inline element.
    *
-   * @deprecated since 4.0.0. May use a subtag &lt;tc:style customClass="d-inline"/&gt; instead.
+   * @deprecated May use a subtag &lt;tc:style customClass="d-inline"/&gt; instead.
    */
-  @Deprecated
+  @Deprecated(since = "4.0.0", forRemoval = true)
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setInline(String inline);

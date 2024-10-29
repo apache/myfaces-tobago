@@ -65,28 +65,19 @@ public enum Attributes {
   closed,
   collapsed,
   collapsedMode,
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "4.0.0", forRemoval = true)
   column,
   columnSpan,
   columnSpacing,
   columns,
-  /**
-   * @deprecated since 4.3.0
-   */
-  @Deprecated
+  @Deprecated(since = "4.3.0", forRemoval = true)
   compact,
   confirmation,
   content,
   converter,
   converterMessage,
   customClass,
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "4.0.0", forRemoval = true)
   createSpan,
   css,
   cssClassesBlocks,
@@ -162,10 +153,7 @@ public enum Attributes {
   lang,
   link,
   localMenu,
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "2.0.0", forRemoval = true)
   margin,
   /**
    * Used by a layout manager
@@ -309,15 +297,9 @@ public enum Attributes {
    */
   overwriteSmall,
   omit,
-  /**
-   * @deprecated since 3.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "3.0.0", forRemoval = true)
   onclick,
-  /**
-   * @deprecated since 3.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "3.0.0", forRemoval = true)
   onchange,
   open,
   orderBy,
@@ -363,26 +345,17 @@ public enum Attributes {
   rendererType,
   renderAs,
   renderRange,
-  /**
-   * @deprecated since 4.2.0
-   */
-  @Deprecated
+  @Deprecated(since = "4.2.0", forRemoval = true)
   renderRangeExtern,
   required,
   requiredMessage,
   resizable,
   rev,
   right,
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "4.0.0", forRemoval = true)
   rigid,
   rowId,
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "4.0.0", forRemoval = true)
   row,
   rowSpan,
   rowSpacing,

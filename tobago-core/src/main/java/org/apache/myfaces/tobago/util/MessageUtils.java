@@ -45,9 +45,9 @@ public final class MessageUtils {
   }
 
   /**
-   * @deprecated Since 5.0.0. Please use {@link #getMessage(FacesContext, FacesMessage.Severity, String, Object...)}.
+   * @deprecated Please use {@link #getMessage(FacesContext, FacesMessage.Severity, String, Object...)}.
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   public static void addMessage(
       final FacesContext facesContext, final UIComponent component, final FacesMessage.Severity severity,
       final String messageId, final Object[] args) {
@@ -64,9 +64,9 @@ public final class MessageUtils {
   }
 
   /**
-   * @deprecated Since 5.0.0. Please use {@link #getMessage(FacesContext, FacesMessage.Severity, String, Object...)}.
+   * @deprecated Please use {@link #getMessage(FacesContext, FacesMessage.Severity, String, Object...)}.
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   public static FacesMessage getMessage(
       final FacesContext facesContext, final Locale locale,
       final FacesMessage.Severity severity, final String messageId, final Object... args) {

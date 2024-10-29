@@ -37,10 +37,7 @@ public abstract class AbstractUISuggest
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  /**
-   * @deprecated since 4.4.0.
-   */
-  @Deprecated
+  @Deprecated(since = "4.4.0", forRemoval = true)
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Suggest";
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.Suggest";
 

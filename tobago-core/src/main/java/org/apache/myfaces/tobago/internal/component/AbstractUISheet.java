@@ -71,10 +71,7 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  /**
-   * @deprecated since 4.4.0.
-   */
-  @Deprecated
+  @Deprecated(since = "4.4.0", forRemoval = true)
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Data";
 
   public static final String SORTER_ID = "sorter";

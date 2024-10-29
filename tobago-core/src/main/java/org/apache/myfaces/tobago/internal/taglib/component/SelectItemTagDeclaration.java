@@ -46,9 +46,9 @@ public interface SelectItemTagDeclaration extends HasBinding, HasId, IsVisual, H
   /**
    * Description of an item, might be rendered as a tool tip.
    *
-   * @deprecated since 2.0.0, please use itemTip.
+   * @deprecated Please use itemTip.
    */
-  @Deprecated
+  @Deprecated(since = "2.0.0", forRemoval = true)
   @TagAttribute
   @UIComponentTagAttribute(type = {"java.lang.String"})
   void setItemDescription(String itemDescription);
