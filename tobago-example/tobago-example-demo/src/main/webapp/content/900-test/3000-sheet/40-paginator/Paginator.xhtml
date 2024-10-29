@@ -147,18 +147,19 @@
     </tc:sheet>
   </tc:section>
 
-  <tc:section label="Use show-Attributes: showDirectLinksArrows">
-    <tc:sheet id="s15" value="#{sheetController.smallSolarList}" var="object" rows="2" autoPaginator="false"
-    showDirectLinksArrows="true">
+  <tc:section label="Use show-Attributes: directLinkCount=4">
+    <tc:sheet id="s15" value="#{sheetController.solarList}" var="object" rows="2"
+              showRowRange="none" showDirectLinks="center" showPageRange="none" directLinkCount="3">
       <tc:column label="Name">
         <tc:out value="#{object.name}"/>
       </tc:column>
     </tc:sheet>
   </tc:section>
 
-  <tc:section label="Use show-Attributes: directLinkCount=4">
+  <tc:section label="Use show-Attributes: showPageRangeArrows = false">
     <tc:sheet id="s16" value="#{sheetController.solarList}" var="object" rows="2"
-              showRowRange="none" showDirectLinks="left" showPageRange="none" directLinkCount="3">
+              showRowRange="none" showDirectLinks="none" showPageRange="center"
+              showPageRangeArrows="false">
       <tc:column label="Name">
         <tc:out value="#{object.name}"/>
       </tc:column>
