@@ -65,6 +65,7 @@ import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
+import org.apache.myfaces.tobago.renderkit.css.CustomClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Arias;
@@ -369,6 +370,11 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     if (reload != null) {
       reload.encodeAll(facesContext);
     }
+
+    final UIComponent before = component.getFacet(Facets.BEFORE);
+    if (before != null) {
+      before.encodeAll(facesContext);
+    }
   }
 
   @Override
@@ -619,6 +625,11 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       writer.writeClassAttribute(TobagoClass.EXPANDED);
       writer.writeAttribute(HtmlAttributes.VALUE, JsonUtils.encode(expandedValue), false);
       writer.endElement(HtmlElements.INPUT);
+    }
+
+    final UIComponent after = component.getFacet(Facets.AFTER);
+    if (after != null) {
+      after.encodeAll(facesContext);
     }
 
     writer.endElement(HtmlElements.TOBAGO_SHEET);

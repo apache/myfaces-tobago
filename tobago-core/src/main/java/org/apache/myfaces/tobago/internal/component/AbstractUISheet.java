@@ -547,6 +547,34 @@ public abstract class AbstractUISheet extends AbstractUIData
     getState().setFirst(first);
   }
 
+  public AjaxBehavior createReloadBehavior(final AbstractUISheet sheet) {
+    final AjaxBehavior reloadBehavior = findReloadBehavior(sheet);
+    final ArrayList<String> renderIds = new ArrayList<>();
+    renderIds.add(sheet.getId());
+    if (reloadBehavior != null) {
+      renderIds.addAll(reloadBehavior.getRender());
+    }
+    final ArrayList<String> executeIds = new ArrayList<>();
+    executeIds.add(sheet.getId());
+    if (reloadBehavior != null) {
+      executeIds.addAll(reloadBehavior.getExecute());
+    }
+    final AjaxBehavior behavior = new AjaxBehavior();
+    behavior.setExecute(executeIds);
+    behavior.setRender(renderIds);
+    behavior.setTransient(true);
+    return behavior;
+  }
+
+  private AjaxBehavior findReloadBehavior(final ClientBehaviorHolder holder) {
+    final List<ClientBehavior> reload = holder.getClientBehaviors().get("reload");
+    if (reload != null && !reload.isEmpty() && reload.get(0) instanceof AjaxBehavior) {
+      return (AjaxBehavior) reload.get(0);
+    } else {
+      return null;
+    }
+  }
+
   private int getToRow(PageActionEvent pageEvent) {
     int first;
     first = pageEvent.getValue() - 1;
