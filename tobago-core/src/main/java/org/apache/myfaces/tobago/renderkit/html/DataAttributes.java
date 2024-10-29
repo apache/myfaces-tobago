@@ -145,9 +145,9 @@ public enum DataAttributes implements MarkupLanguageAttributes {
   /**
    * The selectable attribute e. g. for trees.
    *
-   * @deprecated since 5.0.0, please use {@link CustomAttributes#SELECTABLE}
+   * @deprecated Please use {@link CustomAttributes#SELECTABLE}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   SELECTABLE("data-tobago-selectable"),
 
   /**
@@ -158,9 +158,9 @@ public enum DataAttributes implements MarkupLanguageAttributes {
   /**
    * A way to transport style data in JSON format to the browser. With CSP the normal style attribute isn't allowed.
    *
-   * @deprecated since 4.0.0. UIStyle now renders itself.
+   * @deprecated UIStyle now renders itself.
    */
-  @Deprecated
+  @Deprecated(since = "4.0.0", forRemoval = true)
   STYLE("data-tobago-style"),
 
   SCROLL_PANEL("data-tobago-scroll-panel"),
@@ -180,9 +180,9 @@ public enum DataAttributes implements MarkupLanguageAttributes {
   /**
    * Id of the parent node in a tree node.
    *
-   * @deprecated since 5.0.0, please use {@link CustomAttributes#PARENT}
+   * @deprecated Please use {@link CustomAttributes#PARENT}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   TREE_PARENT("data-tobago-tree-parent"),
 
   /**

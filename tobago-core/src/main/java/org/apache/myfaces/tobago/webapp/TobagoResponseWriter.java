@@ -52,7 +52,8 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   public abstract void startElement(HtmlElements name) throws IOException;
 
   /**
-   * @deprecated Should not directly called via this interface. There is be a special method which might be better.
+   * @deprecated This should not be called directly via this interface. A specific method is available that might
+   * be more suitable.
    */
   @Deprecated
   @Override
@@ -70,23 +71,24 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   public abstract ResponseWriter cloneWithWriter(Writer writer);
 
   /**
-   * @deprecated since 1.0.11, should not directly called via this interface. There is be a special method which might
-   * be better.
+   * @deprecated This should not be called directly via this interface. A specific method is available that might
+   * be more suitable.
    */
   @Override
-  @Deprecated
+  @Deprecated(since = "1.0.11", forRemoval = true)
   public abstract void writeAttribute(String name, Object value, String property) throws IOException;
 
   /**
-   * @deprecated since 1.0.11, should not directly called via this interface. There is be a special method which might
-   * be better.
+   * @deprecated This should not be called directly via this interface. A specific method is available that might
+   * be more suitable.
    */
   @Override
-  @Deprecated
+  @Deprecated(since = "1.0.11", forRemoval = true)
   public abstract void writeURIAttribute(String name, Object value, String property) throws IOException;
 
   /**
-   * @deprecated Should not directly called via this interface. There is be a special method which might be better.
+   * @deprecated This should not be called directly via this interface. A specific method is available that might
+   * be more suitable.
    */
   @Override
   @Deprecated
@@ -154,10 +156,10 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   /**
    * Write the command map data attribute.
    *
-   * @deprecated since 5.0, use {@link
+   * @deprecated Use {@link
    * org.apache.myfaces.tobago.renderkit.RendererBase#encodeBehavior} instead.
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   public void writeCommandMapAttribute(final String map) throws IOException {
     Deprecation.LOG.error("No longer supported. Data: {}", map);
   }

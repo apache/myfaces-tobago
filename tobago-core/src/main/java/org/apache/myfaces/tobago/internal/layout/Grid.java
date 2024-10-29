@@ -28,10 +28,7 @@ import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @deprecated since 4.0.0
- */
-@Deprecated
+@Deprecated(since = "4.0.0", forRemoval = true)
 public class Grid {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());

@@ -40,10 +40,7 @@ public class SheetState implements Serializable, ScrollPositionState {
   private ExpandedState expandedState;
   private SelectedState selectedState;
 
-  /**
-   * @deprecated since 5.3.0
-   */
-  @Deprecated
+  @Deprecated(since = "5.3.0", forRemoval = true)
   public SheetState() {
     this(1);
   }
@@ -52,10 +49,7 @@ public class SheetState implements Serializable, ScrollPositionState {
     reset(maxSortColumns);
   }
 
-  /**
-   * @deprecated since 5.3.0
-   */
-  @Deprecated
+  @Deprecated(since = "5.3.0", forRemoval = true)
   public void reset() {
     reset(1);
   }
@@ -96,10 +90,7 @@ public class SheetState implements Serializable, ScrollPositionState {
     this.selectedRows = selectedRows;
   }
 
-  /**
-   * @deprecated since 5.3.0
-   */
-  @Deprecated
+  @Deprecated(since = "5.3.0", forRemoval = true)
   public String getSortedColumnId() {
     if (sortedColumnList.isEmpty()) {
       return null;
@@ -108,10 +99,7 @@ public class SheetState implements Serializable, ScrollPositionState {
     }
   }
 
-  /**
-   * @deprecated since 5.3.0, please use {@link #updateSortState(String id)}
-   */
-  @Deprecated
+  @Deprecated(since = "5.3.0", forRemoval = true)
   public void setSortedColumnId(final String sortedColumnId) {
     Deprecation.LOG.warn("Method SheetState.setSortedColumnId() should not be called!");
     if (sortedColumnList.isEmpty()) {
@@ -123,10 +111,7 @@ public class SheetState implements Serializable, ScrollPositionState {
     }
   }
 
-  /**
-   * @deprecated since 5.3.0
-   */
-  @Deprecated
+  @Deprecated(since = "5.3.0", forRemoval = true)
   public boolean isAscending() {
     if (sortedColumnList.isEmpty()) {
       return true;
@@ -135,10 +120,7 @@ public class SheetState implements Serializable, ScrollPositionState {
     }
   }
 
-  /**
-   * @deprecated since 5.3.0, please use {@link #updateSortState(String id)}
-   */
-  @Deprecated
+  @Deprecated(since = "5.3.0", forRemoval = true)
   public void setAscending(final boolean ascending) {
     Deprecation.LOG.warn("Method SheetState.setAscending() should not be called!");
     if (sortedColumnList.isEmpty()) {
@@ -180,9 +162,9 @@ public class SheetState implements Serializable, ScrollPositionState {
   }
 
   /**
-   * @deprecated since 4.2.0, please use {@link #updateSortState(String id)}
+   * @deprecated Please use {@link #updateSortState(String id)}
    */
-  @Deprecated
+  @Deprecated(since = "4.2.0", forRemoval = true)
   public void updateSortState(final SortActionEvent sortEvent) {
     updateSortState(sortEvent.getColumn().getId());
   }
@@ -235,17 +217,17 @@ public class SheetState implements Serializable, ScrollPositionState {
   }
 
   /**
-   * @deprecated since 5.3.0, please use {@link #getToBeSortedLevel()}
+   * @deprecated Please use {@link #getToBeSortedLevel()}
    */
-  @Deprecated
+  @Deprecated(since = "5.3.0", forRemoval = true)
   public boolean isToBeSorted() {
     return getToBeSortedLevel() > 0;
   }
 
   /**
-   * @deprecated since 5.3.0, please use {@link #sorted()}
+   * @deprecated Please use {@link #sorted()}
    */
-  @Deprecated
+  @Deprecated(since = "5.3.0", forRemoval = true)
   public void setToBeSorted(final boolean toBeSorted) {
     if (toBeSorted) {
       sortedColumnList.setToBeSortedLevel(Math.max(1, sortedColumnList.getToBeSortedLevel()));

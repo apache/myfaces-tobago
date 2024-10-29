@@ -89,10 +89,7 @@ public enum RendererTypes {
   Toasts,
   ToolBar,
   Tree,
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "2.0.0", forRemoval = true)
   TreeData,
   TreeIcon,
   TreeIndent,
@@ -166,10 +163,7 @@ public enum RendererTypes {
   public static final String TOASTS = "Toasts";
   public static final String TOOL_BAR = "ToolBar";
   public static final String TREE = "Tree";
-  /**
-   * @deprecated since 2.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "2.0.0", forRemoval = true)
   public static final String TREE_DATA = "TreeData";
   public static final String TREE_ICON = "TreeIcon";
   public static final String TREE_INDENT = "TreeIndent";

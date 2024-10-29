@@ -37,20 +37,11 @@ import java.io.IOException;
 
 public class TreeIconRenderer<T extends AbstractUITreeIcon> extends RendererBase<T> {
 
-  /**
-   * @deprecated since Tobago 3.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "3.0.0", forRemoval = true)
   protected static final String OPEN_FOLDER = "image/treeNode-icon-open";
-  /**
-   * @deprecated since Tobago 3.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "3.0.0", forRemoval = true)
   protected static final String CLOSED_FOLDER = "image/treeNode-icon";
-  /**
-   * @deprecated since Tobago 3.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "3.0.0", forRemoval = true)
   protected static final String LEAF = "image/treeNode-icon-leaf";
 
   @Override

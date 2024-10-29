@@ -34,10 +34,7 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
 
   private final WriterHelper helper;
 
-  /**
-   * @deprecated since 4.3.0
-   */
-  @Deprecated
+  @Deprecated(since = "4.3.0", forRemoval = true)
   public HtmlResponseWriter(
       final Writer writer, final String contentType, final String characterEncoding) {
     this(writer, contentType, Charset.forName(characterEncoding));

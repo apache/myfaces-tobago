@@ -69,9 +69,9 @@ public enum LabelLayout {
   /**
    * skip rendering the surrounding container.
    *
-   * @deprecated since 5.0.0, not needed, because there is no surrounding container.
+   * @deprecated not needed, because there is no surrounding container.
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   skip,
 
   /**
@@ -101,17 +101,17 @@ public enum LabelLayout {
   }
 
   /**
-   * @deprecated since 5.0.0. Please use {@link SupportsLabelLayout#setNextToRenderIsLabel(boolean)}.
+   * @deprecated Please use {@link SupportsLabelLayout#setNextToRenderIsLabel(boolean)}.
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   public static void setSegment(final FacesContext facesContext, final LabelLayout labelLayout) {
     Deprecation.LOG.error("not longer supported - see javadoc");
   }
 
   /**
-   * @deprecated since 5.0.0. Please use {@link SupportsLabelLayout#isNextToRenderIsLabel()}.
+   * @deprecated Please use {@link SupportsLabelLayout#isNextToRenderIsLabel()}.
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   public static LabelLayout getSegment(final FacesContext facesContext) {
     Deprecation.LOG.error("not longer supported - see javadoc");
     return null;
