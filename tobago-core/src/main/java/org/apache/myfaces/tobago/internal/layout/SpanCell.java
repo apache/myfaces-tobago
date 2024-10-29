@@ -21,10 +21,7 @@ package org.apache.myfaces.tobago.internal.layout;
 
 import jakarta.faces.component.UIComponent;
 
-/**
- * @deprecated since 4.0.0
- */
-@Deprecated
+@Deprecated(since = "4.0.0", forRemoval = true)
 public class SpanCell implements Cell {
 
   private OriginCell origin;

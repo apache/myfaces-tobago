@@ -52,10 +52,10 @@ public class TobagoContext implements Serializable {
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   /**
-   * @deprecated since 5.0.0. Please use {@link org.apache.myfaces.tobago.util.ResourceUtils#getString} in Java or
+   * @deprecated Please use {@link org.apache.myfaces.tobago.util.ResourceUtils#getString} in Java or
    * #{tobagoResourceBundle.key} in Facelets.
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   public ResourceBundle getResourceBundle() {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final UIViewRoot viewRoot = facesContext.getViewRoot();
@@ -65,9 +65,9 @@ public class TobagoContext implements Serializable {
   }
 
   /**
-   * @deprecated since 5.0.0. Please use {@link org.apache.myfaces.tobago.util.MessageUtils}.
+   * @deprecated Please use {@link org.apache.myfaces.tobago.util.MessageUtils}.
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   public ResourceBundle getMessageBundle() {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final UIViewRoot viewRoot = facesContext.getViewRoot();

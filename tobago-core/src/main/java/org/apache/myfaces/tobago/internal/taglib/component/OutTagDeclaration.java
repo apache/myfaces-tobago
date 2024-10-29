@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import jakarta.faces.component.UIOutput;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Markup;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
@@ -40,6 +39,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsPlain;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
+import jakarta.faces.component.UIOutput;
 import java.text.MessageFormat;
 
 /**
@@ -139,9 +139,9 @@ public interface OutTagDeclaration
    * Use true, if you enable the possibility to apply styles to the output.
    * Use false, if you want to keep the code small (especially inside of sheets).
    *
-   * @deprecated after 4.0.0 release. Use attribute 'plain' instead ({@link IsPlain#setPlain(String)}).
+   * @deprecated Use attribute 'plain' instead ({@link IsPlain#setPlain(String)}).
    */
-  @Deprecated
+  @Deprecated(since = "4.0.0", forRemoval = true)
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setCreateSpan(String createSpan);
 
@@ -150,9 +150,9 @@ public interface OutTagDeclaration
    * Use true, if you want to only render the text (no surrounding tag).
    * Use false, if you enable the possibility to apply styles to the output.
    *
-   * @deprecated since 4.3.0. Use attribute 'plain' instead.
+   * @deprecated Use attribute 'plain' instead.
    */
-  @Deprecated
+  @Deprecated(since = "4.3.0", forRemoval = true)
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setCompact(String compact);

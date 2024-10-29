@@ -40,15 +40,15 @@ public final class UserAgent implements Serializable {
   public static final UserAgent MSIE = new UserAgent("msie", null);
 
   /**
-   * @deprecated no longer supported, since Tobago 1.5
+   * @deprecated no longer supported
    */
-  @Deprecated
+  @Deprecated(since = "1.5.0", forRemoval = true)
   public static final UserAgent MSIE_5_0 = new UserAgent("msie", "5_0");
 
   /**
-   * @deprecated no longer supported, since Tobago 1.5
+   * @deprecated no longer supported
    */
-  @Deprecated
+  @Deprecated(since = "1.5.0", forRemoval = true)
   public static final UserAgent MSIE_5_5 = new UserAgent("msie", "5_5");
 
   public static final UserAgent MSIE_6_0 = new UserAgent(
@@ -61,9 +61,9 @@ public final class UserAgent implements Serializable {
       "msie", "7_0", EnumSet.of(Capability.IE_COMPATIBILITY_MODE), CspHeader.NOT_SUPPORTED, CsproHeader.NOT_SUPPORTED);
 
   /**
-   * @deprecated no longer supported, since Tobago 1.5. Misspelled. Use {@link #MSIE_7_0}
+   * @deprecated no longer supported. Misspelled. Use {@link #MSIE_7_0}
    */
-  @Deprecated
+  @Deprecated(since = "1.5.0", forRemoval = true)
   public static final UserAgent MSIE_7_O = MSIE_7_0;
 
   public static final UserAgent MSIE_8_0 = new UserAgent(
@@ -81,15 +81,15 @@ public final class UserAgent implements Serializable {
       "msie", "11_0", EnumSet.of(Capability.CONTENT_TYPE_XHTML), CspHeader.X, CsproHeader.X);
 
   /**
-   * @deprecated no longer supported, since Tobago 1.5
+   * @deprecated no longer supported
    */
-  @Deprecated
+  @Deprecated(since = "1.5.0", forRemoval = true)
   public static final UserAgent MSIE_5_0_MAC = new UserAgent("msie", "5_0_mac");
 
   /**
-   * @deprecated no longer supported, since Tobago 1.5
+   * @deprecated no longer supported
    */
-  @Deprecated
+  @Deprecated(since = "1.5.0", forRemoval = true)
   public static final UserAgent MSIE_6_0_MAC = new UserAgent("msie", "6_0_mac");
 
   /**
@@ -98,51 +98,51 @@ public final class UserAgent implements Serializable {
   public static final UserAgent PRESTO = new UserAgent("presto", null, EnumSet.of(Capability.CONTENT_TYPE_XHTML));
 
   /**
-   * @deprecated no longer supported, since Tobago 1.5. Please use {@link #PRESTO}.
+   * @deprecated no longer supported. Please use {@link #PRESTO}.
    */
-  @Deprecated
+  @Deprecated(since = "1.5.0", forRemoval = true)
   public static final UserAgent OPERA = new UserAgent("opera", null);
 
   /**
-   * @deprecated no longer supported, since Tobago 1.5. Please use {@link #PRESTO}.
+   * @deprecated no longer supported. Please use {@link #PRESTO}.
    */
-  @Deprecated
+  @Deprecated(since = "1.5.0", forRemoval = true)
   public static final UserAgent OPERA_5_0 = new UserAgent("opera", "5_0");
 
   /**
-   * @deprecated no longer supported, since Tobago 1.5. Please use {@link #PRESTO}.
+   * @deprecated no longer supported. Please use {@link #PRESTO}.
    */
-  @Deprecated
+  @Deprecated(since = "1.5.0", forRemoval = true)
   public static final UserAgent OPERA_6_0 = new UserAgent("opera", "6_0");
 
   /**
-   * @deprecated no longer supported, since Tobago 1.5. Please use {@link #PRESTO}.
+   * @deprecated no longer supported. Please use {@link #PRESTO}.
    */
-  @Deprecated
+  @Deprecated(since = "1.5.0", forRemoval = true)
   public static final UserAgent OPERA_7_11 = new UserAgent("opera", "7_11");
 
   /**
-   * @deprecated no longer supported, since Tobago 1.5
+   * @deprecated no longer supported
    */
-  @Deprecated
+  @Deprecated(since = "1.5.0", forRemoval = true)
   public static final UserAgent MOZILLA = new UserAgent("mozilla", null);
 
   /**
-   * @deprecated no longer supported, since Tobago 1.5
+   * @deprecated no longer supported
    */
-  @Deprecated
+  @Deprecated(since = "1.5.0", forRemoval = true)
   public static final UserAgent MOZILLA_4_7 = new UserAgent("mozilla", "4_7");
 
   /**
-   * @deprecated no longer supported, since Tobago 1.5
+   * @deprecated no longer supported
    */
-  @Deprecated
+  @Deprecated(since = "1.5.0", forRemoval = true)
   public static final UserAgent MOZILLA_5_0 = new UserAgent("mozilla", "5_0");
 
   /**
-   * @deprecated no longer supported, since Tobago 1.5
+   * @deprecated no longer supported
    */
-  @Deprecated
+  @Deprecated(since = "1.5.0", forRemoval = true)
   public static final UserAgent MOZILLA_5_0_R1_6 = new UserAgent("mozilla", "5_0_r1_6");
 
   /**
@@ -193,7 +193,7 @@ public final class UserAgent implements Serializable {
    * @deprecated Version shouldn't be used in the future. Use capability instead, even better
    * use same code on the server when possible and use capability via JavaScript.
    */
-  @Deprecated
+  @Deprecated(since = "2.0.0", forRemoval = true)
   private final String version;
 
   private final EnumSet<Capability> capabilities;
@@ -229,17 +229,17 @@ public final class UserAgent implements Serializable {
   }
 
   /**
-   * @deprecated no longer supported, since Tobago 3.0
+   * @deprecated no longer supported
    */
-  @Deprecated
+  @Deprecated(since = "3.0.0", forRemoval = true)
   public boolean isMsie6() {
     return MSIE_6_0.name.equals(name) && MSIE_6_0.version.equals(version);
   }
 
   /**
-   * @deprecated no longer supported, since Tobago 1.5
+   * @deprecated no longer supported.
    */
-  @Deprecated
+  @Deprecated(since = "1.5.0", forRemoval = true)
   public boolean isMozilla() {
     return MOZILLA.name.equals(name);
   }
@@ -335,9 +335,9 @@ public final class UserAgent implements Serializable {
   }
 
   /**
-   * @deprecated no longer supported, since Tobago 1.5
+   * @deprecated no longer supported
    */
-  @Deprecated
+  @Deprecated(since = "1.5.0", forRemoval = true)
   public static UserAgent getInstanceForId(final String id) {
     Deprecation.LOG.error("Getting the user agent from its id is no longer supported! id='" + id + "'");
     return DEFAULT;
@@ -346,7 +346,7 @@ public final class UserAgent implements Serializable {
   /**
    * @deprecated don't use toString() functionality, but for logging!
    */
-  @Deprecated
+  @Deprecated(since = "2.0.0")
   public String toString() {
     return version != null
         ? name + '_' + version

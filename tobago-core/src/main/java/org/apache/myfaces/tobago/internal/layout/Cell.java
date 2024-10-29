@@ -23,11 +23,11 @@ import jakarta.faces.component.UIComponent;
 
 /**
  * To support horizontal and vertical spans, at each position will be a cell as a representative.
- * Either a "origin cell" for the first position or a "span cell" for spanned other positions.
+ * Either an "origin cell" for the first position or a "span cell" for spanned other positions.
  *
- * @deprecated since 4.0.0
+ * @deprecated
  */
-@Deprecated
+@Deprecated(since = "4.0.0", forRemoval = true)
 public interface Cell {
 
   UIComponent getComponent();

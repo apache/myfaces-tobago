@@ -67,34 +67,19 @@ public class TobagoConfigParser extends TobagoConfigEntityResolver {
   private static final int CONTENT_SECURITY_POLICY = 1207440139;
   private static final int SECURITY_ANNOTATION = 1744426972;
   private static final int DIRECTIVE = -962590641;
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "4.0.0", forRemoval = true)
   private static final int RENDERERS = 1839650832;
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "4.0.0", forRemoval = true)
   private static final int RENDERER = -494845757;
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "4.0.0", forRemoval = true)
   private static final int SUPPORTED_MARKUP = 71904295;
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "4.0.0", forRemoval = true)
   private static final int MARKUP = -1081305560;
   private static final int THEME_DEFINITIONS = -255617156;
   private static final int THEME_DEFINITION = 1515774935;
   private static final int DISPLAY_NAME = 1568910518;
   private static final int FALLBACK = 761243362;
-  /**
-   * @deprecated since 5.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   private static final int VERSIONED = -1407102089;
   private static final int VERSION = 351608024;
   private static final int RESOURCES = -1983070683;

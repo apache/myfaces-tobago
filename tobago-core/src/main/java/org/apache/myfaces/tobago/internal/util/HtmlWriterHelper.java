@@ -57,10 +57,7 @@ public final class HtmlWriterHelper extends WriterHelper {
 
   }
 
-  /**
-   * @deprecated since 4.3.0
-   */
-  @Deprecated
+  @Deprecated(since = "4.3.0", forRemoval = true)
   public HtmlWriterHelper(final Writer out, final String characterEncoding) {
     this(out, Charset.forName(characterEncoding));
   }
