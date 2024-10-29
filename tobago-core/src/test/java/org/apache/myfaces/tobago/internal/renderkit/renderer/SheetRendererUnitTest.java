@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import javax.faces.component.UIComponent;
 import java.io.IOException;
 
 public class SheetRendererUnitTest extends RendererTestBase {
@@ -103,5 +104,38 @@ public class SheetRendererUnitTest extends RendererTestBase {
     sheet.encodeAll(facesContext);
 
     Assertions.assertEquals(loadHtml("renderer/sheet/sheet-paging.html"), formattedResult());
+  }
+
+  @Test
+  public void sheetPaginatorList() throws IOException {
+    final UISheet sheet = (UISheet) ComponentUtils.createComponent(
+        facesContext, Tags.sheet.componentType(), RendererTypes.Sheet, "sheet");
+    sheet.setVar("item");
+    sheet.setValue(getSheetSample(10));
+    sheet.setRows(2);
+    sheet.setAutoPaginator(false);
+
+    final UIColumn column = (UIColumn) ComponentUtils.createComponent(
+        facesContext, Tags.column.componentType(), RendererTypes.Column, "column");
+    column.setLabel("Alphabet");
+    sheet.getChildren().add(column);
+
+    final UIOut out = (UIOut) ComponentUtils.createComponent(
+        facesContext, Tags.out.componentType(), RendererTypes.Out, "out");
+    out.setValueExpression("value", new MockValueExpression("#{item.name}", String.class));
+    out.setLabelLayout(LabelLayout.skip);
+    column.getChildren().add(out);
+
+    final UIComponent panel = ComponentUtils.createComponent(
+        facesContext, Tags.paginatorPanel.componentType(), RendererTypes.PaginatorPanel, "panel");
+    sheet.getFacets().put("after", panel);
+
+    final UIComponent paginatorList = ComponentUtils.createComponent(
+        facesContext, Tags.paginatorList.componentType(), RendererTypes.PaginatorList, "list");
+    panel.getChildren().add(paginatorList);
+
+    sheet.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/sheet/sheet-paginatorList.html"), formattedResult());
   }
 }

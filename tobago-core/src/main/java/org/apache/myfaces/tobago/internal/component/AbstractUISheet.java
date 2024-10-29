@@ -637,6 +637,8 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   public abstract ShowPosition getShowDirectLinks();
 
+  public abstract Integer getDirectLinkCount();
+
   public abstract boolean isLazy();
 
   public abstract Integer getMaxSortColumns();

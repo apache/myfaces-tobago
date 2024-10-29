@@ -38,7 +38,8 @@
       <li>Set the old show* attributes to "deprected"</li>
     </ul>
 
-    <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" rows="5">
+    <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" rows="5" autoPaginator="true">
+      <!--
       <f:facet name="before">
         <tc:panel>
           <tc:style customClass="d-flex flex-column flex-lg-row justify-content-between"/>
@@ -56,7 +57,8 @@
               alwaysVisible="false"/>
         </tc:panel>
       </f:facet>
-
+      -->
+      <!--
       <f:facet name="after">
         <tc:panel>
           <tc:style customClass="d-flex flex-column flex-lg-row justify-content-between"/>
@@ -74,6 +76,7 @@
                               alwaysVisible="false"/>
         </tc:panel>
       </f:facet>
+      -->
 
       <tc:style maxHeight="500px"/>
       <tc:column label="Name">

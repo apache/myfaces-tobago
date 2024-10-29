@@ -47,11 +47,8 @@
   </div>
   <footer>
   </footer>
-  <tobago-paginator-panel id='sheet:_after' class='d-flex justify-content-between'>
-    <tobago-paginator-row id='sheet:_paginator_row' class='pagination'>
-      <span class='page-item' title='Click here, to change the first displayed row'><span class='page-link text-nowrap'>Rows <span>1</span><input id='sheet:pageActiontoRow' name='sheet:pageActiontoRow' type='text' value='1' maxlength='2' pattern='[1-9][0-9]?'> to 2 of 10</span></span>
-    </tobago-paginator-row>
-    <tobago-paginator-list id='sheet:_paginator_list'>
+  <tobago-paginator-panel id='sheet:panel' class='d-flex justify-content-between'>
+    <tobago-paginator-list id='sheet:list'>
       <ul class='pagination'>
         <li class='active page-item'>
           <button type='button' class='page-link' id='sheet:pageActiontoPage-1' title='Page 1'>1<tobago-behavior event='click' client-id='sheet:pageActiontoPage-1' execute='sheet sheet:pageActiontoPage-1' render='sheet'></tobago-behavior></button>
@@ -70,22 +67,5 @@
         </li>
       </ul>
     </tobago-paginator-list>
-    <tobago-paginator-number id='sheet:_paginator_number' class='pagination'>
-      <li class='disabled page-item'>
-        <button type='button' class='page-link' id='sheet:pageActionfirst' title='First Page' disabled='disabled'><i class='bi-skip-start'></i></button>
-      </li>
-      <li class='disabled page-item'>
-        <button type='button' class='page-link' id='sheet:pageActionprev' title='Previous Page' disabled='disabled'><i class='bi-caret-left'></i></button>
-      </li>
-      <li class='page-item'>
-        <span class='tobago-paging page-link text-nowrap' title='Click here, to change the displayed page'>Page <span>1</span><input id='sheet:pageActiontoPage' name='sheet:pageActiontoPage' type='text' value='1' maxlength='1'> of 5</span>
-      </li>
-      <li class='page-item'>
-        <button type='button' class='page-link' id='sheet:pageActionnext' title='Next Page'><i class='bi-caret-right'></i><tobago-behavior event='click' client-id='sheet:pageActionnext' execute='sheet sheet:pageActionnext' render='sheet'></tobago-behavior></button>
-      </li>
-      <li class='page-item'>
-        <button type='button' class='page-link' id='sheet:pageActionlast' title='Last Page'><i class='bi-skip-end'></i><tobago-behavior event='click' client-id='sheet:pageActionlast' execute='sheet sheet:pageActionlast' render='sheet'></tobago-behavior></button>
-      </li>
-    </tobago-paginator-number>
   </tobago-paginator-panel>
 </tobago-sheet>

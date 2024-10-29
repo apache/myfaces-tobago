@@ -42,6 +42,7 @@ import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPaginatorList;
 import org.apache.myfaces.tobago.component.UIPaginatorNumber;
+import org.apache.myfaces.tobago.component.UIPaginatorPanel;
 import org.apache.myfaces.tobago.component.UIPaginatorRow;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
@@ -92,6 +93,7 @@ import org.apache.myfaces.tobago.internal.renderkit.renderer.OutRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PageRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PaginatorListRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PaginatorNumberRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.PaginatorPanelRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PaginatorRowRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PanelRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PopupRenderer;
@@ -136,9 +138,6 @@ import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Locale;
-
-import static org.apache.myfaces.tobago.config.TobagoConfig.TOBAGO_CONFIG;
-import static org.apache.myfaces.tobago.util.ResourceUtils.TOBAGO_RESOURCE_BUNDLE;
 
 /**
  * <p>Abstract JUnit test case base class, which sets up the JavaServer Faces
@@ -195,6 +194,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(Tags.page.componentType(), UIPage.class.getName());
     application.addComponent(Tags.paginatorList.componentType(), UIPaginatorList.class.getName());
     application.addComponent(Tags.paginatorNumber.componentType(), UIPaginatorNumber.class.getName());
+    application.addComponent(Tags.paginatorPanel.componentType(), UIPaginatorPanel.class.getName());
     application.addComponent(Tags.paginatorRow.componentType(), UIPaginatorRow.class.getName());
     application.addComponent(Tags.panel.componentType(), UIPanel.class.getName());
     application.addComponent(Tags.popup.componentType(), UIPopup.class.getName());
@@ -253,6 +253,8 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
         new PaginatorListRenderer<UIPaginatorList>());
     renderKit.addRenderer(UIPaginatorNumber.COMPONENT_FAMILY, RendererTypes.PAGINATOR_NUMBER,
         new PaginatorNumberRenderer<UIPaginatorNumber>());
+    renderKit.addRenderer(UIPaginatorPanel.COMPONENT_FAMILY, RendererTypes.PAGINATOR_PANEL,
+        new PaginatorPanelRenderer<UIPaginatorPanel>());
     renderKit.addRenderer(UIPaginatorRow.COMPONENT_FAMILY, RendererTypes.PAGINATOR_ROW,
         new PaginatorRowRenderer<UIPaginatorRow>());
     renderKit.addRenderer(UIPanel.COMPONENT_FAMILY, RendererTypes.PANEL, new PanelRenderer<UIPanel>());

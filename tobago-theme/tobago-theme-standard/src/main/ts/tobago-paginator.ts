@@ -46,11 +46,11 @@ export class TobagoPaginator extends HTMLElement {
   }
 
   connectedCallback(): void {
-      console.warn("register -------------- click on paging", this.tagName);
+    console.warn("register -------------- click on paging", this.tagName);
     this.text.addEventListener("click", this.clickOnPaging.bind(this));
 
     const input = this.input;
-      console.warn("register -------------- blur on paging", this.tagName);
+    console.warn("register -------------- blur on paging", this.tagName);
     input.addEventListener("blur", this.blurPaging.bind(this));
 
     console.warn("register -------------- keydown on paging", this.tagName);
@@ -86,7 +86,9 @@ export class TobagoPaginator extends HTMLElement {
           input.id,
           null,
           {
-            "javax.faces.behavior.event": "reload",
+            params: {
+              "javax.faces.behavior.event": "reload"
+            },
             execute: this.sheet.id,
             render: this.sheet.id
           });

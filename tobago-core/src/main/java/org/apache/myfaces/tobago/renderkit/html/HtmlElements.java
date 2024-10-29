@@ -162,6 +162,7 @@ public enum HtmlElements {
   TOBAGO_PAGE("tobago-page"),
   TOBAGO_PAGINATOR_LIST("tobago-paginator-list"),
   TOBAGO_PAGINATOR_NUMBER("tobago-paginator-number"),
+  TOBAGO_PAGINATOR_PANEL("tobago-paginator-panel"),
   TOBAGO_PAGINATOR_ROW("tobago-paginator-row"),
   TOBAGO_PANEL("tobago-panel"),
   TOBAGO_POPOVER("tobago-popover"),

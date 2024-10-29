@@ -28,6 +28,10 @@ cd tobago-example/tobago-example-demo
 mvn clean jetty:run -Pjetty
 ```
 
+* Mode 1: old | compatible | classic | useShowAttributes
+* Mode 2: auto
+* Mode 3: custom
+
 Browse to the local URL http://localhost:8080/
 
 ## Demo - TomEE

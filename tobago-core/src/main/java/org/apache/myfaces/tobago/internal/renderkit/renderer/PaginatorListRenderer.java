@@ -60,12 +60,6 @@ public class PaginatorListRenderer<T extends AbstractUIPaginatorList> extends Pa
     if (sheet != null) {
       writer.startElement(HtmlElements.UL);
       writer.writeClassAttribute(BootstrapClass.PAGINATION);
-      if (paginator.isArrows()) {
-        final boolean disabled = sheet.isAtBeginning();
-        encodeLink(
-            facesContext, sheet, disabled, SheetAction.first, null, Icons.SKIP_START, null);
-        encodeLink(facesContext, sheet, disabled, SheetAction.prev, null, Icons.CARET_LEFT, null);
-      }
 
       int linkCount = ComponentUtils.getIntAttribute(sheet, Attributes.directLinkCount);
       linkCount--;  // current page needs no link
@@ -106,8 +100,15 @@ public class PaginatorListRenderer<T extends AbstractUIPaginatorList> extends Pa
         }
       }
 
+      if (paginator.isArrows()) {
+        final boolean disabled = sheet.isAtBeginning();
+        encodeLink(
+            facesContext, sheet, disabled, SheetAction.first, null, Icons.SKIP_START, null);
+        encodeLink(facesContext, sheet, disabled, SheetAction.prev, null, Icons.CARET_LEFT, null);
+      }
+
       int skip = prevs.size() > 0 ? prevs.get(0) : 1;
-      if (!sheet.isShowDirectLinksArrows() && skip > 1) {
+      if (!paginator.isArrows() && skip > 1) {
         skip -= linkCount - (linkCount / 2);
         skip--;
         if (skip < 1) {
@@ -126,7 +127,7 @@ public class PaginatorListRenderer<T extends AbstractUIPaginatorList> extends Pa
       }
 
       skip = nexts.size() > 0 ? nexts.get(nexts.size() - 1) : pages;
-      if (!sheet.isShowDirectLinksArrows() && skip < pages) {
+      if (!paginator.isArrows() && skip < pages) {
         skip += linkCount / 2;
         skip++;
         if (skip > pages) {
@@ -134,7 +135,7 @@ public class PaginatorListRenderer<T extends AbstractUIPaginatorList> extends Pa
         }
         encodeLink(facesContext, sheet, false, SheetAction.toPage, skip, Icons.THREE_DOTS, null);
       }
-      if (sheet.isShowDirectLinksArrows()) {
+      if (paginator.isArrows()) {
         final boolean disabled = sheet.isAtEnd();
         encodeLink(facesContext, sheet, disabled, SheetAction.next, null, Icons.CARET_RIGHT, null);
         encodeLink(facesContext, sheet, disabled || !sheet.hasRowCount(), SheetAction.last, null,
