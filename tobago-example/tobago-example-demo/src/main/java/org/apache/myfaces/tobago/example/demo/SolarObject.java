@@ -33,6 +33,8 @@ public class SolarObject implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+  private Integer id;
+
   private String name;
 
   private String number;
@@ -88,12 +90,20 @@ public class SolarObject implements Serializable {
         : null;
   }
 
-  public String getName() {
-    return name;
-  }
-
   public void update(final AjaxBehaviorEvent event) {
     LOG.info("AjaxBehaviorEvent called. New value: '{}' event: {}", name, event);
+  }
+
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
+  public String getName() {
+    return name;
   }
 
   public void setName(final String name) {

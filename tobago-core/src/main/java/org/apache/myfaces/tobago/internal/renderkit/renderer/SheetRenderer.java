@@ -53,7 +53,6 @@ import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
-import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.ShowPosition;
 import org.apache.myfaces.tobago.layout.TextAlign;
 import org.apache.myfaces.tobago.model.ExpandedState;
@@ -65,13 +64,11 @@ import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
-import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Arias;
 import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -91,12 +88,10 @@ import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -438,19 +433,19 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
         facesContext, component, writer, sheetId, selectable, columnWidths, selectedRows, columns, autoLayout,
         expandedValue);
 
-    final boolean force = false;//!component.isAutoPaginator(); XXX is turned off
-    LOG.info("force={}", force);
+//    final boolean force = false;//!component.isAutoPaginator(); XXX is turned off
+//    LOG.info("force={}", force);
 
     if (component.isPagingVisible()) {
       writer.startElement(HtmlElements.FOOTER);
-
+/*
       // XXX this block is old and replaced by Paginator*Renderer
       // XXX TOBAGO-2243
       // show row range
       final ShowPosition showPositionRowRange = component.getShowRowRange();
       if (force && showPositionRowRange != ShowPosition.none) {
-        final AbstractUILink command
-            = component.ensurePagingCommand(facesContext, component, Facets.pagerRow.name(), SheetAction.toRow.name(), false);
+        final AbstractUILink command = component.ensurePagingCommand(
+        facesContext, component, Facets.pagerRow.name(), SheetAction.toRow.name(), false);
         final String pagerCommandId = command.getClientId(facesContext);
 
         writer.startElement(HtmlElements.UL);
@@ -538,8 +533,8 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       // show page range
       final ShowPosition showPositionPageRange = component.getShowPageRange();
       if (force && showPositionPageRange != ShowPosition.none) {
-        final AbstractUILink command
-            = component.ensurePagingCommand(facesContext, component, Facets.pagerPage.name(), SheetAction.toPage.name(), false);
+        final AbstractUILink command = component.ensurePagingCommand(
+        facesContext, component, Facets.pagerPage.name(), SheetAction.toPage.name(), false);
         final String pagerCommandId = command.getClientId(facesContext);
 
         writer.startElement(HtmlElements.UL);
@@ -606,7 +601,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
         }
         writer.endElement(HtmlElements.UL);
       }
-
+*/
       writer.endElement(HtmlElements.FOOTER);
     }
 
@@ -1195,6 +1190,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
   // XXX this block is old and replaced by Paginator*Renderer
   // XXX TOBAGO-2243
+  /*
   private void encodeLink(
       final FacesContext facesContext, final AbstractUISheet data, final Application application,
       final boolean disabled, final SheetAction action, final Integer target, final Icons icon, final CssItem liClass)
@@ -1235,7 +1231,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     writer.endElement(HtmlElements.BUTTON);
     writer.endElement(HtmlElements.LI);
   }
-
+*/
   // TODO sheet.getColumnLayout() may return the wrong number of column...
   // TODO
   // TODO
@@ -1248,7 +1244,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     writer.write("&nbsp;&nbsp;"); // is needed for IE
     writer.endElement(HtmlElements.SPAN);
   }
-
+/*
   private void encodeDirectPagingLinks(
       final FacesContext facesContext, final Application application, final AbstractUISheet sheet)
       throws IOException {
@@ -1321,4 +1317,5 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       encodeLink(facesContext, sheet, application, false, SheetAction.toPage, skip, Icons.THREE_DOTS, null);
     }
   }
+ */
 }

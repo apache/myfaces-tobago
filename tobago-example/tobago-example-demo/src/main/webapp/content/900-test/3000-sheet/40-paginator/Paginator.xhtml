@@ -24,6 +24,9 @@
 
   <tc:section label="Use show-Attributes: default">
     <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" rows="2">
+      <tc:column label="Id">
+        <tc:out value="#{object.id}"/>
+      </tc:column>
       <tc:column label="Name">
         <tc:out value="#{object.name}"/>
       </tc:column>
@@ -33,6 +36,9 @@
   <tc:section label="Use show-Attributes: row | space | space">
     <tc:sheet id="s2" value="#{sheetController.solarList}" var="object" rows="2"
               showRowRange="left" showDirectLinks="none" showPageRange="none">
+      <tc:column label="Id">
+        <tc:out value="#{object.id}"/>
+      </tc:column>
       <tc:column label="Name">
         <tc:out value="#{object.name}"/>
       </tc:column>
@@ -42,6 +48,9 @@
   <tc:section label="Use show-Attributes: space | row | space">
     <tc:sheet id="s3" value="#{sheetController.solarList}" var="object" rows="2"
               showRowRange="center" showDirectLinks="none" showPageRange="none">
+      <tc:column label="Id">
+        <tc:out value="#{object.id}"/>
+      </tc:column>
       <tc:column label="Name">
         <tc:out value="#{object.name}"/>
       </tc:column>
@@ -51,6 +60,9 @@
   <tc:section label="Use show-Attributes: space | space | row">
     <tc:sheet id="s4" value="#{sheetController.solarList}" var="object" rows="2"
               showRowRange="right" showDirectLinks="none" showPageRange="none">
+      <tc:column label="Id">
+        <tc:out value="#{object.id}"/>
+      </tc:column>
       <tc:column label="Name">
         <tc:out value="#{object.name}"/>
       </tc:column>
@@ -60,6 +72,9 @@
   <tc:section label="Use show-Attributes: list | space | space">
     <tc:sheet id="s5" value="#{sheetController.solarList}" var="object" rows="2"
               showRowRange="none" showDirectLinks="left" showPageRange="none">
+      <tc:column label="Id">
+        <tc:out value="#{object.id}"/>
+      </tc:column>
       <tc:column label="Name">
         <tc:out value="#{object.name}"/>
       </tc:column>
@@ -69,6 +84,9 @@
   <tc:section label="Use show-Attributes: space | list | space">
     <tc:sheet id="s6" value="#{sheetController.solarList}" var="object" rows="2"
               showRowRange="none" showDirectLinks="center" showPageRange="none">
+      <tc:column label="Id">
+        <tc:out value="#{object.id}"/>
+      </tc:column>
       <tc:column label="Name">
         <tc:out value="#{object.name}"/>
       </tc:column>
@@ -78,6 +96,9 @@
   <tc:section label="Use show-Attributes: space | space | list">
     <tc:sheet id="s7" value="#{sheetController.solarList}" var="object" rows="2"
               showRowRange="none" showDirectLinks="right" showPageRange="none">
+      <tc:column label="Id">
+        <tc:out value="#{object.id}"/>
+      </tc:column>
       <tc:column label="Name">
         <tc:out value="#{object.name}"/>
       </tc:column>
@@ -87,6 +108,9 @@
   <tc:section label="Use show-Attributes: page | space | space">
     <tc:sheet id="s8" value="#{sheetController.solarList}" var="object" rows="2"
               showRowRange="none" showDirectLinks="none" showPageRange="left">
+      <tc:column label="Id">
+        <tc:out value="#{object.id}"/>
+      </tc:column>
       <tc:column label="Name">
         <tc:out value="#{object.name}"/>
       </tc:column>
@@ -96,6 +120,9 @@
   <tc:section label="Use show-Attributes: space | page | space">
     <tc:sheet id="s9" value="#{sheetController.solarList}" var="object" rows="2"
               showRowRange="none" showDirectLinks="none" showPageRange="center">
+      <tc:column label="Id">
+        <tc:out value="#{object.id}"/>
+      </tc:column>
       <tc:column label="Name">
         <tc:out value="#{object.name}"/>
       </tc:column>
@@ -105,6 +132,9 @@
   <tc:section label="Use show-Attributes: space | space | page">
     <tc:sheet id="s10" value="#{sheetController.solarList}" var="object" rows="2"
               showRowRange="none" showDirectLinks="none" showPageRange="right">
+      <tc:column label="Id">
+        <tc:out value="#{object.id}"/>
+      </tc:column>
       <tc:column label="Name">
         <tc:out value="#{object.name}"/>
       </tc:column>
@@ -114,6 +144,9 @@
   <tc:section label="Use show-Attributes: list | page | row">
     <tc:sheet id="s11" value="#{sheetController.solarList}" var="object" rows="2"
               showRowRange="right" showDirectLinks="left" showPageRange="center">
+      <tc:column label="Id">
+        <tc:out value="#{object.id}"/>
+      </tc:column>
       <tc:column label="Name">
         <tc:out value="#{object.name}"/>
       </tc:column>
@@ -123,6 +156,9 @@
 
   <tc:section label="Use show-Attributes: showPagingAlways=false (default), 3 entries (rows=5)">
     <tc:sheet id="s12" value="#{sheetController.smallSolarList}" var="object" rows="5">
+      <tc:column label="Id">
+        <tc:out value="#{object.id}"/>
+      </tc:column>
       <tc:column label="Name">
         <tc:out value="#{object.name}"/>
       </tc:column>
@@ -132,6 +168,9 @@
   <tc:section label="Use show-Attributes: showPagingAlways=true, 3 entries (rows=5)">
     <tc:sheet id="s13" value="#{sheetController.smallSolarList}" var="object" rows="5"
               showPagingAlways="true">
+      <tc:column label="Id">
+        <tc:out value="#{object.id}"/>
+      </tc:column>
       <tc:column label="Name">
         <tc:out value="#{object.name}"/>
       </tc:column>
@@ -140,7 +179,10 @@
 
   <tc:section label="Use show-Attributes: showDirectLinksArrows">
     <tc:sheet id="s14" value="#{sheetController.smallSolarList}" var="object" rows="2"
-    showDirectLinksArrows="true">
+              showDirectLinksArrows="true">
+      <tc:column label="Id">
+        <tc:out value="#{object.id}"/>
+      </tc:column>
       <tc:column label="Name">
         <tc:out value="#{object.name}"/>
       </tc:column>
@@ -150,6 +192,9 @@
   <tc:section label="Use show-Attributes: directLinkCount=4">
     <tc:sheet id="s15" value="#{sheetController.solarList}" var="object" rows="2"
               showRowRange="none" showDirectLinks="center" showPageRange="none" directLinkCount="3">
+      <tc:column label="Id">
+        <tc:out value="#{object.id}"/>
+      </tc:column>
       <tc:column label="Name">
         <tc:out value="#{object.name}"/>
       </tc:column>
@@ -160,6 +205,9 @@
     <tc:sheet id="s16" value="#{sheetController.solarList}" var="object" rows="2"
               showRowRange="none" showDirectLinks="none" showPageRange="center"
               showPageRangeArrows="false">
+      <tc:column label="Id">
+        <tc:out value="#{object.id}"/>
+      </tc:column>
       <tc:column label="Name">
         <tc:out value="#{object.name}"/>
       </tc:column>
