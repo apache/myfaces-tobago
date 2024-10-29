@@ -64,10 +64,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
   private final Charset charset;
 
-  /**
-   * @deprecated since 4.3.0
-   */
-  @Deprecated
+  @Deprecated(since = "4.3.0", forRemoval = true)
   protected TobagoResponseWriterBase(final Writer writer, final String contentType, final String characterEncoding) {
     this(writer, contentType, characterEncoding != null ? Charset.forName(characterEncoding) : StandardCharsets.UTF_8);
   }
@@ -358,11 +355,8 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     write("-->");
   }
 
-  /**
-   * @deprecated since 3.0.0
-   */
+  @Deprecated(since = "3.0.0", forRemoval = true)
   @Override
-  @Deprecated
   public void writeAttribute(final String name, final Object value, final String property)
       throws IOException {
 

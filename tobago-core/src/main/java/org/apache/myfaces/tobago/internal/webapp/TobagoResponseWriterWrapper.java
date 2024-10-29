@@ -78,20 +78,14 @@ public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
     return responseWriter.cloneWithWriter(writer);
   }
 
-  /**
-   * @deprecated since 1.0.11
-   */
   @Override
-  @Deprecated
+  @Deprecated(since = "1.0.11", forRemoval = true)
   public void writeAttribute(final String name, final Object value, final String property) throws IOException {
     responseWriter.writeAttribute(name, value, property);
   }
 
-  /**
-   * @deprecated since 1.0.11
-   */
   @Override
-  @Deprecated
+  @Deprecated(since = "1.0.11", forRemoval = true)
   public void writeText(final Object text, final String property) throws IOException {
     responseWriter.writeText(text, property);
   }

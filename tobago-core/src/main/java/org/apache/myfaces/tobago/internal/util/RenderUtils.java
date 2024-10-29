@@ -19,18 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.util;
 
-import jakarta.faces.application.ViewHandler;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIPanel;
-import jakarta.faces.component.UIParameter;
-import jakarta.faces.component.behavior.AjaxBehavior;
-import jakarta.faces.component.behavior.ClientBehavior;
-import jakarta.faces.component.behavior.ClientBehaviorBase;
-import jakarta.faces.component.behavior.ClientBehaviorContext;
-import jakarta.faces.component.behavior.ClientBehaviorHolder;
-import jakarta.faces.context.ExternalContext;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.render.ClientBehaviorRenderer;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
@@ -49,6 +37,18 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIPanel;
+import jakarta.faces.component.UIParameter;
+import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.component.behavior.ClientBehavior;
+import jakarta.faces.component.behavior.ClientBehaviorBase;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.ClientBehaviorRenderer;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.invoke.MethodHandles;
@@ -67,17 +67,17 @@ public final class RenderUtils {
   }
 
   /**
-   * @deprecated since 4.0.0. Use {@link ArrayUtils#contains(Object[], Object)}
+   * @deprecated Use {@link ArrayUtils#contains(Object[], Object)}
    */
-  @Deprecated
+  @Deprecated(since = "4.0.0", forRemoval = true)
   public static boolean contains(final Object[] list, final Object value) {
     return ArrayUtils.contains(list, value);
   }
 
   /**
-   * @deprecated since 4.0.0. Use {@link UIComponent#encodeChildren(FacesContext)}
+   * @deprecated Use {@link UIComponent#encodeChildren(FacesContext)}
    */
-  @Deprecated
+  @Deprecated(since = "4.0.0", forRemoval = true)
   public static void encodeChildren(final FacesContext facesContext, final UIComponent panel) throws IOException {
     for (final UIComponent child : panel.getChildren()) {
       child.encodeAll(facesContext);
@@ -85,17 +85,17 @@ public final class RenderUtils {
   }
 
   /**
-   * @deprecated since 4.0.0. Use {@link UIComponent#encodeAll(FacesContext)}
+   * @deprecated Use {@link UIComponent#encodeAll(FacesContext)}
    */
-  @Deprecated
+  @Deprecated(since = "4.0.0", forRemoval = true)
   public static void encode(final FacesContext facesContext, final UIComponent component) throws IOException {
     component.encodeAll(facesContext);
   }
 
   /**
-   * @deprecated since 4.0.0. Use {@link UIComponent#encodeAll(FacesContext)}
+   * @deprecated Use {@link UIComponent#encodeAll(FacesContext)}
    */
-  @Deprecated
+  @Deprecated(since = "4.0.0", forRemoval = true)
   public static void encode(
       final FacesContext facesContext, final UIComponent component,
       final List<? extends Class<? extends UIComponent>> only)
@@ -121,10 +121,7 @@ public final class RenderUtils {
     }
   }
 
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "4.0.0", forRemoval = true)
   private static boolean matchFilter(
       final UIComponent component, final List<? extends Class<? extends UIComponent>> only) {
     for (final Class<? extends UIComponent> clazz : only) {
@@ -136,9 +133,9 @@ public final class RenderUtils {
   }
 
   /**
-   * @deprecated since 5.0.0. Please use {@link RendererBase#getCurrentValue}
+   * @deprecated Please use {@link RendererBase#getCurrentValue}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   public static String currentValue(final UIComponent component) {
     return new RendererBase<UIComponent>() {
       public String fake(final UIComponent component) {
@@ -294,10 +291,7 @@ public final class RenderUtils {
     }
   }
 
-  /**
-   * @deprecated since 5.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   public static CommandMap getBehaviorCommands(
       final FacesContext facesContext,
       final ClientBehaviorHolder clientBehaviorHolder) {
@@ -351,10 +345,7 @@ public final class RenderUtils {
     return commandMap;
   }
 
-  /**
-   * @deprecated since 5.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   private static ClientBehaviorContext getClientBehaviorContext(
       final FacesContext facesContext,
       final ClientBehaviorHolder clientBehaviorHolder, final String eventName) {
@@ -372,10 +363,7 @@ public final class RenderUtils {
         .findFirst().orElse(null);
   }
 
-  /**
-   * @deprecated since 5.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   private static CommandMap getCommandMap(
       final FacesContext facesContext,
       final ClientBehaviorContext clientBehaviorContext, final ClientBehavior clientBehavior) {

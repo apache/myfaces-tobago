@@ -60,11 +60,8 @@ public class SortingUtilsUnitTest extends AbstractTobagoTestBase {
     Assertions.assertEquals(Pear.KOESTLICHE_AUS_CHARNEUX, list.get(3));
   }
 
-  /**
-   * @deprecated
-   */
   @Test
-  @Deprecated
+  @Deprecated(forRemoval = true)
   public void testUIOutDeprected() {
     final List<Fruit> list = Fruit.getFreshFruits();
     final UISheet sheet = new UISheet();

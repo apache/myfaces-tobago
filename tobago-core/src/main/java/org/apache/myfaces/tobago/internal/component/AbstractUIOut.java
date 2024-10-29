@@ -40,15 +40,15 @@ public abstract class AbstractUIOut extends UIOutput implements SupportsLabelLay
   public abstract boolean isKeepLineBreaks();
 
   /**
-   * @deprecated since 4.0.0, please use Visual#isPlain()
+   * @deprecated Please use Visual#isPlain()
    */
-  @Deprecated
+  @Deprecated(since = "4.0.0", forRemoval = true)
   public abstract boolean isCreateSpan();
 
   /**
-   * @deprecated since 4.3.0, please use Visual#isPlain()
+   * @deprecated Please use Visual#isPlain()
    */
-  @Deprecated
+  @Deprecated(since = "4.3.0", forRemoval = true)
   public abstract boolean isCompact();
 
   public abstract boolean isMessageFormat();

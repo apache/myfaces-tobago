@@ -50,10 +50,7 @@ public final class LocaleUtils {
     return locale;
   }
 
-  /**
-   * @deprecated since 1.5
-   */
-  @Deprecated
+  @Deprecated(since = "1.5.0", forRemoval = true)
   public static List<Locale> getLocaleList(final Locale locale) {
 
     String string = locale.toString();

@@ -257,9 +257,9 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
   }
 
   /**
-   * @deprecated since 4.3.0, please use {@link #expand(UIComponent[][], int)}
+   * @deprecated Please use {@link #expand(UIComponent[][], int)}
    */
-  @Deprecated
+  @Deprecated(since = "4.3.0", forRemoval = true)
   protected UIComponent[][] expand(final UIComponent[][] cells, final Integer minRows, final int step) {
     return expand(cells, minRows);
   }
