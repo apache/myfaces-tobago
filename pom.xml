@@ -56,7 +56,7 @@
     <joinfaces.version>5.1.12</joinfaces.version>
     <spring-boot.version>3.3.5</spring-boot.version>
     <spring.version>6.1.14</spring.version>
-    <jackson.version>2.18.0</jackson.version>
+    <jackson.version>2.18.1</jackson.version>
   </properties>
 
   <issueManagement>
