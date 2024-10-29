@@ -94,10 +94,7 @@ public final class ComponentUtils {
   private ComponentUtils() {
   }
 
-  /**
-   * @deprecated since 3.0.1
-   */
-  @Deprecated
+  @Deprecated(since = "3.0.1", forRemoval = true)
   public static boolean hasErrorMessages(final FacesContext context) {
     for (final FacesMessage message : (Iterable<FacesMessage>) context::getMessages) {
       if (FacesMessage.SEVERITY_ERROR.compareTo(message.getSeverity()) <= 0) {
@@ -121,10 +118,7 @@ public final class ComponentUtils {
     }
   }
 
-  /**
-   * @deprecated since 3.0.1
-   */
-  @Deprecated
+  @Deprecated(since = "3.0.1", forRemoval = true)
   public static boolean isInPopup(final UIComponent component) {
     UIComponent c = component;
     while (c != null) {
@@ -136,10 +130,7 @@ public final class ComponentUtils {
     return false;
   }
 
-  /**
-   * @deprecated since 3.0.1
-   */
-  @Deprecated
+  @Deprecated(since = "3.0.1", forRemoval = true)
   public static void resetPage(final FacesContext context) {
     final UIViewRoot view = context.getViewRoot();
     if (view != null) {
@@ -387,10 +378,7 @@ public final class ComponentUtils {
     return false;
   }
 
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "4.0.0", forRemoval = true)
   public static boolean isInActiveForm(final UIComponent component) {
     UIComponent c = component;
     while (c != null) {
@@ -427,20 +415,14 @@ public final class ComponentUtils {
     return max;
   }
 
-  /**
-   * @deprecated since 5.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   public static boolean isError(final UIInput uiInput) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     return !uiInput.isValid()
         || facesContext.getMessages(uiInput.getClientId(facesContext)).hasNext();
   }
 
-  /**
-   * @deprecated since 5.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   public static boolean isError(final UIComponent component) {
     if (component instanceof AbstractUIInput) {
       return isError((AbstractUIInput) component);
@@ -448,10 +430,7 @@ public final class ComponentUtils {
     return false;
   }
 
-  /**
-   * @deprecated since 5.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   public static boolean isOutputOnly(final UIComponent component) {
     return getBooleanAttribute(component, Attributes.disabled)
         || getBooleanAttribute(component, Attributes.readonly);
@@ -561,10 +540,7 @@ public final class ComponentUtils {
     }
   }
 
-  /**
-   * @deprecated since 5.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   public static boolean isFacetOf(final UIComponent component, final UIComponent parent) {
     for (final Object o : parent.getFacets().keySet()) {
       final UIComponent facet = parent.getFacet((String) o);
@@ -882,9 +858,9 @@ public final class ComponentUtils {
   /**
    * May return null, if no converter can be find.
    *
-   * @deprecated since 5.0.0. Please use {@link RendererBase#getConverter}.
+   * @deprecated Please use {@link RendererBase#getConverter}.
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   public static Converter getConverter(
       final FacesContext facesContext, final UIComponent component, final Object value) {
 
@@ -896,9 +872,9 @@ public final class ComponentUtils {
   }
 
   /**
-   * @deprecated since 5.0.0. Please use {@link RendererBase#getFormattedValue}
+   * @deprecated Please use {@link RendererBase#getFormattedValue}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   public static String getFormattedValue(
       final FacesContext facesContext, final UIComponent component, final Object currentValue)
       throws ConverterException {

@@ -29,9 +29,9 @@ public enum Facets {
   confirmation,
   constraints,
   /**
-   * @deprecated currently not supported
+   * @deprecated Currently not supported!
    */
-  @Deprecated
+  @Deprecated(since = "3.0.0", forRemoval = true)
   contextMenu,
   empty,
   footer,
@@ -53,9 +53,9 @@ public enum Facets {
   public static final String CONFIRMATION = "confirmation";
   public static final String CONSTRAINTS = "constraints";
   /**
-   * @deprecated currently not supported
+   * @deprecated Currently not supported!
    */
-  @Deprecated
+  @Deprecated(since = "3.0.0", forRemoval = true)
   public static final String CONTEXT_MENU = "contextMenu";
   public static final String EMPTY = "empty";
   public static final String FOOTER = "footer";

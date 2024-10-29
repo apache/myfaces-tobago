@@ -107,17 +107,17 @@ public abstract class AbstractUIMessages extends jakarta.faces.component.UIMessa
     }
 
     /**
-     * @deprecated since Tobago 5.0.0. Please use {@link #setForId}
+     * @deprecated Please use {@link #setForId}
      */
-    @Deprecated
+    @Deprecated(since = "5.0.0", forRemoval = true)
     public String getClientId() {
       return forId;
     }
 
     /**
-     * @deprecated since Tobago 5.0.0. Please use {@link #setForId}
+     * @deprecated Please use {@link #setForId}
      */
-    @Deprecated
+    @Deprecated(since = "5.0.0", forRemoval = true)
     public void setClientId(final String clientId) {
       this.forId = clientId;
     }

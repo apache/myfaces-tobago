@@ -19,10 +19,6 @@
 
 package org.apache.myfaces.tobago.servlet;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,14 +30,17 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.FacesContextFactory;
 import jakarta.faces.lifecycle.Lifecycle;
 import jakarta.faces.lifecycle.LifecycleFactory;
-
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 
 /**
- * @deprecated since Tobago 2.0.8 - Please use &lt;f:initParam&gt; instead - see also TOBAGO-1456
+ * @deprecated Please use &lt;f:initParam&gt; instead - see also TOBAGO-1456
  */
-@Deprecated
+@Deprecated(since = "2.0.8", forRemoval = true)
 public abstract class NonFacesRequestServlet extends HttpServlet {
 
   private static final long serialVersionUID = -7448621953821447997L;

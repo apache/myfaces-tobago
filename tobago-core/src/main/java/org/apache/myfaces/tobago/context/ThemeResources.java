@@ -37,10 +37,7 @@ public final class ThemeResources implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  /**
-   * @deprecated since 5.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   private boolean production;
 
   private final List<ThemeScript> includeScripts = new ArrayList<>();
@@ -51,18 +48,15 @@ public final class ThemeResources implements Serializable {
   public ThemeResources() {
   }
 
-  /**
-   * @deprecated since 5.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   public ThemeResources(final boolean production) {
     this.production = production;
   }
 
   /**
-   * @deprecated since 5.0.0, use static {@link #merge}
+   * @deprecated Use static {@link #merge}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   public void merge(final ThemeResources fallback) {
     if (this == fallback) {
       return;
@@ -113,10 +107,7 @@ public final class ThemeResources implements Serializable {
     return result;
   }
 
-  /**
-   * @deprecated since 5.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   public boolean isProduction() {
     return production;
   }
@@ -150,9 +141,9 @@ public final class ThemeResources implements Serializable {
   }
 
   /**
-   * @deprecated since 5.0.0, use {@link #addIncludeScript} or {@link #addExcludeScript}
+   * @deprecated Use {@link #addIncludeScript} or {@link #addExcludeScript}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   public boolean addScript(final ThemeScript script, final boolean exclude) {
     return exclude ? addExcludeScript(script) : addIncludeScript(script);
   }
@@ -186,9 +177,9 @@ public final class ThemeResources implements Serializable {
   }
 
   /**
-   * @deprecated since 5.0.0, use {@link #addIncludeStyle} or {@link #addExcludeStyle}
+   * @deprecated Use {@link #addIncludeStyle} or {@link #addExcludeStyle}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   public boolean addStyle(final ThemeStyle style, final boolean exclude) {
     return exclude ? addExcludeStyle(style) : addIncludeStyle(style);
   }

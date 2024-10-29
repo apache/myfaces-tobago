@@ -26,9 +26,9 @@ import jakarta.servlet.http.Part;
  * <p>
  * Basically taken from Apache Tomcat 8
  *
- * @deprecated since 5.0.0. Servlet 3.1 or higher is required.
+ * @deprecated Servlet 3.1 or higher is required.
  */
-@Deprecated
+@Deprecated(since = "5.0.0", forRemoval = true)
 public final class PartUtils {
 
   private PartUtils() {
@@ -40,9 +40,9 @@ public final class PartUtils {
    * If you have at least Servlet 3.1, you wouldn't need this function.
    *
    * @since Tobago 3.0.0
-   * @deprecated since 5.0.0. Servlet 3.1 or higher is required.
+   * @deprecated Servlet 3.1 or higher is required.
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   public static String getSubmittedFileName(final Part part) {
     return part.getSubmittedFileName();
   }

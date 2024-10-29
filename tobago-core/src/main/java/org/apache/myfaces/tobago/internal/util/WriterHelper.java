@@ -133,10 +133,7 @@ public abstract class WriterHelper {
   private final ResponseWriterBuffer buffer;
   private final boolean utf8;
 
-  /**
-   * @deprecated since 4.3.0
-   */
-  @Deprecated
+  @Deprecated(since = "4.3.0", forRemoval = true)
   public WriterHelper(final Writer out, final String characterEncoding) {
     this.out = out;
     buffer = new ResponseWriterBuffer(out);

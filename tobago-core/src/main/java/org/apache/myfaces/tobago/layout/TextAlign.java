@@ -52,17 +52,17 @@ public enum TextAlign {
   public static final String JUSTIFY = "justify";
 
   /**
-   * @deprecated Since Tobago 3.0.0 Please use {@link TextAlign#name}
+   * @deprecated Please use {@link TextAlign#name}
    */
-  @Deprecated
+  @Deprecated(since = "3.0.0", forRemoval = true)
   public String getValue() {
     return name();
   }
 
   /**
-   * @deprecated Since Tobago 3.0.0 Please use {@link TextAlign#valueOf}
+   * @deprecated Please use {@link TextAlign#valueOf}
    */
-  @Deprecated
+  @Deprecated(since = "3.0.0", forRemoval = true)
   public static TextAlign parse(final String string) {
     return valueOf(string);
   }

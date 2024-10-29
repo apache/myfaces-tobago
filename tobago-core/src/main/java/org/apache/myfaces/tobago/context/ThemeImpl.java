@@ -158,10 +158,7 @@ public class ThemeImpl implements Theme, Serializable {
     }
   }
 
-  /**
-   * @deprecated since 5.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   public ThemeResources getResources() {
     return developmentResources;
   }

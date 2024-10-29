@@ -19,16 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import jakarta.el.ValueExpression;
-import jakarta.faces.component.ActionSource;
-import jakarta.faces.component.EditableValueHolder;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.behavior.AjaxBehavior;
-import jakarta.faces.component.behavior.ClientBehavior;
-import jakarta.faces.component.behavior.ClientBehaviorContext;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.AjaxBehaviorEvent;
-import jakarta.faces.event.PhaseId;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
@@ -44,6 +34,16 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.ActionSource;
+import jakarta.faces.component.EditableValueHolder;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.component.behavior.ClientBehavior;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AjaxBehaviorEvent;
+import jakarta.faces.event.PhaseId;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -223,9 +223,9 @@ public class TobagoClientBehaviorRenderer extends jakarta.faces.render.ClientBeh
   }
 
   /**
-   * @deprecated TBD
+   * @deprecated TBD: find a better way to implement this.
    */
-  @Deprecated
+  @Deprecated(since = "3.0.0")
   public static Collapse createCollapsible(final FacesContext facesContext, final UIComponent component) {
     //// TBD: is this nice? May be implemented with a JSF behavior?
     //// BEGIN

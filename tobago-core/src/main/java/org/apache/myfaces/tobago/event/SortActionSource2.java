@@ -19,9 +19,6 @@
 
 package org.apache.myfaces.tobago.event;
 
-/**
- * @deprecated since 4.0.0
- */
-@Deprecated
+@Deprecated(since = "4.0.0", forRemoval = true)
 public interface SortActionSource2 extends SortActionSource {
 }
