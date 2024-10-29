@@ -193,8 +193,11 @@ class Behavior extends HTMLElement {
       for (const id of ids.split(/\s+/)) {
         const element = document.getElementById(id);
         if (element) {
+          // todo: all elements (needs to be tested very well)
+          // const formElements = element.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(
+          //     "input, textarea, select"
           const formElements = element.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(
-              "input, textarea, select"
+              "input[type=file]"
           );
           for (const formElement of formElements) {
             if (!formElement.checkValidity()) {
