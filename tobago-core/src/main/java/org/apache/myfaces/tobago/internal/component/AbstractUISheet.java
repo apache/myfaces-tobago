@@ -625,22 +625,22 @@ public abstract class AbstractUISheet extends AbstractUIData
     this.headerGrid = headerGrid;
   }
 
-  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
+  @Deprecated(since = "5.15.0, 6.7.0", forRemoval = true)
   public abstract boolean isShowDirectLinksArrows();
 
-  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
+  @Deprecated(since = "5.15.0, 6.7.0", forRemoval = true)
   public abstract boolean isShowPageRangeArrows();
 
-  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
+  @Deprecated(since = "5.15.0, 6.7.0", forRemoval = true)
   public abstract ShowPosition getShowRowRange();
 
-  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
+  @Deprecated(since = "5.15.0, 6.7.0", forRemoval = true)
   public abstract ShowPosition getShowPageRange();
 
-  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
+  @Deprecated(since = "5.15.0, 6.7.0", forRemoval = true)
   public abstract ShowPosition getShowDirectLinks();
 
-  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
+  @Deprecated(since = "5.15.0, 6.7.0", forRemoval = true)
   public abstract Integer getDirectLinkCount();
 
   public abstract boolean isLazy();
