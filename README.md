@@ -62,6 +62,10 @@ If you want to run the demo locally you need to run the following command
 mvn -f tobago-example/tobago-example-demo/pom.xml clean package tomee:run -Ptomee -Pdev
 ```
 
+* Mode 1: old | compatible | classic | useShowAttributes
+* Mode 2: auto
+* Mode 3: custom
+
 Browse to the local URL http://localhost:8080/
 
 You can also run the demo with different servers and JSF implementations

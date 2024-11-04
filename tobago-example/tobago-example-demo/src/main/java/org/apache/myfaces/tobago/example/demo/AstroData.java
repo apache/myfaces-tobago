@@ -36,6 +36,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -73,7 +74,11 @@ public class AstroData implements Serializable {
   }
 
   public Stream<SolarObject> findAll() {
-    return dataList.stream();
+    final AtomicInteger counter = new AtomicInteger(0);
+    return dataList.stream().map(object -> {
+      object.setId(counter.incrementAndGet());
+      return object;
+    });
   }
 
   public Map<String, SolarObject> findAllAsMap() {

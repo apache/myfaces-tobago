@@ -12656,6 +12656,7 @@ tobago-overlay.modal-backdrop:not(.show) {
   display: none;
 }
 
+/* page ----------------------------------------------------------- */
 tobago-page {
   display: block;
   padding-top: 1rem;
@@ -12755,6 +12756,41 @@ tobago-page .tobago-page-toastStore .toast .tobago-auto-spacing {
 .tobago-spreadtobago-panel {
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+/* paginator-panel ------------------------------------------------------------- */
+/* paginator-list ------------------------------------------------------------- */
+/* paginator-number ------------------------------------------------------------- */
+/* paginator-row ------------------------------------------------------------- */
+tobago-paginator-list, tobago-paginator-page, tobago-paginator-row {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+tobago-paginator-list .page-link, tobago-paginator-page .page-link, tobago-paginator-row .page-link {
+  cursor: pointer;
+}
+tobago-paginator-list .page-link input, tobago-paginator-page .page-link input, tobago-paginator-row .page-link input {
+  text-align: center;
+  display: none;
+  margin: -4px 0;
+  width: 3em;
+}
+
+/* paginator-list ------------------------------------------------------------- */
+/* paginator-number ------------------------------------------------------------- */
+/* paginator-row ------------------------------------------------------------- */
+tobago-paginator-list, tobago-paginator-page, tobago-paginator-row {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+tobago-paginator-list .page-link, tobago-paginator-page .page-link, tobago-paginator-row .page-link {
+  cursor: pointer;
+}
+tobago-paginator-list .page-link input, tobago-paginator-page .page-link input, tobago-paginator-row .page-link input {
+  text-align: center;
+  display: none;
+  margin: -4px 0;
+  width: 3em;
 }
 
 /* panel ------------------------------------------------------------- */
