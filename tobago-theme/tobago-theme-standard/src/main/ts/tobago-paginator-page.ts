@@ -17,7 +17,7 @@
 
 import {TobagoPaginator} from "./tobago-paginator";
 
-export class TobagoPaginatorNumber extends TobagoPaginator {
+export class TobagoPaginatorPage extends TobagoPaginator {
 
   constructor() {
     super();
@@ -25,7 +25,7 @@ export class TobagoPaginatorNumber extends TobagoPaginator {
 }
 
 document.addEventListener("tobago.init", function (event: Event): void {
-  if (window.customElements.get("tobago-paginator-number") == null) {
-    window.customElements.define("tobago-paginator-number", TobagoPaginatorNumber);
+  if (window.customElements.get("tobago-paginator-page") == null) {
+    window.customElements.define("tobago-paginator-page", TobagoPaginatorPage);
   }
 });

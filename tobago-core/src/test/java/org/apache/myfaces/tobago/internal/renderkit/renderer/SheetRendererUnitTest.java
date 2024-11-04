@@ -25,7 +25,10 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UIColumn;
 import org.apache.myfaces.tobago.component.UIOut;
+import org.apache.myfaces.tobago.component.UIPaginatorList;
 import org.apache.myfaces.tobago.component.UISheet;
+import org.apache.myfaces.tobago.layout.Arrows;
+import org.apache.myfaces.tobago.layout.PaginatorMode;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -113,7 +116,7 @@ public class SheetRendererUnitTest extends RendererTestBase {
     sheet.setVar("item");
     sheet.setValue(getSheetSample(10));
     sheet.setRows(2);
-    sheet.setAutoPaginator(false);
+    sheet.setPaginator(PaginatorMode.custom);
 
     final UIColumn column = (UIColumn) ComponentUtils.createComponent(
         facesContext, Tags.column.componentType(), RendererTypes.Column, "column");
@@ -130,8 +133,9 @@ public class SheetRendererUnitTest extends RendererTestBase {
         facesContext, Tags.paginatorPanel.componentType(), RendererTypes.PaginatorPanel, "panel");
     sheet.getFacets().put("after", panel);
 
-    final UIComponent paginatorList = ComponentUtils.createComponent(
+    final UIPaginatorList paginatorList = (UIPaginatorList) ComponentUtils.createComponent(
         facesContext, Tags.paginatorList.componentType(), RendererTypes.PaginatorList, "list");
+    paginatorList.setArrows(Arrows.hide);
     panel.getChildren().add(paginatorList);
 
     sheet.encodeAll(facesContext);

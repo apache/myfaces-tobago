@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.internal.layout.OriginCell;
 import org.apache.myfaces.tobago.internal.util.SortingUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.MeasureList;
+import org.apache.myfaces.tobago.layout.PaginatorMode;
 import org.apache.myfaces.tobago.layout.ShowPosition;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.ScrollPosition;
@@ -627,16 +628,22 @@ public abstract class AbstractUISheet extends AbstractUIData
     this.headerGrid = headerGrid;
   }
 
+  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
   public abstract boolean isShowDirectLinksArrows();
 
+  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
   public abstract boolean isShowPageRangeArrows();
 
+  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
   public abstract ShowPosition getShowRowRange();
 
+  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
   public abstract ShowPosition getShowPageRange();
 
+  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
   public abstract ShowPosition getShowDirectLinks();
 
+  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
   public abstract Integer getDirectLinkCount();
 
   public abstract boolean isLazy();
@@ -645,5 +652,5 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   public abstract Integer getLazyRows();
 
-  public abstract boolean isAutoPaginator();
+  public abstract PaginatorMode getPaginator();
 }

@@ -19,5 +19,5 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-public abstract class AbstractUIPaginatorNumber extends AbstractUIPaginator {
+public abstract class AbstractUIPaginatorPage extends AbstractUIPaginator {
 }

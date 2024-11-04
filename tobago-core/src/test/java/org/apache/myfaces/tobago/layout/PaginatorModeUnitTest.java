@@ -17,23 +17,15 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.taglib.declaration;
+package org.apache.myfaces.tobago.layout;
 
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.layout.Arrows;
+import org.apache.myfaces.tobago.util.EnumUnitTest;
+import org.junit.jupiter.api.Test;
 
-public interface HasArrows {
-  /**
-   * Show arrows at this control.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(
-      type = "org.apache.myfaces.tobago.layout.Arrows",
-      defaultValue = Arrows.AUTO,
-      allowedValues = {
-          Arrows.AUTO, Arrows.SHOW, Arrows.HIDE
-      },
-      defaultCode = "org.apache.myfaces.tobago.layout.Arrows.auto")
-  void setArrows(String arrows);
+public class PaginatorModeUnitTest extends EnumUnitTest {
+
+  @Test
+  public void testNames() throws IllegalAccessException, NoSuchFieldException {
+    testNames(PaginatorMode.class);
+  }
 }

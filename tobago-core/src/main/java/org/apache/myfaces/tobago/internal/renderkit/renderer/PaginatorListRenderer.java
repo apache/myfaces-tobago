@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.event.SheetAction;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPaginatorList;
 import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
+import org.apache.myfaces.tobago.layout.Arrows;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -100,7 +101,8 @@ public class PaginatorListRenderer<T extends AbstractUIPaginatorList> extends Pa
         }
       }
 
-      if (paginator.isArrows()) {
+      final Arrows arrows = paginator.getArrows();
+      if (arrows == Arrows.show || arrows == Arrows.auto) {
         final boolean disabled = sheet.isAtBeginning();
         encodeLink(
             facesContext, sheet, disabled, SheetAction.first, null, Icons.SKIP_START, null);
@@ -108,7 +110,7 @@ public class PaginatorListRenderer<T extends AbstractUIPaginatorList> extends Pa
       }
 
       int skip = prevs.size() > 0 ? prevs.get(0) : 1;
-      if (!paginator.isArrows() && skip > 1) {
+      if (!(arrows == Arrows.show || arrows == Arrows.auto) && skip > 1) {
         skip -= linkCount - (linkCount / 2);
         skip--;
         if (skip < 1) {
@@ -127,7 +129,7 @@ public class PaginatorListRenderer<T extends AbstractUIPaginatorList> extends Pa
       }
 
       skip = nexts.size() > 0 ? nexts.get(nexts.size() - 1) : pages;
-      if (!paginator.isArrows() && skip < pages) {
+      if (!(arrows == Arrows.show || arrows == Arrows.auto) && skip < pages) {
         skip += linkCount / 2;
         skip++;
         if (skip > pages) {
@@ -135,7 +137,7 @@ public class PaginatorListRenderer<T extends AbstractUIPaginatorList> extends Pa
         }
         encodeLink(facesContext, sheet, false, SheetAction.toPage, skip, Icons.THREE_DOTS, null);
       }
-      if (paginator.isArrows()) {
+      if (arrows == Arrows.show || arrows == Arrows.auto) {
         final boolean disabled = sheet.isAtEnd();
         encodeLink(facesContext, sheet, disabled, SheetAction.next, null, Icons.CARET_RIGHT, null);
         encodeLink(facesContext, sheet, disabled || !sheet.hasRowCount(), SheetAction.last, null,

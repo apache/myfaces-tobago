@@ -40,7 +40,6 @@ public enum Attributes {
   alwaysVisible,
   arrows,
   autocomplete,
-  autoPaginator,
   autoReload,
   autoSpacing,
   backgroundImage,
@@ -344,6 +343,7 @@ public enum Attributes {
    * Used by a layout manager
    */
   paddingTop,
+  paginator,
   pagingTarget,
   password,
   placeholder,

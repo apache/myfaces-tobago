@@ -36,16 +36,16 @@ import javax.faces.component.UIOutput;
 /**
  * Renders a paginator to show and change the page number.
  */
-@Tag(name = "paginatorNumber")
+@Tag(name = "paginatorPage")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIPaginatorNumber",
+    uiComponent = "org.apache.myfaces.tobago.component.UIPaginatorPage",
     uiComponentFacesClass = "javax.faces.component.UIOutput",
     componentFamily = UIOutput.COMPONENT_FAMILY,
-    rendererType = RendererTypes.PAGINATOR_NUMBER,
+    rendererType = RendererTypes.PAGINATOR_PAGE,
     allowedChildComponenents = "NONE"
 )
 
-public interface PaginatorNumberTagDeclaration
+public interface PaginatorPageTagDeclaration
     extends HasIdBindingAndRendered, HasTip, IsVisual, IsAlwaysVisible, HasArrows, HasFor {
 
   /**

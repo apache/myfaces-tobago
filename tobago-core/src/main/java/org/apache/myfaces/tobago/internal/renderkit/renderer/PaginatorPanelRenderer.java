@@ -40,9 +40,10 @@ public class PaginatorPanelRenderer<T extends AbstractUIPaginatorPanel> extends 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.startElement(HtmlElements.TOBAGO_PAGINATOR_PANEL);
     writer.writeIdAttribute(paginator.getClientId(facesContext));
+    final int childCount = paginator.getChildCount();
     writer.writeClassAttribute(
         BootstrapClass.D_FLEX,
-        BootstrapClass.JUSTIFY_CONTENT_BETWEEN,
+        childCount > 1 ? BootstrapClass.JUSTIFY_CONTENT_BETWEEN : BootstrapClass.JUSTIFY_CONTENT_CENTER,
         paginator.getCustomClass());
   }
 

@@ -17,23 +17,45 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.taglib.declaration;
+package org.apache.myfaces.tobago.layout;
 
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.layout.Arrows;
+/**
+ * Show Arrows, or not.
+ *
+ * @since 5.14.0, 6.6.0
+ */
+public enum Arrows {
 
-public interface HasArrows {
   /**
    * Show arrows at this control.
    */
-  @TagAttribute
-  @UIComponentTagAttribute(
-      type = "org.apache.myfaces.tobago.layout.Arrows",
-      defaultValue = Arrows.AUTO,
-      allowedValues = {
-          Arrows.AUTO, Arrows.SHOW, Arrows.HIDE
-      },
-      defaultCode = "org.apache.myfaces.tobago.layout.Arrows.auto")
-  void setArrows(String arrows);
+  show,
+
+  /**
+   * Hide arrows at this control.
+   */
+  hide,
+
+  /**
+   * Arrows will be shown automatically (currently the same as {@link #show}).
+   */
+  auto;
+
+  public static final String SHOW = "show";
+  public static final String HIDE = "hide";
+  public static final String AUTO = "auto";
+
+  /**
+   * @param name Name of the Arrows.
+   * @throws IllegalArgumentException When the name doesn't match any {@link Arrows}.
+   */
+  public static Arrows parse(final Object name) throws IllegalArgumentException {
+    if (name == null) {
+      return null;
+    }
+    if (name instanceof Arrows) {
+      return (Arrows) name;
+    }
+    return valueOf(name.toString());
+  }
 }

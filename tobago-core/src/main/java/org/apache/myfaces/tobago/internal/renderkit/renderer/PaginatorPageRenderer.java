@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.event.SheetAction;
 import org.apache.myfaces.tobago.internal.component.AbstractUILink;
-import org.apache.myfaces.tobago.internal.component.AbstractUIPaginatorNumber;
+import org.apache.myfaces.tobago.internal.component.AbstractUIPaginatorPage;
 import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
@@ -42,7 +42,7 @@ import java.lang.invoke.MethodHandles;
 import java.text.MessageFormat;
 import java.util.Locale;
 
-public class PaginatorNumberRenderer<T extends AbstractUIPaginatorNumber> extends PaginatorRenderer<T> {
+public class PaginatorPageRenderer<T extends AbstractUIPaginatorPage> extends PaginatorRenderer<T> {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -57,7 +57,7 @@ public class PaginatorNumberRenderer<T extends AbstractUIPaginatorNumber> extend
     final AbstractUISheet sheet = paginator.getPageable();
     final boolean visible = paginator.isAlwaysVisible() || sheet.needMoreThanOnePage();
 
-    writer.startElement(HtmlElements.TOBAGO_PAGINATOR_NUMBER);
+    writer.startElement(HtmlElements.TOBAGO_PAGINATOR_PAGE);
     writer.writeIdAttribute(paginator.getClientId(facesContext));
     writer.writeClassAttribute(
         visible ? null : BootstrapClass.D_NONE,
@@ -132,6 +132,6 @@ public class PaginatorNumberRenderer<T extends AbstractUIPaginatorNumber> extend
   @Override
   public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    writer.endElement(HtmlElements.TOBAGO_PAGINATOR_NUMBER);
+    writer.endElement(HtmlElements.TOBAGO_PAGINATOR_PAGE);
   }
 }

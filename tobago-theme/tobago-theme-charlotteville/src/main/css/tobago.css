@@ -13044,14 +13044,14 @@ tobago-page .tobago-page-toastStore .toast .tobago-auto-spacing {
 /* paginator-list ------------------------------------------------------------- */
 /* paginator-number ------------------------------------------------------------- */
 /* paginator-row ------------------------------------------------------------- */
-tobago-paginator-list, tobago-paginator-number, tobago-paginator-row {
+tobago-paginator-list, tobago-paginator-page, tobago-paginator-row {
   margin-top: 1rem;
   margin-bottom: 0;
 }
-tobago-paginator-list .page-link, tobago-paginator-number .page-link, tobago-paginator-row .page-link {
+tobago-paginator-list .page-link, tobago-paginator-page .page-link, tobago-paginator-row .page-link {
   cursor: pointer;
 }
-tobago-paginator-list .page-link input, tobago-paginator-number .page-link input, tobago-paginator-row .page-link input {
+tobago-paginator-list .page-link input, tobago-paginator-page .page-link input, tobago-paginator-row .page-link input {
   text-align: center;
   display: none;
   margin: -4px 0;
@@ -13061,14 +13061,14 @@ tobago-paginator-list .page-link input, tobago-paginator-number .page-link input
 /* paginator-list ------------------------------------------------------------- */
 /* paginator-number ------------------------------------------------------------- */
 /* paginator-row ------------------------------------------------------------- */
-tobago-paginator-list, tobago-paginator-number, tobago-paginator-row {
+tobago-paginator-list, tobago-paginator-page, tobago-paginator-row {
   margin-top: 1rem;
   margin-bottom: 0;
 }
-tobago-paginator-list .page-link, tobago-paginator-number .page-link, tobago-paginator-row .page-link {
+tobago-paginator-list .page-link, tobago-paginator-page .page-link, tobago-paginator-row .page-link {
   cursor: pointer;
 }
-tobago-paginator-list .page-link input, tobago-paginator-number .page-link input, tobago-paginator-row .page-link input {
+tobago-paginator-list .page-link input, tobago-paginator-page .page-link input, tobago-paginator-row .page-link input {
   text-align: center;
   display: none;
   margin: -4px 0;

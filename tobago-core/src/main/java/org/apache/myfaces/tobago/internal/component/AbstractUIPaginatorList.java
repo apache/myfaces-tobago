@@ -19,8 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.layout.Arrows;
+
 public abstract class AbstractUIPaginatorList extends AbstractUIPaginator {
 
-  public abstract boolean isArrows();
+  public abstract Arrows getArrows();
 
 }

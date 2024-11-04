@@ -41,7 +41,7 @@ import org.apache.myfaces.tobago.component.UILinks;
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPaginatorList;
-import org.apache.myfaces.tobago.component.UIPaginatorNumber;
+import org.apache.myfaces.tobago.component.UIPaginatorPage;
 import org.apache.myfaces.tobago.component.UIPaginatorPanel;
 import org.apache.myfaces.tobago.component.UIPaginatorRow;
 import org.apache.myfaces.tobago.component.UIPanel;
@@ -92,7 +92,7 @@ import org.apache.myfaces.tobago.internal.renderkit.renderer.LinksRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.OutRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PageRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PaginatorListRenderer;
-import org.apache.myfaces.tobago.internal.renderkit.renderer.PaginatorNumberRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.PaginatorPageRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PaginatorPanelRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PaginatorRowRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PanelRenderer;
@@ -193,7 +193,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(Tags.out.componentType(), UIOut.class.getName());
     application.addComponent(Tags.page.componentType(), UIPage.class.getName());
     application.addComponent(Tags.paginatorList.componentType(), UIPaginatorList.class.getName());
-    application.addComponent(Tags.paginatorNumber.componentType(), UIPaginatorNumber.class.getName());
+    application.addComponent(Tags.paginatorPage.componentType(), UIPaginatorPage.class.getName());
     application.addComponent(Tags.paginatorPanel.componentType(), UIPaginatorPanel.class.getName());
     application.addComponent(Tags.paginatorRow.componentType(), UIPaginatorRow.class.getName());
     application.addComponent(Tags.panel.componentType(), UIPanel.class.getName());
@@ -251,8 +251,8 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     renderKit.addRenderer(UIPage.COMPONENT_FAMILY, RendererTypes.PAGE, new PageRenderer<UIPage>());
     renderKit.addRenderer(UIPaginatorList.COMPONENT_FAMILY, RendererTypes.PAGINATOR_LIST,
         new PaginatorListRenderer<UIPaginatorList>());
-    renderKit.addRenderer(UIPaginatorNumber.COMPONENT_FAMILY, RendererTypes.PAGINATOR_NUMBER,
-        new PaginatorNumberRenderer<UIPaginatorNumber>());
+    renderKit.addRenderer(UIPaginatorPage.COMPONENT_FAMILY, RendererTypes.PAGINATOR_PAGE,
+        new PaginatorPageRenderer<UIPaginatorPage>());
     renderKit.addRenderer(UIPaginatorPanel.COMPONENT_FAMILY, RendererTypes.PAGINATOR_PANEL,
         new PaginatorPanelRenderer<UIPaginatorPanel>());
     renderKit.addRenderer(UIPaginatorRow.COMPONENT_FAMILY, RendererTypes.PAGINATOR_ROW,

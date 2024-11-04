@@ -36,6 +36,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasVar;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRoot;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsShowRootJunction;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
+import org.apache.myfaces.tobago.layout.PaginatorMode;
 import org.apache.myfaces.tobago.layout.ShowPosition;
 import org.apache.myfaces.tobago.model.Selectable;
 
@@ -161,14 +162,20 @@ public interface SheetTagDeclaration
    * </ul>
    * <li>showPagingAlways="true" means, that the paging footer should be displayed in any case.
    * </ul>
+   *
+   * @deprecated Use paginator attribute or paginator tags instead.
    */
+  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setShowPagingAlways(String showPagingAlways);
 
   /**
-   * The count of rendered direct paging links in the sheet's footer.<br>
+   * The count of rendered direct paging links in the sheet's footer.
+   *
+   * @deprecated Use paginator attribute or paginator tags instead.
    */
+  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "9")
   void setDirectLinkCount(String directLinkCount);
@@ -176,7 +183,10 @@ public interface SheetTagDeclaration
   /**
    * Flag indicating whether or not a range of direct paging links should be
    * rendered in the sheet's footer.
+   *
+   * @deprecated Use paginator attribute or paginator tags instead.
    */
+  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.ShowPosition",
@@ -191,7 +201,10 @@ public interface SheetTagDeclaration
    * Flag indicating whether and where the range pages should
    * rendered in the sheet's footer. Rendering this range also offers the
    * capability to enter the index displayed page directly.
+   *
+   * @deprecated Use paginator attribute or paginator tags instead.
    */
+  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.ShowPosition",
@@ -206,7 +219,10 @@ public interface SheetTagDeclaration
    * Flag indicating whether or not the range of displayed rows should
    * rendered in the sheet's footer. Rendering this range also offers the
    * capability to enter the index of the start row directly.
+   *
+   * @deprecated Use paginator attribute or paginator tags instead.
    */
+  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.ShowPosition",
@@ -283,13 +299,15 @@ public interface SheetTagDeclaration
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "50")
-  void setLazyRows(String lazy);
+  void setLazyRows(String lazyRows);
 
   /**
    * Flag indicating if paging arrows are shown near direct links
    *
    * @since 2.0.0
+   * @deprecated Use paginator attribute or paginator tags instead.
    */
+  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setShowDirectLinksArrows(String showDirectLinksArrows);
@@ -298,7 +316,9 @@ public interface SheetTagDeclaration
    * Flag indicating if paging arrows are shown near page range
    *
    * @since 2.0.0
+   * @deprecated Use paginator attribute or paginator tags instead.
    */
+  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setShowPageRangeArrows(String showPageRangeArrows);
@@ -313,9 +333,51 @@ public interface SheetTagDeclaration
   void setMaxSortColumns(String maxSortColumns);
 
   /**
-   * Create paginator components automatically like configured by the show-attributes.
+   * Create paginator components automatically or do it manually.
+   * <ul>
+   *   <li>
+   *      <b>custom</b>: no paginator is created automatically, you have to do it manually.
+   *      This can be done
+   *      using a <code>&lt;tc:paginatorPanel&gt;</code>
+   *      with e.g. a <code>&lt;tc:paginatorList&gt;</code> and/or some other
+   *      paginator components.
+   *   </li>
+   *   <li>
+   *     <b>auto</b>: a appropriate paginator is used.
+   *   </li>
+   *   <li>
+   *     <b>list</b>: a <code>&lt;tc:paginatorList&gt;</code> is used.
+   *   </li>
+   *   <li>
+   *     <b>page</b>: a <code>&lt;tc:paginatorPage&gt;</code> is used.
+   *   </li>
+   *   <li>
+   *     <b>row</b>: a <code>&lt;tc:paginatorRow&gt;</code> is used.
+   *   </li>
+   *   <li>
+   *     <b>useShowAttributes</b> (default):
+   *     is deprecated, use for compatibility.
+   *     The used paginators are defined by the show-attributes:
+   *     <code>showDirectLinks</code>,
+   *     <code>showPageRange</code>,
+   *     <code>showRowRange</code>,
+   *     <code>directLinkCount</code>,
+   *     <code>showDirectLinksArrows</code>,
+   *     <code>showPageRangeArrows</code>,
+   *     <code>showPagingAlways</code>.
+   *   </li>
+   * </ul>
+   *
+   * @since 5.14.0, 6.6.0
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
-  void setAutoPaginator(String autoPaginator);
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.layout.PaginatorMode",
+      defaultValue = PaginatorMode.USE_SHOW_ATTRIBUTES,
+      allowedValues = {
+          PaginatorMode.AUTO, PaginatorMode.CUSTOM, PaginatorMode.LIST, PaginatorMode.PAGE, PaginatorMode.ROW,
+          PaginatorMode.USE_SHOW_ATTRIBUTES
+      },
+      defaultCode = "org.apache.myfaces.tobago.layout.PaginatorMode.useShowAttributes")
+  void setPaginator(String paginator);
 }

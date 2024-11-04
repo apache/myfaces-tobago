@@ -63,7 +63,7 @@ public enum Tags {
   out,
   page,
   paginatorList,
-  paginatorNumber,
+  paginatorPage,
   paginatorPanel,
   paginatorRow,
   panel,
@@ -143,7 +143,7 @@ public enum Tags {
   public static final String OUT = "out";
   public static final String PAGE = "page";
   public static final String PAGINATOR_LIST = "paginatorList";
-  public static final String PAGINATOR_NUMBER = "paginatorNumber";
+  public static final String PAGINATOR_PAGE = "paginatorPage";
   public static final String PAGINATOR_PANEL = "paginatorPanel";
   public static final String PAGINATOR_ROW = "paginatorRow";
   public static final String PANEL = "panel";

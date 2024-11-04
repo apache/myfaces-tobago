@@ -58,7 +58,7 @@ public enum RendererTypes {
   Out,
   Page,
   PaginatorList,
-  PaginatorNumber,
+  PaginatorPage,
   PaginatorPanel,
   PaginatorRow,
   Panel,
@@ -139,7 +139,7 @@ public enum RendererTypes {
   public static final String OUT = "Out";
   public static final String PAGE = "Page";
   public static final String PAGINATOR_LIST = "PaginatorList";
-  public static final String PAGINATOR_NUMBER = "PaginatorNumber";
+  public static final String PAGINATOR_PAGE = "PaginatorPage";
   public static final String PAGINATOR_PANEL = "PaginatorPanel";
   public static final String PAGINATOR_ROW = "PaginatorRow";
   public static final String PANEL = "Panel";
