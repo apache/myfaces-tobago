@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.layout;
 /**
  * Describes the mode of automatically displayed paginator.
  *
- * @since 5.14.0, 6.6.0
+ * @since 5.15.0, 6.7.0
  */
 public enum PaginatorMode {
 
@@ -59,7 +59,7 @@ public enum PaginatorMode {
    *
    * @deprecated Please use {@link #auto} if possible, or write a custom paginator.
    */
-  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
+  @Deprecated(since = "5.15.0, 6.7.0", forRemoval = true)
   useShowAttributes;
 
   public static final String AUTO = "auto";
@@ -67,7 +67,7 @@ public enum PaginatorMode {
   public static final String LIST = "list";
   public static final String PAGE = "page";
   public static final String ROW = "row";
-  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
+  @Deprecated(since = "5.15.0, 6.7.0", forRemoval = true)
   public static final String USE_SHOW_ATTRIBUTES = "useShowAttributes";
 
   /**

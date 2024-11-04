@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.layout;
 /**
  * Show Arrows, or not.
  *
- * @since 5.14.0, 6.6.0
+ * @since 5.15.0, 6.7.0
  */
 public enum Arrows {
 

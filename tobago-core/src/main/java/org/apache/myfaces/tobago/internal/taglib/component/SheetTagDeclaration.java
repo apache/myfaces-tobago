@@ -165,7 +165,7 @@ public interface SheetTagDeclaration
    *
    * @deprecated Use paginator attribute or paginator tags instead.
    */
-  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
+  @Deprecated(since = "5.15.0, 6.7.0", forRemoval = true)
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setShowPagingAlways(String showPagingAlways);
@@ -175,7 +175,7 @@ public interface SheetTagDeclaration
    *
    * @deprecated Use paginator attribute or paginator tags instead.
    */
-  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
+  @Deprecated(since = "5.15.0, 6.7.0", forRemoval = true)
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "9")
   void setDirectLinkCount(String directLinkCount);
@@ -186,7 +186,7 @@ public interface SheetTagDeclaration
    *
    * @deprecated Use paginator attribute or paginator tags instead.
    */
-  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
+  @Deprecated(since = "5.15.0, 6.7.0", forRemoval = true)
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.ShowPosition",
@@ -204,7 +204,7 @@ public interface SheetTagDeclaration
    *
    * @deprecated Use paginator attribute or paginator tags instead.
    */
-  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
+  @Deprecated(since = "5.15.0, 6.7.0", forRemoval = true)
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.ShowPosition",
@@ -222,7 +222,7 @@ public interface SheetTagDeclaration
    *
    * @deprecated Use paginator attribute or paginator tags instead.
    */
-  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
+  @Deprecated(since = "5.15.0, 6.7.0", forRemoval = true)
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.ShowPosition",
@@ -307,7 +307,7 @@ public interface SheetTagDeclaration
    * @since 2.0.0
    * @deprecated Use paginator attribute or paginator tags instead.
    */
-  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
+  @Deprecated(since = "5.15.0, 6.7.0", forRemoval = true)
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setShowDirectLinksArrows(String showDirectLinksArrows);
@@ -318,7 +318,7 @@ public interface SheetTagDeclaration
    * @since 2.0.0
    * @deprecated Use paginator attribute or paginator tags instead.
    */
-  @Deprecated(since = "5.14.0, 6.6.0", forRemoval = true)
+  @Deprecated(since = "5.15.0, 6.7.0", forRemoval = true)
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setShowPageRangeArrows(String showPageRangeArrows);
@@ -368,7 +368,7 @@ public interface SheetTagDeclaration
    *   </li>
    * </ul>
    *
-   * @since 5.14.0, 6.6.0
+   * @since 5.15.0, 6.7.0
    */
   @TagAttribute
   @UIComponentTagAttribute(
