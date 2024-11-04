@@ -23,6 +23,11 @@ interface Options {
   params?: Context,
   delay?: number,
   resetValues?: boolean,
+  myfaces?: {
+    upload: {
+      onProgress: ((upload: XMLHttpRequestUpload, event: ProgressEvent) => any)
+    }
+  }
 }
 
 type Context = Record<string, any>;
