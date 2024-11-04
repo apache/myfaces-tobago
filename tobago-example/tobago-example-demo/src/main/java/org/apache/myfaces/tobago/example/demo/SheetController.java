@@ -68,6 +68,8 @@ public class SheetController implements Serializable {
 
   private List<SolarObject> solarList;
   private List<SolarObject> hugeSolarList;
+  private List<SolarObject> smallSolarList;
+  private List<SolarObject> emptySolarList;
   private SheetState sheetState;
   private SolarObject selectedSolarObject;
   private boolean automaticLayout;
@@ -82,6 +84,13 @@ public class SheetController implements Serializable {
   @PostConstruct
   private void init() {
     solarList = astroData.findAll().collect(Collectors.toList());
+
+    smallSolarList = new ArrayList<>();
+    smallSolarList.add(solarList.get(0));
+    smallSolarList.add(solarList.get(1));
+    smallSolarList.add(solarList.get(2));
+
+    emptySolarList = new ArrayList<>();
 
     int j = 1;
     hugeSolarList = new ArrayList<>();
@@ -104,6 +113,14 @@ public class SheetController implements Serializable {
 
   public List<SolarObject> getHugeSolarList() {
     return hugeSolarList;
+  }
+
+  public List<SolarObject> getSmallSolarList() {
+    return smallSolarList;
+  }
+
+  public List<SolarObject> getEmptySolarList() {
+    return emptySolarList;
   }
 
   public SheetState getSheetState() {

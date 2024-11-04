@@ -1104,6 +1104,8 @@ tobago-overlay {
   }
 }
 
+/* page ----------------------------------------------------------- */
+
 tobago-page {
   display: block;
   padding-top: $tobago-page-padding-top;
@@ -1170,6 +1172,75 @@ tobago-page {
   &tobago-panel {
     overflow-x: hidden;
     overflow-y: auto;
+  }
+}
+
+/* paginator-panel ------------------------------------------------------------- */
+
+tobago-paginator-panel {
+}
+
+/* paginator-list ------------------------------------------------------------- */
+
+tobago-paginator-list {
+}
+
+/* paginator-number ------------------------------------------------------------- */
+
+tobago-paginator-page {
+}
+
+/* paginator-row ------------------------------------------------------------- */
+
+tobago-paginator-row {
+
+}
+
+tobago-paginator-list, tobago-paginator-page, tobago-paginator-row {
+  margin-top: 1rem;
+  margin-bottom: 0;
+
+  .page-link {
+    cursor: pointer;
+
+    input {
+      text-align: center;
+      display: none;
+      margin: -4px 0;
+      width: 3em;
+    }
+  }
+}
+
+/* paginator-list ------------------------------------------------------------- */
+
+tobago-paginator-list {
+}
+
+/* paginator-number ------------------------------------------------------------- */
+
+tobago-paginator-page {
+}
+
+/* paginator-row ------------------------------------------------------------- */
+
+tobago-paginator-row {
+
+}
+
+tobago-paginator-list, tobago-paginator-page, tobago-paginator-row {
+  margin-top: 1rem;
+  margin-bottom: 0;
+
+  .page-link {
+    cursor: pointer;
+
+    input {
+      text-align: center;
+      display: none;
+      margin: -4px 0;
+      width: 3em;
+    }
   }
 }
 
@@ -1677,6 +1748,8 @@ tobago-sheet {
   footer {
     display: flex;
     flex-wrap: wrap;
+
+    // XXX TOBAGO-2243 might to be removed, because it's now directly in the new components
 
     .pagination {
       margin-top: 1rem;
