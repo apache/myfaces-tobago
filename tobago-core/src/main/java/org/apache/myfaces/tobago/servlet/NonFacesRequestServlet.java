@@ -38,9 +38,9 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 
 /**
- * @deprecated since Tobago 2.0.8 - Please use &lt;f:initParam&gt; instead - see also TOBAGO-1456
+ * @deprecated Please use &lt;f:initParam&gt; instead - see also TOBAGO-1456
  */
-@Deprecated
+@Deprecated(since = "2.0.8", forRemoval = true)
 public abstract class NonFacesRequestServlet extends HttpServlet {
 
   private static final long serialVersionUID = -7448621953821447997L;

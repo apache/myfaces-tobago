@@ -32,17 +32,17 @@ public @interface UIComponentTag {
   String uiComponent();
 
   /**
-   * @deprecated since 4.4.0. Will set automatically.
+   * @deprecated Will set automatically.
    */
-  @Deprecated
+  @Deprecated(since = "4.4.0", forRemoval = true)
   String uiComponentBaseClass() default "";
 
   String uiComponentFacesClass() default "javax.faces.component.UIComponentBase";
 
   /**
-   * @deprecated since 4.4.0. Will set automatically.
+   * @deprecated Will set automatically.
    */
-  @Deprecated
+  @Deprecated(since = "4.4.0", forRemoval = true)
   String componentType() default "";
 
   String componentFamily() default "";

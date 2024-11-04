@@ -64,64 +64,64 @@ public enum HtmlAttributes implements MarkupLanguageAttributes {
   MIN("min"),
   MINLENGTH("minlength"),
   /**
-   * @deprecated Since 2.0.0. This attribute work not with SCP
+   * @deprecated This attribute work not with SCP
    */
-  @Deprecated
+  @Deprecated(since = "2.0.0", forRemoval = true)
   ONBLUR("onblur"),
   /**
-   * @deprecated Since 2.0.0. This attribute work not with SCP
+   * @deprecated This attribute work not with SCP
    */
-  @Deprecated
+  @Deprecated(since = "2.0.0", forRemoval = true)
   ONCHANGE("onchange"),
   /**
-   * @deprecated Since 2.0.0. This attribute work not with SCP
+   * @deprecated This attribute work not with SCP
    */
-  @Deprecated
+  @Deprecated(since = "2.0.0", forRemoval = true)
   ONCLICK("onclick"),
   /**
-   * @deprecated Since 2.0.0. This attribute work not with SCP
+   * @deprecated This attribute work not with SCP
    */
-  @Deprecated
+  @Deprecated(since = "2.0.0", forRemoval = true)
   ONDBLCLICK("ondblclick"),
   /**
-   * @deprecated Since 2.0.0. This attribute work not with SCP
+   * @deprecated This attribute work not with SCP
    */
-  @Deprecated
+  @Deprecated(since = "2.0.0", forRemoval = true)
   ONFOCUS("onfocus"),
   /**
-   * @deprecated Since 2.0.0. This attribute work not with SCP
+   * @deprecated This attribute work not with SCP
    */
-  @Deprecated
+  @Deprecated(since = "2.0.0", forRemoval = true)
   ONFOCUSIN("onfocusin"),
   /**
-   * @deprecated Since 2.0.0. This attribute work not with SCP
+   * @deprecated This attribute work not with SCP
    */
-  @Deprecated
+  @Deprecated(since = "2.0.0", forRemoval = true)
   ONKEYDOWN("onkeydown"),
   /**
-   * @deprecated Since 2.0.0. This attribute work not with SCP
+   * @deprecated This attribute work not with SCP
    */
-  @Deprecated
+  @Deprecated(since = "2.0.0", forRemoval = true)
   ONKEYPRESS("onkeypress"),
   /**
-   * @deprecated Since 2.0.0. This attribute work not with SCP
+   * @deprecated This attribute work not with SCP
    */
-  @Deprecated
+  @Deprecated(since = "2.0.0", forRemoval = true)
   ONKEYUP("onkeyup"),
   /**
-   * @deprecated Since 2.0.0. This attribute work not with SCP
+   * @deprecated This attribute work not with SCP
    */
-  @Deprecated
+  @Deprecated(since = "2.0.0", forRemoval = true)
   ONLOAD("onload"),
   /**
-   * @deprecated Since 2.0.0. This attribute work not with SCP
+   * @deprecated This attribute work not with SCP
    */
-  @Deprecated
+  @Deprecated(since = "2.0.0", forRemoval = true)
   ONMOUSEOVER("onmouseover"),
   /**
-   * @deprecated Since 2.0.0. This attribute work not with SCP
+   * @deprecated This attribute work not with SCP
    */
-  @Deprecated
+  @Deprecated(since = "2.0.0", forRemoval = true)
   ONMOUSEOUT("onmouseout"),
   PATTERN("pattern"),
   PLACEHOLDER("placeholder"),
@@ -139,9 +139,9 @@ public enum HtmlAttributes implements MarkupLanguageAttributes {
   SRC("src"),
   STEP("step"),
   /**
-   * @deprecated Since 2.0.0. This attribute work not with SCP
+   * @deprecated This attribute work not with SCP
    */
-  @Deprecated
+  @Deprecated(since = "2.0.0", forRemoval = true)
   STYLE("style"),
   SUMMARY("summary"),
   TABINDEX("tabindex"),

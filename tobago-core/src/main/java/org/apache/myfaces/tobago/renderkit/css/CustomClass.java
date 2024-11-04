@@ -87,10 +87,7 @@ public class CustomClass implements CssItem {
     return result.toString();
   }
 
-  /**
-   * @deprecated since 4.0.0
-   */
-  @Deprecated
+  @Deprecated(since = "4.0.0", forRemoval = true)
   public static CustomClass valueOf(final String text) {
     return new CustomClass(text);
   }

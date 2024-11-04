@@ -50,9 +50,9 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   /**
-   * @deprecated since 2.0.0. The marked concept has been replaced by "selected".
+   * @deprecated The marked concept has been replaced by "selected".
    */
-  @Deprecated
+  @Deprecated(since = "2.0.0", forRemoval = true)
   public static final String SUFFIX_MARKED = "marked";
   public static final String SUFFIX_SELECTED = "selected";
   public static final String SUFFIX_EXPANDED = "expanded";
@@ -103,9 +103,9 @@ public abstract class AbstractUIData extends javax.faces.component.UIData implem
   }
 
   /**
-   * @deprecated since 3.0.0, please use {@link #getSelectable}
+   * @deprecated Please use {@link #getSelectable}
    */
-  @Deprecated
+  @Deprecated(since = "3.0.0", forRemoval = true)
   public Selectable getSelectableAsEnum() {
     return getSelectable();
   }

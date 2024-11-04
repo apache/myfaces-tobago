@@ -37,9 +37,9 @@ public class TabChangeEvent extends ActionEvent {
   }
 
   /**
-   * @deprecated since 2.0.0, please use {@link #TabChangeEvent(UIComponent, Integer, Integer)}
+   * @deprecated Please use {@link #TabChangeEvent(UIComponent, Integer, Integer)}
    */
-  @Deprecated
+  @Deprecated(since = "2.0.0", forRemoval = true)
   public TabChangeEvent(final UIComponent uiComponent, final Object oldState, final Object newState) {
     super(uiComponent);
     setOldState(oldState);
@@ -67,33 +67,33 @@ public class TabChangeEvent extends ActionEvent {
   }
 
   /**
-   * @deprecated since 1.0.31, please use {@link #getOldTabIndex()}
+   * @deprecated Please use {@link #getOldTabIndex()}
    */
-  @Deprecated
+  @Deprecated(since = "1.0.31", forRemoval = true)
   public Object getOldState() {
     return oldTabIndex;
   }
 
   /**
-   * @deprecated since 1.0.31, not supported anymore
+   * @deprecated Not supported anymore
    */
-  @Deprecated
+  @Deprecated(since = "1.0.31", forRemoval = true)
   public void setOldState(final Object oldState) {
     this.oldTabIndex = oldState instanceof Integer ? (Integer) oldState : -1;
   }
 
   /**
-   * @deprecated since 1.0.31, please use {@link #getNewTabIndex()}
+   * @deprecated Please use {@link #getNewTabIndex()}
    */
-  @Deprecated
+  @Deprecated(since = "1.0.31", forRemoval = true)
   public Object getNewState() {
     return newTabIndex;
   }
 
   /**
-   * @deprecated since 1.0.31, not supported anymore
+   * @deprecated Not supported anymore
    */
-  @Deprecated
+  @Deprecated(since = "1.0.31", forRemoval = true)
   public void setNewState(final Object newState) {
     this.newTabIndex = newState instanceof Integer ? (Integer) newState : -1;
   }

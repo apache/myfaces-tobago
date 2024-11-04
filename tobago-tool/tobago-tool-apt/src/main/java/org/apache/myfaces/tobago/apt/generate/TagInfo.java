@@ -25,10 +25,7 @@ import java.util.List;
 public class TagInfo extends RendererInfo {
   private List<PropertyInfo> properties = new ArrayList<>();
   private String componentClassName;
-  /**
-   * @deprecated since 4.4.0
-   */
-  @Deprecated
+  @Deprecated(since = "4.4.0", forRemoval = true)
   private String componentType;
   private String tagName;
   private String componentFamily;
@@ -40,10 +37,7 @@ public class TagInfo extends RendererInfo {
     tagName = ClassUtils.getSmallSimpleName(qualifiedName);
   }
 
-  /**
-   * @deprecated since 4.4.0
-   */
-  @Deprecated
+  @Deprecated(since = "4.4.0", forRemoval = true)
   public TagInfo(final String sourceClass, final String qualifiedName) {
     super(sourceClass, qualifiedName);
   }

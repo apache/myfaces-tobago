@@ -33,4 +33,6 @@ public abstract class AbstractUIEvent extends AbstractUICommandBase implements C
   public abstract void setEvent(ClientBehaviors event);
 
   public abstract Boolean getStopPropagation();
+
+  public abstract String getCustomEventName();
 }

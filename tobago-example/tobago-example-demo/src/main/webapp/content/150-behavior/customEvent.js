@@ -17,8 +17,7 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.event;
-
-@Deprecated(since = "4.0.0", forRemoval = true)
-public interface SortActionSource2 extends SortActionSource {
-}
+document.addEventListener("DOMContentLoaded", function (event) {
+  document.querySelector("body").addEventListener("my-event", () =>
+      document.querySelector(".custom-event-result").textContent = "my-event fired at " + new Date());
+});

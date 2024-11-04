@@ -46,10 +46,7 @@ public enum HtmlElements {
   CODE("code", Qualifier.INLINE),
   COL("col", Qualifier.VOID),
   COLGROUP("colgroup"),
-  /**
-   * @deprecated
-   */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   COMMAND("command", Qualifier.VOID),
   DATALIST("datalist"),
   DD("dd"),

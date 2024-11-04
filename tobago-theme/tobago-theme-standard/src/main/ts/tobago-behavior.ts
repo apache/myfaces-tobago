@@ -92,6 +92,10 @@ class Behavior extends HTMLElement {
         // nothing to do
     }
 
+    if (event) {
+      event.currentTarget.dispatchEvent(new CustomEvent(this.customEventName, {bubbles: true}));
+    }
+
     if (this.collapseOperation && this.collapseTarget) {
       const rootNode = this.getRootNode() as ShadowRoot | Document;
       Collapse.execute(this.collapseOperation, rootNode.getElementById(this.collapseTarget), this.mode);
@@ -342,6 +346,10 @@ class Behavior extends HTMLElement {
 
   get stopPropagation(): boolean {
     return this.hasAttribute("stop-propagation");
+  }
+
+  get customEventName(): string {
+    return this.getAttribute("custom-event-name");
   }
 
   get actionElement(): HTMLElement {

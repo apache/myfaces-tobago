@@ -80,6 +80,7 @@ public class TobagoClientBehaviorRenderer extends ClientBehaviorRenderer {
     boolean resetValues = false;
     Integer delay = null;
     Boolean stopPropagation = null;
+    String customEventName = null;
 
     final String confirmation = ComponentUtils.getConfirmation(uiComponent);
     if (behavior instanceof AjaxBehavior) {
@@ -135,6 +136,7 @@ public class TobagoClientBehaviorRenderer extends ClientBehaviorRenderer {
           }
           omit = event.isOmit() || StringUtils.isNotBlank(RenderUtils.generateUrl(facesContext, event));
           stopPropagation = event.getStopPropagation();
+          customEventName = event.getCustomEventName();
         }
       }
     } else {
@@ -152,7 +154,8 @@ public class TobagoClientBehaviorRenderer extends ClientBehaviorRenderer {
         delay,
         collapse,
         omit,
-        stopPropagation);
+        stopPropagation,
+        customEventName);
 
     if (resetValues) {
       command.setResetValues(true);
@@ -224,9 +227,9 @@ public class TobagoClientBehaviorRenderer extends ClientBehaviorRenderer {
   }
 
   /**
-   * @deprecated TBD
+   * @deprecated TBD: find a better way to implement this.
    */
-  @Deprecated
+  @Deprecated(since = "3.0.0")
   public static Collapse createCollapsible(final FacesContext facesContext, final UIComponent component) {
     //// TBD: is this nice? May be implemented with a JSF behavior?
     //// BEGIN

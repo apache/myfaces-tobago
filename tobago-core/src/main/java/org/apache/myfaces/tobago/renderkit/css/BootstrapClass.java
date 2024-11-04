@@ -63,9 +63,9 @@ public enum BootstrapClass implements CssItem {
   ALIGN_MIDDLE("align-middle"),
   ALIGN_TOP("align-top"),
   /**
-   * @deprecated since 5.0.0, please use {@link #POPOVER_ARROW} or {@link #TOOLTIP_ARROW}
+   * @deprecated Please use {@link #POPOVER_ARROW} or {@link #TOOLTIP_ARROW}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   ARROW("arrow"),
   BG_DANGER("bg-danger"),
   BG_DARK("bg-dark"),
@@ -77,49 +77,49 @@ public enum BootstrapClass implements CssItem {
   BG_WARNING("bg-warning"),
   BADGE("badge"),
   /**
-   * @deprecated since 5.0.0, please use {@link #BG_DANGER}
+   * @deprecated Please use {@link #BG_DANGER}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   BADGE_DANGER("bg-danger"),
   /**
-   * @deprecated since 5.0.0, please use {@link #BG_DARK}
+   * @deprecated Please use {@link #BG_DARK}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   BADGE_DARK("bg-dark"),
   /**
-   * @deprecated since 5.0.0, please use {@link #BG_INFO}
+   * @deprecated Please use {@link #BG_INFO}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   BADGE_INFO("bg-info"),
   /**
-   * @deprecated since 5.0.0, please use {@link #BG_LIGHT}
+   * @deprecated Please use {@link #BG_LIGHT}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   BADGE_LIGHT("bg-light"),
   /**
-   * @deprecated since 5.0.0, please use {@link #ROUNDED_PILL}
+   * @deprecated Please use {@link #ROUNDED_PILL}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   BADGE_PILL("rounded-pill"),
   /**
-   * @deprecated since 5.0.0, please use {@link #BG_PRIMARY}
+   * @deprecated Please use {@link #BG_PRIMARY}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   BADGE_PRIMARY("bg-primary"),
   /**
-   * @deprecated since 5.0.0, please use {@link #BG_SECONDARY}
+   * @deprecated Please use {@link #BG_SECONDARY}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   BADGE_SECONDARY("bg-secondary"),
   /**
-   * @deprecated since 5.0.0, please use {@link #BG_SUCCESS}
+   * @deprecated Please use {@link #BG_SUCCESS}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   BADGE_SUCCESS("bg-success"),
   /**
-   * @deprecated since 5.0.0, please use {@link #BG_WARNING}
+   * @deprecated Please use {@link #BG_WARNING}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   BADGE_WARNING("bg-warning"),
   BORDER_DANGER("border-danger"),
   BORDER_INFO("border-info"),
@@ -154,9 +154,9 @@ public enum BootstrapClass implements CssItem {
   CARD_HEADER_TABS("card-header-tabs"),
   CARD_TITLE("card-title"),
   /**
-   * @deprecated since 5.0.0, please use {@link #BTN_CLOSE}
+   * @deprecated Please use {@link #BTN_CLOSE}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   CLOSE("btn-close"),
   COLLAPSE("collapse"),
   COL_FORM_LABEL("col-form-label"),
@@ -249,59 +249,59 @@ public enum BootstrapClass implements CssItem {
   CONTAINER("container"),
   CONTAINER_FLUID("container-fluid"),
   /**
-   * @deprecated since 5.0.0, please use {@link #FORM_CHECK}
+   * @deprecated Please use {@link #FORM_CHECK}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   CUSTOM_CHECKBOX("form-check"),
   /**
    * @deprecated since 5.0.0
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   CUSTOM_CONTROL("custom-control"),
   /**
-   * @deprecated since 5.0.0, please use {@link #FORM_CHECK_LABEL} or maybe any other?
+   * @deprecated Please use {@link #FORM_CHECK_LABEL} or maybe any other?
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   CUSTOM_CONTROL_LABEL("form-check-label"),
   /**
-   * @deprecated since 5.0.0, please use {@link #FORM_CHECK_INLINE} or maybe any other?
+   * @deprecated Please use {@link #FORM_CHECK_INLINE} or maybe any other?
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   CUSTOM_CONTROL_INLINE("form-check-inline"),
   /**
-   * @deprecated since 5.0.0, please use {@link #FORM_CHECK_INPUT} or maybe any other?
+   * @deprecated Please use {@link #FORM_CHECK_INPUT} or maybe any other?
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   CUSTOM_CONTROL_INPUT("form-check-input"),
   /**
    * @deprecated since 5.0.0
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   CUSTOM_FILE("custom-file"),
   /**
    * @deprecated since 5.0.0
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   CUSTOM_FILE_INPUT("custom-file-input"),
   /**
    * @deprecated since 5.0.0
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   CUSTOM_FILE_LABEL("custom-file-label"),
   /**
-   * @deprecated since 5.0.0, please use {@link #FORM_CHECK}
+   * @deprecated Please use {@link #FORM_CHECK}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   CUSTOM_RADIO("form-check"),
   /**
-   * @deprecated since 5.0.0, please use {@link #FORM_SELECT}
+   * @deprecated Please use {@link #FORM_SELECT}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   CUSTOM_SELECT("form-select"),
   /**
-   * @deprecated since 5.0.0, please use {@link #FORM_SWITCH}
+   * @deprecated Please use {@link #FORM_SWITCH}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   CUSTOM_SWITCH("form-switch"),
   D_FLEX("d-flex"),
   D_INLINE("d-inline"),
@@ -324,9 +324,9 @@ public enum BootstrapClass implements CssItem {
   FIGURE_IMG("figure-img"),
   FIXED_BOTTOM("fixed-bottom"),
   /**
-   * @deprecated since 5.0.0, please use {@link #STICKY_TOP}
+   * @deprecated Please use {@link #STICKY_TOP}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   FIXED_TOP("fixed-top"),
   FLEX_COLUMN("flex-column"),
   FLEX_COLUMN_REVERSE("flex-column-reverse"),
@@ -335,19 +335,19 @@ public enum BootstrapClass implements CssItem {
   FLOAT_END("float-end"),
   FLOAT_START("float-start"),
   /**
-   * @deprecated since 5.0.0, please use {@link #FST_ITALIC}
+   * @deprecated Please use {@link #FST_ITALIC}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   FONT_ITALIC("fst-italic"),
   /**
-   * @deprecated since 5.0.0, please use {@link #FW_BOLD}
+   * @deprecated Please use {@link #FW_BOLD}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   FONT_WEIGHT_BOLD("font-weight-bold"),
   /**
-   * @deprecated since 5.0.0, please use {@link #FW_LIGHT}
+   * @deprecated Please use {@link #FW_LIGHT}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   FONT_WEIGHT_LIGHT("font-weight-light"),
   FORM_CHECK("form-check"),
   FORM_CHECK_INLINE("form-check-inline"),
@@ -360,7 +360,7 @@ public enum BootstrapClass implements CssItem {
   /**
    * @deprecated since 5.0.0
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   FORM_FILE("form-file"),
   /**
    * @deprecated since 5.0.0
@@ -370,27 +370,27 @@ public enum BootstrapClass implements CssItem {
   /**
    * @deprecated since 5.0.0
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   FORM_FILE_INPUT("form-file-input"),
   /**
    * @deprecated since 5.0.0
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   FORM_FILE_LABEL("form-file-label"),
   /**
    * @deprecated since 5.0.0
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   FORM_FILE_TEXT("form-file-text"),
   /**
-   * @deprecated since 5.0.0, please use {@link #MB_3} or other
+   * @deprecated Please use {@link #MB_3} or other
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   FORM_GROUP("form-group"),
   /**
    * @deprecated since 5.0.0
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   FORM_INLINE("form-inline"),
   FORM_RANGE("form-range"),
   FORM_SELECT("form-select"),
@@ -411,12 +411,12 @@ public enum BootstrapClass implements CssItem {
   /**
    * @deprecated since 5.0.0
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   INPUT_GROUP_APPEND("input-group-append"),
   /**
    * @deprecated since 5.0.0
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   INPUT_GROUP_PREPEND("input-group-prepend"),
   INPUT_GROUP_TEXT("input-group-text"),
   INVISIBLE("invisible"),
@@ -588,9 +588,9 @@ public enum BootstrapClass implements CssItem {
   ROW("row"),
   SHOW("show"),
   /**
-   * @deprecated since 5.0.0, please use {@link #VISUALLY_HIDDEN}
+   * @deprecated Please use {@link #VISUALLY_HIDDEN}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   SR_ONLY("sr-only"),
   STICKY_TOP("sticky-top"),
   TEXT_BG_DANGER("text-bg-danger"),
@@ -612,20 +612,20 @@ public enum BootstrapClass implements CssItem {
   TEXT_WARNING("text-warning"),
   TEXT_CENTER("text-center"),
   /**
-   * @deprecated since 5.0.0, please use {@link org.apache.myfaces.tobago.renderkit.css.TobagoClass#TEXT__JUSTIFY}
+   * @deprecated Please use {@link org.apache.myfaces.tobago.renderkit.css.TobagoClass#TEXT__JUSTIFY}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   TEXT_JUSTIFY("tobago-text-justify"),
   /**
-   * @deprecated since 5.0.0, use {@link #TEXT_START}
+   * @deprecated Use {@link #TEXT_START}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   TEXT_LEFT("text-start"),
   TEXT_START("text-start"),
   /**
-   * @deprecated since 5.0.0, use {@link #TEXT_END}
+   * @deprecated Use {@link #TEXT_END}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   TEXT_RIGHT("text-end"),
   TEXT_END("text-end"),
   TAB_CONTENT("tab-content"),

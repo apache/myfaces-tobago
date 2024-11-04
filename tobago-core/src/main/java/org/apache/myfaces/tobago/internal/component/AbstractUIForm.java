@@ -24,15 +24,9 @@ package org.apache.myfaces.tobago.internal.component;
  */
 public abstract class AbstractUIForm extends AbstractUIFormBase {
 
-  /**
-   * @deprecated since 4.4.0.
-   */
-  @Deprecated
+  @Deprecated(since = "4.4.0", forRemoval = true)
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Form";
 
-  /**
-   * @deprecated since 4.0.0.
-   */
-  @Deprecated
+  @Deprecated(since = "4.0.0", forRemoval = true)
   public abstract boolean isInline();
 }

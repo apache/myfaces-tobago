@@ -107,9 +107,9 @@ public final class HtmlRendererUtils {
   }
 
   /**
-   * @deprecated since 5.0.0. Please use {@link RendererBase#renderSelectItems}
+   * @deprecated Please use {@link RendererBase#renderSelectItems}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   public static void renderSelectItems(
       final UIInput component, final TobagoClass optionClass,
       final Iterable<SelectItem> items, final Object[] values, final String[] submittedValues,
@@ -118,9 +118,9 @@ public final class HtmlRendererUtils {
   }
 
   /**
-   * @deprecated since 5.0.0. Please use {@link RendererBase#renderSelectItems}
+   * @deprecated Please use {@link RendererBase#renderSelectItems}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   public static void renderSelectItems(
       final UIInput component, final TobagoClass optionClass,
       final Iterable<SelectItem> items, final Object value, final String submittedValue,
@@ -130,9 +130,9 @@ public final class HtmlRendererUtils {
   }
 
   /**
-   * @deprecated since 5.0.0. Please use {@link RendererBase#renderSelectItems}
+   * @deprecated Please use {@link RendererBase#renderSelectItems}
    */
-  @Deprecated
+  @Deprecated(since = "5.0.0", forRemoval = true)
   public static void renderSelectItems(
       final UIInput component, final TobagoClass optionClass,
       final Iterable<SelectItem> items, final Object[] values, final String[] submittedValues,
