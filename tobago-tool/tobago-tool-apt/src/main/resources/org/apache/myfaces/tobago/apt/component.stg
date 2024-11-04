@@ -439,6 +439,14 @@ GridSpanProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
+PaginatorModeProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
+ArrowsProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
 DoubleProperty(property) ::= <<
 <NormalProperty(property)>
 >>
