@@ -170,7 +170,17 @@ class Behavior extends HTMLElement {
               execute: this.execute,
               render: this.render,
               resetValues: this.resetValues,
-              delay: this.delay
+              delay: this.delay,
+              onevent: (event: EventData) => {
+                console.debug(`Status: ${event.status} - Type: ${event.type}`);
+              },
+              myfaces: {
+                upload: {
+                  onProgress: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
+                    console.debug(`Progress: ${event.loaded} of ${event.total}`);
+                  }
+                }
+              }
             });
         break;
       case BehaviorMode.full:
