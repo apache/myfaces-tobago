@@ -20,7 +20,7 @@ import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("First section title is 'Intro'", function (done) {
   const titleOfFirstSectionHeader = querySelectorFn("tobago-section h1");
-  const introLinkFn = elementByIdFn("page:navigator:nav:1:cmd");
+  const introLinkFn = elementByIdFn("page:navigation:nav:1:cmd");
 
   const test = new JasmineTestTool(done);
   test.setup(() => titleOfFirstSectionHeader().textContent.trim() === "Intro", null, "click", introLinkFn);
