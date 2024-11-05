@@ -40,6 +40,7 @@ it("TOBAGO-2349: Lazy sheet: tobago-behavior not initialized", function (done) {
   test.setup(() => name().value === "Sun", null, "click", reset);
 
   test.do(() => focusRowIndex(18));
+  test.wait(() => isLoaded(18, 67));
   test.do(() => expect(isLoaded(18, 67)).toBeTrue());
   test.do(() => timestamp = Number(timestampElement().textContent));
   test.event("click", ajaxButton, () => Number(timestampElement().textContent) > timestamp);
