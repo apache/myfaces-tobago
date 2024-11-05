@@ -56,7 +56,11 @@ function activeElementFn() {
   return document.getElementById("page:testframe").contentWindow.document.activeElement;
 }
 
-export {elementByIdFn, querySelectorFn, querySelectorAllFn, activeElementFn};
+function isFirefox() {
+  return navigator.userAgent.toLowerCase().includes('firefox');
+}
+
+export {elementByIdFn, querySelectorFn, querySelectorAllFn, activeElementFn, isFirefox};
 
 beforeEach(function (done) {
   jasmine.DEFAULT_TIMEOUT_INTERVAL = 5 * 60 * 1000; //5 minutes

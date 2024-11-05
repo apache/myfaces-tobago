@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import {elementByIdFn, querySelectorFn} from "/script/tobago-test.js";
+import {elementByIdFn, isFirefox, querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("initial load", function (done) {
@@ -37,7 +37,14 @@ it("focus row index 200 and scroll up", function (done) {
   test.wait(() => Date.now() - timestamp > 200);
   test.do(() => focusRowIndex(200));
   test.wait(() => isLoaded(200));
-  test.do(() => expect(isLoaded(199)).toBeFalse());
+
+  if (isFirefox()) {
+    test.wait(() => isLoaded(199));
+    test.do(() => expect(isLoaded(189)).toBeFalse());
+    test.do(() => expect(isLoaded(190, 199)).toBeTrue());
+  } else {
+    test.do(() => expect(isLoaded(199)).toBeFalse());
+  }
   test.do(() => expect(isLoaded(200, 209)).toBeTrue());
   test.do(() => expect(isLoaded(210)).toBeFalse());
 
@@ -59,7 +66,14 @@ it("focus row index 300 and scroll down", function (done) {
   test.wait(() => Date.now() - timestamp > 200);
   test.do(() => focusRowIndex(300));
   test.wait(() => isLoaded(300));
-  test.do(() => expect(isLoaded(299)).toBeFalse());
+
+  if (isFirefox()) {
+    test.wait(() => isLoaded(299));
+    test.do(() => expect(isLoaded(289)).toBeFalse());
+    test.do(() => expect(isLoaded(290, 299)).toBeTrue());
+  } else {
+    test.do(() => expect(isLoaded(299)).toBeFalse());
+  }
   test.do(() => expect(isLoaded(300, 309)).toBeTrue());
   test.do(() => expect(isLoaded(310)).toBeFalse());
 
@@ -67,7 +81,12 @@ it("focus row index 300 and scroll down", function (done) {
   test.wait(() => Date.now() - timestamp > 200);
   test.do(() => focusRowIndex(301));
   test.wait(() => isLoaded(310));
-  test.do(() => expect(isLoaded(299)).toBeFalse());
+  if (isFirefox()) {
+    test.do(() => expect(isLoaded(289)).toBeFalse());
+    test.do(() => expect(isLoaded(290, 299)).toBeTrue());
+  } else {
+    test.do(() => expect(isLoaded(299)).toBeFalse());
+  }
   test.do(() => expect(isLoaded(300, 319)).toBeTrue());
   test.do(() => expect(isLoaded(320)).toBeFalse());
   test.start();
