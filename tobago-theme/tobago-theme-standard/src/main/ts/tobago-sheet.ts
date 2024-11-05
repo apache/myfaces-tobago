@@ -233,8 +233,8 @@ export class Sheet extends HTMLElement {
       const firstVisibleRow
           = this.tableBody.querySelector<HTMLTableRowElement>(`tr[row-index='${lazyScrollPosition[0]}']`);
       if (firstVisibleRow) {
-        this.sheetBody.scrollTop
-            = firstVisibleRow.offsetTop + lazyScrollPosition[1]; //triggers scroll event -> lazyCheck()
+        this.sheetBody.scrollTop = firstVisibleRow.offsetTop + lazyScrollPosition[1];
+        //in Firefox setting "scrollTop" triggers scroll event -> lazyCheck()
       }
     }
 
@@ -562,6 +562,7 @@ export class Sheet extends HTMLElement {
           = this.tableBody.querySelector<HTMLTableRowElement>(`tr[row-index='${lazyScrollPosition[0]}']`);
       if (firstRow) {
         this.sheetBody.scrollTop = firstRow.offsetTop + lazyScrollPosition[1];
+        //in Firefox setting "scrollTop" triggers scroll event -> lazyCheck()
       }
 
       this.lazyActive = false;
