@@ -144,7 +144,7 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
 
     final Locale locale = viewRoot.getLocale();
 
-    if (!facesContext.getPartialViewContext().isAjaxRequest()) {
+    if (!facesContext.getPartialViewContext().isAjaxRequest() || facesContext.getPartialViewContext().isRenderAll()) {
       writer.startElement(HtmlElements.HTML);
       if (locale != null) {
         final String language = locale.getLanguage();
