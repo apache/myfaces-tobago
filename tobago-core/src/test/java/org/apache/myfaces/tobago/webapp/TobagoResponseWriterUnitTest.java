@@ -201,8 +201,8 @@ public class TobagoResponseWriterUnitTest extends AbstractTobagoTestBase {
     c.getPassThroughAttributes().put("type", "number");
     c.encodeAll(facesContext);
     Assertions.assertTrue(getLastWritten().trim().matches("<tobago-in id='id' class='tobago-auto-spacing'>\\s*"
-        + "<input name='id' id='id::field' class='form-control' (step='1' type='number'|type='number' step='1')\\s*>\\s*"
-        + "</tobago-in>"));
+        + "<input name='id' id='id::field' class='form-control' (step='1' type='number'|type='number' step='1')\\s*>"
+        + "\\s*</tobago-in>"));
   }
 
   @Test
