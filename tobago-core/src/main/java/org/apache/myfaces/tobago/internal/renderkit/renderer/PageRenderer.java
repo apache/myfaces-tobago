@@ -27,6 +27,7 @@ import jakarta.faces.component.UIOutput;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.PartialViewContext;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
@@ -130,7 +131,7 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     final UIViewRoot viewRoot = facesContext.getViewRoot();
     final String viewId = viewRoot.getViewId();
     final String formAction = externalContext.encodeActionURL(viewHandler.getActionURL(facesContext, viewId));
-    final boolean ajax = facesContext.getPartialViewContext().isAjaxRequest();
+    final PartialViewContext partialViewContext = facesContext.getPartialViewContext();
 
     final String contentType = writer.getContentTypeWithCharSet();
     ResponseUtils.ensureContentTypeHeader(facesContext, contentType);
@@ -144,7 +145,7 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
 
     final Locale locale = viewRoot.getLocale();
 
-    if (!facesContext.getPartialViewContext().isAjaxRequest()) {
+    if (!partialViewContext.isAjaxRequest() || partialViewContext.isRenderAll()) {
       writer.startElement(HtmlElements.HTML);
       if (locale != null) {
         final String language = locale.getLanguage();
@@ -241,7 +242,7 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     writer.startElement(HtmlElements.SPAN);
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "faces-state-container");
     writer.flush();
-    if (!ajax) {
+    if (!partialViewContext.isAjaxRequest() || partialViewContext.isRenderAll()) {
       viewHandler.writeState(facesContext);
     }
     writer.endElement(HtmlElements.SPAN);
@@ -318,6 +319,7 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
 
     final UIViewRoot viewRoot = facesContext.getViewRoot();
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+    final PartialViewContext partialViewContext = facesContext.getPartialViewContext();
 
     writer.endElement(HtmlElements.FORM);
 
@@ -329,7 +331,7 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     writer.endElement(HtmlElements.NOSCRIPT);
     writer.endElement(HtmlElements.TOBAGO_PAGE);
 
-    if (!facesContext.getPartialViewContext().isAjaxRequest()) {
+    if (!partialViewContext.isAjaxRequest() || partialViewContext.isRenderAll()) {
       final List<UIComponent> bodyResources = viewRoot.getComponentResources(facesContext, BODY_TARGET);
       for (final UIComponent bodyResource : bodyResources) {
         bodyResource.encodeAll(facesContext);
