@@ -962,7 +962,8 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
               bar.encodeAll(facesContext);
               insideEnd(facesContext, Facets.bar);
             }
-
+            writer.endElement(HtmlElements.SPAN);
+            
             final UIComponent after = ComponentUtils.getFacet(column, Facets.after);
             if (after != null) {
               insideBegin(facesContext, Facets.after);
@@ -970,7 +971,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
               insideEnd(facesContext, Facets.after);
             }
             
-            writer.endElement(HtmlElements.SPAN);
             if (!autoLayout) {
               if (column.isResizable()) {
                 encodeResizing(writer, sheet, j - offset + cell.getColumnSpan() - 1);
