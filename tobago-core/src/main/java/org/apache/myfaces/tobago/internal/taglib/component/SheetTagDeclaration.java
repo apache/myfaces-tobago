@@ -394,6 +394,6 @@ public interface SheetTagDeclaration
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  void setReadonly(String showHeader);
+  void setReadonly(String readonly);
 
 }
