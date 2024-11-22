@@ -19,6 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitContextWrapper;
+import jakarta.faces.component.visit.VisitHint;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Pageable;
 import org.apache.myfaces.tobago.component.Visual;
@@ -63,7 +67,9 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.SheetTagDeclaration}
@@ -74,6 +80,8 @@ public abstract class AbstractUISheet extends AbstractUIData
     ComponentSystemEventListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+  private static final Set<PhaseId> PHASES_FOR_SKIP_ITERATION_DURING_VISIT_TREE_FOR_READ_ONLY_SHEET
+      = Set.of(PhaseId.PROCESS_VALIDATIONS, PhaseId.UPDATE_MODEL_VALUES);
 
   @Deprecated(since = "4.4.0", forRemoval = true)
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Data";
@@ -411,6 +419,24 @@ public abstract class AbstractUISheet extends AbstractUIData
     }
   }
 
+  @Override
+  public boolean visitTree(VisitContext visitContext, VisitCallback callback) {
+    if (isReadonly()
+        && PHASES_FOR_SKIP_ITERATION_DURING_VISIT_TREE_FOR_READ_ONLY_SHEET
+        .contains(visitContext.getFacesContext().getCurrentPhaseId())) {
+      Set<VisitHint> visitHints = EnumSet.copyOf(visitContext.getHints());
+      visitHints.add(VisitHint.SKIP_ITERATION);
+      VisitContext newVisitContext = new VisitContextWrapper(visitContext) {
+        @Override
+        public Set<VisitHint> getHints() {
+          return visitHints;
+        }
+      };
+      return super.visitTree(newVisitContext, callback);
+    }
+    return super.visitTree(visitContext, callback);
+  }
+
   public void init(final FacesContext facesContext) {
     sort(facesContext, null);
     layoutHeader();
@@ -650,4 +676,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   public abstract Integer getLazyRows();
 
   public abstract PaginatorMode getPaginator();
+
+  public abstract boolean isReadonly();
 }
