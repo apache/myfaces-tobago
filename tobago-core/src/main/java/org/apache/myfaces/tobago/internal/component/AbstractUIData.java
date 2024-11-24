@@ -35,6 +35,7 @@ import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UINamingContainer;
 import jakarta.faces.component.visit.VisitCallback;
 import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitHint;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.model.DataModel;
 
@@ -300,7 +301,10 @@ public abstract class AbstractUIData extends jakarta.faces.component.UIData impl
     if (super.visitTree(context, callback)) {
       return true;
     }
-
+    boolean skipIterationHint = context.getHints().contains(VisitHint.SKIP_ITERATION);
+    if (skipIterationHint) {
+      return false;
+    }
     // save the current row index
     final int oldRowIndex = getRowIndex();
     // set row index to -1 to process the facets and to get the rowless clientId

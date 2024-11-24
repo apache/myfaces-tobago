@@ -51,6 +51,10 @@ import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.behavior.AjaxBehavior;
 import jakarta.faces.component.behavior.ClientBehavior;
 import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitContextWrapper;
+import jakarta.faces.component.visit.VisitHint;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.AbortProcessingException;
 import jakarta.faces.event.ComponentSystemEvent;
@@ -63,7 +67,9 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.SheetTagDeclaration}
@@ -409,6 +415,24 @@ public abstract class AbstractUISheet extends AbstractUIData
       getSheetState(getFacesContext()).updateSortState(((SortActionEvent) facesEvent).getColumn().getId());
       sort(getFacesContext(), (SortActionEvent) facesEvent);
     }
+  }
+
+  @Override
+  public boolean visitTree(VisitContext visitContext, VisitCallback callback) {
+    boolean lazyUpdate = visitContext.getFacesContext().getExternalContext()
+        .getRequestParameterMap().containsKey("tobago.sheet.lazyFirstRow");
+    if (lazyUpdate && PhaseId.APPLY_REQUEST_VALUES.equals(visitContext.getFacesContext().getCurrentPhaseId())) {
+      Set<VisitHint> visitHints = EnumSet.copyOf(visitContext.getHints());
+      visitHints.add(VisitHint.SKIP_ITERATION);
+      VisitContext newVisitContext = new VisitContextWrapper(visitContext) {
+        @Override
+        public Set<VisitHint> getHints() {
+          return visitHints;
+        }
+      };
+      return super.visitTree(newVisitContext, callback);
+    }
+    return super.visitTree(visitContext, callback);
   }
 
   public void init(final FacesContext facesContext) {
