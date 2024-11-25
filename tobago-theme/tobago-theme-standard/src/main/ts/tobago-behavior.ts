@@ -139,8 +139,33 @@ class Behavior extends HTMLElement {
               },
               myfaces: {
                 upload: {
-                  onProgress: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
-                    console.debug(`Progress: ${event.loaded} of ${event.total}`);
+                  progress: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
+                    console.debug(`progress: ${event.loaded} of ${event.total}`);
+                    // console.error("*********************************");
+                    // console.error(this);
+                    // console.error("*********************************");
+                    // (this.actionElement as File).showProgress(event.loaded, event.total);
+                  },
+                  preinit: (upload: XMLHttpRequestUpload) => {
+                    console.debug(`preinit`);
+                  },
+                  loadstart: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
+                    console.debug(`loadstart: ${event.loaded} of ${event.total}`);
+                  },
+                  load: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
+                    console.debug(`load: ${event.loaded} of ${event.total}`);
+                  },
+                  loadend: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
+                    console.debug(`loadend: ${event.loaded} of ${event.total}`);
+                  },
+                  error: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
+                    console.debug(`error: ${event.loaded} of ${event.total}`);
+                  },
+                  abort: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
+                    console.debug(`abort: ${event.loaded} of ${event.total}`);
+                  },
+                  timeout: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
+                    console.debug(`timeout: ${event.loaded} of ${event.total}`);
                   }
                 }
               }
