@@ -123,43 +123,6 @@ class Behavior extends HTMLElement {
             }
           }
         }
-        /*
-        // TODO: Sketch for Progressbar
-        // register callback for the AJAX-event
-        faces.ajax.addOnEvent(function (data) {
-          if (data.status === "success") {
-            // Access the XmlHttpRequest-Object after successful AJAX-request
-            const xhr: XMLHttpRequest = data.source;
-            // Event listener to monitor the upload progress
-            console.log("xhr", xhr);
-            if (xhr) {
-              console.log("xhr.upload", xhr.upload);
-              if (xhr.upload) {
-                xhr.upload.onprogress = function (event) {
-                  if (event.lengthComputable) {
-                    // Calculate the percentage of upload completed
-                    const percentComplete = (event.loaded / event.total) * 100;
-                    console.info(`Progress: ${Math.round(percentComplete)}%`);
-                  }
-                };
-              } else {
-                console.error("xhr.upload null");
-              }
-            } else {
-              console.error("xhr null");
-            }
-            console.log("AJAX-request success.");
-          } else if (data.status === "begin") {
-            console.log("AJAX-request begin.");
-          } else if (data.status === "complete") {
-            console.log("AJAX-request complete.");
-          }
-        });
-        // register error handling
-        faces.ajax.addOnError(function (data) {
-          console.error("Error AJAX-request:", data);
-        });
-        */
         faces.ajax.request(
             this.actionElement,
             event,
@@ -176,8 +139,33 @@ class Behavior extends HTMLElement {
               },
               myfaces: {
                 upload: {
-                  onProgress: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
-                    console.debug(`Progress: ${event.loaded} of ${event.total}`);
+                  progress: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
+                    console.debug(`progress: ${event.loaded} of ${event.total}`);
+                    // console.error("*********************************");
+                    // console.error(this);
+                    // console.error("*********************************");
+                    // (this.actionElement as File).showProgress(event.loaded, event.total);
+                  },
+                  preinit: (upload: XMLHttpRequestUpload) => {
+                    console.debug(`preinit`);
+                  },
+                  loadstart: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
+                    console.debug(`loadstart: ${event.loaded} of ${event.total}`);
+                  },
+                  load: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
+                    console.debug(`load: ${event.loaded} of ${event.total}`);
+                  },
+                  loadend: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
+                    console.debug(`loadend: ${event.loaded} of ${event.total}`);
+                  },
+                  error: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
+                    console.debug(`error: ${event.loaded} of ${event.total}`);
+                  },
+                  abort: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
+                    console.debug(`abort: ${event.loaded} of ${event.total}`);
+                  },
+                  timeout: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
+                    console.debug(`timeout: ${event.loaded} of ${event.total}`);
                   }
                 }
               }
