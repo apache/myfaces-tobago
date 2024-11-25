@@ -24,8 +24,15 @@ interface Options {
   delay?: number,
   resetValues?: boolean,
   myfaces?: {
-    upload: {
-      onProgress: ((upload: XMLHttpRequestUpload, event: ProgressEvent) => any)
+    upload?: {
+      progress?: (upload: XMLHttpRequestUpload, event: ProgressEvent) => any,
+      preinit?: (upload: XMLHttpRequestUpload) => any,
+      loadstart?: (upload: XMLHttpRequestUpload, event: ProgressEvent) => any,
+      load?: (upload: XMLHttpRequestUpload,  event: ProgressEvent) => any,
+      loadend?: (upload: XMLHttpRequestUpload,  event: ProgressEvent) => any,
+      error?: (upload: XMLHttpRequestUpload,  event: ProgressEvent) => any,
+      abort?: (upload: XMLHttpRequestUpload,  event: ProgressEvent) => any,
+      timeout?: (upload: XMLHttpRequestUpload,  event: ProgressEvent) => any,
     }
   }
 }

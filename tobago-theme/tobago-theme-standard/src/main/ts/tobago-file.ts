@@ -41,11 +41,11 @@ export class File extends HTMLElement {
   get maxSize(): number {
     const number = Number.parseInt(this.getAttribute("max-size"));
     return Number.isNaN(number) ? 0 : number;
- }
+  }
 
   get maxSizeMessage(): string {
     return this.getAttribute("max-size-message");
- }
+  }
 
   static isTypeFile(event: DragEvent): boolean {
     if (event.dataTransfer) {
