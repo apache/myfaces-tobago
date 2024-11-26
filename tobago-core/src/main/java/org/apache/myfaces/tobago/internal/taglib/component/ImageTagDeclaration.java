@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasAlt;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsPlain;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 import jakarta.faces.component.UIGraphic;
@@ -47,7 +48,7 @@ import jakarta.faces.component.UIGraphic;
     },
     allowedChildComponenents = "NONE")
 public interface ImageTagDeclaration
-    extends HasIdBindingAndRendered, HasTip, IsDisabled, IsVisual, HasAlt {
+    extends HasIdBindingAndRendered, HasTip, IsDisabled, IsVisual, HasAlt, IsPlain {
 
   /**
    * Absolute url to an image or image name to lookup in tobago resource path.

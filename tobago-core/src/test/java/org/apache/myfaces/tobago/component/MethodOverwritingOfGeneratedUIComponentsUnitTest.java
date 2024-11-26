@@ -43,6 +43,7 @@ public class MethodOverwritingOfGeneratedUIComponentsUnitTest extends AbstractGe
     IGNORED_METHODS_PER_COMPONENT.add("isShowRootJunction", UITree.class);
     IGNORED_METHODS_PER_COMPONENT.add("isPlain", UIOut.class);
     IGNORED_METHODS_PER_COMPONENT.add("isPlain", UIForm.class);
+    IGNORED_METHODS_PER_COMPONENT.add("isPlain", UIImage.class);
   }
 
   @Test

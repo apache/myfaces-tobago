@@ -31,6 +31,9 @@ public interface IsPlain {
    * Use true, if you want to only render the text (no surrounding tag).
    * Use false, if you enable the possibility to apply styles to the output.</p>
    *
+   * <p>For tc:image there will be no &lt;i&gt; or &lt;tobago-image&gt; element rendered
+   * only the &lt;img&gt; element.</p>
+   *
    * <p>For tc:form there will no div tag be rendered. So, the content
    * can be used freely from layout managers.</p>
    *
