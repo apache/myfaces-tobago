@@ -19,10 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import jakarta.faces.component.UINamingContainer;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Pageable;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.PageActionEvent;
+import org.apache.myfaces.tobago.event.SheetAction;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeListener;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
@@ -333,6 +335,56 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   @Override
+  public void processDecodes(FacesContext context) {
+    // Do decode without children of all columns
+    if (isLazyUpdate(context)) {
+      try {
+        pushComponentToEL(context, this);
+        if (!isRendered()) {
+          return;
+        }
+        setRowIndex(-1);
+        if (this.getFacetCount() > 0) {
+          for (UIComponent facet : getFacets().values()) {
+            facet.decode(context);
+          }
+        }
+        for (int i = 0, childCount = getChildCount(); i < childCount; i++) {
+          UIComponent child = getChildren().get(i);
+          if (child instanceof UIColumn) {
+            try {
+              child.pushComponentToEL(context, child);
+              if (!child.isRendered()) {
+                // Column is not visible
+                continue;
+              }
+            } finally {
+              child.popComponentFromEL(context);
+            }
+            if (child.getFacetCount() > 0) {
+              for (UIComponent facet : child.getFacets().values()) {
+                facet.decode(context);
+              }
+            }
+          }
+        }
+        // skip children of column
+        setRowIndex(-1);
+        try {
+          decode(context);
+        } catch (RuntimeException e) {
+          context.renderResponse();
+          throw e;
+        }
+      } finally {
+        popComponentFromEL(context);
+      }
+    } else {
+      super.processDecodes(context);
+    }
+  }
+
+  @Override
   public void processUpdates(final FacesContext context) {
     super.processUpdates(context);
 
@@ -419,9 +471,8 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   @Override
   public boolean visitTree(VisitContext visitContext, VisitCallback callback) {
-    boolean lazyUpdate = visitContext.getFacesContext().getExternalContext()
-        .getRequestParameterMap().containsKey("tobago.sheet.lazyFirstRow");
-    if (lazyUpdate && PhaseId.APPLY_REQUEST_VALUES.equals(visitContext.getFacesContext().getCurrentPhaseId())) {
+    final FacesContext facesContext = visitContext.getFacesContext();
+    if (isLazyUpdate(facesContext) && PhaseId.APPLY_REQUEST_VALUES.equals(visitContext.getFacesContext().getCurrentPhaseId())) {
       Set<VisitHint> visitHints = EnumSet.copyOf(visitContext.getHints());
       visitHints.add(VisitHint.SKIP_ITERATION);
       VisitContext newVisitContext = new VisitContextWrapper(visitContext) {
@@ -433,6 +484,15 @@ public abstract class AbstractUISheet extends AbstractUIData
       return super.visitTree(newVisitContext, callback);
     }
     return super.visitTree(visitContext, callback);
+  }
+
+  private boolean isLazyUpdate(FacesContext facesContext) {
+    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("jakarta.faces.source");
+    final String clientId = getClientId(facesContext);
+
+    final String sheetClientIdWithAction = clientId + UINamingContainer.getSeparatorChar(facesContext) + Pageable.SUFFIX_PAGE_ACTION + SheetAction.lazy;
+
+    return sheetClientIdWithAction.equals(sourceId);
   }
 
   public void init(final FacesContext facesContext) {

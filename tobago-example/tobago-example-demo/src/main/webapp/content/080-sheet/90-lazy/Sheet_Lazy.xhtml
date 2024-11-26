@@ -23,7 +23,7 @@
                 xmlns:ui="jakarta.faces.facelets">
   <ui:param name="title" value="Lazy Loading Large Data"/>
   <tc:sheet value="#{sheetController.hugeSolarList}" id="sheet" var="luminary"
-            rows="20" markup="small" lazy="true"
+            lazyRows="20" markup="small" lazy="true"
             showRowRange="none" showDirectLinks="none" showPageRange="none">
     <tc:style maxHeight="500px"/>
     <tc:column label="Name">

@@ -42,6 +42,7 @@ import jakarta.faces.model.DataModel;
 import javax.swing.tree.TreeNode;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -303,6 +304,10 @@ public abstract class AbstractUIData extends jakarta.faces.component.UIData impl
     }
     boolean skipIterationHint = context.getHints().contains(VisitHint.SKIP_ITERATION);
     if (skipIterationHint) {
+      return false;
+    }
+    Collection<String> subtreeIdsToVisit = context.getSubtreeIdsToVisit(this);
+    if (subtreeIdsToVisit == null || subtreeIdsToVisit.isEmpty()) {
       return false;
     }
     // save the current row index
