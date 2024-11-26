@@ -48,7 +48,10 @@ public class ImageRenderer<T extends AbstractUIImage> extends RendererBase<T> {
         && ((AbstractUICommandBase) component.getParent()).isDisabled();
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     final Markup markup = component.getMarkup();
-    if (isIcon) {
+    boolean plain = component.isPlain();
+    if (plain) {
+      writeImgElement(writer, component, value);
+    } else if (isIcon) {
       writer.startElement(HtmlElements.I);
       writer.writeIdAttribute(component.getClientId(facesContext));
       writer.writeClassAttribute(
@@ -58,7 +61,6 @@ public class ImageRenderer<T extends AbstractUIImage> extends RendererBase<T> {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
       writer.endElement(HtmlElements.I);
     } else {
-      final String alt = component.getAlt();
       writer.startElement(HtmlElements.TOBAGO_IMAGE);
       writer.writeIdAttribute(component.getClientId(facesContext));
       HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
@@ -66,11 +68,17 @@ public class ImageRenderer<T extends AbstractUIImage> extends RendererBase<T> {
           disabled ? BootstrapClass.DISABLED : null,
           component.getCustomClass());
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-      writer.startElement(HtmlElements.IMG, component);
-      writer.writeAttribute(HtmlAttributes.SRC, value, true);
-      writer.writeAttribute(HtmlAttributes.ALT, alt != null ? alt : "", true);
-      writer.endElement(HtmlElements.IMG);
+      writeImgElement(writer, component, value);
       writer.endElement(HtmlElements.TOBAGO_IMAGE);
     }
+  }
+
+  private <T extends AbstractUIImage> void writeImgElement(TobagoResponseWriter writer, T component,
+      String value) throws IOException {
+    final String alt = component.getAlt();
+    writer.startElement(HtmlElements.IMG, component);
+    writer.writeAttribute(HtmlAttributes.SRC, value, true);
+    writer.writeAttribute(HtmlAttributes.ALT, alt != null ? alt : "", true);
+    writer.endElement(HtmlElements.IMG);
   }
 }
