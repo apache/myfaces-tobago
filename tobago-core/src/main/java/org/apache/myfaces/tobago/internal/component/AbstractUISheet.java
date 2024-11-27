@@ -335,9 +335,17 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   @Override
-  public void processUpdates(final FacesContext context) {
-    super.processUpdates(context);
+  public void processValidators(FacesContext context) {
+    if (!isReadonly()) {
+      super.processValidators(context);
+    }
+  }
 
+  @Override
+  public void processUpdates(final FacesContext context) {
+    if (!isReadonly()) {
+      super.processUpdates(context);
+    }
     final SheetState sheetState = getSheetState(context);
     if (sheetState != null) {
       final List<Integer> list = (List<Integer>) ComponentUtils.getAttribute(this, Attributes.selectedListString);
