@@ -376,7 +376,7 @@ public abstract class AbstractUISheet extends AbstractUIData
           consumer.accept(context, facet);
         }
       }
-      boolean [] columnRendered = new boolean[getChildCount()];
+      boolean[] columnRendered = new boolean[getChildCount()];
       for (int i = 0, childCount = getChildCount(); i < childCount; i++) {
         UIComponent child = getChildren().get(i);
         if (child instanceof UIColumn) {
@@ -412,7 +412,8 @@ public abstract class AbstractUISheet extends AbstractUIData
     }
   }
 
-  private void processColumnChildren(FacesContext context, boolean [] childRendered, BiConsumer<FacesContext, UIComponent> consumer) {
+  private void processColumnChildren(FacesContext context, boolean[] childRendered,
+                                     BiConsumer<FacesContext, UIComponent> consumer) {
     int first = getFirst();
     int rows = getRows();
     int last;
