@@ -740,6 +740,7 @@
               <exclude>src/main/webapp/js/demo.js</exclude>
 
               <exclude>**/.eslintignore</exclude>
+              <exclude>.asf.yaml</exclude>
             </excludes>
           </configuration>
         </plugin>
