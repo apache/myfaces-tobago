@@ -70,6 +70,7 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.BiConsumer;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.SheetTagDeclaration}
@@ -335,16 +336,23 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   @Override
+  public void processDecodes(FacesContext context) {
+    if (!isReadonly()) {
+      process(context, isReadonlyRows(), (fc, uic) -> uic.processDecodes(fc));
+    }
+  }
+
+  @Override
   public void processValidators(FacesContext context) {
     if (!isReadonly()) {
-      super.processValidators(context);
+      process(context, isReadonlyRows(), (fc, uic) -> uic.processValidators(fc));
     }
   }
 
   @Override
   public void processUpdates(final FacesContext context) {
     if (!isReadonly()) {
-      super.processUpdates(context);
+      process(context, isReadonlyRows(), (fc, uic) -> uic.processUpdates(fc));
     }
     final SheetState sheetState = getSheetState(context);
     if (sheetState != null) {
@@ -352,6 +360,83 @@ public abstract class AbstractUISheet extends AbstractUIData
       sheetState.setSelectedRows(list != null ? list : Collections.emptyList());
       ComponentUtils.removeAttribute(this, Attributes.selectedListString);
       ComponentUtils.removeAttribute(this, Attributes.scrollPosition);
+    }
+  }
+
+  private void process(FacesContext context, boolean skipColumnChildren,
+                       BiConsumer<FacesContext, UIComponent> consumer) {
+    try {
+      pushComponentToEL(context, this);
+      if (!isRendered()) {
+        return;
+      }
+      setRowIndex(-1);
+      if (this.getFacetCount() > 0) {
+        for (UIComponent facet : getFacets().values()) {
+          consumer.accept(context, facet);
+        }
+      }
+      boolean [] columnRendered = new boolean[getChildCount()];
+      for (int i = 0, childCount = getChildCount(); i < childCount; i++) {
+        UIComponent child = getChildren().get(i);
+        if (child instanceof UIColumn) {
+          try {
+            child.pushComponentToEL(context, child);
+            if (child.isRendered()) {
+              columnRendered[i] = true;
+            } else {
+              continue;
+            }
+          } finally {
+            child.popComponentFromEL(context);
+          }
+          if (child.getFacetCount() > 0) {
+            for (UIComponent facet : child.getFacets().values()) {
+              consumer.accept(context, facet);
+            }
+          }
+        }
+      }
+      if (!skipColumnChildren) {
+        processColumnChildren(context, columnRendered, consumer);
+      }
+      setRowIndex(-1);
+      try {
+        decode(context);
+      } catch (RuntimeException e) {
+        context.renderResponse();
+        throw e;
+      }
+    } finally {
+      popComponentFromEL(context);
+    }
+  }
+
+  private void processColumnChildren(FacesContext context, boolean [] childRendered, BiConsumer<FacesContext, UIComponent> consumer) {
+    int first = getFirst();
+    int rows = getRows();
+    int last;
+    if (rows == 0) {
+      last = getRowCount();
+    } else {
+      last = first + rows;
+    }
+    for (int rowIndex = first; last == -1 || rowIndex < last; rowIndex++) {
+      setRowIndex(rowIndex);
+
+      // scrolled past the last row
+      if (!isRowAvailable()) {
+        break;
+      }
+      for (int i = 0, childCount = getChildCount(); i < childCount; i++) {
+        if (childRendered[i]) {
+          UIComponent child = getChildren().get(i);
+          for (int j = 0, columnChildCount = child.getChildCount(); j < columnChildCount; j++) {
+            UIComponent columnChild = child.getChildren().get(j);
+            consumer.accept(context, columnChild);
+          }
+        }
+      }
     }
   }
 
@@ -686,4 +771,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   public abstract PaginatorMode getPaginator();
 
   public abstract boolean isReadonly();
+
+  public abstract boolean isReadonlyRows();
 }

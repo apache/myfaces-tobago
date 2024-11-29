@@ -341,6 +341,7 @@ public enum Attributes {
   preferredWidth,
   preformated,
   readonly,
+  readonlyRows,
   reference,
   rel,
   relative,
