@@ -337,9 +337,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
           final AbstractUIOut out = (AbstractUIOut) ComponentUtils.createComponent(
               facesContext, Tags.out.componentType(), RendererTypes.Out, "_col" + i);
           out.setTransient(true);
-          if (labelFacet != null) {
-            out.getAttributes().put("skip-rendering-label-from-attribute", true);
-          } else {
+          if (labelFacet == null) {
             out.setValue(ComponentUtils.getAttribute(column, Attributes.label));
           }
           out.setRendered(column.isRendered());
