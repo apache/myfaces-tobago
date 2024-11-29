@@ -79,7 +79,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jakarta.el.ValueExpression;
 import jakarta.faces.application.Application;
 import jakarta.faces.component.NamingContainer;
 import jakarta.faces.component.UIColumn;
@@ -334,22 +333,16 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       int i = 0;
       for (final AbstractUIColumnBase column : columns) {
         if (!(column instanceof AbstractUIRow)) {
+          final UIComponent labelFacet = ComponentUtils.getFacet(column, Facets.label);
           final AbstractUIOut out = (AbstractUIOut) ComponentUtils.createComponent(
               facesContext, Tags.out.componentType(), RendererTypes.Out, "_col" + i);
-//        out.setValue(column.getLabel());
           out.setTransient(true);
-          ValueExpression valueExpression = column.getValueExpression(Attributes.label.getName());
-          if (valueExpression != null) {
-            out.setValueExpression(Attributes.value.getName(), valueExpression);
+          if (labelFacet != null) {
+            out.getAttributes().put("skip-rendering-label-from-attribute", true);
           } else {
             out.setValue(ComponentUtils.getAttribute(column, Attributes.label));
           }
-          valueExpression = column.getValueExpression(Attributes.rendered.getName());
-          if (valueExpression != null) {
-            out.setValueExpression(Attributes.rendered.getName(), valueExpression);
-          } else {
-            out.setRendered(ComponentUtils.getBooleanAttribute(column, Attributes.rendered));
-          }
+          out.setRendered(column.isRendered());
           out.setLabelLayout(LabelLayout.skip);
           header.getChildren().add(out);
         }
@@ -953,14 +946,16 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
               writer.writeAttribute(DataAttributes.SELECTION_MODE, currentSelectable.name(), false);
               writer.endElement(HtmlElements.INPUT);
             } else {
-              cellComponent.encodeAll(facesContext);
+              if (ComponentUtils.getFacet(column, Facets.label) == null) {
+                cellComponent.encodeAll(facesContext);
+              }
             }
 
-            final UIComponent bar = ComponentUtils.getFacet(column, Facets.bar);
-            if (bar != null) {
-              insideBegin(facesContext, Facets.bar);
-              bar.encodeAll(facesContext);
-              insideEnd(facesContext, Facets.bar);
+            final UIComponent label = ComponentUtils.getFacet(column, Facets.label);
+            if (label != null) {
+              insideBegin(facesContext, Facets.label);
+              label.encodeAll(facesContext);
+              insideEnd(facesContext, Facets.label);
             }
 
             writer.endElement(HtmlElements.SPAN);
@@ -968,6 +963,13 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
               if (column.isResizable()) {
                 encodeResizing(writer, sheet, j - offset + cell.getColumnSpan() - 1);
               }
+            }
+
+            final UIComponent bar = ComponentUtils.getFacet(column, Facets.bar);
+            if (bar != null) {
+              insideBegin(facesContext, Facets.bar);
+              bar.encodeAll(facesContext);
+              insideEnd(facesContext, Facets.bar);
             }
 
             writer.endElement(HtmlElements.TH);
