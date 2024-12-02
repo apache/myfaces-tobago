@@ -48,9 +48,15 @@ import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UINamingContainer;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.component.behavior.ClientBehaviorHolder;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitHint;
+import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
@@ -62,8 +68,12 @@ import javax.faces.event.PreRenderComponentEvent;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.function.BiConsumer;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.SheetTagDeclaration}
@@ -327,8 +337,18 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   @Override
+  public void processDecodes(FacesContext context) {
+    process(context, isReadonlyRows(), (fc, uic) -> uic.processDecodes(fc));
+  }
+
+  @Override
+  public void processValidators(FacesContext context) {
+    process(context, isReadonlyRows(), (fc, uic) -> uic.processValidators(fc));
+  }
+
+  @Override
   public void processUpdates(final FacesContext context) {
-    super.processUpdates(context);
+    process(context, isReadonlyRows(), (fc, uic) -> uic.processUpdates(fc));
 
     final SheetState sheetState = getSheetState(context);
     if (sheetState != null) {
@@ -337,6 +357,112 @@ public abstract class AbstractUISheet extends AbstractUIData
       ComponentUtils.removeAttribute(this, Attributes.selectedListString);
       ComponentUtils.removeAttribute(this, Attributes.scrollPosition);
     }
+  }
+
+  private void process(FacesContext context, boolean skipColumnChildren,
+                       BiConsumer<FacesContext, UIComponent> consumer) {
+    try {
+      pushComponentToEL(context, this);
+      if (!isRendered()) {
+        return;
+      }
+      setRowIndex(-1);
+      if (this.getFacetCount() > 0) {
+        for (UIComponent facet : getFacets().values()) {
+          consumer.accept(context, facet);
+        }
+      }
+      boolean[] columnRendered = new boolean[getChildCount()];
+      for (int i = 0, childCount = getChildCount(); i < childCount; i++) {
+        UIComponent child = getChildren().get(i);
+        if (child instanceof UIColumn) {
+          try {
+            child.pushComponentToEL(context, child);
+            if (child.isRendered()) {
+              columnRendered[i] = true;
+            } else {
+              continue;
+            }
+          } finally {
+            child.popComponentFromEL(context);
+          }
+          if (child.getFacetCount() > 0) {
+            for (UIComponent facet : child.getFacets().values()) {
+              consumer.accept(context, facet);
+            }
+          }
+        }
+      }
+      if (skipColumnChildren) {
+        // process action source
+        int rowIndex = getRowFromActionSource(context);
+        processRow(context, columnRendered, consumer, rowIndex);
+      } else {
+        processColumnChildren(context, columnRendered, consumer);
+      }
+      setRowIndex(-1);
+      try {
+        decode(context);
+      } catch (RuntimeException e) {
+        context.renderResponse();
+        throw e;
+      }
+    } finally {
+      popComponentFromEL(context);
+    }
+  }
+
+  private void processColumnChildren(FacesContext context, boolean[] childRendered,
+                                     BiConsumer<FacesContext, UIComponent> consumer) {
+    int first = getFirst();
+    int rows = getRows();
+    int last;
+    if (rows == 0) {
+      last = getRowCount();
+    } else {
+      last = first + rows;
+    }
+    for (int rowIndex = first; last == -1 || rowIndex < last; rowIndex++) {
+      if (processRow(context, childRendered, consumer, rowIndex)) {
+        break;
+      }
+    }
+  }
+
+  private boolean processRow(FacesContext context, boolean[] childRendered,
+                             BiConsumer<FacesContext, UIComponent> consumer, int rowIndex) {
+    setRowIndex(rowIndex);
+
+    // scrolled past the last row
+    if (!isRowAvailable()) {
+      return true;
+    }
+    for (int i = 0, childCount = getChildCount(); i < childCount; i++) {
+      if (childRendered[i]) {
+        UIComponent child = getChildren().get(i);
+        if (child instanceof AbstractUIRow) {
+          consumer.accept(context, child);
+        } else {
+          for (int j = 0, columnChildCount = child.getChildCount(); j < columnChildCount; j++) {
+            UIComponent columnChild = child.getChildren().get(j);
+            consumer.accept(context, columnChild);
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  private int getRowFromActionSource(FacesContext facesContext) {
+    String clientId = getClientId(facesContext);
+    int clientIdLengthPlusOne = clientId.length() + 1;
+    char separatorChar = UINamingContainer.getSeparatorChar(facesContext);
+    final String sourceId = facesContext
+        .getExternalContext().getRequestParameterMap().get(ClientBehaviorContext.BEHAVIOR_SOURCE_PARAM_NAME);
+    if (sourceId != null && sourceId.startsWith(clientId)) {
+      return getRowIndexFromSubtreeId(sourceId, separatorChar, clientIdLengthPlusOne);
+    }
+    return -1;
   }
 
   @Override
@@ -409,6 +535,132 @@ public abstract class AbstractUISheet extends AbstractUIData
       getSheetState(getFacesContext()).updateSortState(((SortActionEvent) facesEvent).getColumn().getId());
       sort(getFacesContext(), (SortActionEvent) facesEvent);
     }
+  }
+
+  @Override
+  public boolean visitTree(final VisitContext context, final VisitCallback callback) {
+    boolean skipIterationHint = context.getHints().contains(VisitHint.SKIP_ITERATION);
+    if (skipIterationHint) {
+      return super.visitTree(context, callback);
+    }
+    FacesContext facesContext = context.getFacesContext();
+    pushComponentToEL(facesContext, this);
+    if (!isVisitable(context)) {
+      return false;
+    }
+
+    // save the current row index
+    int oldRowIndex = getRowIndex();
+    try {
+      // set row index to -1 to process the facets and to get the rowless clientId
+      setRowIndex(-1);
+      VisitResult visitResult = context.invokeVisitCallback(this, callback);
+      switch (visitResult) {
+        case COMPLETE:
+          //we are done nothing has to be processed anymore
+          return true;
+        case REJECT:
+          return false;
+        default:
+          // accept; determine if we need to visit our children
+          Collection<String> subtreeIdsToVisit = context.getSubtreeIdsToVisit(this);
+          boolean doVisitChildren = subtreeIdsToVisit != null && !subtreeIdsToVisit.isEmpty();
+          if (doVisitChildren) {
+            // visit the facets of the component
+            if (getFacetCount() > 0) {
+              for (UIComponent facet : getFacets().values()) {
+                if (facet.visitTree(context, callback)) {
+                  return true;
+                }
+              }
+            }
+            // visit every column directly without visiting its children
+            // (the children of every UIColumn will be visited later for
+            // every row) and also visit the column's facets
+            for (int i = 0, childCount = getChildCount(); i < childCount; i++) {
+              UIComponent child = getChildren().get(i);
+              if (child instanceof UIColumn) {
+                VisitResult columnResult = context.invokeVisitCallback(child, callback);
+                if (columnResult == VisitResult.COMPLETE) {
+                  return true;
+                }
+                if (child.getFacetCount() > 0) {
+                  for (UIComponent facet : child.getFacets().values()) {
+                    if (facet.visitTree(context, callback)) {
+                      return true;
+                    }
+                  }
+                }
+              }
+            }
+            Set<Integer> rowsToVisit = getRowsToVisit(context);
+            if (rowsToVisit.isEmpty()) {
+              return false;
+            }
+            // iterate over the rows to visit
+            for (Integer rowIndex : rowsToVisit) {
+              setRowIndex(rowIndex);
+              if (!isRowAvailable()) {
+                return false;
+              }
+              // visit the children of every child of the UIData that is an instance of UIColumn
+              for (int i = 0, childCount = getChildCount(); i < childCount; i++) {
+                final UIComponent child = getChildren().get(i);
+                if (child instanceof UIColumn) {
+                  if (child instanceof AbstractUIRow) {
+                    if (child.visitTree(context, callback)) {
+                      return true;
+                    }
+                  } else {
+                    for (int j = 0, grandChildCount = child.getChildCount();
+                         j < grandChildCount; j++) {
+                      UIComponent grandchild = child.getChildren().get(j);
+                      if (grandchild.visitTree(context, callback)) {
+                        return true;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+      }
+    } finally {
+      // pop the component from EL and restore the old row index
+      popComponentFromEL(facesContext);
+      setRowIndex(oldRowIndex);
+    }
+    // Return false to allow the visiting to continue
+    return false;
+  }
+
+  private Set<Integer> getRowsToVisit(final VisitContext context) {
+    Set<Integer> rowsToVisit = new HashSet<>();
+    FacesContext facesContext = context.getFacesContext();
+    String clientId = getClientId(facesContext);
+    int clientIdLengthPlusOne = clientId.length() + 1;
+    char separatorChar = UINamingContainer.getSeparatorChar(facesContext);
+    Collection<String> subtreeIdsToVisit = context.getSubtreeIdsToVisit(this);
+    for (String subtreeId : subtreeIdsToVisit) {
+      int rowIndex = getRowIndexFromSubtreeId(subtreeId, separatorChar, clientIdLengthPlusOne);
+      if (rowIndex != -1) {
+        rowsToVisit.add(rowIndex);
+      }
+    }
+    return rowsToVisit;
+  }
+
+  private int getRowIndexFromSubtreeId(String sourceId, char separatorChar, int clientIdLengthPlusOne) {
+    int index = sourceId.indexOf(separatorChar, clientIdLengthPlusOne);
+    if (index != -1) {
+      String possibleRowIndex = sourceId.substring(clientIdLengthPlusOne, index);
+      try {
+        return Integer.parseInt(possibleRowIndex);
+      } catch (final NumberFormatException e) {
+        // ignore
+      }
+    }
+    return -1;
   }
 
   public void init(final FacesContext facesContext) {
@@ -650,4 +902,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   public abstract Integer getLazyRows();
 
   public abstract PaginatorMode getPaginator();
+
+  public abstract boolean isReadonlyRows();
 }
