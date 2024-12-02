@@ -441,13 +441,13 @@ public abstract class AbstractUISheet extends AbstractUIData
     for (int i = 0, childCount = getChildCount(); i < childCount; i++) {
       if (childRendered[i]) {
         UIComponent child = getChildren().get(i);
-        /* TODO  UIRow
-            if (child instanceof AbstractUIRow) {
-              consumer.accept(context, child);
-            } else {*/
-        for (int j = 0, columnChildCount = child.getChildCount(); j < columnChildCount; j++) {
-          UIComponent columnChild = child.getChildren().get(j);
-          consumer.accept(context, columnChild);
+        if (child instanceof AbstractUIRow) {
+          consumer.accept(context, child);
+        } else {
+          for (int j = 0, columnChildCount = child.getChildCount(); j < columnChildCount; j++) {
+            UIComponent columnChild = child.getChildren().get(j);
+            consumer.accept(context, columnChild);
+          }
         }
       }
     }
