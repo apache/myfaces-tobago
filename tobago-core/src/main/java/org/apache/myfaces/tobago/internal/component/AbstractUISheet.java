@@ -19,10 +19,12 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import jakarta.faces.component.UINamingContainer;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
 import jakarta.faces.component.visit.VisitCallback;
 import jakarta.faces.component.visit.VisitContext;
-import jakarta.faces.component.visit.VisitContextWrapper;
 import jakarta.faces.component.visit.VisitHint;
+import jakarta.faces.component.visit.VisitResult;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Pageable;
 import org.apache.myfaces.tobago.component.Visual;
@@ -66,8 +68,9 @@ import jakarta.faces.event.PreRenderComponentEvent;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.BiConsumer;
@@ -337,23 +340,18 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   @Override
   public void processDecodes(FacesContext context) {
-    if (!isReadonly()) {
-      process(context, isReadonlyRows(), (fc, uic) -> uic.processDecodes(fc));
-    }
+    process(context, isReadonlyRows(), (fc, uic) -> uic.processDecodes(fc));
   }
 
   @Override
   public void processValidators(FacesContext context) {
-    if (!isReadonly()) {
-      process(context, isReadonlyRows(), (fc, uic) -> uic.processValidators(fc));
-    }
+    process(context, isReadonlyRows(), (fc, uic) -> uic.processValidators(fc));
   }
 
   @Override
   public void processUpdates(final FacesContext context) {
-    if (!isReadonly()) {
-      process(context, isReadonlyRows(), (fc, uic) -> uic.processUpdates(fc));
-    }
+    process(context, isReadonlyRows(), (fc, uic) -> uic.processUpdates(fc));
+
     final SheetState sheetState = getSheetState(context);
     if (sheetState != null) {
       final List<Integer> list = (List<Integer>) ComponentUtils.getAttribute(this, Attributes.selectedListString);
@@ -399,6 +397,9 @@ public abstract class AbstractUISheet extends AbstractUIData
       }
       if (!skipColumnChildren) {
         processColumnChildren(context, columnRendered, consumer);
+      } else {
+        int rowIndex = getRowForFromActionSource(context);
+        processRow(context, columnRendered, consumer, rowIndex);
       }
       setRowIndex(-1);
       try {
@@ -423,22 +424,46 @@ public abstract class AbstractUISheet extends AbstractUIData
       last = first + rows;
     }
     for (int rowIndex = first; last == -1 || rowIndex < last; rowIndex++) {
-      setRowIndex(rowIndex);
-
-      // scrolled past the last row
-      if (!isRowAvailable()) {
+      if (processRow(context, childRendered, consumer, rowIndex)) {
         break;
       }
-      for (int i = 0, childCount = getChildCount(); i < childCount; i++) {
-        if (childRendered[i]) {
-          UIComponent child = getChildren().get(i);
-          for (int j = 0, columnChildCount = child.getChildCount(); j < columnChildCount; j++) {
-            UIComponent columnChild = child.getChildren().get(j);
-            consumer.accept(context, columnChild);
-          }
+    }
+  }
+
+  private boolean processRow(FacesContext context, boolean[] childRendered,
+                             BiConsumer<FacesContext, UIComponent> consumer, int rowIndex) {
+    setRowIndex(rowIndex);
+
+    // scrolled past the last row
+    if (!isRowAvailable()) {
+      return true;
+    }
+    for (int i = 0, childCount = getChildCount(); i < childCount; i++) {
+      if (childRendered[i]) {
+        UIComponent child = getChildren().get(i);
+        /* TODO  UIRow
+            if (child instanceof AbstractUIRow) {
+              consumer.accept(context, child);
+            } else {*/
+        for (int j = 0, columnChildCount = child.getChildCount(); j < columnChildCount; j++) {
+          UIComponent columnChild = child.getChildren().get(j);
+          consumer.accept(context, columnChild);
         }
       }
     }
+    return false;
+  }
+
+  protected int getRowForFromActionSource(FacesContext facesContext) {
+    String clientId = getClientId(facesContext);
+    int clientIdLengthPlusOne = clientId.length() + 1;
+    char separatorChar = UINamingContainer.getSeparatorChar(facesContext);
+    final String sourceId = facesContext
+        .getExternalContext().getRequestParameterMap().get(ClientBehaviorContext.BEHAVIOR_SOURCE_PARAM_NAME);
+    if (sourceId != null && sourceId.startsWith(clientId)) {
+      return getRowIndexFromSubtreeId(sourceId, separatorChar, clientIdLengthPlusOne);
+    }
+    return -1;
   }
 
   @Override
@@ -514,21 +539,129 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   @Override
-  public boolean visitTree(VisitContext visitContext, VisitCallback callback) {
-    if (isReadonly()
-        && PHASES_FOR_SKIP_ITERATION_DURING_VISIT_TREE_FOR_READ_ONLY_SHEET
-        .contains(visitContext.getFacesContext().getCurrentPhaseId())) {
-      Set<VisitHint> visitHints = EnumSet.copyOf(visitContext.getHints());
-      visitHints.add(VisitHint.SKIP_ITERATION);
-      VisitContext newVisitContext = new VisitContextWrapper(visitContext) {
-        @Override
-        public Set<VisitHint> getHints() {
-          return visitHints;
-        }
-      };
-      return super.visitTree(newVisitContext, callback);
+  public boolean visitTree(final VisitContext context, final VisitCallback callback) {
+    boolean skipIterationHint = context.getHints().contains(VisitHint.SKIP_ITERATION);
+    if (skipIterationHint) {
+      return super.visitTree(context, callback);
     }
-    return super.visitTree(visitContext, callback);
+    FacesContext facesContext = context.getFacesContext();
+    pushComponentToEL(facesContext, this);
+    if (!isVisitable(context)) {
+      return false;
+    }
+
+    // save the current row index
+    int oldRowIndex = getRowIndex();
+    try {
+      // set row index to -1 to process the facets and to get the rowless clientId
+      setRowIndex(-1);
+      VisitResult visitResult = context.invokeVisitCallback(this, callback);
+      switch (visitResult) {
+        case COMPLETE:
+          //we are done nothing has to be processed anymore
+          return true;
+        case REJECT:
+          return false;
+        default:
+          // accept; determine if we need to visit our children
+          Collection<String> subtreeIdsToVisit = context.getSubtreeIdsToVisit(this);
+          boolean doVisitChildren = subtreeIdsToVisit != null && !subtreeIdsToVisit.isEmpty();
+          if (doVisitChildren) {
+            // visit the facets of the component
+            if (getFacetCount() > 0) {
+              for (UIComponent facet : getFacets().values()) {
+                if (facet.visitTree(context, callback)) {
+                  return true;
+                }
+              }
+            }
+            // visit every column directly without visiting its children
+            // (the children of every UIColumn will be visited later for
+            // every row) and also visit the column's facets
+            for (int i = 0, childCount = getChildCount(); i < childCount; i++) {
+              UIComponent child = getChildren().get(i);
+              if (child instanceof UIColumn) {
+                VisitResult columnResult = context.invokeVisitCallback(child, callback);
+                if (columnResult == VisitResult.COMPLETE) {
+                  return true;
+                }
+                if (child.getFacetCount() > 0) {
+                  for (UIComponent facet : child.getFacets().values()) {
+                    if (facet.visitTree(context, callback)) {
+                      return true;
+                    }
+                  }
+                }
+              }
+            }
+            Set<Integer> rowsToVisit = getRowsToVisit(context);
+            if (rowsToVisit.isEmpty()) {
+              return false;
+            }
+            // iterate over the rows to visit
+            for (Integer rowIndex : rowsToVisit) {
+              setRowIndex(rowIndex);
+              if (!isRowAvailable()) {
+                return false;
+              }
+              // visit the children of every child of the UIData that is an instance of UIColumn
+              for (int i = 0, childCount = getChildCount(); i < childCount; i++) {
+                final UIComponent child = getChildren().get(i);
+                if (child instanceof UIColumn) {
+                  if (child instanceof AbstractUIRow) {
+                    if (child.visitTree(context, callback)) {
+                      return true;
+                    }
+                  } else {
+                    for (int j = 0, grandChildCount = child.getChildCount();
+                         j < grandChildCount; j++) {
+                      UIComponent grandchild = child.getChildren().get(j);
+                      if (grandchild.visitTree(context, callback)) {
+                        return true;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+      }
+    } finally {
+      // pop the component from EL and restore the old row index
+      popComponentFromEL(facesContext);
+      setRowIndex(oldRowIndex);
+    }
+    // Return false to allow the visiting to continue
+    return false;
+  }
+
+  private Set<Integer> getRowsToVisit(final VisitContext context) {
+    Set<Integer> rowsToVisit = new HashSet<>();
+    FacesContext facesContext = context.getFacesContext();
+    String clientId = getClientId(facesContext);
+    int clientIdLengthPlusOne = clientId.length() + 1;
+    char separatorChar = UINamingContainer.getSeparatorChar(facesContext);
+    Collection<String> subtreeIdsToVisit = context.getSubtreeIdsToVisit(this);
+    for (String subtreeId : subtreeIdsToVisit) {
+      int rowIndex = getRowIndexFromSubtreeId(subtreeId, separatorChar, clientIdLengthPlusOne);
+      if (rowIndex != -1) {
+        rowsToVisit.add(rowIndex);
+      }
+    }
+    return rowsToVisit;
+  }
+
+  private int getRowIndexFromSubtreeId(String sourceId, char separatorChar, int clientIdLengthPlusOne) {
+    int index = sourceId.indexOf(separatorChar, clientIdLengthPlusOne);
+    if (index != -1) {
+      String possibleRowIndex = sourceId.substring(clientIdLengthPlusOne, index);
+      try {
+        return Integer.parseInt(possibleRowIndex);
+      } catch (final NumberFormatException e) {
+        // ignore
+      }
+    }
+    return -1;
   }
 
   public void init(final FacesContext facesContext) {
@@ -770,8 +903,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   public abstract Integer getLazyRows();
 
   public abstract PaginatorMode getPaginator();
-
-  public abstract boolean isReadonly();
 
   public abstract boolean isReadonlyRows();
 }
