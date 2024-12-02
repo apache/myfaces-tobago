@@ -380,4 +380,21 @@ public interface SheetTagDeclaration
       },
       defaultCode = "org.apache.myfaces.tobago.layout.PaginatorMode.useShowAttributes")
   void setPaginator(String paginator);
+
+  /**
+   * Flag indicating that the rows of the sheet are readonly.
+   * The readonly attribute is a performance optimization hint used during
+   * {@link jakarta.faces.event.PhaseId#APPLY_REQUEST_VALUES} and
+   * {@link jakarta.faces.event.PhaseId#PROCESS_VALIDATIONS} and
+   * {@link jakarta.faces.event.PhaseId#UPDATE_MODEL_VALUES}.
+   * When set to true, it signals the rows of the sheet are read-only und
+   * doesn't require updates potentially saving processing time.
+   * This optimization should only be applied when there are no non-readonly
+   * {@link jakarta.faces.component.EditableValueHolder} components in the sheet rows.
+   *
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  void setReadonlyRows(String readonly);
+
 }
