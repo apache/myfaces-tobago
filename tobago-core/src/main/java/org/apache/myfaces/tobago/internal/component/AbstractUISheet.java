@@ -393,11 +393,12 @@ public abstract class AbstractUISheet extends AbstractUIData
           }
         }
       }
-      if (!skipColumnChildren) {
-        processColumnChildren(context, columnRendered, consumer);
-      } else {
+      if (skipColumnChildren) {
+        // process action source
         int rowIndex = getRowForFromActionSource(context);
         processRow(context, columnRendered, consumer, rowIndex);
+      } else {
+        processColumnChildren(context, columnRendered, consumer);
       }
       setRowIndex(-1);
       try {
