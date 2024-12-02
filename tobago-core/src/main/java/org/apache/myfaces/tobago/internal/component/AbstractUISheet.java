@@ -84,8 +84,6 @@ public abstract class AbstractUISheet extends AbstractUIData
     ComponentSystemEventListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-  private static final Set<PhaseId> PHASES_FOR_SKIP_ITERATION_DURING_VISIT_TREE_FOR_READ_ONLY_SHEET
-      = Set.of(PhaseId.PROCESS_VALIDATIONS, PhaseId.UPDATE_MODEL_VALUES);
 
   @Deprecated(since = "4.4.0", forRemoval = true)
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Data";
