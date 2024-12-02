@@ -395,7 +395,7 @@ public abstract class AbstractUISheet extends AbstractUIData
       }
       if (skipColumnChildren) {
         // process action source
-        int rowIndex = getRowForFromActionSource(context);
+        int rowIndex = getRowFromActionSource(context);
         processRow(context, columnRendered, consumer, rowIndex);
       } else {
         processColumnChildren(context, columnRendered, consumer);
@@ -453,7 +453,7 @@ public abstract class AbstractUISheet extends AbstractUIData
     return false;
   }
 
-  protected int getRowForFromActionSource(FacesContext facesContext) {
+  private int getRowFromActionSource(FacesContext facesContext) {
     String clientId = getClientId(facesContext);
     int clientIdLengthPlusOne = clientId.length() + 1;
     char separatorChar = UINamingContainer.getSeparatorChar(facesContext);
