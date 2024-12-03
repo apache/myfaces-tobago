@@ -1,0 +1,21 @@
+# see https://github.com/apache/infrastructure-asfyaml
+github:
+  description: "Apache MyFaces Tobago"
+  homepage: https://myfaces.apache.org
+  labels:
+    - java
+    - web-framework
+    - javaee
+    - myfaces
+    - jsf
+  enabled_merge_buttons:
+    squash: true
+    merge: false
+    rebase: true
+  autolink_jira:
+    - TOBAGO
+notifications:
+  commits: commits@myfaces.apache.org
+  issues: dev@myfaces.apache.org
+  pullrequests: dev@myfaces.apache.org
+  jira_options: link label

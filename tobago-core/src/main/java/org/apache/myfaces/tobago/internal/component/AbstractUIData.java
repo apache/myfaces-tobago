@@ -33,16 +33,12 @@ import jakarta.faces.FacesException;
 import jakarta.faces.component.ContextCallback;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UINamingContainer;
-import jakarta.faces.component.visit.VisitCallback;
-import jakarta.faces.component.visit.VisitContext;
-import jakarta.faces.component.visit.VisitHint;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.model.DataModel;
 
 import javax.swing.tree.TreeNode;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -292,63 +288,4 @@ public abstract class AbstractUIData extends jakarta.faces.component.UIData impl
       return null;
     }
   }
-
-  /**
-   * This is, because we need to visit the UIRow for each row, which is not done in the base implementation.
-   */
-  @Override
-  public boolean visitTree(final VisitContext context, final VisitCallback callback) {
-
-    if (super.visitTree(context, callback)) {
-      return true;
-    }
-    boolean skipIterationHint = context.getHints().contains(VisitHint.SKIP_ITERATION);
-    if (skipIterationHint) {
-      return false;
-    }
-    Collection<String> subtreeIdsToVisit = context.getSubtreeIdsToVisit(this);
-    if (subtreeIdsToVisit == null || subtreeIdsToVisit.isEmpty()) {
-      return false;
-    }
-    // save the current row index
-    final int oldRowIndex = getRowIndex();
-    // set row index to -1 to process the facets and to get the rowless clientId
-    setRowIndex(-1);
-    // push the Component to EL
-    pushComponentToEL(context.getFacesContext(), this);
-
-    try {
-      // iterate over the rows
-      int rowsToProcess = getRows();
-      // if getRows() returns 0, all rows have to be processed
-      if (rowsToProcess == 0) {
-        rowsToProcess = getRowCount();
-      }
-      int rowIndex = getFirst();
-      for (int rowsProcessed = 0; rowsProcessed < rowsToProcess; rowsProcessed++, rowIndex++) {
-        setRowIndex(rowIndex);
-        if (!isRowAvailable()) {
-          return false;
-        }
-        // visit the children of every child of the UIData that is an instance of UIColumn
-        for (int i = 0, childCount = getChildCount(); i < childCount; i++) {
-          final UIComponent child = getChildren().get(i);
-          if (child instanceof AbstractUIRow) {
-            if (child.visitTree(context, callback)) {
-              return true;
-            }
-
-          }
-        }
-      }
-    } finally {
-      // pop the component from EL and restore the old row index
-      popComponentFromEL(context.getFacesContext());
-      setRowIndex(oldRowIndex);
-    }
-
-    // Return false to allow the visiting to continue
-    return false;
-  }
-
 }
