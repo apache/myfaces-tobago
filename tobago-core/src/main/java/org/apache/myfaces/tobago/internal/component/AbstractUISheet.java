@@ -593,30 +593,57 @@ public abstract class AbstractUISheet extends AbstractUIData
                 }
               }
             }
-            Set<Integer> rowsToVisit = getRowsToVisit(context);
-            if (rowsToVisit.isEmpty()) {
-              return false;
-            }
-            // iterate over the rows to visit
-            for (Integer rowIndex : rowsToVisit) {
-              setRowIndex(rowIndex);
-              if (!isRowAvailable()) {
-                return false;
+            if (VisitContext.ALL_IDS == subtreeIdsToVisit) {
+              // iterate over all rows
+              int rowsToProcess = getRows();
+              // if getRows() returns 0, all rows have to be processed
+              if (rowsToProcess == 0) {
+                rowsToProcess = getRowCount();
               }
-              // visit the children of every child of the UIData that is an instance of UIColumn
-              for (int i = 0, childCount = getChildCount(); i < childCount; i++) {
-                final UIComponent child = getChildren().get(i);
-                if (child instanceof UIColumn) {
-                  if (child instanceof AbstractUIRow) {
-                    if (child.visitTree(context, callback)) {
-                      return true;
-                    }
-                  } else {
-                    for (int j = 0, grandChildCount = child.getChildCount();
-                         j < grandChildCount; j++) {
+              int rowIndex = getFirst();
+              for (int rowsProcessed = 0; rowsProcessed < rowsToProcess; rowsProcessed++, rowIndex++) {
+                setRowIndex(rowIndex);
+                if (!isRowAvailable()) {
+                  return false;
+                }
+                // visit the children of every child of the UIData that is an instance of UIColumn
+                for (int i = 0, childCount = getChildCount(); i < childCount; i++) {
+                  UIComponent child = getChildren().get(i);
+                  if (child instanceof UIColumn) {
+                    for (int j = 0, grandChildCount = child.getChildCount(); j < grandChildCount; j++) {
                       UIComponent grandchild = child.getChildren().get(j);
                       if (grandchild.visitTree(context, callback)) {
                         return true;
+                      }
+                    }
+                  }
+                }
+              }
+            } else {
+              Set<Integer> rowsToVisit = getRowsToVisit(facesContext, subtreeIdsToVisit);
+              if (rowsToVisit.isEmpty()) {
+                return false;
+              }
+              // iterate over the rows to visit
+              for (Integer rowIndex : rowsToVisit) {
+                setRowIndex(rowIndex);
+                if (!isRowAvailable()) {
+                  return false;
+                }
+                // visit the children of every child of the UIData that is an instance of UIColumn
+                for (int i = 0, childCount = getChildCount(); i < childCount; i++) {
+                  final UIComponent child = getChildren().get(i);
+                  if (child instanceof UIColumn) {
+                    if (child instanceof AbstractUIRow) {
+                      if (child.visitTree(context, callback)) {
+                        return true;
+                      }
+                    } else {
+                      for (int j = 0, grandChildCount = child.getChildCount(); j < grandChildCount; j++) {
+                        UIComponent grandchild = child.getChildren().get(j);
+                        if (grandchild.visitTree(context, callback)) {
+                          return true;
+                        }
                       }
                     }
                   }
@@ -634,13 +661,12 @@ public abstract class AbstractUISheet extends AbstractUIData
     return false;
   }
 
-  private Set<Integer> getRowsToVisit(final VisitContext context) {
+  private Set<Integer> getRowsToVisit(final FacesContext facesContext,
+                                      Collection<String> subtreeIdsToVisit) {
     Set<Integer> rowsToVisit = new HashSet<>();
-    FacesContext facesContext = context.getFacesContext();
     String clientId = getClientId(facesContext);
     int clientIdLengthPlusOne = clientId.length() + 1;
     char separatorChar = UINamingContainer.getSeparatorChar(facesContext);
-    Collection<String> subtreeIdsToVisit = context.getSubtreeIdsToVisit(this);
     for (String subtreeId : subtreeIdsToVisit) {
       int rowIndex = getRowIndexFromSubtreeId(subtreeId, separatorChar, clientIdLengthPlusOne);
       if (rowIndex != -1) {
