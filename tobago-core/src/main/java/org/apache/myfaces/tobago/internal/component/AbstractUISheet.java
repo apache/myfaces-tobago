@@ -56,7 +56,6 @@ import jakarta.faces.component.behavior.ClientBehaviorHolder;
 import jakarta.faces.component.UINamingContainer;
 import jakarta.faces.component.visit.VisitCallback;
 import jakarta.faces.component.visit.VisitContext;
-import jakarta.faces.component.visit.VisitContextWrapper;
 import jakarta.faces.component.visit.VisitHint;
 import jakarta.faces.component.visit.VisitResult;
 import jakarta.faces.context.FacesContext;
@@ -350,7 +349,8 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   @Override
   public void processUpdates(final FacesContext context) {
-    process(context, isReadonlyRows() || isLazyUpdate(context), (fc, uic) -> uic.processUpdates(fc));
+    process(context, isReadonlyRows() || isLazyUpdate(context),
+        (fc, uic) -> uic.processUpdates(fc));
 
     final SheetState sheetState = getSheetState(context);
     if (sheetState != null) {
@@ -695,7 +695,8 @@ public abstract class AbstractUISheet extends AbstractUIData
     final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("jakarta.faces.source");
     final String clientId = getClientId(facesContext);
 
-    final String sheetClientIdWithAction = clientId + UINamingContainer.getSeparatorChar(facesContext) + Pageable.SUFFIX_PAGE_ACTION + SheetAction.lazy;
+    final String sheetClientIdWithAction =
+        clientId + UINamingContainer.getSeparatorChar(facesContext) + Pageable.SUFFIX_PAGE_ACTION + SheetAction.lazy;
 
     return sheetClientIdWithAction.equals(sourceId);
   }
