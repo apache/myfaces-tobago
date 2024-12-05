@@ -150,6 +150,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       if (requestParameterMap.containsKey(key)) {
         component.setLazyUpdate(true);
         component.setLazyFirstRow(Integer.parseInt(requestParameterMap.get(key)));
+        facesContext.renderResponse();
       }
     }
 

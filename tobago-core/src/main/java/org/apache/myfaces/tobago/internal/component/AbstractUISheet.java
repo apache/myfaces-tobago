@@ -19,16 +19,11 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import jakarta.faces.component.UINamingContainer;
-import jakarta.faces.component.behavior.ClientBehaviorContext;
-import jakarta.faces.component.visit.VisitCallback;
-import jakarta.faces.component.visit.VisitContext;
-import jakarta.faces.component.visit.VisitHint;
-import jakarta.faces.component.visit.VisitResult;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Pageable;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.PageActionEvent;
+import org.apache.myfaces.tobago.event.SheetAction;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeListener;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
@@ -56,7 +51,13 @@ import jakarta.faces.component.UIColumn;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.behavior.AjaxBehavior;
 import jakarta.faces.component.behavior.ClientBehavior;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
 import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.component.UINamingContainer;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitHint;
+import jakarta.faces.component.visit.VisitResult;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.AbortProcessingException;
 import jakarta.faces.event.ComponentSystemEvent;
@@ -348,7 +349,8 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   @Override
   public void processUpdates(final FacesContext context) {
-    process(context, isReadonlyRows(), (fc, uic) -> uic.processUpdates(fc));
+    process(context, isReadonlyRows() || isLazyUpdate(context),
+        (fc, uic) -> uic.processUpdates(fc));
 
     final SheetState sheetState = getSheetState(context);
     if (sheetState != null) {
@@ -688,6 +690,17 @@ public abstract class AbstractUISheet extends AbstractUIData
     }
     return -1;
   }
+
+  private boolean isLazyUpdate(FacesContext facesContext) {
+    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("jakarta.faces.source");
+    final String clientId = getClientId(facesContext);
+
+    final String sheetClientIdWithAction =
+        clientId + UINamingContainer.getSeparatorChar(facesContext) + Pageable.SUFFIX_PAGE_ACTION + SheetAction.lazy;
+
+    return sheetClientIdWithAction.equals(sourceId);
+  }
+
 
   public void init(final FacesContext facesContext) {
     sort(facesContext, null);
