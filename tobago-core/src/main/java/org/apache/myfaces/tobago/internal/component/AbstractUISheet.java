@@ -403,11 +403,13 @@ public abstract class AbstractUISheet extends AbstractUIData
         processColumnChildren(context, columnRendered, consumer);
       }
       setRowIndex(-1);
-      try {
-        decode(context);
-      } catch (RuntimeException e) {
-        context.renderResponse();
-        throw e;
+      if (PhaseId.APPLY_REQUEST_VALUES.equals(context.getCurrentPhaseId())) {
+        try {
+          decode(context);
+        } catch (RuntimeException e) {
+          context.renderResponse();
+          throw e;
+        }
       }
     } finally {
       popComponentFromEL(context);
@@ -691,8 +693,8 @@ public abstract class AbstractUISheet extends AbstractUIData
     return -1;
   }
 
-  private boolean isLazyUpdate(FacesContext facesContext) {
-    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("jakarta.faces.source");
+  public boolean isLazyUpdate(FacesContext facesContext) {
+    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
     final String clientId = getClientId(facesContext);
 
     final String sheetClientIdWithAction =
