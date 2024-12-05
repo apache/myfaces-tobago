@@ -49,11 +49,11 @@ import jakarta.el.MethodExpression;
 import jakarta.el.ValueExpression;
 import jakarta.faces.component.UIColumn;
 import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UINamingContainer;
 import jakarta.faces.component.behavior.AjaxBehavior;
 import jakarta.faces.component.behavior.ClientBehavior;
 import jakarta.faces.component.behavior.ClientBehaviorContext;
 import jakarta.faces.component.behavior.ClientBehaviorHolder;
-import jakarta.faces.component.UINamingContainer;
 import jakarta.faces.component.visit.VisitCallback;
 import jakarta.faces.component.visit.VisitContext;
 import jakarta.faces.component.visit.VisitHint;
@@ -403,11 +403,13 @@ public abstract class AbstractUISheet extends AbstractUIData
         processColumnChildren(context, columnRendered, consumer);
       }
       setRowIndex(-1);
-      try {
-        decode(context);
-      } catch (RuntimeException e) {
-        context.renderResponse();
-        throw e;
+      if (PhaseId.APPLY_REQUEST_VALUES.equals(context.getCurrentPhaseId())) {
+        try {
+          decode(context);
+        } catch (RuntimeException e) {
+          context.renderResponse();
+          throw e;
+        }
       }
     } finally {
       popComponentFromEL(context);
@@ -691,7 +693,7 @@ public abstract class AbstractUISheet extends AbstractUIData
     return -1;
   }
 
-  private boolean isLazyUpdate(FacesContext facesContext) {
+  public boolean isLazyUpdate(FacesContext facesContext) {
     final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("jakarta.faces.source");
     final String clientId = getClientId(facesContext);
 
