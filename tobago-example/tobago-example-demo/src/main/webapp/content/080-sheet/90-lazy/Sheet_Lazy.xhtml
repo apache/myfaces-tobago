@@ -20,13 +20,15 @@
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
   <ui:param name="title" value="Lazy Loading Large Data"/>
+
   <tc:sheet value="#{sheetController.hugeSolarList}" id="sheet" var="luminary"
-            rows="20" markup="small" lazy="true"
+            lazyRows="20" markup="small" lazy="true" readonlyRows="true"
             showRowRange="none" showDirectLinks="none" showPageRange="none">
     <tc:style maxHeight="500px"/>
-    <tc:column label="Name">
+    <tc:column label="Name" sortable="true">
       <tc:out value="#{luminary.name}" labelLayout="skip"/>
     </tc:column>
     <tc:column label="Orbit">
@@ -41,5 +43,26 @@
     <tc:column label="Year">
       <tc:out value="#{luminary.discoverYear}" labelLayout="skip"/>
     </tc:column>
+    <tc:row id="sample0">
+      <f:ajax render=":page:mainForm:detail" execute="sheet" listener="#{sheetController.selectSolarObject}" id="columnEventAjax"/>
+    </tc:row>
+    <!--tc:column label="Action">
+      <tc:button label="Button" actionListener="#{sheetController.selectSolarObject}"/>
+    </tc:column-->
   </tc:sheet>
+
+
+  <tc:box id="detail" label="Details" >
+    <tc:panel rendered="#{sheetController.selectedSolarObject != null}">
+      <tc:in id="name" label="Name" value="#{sheetController.selectedSolarObject.name}" readonly="true"/>
+      <tc:in label="Number" value="#{sheetController.selectedSolarObject.number}" readonly="true"/>
+      <tc:in label="Orbit" value="#{sheetController.selectedSolarObject.orbit}" readonly="true"/>
+      <tc:in label="Distance" value="#{sheetController.selectedSolarObject.distance}" readonly="true"/>
+      <tc:in label="Period" value="#{sheetController.selectedSolarObject.period}" readonly="true"/>
+      <tc:in label="Obliquity" value="#{sheetController.selectedSolarObject.incl}" readonly="true"/>
+      <tc:in label="Eccentricity" value="#{sheetController.selectedSolarObject.eccen}" readonly="true"/>
+      <tc:in label="Discoverer" value="#{sheetController.selectedSolarObject.discoverer}" readonly="true"/>
+      <tc:in label="Discover Year" value="#{sheetController.selectedSolarObject.discoverYear}" readonly="true"/>
+    </tc:panel>
+  </tc:box>
 </ui:composition>
