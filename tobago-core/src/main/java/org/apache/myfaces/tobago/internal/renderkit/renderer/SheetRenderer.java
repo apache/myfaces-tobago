@@ -145,11 +145,12 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       if (lazyScrollPosition != null) {
         state.getLazyScrollPosition().update(lazyScrollPosition);
       }
-
-      key = "tobago.sheet.lazyFirstRow";
-      if (requestParameterMap.containsKey(key)) {
+      if (component.isLazyUpdate(facesContext)) {
         component.setLazyUpdate(true);
-        component.setLazyFirstRow(Integer.parseInt(requestParameterMap.get(key)));
+        key = "tobago.sheet.lazyFirstRow";
+        if (requestParameterMap.containsKey(key)) {
+          component.setLazyFirstRow(Integer.parseInt(requestParameterMap.get(key)));
+        }
         facesContext.renderResponse();
       }
     }
