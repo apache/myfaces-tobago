@@ -50,6 +50,8 @@ import jakarta.faces.component.UIColumn;
         "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
     facets = {
+        @Facet(name = Facets.LABEL,
+            description = "Contains some code to be placed in the header at the label position."),
         @Facet(name = Facets.BAR,
             description = "Contains some code to be placed in the header at the bar position.")
     }

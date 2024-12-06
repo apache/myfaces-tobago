@@ -19,12 +19,12 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.apache.myfaces.tobago.model.SheetState;
+
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import org.apache.myfaces.tobago.model.SheetState;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,6 +39,9 @@ public class SheetBarController implements Serializable {
   private List<SolarObject> solarList;
 
   private SheetState state;
+
+  private boolean renderName;
+  private boolean renderYear;
 
   @PostConstruct
   private void init() {
@@ -84,5 +87,21 @@ public class SheetBarController implements Serializable {
 
   public void moonsOnly() {
     solarList = astroData.findAll().filter(object -> object.getType() == SolarType.MOON).collect(Collectors.toList());
+  }
+
+  public boolean isRenderName() {
+    return renderName;
+  }
+
+  public void setRenderName(boolean renderName) {
+    this.renderName = renderName;
+  }
+
+  public boolean isRenderYear() {
+    return renderYear;
+  }
+
+  public void setRenderYear(boolean renderYear) {
+    this.renderYear = renderYear;
   }
 }
