@@ -964,8 +964,15 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
               bar.encodeAll(facesContext);
               insideEnd(facesContext, Facets.bar);
             }
-
             writer.endElement(HtmlElements.SPAN);
+            
+            final UIComponent after = ComponentUtils.getFacet(column, Facets.after);
+            if (after != null) {
+              insideBegin(facesContext, Facets.after);
+              after.encodeAll(facesContext);
+              insideEnd(facesContext, Facets.after);
+            }
+            
             if (!autoLayout) {
               if (column.isResizable()) {
                 encodeResizing(writer, sheet, j - offset + cell.getColumnSpan() - 1);
