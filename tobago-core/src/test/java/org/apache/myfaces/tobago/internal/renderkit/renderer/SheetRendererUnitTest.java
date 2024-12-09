@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.test.el.MockValueExpression;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
@@ -142,4 +143,39 @@ public class SheetRendererUnitTest extends RendererTestBase {
 
     Assertions.assertEquals(loadHtml("renderer/sheet/sheet-paginatorList.html"), formattedResult());
   }
+
+  @Test
+  public void sheetWithLabelAndBarFacet() throws IOException {
+    final UISheet sheet = (UISheet) ComponentUtils.createComponent(
+        facesContext, Tags.sheet.componentType(), RendererTypes.Sheet, "sheet");
+    sheet.setVar("item");
+    sheet.setValue(getSheetSample(3));
+
+    final UIOut label = (UIOut) ComponentUtils.createComponent(
+        facesContext, Tags.out.componentType(), RendererTypes.Out, "label");
+    label.setValue("label text");
+    label.setLabelLayout(LabelLayout.skip);
+
+    final UIOut bar = (UIOut) ComponentUtils.createComponent(
+        facesContext, Tags.out.componentType(), RendererTypes.Out, "bar");
+    bar.setValue("bar text");
+    bar.setLabelLayout(LabelLayout.skip);
+
+    final UIColumn column = (UIColumn) ComponentUtils.createComponent(
+        facesContext, Tags.column.componentType(), RendererTypes.Column, "column");
+    column.getFacets().put(Facets.LABEL, label);
+    column.getFacets().put(Facets.BAR, bar);
+    sheet.getChildren().add(column);
+
+    final UIOut out = (UIOut) ComponentUtils.createComponent(
+        facesContext, Tags.out.componentType(), RendererTypes.Out, "out");
+    out.setValueExpression("value", new MockValueExpression("#{item.name}", String.class));
+    out.setLabelLayout(LabelLayout.skip);
+    column.getChildren().add(out);
+
+    sheet.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/sheet/sheet-label-bar-facet.html"), formattedResult());
+  }
+
 }
