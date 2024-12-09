@@ -40,9 +40,6 @@ public class SheetBarController implements Serializable {
 
   private SheetState state;
 
-  private boolean renderName;
-  private boolean renderYear;
-
   @PostConstruct
   private void init() {
     solarList = astroData.findAll().collect(Collectors.toList());
@@ -87,21 +84,5 @@ public class SheetBarController implements Serializable {
 
   public void moonsOnly() {
     solarList = astroData.findAll().filter(object -> object.getType() == SolarType.MOON).collect(Collectors.toList());
-  }
-
-  public boolean isRenderName() {
-    return renderName;
-  }
-
-  public void setRenderName(boolean renderName) {
-    this.renderName = renderName;
-  }
-
-  public boolean isRenderYear() {
-    return renderYear;
-  }
-
-  public void setRenderYear(boolean renderYear) {
-    this.renderYear = renderYear;
   }
 }
