@@ -35,7 +35,7 @@
         <plugin>
           <groupId>org.joinfaces</groupId>
           <artifactId>joinfaces-maven-plugin</artifactId>
-          <version>${joinfaces.version}</version>
+          <version>${joinfaces-plugin.version}</version>
           <executions>
             <execution>
               <goals>
@@ -51,7 +51,7 @@
       <plugin>
         <groupId>org.joinfaces</groupId>
         <artifactId>joinfaces-maven-plugin</artifactId>
-        <version>${joinfaces.version}</version>
+        <version>${joinfaces-plugin.version}</version>
       </plugin>
       <plugin>
         <groupId>org.springframework.boot</groupId>
