@@ -73,10 +73,10 @@ updates:
       # MyFaces 4.0 is Jakarta EE 10 Faces 4.0
       - dependency-name: "org.apache.myfaces.core:myfaces-api"
         versions:
-          - ">= 5.0.0"
+          - ">= 4.1.0"
       - dependency-name: "org.apache.myfaces.core:myfaces-impl"
         versions:
-          - ">= 5.0.0"
+          - ">= 4.1.0"
       # Mojarra 4.0 is Jakarta EE 10 Faces 4.0
       - dependency-name: "org.glassfish:jakarta.faces"
         versions:
@@ -130,6 +130,9 @@ updates:
       - dependency-name: "jakarta.servlet:jakarta.servlet-api"
         versions:
           - ">= 5.0.0"
+      - dependency-name: "org.apache.openwebbeans:*"
+        versions:
+          - ">= 3.0.0"
       - dependency-name: "jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api"
         versions:
           - ">= 2.0.0"
@@ -327,22 +330,7 @@ updates:
       - dependency-name: "com.sun.faces:jsf-impl"
         versions:
           - ">= 2.1.0"
-      - dependency-name: "org.apache.openwebbeans:openwebbeans-jsf"
-        versions:
-          - ">= 1.5.0"
-      - dependency-name: "org.apache.openwebbeans:openwebbeans-web"
-        versions:
-          - ">= 1.5.0"
-      - dependency-name: "org.apache.openwebbeans:openwebbeans-resources"
-        versions:
-          - ">= 1.5.0"
-      - dependency-name: "org.apache.openwebbeans:openwebbeans-impl"
-        versions:
-          - ">= 1.5.0"
-      - dependency-name: "org.apache.openwebbeans:openwebbeans-spi"
-        versions:
-          - ">= 1.5.0"
-      - dependency-name: "openwebbeans.version"
+      - dependency-name: "org.apache.openwebbeans:*"
         versions:
           - ">= 1.5.0"
       - dependency-name: "org.apache.bval:bval-jsr"
