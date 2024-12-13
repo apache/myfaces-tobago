@@ -95,4 +95,12 @@ describe("general", function () {
 
     expect(result.indexOf("???")).toBeLessThanOrEqual(-1, "There must no '???' on the site.");
   });
+
+  it("If there is a tobago-header it must be a tobago-footer", function () {
+    const header = querySelectorFn("tobago-page > form > tobago-header")();
+    const footer = querySelectorFn("tobago-page > form > tobago-footer")();
+    const headerExist = header != null;
+    const footerExist = footer != null;
+    expect(headerExist).toBe(footerExist);
+  });
 });
