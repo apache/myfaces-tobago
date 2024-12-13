@@ -163,7 +163,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     super.setUp();
 
     stringWriter = new StringWriter();
-    getFacesContext().setResponseWriter(new HtmlResponseWriter(stringWriter, "", StandardCharsets.UTF_8));
+    getFacesContext().setResponseWriter(new HtmlResponseWriter(stringWriter, "", StandardCharsets.UTF_8, true));
 
     // Tobago specific extensions
     final TobagoConfig tobagoConfig = new TobagoConfig(

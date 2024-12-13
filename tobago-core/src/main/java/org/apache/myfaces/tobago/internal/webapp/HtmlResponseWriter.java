@@ -38,12 +38,12 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
   @Deprecated(since = "4.3.0", forRemoval = true)
   public HtmlResponseWriter(
       final Writer writer, final String contentType, final String characterEncoding) {
-    this(writer, contentType, Charset.forName(characterEncoding));
+    this(writer, contentType, Charset.forName(characterEncoding), true);
   }
 
   public HtmlResponseWriter(
-      final Writer writer, final String contentType, final Charset charset) {
-    super(writer, contentType, charset);
+      final Writer writer, final String contentType, final Charset charset, final boolean prettyPrint) {
+    super(writer, contentType, charset, prettyPrint);
     this.helper = new HtmlWriterHelper(writer, charset);
   }
 
@@ -98,7 +98,7 @@ public class HtmlResponseWriter extends TobagoResponseWriterBase {
 
   @Override
   public ResponseWriter cloneWithWriter(final Writer originalWriter) {
-    return new HtmlResponseWriter(originalWriter, getContentType(), Charset.forName(getCharacterEncoding()));
+    return new HtmlResponseWriter(originalWriter, getContentType(), getCharset(), isPrettyPrint());
   }
 
   @Override

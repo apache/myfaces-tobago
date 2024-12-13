@@ -34,8 +34,8 @@ public final class XmlResponseWriter extends TobagoResponseWriterBase {
   private final WriterHelper helper;
 
   public XmlResponseWriter(
-      final Writer writer, final String contentType, final Charset charset) {
-    super(writer, contentType, charset);
+      final Writer writer, final String contentType, final Charset charset, boolean prettyPrint) {
+    super(writer, contentType, charset, prettyPrint);
     this.helper = new HtmlWriterHelper(writer, charset);
   }
 
@@ -81,7 +81,7 @@ public final class XmlResponseWriter extends TobagoResponseWriterBase {
 
   @Override
   public ResponseWriter cloneWithWriter(final Writer originalWriter) {
-    return new XmlResponseWriter(originalWriter, getContentType(), Charset.forName(getCharacterEncoding()));
+    return new XmlResponseWriter(originalWriter, getContentType(), getCharset(), isPrettyPrint());
   }
 
   @Override
