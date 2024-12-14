@@ -483,12 +483,10 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     insideEnd(facesContext, HtmlElements.TOBAGO_SHEET);
   }
 
-  private void encodeTableBody(
-      final FacesContext facesContext, final AbstractUISheet sheet, final TobagoResponseWriter writer,
-      final String sheetId,
-      final Selectable selectable, final List<Integer> columnWidths, final List<Integer> selectedRows,
-      final List<AbstractUIColumnBase> columns, final boolean autoLayout, final List<Integer> expandedValue)
-      throws IOException {
+  private void encodeTableBody(final FacesContext facesContext, final AbstractUISheet sheet,
+      final TobagoResponseWriter writer, final String sheetId, final Selectable selectable,
+      final List<Integer> columnWidths, final List<Integer> selectedRows, final List<AbstractUIColumnBase> columns,
+      final boolean autoLayout, final List<Integer> expandedValue) throws IOException {
 
     final boolean showHeader = sheet.isShowHeader();
     final Markup sheetMarkup = sheet.getMarkup() != null ? sheet.getMarkup() : Markup.NULL;
@@ -501,7 +499,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
     if (showHeader && !autoLayout) {
       // if no autoLayout, we render the header in a separate table.
-
       writer.startElement(HtmlElements.HEADER);
       writer.startElement(HtmlElements.TABLE);
       writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
@@ -515,7 +512,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
           TobagoClass.TABLE_LAYOUT__FIXED);
 
       writeColgroup(writer, columnWidths, columns, true);
-
       writer.startElement(HtmlElements.THEAD);
       encodeHeaderRows(facesContext, sheet, writer, columns);
       writer.endElement(HtmlElements.THEAD);
@@ -544,13 +540,10 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       encodeHeaderRows(facesContext, sheet, writer, columns);
       writer.endElement(HtmlElements.THEAD);
     }
-
     if (!autoLayout) {
       writeColgroup(writer, columnWidths, columns, false);
     }
-
     // Print the Content
-
     if (LOG.isDebugEnabled()) {
       LOG.debug("first = " + sheet.getFirst() + "   rows = " + sheet.getRows());
     }
@@ -564,6 +557,19 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     final int first = (sheet.isLazy() && sheet.isRowsUnlimited()) ? sheet.getLazyFirstRow() : sheet.getFirst();
     final int last = (sheet.isLazy() && sheet.isRowsUnlimited()) ? sheet.getLazyFirstRow() + sheet.getLazyRows()
         : sheet.isRowsUnlimited() ? Integer.MAX_VALUE : sheet.getFirst() + sheet.getRows();
+
+    AbstractUIRow row = null;
+    boolean[] columnRendered = new boolean[columns.size()];
+    for (int i = 0; i < columns.size(); i++) {
+      UIColumn column = columns.get(i);
+      if (column.isRendered()) {
+        columnRendered[i] = true;
+        if (column instanceof AbstractUIRow) {
+          row = (AbstractUIRow) column;
+          // todo: Markup.CLICKABLE ???
+        }
+      }
+    }
 
     for (int rowIndex = first; rowIndex < last; rowIndex++) {
       sheet.setRowIndex(rowIndex);
@@ -600,17 +606,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
         // todo like in TreeListboxRenderer
         writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);
       }
-
-      AbstractUIRow row = null;
-      for (final UIColumn column : columns) {
-        if (column.isRendered()) {
-          if (column instanceof AbstractUIRow) {
-            row = (AbstractUIRow) column;
-            // todo: Markup.CLICKABLE ???
-          }
-        }
-      }
-      // the row client id depends from the existence of an UIRow component! TBD: is this good?
+      // the row client id depends on the existence of an UIRow component! TBD: is this good?
       writer.writeIdAttribute(row != null ? row.getClientId(facesContext) : sheet.getRowClientId());
       writer.writeClassAttribute(
           selected ? TobagoClass.SELECTED : null,
@@ -621,8 +617,9 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       int colSpan = 0;
       AbstractUIColumnPanel panel = null;
 
-      for (final AbstractUIColumnBase column : columns) {
-        if (column.isRendered()) {
+      for (int i = 0; i < columns.size(); i++) {
+        AbstractUIColumnBase column = columns.get(i);
+        if (columnRendered[i]) {
           if (column instanceof AbstractUIColumn || column instanceof AbstractUIColumnSelector
               || column instanceof AbstractUIColumnNode) {
             colSpan++;
@@ -659,7 +656,11 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
                   TobagoClass.SELECTED);
               writer.endElement(HtmlElements.INPUT);
             } else /*if (normalColumn instanceof AbstractUIColumnNode)*/ {
-              column.encodeAll(facesContext);
+              if (column.getChildCount() > 0) {
+                for (int k = 0; k < column.getChildCount(); k++) {
+                  column.getChildren().get(k).encodeAll(facesContext);
+                }
+              }
             } /*else {
               final List<UIComponent> children = sheet.getRenderedChildrenOf(normalColumn);
               for (final UIComponent grandKid : children) {
@@ -684,7 +685,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       writer.writeClassAttribute(TobagoClass.BEHAVIOR__CONTAINER);
       encodeBehavior(writer, facesContext, row);
       writer.endElement(HtmlElements.TD);
-
       writer.endElement(HtmlElements.TR);
 
       if (panel != null) {
@@ -698,7 +698,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
         writer.endElement(HtmlElements.TR);
       }
     }
-
     sheet.setRowIndex(-1);
 
     if (emptySheet && showHeader) {
@@ -732,10 +731,8 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     }
 
     writer.endElement(HtmlElements.TBODY);
-
     writer.endElement(HtmlElements.TABLE);
     writer.endElement(HtmlElements.DIV);
-
 // END RENDER BODY CONTENT
   }
 
