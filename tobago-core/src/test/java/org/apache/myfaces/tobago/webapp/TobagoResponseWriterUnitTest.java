@@ -52,7 +52,7 @@ public class TobagoResponseWriterUnitTest extends AbstractTobagoTestBase {
   public void setUp() throws Exception {
     super.setUp();
     stringWriter = new StringWriter();
-    writer = new HtmlResponseWriter(stringWriter, "", StandardCharsets.UTF_8);
+    writer = new HtmlResponseWriter(stringWriter, "", StandardCharsets.UTF_8, true);
   }
 
   @Test
@@ -145,7 +145,7 @@ public class TobagoResponseWriterUnitTest extends AbstractTobagoTestBase {
   @Test
   public void testNonUtf8() throws IOException {
     try (TobagoResponseWriter writer1
-             = new HtmlResponseWriter(stringWriter, "", StandardCharsets.ISO_8859_1)) {
+             = new HtmlResponseWriter(stringWriter, "", StandardCharsets.ISO_8859_1, true)) {
       writer1.startElement(HtmlElements.INPUT);
       writer1.writeAttribute(HtmlAttributes.VALUE, "Gutschein über 100 €.", true);
       writer1.writeAttribute(HtmlAttributes.READONLY, true);
@@ -156,9 +156,38 @@ public class TobagoResponseWriterUnitTest extends AbstractTobagoTestBase {
   }
 
   @Test
+  public void testNonPrettyPrint() throws IOException {
+    try (TobagoResponseWriter writer1
+             = new HtmlResponseWriter(stringWriter, "", StandardCharsets.UTF_8, false)) {
+      writer1.startElement(HtmlElements.P);
+      writer1.writeAttribute(HtmlAttributes.VALUE, "Gutschein", true);
+      writer1.writeAttribute(HtmlAttributes.READONLY, true);
+      writer1.writeComment("Test");
+      writer1.endElement(HtmlElements.P);
+    }
+    Assertions.assertEquals("<p value='Gutschein' readonly='readonly'><!--Test--></p>",
+        stringWriter.toString());
+  }
+
+  @Test
+  public void testPrettyPrint() throws IOException {
+    try (TobagoResponseWriter writer1
+             = new HtmlResponseWriter(stringWriter, "", StandardCharsets.UTF_8, true)) {
+      writer1.startElement(HtmlElements.P);
+      writer1.writeAttribute(HtmlAttributes.VALUE, "Gutschein", true);
+      writer1.writeAttribute(HtmlAttributes.READONLY, true);
+      writer1.writeComment("Test");
+      writer1.endElement(HtmlElements.P);
+    }
+    Assertions.assertEquals("\n<p value='Gutschein' readonly='readonly'>\n <!--Test-->\n</p>",
+        stringWriter.toString());
+  }
+
+
+  @Test
   public void testCharArray() throws IOException {
     final TobagoResponseWriter xmlResponseWriter
-        = new XmlResponseWriter(stringWriter, "text/xml", StandardCharsets.ISO_8859_1);
+        = new XmlResponseWriter(stringWriter, "text/xml", StandardCharsets.ISO_8859_1, true);
     xmlResponseWriter.writeText("123".toCharArray(), 0, 3);
     Assertions.assertEquals("123", stringWriter.toString());
   }
