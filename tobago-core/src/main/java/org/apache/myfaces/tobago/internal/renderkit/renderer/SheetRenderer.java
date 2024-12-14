@@ -606,7 +606,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
         // todo like in TreeListboxRenderer
         writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);
       }
-      // the row client id depends on from the existence of an UIRow component! TBD: is this good?
+      // the row client id depends on the existence of an UIRow component! TBD: is this good?
       writer.writeIdAttribute(row != null ? row.getClientId(facesContext) : sheet.getRowClientId());
       writer.writeClassAttribute(
           selected ? TobagoClass.SELECTED : null,
