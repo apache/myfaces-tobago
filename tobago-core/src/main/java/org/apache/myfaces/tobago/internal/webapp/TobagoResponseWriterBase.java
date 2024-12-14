@@ -64,15 +64,20 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
   private final Charset charset;
 
+  private final boolean prettyPrint;
+
   @Deprecated(since = "4.3.0", forRemoval = true)
   protected TobagoResponseWriterBase(final Writer writer, final String contentType, final String characterEncoding) {
-    this(writer, contentType, characterEncoding != null ? Charset.forName(characterEncoding) : StandardCharsets.UTF_8);
+    this(writer, contentType, characterEncoding != null ? Charset.forName(characterEncoding) : StandardCharsets.UTF_8,
+        true);
   }
 
-  protected TobagoResponseWriterBase(final Writer writer, final String contentType, final Charset charset) {
+  protected TobagoResponseWriterBase(final Writer writer, final String contentType, final Charset charset,
+                                     final boolean prettyPrint) {
     this.writer = writer;
     this.contentType = contentType;
     this.charset = charset != null ? charset : StandardCharsets.UTF_8;
+    this.prettyPrint = prettyPrint;
   }
 
   protected final Writer getWriter() {
@@ -241,6 +246,14 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     return charset.name();
   }
 
+  protected Charset getCharset() {
+    return charset;
+  }
+
+  protected boolean isPrettyPrint() {
+    return prettyPrint;
+  }
+
   @Override
   public void startElement(final String name, final UIComponent currentComponent) throws IOException {
     closeOpenTag();
@@ -281,7 +294,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     if (localElementInline) {
       inlineStack++;
     }
-    if (inlineStack <= 1) {
+    if (prettyPrint && inlineStack <= 1) {
       sink.write('\n');
       for (int i = 0; i < level; i++) {
         sink.write(' ');
@@ -346,9 +359,11 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
   public void writeComment(final Object obj) throws IOException {
     closeOpenTag();
     final String comment = obj.toString();
-    writer.write('\n');
-    for (int i = 0; i < level; i++) {
-      writer.write(' ');
+    if (prettyPrint) {
+      writer.write('\n');
+      for (int i = 0; i < level; i++) {
+        writer.write(' ');
+      }
     }
     write("<!--");
     write(comment);
@@ -412,9 +427,11 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     if (inline) {
       sink.write("</");
     } else {
-      sink.write('\n');
-      for (int i = 0; i < level; i++) {
-        sink.write(' ');
+      if (prettyPrint) {
+        sink.write('\n');
+        for (int i = 0; i < level; i++) {
+          sink.write(' ');
+        }
       }
       sink.write("</");
     }
