@@ -601,8 +601,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       final boolean selected = selectedRows.contains(rowIndex);
       final String parentId = sheet.getRowParentClientId();
       if (parentId != null) {
-        // TODO: replace with
-        // todo writer.writeIdAttribute(parentId + SUB_SEPARATOR + AbstractUITree.SUFFIX_PARENT);
+        // TODO: replace with writer.writeIdAttribute(parentId + SUB_SEPARATOR + AbstractUITree.SUFFIX_PARENT);
         // todo like in TreeListboxRenderer
         writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);
       }
