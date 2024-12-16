@@ -27,7 +27,7 @@ it("Default sheet: select row 2; select row4", function (done) {
   const setupDefaultSheet = elementByIdFn("page:mainForm:defaultSheet");
   const row2 = querySelectorFn("tr[row-index='2']");
   const row4 = querySelectorFn("tr[row-index='4']");
-  const firstPageButton = elementByIdFn("page:mainForm:sheet:pageActionfirst");
+  const firstPageButton = querySelectorFn("#page\\:mainForm\\:sheet [data-tobago-action*='first']");
 
   const test = new JasmineTestTool(done);
   test.setup(() => rows().value === "5" && !lazy().checked && sheetSelectable().value === "multi"
@@ -65,7 +65,7 @@ it("selectable=none + no column selector: select row 3 cannot happen", function 
   const columnPanelRendered = elementByIdFn("page:mainForm:columnPanelRendered::field");
   const setupSelectableNone = elementByIdFn("page:mainForm:selectableNone");
   const row3 = querySelectorFn("tr[row-index='3']");
-  const firstPageButton = elementByIdFn("page:mainForm:sheet:pageActionfirst");
+  const firstPageButton = querySelectorFn("#page\\:mainForm\\:sheet [data-tobago-action*='first']");
 
   const test = new JasmineTestTool(done);
   test.setup(() => rows().value === "5" && !lazy().checked && sheetSelectable().value === "none"
@@ -92,8 +92,8 @@ it("selectable=single: page 1; select row 3; page 4; select row 18; page 1", fun
   const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:sheet::columnSelector']");
   const row3 = querySelectorFn("tr[row-index='3']");
   const row18 = querySelectorFn("tr[row-index='18']");
-  const page4 = elementByIdFn("page:mainForm:sheet:pageActiontoPage-4");
-  const firstPageButton = elementByIdFn("page:mainForm:sheet:pageActionfirst");
+  const page4 = querySelectorFn("#page\\:mainForm\\:sheet [data-tobago-action*='\\:4\\}']");
+  const firstPageButton = querySelectorFn("#page\\:mainForm\\:sheet [data-tobago-action*='first']");
 
   const test = new JasmineTestTool(done);
   test.setup(() => rows().value === "5" && !lazy().checked && sheetSelectable().value === "single"
@@ -136,8 +136,8 @@ it("selectable=singleOrNone: page 1; select row 3; deselect row 3", function (do
   const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:sheet::columnSelector']");
   const row3 = querySelectorFn("tr[row-index='3']");
   const row18 = querySelectorFn("tr[row-index='18']");
-  const page4 = elementByIdFn("page:mainForm:sheet:pageActiontoPage-4");
-  const firstPageButton = elementByIdFn("page:mainForm:sheet:pageActionfirst");
+  const page4 = querySelectorFn("#page\\:mainForm\\:sheet [data-tobago-action*='\\:4\\}']");
+  const firstPageButton = querySelectorFn("#page\\:mainForm\\:sheet [data-tobago-action*='first']");
 
   const test = new JasmineTestTool(done);
   test.setup(() => rows().value === "5" && !lazy().checked && sheetSelectable().value === "singleOrNone"
@@ -168,8 +168,8 @@ it("selectable=multi: page 1; select row 4; page 4; select row 17; page 1", func
   const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:sheet::columnSelector']");
   const row4 = querySelectorFn("tr[row-index='4']");
   const row17 = querySelectorFn("tr[row-index='17']");
-  const page4 = elementByIdFn("page:mainForm:sheet:pageActiontoPage-4");
-  const firstPageButton = elementByIdFn("page:mainForm:sheet:pageActionfirst");
+  const page4 = querySelectorFn("#page\\:mainForm\\:sheet [data-tobago-action*='\\:4\\}']");
+  const firstPageButton = querySelectorFn("#page\\:mainForm\\:sheet [data-tobago-action*='first']");
 
   const test = new JasmineTestTool(done);
   test.setup(() => rows().value === "5" && !lazy().checked && sheetSelectable().value === "multi"
@@ -216,8 +216,8 @@ it("selectable=multi: select all; page 4; select row 17; page 1", function (done
   const row3 = querySelectorFn("tr[row-index='3']");
   const row4 = querySelectorFn("tr[row-index='4']");
   const row17 = querySelectorFn("tr[row-index='17']");
-  const page4 = elementByIdFn("page:mainForm:sheet:pageActiontoPage-4");
-  const firstPageButton = elementByIdFn("page:mainForm:sheet:pageActionfirst");
+  const page4 = querySelectorFn("#page\\:mainForm\\:sheet [data-tobago-action*='\\:4\\}']");
+  const firstPageButton = querySelectorFn("#page\\:mainForm\\:sheet [data-tobago-action*='first']");
 
   const test = new JasmineTestTool(done);
   test.setup(() => rows().value === "5" && !lazy().checked && sheetSelectable().value === "multi"
@@ -288,7 +288,7 @@ it("selectable=multi: select all; deselect row 3; select row 3", function (done)
   const row2 = querySelectorFn("tr[row-index='2']");
   const row3 = querySelectorFn("tr[row-index='3']");
   const row4 = querySelectorFn("tr[row-index='4']");
-  const firstPageButton = elementByIdFn("page:mainForm:sheet:pageActionfirst");
+  const firstPageButton = querySelectorFn("#page\\:mainForm\\:sheet [data-tobago-action*='first']");
 
   const test = new JasmineTestTool(done);
   test.setup(() => rows().value === "5" && !lazy().checked && sheetSelectable().value === "multi"
@@ -359,7 +359,7 @@ it("disabled column selector", function (done) {
   const rowSelector = querySelectorFn("input[name='page:mainForm:sheet_data_row_selector_0']");
   const row2 = querySelectorFn("tr[row-index='2']");
   const row4 = querySelectorFn("tr[row-index='4']");
-  const firstPageButton = elementByIdFn("page:mainForm:sheet:pageActionfirst");
+  const firstPageButton = querySelectorFn("#page\\:mainForm\\:sheet [data-tobago-action*='first']");
 
   const test = new JasmineTestTool(done);
   test.setup(() => rows().value === "5" && !lazy().checked && sheetSelectable().value === "multi"
@@ -396,8 +396,8 @@ it("column panel: page 1; select row 4; page 4; select row 17; page 1", function
   const row17 = querySelectorFn("tr[row-index='17']");
   const columnPanel4 = querySelectorFn(".tobago-column-panel[name='4']");
   const columnPanel17 = querySelectorFn(".tobago-column-panel[name='17']");
-  const page4 = elementByIdFn("page:mainForm:sheet:pageActiontoPage-4");
-  const firstPageButton = elementByIdFn("page:mainForm:sheet:pageActionfirst");
+  const page4 = querySelectorFn("#page\\:mainForm\\:sheet [data-tobago-action*='\\:4\\}']");
+  const firstPageButton = querySelectorFn("#page\\:mainForm\\:sheet [data-tobago-action*='first']");
 
   const test = new JasmineTestTool(done);
   test.setup(() => rows().value === "5" && !lazy().checked && sheetSelectable().value === "multi"

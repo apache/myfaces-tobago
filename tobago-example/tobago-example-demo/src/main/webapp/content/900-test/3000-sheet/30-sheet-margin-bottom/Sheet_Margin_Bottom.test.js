@@ -19,7 +19,7 @@ import {elementByIdFn, querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("Margin from button to sheet/paging must be the same", function (done) {
-  const sheet1pagingFn = querySelectorFn("#page\\:mainForm\\:sheet1 .ms-auto.pagination");
+  const sheet1pagingFn = querySelectorFn("#page\\:mainForm\\:sheet1 .pagination");
   const button1Fn = elementByIdFn("page:mainForm:button1");
   const sheet2Fn = elementByIdFn("page:mainForm:sheet2");
   const button2Fn = elementByIdFn("page:mainForm:button2");

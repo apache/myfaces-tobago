@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.event;
 
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
+
 import jakarta.faces.event.ActionEvent;
 import jakarta.faces.component.UIComponent;
 
@@ -26,12 +28,21 @@ public class PageActionEvent extends ActionEvent {
 
   private static final long serialVersionUID = 3364193750247386220L;
 
-  private SheetAction action;
+  private final SheetAction action;
   private int value;
 
   public PageActionEvent(final UIComponent component, final SheetAction action) {
     super(component);
     this.action = action;
+  }
+
+  public PageActionEvent(final UIComponent component, final JsonUtils.SheetActionRecord sheetActionRecord) {
+    super(component);
+    this.action = sheetActionRecord.action();
+    final Integer target = sheetActionRecord.target();
+    if (target != null) {
+      this.value = target;
+    }
   }
 
   /**

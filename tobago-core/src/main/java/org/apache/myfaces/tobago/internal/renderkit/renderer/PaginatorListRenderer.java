@@ -26,7 +26,9 @@ import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
 import org.apache.myfaces.tobago.layout.Arrows;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -42,10 +44,6 @@ public class PaginatorListRenderer<T extends AbstractUIPaginatorList> extends Pa
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
-  public void decodeInternal(final FacesContext facesContext, final T paginator) {
-  }
-
-  @Override
   public void encodeBeginInternal(final FacesContext facesContext, final T paginator) throws IOException {
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
@@ -58,6 +56,13 @@ public class PaginatorListRenderer<T extends AbstractUIPaginatorList> extends Pa
     writer.writeClassAttribute(
         visible ? null : BootstrapClass.D_NONE,
         paginator.getCustomClass());
+
+    writer.startElement(HtmlElements.INPUT);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
+    writer.writeIdAttribute(paginator.getFieldId(facesContext));
+    writer.writeNameAttribute(clientId);
+    writer.endElement(HtmlElements.INPUT);
+
     if (sheet != null) {
       writer.startElement(HtmlElements.UL);
       writer.writeClassAttribute(BootstrapClass.PAGINATION);
@@ -104,44 +109,42 @@ public class PaginatorListRenderer<T extends AbstractUIPaginatorList> extends Pa
       final Arrows arrows = paginator.getArrows();
       if (arrows == Arrows.show || arrows == Arrows.auto) {
         final boolean disabled = sheet.isAtBeginning();
-        encodeLink(
-            facesContext, sheet, disabled, SheetAction.first, null, Icons.SKIP_START, null);
-        encodeLink(facesContext, sheet, disabled, SheetAction.prev, null, Icons.CARET_LEFT, null);
+        encodeLink(facesContext, disabled, SheetAction.first, null, Icons.SKIP_START, null);
+        encodeLink(facesContext, disabled, SheetAction.prev, null, Icons.CARET_LEFT, null);
       }
 
-      int skip = prevs.size() > 0 ? prevs.get(0) : 1;
+      int skip = !prevs.isEmpty() ? prevs.get(0) : 1;
       if (!(arrows == Arrows.show || arrows == Arrows.auto) && skip > 1) {
         skip -= linkCount - (linkCount / 2);
         skip--;
         if (skip < 1) {
           skip = 1;
         }
-        encodeLink(facesContext, sheet, false, SheetAction.toPage, skip, Icons.THREE_DOTS, null);
+        encodeLink(facesContext, false, SheetAction.toPage, skip, Icons.THREE_DOTS, null);
       }
       for (final Integer prev : prevs) {
-        encodeLink(facesContext, sheet, false, SheetAction.toPage, prev, null, null);
+        encodeLink(facesContext, false, SheetAction.toPage, prev, null, null);
       }
-      encodeLink(facesContext, sheet, false, SheetAction.toPage,
-          sheet.getCurrentPage() + 1, null, BootstrapClass.ACTIVE);
+      encodeLink(facesContext, false, SheetAction.toPage, sheet.getCurrentPage() + 1, null, BootstrapClass.ACTIVE);
 
       for (final Integer next : nexts) {
-        encodeLink(facesContext, sheet, false, SheetAction.toPage, next, null, null);
+        encodeLink(facesContext, false, SheetAction.toPage, next, null, null);
       }
 
-      skip = nexts.size() > 0 ? nexts.get(nexts.size() - 1) : pages;
+      skip = !nexts.isEmpty() ? nexts.get(nexts.size() - 1) : pages;
       if (!(arrows == Arrows.show || arrows == Arrows.auto) && skip < pages) {
         skip += linkCount / 2;
         skip++;
         if (skip > pages) {
           skip = pages;
         }
-        encodeLink(facesContext, sheet, false, SheetAction.toPage, skip, Icons.THREE_DOTS, null);
+        encodeLink(facesContext, false, SheetAction.toPage, skip, Icons.THREE_DOTS, null);
       }
       if (arrows == Arrows.show || arrows == Arrows.auto) {
         final boolean disabled = sheet.isAtEnd();
-        encodeLink(facesContext, sheet, disabled, SheetAction.next, null, Icons.CARET_RIGHT, null);
-        encodeLink(facesContext, sheet, disabled || !sheet.hasRowCount(), SheetAction.last, null,
-            Icons.SKIP_END, null);
+        final boolean disabledEnd = disabled || !sheet.hasRowCount();
+        encodeLink(facesContext, disabled, SheetAction.next, null, Icons.CARET_RIGHT, null);
+        encodeLink(facesContext, disabledEnd, SheetAction.last, null, Icons.SKIP_END, null);
       }
       writer.endElement(HtmlElements.UL);
     } else {

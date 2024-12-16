@@ -19,19 +19,21 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIOutput;
+import jakarta.faces.context.FacesContext;
 
-public abstract class AbstractUIPaginator extends UIOutput implements Visual {
+public abstract class AbstractUIPaginator extends UIOutput implements Visual, SupportFieldId {
 
   public abstract String getFor();
 
   public abstract boolean isAlwaysVisible();
 
-    // todo: might be an interface instead of AbstractUISheet
+  // todo: might be an interface instead of AbstractUISheet
   public AbstractUISheet getPageable() {
     final String forId = getFor();
     if (forId != null) {
@@ -41,5 +43,10 @@ public abstract class AbstractUIPaginator extends UIOutput implements Visual {
       }
     }
     return ComponentUtils.findAncestor(this, AbstractUISheet.class);
+  }
+
+  @Override
+  public String getFieldId(final FacesContext facesContext) {
+    return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "field";
   }
 }

@@ -32,7 +32,7 @@ export class TobagoPaginator extends HTMLElement {
   }
 
   get input(): HTMLInputElement {
-    return this.querySelector(".page-link input");
+    return this.querySelector("input");
   }
 
   get sheet(): HTMLElement {
@@ -45,29 +45,42 @@ export class TobagoPaginator extends HTMLElement {
     }
   }
 
+  get buttons(): NodeListOf<Element> {
+    return this.querySelectorAll("li.page-item:not(.disabled)>button");
+  }
+
+  get action(): HTMLInputElement {
+    return this.querySelector("input[type=hidden]");
+  }
+
   connectedCallback(): void {
-    console.warn("register -------------- click on paging", this.tagName);
-    this.text.addEventListener("click", this.clickOnPaging.bind(this));
+    const text = this.text;
+    if (text) {
+      text.addEventListener("click", this.clickOnPaging.bind(this));
+    }
 
     const input = this.input;
-    console.warn("register -------------- blur on paging", this.tagName);
-    input.addEventListener("blur", this.blurPaging.bind(this));
+    if (input) {
+      input.addEventListener("blur", this.blurPaging.bind(this));
+      input.addEventListener("keydown", function (event: KeyboardEvent): void {
+        if (event.key === Key.ENTER) {
+          event.stopPropagation();
+          event.preventDefault();
+          event.currentTarget.dispatchEvent(new Event("blur"));
+        }
+      }.bind(this));
+    }
 
-    console.warn("register -------------- keydown on paging", this.tagName);
-    input.addEventListener("keydown", function (event: KeyboardEvent): void {
-      if (event.key === Key.ENTER) {
-        event.stopPropagation();
-        event.preventDefault();
-        event.currentTarget.dispatchEvent(new Event("blur"));
-      }
-    }.bind(this));
+    const buttons = this.buttons;
+    if (buttons) {
+      buttons.forEach(item => item.addEventListener("click", this.clickOnButton.bind(this)));
+    }
   }
 
   clickOnPaging(event: MouseEvent): void {
     const output: HTMLElement = this.output;
     output.style.display = "none";
 
-    console.warn("execute  -------------- click on paging", this.tagName);
     const input: HTMLInputElement = this.input;
     input.style.display = "initial";
     input.focus();
@@ -75,15 +88,16 @@ export class TobagoPaginator extends HTMLElement {
   }
 
   blurPaging(event: FocusEvent): void {
-    console.warn("execute  -------------- blur on paging", this.tagName);
     const input = event.currentTarget as HTMLInputElement;
     const output: HTMLElement = this.output;
     const number = Number.parseInt(input.value); // sanitizing
     if (number > 0 && number.toString() !== output.innerHTML) {
       console.debug("Reloading sheet '%s' old value='%s' new value='%s'", this.id, output.innerHTML, number);
       output.innerHTML = number.toString();
+      const action = this.tagName == "TOBAGO-PAGINATOR-ROW" ? "toRow" : "toPage";
+      input.value = `{"action":"${action}","target":${number}}`;
       faces.ajax.request(
-          input.id,
+          this.id,
           null,
           {
             params: {
@@ -94,9 +108,25 @@ export class TobagoPaginator extends HTMLElement {
           });
     } else {
       console.info("no update needed");
-      input.value = output.innerHTML;
-      input.style.display = "none";
-      output.style.display = "initial";
     }
+    input.style.display = "none";
+    output.style.display = "initial";
+  }
+
+  clickOnButton(event: MouseEvent): void {
+    const button = event.currentTarget as HTMLButtonElement;
+    const input = this.input;
+    input.value = button.dataset.tobagoAction;
+
+    faces.ajax.request(
+        this.id,
+        null,
+        {
+          params: {
+            "javax.faces.behavior.event": "reload"
+          },
+          execute: this.sheet.id,
+          render: this.sheet.id
+        });
   }
 }
