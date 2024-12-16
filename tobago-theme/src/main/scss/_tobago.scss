@@ -444,8 +444,16 @@ tobago-bar {
     @include linkWithoutUnderline();
   }
 
-  tobago-links.tobago-auto-spacing {
-    margin-bottom: 0;
+  tobago-links {
+    &.tobago-auto-spacing {
+      margin-bottom: 0;
+    }
+
+    > .navbar-nav > .nav-item {
+      button.tobago-link.nav-link {
+        padding: var(--bs-nav-link-padding-y) var(--bs-navbar-nav-link-padding-x);
+      }
+    }
   }
 }
 
@@ -935,11 +943,6 @@ button {
   &.nav-link { /* bootstrap don't know button.nav-link*/
     padding: .55em $nav-link-padding-x .45em;
   }
-}
-
-.navbar-nav button.nav-link {
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .tobago-messages-container {
