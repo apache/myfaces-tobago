@@ -655,7 +655,9 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
                   BootstrapClass.FORM_CHECK_INLINE,
                   TobagoClass.SELECTED);
               writer.endElement(HtmlElements.INPUT);
-            } else /*if (normalColumn instanceof AbstractUIColumnNode)*/ {
+            } else if (column instanceof AbstractUIColumnNode) {
+              column.encodeAll(facesContext);
+            } else {
               if (column.getChildCount() > 0) {
                 for (int k = 0; k < column.getChildCount(); k++) {
                   column.getChildren().get(k).encodeAll(facesContext);

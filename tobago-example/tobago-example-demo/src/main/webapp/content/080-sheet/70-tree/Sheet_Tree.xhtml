@@ -46,7 +46,7 @@
     ...</demo-highlight>
     <tc:sheet id="sheet" value="#{sheetTreeController.solarTree}" var="solarObject" showRoot="true" showRootJunction="true">
       <tc:columnNode id="nameCol" label="Name">
-        <tc:treeIndent/>
+        <tc:treeIndent id="indent"/>
         <tc:out id="nameOut" value="#{solarObject.userObject.name}" labelLayout="skip"/>
       </tc:columnNode>
       <tc:column label="Central Body">
