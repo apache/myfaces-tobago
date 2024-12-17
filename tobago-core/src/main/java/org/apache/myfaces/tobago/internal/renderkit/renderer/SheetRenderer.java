@@ -57,12 +57,10 @@ import org.apache.myfaces.tobago.layout.Arrows;
 import org.apache.myfaces.tobago.layout.PaginatorMode;
 import org.apache.myfaces.tobago.layout.ShowPosition;
 import org.apache.myfaces.tobago.layout.TextAlign;
-import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.model.SortedColumn;
 import org.apache.myfaces.tobago.model.SortedColumnList;
-import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
@@ -490,7 +488,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
     final boolean showHeader = sheet.isShowHeader();
     final Markup sheetMarkup = sheet.getMarkup() != null ? sheet.getMarkup() : Markup.NULL;
-    final ExpandedState expandedState = sheet.isTreeModel() ? sheet.getExpandedState() : null;
 
     final UIComponent before = sheet.getFacet(Facets.BEFORE);
     if (before != null) {
@@ -589,11 +586,8 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
         LOG.debug("list      " + sheet.getValue());
       }
 
-      if (sheet.isTreeModel()) {
-        final TreePath path = sheet.getPath();
-        if (sheet.isFolder() && expandedState.isExpanded(path)) {
-          expandedValue.add(rowIndex);
-        }
+      if (sheet.isTreeModel() && sheet.isFolder() && sheet.getExpandedState().isExpanded(sheet.getPath())) {
+        expandedValue.add(rowIndex);
       }
 
       writer.startElement(HtmlElements.TR);
@@ -634,8 +628,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
                     column instanceof AbstractUIColumn ? ((AbstractUIColumn) column).getVerticalAlign() : null),
                 column.getCustomClass());
 
-            if (column instanceof AbstractUIColumnSelector) {
-              final AbstractUIColumnSelector selector = (AbstractUIColumnSelector) column;
+            if (column instanceof AbstractUIColumnSelector selector) {
               writer.startElement(HtmlElements.INPUT);
               writer.writeNameAttribute(sheetId + "_data_row_selector_" + rowIndex);
               Selectable currentSelectable = getSelectionMode(selectable, selector);
@@ -657,18 +650,14 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
             } else if (column instanceof AbstractUIColumnNode) {
               column.encodeAll(facesContext);
             } else {
-              if (column.getChildCount() > 0) {
-                for (int k = 0; k < column.getChildCount(); k++) {
-                  column.getChildren().get(k).encodeAll(facesContext);
+              final int childCount = column.getChildCount();
+              if (childCount > 0) {
+                final List<UIComponent> children = column.getChildren();
+                for (int k = 0; k < childCount; k++) {
+                  children.get(k).encodeAll(facesContext);
                 }
               }
-            } /*else {
-              final List<UIComponent> children = sheet.getRenderedChildrenOf(normalColumn);
-              for (final UIComponent grandKid : children) {
-                grandKid.encodeAll(facesContext);
-              }
-            }*/
-
+            }
             writer.endElement(HtmlElements.TD);
           } else if (column instanceof AbstractUIColumnPanel) {
             panel = (AbstractUIColumnPanel) column;
@@ -723,7 +712,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       writer.endElement(HtmlElements.TD);
       if (!autoLayout) {
         writer.startElement(HtmlElements.TD);
-//      writer.write("&nbsp;");
         writer.startElement(HtmlElements.DIV);
         writer.endElement(HtmlElements.DIV);
         writer.endElement(HtmlElements.TD);
@@ -734,7 +722,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     writer.endElement(HtmlElements.TBODY);
     writer.endElement(HtmlElements.TABLE);
     writer.endElement(HtmlElements.DIV);
-// END RENDER BODY CONTENT
   }
 
   private static Selectable getSelectionMode(Selectable selectable, AbstractUIColumnSelector selector) {
