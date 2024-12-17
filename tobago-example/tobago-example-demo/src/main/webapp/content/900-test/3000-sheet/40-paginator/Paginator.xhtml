@@ -56,7 +56,7 @@
     </tc:sheet>
   </tc:section>
 
-  <tc:section label="Page">
+  <tc:section label="Row">
     <tc:sheet id="r1" value="#{sheetController.solarList}" var="object" rows="5" paginator="row">
       <tc:column label="Id">
         <tc:out value="#{object.id}"/>
@@ -84,6 +84,5 @@
       </tc:column>
     </tc:sheet>
   </tc:section>
-
 
 </ui:composition>

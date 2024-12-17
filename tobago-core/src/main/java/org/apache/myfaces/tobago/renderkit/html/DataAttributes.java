@@ -26,6 +26,8 @@ package org.apache.myfaces.tobago.renderkit.html;
  */
 public enum DataAttributes implements MarkupLanguageAttributes {
 
+  ACTION("data-tobago-action"),
+
   BS_CONTENT("data-bs-content"),
   BS_DISMISS("data-bs-dismiss"),
   BS_TOGGLE("data-bs-toggle"),

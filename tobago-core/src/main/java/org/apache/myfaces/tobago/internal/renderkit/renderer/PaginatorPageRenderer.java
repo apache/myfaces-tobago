@@ -21,7 +21,6 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.event.SheetAction;
-import org.apache.myfaces.tobago.internal.component.AbstractUILink;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPaginatorPage;
 import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
@@ -33,22 +32,13 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.ResourceUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.lang.invoke.MethodHandles;
 import java.text.MessageFormat;
 import java.util.Locale;
 
 public class PaginatorPageRenderer<T extends AbstractUIPaginatorPage> extends PaginatorRenderer<T> {
-
-  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
-  @Override
-  public void decodeInternal(final FacesContext facesContext, final T component) {
-  }
 
   @Override
   public void encodeBeginInternal(final FacesContext facesContext, final T paginator) throws IOException {
@@ -58,21 +48,20 @@ public class PaginatorPageRenderer<T extends AbstractUIPaginatorPage> extends Pa
     final boolean visible = paginator.isAlwaysVisible() || sheet.needMoreThanOnePage();
 
     writer.startElement(HtmlElements.TOBAGO_PAGINATOR_PAGE);
-    writer.writeIdAttribute(paginator.getClientId(facesContext));
+    final String clientId = paginator.getClientId(facesContext);
+    writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
         visible ? null : BootstrapClass.D_NONE,
-        BootstrapClass.PAGINATION,
         paginator.getCustomClass());
 
-    final AbstractUILink command
-        = sheet.ensurePagingCommand(facesContext, sheet, Facets.pagerPage.name(), SheetAction.toPage.name(), false);
-    final String pagerCommandId = command.getClientId(facesContext);
+    writer.startElement(HtmlElements.UL);
+    writer.writeClassAttribute(BootstrapClass.PAGINATION);
 
     if (sheet.isShowPageRangeArrows()) {
       final boolean disabled = sheet.isAtBeginning();
       encodeLink(
-          facesContext, sheet, disabled, SheetAction.first, null, Icons.SKIP_START, null);
-      encodeLink(facesContext, sheet, disabled, SheetAction.prev, null, Icons.CARET_LEFT, null);
+          facesContext, disabled, SheetAction.first, null, Icons.SKIP_START, null);
+      encodeLink(facesContext, disabled, SheetAction.prev, null, Icons.CARET_LEFT, null);
     }
     writer.startElement(HtmlElements.LI);
     writer.writeClassAttribute(BootstrapClass.PAGE_ITEM);
@@ -105,8 +94,8 @@ public class PaginatorPageRenderer<T extends AbstractUIPaginatorPage> extends Pa
         writer.writeText(Integer.toString(first));
         writer.endElement(HtmlElements.SPAN);
         writer.startElement(HtmlElements.INPUT);
-        writer.writeIdAttribute(pagerCommandId);
-        writer.writeNameAttribute(pagerCommandId);
+        writer.writeIdAttribute(paginator.getFieldId(facesContext));
+        writer.writeNameAttribute(clientId);
         writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
         writer.writeAttribute(HtmlAttributes.VALUE, first);
         if (!unknown) {
@@ -123,10 +112,11 @@ public class PaginatorPageRenderer<T extends AbstractUIPaginatorPage> extends Pa
     writer.endElement(HtmlElements.LI);
     if (sheet.isShowPageRangeArrows()) {
       final boolean disabled = sheet.isAtEnd();
-      encodeLink(facesContext, sheet, disabled, SheetAction.next, null, Icons.CARET_RIGHT, null);
-      encodeLink(facesContext, sheet, disabled || !sheet.hasRowCount(), SheetAction.last, null,
-          Icons.SKIP_END, null);
+      encodeLink(facesContext, disabled, SheetAction.next, null, Icons.CARET_RIGHT, null);
+      encodeLink(facesContext, disabled || !sheet.hasRowCount(), SheetAction.last, null, Icons.SKIP_END, null);
     }
+
+    writer.endElement(HtmlElements.UL);
   }
 
   @Override

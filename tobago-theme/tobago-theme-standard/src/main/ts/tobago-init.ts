@@ -31,6 +31,7 @@ import "./tobago-in";
 import "./tobago-messages";
 import "./tobago-overlay";
 import "./tobago-page";
+import "./tobago-paginator-list";
 import "./tobago-paginator-page";
 import "./tobago-paginator-row";
 import "./tobago-panel";

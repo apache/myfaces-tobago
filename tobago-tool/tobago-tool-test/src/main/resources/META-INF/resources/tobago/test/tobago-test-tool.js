@@ -65,6 +65,7 @@ class JasmineTestTool {
   done;
   timeout;
   waitTimestamp;
+  message;
 
   /**
    * @param done function from Jasmine; must called if all Steps done or timeout
@@ -73,6 +74,13 @@ class JasmineTestTool {
   constructor(done, timeout) {
     this.done = done;
     this.timeout = timeout ? timeout : 20000;
+  }
+
+  /**
+   * Set hard to fail!
+   */
+  fail(message) {
+    this.message = message;
   }
 
   /**
@@ -195,10 +203,21 @@ class JasmineTestTool {
     const timeout = this.timeout;
     let lastStepExecution;
 
+    if (this.message != null) {
+      fail(this.message);
+      done();
+      return;
+    }
+
     console.debug("[JasmineTestTool] start");
     registerAjaxReadyStateListener();
     resetTimeout();
-    cycle();
+    try {
+      cycle();
+    } catch (e) {
+      fail(e);
+      done();
+    }
 
     function cycle() {
       const nextStep = getNextStep();

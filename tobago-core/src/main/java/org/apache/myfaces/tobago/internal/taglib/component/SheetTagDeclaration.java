@@ -198,7 +198,7 @@ public interface SheetTagDeclaration
   void setShowDirectLinks(String showDirectLinks);
 
   /**
-   * Flag indicating whether and where the range pages should
+   * Flag indicating whether and where the range pages should be
    * rendered in the sheet's footer. Rendering this range also offers the
    * capability to enter the index displayed page directly.
    *

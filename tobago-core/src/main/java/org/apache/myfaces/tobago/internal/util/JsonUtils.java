@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.util;
 
 import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.event.SheetAction;
 import org.apache.myfaces.tobago.internal.renderkit.Collapse;
 import org.apache.myfaces.tobago.internal.renderkit.Command;
 import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
@@ -355,7 +356,42 @@ public class JsonUtils {
     return builder.toString();
   }
 
+  public static String encode(final SheetAction sheetAction, final Integer target) {
+    final StringBuilder builder = new StringBuilder();
+    builder.append("{");
+    encode(builder, "action", sheetAction.name());
+    if (target != null) {
+      encode(builder, "target", target);
+    }
+    builder.deleteCharAt(builder.length() - 1); // remove last comma
+    builder.append("}");
+    return builder.toString();
+  }
+
+  public static SheetActionRecord decodeSheetAction(final String json) {
+    if (json == null) {
+      return null;
+    }
+    SheetAction action = null;
+    Integer target = null;
+    final String[] split = json.replaceAll("[^a-zA-Z0-9]", " ").split("\\s+");
+    for (int i = 0; i < split.length - 1; i++) {
+      if (split[i].equals("action")) {
+        i++;
+        action = SheetAction.valueOf(split[i]);
+      }
+      if (split[i].equals("target")) {
+        i++;
+        target = Integer.parseInt(split[i]);
+      }
+    }
+    return new SheetActionRecord(action, target);
+  }
+
   public static String encodeEmptyArray() {
     return "[]";
   }
+
+  // todo: rename - find a better name
+  public record SheetActionRecord(SheetAction action, Integer target) {}
 }

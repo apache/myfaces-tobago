@@ -19,9 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.event.SheetAction;
-import org.apache.myfaces.tobago.internal.component.AbstractUILink;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPaginatorRow;
 import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
@@ -29,25 +26,15 @@ import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.ResourceUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.lang.invoke.MethodHandles;
 import java.text.MessageFormat;
 import java.util.Locale;
 
 public class PaginatorRowRenderer<T extends AbstractUIPaginatorRow> extends PaginatorRenderer<T> {
-
-  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
-  @Override
-  public void decodeInternal(final FacesContext facesContext, final T component) {
-  }
 
   @Override
   public void encodeBeginInternal(final FacesContext facesContext, final T paginator) throws IOException {
@@ -57,7 +44,8 @@ public class PaginatorRowRenderer<T extends AbstractUIPaginatorRow> extends Pagi
     final boolean visible = paginator.isAlwaysVisible() || sheet.needMoreThanOnePage();
 
     writer.startElement(HtmlElements.TOBAGO_PAGINATOR_ROW);
-    writer.writeIdAttribute(paginator.getClientId(facesContext));
+    final String clientId = paginator.getClientId(facesContext);
+    writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(
         visible ? null : BootstrapClass.D_NONE,
         BootstrapClass.PAGINATION,
@@ -70,10 +58,6 @@ public class PaginatorRowRenderer<T extends AbstractUIPaginatorRow> extends Pagi
     writer.writeClassAttribute(
         BootstrapClass.PAGE_LINK,
         BootstrapClass.TEXT_NOWRAP);
-
-    final AbstractUILink command
-        = sheet.ensurePagingCommand(facesContext, sheet, Facets.pagerRow.name(), SheetAction.toRow.name(), false);
-    final String pagerCommandId = command.getClientId(facesContext);
 
     if (sheet.getRowCount() != 0) {
       final Locale locale = facesContext.getViewRoot().getLocale();
@@ -99,8 +83,8 @@ public class PaginatorRowRenderer<T extends AbstractUIPaginatorRow> extends Pagi
         writer.writeText(Integer.toString(first));
         writer.endElement(HtmlElements.SPAN);
         writer.startElement(HtmlElements.INPUT);
-        writer.writeIdAttribute(pagerCommandId);
-        writer.writeNameAttribute(pagerCommandId);
+        writer.writeIdAttribute(paginator.getFieldId(facesContext));
+        writer.writeNameAttribute(clientId);
         writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT);
         writer.writeAttribute(HtmlAttributes.VALUE, first);
         final int maxLength = Integer.toString(sheet.getRowCount()).length();
@@ -114,7 +98,6 @@ public class PaginatorRowRenderer<T extends AbstractUIPaginatorRow> extends Pagi
         writer.writeText(formatted);
       }
     }
-    ComponentUtils.removeFacet(sheet, Facets.pagerRow);
     writer.endElement(HtmlElements.SPAN);
     writer.endElement(HtmlElements.SPAN);
   }
