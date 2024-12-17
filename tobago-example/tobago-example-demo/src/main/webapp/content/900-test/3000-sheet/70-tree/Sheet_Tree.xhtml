@@ -24,7 +24,7 @@
   <tc:button id="reset" label="Reset" outcome="/content/900-test/3000-sheet/70-tree/Sheet_Tree.xhtml"/>
   <tc:sheet id="sheet" value="#{treeController.sample}" var="node" showRoot="true" showRootJunction="true">
     <tc:columnNode id="nameCol" label="Name">
-      <tc:treeIndent/>
+      <tc:treeIndent id="indent"/>
       <tc:out id="nameOut" value="#{node.userObject.name}" labelLayout="skip"/>
     </tc:columnNode>
   </tc:sheet>

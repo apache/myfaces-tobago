@@ -18,15 +18,31 @@
 import {elementByIdFn, querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
-it("There must be no horizontal scrollbar", function (done) {
+it("Open the 'World' node to see 'Carib' and 'Africa'", function (done) {
   const reset = elementByIdFn("page:mainForm:reset")
   const treeNodes = querySelectorAllFn("#page\\:mainForm\\:sheet tobago-tree-node");
   const toggleWorld = querySelectorFn("#page\\:mainForm\\:sheet\\:6\\:nameCol .tobago-toggle");
-  const spanWorld = querySelectorFn("#page\\:mainForm\\:sheet\\:6\\:nameCol span.form-control-plaintext");
-  const spanCarib = querySelectorFn("#page\\:mainForm\\:sheet\\:7\\:nameCol span.form-control-plaintext");
-  const spanAfrica = querySelectorFn("#page\\:mainForm\\:sheet\\:8\\:nameCol span.form-control-plaintext");
+  const spanWorld = querySelectorFn("#page\\:mainForm\\:sheet\\:6\\:nameOut span.form-control-plaintext");
+  const spanCarib = querySelectorFn("#page\\:mainForm\\:sheet\\:7\\:nameOut span.form-control-plaintext");
+  const spanAfrica = querySelectorFn("#page\\:mainForm\\:sheet\\:8\\:nameOut span.form-control-plaintext");
 
   const test = new JasmineTestTool(done);
+  if (treeNodes().length !== 12) {
+    // test.fail("Must be a number of 12 tree nodes!");
+    console.error("Must be a number of 12 tree nodes!");
+  }
+  if (reset() === null) {
+    // test.fail("reset button not found!");
+    console.error("reset button not found!");
+  }
+  if (toggleWorld() === null) {
+    // test.fail("toggleWorld not found!");
+    console.error("toggleWorld not found!");
+  }
+  if (spanWorld() === null) {
+    // test.fail("spanWorld not found!");
+    console.error("spanWorld not found!");
+  }
   test.setup(() => treeNodes().length === 12
           && spanWorld().textContent === "World"
           && spanCarib().textContent !== "Carib"
