@@ -36,6 +36,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import jakarta.faces.component.behavior.ClientBehaviorContext;
 import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
@@ -50,7 +51,7 @@ public abstract class PaginatorRenderer<T extends AbstractUIPaginator> extends R
   @Override
   public void decodeInternal(final FacesContext facesContext, final T paginator) {
     final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    final String sourceId = requestParameterMap.get("jakarta.faces.source");
+    final String sourceId = requestParameterMap.get(ClientBehaviorContext.BEHAVIOR_SOURCE_PARAM_NAME);
     final String clientId = paginator.getClientId(facesContext);
     if (LOG.isDebugEnabled()) {
       LOG.debug("clientId             {}", clientId);

@@ -79,6 +79,7 @@ import jakarta.faces.component.UIColumn;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIData;
 import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
 import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
@@ -165,7 +166,8 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     for (final AbstractUIColumnBase column : columns) {
       final boolean sortable = ComponentUtils.getBooleanAttribute(column, Attributes.sortable);
       if (sortable) {
-        final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("jakarta.faces.source");
+        final String sourceId = facesContext.getExternalContext().getRequestParameterMap()
+            .get(ClientBehaviorContext.BEHAVIOR_SOURCE_PARAM_NAME);
         final String columnId = column.getClientId(facesContext);
         final String sorterId = columnId + "_" + AbstractUISheet.SORTER_ID;
 

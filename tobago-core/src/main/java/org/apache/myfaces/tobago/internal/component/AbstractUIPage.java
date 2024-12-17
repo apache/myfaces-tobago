@@ -26,9 +26,9 @@ import org.slf4j.LoggerFactory;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
 import jakarta.faces.component.behavior.ClientBehaviorHolder;
 import jakarta.faces.context.FacesContext;
-
 import java.lang.invoke.MethodHandles;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -83,7 +83,8 @@ public abstract class AbstractUIPage extends AbstractUIFormBase implements Clien
     // reset old submitted state
     setSubmitted(false);
 
-    String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("jakarta.faces.source");
+    String sourceId = facesContext.getExternalContext().getRequestParameterMap()
+        .get(ClientBehaviorContext.BEHAVIOR_SOURCE_PARAM_NAME);
     UIComponent command = null;
     if (sourceId != null) {
       if (LOG.isDebugEnabled()) {
