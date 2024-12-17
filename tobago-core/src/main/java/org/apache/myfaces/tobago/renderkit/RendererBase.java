@@ -399,11 +399,11 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
       final Map<String, List<ClientBehavior>> clientBehaviors = clientBehaviorHolder.getClientBehaviors();
       if (clientBehaviors != null && !clientBehaviors.isEmpty()) {
         final Map<String, String> paramMap = facesContext.getExternalContext().getRequestParameterMap();
-        final String behaviorEventName = paramMap.get("javax.faces.behavior.event");
+        final String behaviorEventName = paramMap.get(ClientBehaviorContext.BEHAVIOR_EVENT_PARAM_NAME);
         if (behaviorEventName != null) {
           final List<ClientBehavior> clientBehaviorList = clientBehaviors.get(behaviorEventName);
           if (clientBehaviorList != null && !clientBehaviorList.isEmpty()) {
-            final String clientId = paramMap.get("javax.faces.source");
+            final String clientId = paramMap.get(ClientBehaviorContext.BEHAVIOR_SOURCE_PARAM_NAME);
             if (component.getClientId(facesContext).equals(clientId)) {
               for (final ClientBehavior clientBehavior : clientBehaviorList) {
                 clientBehavior.decode(facesContext, component);

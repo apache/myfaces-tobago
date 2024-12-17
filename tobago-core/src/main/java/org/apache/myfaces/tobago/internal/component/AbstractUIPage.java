@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import java.lang.invoke.MethodHandles;
@@ -82,7 +83,8 @@ public abstract class AbstractUIPage extends AbstractUIFormBase implements Clien
     // reset old submitted state
     setSubmitted(false);
 
-    String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
+    String sourceId = facesContext.getExternalContext().getRequestParameterMap()
+        .get(ClientBehaviorContext.BEHAVIOR_SOURCE_PARAM_NAME);
     UIComponent command = null;
     if (sourceId != null) {
       if (LOG.isDebugEnabled()) {

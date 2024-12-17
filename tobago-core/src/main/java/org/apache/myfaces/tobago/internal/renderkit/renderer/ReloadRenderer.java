@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialViewContext;
 import java.io.IOException;
@@ -40,7 +41,8 @@ public class ReloadRenderer<T extends AbstractUIReload> extends RendererBase<T> 
   @Override
   public void decodeInternal(final FacesContext facesContext, final T component) {
 
-    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
+    final String sourceId = facesContext.getExternalContext().getRequestParameterMap()
+        .get(ClientBehaviorContext.BEHAVIOR_SOURCE_PARAM_NAME);
     final String clientId = component.getClientId(facesContext);
     if (clientId.equals(sourceId)) {
       if (LOG.isDebugEnabled()) {

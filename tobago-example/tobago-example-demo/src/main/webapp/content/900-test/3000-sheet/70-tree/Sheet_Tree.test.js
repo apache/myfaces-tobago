@@ -28,20 +28,16 @@ it("Open the 'World' node to see 'Carib' and 'Africa'", function (done) {
 
   const test = new JasmineTestTool(done);
   if (treeNodes().length !== 12) {
-    // test.fail("Must be a number of 12 tree nodes!");
-    console.error("Must be a number of 12 tree nodes!");
+    test.fail("Must be a number of 12 tree nodes!");
   }
   if (reset() === null) {
-    // test.fail("reset button not found!");
-    console.error("reset button not found!");
+    test.fail("reset button not found!");
   }
   if (toggleWorld() === null) {
-    // test.fail("toggleWorld not found!");
-    console.error("toggleWorld not found!");
+    test.fail("toggleWorld not found!");
   }
   if (spanWorld() === null) {
-    // test.fail("spanWorld not found!");
-    console.error("spanWorld not found!");
+    test.fail("spanWorld not found!");
   }
   test.setup(() => treeNodes().length === 12
           && spanWorld().textContent === "World"

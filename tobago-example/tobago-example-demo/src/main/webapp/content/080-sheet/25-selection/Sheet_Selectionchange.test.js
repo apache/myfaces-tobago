@@ -27,9 +27,12 @@ it("select 'Sun', select 'Venus', select all, deselect 'Mercury'", function (don
   const mercury = querySelectorFn("tr[row-index='1']");
   const venus = querySelectorFn("tr[row-index='2']");
   const earth = querySelectorFn("tr[row-index='3']");
-  const firstPageButton = elementByIdFn("page:mainForm:sheet:pageActionfirst");
+  const firstPageButton = querySelectorFn("#page\\:mainForm\\:sheet [data-tobago-action*='first']");
 
   const test = new JasmineTestTool(done);
+  if (firstPageButton() === null) {
+    test.fail("firstPageButton button not found!");
+  }
   test.setup(() => hiddenSelectedField().value === "[]", null, "click", resetSelected);
   test.setup(() => firstPageButton().disabled, null, "click", firstPageButton);
 

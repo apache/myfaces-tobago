@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import java.lang.invoke.MethodHandles;
@@ -41,7 +42,8 @@ public abstract class DecodingCommandRendererBase<T extends UIComponent> extends
         && ((AbstractUICommandBase) component).isDisabled()) {
       return;
     }
-    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("javax.faces.source");
+    final String sourceId = facesContext.getExternalContext().getRequestParameterMap()
+        .get(ClientBehaviorContext.BEHAVIOR_SOURCE_PARAM_NAME);
     final String clientId = component.getClientId(facesContext);
     if (LOG.isDebugEnabled()) {
       LOG.debug("sourceId = '{}", sourceId);

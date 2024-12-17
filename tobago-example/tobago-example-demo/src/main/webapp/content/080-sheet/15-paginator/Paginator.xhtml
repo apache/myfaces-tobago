@@ -38,11 +38,12 @@
       </li>
     </ul>
 
-    <tc:badge markup="warning">Todo: Check if 2 or more of the same controls will work on same page!</tc:badge>
+    An alternative way to define the paginator is to use the new tags <code>tc:paginatorPanel</code>,
+    and inside of it <code>tc:paginatorRow</code>, <code>tc:paginatorList</code> and <code>tc:paginatorPage</code>.
+    This way is much more flexible, because you can define the paginators and combinations of it in any way you like.
 
     <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" rows="5"
               paginator="custom">
-      <!--
       <f:facet name="before">
         <tc:paginatorPanel>
           <tc:paginatorRow />
@@ -50,7 +51,6 @@
           <tc:paginatorPage />
         </tc:paginatorPanel>
       </f:facet>
-      -->
       <f:facet name="after">
         <tc:paginatorPanel>
           <tc:paginatorRow/>

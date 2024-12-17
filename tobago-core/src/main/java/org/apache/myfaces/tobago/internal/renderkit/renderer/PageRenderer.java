@@ -58,6 +58,7 @@ import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.component.UIViewRoot;
+import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialViewContext;
@@ -195,8 +196,8 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
 
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-    writer.writeNameAttribute("javax.faces.source");
-    writer.writeIdAttribute("javax.faces.source");
+    writer.writeNameAttribute(ClientBehaviorContext.BEHAVIOR_SOURCE_PARAM_NAME);
+    writer.writeIdAttribute(ClientBehaviorContext.BEHAVIOR_SOURCE_PARAM_NAME);
     writer.writeAttribute(HtmlAttributes.DISABLED, true);
     writer.endElement(HtmlElements.INPUT);
 

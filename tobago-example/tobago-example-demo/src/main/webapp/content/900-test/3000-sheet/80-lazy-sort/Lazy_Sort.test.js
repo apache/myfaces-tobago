@@ -97,7 +97,7 @@ it("focus row index 1000 and go down", function (done) {
   test.do(() => expect(isLoaded(1020)).toBeFalse());
 
   test.do(() => focusRowIndex(1001));
-  test.wait(() => isLoaded(1001));
+  test.wait(() => isLoaded(1020));
   test.do(() => expect(isLoaded(999)).toBeFalse());
   test.do(() => expect(isLoaded(1000, 1039)).toBeTrue());
   test.do(() => expect(isLoaded(1040)).toBeFalse());
