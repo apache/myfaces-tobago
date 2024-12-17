@@ -49,21 +49,22 @@
   </footer>
   <tobago-paginator-panel id='sheet:panel' class='d-flex justify-content-center'>
     <tobago-paginator-list id='sheet:list'>
+      <input type='hidden' id='sheet:list::field' name='sheet:list'>
       <ul class='pagination'>
         <li class='active page-item'>
-          <button type='button' class='page-link' id='sheet:pageActiontoPage-1' title='Page 1'>1<tobago-behavior event='click' client-id='sheet:pageActiontoPage-1' execute='sheet sheet:pageActiontoPage-1' render='sheet'></tobago-behavior></button>
+          <button type='button' class='page-link' title='Page 1' data-tobago-action='{"action":"toPage","target":1}'>1</button>
         </li>
         <li class='page-item'>
-          <button type='button' class='page-link' id='sheet:pageActiontoPage-2' title='Page 2'>2<tobago-behavior event='click' client-id='sheet:pageActiontoPage-2' execute='sheet sheet:pageActiontoPage-2' render='sheet'></tobago-behavior></button>
+          <button type='button' class='page-link' title='Page 2' data-tobago-action='{"action":"toPage","target":2}'>2</button>
         </li>
         <li class='page-item'>
-          <button type='button' class='page-link' id='sheet:pageActiontoPage-3' title='Page 3'>3<tobago-behavior event='click' client-id='sheet:pageActiontoPage-3' execute='sheet sheet:pageActiontoPage-3' render='sheet'></tobago-behavior></button>
+          <button type='button' class='page-link' title='Page 3' data-tobago-action='{"action":"toPage","target":3}'>3</button>
         </li>
         <li class='page-item'>
-          <button type='button' class='page-link' id='sheet:pageActiontoPage-4' title='Page 4'>4<tobago-behavior event='click' client-id='sheet:pageActiontoPage-4' execute='sheet sheet:pageActiontoPage-4' render='sheet'></tobago-behavior></button>
+          <button type='button' class='page-link' title='Page 4' data-tobago-action='{"action":"toPage","target":4}'>4</button>
         </li>
         <li class='page-item'>
-          <button type='button' class='page-link' id='sheet:pageActiontoPage-5' title='Page 5'>5<tobago-behavior event='click' client-id='sheet:pageActiontoPage-5' execute='sheet sheet:pageActiontoPage-5' render='sheet'></tobago-behavior></button>
+          <button type='button' class='page-link' title='Page 5' data-tobago-action='{"action":"toPage","target":5}'>5</button>
         </li>
       </ul>
     </tobago-paginator-list>

@@ -20,7 +20,6 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.Pageable;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.PageActionEvent;
 import org.apache.myfaces.tobago.event.SheetAction;
@@ -81,8 +80,7 @@ import java.util.function.BiConsumer;
  */
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
 public abstract class AbstractUISheet extends AbstractUIData
-    implements SheetStateChangeSource, SortActionSource, ClientBehaviorHolder, Visual, Pageable,
-    ComponentSystemEventListener {
+    implements SheetStateChangeSource, SortActionSource, ClientBehaviorHolder, Visual, ComponentSystemEventListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -698,11 +696,12 @@ public abstract class AbstractUISheet extends AbstractUIData
     final String clientId = getClientId(facesContext);
 
     final String sheetClientIdWithAction =
-        clientId + UINamingContainer.getSeparatorChar(facesContext) + Pageable.SUFFIX_PAGE_ACTION + SheetAction.lazy;
+        clientId + UINamingContainer.getSeparatorChar(facesContext) + "pageAction" + SheetAction.lazy;
+//  TODO: please use something like this:
+//    final String sheetClientIdWithAction = clientId + ComponentUtils.SUB_SEPARATOR + SheetAction.lazy;
 
     return sheetClientIdWithAction.equals(sourceId);
   }
-
 
   public void init(final FacesContext facesContext) {
     sort(facesContext, null);

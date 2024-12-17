@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.event.SheetAction;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.apache.myfaces.tobago.internal.renderkit.Collapse;
@@ -233,6 +234,24 @@ public class JsonUtilsUnitTest extends AbstractTobagoTestBase {
     Assertions.assertNull(JsonUtils.encode((List<Integer>) null));
 
     Assertions.assertEquals("[]", JsonUtils.encode(new ArrayList<>()));
+  }
+
+  @Test
+  public void encodeSheetAction() {
+    final SheetAction action = SheetAction.last;
+    final Integer target = 42;
+
+    Assertions.assertEquals("{\"action\":\"last\",\"target\":42}", JsonUtils.encode(action, target));
+    Assertions.assertEquals("{\"action\":\"last\"}", JsonUtils.encode(action, null));
+  }
+
+  @Test
+  public void decodeSheetAction() {
+    JsonUtils.SheetActionRecord last = new JsonUtils.SheetActionRecord(SheetAction.last, null);
+    Assertions.assertEquals(last, JsonUtils.decodeSheetAction("{\"action\":\"last\"}"));
+
+    JsonUtils.SheetActionRecord toPage = new JsonUtils.SheetActionRecord(SheetAction.toPage, 42);
+    Assertions.assertEquals(toPage, JsonUtils.decodeSheetAction("{\"action\":\"toPage\",\"target\":42}"));
   }
 
   @Test

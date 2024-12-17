@@ -18,41 +18,63 @@
  */
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.event.PageActionEvent;
 import org.apache.myfaces.tobago.event.SheetAction;
-import org.apache.myfaces.tobago.internal.component.AbstractUILink;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPaginator;
 import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
+import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.ResourceUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import jakarta.faces.context.FacesContext;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.text.MessageFormat;
 import java.util.Locale;
+import java.util.Map;
 
 public abstract class PaginatorRenderer<T extends AbstractUIPaginator> extends RendererBase<T> {
 
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
+  @Override
+  public void decodeInternal(final FacesContext facesContext, final T paginator) {
+    final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
+    final String sourceId = requestParameterMap.get("jakarta.faces.source");
+    final String clientId = paginator.getClientId(facesContext);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("clientId             {}", clientId);
+      LOG.debug("jakarta.faces.source {}", sourceId);
+    }
+    if (clientId.equals(sourceId)) {
+      final String value = requestParameterMap.get(clientId);
+      if (value != null) {
+        final AbstractUISheet sheet = paginator.getPageable();
+        if (sheet != null) {
+          final JsonUtils.SheetActionRecord sheetActionRecord = JsonUtils.decodeSheetAction(value);
+          LOG.debug("record='{}'", sheetActionRecord);
+          sheet.queueEvent(new PageActionEvent(sheet, sheetActionRecord));
+        } else {
+          LOG.warn("No sheet found for paginator {}", clientId);
+        }
+      }
+    }
+  }
+
   protected void encodeLink(
-      final FacesContext facesContext, final AbstractUISheet data,
+      final FacesContext facesContext,
       final boolean disabled, final SheetAction action, final Integer target, final Icons icon, final CssItem liClass)
       throws IOException {
-
-    final String facet = action == SheetAction.toPage || action == SheetAction.toRow
-        ? action.name() + "-" + target
-        : action.name();
-    final AbstractUILink command = data.ensurePagingCommand(facesContext, data, facet, facet, disabled);
-    if (target != null) {
-      ComponentUtils.setAttribute(command, Attributes.pagingTarget, target);
-    }
 
     final Locale locale = facesContext.getViewRoot().getLocale();
     final String message = ResourceUtils.getString(facesContext, action.getBundleKey());
@@ -64,9 +86,9 @@ public abstract class PaginatorRenderer<T extends AbstractUIPaginator> extends R
     writer.startElement(HtmlElements.BUTTON);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
     writer.writeClassAttribute(BootstrapClass.PAGE_LINK);
-    writer.writeIdAttribute(command.getClientId(facesContext));
     writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
+    writer.writeAttribute(DataAttributes.ACTION, JsonUtils.encode(action, target), false);
     if (icon != null) {
       writer.startElement(HtmlElements.I);
       writer.writeClassAttribute(icon);
@@ -74,10 +96,6 @@ public abstract class PaginatorRenderer<T extends AbstractUIPaginator> extends R
     } else {
       writer.writeText(String.valueOf(target));
     }
-    if (!disabled) {
-      encodeBehavior(writer, facesContext, command);
-    }
-    data.getFacets().remove(facet);
     writer.endElement(HtmlElements.BUTTON);
     writer.endElement(HtmlElements.LI);
   }
