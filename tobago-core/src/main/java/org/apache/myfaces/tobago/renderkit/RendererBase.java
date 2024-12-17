@@ -19,24 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit;
 
-import jakarta.el.ValueExpression;
-import jakarta.faces.component.EditableValueHolder;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIInput;
-import jakarta.faces.component.ValueHolder;
-import jakarta.faces.component.behavior.AjaxBehavior;
-import jakarta.faces.component.behavior.ClientBehavior;
-import jakarta.faces.component.behavior.ClientBehaviorBase;
-import jakarta.faces.component.behavior.ClientBehaviorContext;
-import jakarta.faces.component.behavior.ClientBehaviorHolder;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.context.ResponseWriter;
-import jakarta.faces.convert.Converter;
-import jakarta.faces.convert.ConverterException;
-import jakarta.faces.model.SelectItem;
-import jakarta.faces.model.SelectItemGroup;
-import jakarta.faces.render.ClientBehaviorRenderer;
-import jakarta.faces.render.Renderer;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
@@ -68,6 +50,24 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.EditableValueHolder;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.component.ValueHolder;
+import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.component.behavior.ClientBehavior;
+import jakarta.faces.component.behavior.ClientBehaviorBase;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.ConverterException;
+import jakarta.faces.model.SelectItem;
+import jakarta.faces.model.SelectItemGroup;
+import jakarta.faces.render.ClientBehaviorRenderer;
+import jakarta.faces.render.Renderer;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.Arrays;
@@ -399,11 +399,11 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
       final Map<String, List<ClientBehavior>> clientBehaviors = clientBehaviorHolder.getClientBehaviors();
       if (clientBehaviors != null && !clientBehaviors.isEmpty()) {
         final Map<String, String> paramMap = facesContext.getExternalContext().getRequestParameterMap();
-        final String behaviorEventName = paramMap.get("jakarta.faces.behavior.event");
+        final String behaviorEventName = paramMap.get(ClientBehaviorContext.BEHAVIOR_EVENT_PARAM_NAME);
         if (behaviorEventName != null) {
           final List<ClientBehavior> clientBehaviorList = clientBehaviors.get(behaviorEventName);
           if (clientBehaviorList != null && !clientBehaviorList.isEmpty()) {
-            final String clientId = paramMap.get("jakarta.faces.source");
+            final String clientId = paramMap.get(ClientBehaviorContext.BEHAVIOR_SOURCE_PARAM_NAME);
             if (component.getClientId(facesContext).equals(clientId)) {
               for (final ClientBehavior clientBehavior : clientBehaviorList) {
                 clientBehavior.decode(facesContext, component);

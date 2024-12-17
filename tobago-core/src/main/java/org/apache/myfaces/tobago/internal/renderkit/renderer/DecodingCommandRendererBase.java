@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.ActionEvent;
 
@@ -42,7 +43,8 @@ public abstract class DecodingCommandRendererBase<T extends UIComponent> extends
         && ((AbstractUICommandBase) component).isDisabled()) {
       return;
     }
-    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("jakarta.faces.source");
+    final String sourceId = facesContext.getExternalContext().getRequestParameterMap()
+        .get(ClientBehaviorContext.BEHAVIOR_SOURCE_PARAM_NAME);
     final String clientId = component.getClientId(facesContext);
     if (LOG.isDebugEnabled()) {
       LOG.debug("sourceId = '{}", sourceId);

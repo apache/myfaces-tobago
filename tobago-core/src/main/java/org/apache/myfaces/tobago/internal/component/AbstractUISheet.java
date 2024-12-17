@@ -692,7 +692,8 @@ public abstract class AbstractUISheet extends AbstractUIData
   }
 
   public boolean isLazyUpdate(FacesContext facesContext) {
-    final String sourceId = facesContext.getExternalContext().getRequestParameterMap().get("jakarta.faces.source");
+    final String sourceId = facesContext.getExternalContext().getRequestParameterMap()
+        .get(ClientBehaviorContext.BEHAVIOR_SOURCE_PARAM_NAME);
     final String clientId = getClientId(facesContext);
 
     final String sheetClientIdWithAction =

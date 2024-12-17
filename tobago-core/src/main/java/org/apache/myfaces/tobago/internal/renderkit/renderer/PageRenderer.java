@@ -19,15 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import jakarta.faces.application.Application;
-import jakarta.faces.application.ProjectStage;
-import jakarta.faces.application.ViewHandler;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIOutput;
-import jakarta.faces.component.UIViewRoot;
-import jakarta.faces.context.ExternalContext;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.context.PartialViewContext;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
@@ -61,6 +52,16 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import jakarta.faces.application.Application;
+import jakarta.faces.application.ProjectStage;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.PartialViewContext;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
@@ -195,8 +196,8 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
 
     writer.startElement(HtmlElements.INPUT);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
-    writer.writeNameAttribute("jakarta.faces.source");
-    writer.writeIdAttribute("jakarta.faces.source");
+    writer.writeNameAttribute(ClientBehaviorContext.BEHAVIOR_SOURCE_PARAM_NAME);
+    writer.writeIdAttribute(ClientBehaviorContext.BEHAVIOR_SOURCE_PARAM_NAME);
     writer.writeAttribute(HtmlAttributes.DISABLED, true);
     writer.endElement(HtmlElements.INPUT);
 
