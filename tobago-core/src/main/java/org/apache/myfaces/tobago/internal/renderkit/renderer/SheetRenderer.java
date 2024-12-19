@@ -19,6 +19,13 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import jakarta.faces.component.NamingContainer;
+import jakarta.faces.component.UIColumn;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIData;
+import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
+import jakarta.faces.context.FacesContext;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.LabelLayout;
@@ -43,6 +50,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIReload;
 import org.apache.myfaces.tobago.internal.component.AbstractUIRow;
 import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
 import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
+import org.apache.myfaces.tobago.internal.context.Nonce;
 import org.apache.myfaces.tobago.internal.layout.Cell;
 import org.apache.myfaces.tobago.internal.layout.Grid;
 import org.apache.myfaces.tobago.internal.layout.OriginCell;
@@ -50,7 +58,10 @@ import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
+import org.apache.myfaces.tobago.internal.util.StyleRenderUtils;
 import org.apache.myfaces.tobago.layout.Arrows;
+import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.MeasureList;
 import org.apache.myfaces.tobago.layout.PaginatorMode;
 import org.apache.myfaces.tobago.layout.ShowPosition;
 import org.apache.myfaces.tobago.layout.TextAlign;
@@ -74,13 +85,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jakarta.faces.component.NamingContainer;
-import jakarta.faces.component.UIColumn;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIData;
-import jakarta.faces.component.behavior.AjaxBehavior;
-import jakarta.faces.component.behavior.ClientBehaviorContext;
-import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
@@ -425,7 +429,8 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     insideEnd(facesContext, HtmlElements.TOBAGO_SHEET);
   }
 
-  private void encodeTableBody(final FacesContext facesContext, final AbstractUISheet sheet,
+  private void encodeTableBody(
+      final FacesContext facesContext, final AbstractUISheet sheet,
       final TobagoResponseWriter writer, final String sheetId, final Selectable selectable,
       final List<Integer> columnWidths, final List<Integer> selectedRows, final List<AbstractUIColumnBase> columns,
       final boolean autoLayout, final List<Integer> expandedValue) throws IOException {
@@ -454,11 +459,18 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
             sheetMarkup.contains(Markup.SMALL) ? BootstrapClass.TABLE_SM : null,
             TobagoClass.TABLE_LAYOUT__FIXED);
 
-        writeColgroup(writer, columnWidths, columns, true);
+        writeColgroup(facesContext, sheet, writer, columnWidths, columns, true);
         writer.startElement(HtmlElements.THEAD);
         encodeHeaderRows(facesContext, sheet, writer, columns);
         writer.endElement(HtmlElements.THEAD);
         writer.endElement(HtmlElements.TABLE);
+
+        writer.startElement(HtmlElements.DIV);
+        writer.writeClassAttribute(TobagoClass.SCROLLBAR__FILLER,
+            BootstrapClass.TABLE,
+            sheetMarkup.contains(Markup.DARK) ? BootstrapClass.TABLE_DARK : null,
+            sheetMarkup.contains(Markup.BORDERED) ? BootstrapClass.TABLE_BORDERED : null);
+        writer.endElement(HtmlElements.DIV);
         writer.endElement(HtmlElements.HEADER);
       }
     }
@@ -485,7 +497,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
         writer.endElement(HtmlElements.THEAD);
       }
       if (!autoLayout) {
-        writeColgroup(writer, columnWidths, columns, false);
+        writeColgroup(facesContext, sheet, writer, columnWidths, columns, false);
       }
     }
     // Print the Content
@@ -614,6 +626,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
       if (!autoLayout) {
         writer.startElement(HtmlElements.TD);
+        writer.writeClassAttribute(TobagoClass.ROW__FILLER);
         writer.endElement(HtmlElements.TD);
         colSpan++;
       }
@@ -908,62 +921,160 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
         }
       }
       if (!autoLayout) {
-        // Add two filler columns. The second one get the size of the scrollBar via JavaScript.
-        encodeHeaderFiller(writer, sheet);
-        encodeHeaderFiller(writer, sheet);
+        encodeHeaderFiller(writer, TobagoClass.ROW__FILLER);
       }
+      encodeHeaderFiller(writer, TobagoClass.BEHAVIOR__CONTAINER);
 
       writer.endElement(HtmlElements.TR);
     }
   }
 
-  private void encodeHeaderFiller(final TobagoResponseWriter writer, final AbstractUISheet sheet) throws IOException {
+  private void encodeHeaderFiller(final TobagoResponseWriter writer, final CssItem cssItem) throws IOException {
     writer.startElement(HtmlElements.TH);
+    writer.writeClassAttribute(cssItem);
     writer.startElement(HtmlElements.SPAN);
     writer.endElement(HtmlElements.SPAN);
     writer.endElement(HtmlElements.TH);
   }
 
   private void writeColgroup(
-      final TobagoResponseWriter writer, final List<Integer> columnWidths,
-      final List<AbstractUIColumnBase> columns, final boolean isHeader) throws IOException {
-    writer.startElement(HtmlElements.COLGROUP);
+      final FacesContext facesContext, final AbstractUISheet sheet, final TobagoResponseWriter writer,
+      final List<Integer> columnWidths, final List<AbstractUIColumnBase> columns, final boolean isHeader)
+      throws IOException {
 
-    int i = 0;
+    final boolean columnWidthSetByUser = columnWidths.stream().noneMatch(columnWidth -> columnWidth <= -1);
+
+    writer.startElement(HtmlElements.COLGROUP);
+    int numOfCols = 0;
     for (final AbstractUIColumnBase column : columns) {
       if (!(column instanceof AbstractUIRow) && !(column instanceof AbstractUIColumnPanel)) {
         if (column.isRendered()) {
-          final Integer width = columnWidths.get(i);
-          writeCol(writer, width >= 0 ? width : null);
+          writeCol(writer, null);
         }
-        i++;
+        numOfCols++;
       }
     }
-    writeCol(writer, null); // extra entry for resizing...
-    if (isHeader) {
-      writeCol(writer, null); // extra entry for headerFiller
-    }
-    // TODO: the value should be added to the list
+    writeCol(writer, TobagoClass.ROW__FILLER);
+    writeCol(writer, TobagoClass.BEHAVIOR__CONTAINER);
     writer.endElement(HtmlElements.COLGROUP);
+
+    if (isHeader) { // write style tag only once (when rendering header), but for both header and body
+      final MeasureList columnLayout = sheet.getColumnLayout();
+      final String sheetId = sheet.getClientId(facesContext);
+      final String encodedSheetId = StyleRenderUtils.encodeIdSelector(sheetId);
+      float fr = 0;
+      MeasureList tangibleMeasures = new MeasureList();
+      for (int colIndex = 0; colIndex < numOfCols; colIndex++) {
+        Measure measure;
+        if (columnWidthSetByUser) {
+          measure = new Measure(columnWidths.get(colIndex), Measure.Unit.PX);
+        } else {
+          measure = columnLayout.get(colIndex % columnLayout.getSize());
+        }
+        if (Measure.Unit.FR.equals(measure.getUnit())) {
+          fr += measure.getValue();
+        } else {
+          if (Measure.Unit.AUTO.equals(measure.getUnit())) {
+            tangibleMeasures.add(new Measure(100.0 / (numOfCols + 2), Measure.Unit.PERCENT));
+            /* (numOfCols + 2) for backwards compatibility, because the
+            previous initialization in TypeScript had included the COL.tobago-row-filler and
+            COL.tobago-behavior-container in the calculation. */
+          } else {
+            tangibleMeasures.add(measure);
+          }
+          encodeColStyle(facesContext, encodedSheetId, null, colIndex, measure);
+        }
+      }
+
+      if (fr > 0) {
+        for (int colIndex = 0; colIndex < numOfCols; colIndex++) {
+          Measure measure = columnLayout.get(colIndex % columnLayout.getSize());
+          if (Measure.Unit.FR.equals(measure.getUnit())) {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("calc((100%");
+            for (Measure tangibleMeasure : tangibleMeasures) {
+              stringBuilder.append(" - ");
+              stringBuilder.append(tangibleMeasure.getValue());
+              stringBuilder.append(tangibleMeasure.getUnit().getValue());
+            }
+            stringBuilder.append(") / ");
+            stringBuilder.append(fr);
+            stringBuilder.append(" * ");
+            stringBuilder.append(measure.getValue());
+            stringBuilder.append(")");
+            encodeColStyle(facesContext, writer, encodedSheetId, colIndex, stringBuilder.toString());
+          }
+        }
+      }
+
+      Measure zeroPixel = new Measure(0, Measure.Unit.PX);
+      encodeColStyle(facesContext, encodedSheetId, TobagoClass.ROW__FILLER, null,
+          columnWidthSetByUser ? Measure.AUTO : zeroPixel);
+      encodeColStyle(facesContext, encodedSheetId, TobagoClass.BEHAVIOR__CONTAINER, null, zeroPixel);
+    }
   }
 
-  private void writeCol(final TobagoResponseWriter writer, final Integer columnWidth) throws IOException {
+  private void writeCol(final TobagoResponseWriter writer, final CssItem cssItem) throws IOException {
     writer.startElement(HtmlElements.COL);
-    writer.writeAttribute(HtmlAttributes.WIDTH, columnWidth);
+    writer.writeClassAttribute(cssItem);
     writer.endElement(HtmlElements.COL);
   }
 
-  private CssItem cssForLeftCenterRight(final ShowPosition position) {
-    switch (position) {
-      case left:
-        return BootstrapClass.ME_AUTO;
-      case center:
-        return BootstrapClass.MX_AUTO;
-      case right:
-        return BootstrapClass.MS_AUTO;
-      default:
-        return null;
+  private void encodeColStyle(
+      final FacesContext facesContext, final String encodedSheetId, final CssItem cssItem, final Integer colIndex,
+      final Measure measure) throws IOException {
+    final AbstractUIStyle style = (AbstractUIStyle) facesContext.getApplication().createComponent(
+        facesContext, Tags.style.componentType(), RendererTypes.Style.name());
+    style.setTransient(true);
+
+    StringBuilder stringBuilder = new StringBuilder();
+
+    if (cssItem != null) {
+      stringBuilder.append(encodedSheetId);
+      stringBuilder.append(" > header > table > colgroup > col.");
+      stringBuilder.append(cssItem.getName());
+      stringBuilder.append(", ");
+      stringBuilder.append(encodedSheetId);
+      stringBuilder.append(" > .tobago-body > table > colgroup > col.");
+      stringBuilder.append(cssItem.getName());
+    } else {
+      stringBuilder.append(encodedSheetId);
+      stringBuilder.append(" > header > table > colgroup > col:nth-child(");
+      stringBuilder.append(colIndex + 1);
+      stringBuilder.append(")");
+      stringBuilder.append(", ");
+      stringBuilder.append(encodedSheetId);
+      stringBuilder.append(" > .tobago-body > table > colgroup > col:nth-child(");
+      stringBuilder.append(colIndex + 1);
+      stringBuilder.append(")");
     }
+    style.setSelector(stringBuilder.toString());
+    style.setWidth(measure);
+    style.encodeAll(facesContext);
+  }
+
+  private void encodeColStyle(
+      final FacesContext facesContext, final TobagoResponseWriter writer,
+      final String encodedSheetId, final Integer colIndex, final String widthCalc) throws IOException {
+    writer.startElement(HtmlElements.STYLE);
+    writer.writeAttribute(HtmlAttributes.NONCE, Nonce.getNonce(facesContext), false);
+
+    String selector = encodedSheetId
+        + " > header > table > colgroup > col:nth-child("
+        + (colIndex + 1)
+        + ")"
+        + ", "
+        + encodedSheetId
+        + " > .tobago-body > table > colgroup > col:nth-child("
+        + (colIndex + 1)
+        + ")";
+    StyleRenderUtils.writeSelector(writer, selector);
+
+    writer.writeText("{width:");
+    writer.writeText(widthCalc);
+    writer.writeText(";}");
+
+    writer.endElement(HtmlElements.STYLE);
   }
 
   @Override

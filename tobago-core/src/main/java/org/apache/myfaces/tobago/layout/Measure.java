@@ -218,7 +218,7 @@ public final class Measure implements Serializable {
       value = name().equals("PERCENT") ? "%" : name().toLowerCase(Locale.ROOT);
     }
 
-    String getValue() {
+    public String getValue() {
       return value;
     }
   }
