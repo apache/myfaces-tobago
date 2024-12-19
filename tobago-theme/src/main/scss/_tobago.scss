@@ -1625,8 +1625,6 @@ tobago-separator {
   }
 }
 
-/* sheet -------------------------------------------------------------- */
-
 tobago-sheet {
   display: flex;
   flex-direction: column;
@@ -1635,7 +1633,11 @@ tobago-sheet {
   .tobago-expanded {
   }
 
+  .tobago-row-filler {
+  }
+
   header {
+    display: flex;
     overflow-x: hidden;
     flex-shrink: 0; //if "column" attribute used: header must remain same height (fix overflow hidden)
 
@@ -1645,6 +1647,23 @@ tobago-sheet {
       th {
         position: relative;
         overflow: hidden;
+      }
+    }
+
+    .tobago-scrollbar-filler {
+      display: none;
+      background-color: var(--bs-table-bg);
+      border-width: 0;
+      border-style: solid;
+      border-color: var(--bs-table-border-color);
+      border-bottom-width: var(--bs-border-width);
+
+      &.tobago-show {
+        display: table;
+      }
+
+      &.table-bordered {
+        border-width: var(--bs-border-width);
       }
     }
   }
@@ -1719,10 +1738,6 @@ tobago-sheet {
       td {
         overflow: hidden;
 
-        &.tobago-behavior-container {
-          display: none;
-        }
-
         @include treeNodeMarginLeftLevel();
 
         > input.tobago-selected {
@@ -1745,6 +1760,12 @@ tobago-sheet {
           }
         }
       }
+    }
+  }
+
+  header th, .tobago-body th, .tobago-body td {
+    &.tobago-behavior-container {
+      display: none;
     }
   }
 
