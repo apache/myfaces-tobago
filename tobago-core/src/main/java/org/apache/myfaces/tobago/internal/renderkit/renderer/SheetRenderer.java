@@ -433,33 +433,35 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     final boolean showHeader = sheet.isShowHeader();
     final Markup sheetMarkup = sheet.getMarkup() != null ? sheet.getMarkup() : Markup.NULL;
 
-    final UIComponent before = sheet.getFacet(Facets.BEFORE);
-    if (before != null) {
-      before.encodeAll(facesContext);
+    boolean nonLazyUpdate = !sheet.isLazyUpdate(facesContext);
+    if (nonLazyUpdate) {
+      final UIComponent before = sheet.getFacet(Facets.BEFORE);
+      if (before != null) {
+        before.encodeAll(facesContext);
+      }
+
+      if (showHeader && !autoLayout) {
+        // if no autoLayout, we render the header in a separate table.
+        writer.startElement(HtmlElements.HEADER);
+        writer.startElement(HtmlElements.TABLE);
+        writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
+        writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
+        writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
+        writer.writeClassAttribute(
+            BootstrapClass.TABLE,
+            sheetMarkup.contains(Markup.DARK) ? BootstrapClass.TABLE_DARK : null,
+            sheetMarkup.contains(Markup.BORDERED) ? BootstrapClass.TABLE_BORDERED : null,
+            sheetMarkup.contains(Markup.SMALL) ? BootstrapClass.TABLE_SM : null,
+            TobagoClass.TABLE_LAYOUT__FIXED);
+
+        writeColgroup(writer, columnWidths, columns, true);
+        writer.startElement(HtmlElements.THEAD);
+        encodeHeaderRows(facesContext, sheet, writer, columns);
+        writer.endElement(HtmlElements.THEAD);
+        writer.endElement(HtmlElements.TABLE);
+        writer.endElement(HtmlElements.HEADER);
+      }
     }
-
-    if (showHeader && !autoLayout) {
-      // if no autoLayout, we render the header in a separate table.
-      writer.startElement(HtmlElements.HEADER);
-      writer.startElement(HtmlElements.TABLE);
-      writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
-      writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
-      writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
-      writer.writeClassAttribute(
-          BootstrapClass.TABLE,
-          sheetMarkup.contains(Markup.DARK) ? BootstrapClass.TABLE_DARK : null,
-          sheetMarkup.contains(Markup.BORDERED) ? BootstrapClass.TABLE_BORDERED : null,
-          sheetMarkup.contains(Markup.SMALL) ? BootstrapClass.TABLE_SM : null,
-          TobagoClass.TABLE_LAYOUT__FIXED);
-
-      writeColgroup(writer, columnWidths, columns, true);
-      writer.startElement(HtmlElements.THEAD);
-      encodeHeaderRows(facesContext, sheet, writer, columns);
-      writer.endElement(HtmlElements.THEAD);
-      writer.endElement(HtmlElements.TABLE);
-      writer.endElement(HtmlElements.HEADER);
-    }
-
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(TobagoClass.BODY);
 
@@ -476,19 +478,20 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
         sheetMarkup.contains(Markup.SMALL) ? BootstrapClass.TABLE_SM : null,
         !autoLayout ? TobagoClass.TABLE_LAYOUT__FIXED : null);
 
-    if (showHeader && autoLayout) {
-      writer.startElement(HtmlElements.THEAD);
-      encodeHeaderRows(facesContext, sheet, writer, columns);
-      writer.endElement(HtmlElements.THEAD);
-    }
-    if (!autoLayout) {
-      writeColgroup(writer, columnWidths, columns, false);
+    if (nonLazyUpdate) {
+      if (showHeader && autoLayout) {
+        writer.startElement(HtmlElements.THEAD);
+        encodeHeaderRows(facesContext, sheet, writer, columns);
+        writer.endElement(HtmlElements.THEAD);
+      }
+      if (!autoLayout) {
+        writeColgroup(writer, columnWidths, columns, false);
+      }
     }
     // Print the Content
     if (LOG.isDebugEnabled()) {
       LOG.debug("first = " + sheet.getFirst() + "   rows = " + sheet.getRows());
     }
-
     writer.startElement(HtmlElements.TBODY);
 
     final String var = sheet.getVar();
