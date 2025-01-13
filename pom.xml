@@ -883,7 +883,7 @@
                   <rules>
                     <requireJavaVersion>
                       <message>Tobago must be built with Java 11 or higher!</message>
-                      <version>[8,)</version>
+                      <version>[11,)</version>
                     </requireJavaVersion>
                     <requireReleaseDeps>
                       <message>No snapshots allowed in a release!</message>
