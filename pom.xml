@@ -42,7 +42,7 @@
     <mojarra22.version>2.2.20</mojarra22.version>
     <mojarra23.version>2.3.21</mojarra23.version>
     <openwebbeans.version>2.0.27</openwebbeans.version>
-    <slf4j.version>1.7.36</slf4j.version>
+    <slf4j.version>2.0.16</slf4j.version>
     <logback.version>1.2.13</logback.version>
     <maven.compiler.release>8</maven.compiler.release>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
