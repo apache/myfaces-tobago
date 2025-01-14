@@ -40,7 +40,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
     uiComponent = "org.apache.myfaces.tobago.component.UIOperation",
     componentFamily = "org.apache.myfaces.tobago.Operation",
     rendererType = RendererTypes.OPERATION,
-    allowedChildComponenents = "NONE")
+    allowedChildComponents = "NONE")
 public interface OperationTagDeclaration {
 
   /**

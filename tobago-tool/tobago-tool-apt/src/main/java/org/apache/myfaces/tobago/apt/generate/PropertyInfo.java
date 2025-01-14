@@ -132,8 +132,8 @@ public class PropertyInfo {
     return allowedValues;
   }
 
-  public void setAllowedValues(final String[] allowdValues) {
-    this.allowedValues = allowdValues;
+  public void setAllowedValues(final String[] allowedValues) {
+    this.allowedValues = allowedValues;
   }
 
   public String[] getMethodSignature() {

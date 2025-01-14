@@ -47,7 +47,7 @@ import jakarta.faces.component.UIForm;
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
         "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
-    allowedChildComponenents = "ALL")
+    allowedChildComponents = "ALL")
 public interface FormTagDeclaration extends HasBinding, HasId, IsVisual, IsPlain {
 
   /**

@@ -68,7 +68,7 @@ import jakarta.faces.component.UIInput;
     uiComponentFacesClass = "jakarta.faces.component.UIInput",
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.DATE,
-    allowedChildComponenents = "NONE",
+    allowedChildComponents = "NONE",
     facets = {
         @Facet(name = Facets.BEFORE,
             description =

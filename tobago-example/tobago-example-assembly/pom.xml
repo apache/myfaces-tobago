@@ -22,7 +22,7 @@
   <name>Tobago Example Assembly</name>
   <description>
     This builds an archive which contains the Tobago examples.
-    Theses archives are downloadable via the Tobago website for each release.
+    These archives are downloadable via the Tobago website for each release.
   </description>
 
   <parent>

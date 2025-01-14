@@ -44,7 +44,7 @@ import jakarta.faces.component.UIOutput;
     uiComponent = "org.apache.myfaces.tobago.component.UIMeta",
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.META,
-    allowedChildComponenents = "NONE")
+    allowedChildComponents = "NONE")
 public interface MetaTagDeclaration extends HasIdBindingAndRendered {
 
   @TagAttribute

@@ -42,7 +42,7 @@ import jakarta.faces.component.UIOutput;
     uiComponentFacesClass = "jakarta.faces.component.UIOutput",
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.PAGINATOR_LIST,
-    allowedChildComponenents = "NONE"
+    allowedChildComponents = "NONE"
 )
 
 public interface PaginatorListTagDeclaration

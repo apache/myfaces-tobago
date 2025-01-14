@@ -36,7 +36,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
     uiComponent = "org.apache.myfaces.tobago.component.UISeparator",
     componentFamily = "org.apache.myfaces.tobago.Separator",
     rendererType = RendererTypes.SEPARATOR,
-    allowedChildComponenents = "NONE",
+    allowedChildComponents = "NONE",
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
         "jakarta.faces.component.behavior.ClientBehaviorHolder"
@@ -44,7 +44,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
     facets = {
         @Facet(name = Facets.LABEL,
             description = "This facet contains a UILabel",
-            allowedChildComponenents = "org.apache.myfaces.tobago.Label")})
+            allowedChildComponents = "org.apache.myfaces.tobago.Label")})
 
 public interface SeparatorTagDeclaration
     extends HasIdBindingAndRendered, IsVisual, HasLabel {

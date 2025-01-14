@@ -46,7 +46,7 @@ import jakarta.faces.component.UIOutput;
     },
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.LABEL,
-    allowedChildComponenents = "NONE")
+    allowedChildComponents = "NONE")
 public interface LabelTagDeclaration extends HasIdBindingAndRendered,
     HasAccessKey, HasFor, HasTip, IsVisual {
 

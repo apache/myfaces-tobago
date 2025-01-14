@@ -43,7 +43,7 @@ import jakarta.faces.component.UIPanel;
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
         "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
-    allowedChildComponenents = "ALL")
+    allowedChildComponents = "ALL")
 public interface FooterTagDeclaration
     extends HasIdBindingAndRendered, HasTip, IsFixed, IsVisual {
 }

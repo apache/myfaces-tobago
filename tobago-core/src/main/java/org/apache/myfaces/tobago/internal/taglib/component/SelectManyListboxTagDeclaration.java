@@ -61,7 +61,7 @@ import jakarta.faces.component.UISelectMany;
     uiComponentFacesClass = "jakarta.faces.component.UISelectMany",
     componentFamily = UISelectMany.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_MANY_LISTBOX,
-    allowedChildComponenents = {"jakarta.faces.SelectItem", "jakarta.faces.SelectItems"},
+    allowedChildComponents = {"jakarta.faces.SelectItem", "jakarta.faces.SelectItems"},
     behaviors = {
         @Behavior(name = ClientBehaviors.CHANGE, isDefault = true),
         @Behavior(name = ClientBehaviors.INPUT),

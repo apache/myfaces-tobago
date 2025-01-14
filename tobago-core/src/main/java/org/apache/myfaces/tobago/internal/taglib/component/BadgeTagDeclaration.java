@@ -44,7 +44,7 @@ import jakarta.faces.component.UIOutput;
     },
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.BADGE,
-    allowedChildComponenents = "NONE",
+    allowedChildComponents = "NONE",
     markups = {
         @Markup(
             name = org.apache.myfaces.tobago.context.Markup.STRING_PILL,

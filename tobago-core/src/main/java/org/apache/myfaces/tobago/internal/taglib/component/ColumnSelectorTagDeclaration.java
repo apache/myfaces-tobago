@@ -44,7 +44,7 @@ import jakarta.faces.component.UIColumn;
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
         "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
-    allowedChildComponenents = "NONE")
+    allowedChildComponents = "NONE")
 public interface ColumnSelectorTagDeclaration
     extends HasIdBindingAndRendered, IsVisual, IsDisabled {
 

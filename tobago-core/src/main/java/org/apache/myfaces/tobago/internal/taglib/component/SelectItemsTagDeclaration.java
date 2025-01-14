@@ -40,7 +40,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
     uiComponent = "org.apache.myfaces.tobago.component.UISelectItems",
     uiComponentFacesClass = "jakarta.faces.component.UISelectItems",
     isComponentAlreadyDefined = false,
-    allowedChildComponenents = "NONE")
+    allowedChildComponents = "NONE")
 public interface SelectItemsTagDeclaration extends HasId, HasBinding, HasItemLabel, HasItemImage, HasTip {
 
   /**

@@ -389,7 +389,7 @@ public class FacesConfigGenerator extends AbstractGenerator {
       final Namespace namespace) {
     final org.jdom2.Element elementExtension = new org.jdom2.Element(COMPONENT_EXTENSION, namespace);
     final org.jdom2.Element elementAllowedChildComponents = new org.jdom2.Element(ALLOWED_CHILD_COMPONENTS, namespace);
-    final String[] allowedChildComponents = uiComponentTag.allowedChildComponenents();
+    final String[] allowedChildComponents = uiComponentTag.allowedChildComponents();
     final StringBuilder allowedComponentTypes = new StringBuilder();
     for (final String componentType : allowedChildComponents) {
       allowedComponentTypes.append(componentType).append(" ");
@@ -574,7 +574,7 @@ public class FacesConfigGenerator extends AbstractGenerator {
       final org.jdom2.Element facetExtension = new org.jdom2.Element(FACET_EXTENSION, namespace);
       final org.jdom2.Element elementAllowedChildComponents
           = new org.jdom2.Element(ALLOWED_CHILD_COMPONENTS, namespace);
-      final String[] allowedChildComponents = facet.allowedChildComponenents();
+      final String[] allowedChildComponents = facet.allowedChildComponents();
       final StringBuilder allowedComponentTypes = new StringBuilder();
       for (final String componentType : allowedChildComponents) {
         allowedComponentTypes.append(componentType).append(" ");

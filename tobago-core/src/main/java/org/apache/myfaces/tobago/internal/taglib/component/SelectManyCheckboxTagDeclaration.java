@@ -64,7 +64,7 @@ import jakarta.faces.component.UISelectMany;
     uiComponentFacesClass = "jakarta.faces.component.UISelectMany",
     componentFamily = UISelectMany.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_MANY_CHECKBOX,
-    allowedChildComponenents = {
+    allowedChildComponents = {
         "jakarta.faces.SelectItem",
         "jakarta.faces.SelectItems"},
     behaviors = {

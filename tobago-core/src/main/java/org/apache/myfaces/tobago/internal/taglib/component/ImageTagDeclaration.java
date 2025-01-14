@@ -46,7 +46,7 @@ import jakarta.faces.component.UIGraphic;
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
         "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
-    allowedChildComponenents = "NONE")
+    allowedChildComponents = "NONE")
 public interface ImageTagDeclaration
     extends HasIdBindingAndRendered, HasTip, IsDisabled, IsVisual, HasAlt, IsPlain {
 

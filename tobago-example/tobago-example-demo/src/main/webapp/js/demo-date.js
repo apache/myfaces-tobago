@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 regexp = "[0-1][0-9][0-3][0-9]";
                 break;
             default:
-                console.error("Unsupported patten", quickPattern);
+                console.error("Unsupported pattern", quickPattern);
                 return;
         }
         const quick = document.createElement("input");
