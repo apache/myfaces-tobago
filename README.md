@@ -40,9 +40,9 @@ You can find a live demo of all components at [https://tobago-vm.apache.org/](ht
 
 See `tobago-example` directory for some simple examples on how to use Tobago:
 
-* [tobago-example-blank](tobago-example/tobago-example-blank) - A minimal hello world application
-* [tobago-example-demo](tobago-example/tobago-example-demo) - A demo and documentation application
-* [tobago-example-spring-boot](tobago-example/tobago-example-spring-boot) - Same demo using spring-boot
+* [tobago-example-blank](tobago-example/tobago-example-blank) a minimal hello world application,
+* [tobago-example-demo](tobago-example/tobago-example-demo) a demo and documentation application,
+* [tobago-example-spring-boot](tobago-example/tobago-example-spring-boot) same demo using spring-boot.
 
 **Demo**
 
