@@ -15,79 +15,220 @@
  * limitations under the License.
  */
 
-$sand: #fff3b5;
-$mud: #b2a76d;
-$dark-sea: #529696;
-$sky: #abf5ff;
-$palm: #389c30;
-$pink: #ff00be;
-$cement: #7e9a9a;
+// Menu
+.tobago-dropdown-menu {
+  background-color: #ffffff !important;
 
-$white: #ffffff;
-$gray-200: #d0d0d0;
-$gray-400: #a0a0a0;
-$gray-600: #777777;
-$gray-800: #323232;
-$black: #000000;
+  .form-check-label,
+  .dropdown-item span {
+    color: #555555 !important;
+  }
+}
 
-$primary: $dark-sea;
-$secondary: $mud;
-$success: $sky;
-$info: $palm;
-$warning: $pink;
-$danger: $pink;
-$light: $white;
-$dark: $dark-sea;
+// Nav Buttons
+.navbar {
+  .tobago-button {
+    background-color: $dark-sea !important;
+    border: 1px solid $dark-sea !important;
 
-$theme-colors: ();
-$theme-colors: map-merge((
-        "primary": $primary,
-        "secondary": $secondary,
-        "success": $success,
-        "info": $info,
-        "warning": $warning,
-        "danger": $danger,
-        "light": $light,
-        "dark": $dark
-), $theme-colors);
+    &:hover {
+      background-color: #61b5b5;
+      border: 1px solid #61b5b5;
+    }
+  }
+}
 
-$body-color: $mud;
-$body-bg: lighten($sand, 10%);
+// Footer
+.fixed-bottom {
+  color: #333333;
+  transition: 0.2s ease;
 
-$input-bg:                              $body-bg;
-$input-disabled-bg:                     $gray-800;
-$input-color:                           $gray-400;
-$input-border-color:                    $gray-600;
-$input-focus-bg:                        $input-bg;
-$input-focus-border-color:              lighten($mud, 20%);
-$input-focus-color:                     $gray-400;
-$input-placeholder-color:               $gray-600;
+  a {
+    color: inherit;
+    transition: inherit;
 
-$link-color: darken($secondary, 10%);
-$link-hover-color: darken($link-color, 20%);
+    &:hover {
+      color: #8DC0C0;
+    }
+  }
+}
 
-$navbar-light-color: lighten($dark-sea, 10%);
-$navbar-light-active-color: lighten($dark-sea, 20%);
-$navbar-light-hover-color: lighten($dark-sea, 30%);
-$navbar-light-disabled-color: darken($dark-sea, 20%);
+// Global
+body {
+  background-color: #ffffff !important;
+}
 
-$card-bg: $sky;
-$card-border-color: $dark-sea;
-$card-cap-bg: lighten($dark-sea, 10%);
+p,
+.tobago-header h1,
+h2,
+h3,
+h4,
+h5,
+.tobago-link,
+.tobago-section-content,
+.figure-caption {
+  color: #333333 !important;
+}
 
-$dropdown-bg: $black;
-$dropdown-link-color: $gray-400;
-$dropdown-link-active-color: $sky;
+.tobago-link {
+  transition: 0.3s ease;
 
-$pagination-color: $mud;
-$pagination-bg: $sand;
-$pagination-border-color: darken($mud, 10%);
-$pagination-active-color: lighten($pagination-color, 10%);
-$pagination-active-bg: lighten($pagination-bg, 10%);
-$pagination-active-border-color: lighten($pagination-border-color, 10%);
-$pagination-hover-color: lighten($pagination-color, 20%);
-$pagination-hover-bg: lighten($pagination-bg, 20%);
-$pagination-hover-border-color: lighten($pagination-border-color, 20%);
-$pagination-disabled-color: desaturate($pagination-color, 20%);
-$pagination-disabled-bg: desaturate($pagination-bg, 20%);
-$pagination-disabled-border-color: desaturate($pagination-border-color, 20%);
+  &:hover {
+    color: #8DC0C0;
+  }
+}
+
+tobago-tree {
+  tobago-tree-node > .tobago-link {
+    color: #333333;
+    font-weight: 300;
+  }
+}
+
+.tobago-header {
+  margin-top: 30px;
+}
+
+demo-highlight {
+  pre {
+    background-color: #f7f7f7;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding: 20px 20px 20px 15px;
+    border-radius: 5px;
+    margin: 15px 0 30px 0 !important;
+    scroll-behavior: unset;
+    font-size: 12px;
+
+    .language-bash, .language-bash span,
+    .form-control-plaintext {
+      color: #333333 !important;
+
+    }
+  }
+}
+
+tobago-form {
+  tobago-box {
+    border: 1px solid #d6dde3 !important;
+
+    .card-body {
+      background-color: #f7f7f7;
+    }
+  }
+}
+
+// Tables
+.table {
+  > :not(caption) > * > * {
+    background-color: #f7f7f7;
+    padding: 15px 15px 15px 30px;
+  }
+}
+
+// Forms
+.form-select,
+.form-control,
+.form-check-input {
+  background-color: #f7f7f7 !important;
+  border: 1px solid #d6dde3 !important;
+
+  &:focus {
+    background-color: unset;
+    border-color: unset;
+  }
+}
+
+.form-control-plaintext {
+  color: #333333;
+  font-size: 12px;
+}
+
+.badge {
+  background-color: $dark-sea;
+}
+
+.form-check-label,
+.col-form-label {
+  color: #333333;
+}
+
+// Card
+tobago-box.card .card-header {
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #d6dde3;
+  padding: 15px 0 15px 20px;
+
+  h3 {
+    color: #333333;
+  }
+}
+
+// Buttons
+.btn-group-vertical {
+  .btn {
+    background-color: #777777;
+    color: #ffffff;
+    border: 1px solid #d6dde3;
+    transition: 0.2s ease;
+  }
+}
+
+.tobago-section-content {
+  a {
+    color: #333333;
+    transition: 0.2s ease;
+  }
+}
+
+.btn-group {
+  .tobago-button:active {
+    background-color: #6b9191;
+    border-color: #6b9191;
+    color: #ffffff;
+  }
+}
+
+.card .card-body demo-copy-to-clipboard .tobago-button,
+.tobago-section-content .tobago-button,
+.tobago-button,
+.btn:disabled,
+.tobago-now,
+{
+  color: #ffffff !important;
+  background-color: $dark-sea;
+  border: 1px solid $dark-sea;
+
+  &:hover {
+    color: #ffffff;
+    background-color: #61a6a6;
+    border: 1px solid #61a6a6;
+  }
+}
+
+/* disabled btn */
+.btn.tobago-button {
+  &:disabled,
+  &[disabled] {
+    background-color: $dark-sea;
+    border-color: $dark-sea;
+  }
+}
+
+.btn:disabled {
+  background-color: #8faaaa;
+
+  &:hover {
+    color: #000000;
+  }
+}
+
+tobago-select-one-radio {
+  .form-check-label {
+    img {
+      padding-right: unset;
+      margin-right: 0.3em;
+      border: 1px solid #bdbdbd;
+      max-width: 22px;
+    }
+  }
+}
