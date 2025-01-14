@@ -5,9 +5,23 @@
 
 # Apache Tobago
 
-## Building
+Apache MyFaces Tobago is a JSF component framework that pays special attention to security and is optimized for
+business applications.
 
-You need Maven 3 (at least 3.9.3) and Java 17 or later to build Tobago.
+Tobago supports custom themes based on the popular Bootstrap framework and frees the user from having to develop
+complex CSS and JavaScript components.
+
+Compared to many other JSF frameworks, Tobago is still being actively developed and is used in many projects.
+
+# Getting Started
+
+## Prerequisites
+
+* A Git client to check out this project (may part of your IDE)
+* [JDK17]( https://www.oracle.com/technetwork/java/javase/downloads) or higher
+* [Maven 3](https://maven.apache.org/download.cgi)
+
+## Building
 
 In the project directory you can use:
 
@@ -15,73 +29,101 @@ In the project directory you can use:
 mvn clean install
 ```
 
-to run the **install** target on all subprojects. This will
-put all necessary artifacts into your local repository.
+to build the project with all submodules.
+This will put all necessary artifacts into your local repository.
 
-## Demo - Jetty
-
-Switch to subdirectory and call Maven to run the demo:
+If there are changes in the `tobago-theme` module in TypeScript or other sources,
+you need to build with **frontend** profile:
 
 ```
+mvn clean install -Pfrontend
+```
+
+## Live Demo
+
+You can find a live demo of all components at [https://tobago-vm.apache.org/](https://tobago-vm.apache.org/).
+
+## Examples
+
+See `tobago-example` directory for some simple examples on how to use Tobago:
+
+* [tobago-example-blank](tobago-example/tobago-example-blank) a minimal hello world application,
+* [tobago-example-demo](tobago-example/tobago-example-demo) a demo and documentation application,
+* [tobago-example-spring-boot](tobago-example/tobago-example-spring-boot) same demo using spring-boot.
+
+**Demo**
+
+```shell
+mvn clean install
 cd tobago-example/tobago-example-demo
-mvn clean jetty:run -Pjetty
 ```
 
-* Mode 1: old | compatible | classic | useShowAttributes
-* Mode 2: auto
-* Mode 3: custom
+***Jetty, MyFaces and OpenWebBeans***
+
+If you want to run the demo locally you need to run the following command:
+
+```shell
+mvn jetty:run -Pjetty -Pdev
+```
 
 Browse to the local URL http://localhost:8080/
 
-## Demo - TomEE
+You can also run the demo with different servers and JSF implementations:
 
-Switch to subdirectory and call Maven to run the demo:
+***Jetty, Mojarra and OpenWebBeans***
 
-```
-cd tobago-example/tobago-example-demo
-mvn clean package -Ptomee tomee:run
+```shell
+mvn jetty:run -Pjetty -Pdev -Djsf=mojarra-2.3
 ```
 
 Browse to the local URL http://localhost:8080/
 
-## Demo - Open Liberty
+***Tomcat***
 
-Switch to subdirectory and call Maven to run the demo:
-
-```
-cd tobago-example/tobago-example-demo
-mvn clean -Pliberty liberty:run
-```
-
-Browse to the local URL http://localhost:9080/
-
-## Demo - Tomcat in Docker
-
-Switch to subdirectory and call Maven to run the demo:
-
-```
-cd tobago-example/tobago-example-demo
-mvn clean install -Ptomcat
-docker run -it --rm -p 8080:8080 -v `pwd`/target/tobago-example-demo.war:/usr/local/tomcat/webapps/tobago-example-demo.war --name tobago-example-demo tomcat:9-jre8
+```shell
+mvn clean package -Ptomcat
+mvn cargo:run -Ptomcat
 ```
 
 Browse to the local URL http://localhost:8080/tobago-example-demo/
 
-## Demo - Quarkus
+***TomEE***
 
-Switch to subdirectory and call Maven to run the demo:
+```shell
+mvn tomee:run -Ptomee
+```
+
+Browse to the local URL http://localhost:8080/
+
+***Open Liberty***
+
+```shell
+mvn liberty:run -Pliberty
+```
+
+Browse to the local URL http://localhost:9080/
+
+***Tomcat in Docker***
 
 ```
-cd tobago-example/tobago-example-demo
+mvn clean package -Pdocker
+docker run -p 8080:8080 myfaces/tobago-example-demo:latest
+```
+
+Browse to the local URL http://localhost:8080/
+
+***Quarkus (currently not working!)***
+
+```
 mvn clean install -Pquarkus
 java -jar ./target/tobago-example-demo-runner.jar
 ```
 
 Browse to the local URL http://localhost:8080/
 
-## Demo - Spring Boot
+***Spring Boot***
 
-Switch to **special** subdirectory and call Maven to run the demo:
+Switch to **different** subdirectory and call Maven to run the demo:
 
 ```
 cd tobago-example/tobago-example-spring-boot
@@ -89,3 +131,19 @@ mvn clean -Pspring-boot-module spring-boot:run
 ```
 
 Browse to the local URL http://localhost:8080/
+
+**Note:** The dependencies for Spring Boot are outdated, because there is no public support for
+Spring Boot 2 anymore.
+Please use Tobago 6 with Spring Boot 3.
+
+# Issue Tracking
+
+If you find any issues regarding MyFaces Tobago you can use the [Apache Issue Tracker](https://issues.apache.org/jira/projects/TOBAGO) to report them.
+
+# Contributing
+
+[Pull requests](https://help.github.com/articles/creating-a-pull-request) are welcome; see the [contributor guidelines](CONTRIBUTING.md) for details.
+
+# Licensing
+
+The terms for software licensing are detailed in the [LICENSE.txt](LICENSE.txt) file.
