@@ -310,7 +310,7 @@
             <!-- usage: to run on localhost 8080, change port see below
                  mvn clean package tomee:run -Ptomee
                  -->
-            <!-- usage: to build an excutable jar
+            <!-- usage: to build an executable jar
                  mvn clean package tomee:exec -Ptomee
                  -->
             <groupId>org.apache.tomee.maven</groupId>

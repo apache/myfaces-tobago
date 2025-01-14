@@ -43,7 +43,7 @@ import jakarta.faces.component.UIOutput;
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
         "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
-    allowedChildComponenents = "NONE"
+    allowedChildComponents = "NONE"
 )
 public interface TreeLabelTagDeclaration
     extends HasIdBindingAndRendered, HasTip, IsVisual {

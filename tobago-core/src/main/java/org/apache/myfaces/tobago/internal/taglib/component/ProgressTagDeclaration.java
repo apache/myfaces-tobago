@@ -42,7 +42,7 @@ import jakarta.faces.component.UIOutput;
     uiComponentFacesClass = "jakarta.faces.component.UIOutput",
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.PROGRESS,
-    allowedChildComponenents = "NONE",
+    allowedChildComponents = "NONE",
     behaviors = {
         @Behavior(
             name = ClientBehaviors.COMPLETE,
