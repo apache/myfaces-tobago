@@ -5,28 +5,21 @@
 
 # Apache Tobago
 
-Apache MyFaces Tobago is a JSF component framework that pays special attention to security and is optimized for business applications.
+Apache MyFaces Tobago is a JSF component framework that pays special attention to security and is optimized for
+business applications.
 
-Tobago supports custom themes based on the popular Bootstrap framework and frees the user from having to develop complex CSS and JavaScript components.
+Tobago supports custom themes based on the popular Bootstrap framework and frees the user from having to develop
+complex CSS and JavaScript components.
 
 Compared to many other JSF frameworks, Tobago is still being actively developed and is used in many projects.
-
-# Table of Contents
-
-- [Getting Started](#getting-started)
-  * [Prerequisites](#prerequisites)
-  * [Building](#building)
-- [Live Demo](#live-demo)
-- [Examples](#examples)
-- [Issue Tracking](#issue-tracking)
-- [Contributing](#contributing)
-- [Licensing](#licensing)
 
 # Getting Started
 
 ## Prerequisites
 
-[Git](https://help.github.com/set-up-git-redirect), [Maven 3](https://maven.apache.org/download.cgi) and at least [JDK8]( https://www.oracle.com/technetwork/java/javase/downloads).
+* A Git client to check out this project (may part of your IDE)
+* [JDK17]( https://www.oracle.com/technetwork/java/javase/downloads) or higher
+* [Maven 3](https://maven.apache.org/download.cgi)
 
 ## Building
 
@@ -45,60 +38,65 @@ You can find a live demo of all components at [https://tobago-vm.apache.org/](ht
 
 ## Examples
 
-See `tobago-examples` directory for some simple examples on how to use Tobago.
+See `tobago-example` directory for some simple examples on how to use Tobago:
+
+* [tobago-example-blank](tobago-example/tobago-example-blank) - A minimal hello world application
+* [tobago-example-demo](tobago-example/tobago-example-demo) - A demo and documentation application
+* [tobago-example-spring-boot](tobago-example/tobago-example-spring-boot) - Same demo using spring-boot
 
 **Demo**
+
+```shell
+mvn clean install
+cd tobago-example/tobago-example-demo
+```
+
+***Jetty, MyFaces and Weld***
 
 If you want to run the demo locally you need to run the following command:
 
 ```shell
-mvn -f tobago-example/tobago-example-demo/pom.xml clean package tomee:run -Ptomee -Pdev
+mvn jetty:run -Pjetty -Pdev
 ```
-
-* Mode 1: old | compatible | classic | useShowAttributes
-* Mode 2: auto
-* Mode 3: custom
 
 Browse to the local URL http://localhost:8080/
 
 You can also run the demo with different servers and JSF implementations:
 
-**Jetty, MyFaces and Weld**
+***Jetty, Mojarra and Weld***
 
 ```shell
-mvn -f tobago-example/tobago-example-demo/pom.xml clean package jetty:run -Pjetty -Pdev
+mvn jetty:run -Pjetty -Pdev -Djsf=mojarra-4.0
 ```
 
-**Jetty, Mojarra and Weld**
+Browse to the local URL http://localhost:8080/
+
+***Tomcat, MyFaces and Weld***
 
 ```shell
-mvn -f tobago-example/tobago-example-demo/pom.xml clean package jetty:run -Pjetty -Pdev -Djsf=mojarra-4.0
+mvn cargo:run -Ptomcat
 ```
 
-**Tomcat**
+Browse to the local URL http://localhost:8080/tobago-example-demo/
+
+***TomEE (currently broken!)***
 
 ```shell
-mvn -f tobago-example/tobago-example-demo/pom.xml package -Ptomcat cargo:run
+mvn tomee:run -Ptomee
 ```
 
-**TomEE (currently broken)**
+***Open Liberty***
 
 ```shell
-mvn -f tobago-example/tobago-example-demo/pom.xml clean package -Ptomee tomee:run
-```
-
-**Open Liberty**
-
-```shell
-mvn -f tobago-example/tobago-example-demo/pom.xml clean -Pliberty liberty:run
+mvn liberty:run -Pliberty
 ```
 
 Browse to the local URL http://localhost:9080/
 
-**Tomcat in Docker**
+***Tomcat in Docker***
 
 ```
-mvn -f tobago-example/tobago-example-demo/pom.xml clean package -Pdocker
+mvn clean package -Pdocker
 docker run -p 8080:8080 myfaces/tobago-example-demo:latest
 ```
 

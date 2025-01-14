@@ -90,18 +90,13 @@ function upload() {
 
 download "org/apache/myfaces/tobago/tobago-assembly"         "tobago-assembly-${VERSION}-dist.tar.gz"            "myfaces-tobago-${VERSION}-dist.tar.gz"
 download "org/apache/myfaces/tobago/tobago-assembly"         "tobago-assembly-${VERSION}-dist.zip"               "myfaces-tobago-${VERSION}-dist.zip"
-download "org/apache/myfaces/tobago/tobago-example-assembly" "tobago-example-assembly-${VERSION}-example.tar.gz" "myfaces-tobago-${VERSION}-example.tar.gz"
-download "org/apache/myfaces/tobago/tobago-example-assembly" "tobago-example-assembly-${VERSION}-example.zip"    "myfaces-tobago-${VERSION}-example.zip"
 download "org/apache/myfaces/tobago/tobago"                  "tobago-${VERSION}-source-release.zip"              "myfaces-tobago-${VERSION}-source-release.zip"
 
 check "myfaces-tobago-${VERSION}-dist.tar.gz"
 check "myfaces-tobago-${VERSION}-dist.zip"
-check "myfaces-tobago-${VERSION}-example.tar.gz"
-check "myfaces-tobago-${VERSION}-example.zip"
 check "myfaces-tobago-${VERSION}-source-release.zip"
 
 rm -f *.temp
 
 upload "myfaces-tobago-${VERSION}-dist.*"           "binaries"
-upload "myfaces-tobago-${VERSION}-example.*"        "binaries"
 upload "myfaces-tobago-${VERSION}-source-release.*" "source"

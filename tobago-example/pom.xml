@@ -34,7 +34,6 @@
   <modules>
     <module>tobago-example-blank</module>
     <module>tobago-example-demo</module>
-    <module>tobago-example-assembly</module>
     <module>tobago-example-spring-boot</module>
   </modules>
 
@@ -293,18 +292,9 @@
       <build>
         <plugins>
           <plugin>
-            <!-- usage: to build a war for separate deployment
-                 mvn clean package -Ptomee
-                 -->
-            <!-- usage: to run on localhost 8080, change port see below
-                 mvn clean package tomee:run -Ptomee
-                 -->
-            <!-- usage: to build an executable jar
-                 mvn clean package tomee:exec -Ptomee
-                 -->
             <groupId>org.apache.tomee.maven</groupId>
             <artifactId>tomee-maven-plugin</artifactId>
-            <version>9.1.3</version>
+            <version>10.0.0</version>
             <configuration>
               <tomeeClassifier>plus</tomeeClassifier>
               <!--<tomeeHttpPort>9090</tomeeHttpPort>-->
