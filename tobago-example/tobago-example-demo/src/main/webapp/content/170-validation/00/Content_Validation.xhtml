@@ -35,7 +35,7 @@
 
   <tc:section label="Required">
     <p>A simple way of validation is the <code>required</code> attribute in some input components.
-      The text area must not empty if the submit button is pressed. Otherwise a error message is displayed.</p>
+      The text area must not empty if the submit button is pressed. Otherwise, an error message is displayed.</p>
     <demo-highlight language="markup">&lt;tc:textarea label="Text Area" required="true"/></demo-highlight>
     <tc:form id="required">
       <tc:textarea id="textarea" label="Text Area" required="true"/>
@@ -59,18 +59,32 @@
     </tc:form>
   </tc:section>
 
-  <tc:section label="Validate Range">
-    <p>The range of a number can be validated via <code class="language-markup">&lt;f:validateLongRange/></code>
-      or - for floating point numbers - <code class="language-markup">&lt;f:validateDoubleRange/></code>.
-      In the following input field numbers from 3 to 77 can be added.</p>
+  <tc:section label="Validate Long Range">
+    <p>The range of an integer number can be validated via <code class="language-markup">&lt;f:validateLongRange/></code>.
+      In the following input field numbers from 3 to 77,777 can be added.</p>
     <demo-highlight language="markup">&lt;tc:in label="Number" markup="number">
-  &lt;f:validateLongRange minimum="3" maximum="77"/>
+  &lt;f:validateLongRange minimum="3" maximum="77777"/>
 &lt;/tc:in></demo-highlight>
     <tc:form id="validateRange">
-      <tc:in id="in_vr" label="Number" markup="number">
-        <f:validateLongRange minimum="3" maximum="77"/>
+      <tc:in id="in_vr" label="Integer" markup="number">
+        <f:validateLongRange minimum="3" maximum="77777"/>
       </tc:in>
       <tc:button id="submit_vr" label="Submit"/>
+    </tc:form>
+  </tc:section>
+
+  <tc:section label="Validate Double Range">
+    <p>The range of a floating point number can be validated via <code class="language-markup">&lt;f:validateDoubleRange/></code>.
+      In the following input field numbers from 0.01 to 999.99 can be added.</p>
+    <demo-highlight language="markup">&lt;tc:in label="Number" markup="number">
+  &lt;f:validateLongRange minimum="0.01" maximum="999.99"/>
+&lt;/tc:in></demo-highlight>
+    <tc:form id="validateDoubleRange">
+      <tc:in id="in_vdr" label="Floating Point" markup="number" value="#{validationController.floating}">
+        <f:validateDoubleRange minimum="0.01" maximum="999.99" />
+        <f:convertNumber maxFractionDigits="2"/>
+      </tc:in>
+      <tc:button id="submit_vdr" label="Submit"/>
     </tc:form>
   </tc:section>
 
