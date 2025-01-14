@@ -29,8 +29,15 @@ In the project directory you can use:
 mvn clean install
 ```
 
-to run the install target on all sub projects. This will
-put all necessary artifacts into your local repository.
+to build the project with all submodules.
+This will put all necessary artifacts into your local repository.
+
+If there are changes in the `tobago-theme` module in TypeScript or other sources,
+you need to build with **frontend** profile:
+
+```
+mvn clean install -Pfrontend
+```
 
 ## Live Demo
 
