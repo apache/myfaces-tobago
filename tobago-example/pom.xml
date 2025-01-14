@@ -37,21 +37,6 @@
     <module>tobago-example-assembly</module>
   </modules>
 
-  <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.eclipse.jetty</groupId>
-          <artifactId>jetty-maven-plugin</artifactId>
-          <version>${jetty.version}</version>
-          <configuration>
-            <scanIntervalSeconds>5</scanIntervalSeconds>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
-
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -359,6 +344,10 @@
           <plugin>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-maven-plugin</artifactId>
+            <version>${jetty.version}</version>
+            <configuration>
+              <scanIntervalSeconds>5</scanIntervalSeconds>
+            </configuration>
           </plugin>
         </plugins>
       </build>
