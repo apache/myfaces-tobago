@@ -1,0 +1,95 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+$sand: #fff3b5;
+$mud: #b2a76d;
+$dark-sea: #59a3a3;
+$sky: #abf5ff;
+$palm: #389c30;
+$pink: #ff00be;
+$cement: #7e9a9a;
+
+$white: #ffffff;
+$gray-200: #d0d0d0;
+$gray-400: #a0a0a0;
+$gray-600: #777777;
+$gray-800: #323232;
+$black: #000000;
+$text-black: #333333;
+
+$primary: $dark-sea;
+$secondary: $sky;
+$success: $sky;
+$info: $palm;
+$warning: $pink;
+$danger: $pink;
+$light: $white;
+$dark: $dark-sea;
+
+$theme-colors: ();
+$theme-colors: map-merge((
+    "primary": $primary,
+    "secondary": $secondary,
+    "success": $success,
+    "info": $info,
+    "warning": $warning,
+    "danger": $danger,
+    "light": $light,
+    "dark": $dark
+), $theme-colors);
+
+$body-color: $dark-sea;
+$body-bg: lighten($sky, 10%);
+
+$input-bg: $body-bg;
+$input-disabled-bg: $gray-800;
+$input-color: $gray-400;
+$input-border-color: $gray-600;
+$input-focus-bg: $input-bg;
+$input-focus-border-color: lighten($dark-sea, 20%);
+$input-focus-color: $gray-400;
+$input-placeholder-color: $gray-600;
+
+$link-color: darken($secondary, 10%);
+$link-hover-color: darken($link-color, 20%);
+
+$navbar-light-color: lighten($dark-sea, 10%);
+$navbar-light-active-color: lighten($dark-sea, 20%);
+$navbar-light-hover-color: lighten($dark-sea, 30%);
+$navbar-light-disabled-color: darken($dark-sea, 20%);
+
+$card-bg: $sky;
+$card-border-color: $dark-sea;
+$card-cap-bg: lighten($dark-sea, 10%);
+
+$dropdown-bg: $black;
+$dropdown-link-color: $gray-400;
+$dropdown-link-active-color: $sky;
+
+$pagination-color: $text-black;
+$pagination-bg: $sky;
+$pagination-border-color: darken($dark-sea, 10%);
+$pagination-active-color: lighten($pagination-color, 10%);
+$pagination-active-bg: lighten($pagination-bg, 10%);
+$pagination-active-border-color: lighten($pagination-border-color, 10%);
+$pagination-hover-color: lighten($pagination-color, 20%);
+$pagination-hover-bg: lighten($pagination-bg, 20%);
+$pagination-hover-border-color: lighten($pagination-border-color, 20%);
+$pagination-disabled-color: desaturate($pagination-color, 20%);
+$pagination-disabled-bg: desaturate($pagination-bg, 20%);
+$pagination-disabled-border-color: desaturate($pagination-border-color, 20%);
+
