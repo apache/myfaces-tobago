@@ -14,15 +14,15 @@ The Plugin is checking all branches for a `Jenkinsfile` containing the build ins
 
 [Multibranch Pipeline recipes][3]
 
-## Github Actions
+## GitHub Actions
 
-For a quick build and codeql Github Actions are configured.
+For a quick build and CodeQL GitHub Actions are configured.
 
 [.github/workflow/tobago-ci.yml](.github/workflows/tobago-ci.yml)
 
 [.github/workflow/codeql-analysis.yml](.github/workflows/codeql-analysis.yml)
 
-ASF Infra has some restrictions and objections about Github Actions.
+ASF Infra has some restrictions and objections about GitHub Actions.
 
 [GitHub Actions and Secrets][4]
 
