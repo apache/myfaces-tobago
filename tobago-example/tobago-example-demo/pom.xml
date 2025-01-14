@@ -119,36 +119,6 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-        <configuration>
-          <loginServices>
-            <loginService implementation="org.eclipse.jetty.security.HashLoginService">
-              <name>demo-realm</name>
-              <config>src/test/resources/realm.properties</config>
-            </loginService>
-          </loginServices>
-          <stopKey>stopKey</stopKey>
-          <stopPort>9999</stopPort>
-          <systemProperties>
-            <systemProperty>
-              <name>derby.stream.error.file</name>
-              <value>target/derby.log</value>
-            </systemProperty>
-          </systemProperties>
-          <!--
-            <webApp>
-              <contextPath>/example</contextPath>
-            </webApp>
-          -->
-          <webApp>
-            <resourceBases>${basedir}/src/main/webapp,${tobago-theme-standard-dir}/META-INF/resources</resourceBases>
-          </webApp>
-        </configuration>
-        <dependencies>
-        </dependencies>
-      </plugin>
-      <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <excludes>
@@ -452,6 +422,41 @@
 
     <profile>
       <id>jetty</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-maven-plugin</artifactId>
+            <configuration>
+              <loginServices>
+                <loginService implementation="org.eclipse.jetty.security.HashLoginService">
+                  <name>demo-realm</name>
+                  <config>src/test/resources/realm.properties</config>
+                </loginService>
+              </loginServices>
+              <stopKey>stopKey</stopKey>
+              <stopPort>9999</stopPort>
+              <systemProperties>
+                <systemProperty>
+                  <name>derby.stream.error.file</name>
+                  <value>target/derby.log</value>
+                </systemProperty>
+              </systemProperties>
+              <!--
+                <webApp>
+                  <contextPath>/example</contextPath>
+                </webApp>
+              -->
+              <webApp>
+                <resourceBases>${basedir}/src/main/webapp,${tobago-theme-standard-dir}/META-INF/resources
+                </resourceBases>
+              </webApp>
+            </configuration>
+            <dependencies>
+            </dependencies>
+          </plugin>
+        </plugins>
+      </build>
       <dependencies>
         <dependency>
           <groupId>org.apache.bval</groupId>
