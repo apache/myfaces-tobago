@@ -34,6 +34,7 @@
   <properties>
     <exec.version>1.6.0</exec.version>
     <tobago-theme-standard-dir>${basedir}/target/tobago-theme-standard</tobago-theme-standard-dir>
+    <tobago-theme-charlotteville-dir>${basedir}/target/tobago-theme-charlotteville</tobago-theme-charlotteville-dir>
     <docker-tomcat-dir>${project.build.directory}/docker-tomcat</docker-tomcat-dir>
     <frontend.skip>false</frontend.skip>
   </properties>
@@ -110,6 +111,7 @@
             <configuration>
               <target>
                 <mkdir dir="${tobago-theme-standard-dir}/META-INF/resources" />
+                <mkdir dir="${tobago-theme-charlotteville-dir}/META-INF/resources" />
               </target>
             </configuration>
             <goals>
@@ -218,6 +220,23 @@
                     <artifactItem>
                       <groupId>org.apache.myfaces.tobago</groupId>
                       <artifactId>tobago-theme-standard</artifactId>
+                      <version>${project.version}</version>
+                    </artifactItem>
+                  </artifactItems>
+                </configuration>
+              </execution>
+              <execution>
+                <id>unpack-tobago-theme-charlotteville</id>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>unpack</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>${tobago-theme-charlotteville-dir}</outputDirectory>
+                  <artifactItems>
+                    <artifactItem>
+                      <groupId>org.apache.myfaces.tobago</groupId>
+                      <artifactId>tobago-theme-charlotteville</artifactId>
                       <version>${project.version}</version>
                     </artifactItem>
                   </artifactItems>
@@ -448,7 +467,7 @@
                 </webApp>
               -->
               <webApp>
-                <resourceBases>${basedir}/src/main/webapp,${tobago-theme-standard-dir}/META-INF/resources
+                <resourceBases>${basedir}/src/main/webapp,${tobago-theme-standard-dir}/META-INF/resources,${tobago-theme-charlotteville-dir}/META-INF/resources
                 </resourceBases>
               </webApp>
             </configuration>
