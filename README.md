@@ -79,11 +79,13 @@ mvn cargo:run -Ptomcat
 
 Browse to the local URL http://localhost:8080/tobago-example-demo/
 
-***TomEE (currently broken!)***
+***TomEE***
 
 ```shell
 mvn tomee:run -Ptomee
 ```
+
+Browse to the local URL http://localhost:8080/
 
 ***Open Liberty***
 
