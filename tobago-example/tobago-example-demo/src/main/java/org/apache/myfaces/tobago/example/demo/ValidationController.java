@@ -32,7 +32,9 @@ import java.io.Serializable;
 @RequestScoped
 @Named
 public class ValidationController implements Serializable {
+
   private String letter;
+  private Double floating;
 
   public String getLetter() {
     return letter;
@@ -40,6 +42,14 @@ public class ValidationController implements Serializable {
 
   public void setLetter(final String letter) {
     this.letter = letter;
+  }
+
+  public Double getFloating() {
+    return floating;
+  }
+
+  public void setFloating(Double floating) {
+    this.floating = floating;
   }
 
   public void customValidator(final FacesContext facesContext, final UIComponent component, final Object value)
