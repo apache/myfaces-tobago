@@ -29,8 +29,15 @@ In the project directory you can use:
 mvn clean install
 ```
 
-to run the install target on all sub projects. This will
-put all necessary artifacts into your local repository.
+to build the project with all submodules.
+This will put all necessary artifacts into your local repository.
+
+If there are changes in the `tobago-theme` module in TypeScript or other sources,
+you need to build with **frontend** profile:
+
+```
+mvn clean install -Pfrontend
+```
 
 ## Live Demo
 
@@ -40,9 +47,9 @@ You can find a live demo of all components at [https://tobago-vm.apache.org/](ht
 
 See `tobago-example` directory for some simple examples on how to use Tobago:
 
-* [tobago-example-blank](tobago-example/tobago-example-blank) - A minimal hello world application
-* [tobago-example-demo](tobago-example/tobago-example-demo) - A demo and documentation application
-* [tobago-example-spring-boot](tobago-example/tobago-example-spring-boot) - Same demo using spring-boot
+* [tobago-example-blank](tobago-example/tobago-example-blank) a minimal hello world application,
+* [tobago-example-demo](tobago-example/tobago-example-demo) a demo and documentation application,
+* [tobago-example-spring-boot](tobago-example/tobago-example-spring-boot) same demo using spring-boot.
 
 **Demo**
 
@@ -79,11 +86,13 @@ mvn cargo:run -Ptomcat
 
 Browse to the local URL http://localhost:8080/tobago-example-demo/
 
-***TomEE (currently broken!)***
+***TomEE***
 
 ```shell
 mvn tomee:run -Ptomee
 ```
+
+Browse to the local URL http://localhost:8080/
 
 ***Open Liberty***
 
