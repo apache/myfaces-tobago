@@ -159,7 +159,7 @@ export class TreeNode extends HTMLElement {
     if (this.tree) {
       return this.tree.hiddenInputExpanded;
     } else if (this.sheet) {
-      return this.sheet.getHiddenExpanded();
+      return this.sheet.hiddenExpanded;
     } else {
       console.error("Cannot detect 'tobago-tree' or 'tobago-sheet'.");
       return null;
