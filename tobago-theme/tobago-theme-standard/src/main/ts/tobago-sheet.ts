@@ -936,16 +936,16 @@ Type: ${data.type}`);
     return this.querySelector(":scope > .tobago-body > table");
   }
 
-  get tableBody(): HTMLTableSectionElement {
-    return this.body.querySelector(":scope > tbody");
-  }
-
   get bodyCols(): NodeListOf<HTMLElement> {
     return this.bodyTable.querySelectorAll(":scope > colgroup > col");
   }
 
+  get tableBody(): HTMLTableSectionElement {
+    return this.bodyTable.querySelector(":scope > tbody");
+  }
+
   get rowElements(): NodeListOf<HTMLTableRowElement> {
-    return this.bodyTable.querySelectorAll(":scope > tbody > tr");
+    return this.tableBody.querySelectorAll(":scope > tr");
   }
 
   get firstVisibleRowIndex(): number {
