@@ -181,7 +181,7 @@ export class Sheet extends HTMLElement {
 
     // resize column: mouse events -------------------------------------------------------------------------------- //
 
-    for (const resizeElement of this.querySelectorAll(".tobago-resize")) {
+    for (const resizeElement of this.querySelectorAll(":scope > header > table > thead > tr > th > .tobago-resize")) {
       resizeElement.addEventListener("click", function (): boolean {
         return false;
       });
@@ -824,7 +824,8 @@ Type: ${data.type}`);
   }
 
   private get hiddenInputScrollPosition(): HTMLInputElement {
-    return this.querySelector("input[id$='::scrollPosition']");
+    const rootNode = this.getRootNode() as ShadowRoot | Document;
+    return rootNode.getElementById(this.id + "::scrollPosition") as HTMLInputElement;
   }
 
   public get selectable(): Selectable {
@@ -853,7 +854,8 @@ Type: ${data.type}`);
   }
 
   private get hiddenInputSelected(): HTMLInputElement {
-    return this.querySelector("input[id$='::selected']");
+    const rootNode = this.getRootNode() as ShadowRoot | Document;
+    return rootNode.getElementById(this.id + "::selected") as HTMLInputElement;
   }
 
   get hiddenExpanded(): HTMLInputElement {
@@ -890,7 +892,8 @@ Type: ${data.type}`);
   }
 
   private get hiddenInputLazyScrollPosition(): HTMLInputElement {
-    return this.querySelector("input[id$='::lazyScrollPosition']");
+    const rootNode = this.getRootNode() as ShadowRoot | Document;
+    return rootNode.getElementById(this.id + "::lazyScrollPosition") as HTMLInputElement;
   }
 
   get lazyRows(): number {
@@ -918,27 +921,27 @@ Type: ${data.type}`);
   }
 
   get header(): HTMLElement {
-    return this.querySelector("tobago-sheet>header");
+    return this.querySelector(":scope > header");
   }
 
   get headerCols(): NodeListOf<HTMLElement> {
-    return this.querySelectorAll("tobago-sheet>header>table>colgroup>col");
+    return this.querySelectorAll(":scope > header > table > colgroup > col");
   }
 
   get body(): HTMLElement {
-    return this.querySelector("tobago-sheet>.tobago-body");
+    return this.querySelector(":scope > .tobago-body");
   }
 
   get bodyTable(): HTMLElement {
-    return this.querySelector("tobago-sheet>.tobago-body>table");
+    return this.querySelector(":scope > .tobago-body > table");
   }
 
   get tableBody(): HTMLTableSectionElement {
-    return this.querySelector(".tobago-body tbody");
+    return this.body.querySelector(":scope > tbody");
   }
 
   get bodyCols(): NodeListOf<HTMLElement> {
-    return this.querySelectorAll("tobago-sheet>.tobago-body>table>colgroup>col");
+    return this.bodyTable.querySelectorAll(":scope > colgroup > col");
   }
 
   get rowElements(): NodeListOf<HTMLTableRowElement> {
