@@ -16,7 +16,6 @@
  */
 
 import {Page} from "./tobago-page";
-import {Key} from "./tobago-key";
 import {Css} from "./tobago-css";
 import {ClientBehaviors} from "./tobago-client-behaviors";
 import {ColumnSelector} from "./tobago-column-selector";
@@ -110,9 +109,9 @@ export class Sheet extends HTMLElement {
       let tokens: any[] = JSON.parse(this.dataset.tobagoLayout).columns;
       const columnRendered = this.isColumnRendered();
 
-      const headerCols = this.getHeaderCols();
-      const bodyTable = this.getBodyTable();
-      const bodyCols = this.getBodyCols();
+      const headerCols = this.headerCols;
+      const bodyTable = this.bodyTable;
+      const bodyCols = this.bodyCols;
       const borderLeftWidth
           = Number(getComputedStyle(bodyTable.querySelector("td:first-child")).borderLeftWidth.slice(0, -2));
       const borderRightWidth
@@ -190,7 +189,7 @@ export class Sheet extends HTMLElement {
     }
 
     // scrolling -------------------------------------------------------------------------------------------------- //
-    const sheetBody = this.getBody();
+    const sheetBody = this.body;
 
     // restore scroll position
     if (!this.lazy) {
@@ -205,7 +204,7 @@ export class Sheet extends HTMLElement {
     sheetBody.addEventListener("scroll", this.scrollAction.bind(this));
 
     // add selection listeners ------------------------------------------------------------------------------------ //
-    this.getRowElements().forEach((row) => this.initSelectionListener(row));
+    this.rowElements.forEach((row) => this.initSelectionListener(row));
     if (this.columnSelector && this.columnSelector.headerElement.type === "checkbox") {
       this.columnSelector.headerElement.addEventListener("click", this.initSelectAllCheckbox.bind(this));
     }
@@ -227,168 +226,39 @@ export class Sheet extends HTMLElement {
         tableBody.insertAdjacentHTML("beforeend", Sheet.getDummyRowTemplate(columns, i));
       }
 
-      this.sheetBody.addEventListener("scroll", this.lazyCheck.bind(this));
+      this.body.addEventListener("scroll", this.lazyCheck.bind(this));
 
       const lazyScrollPosition = this.lazyScrollPosition;
       const firstVisibleRow
           = this.tableBody.querySelector<HTMLTableRowElement>(`tr[row-index='${lazyScrollPosition[0]}']`);
       if (firstVisibleRow) {
-        this.sheetBody.scrollTop = firstVisibleRow.offsetTop + lazyScrollPosition[1];
+        this.body.scrollTop = firstVisibleRow.offsetTop + lazyScrollPosition[1];
         //in Firefox setting "scrollTop" triggers scroll event -> lazyCheck()
       }
     }
 
     // init paging by pages ---------------------------------------------------------------------------------------- //
 
-/*
-    for (const pagingText of this.querySelectorAll(".tobago-paging")) {
+    /*
+        for (const pagingText of this.querySelectorAll(".tobago-paging")) {
 
-      console.warn("register ************** click on paging");
-      pagingText.addEventListener("click", this.clickOnPaging.bind(this));
+          console.warn("register ************** click on paging");
+          pagingText.addEventListener("click", this.clickOnPaging.bind(this));
 
-      const pagingInput = pagingText.querySelector("input");
-      console.warn("register ************** blur on paging");
-      pagingInput.addEventListener("blur", this.blurPaging.bind(this));
+          const pagingInput = pagingText.querySelector("input");
+          console.warn("register ************** blur on paging");
+          pagingInput.addEventListener("blur", this.blurPaging.bind(this));
 
-      console.warn("register ************** keydown on paging");
-      pagingInput.addEventListener("keydown", function (event: KeyboardEvent): void {
-        if (event.key === Key.ENTER) {
-          event.stopPropagation();
-          event.preventDefault();
-          event.currentTarget.dispatchEvent(new Event("blur"));
+          console.warn("register ************** keydown on paging");
+          pagingInput.addEventListener("keydown", function (event: KeyboardEvent): void {
+            if (event.key === Key.ENTER) {
+              event.stopPropagation();
+              event.preventDefault();
+              event.currentTarget.dispatchEvent(new Event("blur"));
+            }
+          });
         }
-      });
-    }
-*/
-  }
-
-  // attribute getter + setter ---------------------------------------------------------- //
-  get scrollPosition(): number[] {
-    return JSON.parse(this.hiddenInputScrollPosition.value);
-  }
-
-  set scrollPosition(value: number[]) {
-    this.hiddenInputScrollPosition.value = JSON.stringify(value);
-  }
-
-  private get hiddenInputScrollPosition(): HTMLInputElement {
-    return this.querySelector("input[id$='::scrollPosition']");
-  }
-
-  public get selectable(): Selectable {
-    return Selectable[this.dataset.tobagoSelectionMode];
-  }
-
-  get selected(): Set<number> {
-    return new Set<number>(JSON.parse(this.hiddenInputSelected.value));
-  }
-
-  set selected(value: Set<number>) {
-    const oldSelectedSet = this.selected;
-    this.hiddenInputSelected.value = JSON.stringify(Array.from(value));
-
-    const fireSelectionChangeEvent = oldSelectedSet.size !== value.size
-        || ![...oldSelectedSet].every((x) => value.has(x));
-    if (fireSelectionChangeEvent) {
-      this.dispatchEvent(new CustomEvent(ClientBehaviors.ROW_SELECTION_CHANGE, {
-        detail: {
-          selection: value,
-          rowsOnPage: this.rowsOnPage,
-          rowCount: this.rowCount
-        },
-      }));
-    }
-  }
-
-  private get hiddenInputSelected(): HTMLInputElement {
-    return this.querySelector("input[id$='::selected']");
-  }
-
-  get lastClickedRowIndex(): number {
-    return Number(this.dataset.tobagoLastClickedRowIndex);
-  }
-
-  set lastClickedRowIndex(value: number) {
-    this.dataset.tobagoLastClickedRowIndex = String(value);
-  }
-
-  get lazy(): boolean {
-    return this.hasAttribute("lazy");
-  }
-
-  set lazy(update: boolean) {
-    if (update) {
-      this.setAttribute("lazy", "");
-    } else {
-      this.removeAttribute("lazy");
-    }
-  }
-
-  get lazyScrollPosition(): number[] {
-    return JSON.parse(this.hiddenInputLazyScrollPosition.value);
-  }
-
-  set lazyScrollPosition(value: number[]) {
-    this.hiddenInputLazyScrollPosition.value = JSON.stringify(value);
-  }
-
-  private get hiddenInputLazyScrollPosition(): HTMLInputElement {
-    return this.querySelector("input[id$='::lazyScrollPosition']");
-  }
-
-  get lazyUpdate(): boolean {
-    return this.hasAttribute("lazy-update");
-  }
-
-  get lazyRows(): number {
-    return parseInt(this.getAttribute("lazy-rows"));
-  }
-
-  get first(): number {
-    return parseInt(this.dataset.tobagoFirst);
-  }
-
-  get rows(): number {
-    return parseInt(this.getAttribute("rows"));
-  }
-
-  get rowCount(): number {
-    return parseInt(this.getAttribute("row-count"));
-  }
-
-  get rowsOnPage(): number {
-    if (this.lazy || this.rows === 0 || this.rows >= this.rowCount) {
-      return this.rowCount;
-    } else {
-      return Math.min(this.rowCount - this.first, this.rows);
-    }
-  }
-
-  get sheetBody(): HTMLDivElement {
-    return this.querySelector(".tobago-body");
-  }
-
-  get tableBody(): HTMLTableSectionElement {
-    return this.querySelector(".tobago-body tbody");
-  }
-
-  get firstVisibleRowIndex(): number {
-    const rowElements = this.tableBody.rows;
-    let min = 0;
-    let max = rowElements.length;
-    let index: number;
-    while (min < max) {
-      index = Math.round((max - min) / 2) + min;
-      if (rowElements[index] === undefined
-          || rowElements[index].offsetTop > this.sheetBody.scrollTop) {
-        index--;
-        max = index;
-      } else {
-        min = index;
-      }
-    }
-
-    return this.getRowIndex(rowElements[index]);
+    */
   }
 
   // -------------------------------------------------------------------------------------- //
@@ -561,7 +431,7 @@ export class Sheet extends HTMLElement {
       const firstRow
           = this.tableBody.querySelector<HTMLTableRowElement>(`tr[row-index='${lazyScrollPosition[0]}']`);
       if (firstRow) {
-        this.sheetBody.scrollTop = firstRow.offsetTop + lazyScrollPosition[1];
+        this.body.scrollTop = firstRow.offsetTop + lazyScrollPosition[1];
         //in Firefox setting "scrollTop" triggers scroll event -> lazyCheck()
       }
 
@@ -627,7 +497,7 @@ Type: ${data.type}`);
 
     const resizeElement = event.currentTarget as HTMLElement;
     const columnIndex = parseInt(resizeElement.dataset.tobagoColumnIndex);
-    const headerColumn = this.getHeaderCols().item(columnIndex);
+    const headerColumn = this.headerCols.item(columnIndex);
     this.mousemoveData = {
       columnIndex: columnIndex,
       originalClientX: event.clientX,
@@ -645,8 +515,8 @@ Type: ${data.type}`);
     let delta = event.clientX - this.mousemoveData.originalClientX;
     delta = -Math.min(-delta, this.mousemoveData.originalHeaderColumnWidth - 10);
     const columnWidth = this.mousemoveData.originalHeaderColumnWidth + delta;
-    this.getHeaderCols().item(this.mousemoveData.columnIndex).setAttribute("width", String(columnWidth));
-    this.getBodyCols().item(this.mousemoveData.columnIndex).setAttribute("width", String(columnWidth));
+    this.headerCols.item(this.mousemoveData.columnIndex).setAttribute("width", String(columnWidth));
+    this.bodyCols.item(this.mousemoveData.columnIndex).setAttribute("width", String(columnWidth));
     if (window.getSelection) {
       window.getSelection().removeAllRanges();
     }
@@ -664,9 +534,9 @@ Type: ${data.type}`);
     const columnRendered = this.isColumnRendered();
     const columnWidths = this.loadColumnWidths();
 
-    const bodyTable = this.getBodyTable();
-    const headerCols = this.getHeaderCols();
-    const bodyCols = this.getBodyCols();
+    const bodyTable = this.bodyTable;
+    const headerCols = this.headerCols;
+    const bodyCols = this.bodyCols;
     const widths: number[] = [];
     let usedWidth = 0;
     let headerBodyColCount = 0;
@@ -832,7 +702,7 @@ Type: ${data.type}`);
       }
     } else {
       const rowIndexes: number[] = [];
-      this.getRowElements().forEach((rowElement) => {
+      this.rowElements.forEach((rowElement) => {
         if (rowElement.hasAttribute("row-index")) {
           rowIndexes.push(Number(rowElement.getAttribute("row-index")));
         }
@@ -859,7 +729,7 @@ Type: ${data.type}`);
   private syncSelected(event: CustomEvent) {
     const selected = event ? event.detail.selection : this.selected;
 
-    this.getRowElements().forEach((rowElement) => {
+    this.rowElements.forEach((rowElement) => {
       const isColumnPanel = rowElement.classList.contains(Css.TOBAGO_COLUMN_PANEL);
       const rowIndex = Number(isColumnPanel ? rowElement.getAttribute("name") : rowElement.getAttribute("row-index"));
       const inputElement = !isColumnPanel ? this.columnSelector?.rowElement(rowElement) : null;
@@ -894,88 +764,204 @@ Type: ${data.type}`);
     }
   }
 
-/*
-  clickOnPaging(event: MouseEvent): void {
-    const element = event.currentTarget as HTMLElement;
+  /*
+    clickOnPaging(event: MouseEvent): void {
+      const element = event.currentTarget as HTMLElement;
 
-    console.warn("execute  ************** click on paging");
-    const output: HTMLElement = element.querySelector("span");
-    output.style.display = "none";
+      console.warn("execute  ************** click on paging");
+      const output: HTMLElement = element.querySelector("span");
+      output.style.display = "none";
 
-    const input: HTMLInputElement = element.querySelector("input");
-    input.style.display = "initial";
-    input.focus();
-    input.select();
-  }
-*/
-
-/*
-  blurPaging(event: FocusEvent): void {
-    console.warn("execute  ************** blur on paging");
-    const input = event.currentTarget as HTMLInputElement;
-    const output: HTMLElement = input.parentElement.querySelector("span");
-    const number = Number.parseInt(input.value); // sanitizing
-    if (number > 0 && number.toString() !== output.innerHTML) {
-      console.debug("Reloading sheet '%s' old value='%s' new value='%s'", this.id, output.innerHTML, number);
-      output.innerHTML = number.toString();
-      faces.ajax.request(
-          input.id,
-          null,
-          {
-            params: {
-              "jakarta.faces.behavior.event": "reload"
-            },
-            execute: this.id,
-            render: this.id
-          });
-    } else {
-      console.info("no update needed");
-      input.value = output.innerHTML;
-      input.style.display = "none";
-      output.style.display = "initial";
+      const input: HTMLInputElement = element.querySelector("input");
+      input.style.display = "initial";
+      input.focus();
+      input.select();
     }
-  }
-*/
+  */
+
+  /*
+    blurPaging(event: FocusEvent): void {
+      console.warn("execute  ************** blur on paging");
+      const input = event.currentTarget as HTMLInputElement;
+      const output: HTMLElement = input.parentElement.querySelector("span");
+      const number = Number.parseInt(input.value); // sanitizing
+      if (number > 0 && number.toString() !== output.innerHTML) {
+        console.debug("Reloading sheet '%s' old value='%s' new value='%s'", this.id, output.innerHTML, number);
+        output.innerHTML = number.toString();
+        faces.ajax.request(
+            input.id,
+            null,
+            {
+              params: {
+                "jakarta.faces.behavior.event": "reload"
+              },
+              execute: this.id,
+              render: this.id
+            });
+      } else {
+        console.info("no update needed");
+        input.value = output.innerHTML;
+        input.style.display = "none";
+        output.style.display = "initial";
+      }
+    }
+  */
 
   syncScrolling(): void {
     // sync scrolling of body to header
-    const header = this.getHeader();
+    const header = this.header;
     if (header) {
-      header.scrollLeft = this.getBody().scrollLeft;
+      header.scrollLeft = this.body.scrollLeft;
     }
   }
 
-  getHeader(): HTMLElement {
-    return this.querySelector("tobago-sheet>header");
+  get scrollPosition(): number[] {
+    return JSON.parse(this.hiddenInputScrollPosition.value);
   }
 
-  getHeaderTable(): HTMLElement {
-    return this.querySelector("tobago-sheet>header>table");
+  set scrollPosition(value: number[]) {
+    this.hiddenInputScrollPosition.value = JSON.stringify(value);
   }
 
-  getHeaderCols(): NodeListOf<HTMLElement> {
-    return this.querySelectorAll("tobago-sheet>header>table>colgroup>col");
+  private get hiddenInputScrollPosition(): HTMLInputElement {
+    return this.querySelector("input[id$='::scrollPosition']");
   }
 
-  getBody(): HTMLElement {
-    return this.querySelector("tobago-sheet>.tobago-body");
+  public get selectable(): Selectable {
+    return Selectable[this.dataset.tobagoSelectionMode];
   }
 
-  getBodyTable(): HTMLElement {
-    return this.querySelector("tobago-sheet>.tobago-body>table");
+  get selected(): Set<number> {
+    return new Set<number>(JSON.parse(this.hiddenInputSelected.value));
   }
 
-  getBodyCols(): NodeListOf<HTMLElement> {
-    return this.querySelectorAll("tobago-sheet>.tobago-body>table>colgroup>col");
+  set selected(value: Set<number>) {
+    const oldSelectedSet = this.selected;
+    this.hiddenInputSelected.value = JSON.stringify(Array.from(value));
+
+    const fireSelectionChangeEvent = oldSelectedSet.size !== value.size
+        || ![...oldSelectedSet].every((x) => value.has(x));
+    if (fireSelectionChangeEvent) {
+      this.dispatchEvent(new CustomEvent(ClientBehaviors.ROW_SELECTION_CHANGE, {
+        detail: {
+          selection: value,
+          rowsOnPage: this.rowsOnPage,
+          rowCount: this.rowCount
+        },
+      }));
+    }
   }
 
-  getHiddenExpanded(): HTMLInputElement {
+  private get hiddenInputSelected(): HTMLInputElement {
+    return this.querySelector("input[id$='::selected']");
+  }
+
+  get hiddenExpanded(): HTMLInputElement {
     const rootNode = this.getRootNode() as ShadowRoot | Document;
     return rootNode.getElementById(this.id + "::expanded") as HTMLInputElement;
   }
 
-  getRowElements(): NodeListOf<HTMLTableRowElement> {
-    return this.getBodyTable().querySelectorAll(":scope > tbody > tr");
+  get lastClickedRowIndex(): number {
+    return Number(this.dataset.tobagoLastClickedRowIndex);
+  }
+
+  set lastClickedRowIndex(value: number) {
+    this.dataset.tobagoLastClickedRowIndex = String(value);
+  }
+
+  get lazy(): boolean {
+    return this.hasAttribute("lazy");
+  }
+
+  set lazy(update: boolean) {
+    if (update) {
+      this.setAttribute("lazy", "");
+    } else {
+      this.removeAttribute("lazy");
+    }
+  }
+
+  get lazyScrollPosition(): number[] {
+    return JSON.parse(this.hiddenInputLazyScrollPosition.value);
+  }
+
+  set lazyScrollPosition(value: number[]) {
+    this.hiddenInputLazyScrollPosition.value = JSON.stringify(value);
+  }
+
+  private get hiddenInputLazyScrollPosition(): HTMLInputElement {
+    return this.querySelector("input[id$='::lazyScrollPosition']");
+  }
+
+  get lazyRows(): number {
+    return parseInt(this.getAttribute("lazy-rows"));
+  }
+
+  get first(): number {
+    return parseInt(this.dataset.tobagoFirst);
+  }
+
+  get rows(): number {
+    return parseInt(this.getAttribute("rows"));
+  }
+
+  get rowCount(): number {
+    return parseInt(this.getAttribute("row-count"));
+  }
+
+  get rowsOnPage(): number {
+    if (this.lazy || this.rows === 0 || this.rows >= this.rowCount) {
+      return this.rowCount;
+    } else {
+      return Math.min(this.rowCount - this.first, this.rows);
+    }
+  }
+
+  get header(): HTMLElement {
+    return this.querySelector("tobago-sheet>header");
+  }
+
+  get headerCols(): NodeListOf<HTMLElement> {
+    return this.querySelectorAll("tobago-sheet>header>table>colgroup>col");
+  }
+
+  get body(): HTMLElement {
+    return this.querySelector("tobago-sheet>.tobago-body");
+  }
+
+  get bodyTable(): HTMLElement {
+    return this.querySelector("tobago-sheet>.tobago-body>table");
+  }
+
+  get tableBody(): HTMLTableSectionElement {
+    return this.querySelector(".tobago-body tbody");
+  }
+
+  get bodyCols(): NodeListOf<HTMLElement> {
+    return this.querySelectorAll("tobago-sheet>.tobago-body>table>colgroup>col");
+  }
+
+  get rowElements(): NodeListOf<HTMLTableRowElement> {
+    return this.bodyTable.querySelectorAll(":scope > tbody > tr");
+  }
+
+  get firstVisibleRowIndex(): number {
+    const rowElements = this.tableBody.rows;
+    let min = 0;
+    let max = rowElements.length;
+    let index: number;
+    while (min < max) {
+      index = Math.round((max - min) / 2) + min;
+      if (rowElements[index] === undefined
+          || rowElements[index].offsetTop > this.body.scrollTop) {
+        index--;
+        max = index;
+      } else {
+        min = index;
+      }
+    }
+
+    return this.getRowIndex(rowElements[index]);
   }
 }
 
