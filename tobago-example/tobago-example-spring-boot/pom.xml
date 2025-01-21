@@ -27,6 +27,10 @@
   <name>Tobago Example Spring Boot</name>
   <description>A minimal Tobago application with spring boot</description>
 
+  <properties>
+
+  </properties>
+
   <build>
     <finalName>tobago-example-spring-boot</finalName>
 
@@ -162,26 +166,31 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>jul-to-slf4j</artifactId>
+      <!-- spring boot doesn't work with slf4j 2 -->
       <version>1.7.36</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>log4j-over-slf4j</artifactId>
+      <!-- spring boot doesn't work with slf4j 2 -->
       <version>1.7.36</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
+      <!-- spring boot doesn't work with slf4j 2 -->
       <version>1.7.36</version>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
+      <!-- spring boot doesn't work with logback 1.3 -->
       <version>1.2.12</version>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-core</artifactId>
+      <!-- spring boot doesn't work with logback 1.3 -->
       <version>1.2.12</version>
     </dependency>
     <dependency>
