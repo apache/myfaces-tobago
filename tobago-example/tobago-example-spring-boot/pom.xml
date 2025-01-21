@@ -173,7 +173,7 @@
       <groupId>org.slf4j</groupId>
       <artifactId>log4j-over-slf4j</artifactId>
       <!-- spring boot doesn't work with slf4j 2 -->
-      <version>1.7.36</version>
+      <version>2.0.16</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
