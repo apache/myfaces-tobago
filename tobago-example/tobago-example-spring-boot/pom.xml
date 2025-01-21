@@ -28,7 +28,10 @@
   <description>A minimal Tobago application with spring boot</description>
 
   <properties>
-
+    <!-- spring boot doesn't work with slf4j 2 -->
+    <slf4j-spring-boot.version>1.7.36</slf4j-spring-boot.version>
+    <!-- spring boot doesn't work with logback 1.3 -->
+    <logback-spring-boot.version>1.2.12</logback-spring-boot.version>
   </properties>
 
   <build>
@@ -167,31 +170,31 @@
       <groupId>org.slf4j</groupId>
       <artifactId>jul-to-slf4j</artifactId>
       <!-- spring boot doesn't work with slf4j 2 -->
-      <version>1.7.36</version>
+      <version>${slf4j-spring-boot.version}</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>log4j-over-slf4j</artifactId>
       <!-- spring boot doesn't work with slf4j 2 -->
-      <version>1.7.36</version>
+      <version>${slf4j-spring-boot.version}</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <!-- spring boot doesn't work with slf4j 2 -->
-      <version>1.7.36</version>
+      <version>${slf4j-spring-boot.version}</version>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <!-- spring boot doesn't work with logback 1.3 -->
-      <version>1.2.12</version>
+      <version>${logback-spring-boot.version}</version>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-core</artifactId>
       <!-- spring boot doesn't work with logback 1.3 -->
-      <version>1.2.12</version>
+      <version>${logback-spring-boot.version}</version>
     </dependency>
     <dependency>
       <groupId>ch.qos.reload4j</groupId>
