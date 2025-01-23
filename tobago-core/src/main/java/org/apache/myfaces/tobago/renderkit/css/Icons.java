@@ -96,7 +96,6 @@ public enum Icons implements CssItem {
         if (PATTERN_FA.matcher(name).matches()) {
           return "fa " + name;
         }
-        LOG.warn("Unknown icon format for name: '" + name + "'");
         return null;
       }
     };
