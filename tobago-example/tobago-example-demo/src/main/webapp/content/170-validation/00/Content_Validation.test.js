@@ -111,7 +111,7 @@ it("Validate Range: Submit number '2' which is out of range.", function (done) {
   test.start();
 });
 
-it("Validate Range: Submit number '78' which is out of range.", function (done) {
+it("Validate Range: Submit number '77778' which is out of range.", function (done) {
   let messagesFn = querySelectorAllFn("#page\\:messages .alert");
   let inFn = querySelectorFn("#page\\:mainForm\\:validateRange\\:in_vr\\:\\:field");
   let submitFn = querySelectorFn("#page\\:mainForm\\:validateRange\\:submit_vr");
@@ -120,7 +120,7 @@ it("Validate Range: Submit number '78' which is out of range.", function (done) 
   test.setup(() => messagesFn() && messagesFn().length === 0,
       () => inFn().value = "42",
       "click", submitFn);
-  test.do(() => inFn().value = "78");
+  test.do(() => inFn().value = "77778");
   test.event("click", submitFn, () => messagesFn() && messagesFn().length === 1);
   test.do(() => expect(messagesFn().length).toBe(1));
   test.start();
@@ -133,7 +133,7 @@ it("Validate Range: Submit number '64' which is within the range.", function (do
 
   let test = new JasmineTestTool(done);
   test.setup(() => messagesFn() && messagesFn().length === 1,
-      () => inFn().value = "1000",
+      () => inFn().value = "10000",
       "click", submitFn);
   test.do(() => inFn().value = "64");
   test.event("click", submitFn, () => messagesFn() && messagesFn().length === 0);
