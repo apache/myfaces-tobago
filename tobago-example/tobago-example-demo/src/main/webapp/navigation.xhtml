@@ -22,9 +22,10 @@
   <tc:tree id="#{navigationId}" value="#{navigationTree.tree}" var="node" state="#{navigationState.state}">
     <tc:treeNode id="node">
       <tc:link
-              id="#{linkId}"
-              label="» #{node.label}"
-              outcome="#{node.outcome}"/>
+          id="#{linkId}"
+          label="» #{node.label}"
+          outcome="#{node.outcome}"
+          rendered="#{navigationState.showTests or (node.label != 'Test')}"/>
     </tc:treeNode>
   </tc:tree>
 </f:subview>
