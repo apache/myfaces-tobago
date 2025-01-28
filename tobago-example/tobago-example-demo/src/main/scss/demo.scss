@@ -21,6 +21,36 @@ html {
   scroll-padding-top: 72px;
 }
 
+#page\:navigation\:nav, #page\:navigation-small\:nav-small {
+  tobago-tree-node[data-tobago-level='0'] {
+    font-weight: bold;
+    margin-top: 1rem;
+    white-space: nowrap;
+
+    &[index='1'] {
+      margin-top: 0;
+    }
+  }
+
+  tobago-tree-node[data-tobago-level='1'] {
+    a {
+      padding: 0.25rem;
+      color: var(--bs-secondary);
+      border-radius: var(--bs-border-radius);
+
+      &:hover {
+        //background-color: rgba(108, 117, 125, 0.1);
+        background-color: rgba(var(--bs-secondary-rgb), 0.1);
+      }
+
+      &.active {
+        color: var(--bs-primary);
+        background-color: rgba(var(--bs-primary-rgb), 0.1);
+      }
+    }
+  }
+}
+
 .hide-navigation {
   display: none;
 }

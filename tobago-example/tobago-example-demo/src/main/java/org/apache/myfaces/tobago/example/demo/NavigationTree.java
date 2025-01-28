@@ -19,10 +19,6 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.faces.context.ExternalContext;
@@ -30,6 +26,10 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.ServletContext;
+import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -115,7 +115,7 @@ public class NavigationTree implements Serializable {
 
   private void addToResult(List<String> listWar, Map<String, NavigationNode> nodes) {
     for (final String path : listWar) {
-      if (path.contains("/x-") || !path.contains(".xhtml")) {
+      if (path.contains("/x-")) {
         // ignoring excluded files
         continue;
       }
@@ -123,7 +123,15 @@ public class NavigationTree implements Serializable {
         // ignoring duplicate
         continue;
       }
-      nodes.put(path, new NavigationNode(path, this));
+      if (path.endsWith(".xhtml")) {
+        nodes.put(path, new NavigationNode(path, this));
+      } else if (path.endsWith("menuEntry.properties")) {
+        try {
+          nodes.put(path, new NavigationNode(servletContext, path, this));
+        } catch (IOException e) {
+          LOG.error("Could not load '" + path + "'", e);
+        }
+      }
     }
   }
 
