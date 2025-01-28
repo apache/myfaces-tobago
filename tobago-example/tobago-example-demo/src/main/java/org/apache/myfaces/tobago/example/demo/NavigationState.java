@@ -27,7 +27,6 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import org.apache.myfaces.tobago.model.ExpandedState;
 import org.apache.myfaces.tobago.model.SelectedState;
-import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,19 +65,11 @@ public class NavigationState implements Serializable {
 
   @PostConstruct
   public void init() {
-    currentNode = tree.findByViewId(FacesContext.getCurrentInstance().getViewRoot().getViewId());
-    initState();
-  }
-
-  private void initState() {
-    if (currentNode != null) {
-      final TreePath treePath = currentNode.getTreePath();
-      state.getSelectedState().clearAndSelect(treePath);
-      if (!treePath.isRoot()) {
-        state.getExpandedState().collapseAllButRoot();
-        state.getExpandedState().expand(treePath, true);
-      }
+    NavigationNode byViewId = tree.findByViewId(FacesContext.getCurrentInstance().getViewRoot().getViewId());
+    if (byViewId != null) {
+      currentNode = byViewId;
     }
+    state.getExpandedState().expandAll();
   }
 
   public NavigationNode getCurrentNode() {
@@ -86,7 +77,8 @@ public class NavigationState implements Serializable {
   }
 
   public String gotoFirst() {
-    return gotoNode(tree.getTree().getNextNode()) + "?faces-redirect=true"; // the first after the root node
+    //the first node of "Getting started"
+    return gotoNode(tree.getTree().getNextNode().getNextNode()) + "?faces-redirect=true";
   }
 
   public String rootUrl() {
@@ -129,7 +121,6 @@ public class NavigationState implements Serializable {
         currentNode = node;
         LOG.info("Navigate to '" + currentNode.getOutcome() + "'");
       }
-      initState();
       return currentNode.getOutcome();
     }
   }

@@ -19,43 +19,51 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import jakarta.servlet.ServletContext;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.model.TreePath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class NavigationNode extends DefaultMutableTreeNode implements Comparable<NavigationNode> {
   private static final Logger LOG = LoggerFactory.getLogger(NavigationNode.class);
 
-  private final String name;
   private final String label;
+  private final String icon;
   private String labelPath;
   private final String branch;
   private final String outcome;
 
   private final NavigationTree tree;
 
-  /**
-   * Cache the TreePath for optimization.
-   */
-  private TreePath treePath;
-
   public NavigationNode(final String path, final NavigationTree tree) {
-
     this.tree = tree;
     outcome = path;
     final Pattern pattern = Pattern.compile("(.*)/([^/]*)\\.(xhtml)");
-//      final Pattern pattern = Pattern.compile("([\\d\\d/]*\\d\\d[^/]*)/([^/]*)\\.(xhtml)");
     final Matcher matcher = pattern.matcher(path);
     matcher.find();
     branch = matcher.group(1);
-    name = matcher.group(2);
-//    final String extension = matcher.group(3);
+    String name = matcher.group(2);
     label = StringUtils.firstToUpperCase(name.replaceAll("[_]", " "));
+    icon = null;
+  }
+
+  public NavigationNode(final ServletContext servletContext, final String path, final NavigationTree tree)
+      throws IOException {
+    this.tree = tree;
+    outcome = null;
+    branch = path.substring(0, path.lastIndexOf(File.separator));
+    Properties properties = new Properties();
+    properties.load(new FileReader(servletContext.getRealPath(path)));
+    label = properties.getProperty("label");
+    icon = properties.getProperty("icon");
   }
 
   @Override
@@ -64,8 +72,6 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
   }
 
   public void evaluateTreePath() {
-    treePath = new TreePath(this);
-
     final StringBuilder builder = new StringBuilder(this.getLabel());
     NavigationNode parent = (NavigationNode) this.getParent();
     while (parent != null && parent != tree.getTree()) {
@@ -85,16 +91,16 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
     return (NavigationNode) super.getPreviousNode();
   }
 
-  public String getName() {
-    return name;
-  }
-
   public String getBranch() {
     return branch;
   }
 
   public String getLabel() {
     return label;
+  }
+
+  public String getIcon() {
+    return icon;
   }
 
   public String getLabelPath() {
@@ -105,13 +111,8 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
     return outcome;
   }
 
-  public TreePath getTreePath() {
-    return treePath;
-  }
-
   @Override
   public String toString() {
     return outcome;
   }
-
 }

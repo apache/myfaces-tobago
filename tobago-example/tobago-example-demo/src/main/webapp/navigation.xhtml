@@ -18,14 +18,21 @@
 
 <f:subview id="#{navigationName}"
            xmlns:f="jakarta.faces.core"
+           xmlns:fn="jakarta.tags.functions"
            xmlns:tc="http://myfaces.apache.org/tobago/component">
   <tc:tree id="#{navigationId}" value="#{navigationTree.tree}" var="node" state="#{navigationState.state}">
     <tc:treeNode id="node">
+      <tc:treeIcon value="#{node.icon}"
+                   rendered="#{node.outcome == null and (navigationState.showTestSection or (node.label != 'Test'))}"/>
+      <tc:treeLabel value="#{node.label}"
+                    rendered="#{node.outcome == null and (navigationState.showTestSection or (node.label != 'Test'))}"/>
       <tc:link
           id="#{linkId}"
-          label="» #{node.label}"
+          label="#{node.label}"
           outcome="#{node.outcome}"
-          rendered="#{navigationState.showTestSection or (node.label != 'Test')}"/>
+          rendered="#{node.outcome != null and (navigationState.showTestSection or (not fn:contains(node.outcome, '900-test')))}">
+        <tc:style customClass="#{navigationState.currentNode.equals(node) ? 'active' : ''}"/>
+      </tc:link>
     </tc:treeNode>
   </tc:tree>
 </f:subview>

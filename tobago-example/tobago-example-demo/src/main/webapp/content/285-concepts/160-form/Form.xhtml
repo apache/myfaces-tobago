@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="jakarta.faces.core"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="jakarta.faces.facelets">
+
+  <p>Tobago supports nested forms and can treat each form separately.
+    Values can be stored separately into the model, while already filled input elements keep their values (temporarily).
+    Forms are added by the <code class="language-markup">&lt;tc:form/></code> tag.</p>
+  <p>Forms are also relevant for
+    <tc:link label="Default Command"
+             outcome="/content/040-command/10-default/Default_Command.xhtml"/>.</p>
+  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
+           link="#{apiController.tobagoTld}/tc/form.html"/>
+
+  <tc:section label="Example">
+    <p>This small example contain two separate forms, each surrounded by a content box.
+      The submit button only update the model in the current form.</p>
+    <demo-highlight language="markup">&lt;tc:box label="Form 1">
+  &lt;tc:form>
+    &lt;tc:in label="Value 1" value="\#{formController.value1}"/>
+    &lt;tc:out label="Value 1 in Model" value="\#{formController.value1}"/>
+    &lt;tc:button label="Submit"/>
+  &lt;/tc:form>
+&lt;/tc:box>
+&lt;tc:box label="Form 2">
+  ...
+&lt;/tc:box></demo-highlight>
+    <tc:box label="Form 1">
+      <tc:form id="mainForm1">
+        <tc:in id="mainIn1" label="Value 1" value="#{formController.value1}"/>
+        <tc:out id="mainOut1" label="Value 1 in Model" value="#{formController.value1}"/>
+        <tc:button id="mainSubmit1" label="Submit"/>
+      </tc:form>
+    </tc:box>
+    <tc:box label="Form 2">
+      <tc:form id="mainForm2">
+        <tc:in id="mainIn2" label="Value 2" value="#{formController.value2}"/>
+        <tc:out id="mainOut2" label="Value 2 in Model" value="#{formController.value2}"/>
+        <tc:button id="mainSubmit2" label="Submit"/>
+      </tc:form>
+    </tc:box>
+  </tc:section>
+
+  <tc:section label="Required">
+    <p>If the validation of a form is activated and the actual value of this form is only stored temporarily,
+      the validation is deactivated until the value is definitely stored into the model.</p>
+    <p>For example, if only the value in 'Inner Form 1' is set, the validation of the other forms are turned off.</p>
+    <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.tobagoTld}/tc/form.html"/>
+
+    <tc:section label="Example">
+      <p>Every form in this example is surrounded by a content box.
+        The submit buttons in the inner forms only put the inner value into the model.
+        The submit button in the outer form put all values into the model.
+        The validation for the inner value 2 and for the outer value is activated, both fields are required.</p>
+
+      <demo-highlight language="markup">&lt;tc:box label="Outer Form">
+  &lt;tc:form>
+    &lt;tc:box label="Inner Form 1">
+      &lt;tc:form>
+        &lt;tc:in label="Inner Value 1"/>
+        &lt;tc:out label="Inner Value 1 in Model"/>
+        &lt;tc:button label="Submit"/>
+      &lt;/tc:form>
+    &lt;/tc:box>
+    &lt;tc:box label="Inner Form 2">
+      ...
+    &lt;/tc:box>
+    &lt;tc:separator/>
+    &lt;tc:in label="Outer Value" required="true"/>
+    &lt;tc:out label="Outer Value in Model"/>
+    &lt;tc:button label="Submit"/>
+  &lt;/tc:form>
+&lt;/tc:box></demo-highlight>
+
+      <tc:box label="Outer Form">
+        <tc:form id="reqOuterForm">
+          <tc:box label="Inner Form 1">
+            <tc:form id="reqInnerForm1">
+              <tc:in id="reqIn1" label="Inner Value 1" value="#{formRequiredController.innerValue1}"/>
+              <tc:out id="reqOut1" label="Value in Model" value="#{formRequiredController.innerValue1}"/>
+              <tc:button id="reqSubmit1" label="Submit"/>
+            </tc:form>
+          </tc:box>
+          <tc:box label="Inner Form 2">
+            <tc:form id="reqInnerForm2">
+              <tc:in id="reqIn2" label="Inner Value 2" required="true"
+                     value="#{formRequiredController.innerValue2}"/>
+              <tc:out id="reqOut2" label="Value in Model" value="#{formRequiredController.innerValue2}"/>
+              <tc:button id="reqSubmit2" label="Submit"/>
+            </tc:form>
+          </tc:box>
+          <tc:separator/>
+          <tc:in id="reqIn" label="Outer Value" required="true" value="#{formRequiredController.outerValue}"/>
+          <tc:out id="reqOut" label="Value in Model" value="#{formRequiredController.outerValue}"/>
+          <tc:button id="reqSubmit" label="Submit"/>
+        </tc:form>
+      </tc:box>
+    </tc:section>
+  </tc:section>
+
+  <tc:section label="Ajax">
+    <p>The <code class="language-markup">&lt;f:ajax execute="..." render="..."/></code> tag ignore the
+      <code class="language-markup">&lt;tc:form></code> tag.
+      The form is only used as a naming container.</p>
+
+    <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.tobagoTld}/tc/form.html"/>
+
+    <tc:section label="Example">
+      <p>The structure of this example is similar to the
+        <tc:link label="Form Required" link="/content/160-form/10-required/form-required.xhtml"/>
+        example.
+        Every form in this example is surrounded by a content box.
+        The submit buttons in the inner forms only put the inner value into the model.
+        The submit button in the outer form put all values into the model.
+        The validation for the inner value 2 and for the outer value is activated, both fields are required.</p>
+      <p>There are also two more submit buttons in the outer form.
+        The 'Inner Forms' button submit both values in the inner forms.
+        The 'Outer Value' button only submit the outer value.
+        Please notice, that all buttons use the
+        <code class="language-markup">&lt;f:ajax execute="..." render="..."/></code> tag.</p>
+      <p>Also note, that the <code class="language-markup">&lt;tc:message/></code> tag has to be rerendered
+        to show error messages.</p>
+
+      <demo-highlight language="markup">&lt;tc:box label="Outer Form">
+  &lt;tc:form>
+    &lt;tc:box label="Inner Form 1">
+      &lt;tc:form>
+        &lt;tc:in label="Inner Value 1"/>
+        &lt;tc:out label="Inner Value 1 in Model"/>
+        &lt;tc:button label="Submit">
+          &lt;f:ajax execute="in" render="in out :page:messages"/>
+        &lt;/tc:button>
+      &lt;/tc:form>
+    &lt;/tc:box>
+    &lt;tc:box label="Inner Form 2">
+      ...
+    &lt;/tc:box>
+    &lt;tc:separator/>
+    &lt;tc:in label="Outer Value" required="true"/>
+    &lt;tc:out label="Outer Value in Model"/>
+    &lt;tc:button label="Submit">
+      &lt;f:ajax execute="::form1:in ::form2:in in"
+              render="::form1:in ::form2:in in ::form1:out ::form2:out out :page:messages"/>
+    &lt;/tc:button>
+    ...
+  &lt;/tc:form>
+&lt;/tc:box></demo-highlight>
+
+      <tc:box label="Outer Form">
+        <tc:form id="ajaxOuterForm">
+          <tc:box label="Inner Form 1">
+            <tc:form id="ajaxForm1">
+              <tc:in id="ajaxIn1" label="Inner Value 1" value="#{formAjaxController.innerValue1}"/>
+              <tc:out id="ajaxOut1" label="Inner Value 1 in Model" value="#{formAjaxController.innerValue1}"/>
+              <tc:button id="ajaxSubmit1" label="Submit">
+                <f:ajax execute="ajaxIn1" render="ajaxIn1 ajaxOut1 :page:messages"/>
+              </tc:button>
+            </tc:form>
+          </tc:box>
+          <tc:box label="Inner Form 2">
+            <tc:form id="ajaxForm2">
+              <tc:in id="ajaxIn2" label="Inner Value 2" required="true"
+                     value="#{formAjaxController.innerValue2}"/>
+              <tc:out id="ajaxOut2" label="Inner Value 2 in Model" value="#{formAjaxController.innerValue2}"/>
+              <tc:button id="ajaxSubmit2" label="Submit">
+                <f:ajax execute="ajaxIn2" render="ajaxIn2 ajaxOut2 :page:messages"/>
+              </tc:button>
+            </tc:form>
+          </tc:box>
+          <tc:separator/>
+          <tc:in id="ajaxIn" label="Outer Value" required="true" value="#{formAjaxController.outerValue}"/>
+          <tc:out id="ajaxOut" label="Outer Value in Model" value="#{formAjaxController.outerValue}"/>
+          <tc:button id="ajaxSubmit" label="Submit">
+            <f:ajax execute="::ajaxForm1:ajaxIn1 ::ajaxForm2:ajaxIn2 ajaxIn"
+                    render="::ajaxForm1:ajaxIn1 ::ajaxForm2:ajaxIn2 ajaxIn ::ajaxForm1:ajaxOut1 ::ajaxForm2:ajaxOut2 ajaxOut :page:messages"/>
+          </tc:button>
+
+          <tc:separator/>
+          Submit only:
+          <tc:buttons>
+            <tc:button id="ajaxSubmitInnerForms" label="Inner Forms">
+              <f:ajax execute="::ajaxForm1:ajaxIn1 ::ajaxForm2:ajaxIn2"
+                      render="::ajaxForm1:ajaxIn1 ::ajaxForm2:ajaxIn2 ::ajaxForm1:ajaxOut1 ::ajaxForm2:ajaxOut2 :page:messages"/>
+            </tc:button>
+            <tc:button id="ajaxSubmitOuterValue" label="Outer Value">
+              <f:ajax execute="ajaxIn" render="ajaxIn ajaxOut :page:messages"/>
+            </tc:button>
+          </tc:buttons>
+        </tc:form>
+      </tc:box>
+    </tc:section>
+  </tc:section>
+</ui:composition>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="jakarta.faces.core"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="jakarta.faces.facelets">
+  <tc:script file="#{request.contextPath}/content/300-requests/150-behavior/customEvent.js"/>
+
+  <p>There are two kinds of behaviors: </p>
+  <ul>
+    <li><code class="language-markup">&lt;f:ajax/></code> send an ajax request</li>
+    <li><code class="language-markup">&lt;tc:event/></code> do a full page reload</li>
+  </ul>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;f:ajax/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.facesTld}/f/ajax.html"/>
+    |
+    <tc:link label="&lt;tc:event/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.tobagoTld}/tc/event.html"/></p>
+
+  <tc:section label="Basic example">
+    <p>Type a text into the input field. After leaving the input field, the given text is shown in the output field.</p>
+
+    <tc:segmentLayout medium="6seg">
+      <tc:section label="f:ajax">
+      <demo-highlight language="markup">&lt;tc:in label="Ajax Input" value="\#{behaviorController.ajax}">
+  &lt;f:ajax render="outAjax"/>
+&lt;/tc:in></demo-highlight>
+        <tc:in id="inputAjax" label="Ajax Input" value="#{behaviorController.ajax}">
+          <f:ajax render="outputAjax"/>
+        </tc:in>
+        <tc:out id="outputAjax" label="Ajax Output" value="#{behaviorController.ajax}"/>
+      </tc:section>
+
+      <tc:section label="tc:event">
+      <demo-highlight language="markup">&lt;tc:in label="Event Input" value="\#{behaviorController.event}">
+  &lt;tc:event/>
+&lt;/tc:in></demo-highlight>
+
+        <tc:in id="inputEvent" label="Event Input" value="#{behaviorController.event}">
+          <tc:event/>
+        </tc:in>
+        <tc:out id="outputEvent" label="Event Output" value="#{behaviorController.event}"/>
+      </tc:section>
+    </tc:segmentLayout>
+  </tc:section>
+
+  <tc:section label="Change the event">
+    <p>It's possible to change the event name. For example if you want a double click event, change the event name to
+      <code>dblclick</code>.</p>
+
+    <demo-highlight language="markup">&lt;tc:button label="Ajax Double Click">
+  &lt;f:ajax event="dblclick" render="outCounter" listener="..."/>
+&lt;/tc:button>
+&lt;tc:button label="Event Double Click">
+  &lt;tc:event event="dblclick" actionListener="..."/>
+&lt;/tc:button></demo-highlight>
+    <tc:button id="dblButtonAjax" label="Ajax Double Click">
+      <f:ajax event="dblclick" render="dblCounter" listener="#{behaviorController.countUp}"/>
+    </tc:button>
+    <tc:button id="dblButtonEvent" label="Event Double Click">
+      <tc:event event="dblclick" actionListener="#{behaviorController.countUp}"/>
+    </tc:button>
+    <tc:out id="dblCounter" label="Counter" value="#{behaviorController.counter}"/>
+  </tc:section>
+
+  <tc:section label="tc:event as a paranet component">
+    <p><code class="language-markup">&lt;tc:event></code> can contain <code class="language-markup">&lt;f:ajax></code>
+      or <code class="language-markup">&lt;tc:operation></code> tags.</p>
+    <p>This is helpfull if the parent component cannot handle operations by itself, for example
+      <code class="language-markup">&lt;tc:row/></code>. In this case, the <code>event</code> attribute of
+      <code class="language-markup">&lt;f:ajax/></code> will be ignored.</p>
+    <demo-highlight language="markup">&lt;tc:row>
+  &lt;tc:event>
+    &lt;f:ajax execute=":::popup" render=":::popup" listener="..."/>
+    &lt;tc:operation name="show" for=":::popup"/>
+  &lt;/tc:event>
+&lt;/tc:row></demo-highlight>
+  </tc:section>
+
+  <tc:section label="f:ajax and tc:event">
+    <p><code class="language-markup">&lt;f:ajax/></code> and <code
+        class="language-markup">&lt;tc:event/></code> can be used side by side.
+      A click on the button fires the AJAX event, a double click do a full page reload.</p>
+    <demo-highlight language="markup">&lt;tc:button id="btnAjaxEvent" label="Submit" type="submit">
+  &lt;f:ajax event="click" render="out" listener="\#{behaviorController.eventOutput}"/>
+  &lt;tc:event event="dblclick" actionListener="\#{behaviorController.eventOutput}"/>
+&lt;/tc:button>
+&lt;tc:out id="out" label="Output:" value="\#{behaviorController.output}"/></demo-highlight>
+    <tc:button id="btnAjaxEvent" label="Submit" type="submit">
+      <f:ajax event="click" render="out" listener="#{behaviorController.eventOutput}"/>
+      <tc:event event="dblclick" actionListener="#{behaviorController.eventOutput}"/>
+    </tc:button>
+    <tc:out id="out" label="Output:" value="#{behaviorController.output}"/>
+  </tc:section>
+
+  <tc:section label="DOM events">
+    <p>The <code class="language-markup">&lt;tc:event/></code> tag allows some control over DOM events.</p>
+
+    <tc:section label="stopPropagation">
+      <p>The <code>stopPropagation</code> attribute prevents further propagation of the current event (see
+        <tc:link label="stopPropagation" image="bi-box-arrow-up-right"
+                 link="https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation" target="_blank"/>).
+        This is useful for example for a sortable sheet with a component inside the <code>bar</code>-facet.</p>
+      <p>In the following example the input field for filter by names can be clicked without execute the sorting.</p>
+      <demo-highlight language="markup">&lt;tc:sheet ...>
+  &lt;tc:column label="Name" sortable="true">
+    &lt;f:facet name="bar">
+      &lt;tc:panel>
+        &lt;tc:style customClass="d-inline-block"/>
+        &lt;tc:event stopPropagation="true" omit="true">
+          &lt;tc:in value="\#{sheetFilterController.name}">
+            &lt;f:ajax execute=":::sheet" render=":::sheet" listener="\#{sheetFilterController.filter}"/>
+          &lt;/tc:in>
+        &lt;/tc:event>
+      &lt;/tc:panel>
+    &lt;/f:facet>
+    &lt;tc:out value="\#{object.name}" plain="true"/>
+  &lt;/tc:column>
+  ...
+&lt;/tc:sheet></demo-highlight>
+
+      <tc:sheet id="sheet" value="#{sheetFilterController.filteredSolarList}" var="object" rows="4">
+        <tc:column label="Name" sortable="true">
+          <f:facet name="bar">
+            <tc:panel>
+              <tc:style customClass="d-inline-block"/>
+              <tc:event stopPropagation="true" omit="true">
+                <tc:in value="#{sheetFilterController.name}">
+                  <f:ajax execute=":::sheet" render=":::sheet" listener="#{sheetFilterController.filter}"/>
+                </tc:in>
+              </tc:event>
+            </tc:panel>
+          </f:facet>
+          <tc:out value="#{object.name}" plain="true"/>
+        </tc:column>
+        <tc:column label="Orbit" sortable="true">
+          <tc:out value="#{object.orbit}" plain="true"/>
+        </tc:column>
+        <tc:column label="Distance" sortable="true">
+          <tc:out value="#{object.distance}" plain="true"/>
+        </tc:column>
+        <tc:column label="Period" sortable="true">
+          <tc:out value="#{object.period}" plain="true"/>
+        </tc:column>
+      </tc:sheet>
+    </tc:section>
+
+    <tc:section label="Custom event">
+      <p>If the <code>customEventName</code> attribute is set, a
+        <tc:link label="custom event" image="bi-box-arrow-up-right"
+                 link="https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent" target="_blank"/>
+        is fired by the given name.</p>
+      <demo-highlight language="markup">&lt;tc:button label="Fire event">
+  &lt;tc:event omit="true" customEventName="my-event"/>
+&lt;/tc:button>
+&lt;tc:panel>
+  &lt;tc:style customClass="custom-event-result"/>
+&lt;/tc:panel></demo-highlight>
+      <demo-highlight language="javascript">document.addEventListener("DOMContentLoaded", function (event) {
+  document.querySelector("body").addEventListener("my-event", () =>
+    document.querySelector(".custom-event-result").textContent = "my-event fired at " + new Date());
+});</demo-highlight>
+      <tc:button id="customEventButton" label="Fire event">
+        <tc:event omit="true" customEventName="my-event"/>
+      </tc:button>
+      <tc:panel id="customEventOutput">
+        <tc:style customClass="custom-event-result"/>
+      </tc:panel>
+    </tc:section>
+  </tc:section>
+</ui:composition>
