@@ -49,13 +49,14 @@ public class FileRendererUnitTest extends RendererTestBase {
     c.setLabel("label");
     final FileItemValidator validator = new FileItemValidator();
     validator.setMaxSize(1000L);
-    validator.setContentType(new String[]{".png", "applicaiton/pdf"});
+    validator.setContentType(new String[]{".png", "application/pdf"});
     c.addValidator(validator);
     c.encodeAll(facesContext);
 
     Assertions.assertEquals(loadHtml("renderer/file/file-validator.html"), formattedResult());
   }
 
+  // todo: check if this is correct (same file as below)
   @Test
   public void fileDropZoneThis() throws IOException {
     final UIPanel panel = (UIPanel) ComponentUtils.createComponent(
@@ -74,22 +75,6 @@ public class FileRendererUnitTest extends RendererTestBase {
 
   @Test
   public void fileDropZoneId() throws IOException {
-    final UIPanel panel = (UIPanel) ComponentUtils.createComponent(
-        facesContext, Tags.panel.componentType(), RendererTypes.Panel, "drop-zone");
-
-    final UIFile c = (UIFile) ComponentUtils.createComponent(
-        facesContext, Tags.file.componentType(), RendererTypes.File, "id");
-    c.setDropZone("drop-zone");
-
-    panel.getChildren().add(c);
-
-    c.encodeAll(facesContext);
-
-    Assertions.assertEquals(loadHtml("renderer/file/file-drop-zone.html"), formattedResult());
-  }
-
-  @Test
-  public void fileDropZoneParent() throws IOException {
     final UIPanel panel = (UIPanel) ComponentUtils.createComponent(
         facesContext, Tags.panel.componentType(), RendererTypes.Panel, "drop-zone");
 
