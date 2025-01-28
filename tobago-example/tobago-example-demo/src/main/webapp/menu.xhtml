@@ -68,6 +68,10 @@
                      immediate="true" rendered="#{facesContext.isProjectStage('Development')}"/>
             <tc:link label="Access all pages" outcome="/testAccessAllPages.xhtml" target="_blank"
                      immediate="true" rendered="#{facesContext.isProjectStage('Development')}"/>
+            <tc:selectBooleanCheckbox itemLabel="navigation entry"
+                                      value="#{navigationState.showTests}">
+              <tc:event/>
+            </tc:selectBooleanCheckbox>
           </tc:link>
 
           <tc:link label="Menu" omit="true">
