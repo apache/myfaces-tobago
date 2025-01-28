@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 
-/* ----------------------------------- Mehri start ----------------------------------- */
 // Menu
 .tobago-dropdown-menu {
   background-color: #ffffff !important;
@@ -154,13 +153,13 @@ tobago-form {
 }
 
 // Card
-#page\:mainForm\:j_id_31 .card-header {
+tobago-box.card .card-header {
   background-color: #f7f7f7;
   border-bottom: 1px solid #d6dde3;
   padding: 15px 0 15px 20px;
 
   h3 {
-    color: #333333
+    color: #333333;
   }
 }
 
@@ -195,7 +194,7 @@ tobago-form {
 .btn:disabled,
 .tobago-now,
 {
-  color: #ffffff;
+  color: #ffffff !important;
   background-color: $dark-sea;
   border: 1px solid $dark-sea;
 
@@ -207,9 +206,12 @@ tobago-form {
 }
 
 /* disabled btn */
-.card-body #page\:mainForm\:j_id_38 {
-  background-color: $dark-sea;
-  border: 1px solid $dark-sea;
+.btn.tobago-button {
+  &:disabled,
+  &[disabled] {
+    background-color: $dark-sea;
+    border-color: $dark-sea;
+  }
 }
 
 .btn:disabled {
@@ -230,6 +232,3 @@ tobago-select-one-radio {
     }
   }
 }
-
-/* ----------------------------------- Mehri end ----------------------------------- */
-
