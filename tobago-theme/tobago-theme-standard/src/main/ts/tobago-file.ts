@@ -29,6 +29,14 @@ export class File extends HTMLElement {
     return this.querySelector("input[type=file]");
   }
 
+  get div(): HTMLInputElement {
+    return this.querySelector("div.input-group");
+  }
+
+  get progress(): HTMLInputElement {
+    return this.querySelector("tobago-progress");
+  }
+
   get dropZone(): HTMLElement {
     const id = this.getAttribute("drop-zone");
     const rootNode = this.getRootNode() as ShadowRoot | Document;
@@ -73,6 +81,28 @@ export class File extends HTMLElement {
     if (maxSize > 0) {
       this.input.addEventListener("change", this.checkFileSize.bind(this));
     }
+  }
+
+  startProgress(loaded: number, total: number) {
+    this.div.classList.add("d-none");
+    this.progress.classList.remove("d-none");
+    const bar:HTMLElement = this.progress.querySelector(".progress-bar");
+    bar.ariaValueMin = "0";
+    bar.ariaValueMax = "100";
+    this.updateProgress(loaded, total);
+  }
+
+  updateProgress(loaded: number, total: number) {
+    // todo: use API of tobago-progress, when implemented
+    const bar:HTMLElement = this.progress.querySelector(".progress-bar");
+    const percent = loaded / total * 100;
+    bar.style.width = percent + "%";
+    bar.ariaValueNow = String(Math.round(percent));
+  }
+
+  finishProgress() {
+    this.div.classList.remove("d-none");
+    this.progress.classList.add("d-none");
   }
 
   dragover(event: DragEvent): void {
