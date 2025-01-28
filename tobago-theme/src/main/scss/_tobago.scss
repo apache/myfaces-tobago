@@ -612,7 +612,7 @@ tobago-dropdown {
 tobago-file {
   display: block;
 
-  > .input-group {
+  > .input-group, tobago-progress {
     flex: 1 0 0px;
   }
 }
