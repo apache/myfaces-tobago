@@ -44,11 +44,12 @@ $icon-sort-numbers: (
     9: "\f7c7"
 ) !default;
 
-/* non-bootstrap variables --------------------------------------- */
-
-$tobago-page-padding-top: 1rem;
-$tobago-header-margin-bottom: $tobago-page-padding-top;
-$tobago-flex-layout-spacing: 0.5rem;
+:root {
+  --tobago-bs-input-padding-x: #{$input-padding-x};
+  --tobago-page-padding-top: 1rem;
+  --tobago-header-margin-bottom: var(--tobago-page-padding-top);
+  --tobago-flex-layout-spacing: 0.5rem;
+}
 
 /* utilities ----------------------------------------------------- */
 .tobago-display-inline-block {
@@ -416,7 +417,7 @@ tobago-badge {
   }
 
   // to make badges visible, an default class .badge-secondary is problematic because of the !important modifier
-  background-color: $secondary;
+  background-color: var(--#{$prefix}secondary);
 }
 
 /* bar -------------------------------------------------------------- */
@@ -625,12 +626,12 @@ tobago-flex-layout {
      Set the minimal width to zero make flex-layout responsive for the width,
      even if there is overflowing content.
      currently e.g. PRE-code blocks in the demo are too wide. XXX */
-  margin-left: -$tobago-flex-layout-spacing * 0.5;
-  margin-right: -$tobago-flex-layout-spacing * 0.5;
+  margin-left: calc(var(--tobago-flex-layout-spacing) * -0.5);
+  margin-right: calc(var(--tobago-flex-layout-spacing) * -0.5);
 
   > * {
-    margin-left: $tobago-flex-layout-spacing * 0.5;
-    margin-right: $tobago-flex-layout-spacing * 0.5;
+    margin-left: calc(var(--tobago-flex-layout-spacing) * 0.5);
+    margin-right: calc(var(--tobago-flex-layout-spacing) * 0.5);
   }
 
   > tobago-flex-layout {
@@ -645,12 +646,12 @@ tobago-flex-layout {
   align-items: center;
 
   > label:first-child {
-    margin-right: $tobago-flex-layout-spacing;
+    margin-right: var(--tobago-flex-layout-spacing);
     align-self: flex-start;
   }
 
   > label:last-child {
-    margin-left: $tobago-flex-layout-spacing;
+    margin-left: var(--tobago-flex-layout-spacing);
     align-self: flex-start;
   }
 
@@ -688,9 +689,12 @@ tobago-focus {
 }
 
 tobago-footer {
+  --tobago-footer-padding-x: #{$container-padding-x * .5};
+  --tobago-footer-padding-y: #{$navbar-padding-y};
+
   display: block;
-  background-color: $white;
-  padding: $navbar-padding-y ($container-padding-x * .5);
+  background-color: var(--#{$prefix}white);
+  padding: var(--tobago-footer-padding-y) var(--tobago-footer-padding-x);
   box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -722,10 +726,10 @@ tobago-header {
 }
 
 tobago-header {
-  margin-bottom: $tobago-header-margin-bottom;
+  margin-bottom: var(--tobago-header-margin-bottom);
 
   &.sticky-top {
-    margin-top: -$tobago-page-padding-top;
+    margin-top: calc(var(--tobago-page-padding-top) * -1);
     margin-left: -($grid-gutter-width * .5);
     margin-right: -($grid-gutter-width * .5);
   }
@@ -877,7 +881,7 @@ tobago-in {
 
 tobago-links {
   .nav .nav-item .nav-link {
-    padding: $nav-link-padding-y $nav-link-padding-x;
+    padding: var(--#{$prefix}nav-link-padding-y) var(--#{$prefix}nav-link-padding-x);
   }
 }
 
@@ -941,7 +945,7 @@ button {
   }
 
   &.nav-link { /* bootstrap don't know button.nav-link*/
-    padding: .55em $nav-link-padding-x .45em;
+    padding: .55em var(--#{$prefix}nav-link-padding-x) .45em;
   }
 }
 
@@ -968,7 +972,7 @@ button {
 
   &.tobago-button-left, &.tobago-button-right {
     .form-control {
-      padding-right: $input-padding-x;
+      padding-right: var(--tobago-bs-input-padding-x);
       background-image: none;
     }
   }
@@ -1041,27 +1045,6 @@ tobago-messages {
   }
 }
 
-/* nav ----------------------------------------------------------- */
-
-/* no bottom border in navtabs, if panel-body under it */
-.nav-tabs {
-  border-bottom-width: 0;
-
-  > li.active > a {
-    background-image: linear-gradient(to bottom, #f5f5f5 0%, #e8e8e8 100%);
-    background-repeat: repeat-x;
-    border-bottom: #dddddd;
-
-    &:hover {
-      border-bottom: #dddddd;
-    }
-  }
-}
-
-.tobago-dropdown-menu .form-check {
-  display: block;
-}
-
 /* object ----------------------------------------------------------------- */
 .tobago-object {
 }
@@ -1087,7 +1070,7 @@ span.tobago-out:empty:before {
 }
 
 .table-dark .form-control-plaintext {
-  color: $white;
+  color: var(--#{$prefix}white);
   // was in bs4: color: $table-dark-color;
 }
 
@@ -1111,7 +1094,7 @@ tobago-overlay {
 
 tobago-page {
   display: block;
-  padding-top: $tobago-page-padding-top;
+  padding-top: var(--tobago-page-padding-top);
   padding-bottom: 1rem;
 
   .tobago-page-menuStore {
@@ -1298,8 +1281,8 @@ tobago-range {
 
   .tobago-tooltip {
     position: absolute;
-    background-color: $black;
-    color: $white;
+    background-color: var(--#{$prefix}black);
+    color: var(--#{$prefix}white);
     padding-left: 0.25rem;
     padding-right: 0.25rem;
     border-radius: 0.25rem;
@@ -1308,7 +1291,7 @@ tobago-range {
 
 label.tobago-required:after {
   content: $icon-required;
-  color: $danger;
+  color: var(--#{$prefix}danger);
 }
 
 /* reload ---------------------------------------------------------- */
@@ -1372,8 +1355,8 @@ tobago-stars {
       position: absolute;
       font-family: sans-serif;
       font-size: 1.1rem;
-      background-color: $black;
-      color: $white;
+      background-color: var(--#{$prefix}black);
+      color: var(--#{$prefix}white);
       padding-left: 0.25rem;
       padding-right: 0.25rem;
       text-align: center;
