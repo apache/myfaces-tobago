@@ -11998,7 +11998,13 @@ textarea.form-control-lg {
  * limitations under the License.
  */
 /* icon variables ---------------------------------------------------- */
-/* non-bootstrap variables --------------------------------------- */
+:root {
+  --tobago-bs-input-padding-x: 0.75rem;
+  --tobago-page-padding-top: 1rem;
+  --tobago-header-margin-bottom: var(--tobago-page-padding-top);
+  --tobago-flex-layout-spacing: 0.5rem;
+}
+
 /* utilities ----------------------------------------------------- */
 .tobago-display-inline-block {
   display: inline-block;
@@ -12021,7 +12027,7 @@ button tobago-popover {
 }
 
 tobago-badge {
-  background-color: #6c757d;
+  background-color: var(--bs-secondary);
 }
 tobago-badge.badge.btn {
   --bs-btn-border-width: 0;
@@ -12236,12 +12242,12 @@ tobago-flex-layout {
      Set the minimal width to zero make flex-layout responsive for the width,
      even if there is overflowing content.
      currently e.g. PRE-code blocks in the demo are too wide. XXX */
-  margin-left: -0.25rem;
-  margin-right: -0.25rem;
+  margin-left: calc(var(--tobago-flex-layout-spacing) * -0.5);
+  margin-right: calc(var(--tobago-flex-layout-spacing) * -0.5);
 }
 tobago-flex-layout > * {
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
+  margin-left: calc(var(--tobago-flex-layout-spacing) * 0.5);
+  margin-right: calc(var(--tobago-flex-layout-spacing) * 0.5);
 }
 tobago-flex-layout > tobago-flex-layout {
   margin-left: 0;
@@ -12254,11 +12260,11 @@ tobago-flex-layout > tobago-flex-layout {
   align-items: center;
 }
 .tobago-label-container > label:first-child {
-  margin-right: 0.5rem;
+  margin-right: var(--tobago-flex-layout-spacing);
   align-self: flex-start;
 }
 .tobago-label-container > label:last-child {
-  margin-left: 0.5rem;
+  margin-left: var(--tobago-flex-layout-spacing);
   align-self: flex-start;
 }
 .tobago-label-container > label {
@@ -12288,9 +12294,11 @@ tobago-focus {
 }
 
 tobago-footer {
+  --tobago-footer-padding-x: 0.75rem;
+  --tobago-footer-padding-y: 0.5rem;
   display: block;
-  background-color: #fff;
-  padding: 0.5rem 0.75rem;
+  background-color: var(--bs-white);
+  padding: var(--tobago-footer-padding-y) var(--tobago-footer-padding-x);
   box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -12314,10 +12322,10 @@ tobago-header {
 }
 
 tobago-header {
-  margin-bottom: 1rem;
+  margin-bottom: var(--tobago-header-margin-bottom);
 }
 tobago-header.sticky-top {
-  margin-top: -1rem;
+  margin-top: calc(var(--tobago-page-padding-top) * -1);
   margin-left: -0.75rem;
   margin-right: -0.75rem;
 }
@@ -12519,7 +12527,7 @@ tobago-in tobago-suggest {
 
 /* label ----------------------------------------------------------- */
 tobago-links .nav .nav-item .nav-link {
-  padding: 0.5rem 1rem;
+  padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
 }
 
 /* link ----------------------------------------------------------- */
@@ -12582,7 +12590,7 @@ button.tobago-link.dropdown-item:disabled:hover {
   cursor: not-allowed;
 }
 button.nav-link { /* bootstrap don't know button.nav-link*/
-  padding: 0.55em 1rem 0.45em;
+  padding: 0.55em var(--bs-nav-link-padding-x) 0.45em;
 }
 
 .tobago-messages-container {
@@ -12818,7 +12826,7 @@ button.nav-link { /* bootstrap don't know button.nav-link*/
   position: relative;
 }
 .tobago-messages-container.tobago-button-left .form-control, .tobago-messages-container.tobago-button-right .form-control {
-  padding-right: 0.75rem;
+  padding-right: var(--tobago-bs-input-padding-x);
   background-image: none;
 }
 .tobago-messages-container.tobago-tooltip .error-tooltip, .tobago-messages-container.tobago-tooltip .warning-tooltip, .tobago-messages-container.tobago-tooltip .info-tooltip {
@@ -12864,24 +12872,6 @@ tobago-messages .alert.alert-dismissible.alert-warning:before {
 tobago-messages .alert.alert-dismissible.alert-info:before {
   content: "\f646";
 }
-/* nav ----------------------------------------------------------- */
-/* no bottom border in navtabs, if panel-body under it */
-.nav-tabs {
-  border-bottom-width: 0;
-}
-.nav-tabs > li.active > a {
-  background-image: linear-gradient(to bottom, #f5f5f5 0%, #e8e8e8 100%);
-  background-repeat: repeat-x;
-  border-bottom: #dddddd;
-}
-.nav-tabs > li.active > a:hover {
-  border-bottom: #dddddd;
-}
-
-.tobago-dropdown-menu .form-check {
-  display: block;
-}
-
 /* object ----------------------------------------------------------------- */
 /* out -------------------------------------------------------------------- */
 tobago-out {
@@ -12903,7 +12893,7 @@ span.tobago-out:empty:before {
 }
 
 .table-dark .form-control-plaintext {
-  color: #fff;
+  color: var(--bs-white);
 }
 
 tobago-overlay {
@@ -12923,7 +12913,7 @@ tobago-overlay.modal-backdrop:not(.show) {
 /* page ----------------------------------------------------------- */
 tobago-page {
   display: block;
-  padding-top: 1rem;
+  padding-top: var(--tobago-page-padding-top);
   padding-bottom: 1rem;
 }
 tobago-page .tobago-page-menuStore {
@@ -13089,8 +13079,8 @@ tobago-range {
 }
 tobago-range .tobago-tooltip {
   position: absolute;
-  background-color: #000;
-  color: #fff;
+  background-color: var(--bs-black);
+  color: var(--bs-white);
   padding-left: 0.25rem;
   padding-right: 0.25rem;
   border-radius: 0.25rem;
@@ -13098,7 +13088,7 @@ tobago-range .tobago-tooltip {
 
 label.tobago-required:after {
   content: "*";
-  color: #dc3545;
+  color: var(--bs-danger);
 }
 
 /* reload ---------------------------------------------------------- */
@@ -13149,8 +13139,8 @@ tobago-stars {
   position: absolute;
   font-family: sans-serif;
   font-size: 1.1rem;
-  background-color: #000;
-  color: #fff;
+  background-color: var(--bs-black);
+  color: var(--bs-white);
   padding-left: 0.25rem;
   padding-right: 0.25rem;
   text-align: center;
