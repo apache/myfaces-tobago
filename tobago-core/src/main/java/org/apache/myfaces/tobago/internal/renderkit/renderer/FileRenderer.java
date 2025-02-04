@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRoleValues;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.ResourceUtils;
 import org.apache.myfaces.tobago.validator.FileItemValidator;
@@ -226,6 +227,14 @@ public class FileRenderer<T extends AbstractUIFile>
   protected void encodeEndField(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
+
+    writer.startElement(HtmlElements.TOBAGO_PROGRESS);
+    writer.writeClassAttribute(BootstrapClass.PROGRESS, BootstrapClass.D_NONE);
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(BootstrapClass.PROGRESS_BAR);
+    writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PROGRESSBAR.toString(), false);
+    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.TOBAGO_PROGRESS);
   }
 
   @Override
