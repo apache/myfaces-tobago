@@ -18,7 +18,11 @@
 <tobago-file id='id' class='tobago-label-container tobago-auto-spacing' max-size='1000' max-size-message='The selected file exceeds the maximum allowed size of 1,000 bytes.'>
   <label for='id::field' class='col-form-label'>label</label>
   <div class='input-group'>
-    <input type='file' accept='.png,applicaiton/pdf' tabindex='-1' id='id::field' class='form-control' name='id'>
+    <input type='file' accept='.png,application/pdf' tabindex='-1' id='id::field' class='form-control' name='id'>
     <label class='input-group-text' for='id::field'><span><i class='bi-folder2-open'></i></span></label>
   </div>
+  <tobago-progress class='progress d-none'>
+    <div class='progress-bar' role='progressbar'>
+    </div>
+  </tobago-progress>
 </tobago-file>

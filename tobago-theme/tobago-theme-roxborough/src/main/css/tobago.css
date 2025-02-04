@@ -12273,7 +12273,7 @@ tobago-dropdown.tobago-dropdown-submenu > .tobago-dropdown-menu {
 tobago-file {
   display: block;
 }
-tobago-file > .input-group {
+tobago-file > .input-group, tobago-file tobago-progress {
   flex: 1 0 0px;
 }
 

@@ -16,6 +16,7 @@
  */
 
 import {Collapse} from "./tobago-collapse";
+import {File} from "./tobago-file";
 import {Page} from "./tobago-page";
 import {CollapseOperation} from "./tobago-collapse-operation";
 import {BehaviorMode} from "./tobago-behavior-mode";
@@ -141,22 +142,27 @@ class Behavior extends HTMLElement {
                 upload: {
                   progress: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
                     console.debug(`progress: ${event.loaded} of ${event.total}`);
-                    // console.error("*********************************");
-                    // console.error(this);
-                    // console.error("*********************************");
-                    // (this.actionElement as File).showProgress(event.loaded, event.total);
+                    if (this.actionElement.tagName === "TOBAGO-FILE") {
+                      (this.actionElement as File).updateProgress(event.loaded, event.total);
+                    }
                   },
                   preinit: (upload: XMLHttpRequestUpload) => {
                     console.debug(`preinit`);
                   },
                   loadstart: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
                     console.debug(`loadstart: ${event.loaded} of ${event.total}`);
+                    if (this.actionElement.tagName === "TOBAGO-FILE") {
+                      (this.actionElement as File).startProgress(event.loaded, event.total);
+                    }
                   },
                   load: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
                     console.debug(`load: ${event.loaded} of ${event.total}`);
                   },
                   loadend: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
                     console.debug(`loadend: ${event.loaded} of ${event.total}`);
+                    if (this.actionElement.tagName === "TOBAGO-FILE") {
+                      (this.actionElement as File).finishProgress();
+                    }
                   },
                   error: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
                     console.debug(`error: ${event.loaded} of ${event.total}`);
