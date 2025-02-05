@@ -46,6 +46,9 @@ public final class Deprecation {
    * <p>
    * This Logger category can be switched off, in production environment without
    * affecting the normal logging category.
+   *
+   * Nevertheless, this logger should be avoided in production mode to minimize the effort required for log
+   * configuration. Use something like <code>if (! production) { Deprecation.LOG.warn("..."); }</code>
    */
   public static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 

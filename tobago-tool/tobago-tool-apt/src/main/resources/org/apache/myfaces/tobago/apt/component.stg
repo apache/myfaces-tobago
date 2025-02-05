@@ -47,6 +47,7 @@ import org.apache.myfaces.tobago.component.Tags;
 import jakarta.annotation.Generated;
 import jakarta.el.ELException;
 import jakarta.faces.FacesException;
+import jakarta.faces.application.ProjectStage;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -160,8 +161,10 @@ checkDeprecated(property) ::= <<
 
 logDeprecated(property) ::= <<
 <if(property.deprecated)>
-  Deprecation.LOG.error("The attribute '<property.propertyName>' of '<componentInfo.className>' is deprecated. "
-      + "Please refer the documentation for further information.");
+  if (!FacesContext.getCurrentInstance().isProjectStage(ProjectStage.Production)) {
+    Deprecation.LOG.error("The attribute '<property.propertyName>' of '<componentInfo.className>' is deprecated. "
+        + "Please refer the documentation for further information.");
+  }
 <endif>
 >>
 

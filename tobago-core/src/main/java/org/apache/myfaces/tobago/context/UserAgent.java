@@ -23,6 +23,8 @@ import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import jakarta.faces.application.ProjectStage;
+import jakarta.faces.context.FacesContext;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
@@ -339,7 +341,9 @@ public final class UserAgent implements Serializable {
    */
   @Deprecated(since = "1.5.0", forRemoval = true)
   public static UserAgent getInstanceForId(final String id) {
-    Deprecation.LOG.error("Getting the user agent from its id is no longer supported! id='" + id + "'");
+    if (!FacesContext.getCurrentInstance().isProjectStage(ProjectStage.Production)) {
+      Deprecation.LOG.error("Getting the user agent from its id is no longer supported! id='" + id + "'");
+    }
     return DEFAULT;
   }
 
