@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 
+import jakarta.faces.application.ProjectStage;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 
@@ -105,7 +106,9 @@ public enum LabelLayout {
    */
   @Deprecated(since = "5.0.0", forRemoval = true)
   public static void setSegment(final FacesContext facesContext, final LabelLayout labelLayout) {
-    Deprecation.LOG.error("not longer supported - see javadoc");
+    if (!facesContext.isProjectStage(ProjectStage.Production)) {
+      Deprecation.LOG.error("not longer supported - see javadoc");
+    }
   }
 
   /**
@@ -113,7 +116,9 @@ public enum LabelLayout {
    */
   @Deprecated(since = "5.0.0", forRemoval = true)
   public static LabelLayout getSegment(final FacesContext facesContext) {
-    Deprecation.LOG.error("not longer supported - see javadoc");
+    if (!facesContext.isProjectStage(ProjectStage.Production)) {
+      Deprecation.LOG.error("not longer supported - see javadoc");
+    }
     return null;
   }
 
