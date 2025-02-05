@@ -23,6 +23,8 @@ import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 
+import jakarta.faces.application.ProjectStage;
+import jakarta.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -101,7 +103,9 @@ public class SheetState implements Serializable, ScrollPositionState {
 
   @Deprecated(since = "5.3.0", forRemoval = true)
   public void setSortedColumnId(final String sortedColumnId) {
-    Deprecation.LOG.warn("Method SheetState.setSortedColumnId() should not be called!");
+    if (!FacesContext.getCurrentInstance().isProjectStage(ProjectStage.Production)) {
+      Deprecation.LOG.warn("Method SheetState.setSortedColumnId() should not be called!");
+    }
     if (sortedColumnList.isEmpty()) {
       sortedColumnList.add(sortedColumnId, true);
     } else {
@@ -122,7 +126,9 @@ public class SheetState implements Serializable, ScrollPositionState {
 
   @Deprecated(since = "5.3.0", forRemoval = true)
   public void setAscending(final boolean ascending) {
-    Deprecation.LOG.warn("Method SheetState.setAscending() should not be called!");
+    if (!FacesContext.getCurrentInstance().isProjectStage(ProjectStage.Production)) {
+      Deprecation.LOG.warn("Method SheetState.setAscending() should not be called!");
+    }
     if (sortedColumnList.isEmpty()) {
       sortedColumnList.add(null, ascending);
     } else {
