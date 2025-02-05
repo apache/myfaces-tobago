@@ -26,8 +26,11 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlTypes;
 import org.apache.myfaces.tobago.renderkit.html.MarkupLanguageAttributes;
 
+import javax.faces.application.ProjectStage;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
@@ -161,7 +164,9 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
    */
   @Deprecated(since = "5.0.0", forRemoval = true)
   public void writeCommandMapAttribute(final String map) throws IOException {
-    Deprecation.LOG.error("No longer supported. Data: {}", map);
+    if (!FacesContext.getCurrentInstance().isProjectStage(ProjectStage.Production)) {
+      Deprecation.LOG.error("No longer supported. Data: {}", map);
+    }
   }
 
   /**
