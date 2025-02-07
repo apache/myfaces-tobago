@@ -26,14 +26,10 @@
   <name>Tobago Examples</name>
   <artifactId>tobago-example</artifactId>
 
-  <properties>
-    <app.packaging>war</app.packaging>
-    <quarkus.version>2.4.0.Final</quarkus.version>
-  </properties>
-
   <modules>
     <module>tobago-example-blank</module>
     <module>tobago-example-demo</module>
+    <module>tobago-example-quarkus</module>
     <module>tobago-example-spring-boot</module>
   </modules>
 

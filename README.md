@@ -102,6 +102,16 @@ mvn liberty:run -Pliberty
 
 Browse to the local URL http://localhost:9080/
 
+***Quarkus***
+
+```shell
+mvn clean install
+cd tobago-example/tobago-example-quarkus
+mvn clean package quarkus:dev
+```
+
+Browse to the local URL http://localhost:8080/
+
 ***Tomcat in Docker***
 
 ```
