@@ -210,17 +210,17 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
         // Note here it says "as if they were passed", instead say "... attributes are
         // encoded and rendered as if ...". Black box testing against RI shows that there
         // is no URI encoding at all in this part, so in this case the best is do the
-        // same here. After all, it is resposibility of the one who set the passthrough
+        // same here. After all, it is responsibility of the one who set the passthrough
         // attribute to do the proper encoding in cases when a URI is provided. However,
         // that does not means the attribute should not be encoded as other attributes.
         // TODO boolean should be handled in writeAttributeInternal
         if (value instanceof Boolean) {
           if (!Boolean.FALSE.equals(value)) {
             writer.write(' ');
-            writer.write(entry.getKey());
+            writer.write(key);
           }
         } else {
-          writeAttributeInternal(writer, entry.getKey(), value.toString(), true);
+          writeAttributeInternal(writer, key, value != null ? value.toString() : "", true);
         }
       }
     }
