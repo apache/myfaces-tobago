@@ -34,13 +34,11 @@
       <f:facet name="brand">
         <!-- label="Tobago Demo" contains a NO-BREAK SPACE character -->
         <tc:link image="#{request.contextPath}/image/feather-leaf.png" label="Tobago Demo" id="brand"
-                 link="https://tobago-demo.apache.org/"/>
+                 link="#{request.contextPath}/"/>
       </f:facet>
 
       <tc:form id="header">
         <tc:links id="commands">
-          <tc:link id="home" label="Home" link="#{navigationState.rootUrl()}"/>
-
           <tc:link id="config" label="Configuration" omit="true">
             <tc:link label="Theme" omit="true">
               <tc:selectOneRadio value="#{themeController.theme}">
@@ -115,7 +113,8 @@
             <tc:link outcome="/content/000-intro/96-logging-info/Logging_Info.xhtml" immediate="true" label="Logging Info"
                      disabled="#{! serverInfo.enabled}"/>
             <tc:separator/>
-            <tc:link link="http://myfaces.apache.org/tobago" label="Tobago Home"/>
+            <tc:link link="https://myfaces.apache.org/#/tobago" label="Tobago Project" image="bi-box-arrow-up-right"/>
+            <tc:link link="https://tobago-demo.apache.org/" label="Demo Overview" image="bi-box-arrow-up-right"/>
           </tc:link>
 
         </tc:links>
