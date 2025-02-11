@@ -60,7 +60,7 @@ import jakarta.faces.component.UIInput;
     uiComponentFacesClass = "jakarta.faces.component.UIInput",
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.STARS,
-    allowedChildComponenents = "NONE",
+    allowedChildComponents = "NONE",
     behaviors = {
         @Behavior(
             name = ClientBehaviors.CHANGE,

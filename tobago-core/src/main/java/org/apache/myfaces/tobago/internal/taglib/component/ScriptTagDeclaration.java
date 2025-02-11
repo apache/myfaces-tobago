@@ -36,7 +36,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
     uiComponent = "org.apache.myfaces.tobago.component.UIScript",
     componentFamily = "org.apache.myfaces.tobago.Script",
     rendererType = RendererTypes.SCRIPT,
-    allowedChildComponenents = "NONE")
+    allowedChildComponents = "NONE")
 public interface ScriptTagDeclaration extends HasIdBindingAndRendered {
 
   /**
