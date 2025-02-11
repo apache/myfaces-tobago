@@ -50,7 +50,7 @@ import jakarta.faces.component.UIData;
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
         "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
-    allowedChildComponenents = {
+    allowedChildComponents = {
         "org.apache.myfaces.tobago.TreeNode"
     })
 public interface TreeListboxTagDeclaration

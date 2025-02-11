@@ -46,7 +46,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
     uiComponent = "org.apache.myfaces.tobago.component.UISplitLayout",
     componentFamily = AbstractUIGridLayout.COMPONENT_FAMILY,
     rendererType = "SplitLayout",
-    allowedChildComponenents = "NONE",
+    allowedChildComponents = "NONE",
     markups = {
         @Markup(
             name = org.apache.myfaces.tobago.context.Markup.STRING_SPREAD,

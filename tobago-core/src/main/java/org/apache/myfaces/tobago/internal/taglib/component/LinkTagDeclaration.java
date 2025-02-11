@@ -62,12 +62,12 @@ import jakarta.faces.component.UICommand;
     interfaces = "org.apache.myfaces.tobago.component.SupportsAccessKey",
     componentFamily = UICommand.COMPONENT_FAMILY,
     rendererType = RendererTypes.LINK,
-    allowedChildComponenents = "NONE",
+    allowedChildComponents = "NONE",
     facets = {
         @Facet(
             name = Facets.CONFIRMATION,
             description = "Contains a UIOutput instance with the confirmation message.",
-            allowedChildComponenents = "org.apache.myfaces.tobago.Out")},
+            allowedChildComponents = "org.apache.myfaces.tobago.Out")},
     behaviors = {
         @Behavior(
             name = ClientBehaviors.CLICK,

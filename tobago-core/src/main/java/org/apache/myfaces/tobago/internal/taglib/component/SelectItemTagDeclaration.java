@@ -40,7 +40,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectItem",
     uiComponentFacesClass = "jakarta.faces.component.UISelectItem",
-    allowedChildComponenents = "NONE")
+    allowedChildComponents = "NONE")
 public interface SelectItemTagDeclaration extends HasBinding, HasId, IsVisual, HasItemLabel, HasItemImage, HasTip {
 
   /**

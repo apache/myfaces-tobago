@@ -61,7 +61,7 @@ import jakarta.faces.component.UISelectBoolean;
     uiComponentFacesClass = "jakarta.faces.component.UISelectBoolean",
     componentFamily = UISelectBoolean.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_BOOLEAN_TOGGLE,
-    allowedChildComponenents = "NONE",
+    allowedChildComponents = "NONE",
     behaviors = {
         @Behavior(
             name = ClientBehaviors.CHANGE,

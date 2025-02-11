@@ -40,7 +40,7 @@ import jakarta.faces.component.UIOutput;
     uiComponentFacesClass = "jakarta.faces.component.UIOutput",
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.PAGINATOR_PANEL,
-    allowedChildComponenents = {
+    allowedChildComponents = {
         "org.apache.myfaces.tobago.PaginatorList",
         "org.apache.myfaces.tobago.PaginatorPage",
         "org.apache.myfaces.tobago.PaginatorRow"

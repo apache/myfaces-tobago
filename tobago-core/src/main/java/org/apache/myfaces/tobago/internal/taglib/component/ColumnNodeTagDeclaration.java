@@ -49,7 +49,7 @@ import jakarta.faces.component.UIColumn;
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
         "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
-    allowedChildComponenents = {
+    allowedChildComponents = {
         "org.apache.myfaces.tobago.TreeIndent",
         "org.apache.myfaces.tobago.TreeIcon",
         "org.apache.myfaces.tobago.TreeSelect",
