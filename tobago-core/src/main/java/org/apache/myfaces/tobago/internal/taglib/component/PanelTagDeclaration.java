@@ -47,7 +47,7 @@ import jakarta.faces.component.UIPanel;
     rendererType = RendererTypes.PANEL,
     facets = {
         @Facet(name = Facets.RELOAD, description = "Contains an instance of UIReload",
-            allowedChildComponenents = "org.apache.myfaces.tobago.Reload")},
+            allowedChildComponents = "org.apache.myfaces.tobago.Reload")},
     behaviors = {
         @Behavior(
             name = ClientBehaviors.CLICK,

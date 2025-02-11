@@ -64,7 +64,7 @@ import jakarta.faces.component.UISelectOne;
     uiComponentFacesClass = "jakarta.faces.component.UISelectOne",
     componentFamily = UISelectOne.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_ONE_RADIO,
-    allowedChildComponenents = {
+    allowedChildComponents = {
         "jakarta.faces.SelectItem",
         "jakarta.faces.SelectItems"
     },

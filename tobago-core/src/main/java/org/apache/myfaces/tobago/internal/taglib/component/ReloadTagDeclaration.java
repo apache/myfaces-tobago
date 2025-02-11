@@ -41,7 +41,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
     uiComponent = "org.apache.myfaces.tobago.component.UIReload",
     componentFamily = "org.apache.myfaces.tobago.Reload",
     rendererType = RendererTypes.RELOAD,
-    allowedChildComponenents = "NONE")
+    allowedChildComponents = "NONE")
 public interface ReloadTagDeclaration extends HasIdBindingAndRendered {
 
   /**

@@ -36,7 +36,7 @@ import jakarta.faces.component.UIOutput;
     uiComponent = "org.apache.myfaces.tobago.component.UIMetaLink",
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.META_LINK,
-    allowedChildComponenents = "NONE")
+    allowedChildComponents = "NONE")
 public interface MetaLinkTagDeclaration extends HasIdBindingAndRendered {
 
   @TagAttribute

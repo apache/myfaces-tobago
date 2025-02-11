@@ -48,7 +48,7 @@ import org.apache.myfaces.tobago.layout.Placement;
     rendererType = RendererTypes.TOASTS,
     facets = {
         @Facet(name = Facets.RELOAD, description = "Contains an instance of UIReload",
-            allowedChildComponenents = "org.apache.myfaces.tobago.Reload"),
+            allowedChildComponents = "org.apache.myfaces.tobago.Reload"),
         @Facet(name = Facets.HEADER, description = "Contains code to be placed in the header of the toast.")},
     behaviors = {
         @Behavior(name = ClientBehaviors.RELOAD, isDefault = true)

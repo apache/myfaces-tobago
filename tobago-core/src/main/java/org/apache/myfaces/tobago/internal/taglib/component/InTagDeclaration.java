@@ -65,7 +65,7 @@ import jakarta.faces.component.UIInput;
     uiComponentFacesClass = "jakarta.faces.component.UIInput",
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.IN,
-    allowedChildComponenents = {
+    allowedChildComponents = {
         "org.apache.myfaces.tobago.Suggest"
     },
     facets = {
