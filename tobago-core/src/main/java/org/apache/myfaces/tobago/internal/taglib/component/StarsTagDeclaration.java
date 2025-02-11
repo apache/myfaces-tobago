@@ -60,7 +60,7 @@ import javax.faces.component.UIInput;
     uiComponentFacesClass = "javax.faces.component.UIInput",
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.STARS,
-    allowedChildComponenents = "NONE",
+    allowedChildComponents = "NONE",
     behaviors = {
         @Behavior(
             name = ClientBehaviors.CHANGE,

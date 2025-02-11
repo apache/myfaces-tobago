@@ -50,7 +50,7 @@ import javax.faces.component.UIPanel;
     uiComponentFacesClass = "javax.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
     rendererType = RendererTypes.TAB_GROUP,
-    allowedChildComponenents = "org.apache.myfaces.tobago.Tab",
+    allowedChildComponents = "org.apache.myfaces.tobago.Tab",
     behaviors = {
         @Behavior(name = ClientBehaviors.TAB_CHANGE, isDefault = true),
         @Behavior(name = ClientBehaviors.CLICK)

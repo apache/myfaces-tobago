@@ -65,7 +65,7 @@ import javax.faces.component.UIInput;
     uiComponentFacesClass = "javax.faces.component.UIInput",
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.IN,
-    allowedChildComponenents = {
+    allowedChildComponents = {
         "org.apache.myfaces.tobago.Suggest"
     },
     facets = {

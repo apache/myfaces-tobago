@@ -64,12 +64,12 @@ import javax.faces.component.UICommand;
     },
     componentFamily = UICommand.COMPONENT_FAMILY,
     rendererType = RendererTypes.BUTTON,
-    allowedChildComponenents = "NONE",
+    allowedChildComponents = "NONE",
     facets = {
         @Facet(
             name = Facets.CONFIRMATION,
             description = "Contains a UIOutput instance with the confirmation message.",
-            allowedChildComponenents = "org.apache.myfaces.tobago.Out")
+            allowedChildComponents = "org.apache.myfaces.tobago.Out")
     },
     behaviors = {
         @Behavior(

@@ -68,7 +68,7 @@ import javax.faces.component.UIInput;
     uiComponentFacesClass = "javax.faces.component.UIInput",
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.DATE,
-    allowedChildComponenents = "NONE",
+    allowedChildComponents = "NONE",
     facets = {
         @Facet(name = Facets.BEFORE,
             description =

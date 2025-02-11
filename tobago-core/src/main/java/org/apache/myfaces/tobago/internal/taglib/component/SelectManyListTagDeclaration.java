@@ -65,7 +65,7 @@ import javax.faces.component.UISelectMany;
     uiComponentFacesClass = "javax.faces.component.UISelectMany",
     componentFamily = UISelectMany.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_MANY_LIST,
-    allowedChildComponenents = {"javax.faces.SelectItem", "javax.faces.SelectItems"},
+    allowedChildComponents = {"javax.faces.SelectItem", "javax.faces.SelectItems"},
     behaviors = {
         @Behavior(name = ClientBehaviors.CHANGE, isDefault = true),
         @Behavior(name = ClientBehaviors.CLICK),

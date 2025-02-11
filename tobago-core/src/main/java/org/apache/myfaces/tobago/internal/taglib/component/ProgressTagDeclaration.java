@@ -42,7 +42,7 @@ import javax.faces.component.UIOutput;
     uiComponentFacesClass = "javax.faces.component.UIOutput",
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.PROGRESS,
-    allowedChildComponenents = "NONE",
+    allowedChildComponents = "NONE",
     behaviors = {
         @Behavior(
             name = ClientBehaviors.COMPLETE,

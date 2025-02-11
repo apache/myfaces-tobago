@@ -44,7 +44,7 @@ import javax.faces.component.UIColumn;
     uiComponentFacesClass = "javax.faces.component.UIColumn",
     componentFamily = UIColumn.COMPONENT_FAMILY,
     rendererType = RendererTypes.TREE_NODE,
-    allowedChildComponenents = {
+    allowedChildComponents = {
         "org.apache.myfaces.tobago.TreeNode"
     })
 public interface TreeNodeTagDeclaration

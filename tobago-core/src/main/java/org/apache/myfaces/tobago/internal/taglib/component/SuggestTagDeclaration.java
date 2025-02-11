@@ -49,7 +49,7 @@ import javax.faces.component.UIInput;
     uiComponent = "org.apache.myfaces.tobago.component.UISuggest",
     componentFamily = UIInput.COMPONENT_FAMILY,
     rendererType = RendererTypes.SUGGEST,
-    allowedChildComponenents = {
+    allowedChildComponents = {
         "org.apache.myfaces.tobago.SelectItems",
         "org.apache.myfaces.tobago.SelectItem"
     }/* todo ,

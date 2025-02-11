@@ -52,14 +52,14 @@ import javax.faces.component.UIData;
     uiComponentFacesClass = "javax.faces.component.UIData",
     componentFamily = UIData.COMPONENT_FAMILY,
     rendererType = RendererTypes.SHEET,
-    allowedChildComponenents = {
+    allowedChildComponents = {
         "javax.faces.Column",
         "org.apache.myfaces.tobago.ColumnSelector"},
     facets = {
         @Facet(
             name = Facets.RELOAD,
             description = "Contains an instance of UIReload",
-            allowedChildComponenents = "org.apache.myfaces.tobago.Reload"),
+            allowedChildComponents = "org.apache.myfaces.tobago.Reload"),
         @Facet(
             name = Facets.BEFORE,
             description = "Components to be rendered before the sheet, e.g. paginators"),
