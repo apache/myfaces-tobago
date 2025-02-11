@@ -25,8 +25,7 @@
   <ui:param name="title" value="Lazy Loading Large Data"/>
 
   <tc:sheet value="#{sheetController.hugeSolarList}" id="sheet" var="luminary"
-            lazyRows="20" markup="small" lazy="true" readonlyRows="true"
-            showRowRange="none" showDirectLinks="none" showPageRange="none">
+            lazyRows="20" markup="small" lazy="true" readonlyRows="true">
     <tc:style maxHeight="500px"/>
     <tc:column label="Name" sortable="true">
       <tc:out value="#{luminary.name}" labelLayout="skip"/>

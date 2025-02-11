@@ -94,8 +94,7 @@
     </tc:section>
 
     <tc:section label="Sessions">
-      <tc:sheet value="#{activityList.values}" var="activity"
-                showRowRange="left" showPageRange="right" showDirectLinks="center">
+      <tc:sheet value="#{activityList.values}" var="activity">
         <tc:column label="Session Id">
           <tc:out value="#{activity.sessionId}" labelLayout="skip"/>
         </tc:column>
