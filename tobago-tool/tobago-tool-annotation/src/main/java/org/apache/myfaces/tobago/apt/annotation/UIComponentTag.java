@@ -71,6 +71,9 @@ public @interface UIComponentTag {
    */
   String[] allowedChildComponents() default {"ALL"};
 
+  @Deprecated(since = "5.15.0", forRemoval = true)
+  String[] allowedChildComponenents() default {};
+
   /**
    * Specifies the category of a component palette.
    */

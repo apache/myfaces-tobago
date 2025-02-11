@@ -391,8 +391,15 @@ public class FacesConfigGenerator extends AbstractGenerator {
     final org.jdom2.Element elementAllowedChildComponents = new org.jdom2.Element(ALLOWED_CHILD_COMPONENTS, namespace);
     final String[] allowedChildComponents = uiComponentTag.allowedChildComponents();
     final StringBuilder allowedComponentTypes = new StringBuilder();
-    for (final String componentType : allowedChildComponents) {
+    final String[] wrongSpelled = uiComponentTag.allowedChildComponenents();
+    for (final String componentType : wrongSpelled) {
       allowedComponentTypes.append(componentType).append(" ");
+    }
+    if (wrongSpelled.length == 0) {
+      // for compatibility reasons, the default value of allowedChildComponents needs to be ignored.
+      for (final String componentType : allowedChildComponents) {
+        allowedComponentTypes.append(componentType).append(" ");
+      }
     }
     elementAllowedChildComponents.setText(allowedComponentTypes.toString());
     elementExtension.addContent(elementAllowedChildComponents);
