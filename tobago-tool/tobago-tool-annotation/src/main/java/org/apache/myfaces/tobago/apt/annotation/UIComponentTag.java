@@ -69,7 +69,10 @@ public @interface UIComponentTag {
    * Array of supported component-types that explicitly enumerates the
    * set of allowed component children for this component. Other possible values are: ALL...
    */
-  String[] allowedChildComponenents() default {"ALL"};
+  String[] allowedChildComponents() default {"ALL"};
+
+  @Deprecated(since = "5.15.0", forRemoval = true)
+  String[] allowedChildComponenents() default {};
 
   /**
    * Specifies the category of a component palette.

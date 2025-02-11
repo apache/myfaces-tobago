@@ -42,7 +42,7 @@ import javax.faces.component.UIOutput;
     uiComponentFacesClass = "javax.faces.component.UIOutput",
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.PAGINATOR_PAGE,
-    allowedChildComponenents = "NONE"
+    allowedChildComponents = "NONE"
 )
 
 public interface PaginatorPageTagDeclaration

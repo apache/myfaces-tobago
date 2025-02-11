@@ -38,7 +38,7 @@ import javax.faces.component.UIOutput;
     uiComponentFacesClass = "javax.faces.component.UIOutput",
     componentFamily = UIOutput.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_REFERENCE,
-    allowedChildComponenents = "NONE")
+    allowedChildComponents = "NONE")
 public interface SelectReferenceTagDeclaration extends HasIdBindingAndRendered {
   /**
    * Id of the component, this is related to.

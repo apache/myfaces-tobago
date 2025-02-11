@@ -64,7 +64,7 @@ import javax.faces.component.UISelectOne;
     uiComponentFacesClass = "javax.faces.component.UISelectOne",
     componentFamily = UISelectOne.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_ONE_RADIO,
-    allowedChildComponenents = {
+    allowedChildComponents = {
         "javax.faces.SelectItem",
         "javax.faces.SelectItems"
     },

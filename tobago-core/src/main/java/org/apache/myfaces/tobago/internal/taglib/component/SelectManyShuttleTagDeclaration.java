@@ -60,7 +60,7 @@ import javax.faces.component.UISelectMany;
     uiComponentFacesClass = "javax.faces.component.UISelectMany",
     componentFamily = UISelectMany.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_MANY_SHUTTLE,
-    allowedChildComponenents = {
+    allowedChildComponents = {
         "javax.faces.SelectItem",
         "javax.faces.SelectItems"},
     behaviors = {
