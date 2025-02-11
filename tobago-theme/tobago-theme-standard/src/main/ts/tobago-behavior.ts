@@ -136,42 +136,42 @@ class Behavior extends HTMLElement {
               resetValues: this.resetValues,
               delay: this.delay,
               onevent: (event: EventData) => {
-                console.debug(`Status: ${event.status} - Type: ${event.type}`);
+                // console.debug(`Status: ${event.status} - Type: ${event.type}`);
               },
               myfaces: {
                 upload: {
                   progress: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
-                    console.debug(`progress: ${event.loaded} of ${event.total}`);
+                    // console.debug(`progress: ${event.loaded} of ${event.total}`);
                     if (this.actionElement.tagName === "TOBAGO-FILE") {
                       (this.actionElement as File).updateProgress(event.loaded, event.total);
                     }
                   },
                   preinit: (upload: XMLHttpRequestUpload) => {
-                    console.debug(`preinit`);
+                    // console.debug(`preinit`);
                   },
                   loadstart: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
-                    console.debug(`loadstart: ${event.loaded} of ${event.total}`);
+                    // console.debug(`loadstart: ${event.loaded} of ${event.total}`);
                     if (this.actionElement.tagName === "TOBAGO-FILE") {
                       (this.actionElement as File).startProgress(event.loaded, event.total);
                     }
                   },
                   load: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
-                    console.debug(`load: ${event.loaded} of ${event.total}`);
+                    // console.debug(`load: ${event.loaded} of ${event.total}`);
                   },
                   loadend: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
-                    console.debug(`loadend: ${event.loaded} of ${event.total}`);
+                    // console.debug(`loadend: ${event.loaded} of ${event.total}`);
                     if (this.actionElement.tagName === "TOBAGO-FILE") {
                       (this.actionElement as File).finishProgress();
                     }
                   },
                   error: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
-                    console.debug(`error: ${event.loaded} of ${event.total}`);
+                    // console.debug(`error: ${event.loaded} of ${event.total}`);
                   },
                   abort: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
-                    console.debug(`abort: ${event.loaded} of ${event.total}`);
+                    // console.debug(`abort: ${event.loaded} of ${event.total}`);
                   },
                   timeout: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
-                    console.debug(`timeout: ${event.loaded} of ${event.total}`);
+                    // console.debug(`timeout: ${event.loaded} of ${event.total}`);
                   }
                 }
               }
@@ -234,7 +234,7 @@ class Behavior extends HTMLElement {
   validate(ids: string): boolean {
     let allValid = true;
     if (ids) {
-      console.debug("Is all valid? ids=", ids);
+      // console.debug("Is all valid? ids=", ids);
       for (const id of ids.split(/\s+/)) {
         const element = document.getElementById(id);
         if (element) {
@@ -246,15 +246,15 @@ class Behavior extends HTMLElement {
           );
           for (const formElement of formElements) {
             if (!formElement.checkValidity()) {
-              console.debug("invalid", formElement.id);
+              // console.debug("invalid", formElement.id);
               allValid = false;
             } else {
-              console.debug("valid", formElement.id);
+              // console.debug("valid", formElement.id);
             }
           }
         }
       }
-      console.debug("Is all valid?", allValid);
+      // console.debug("Is all valid?", allValid);
       return allValid;
     }
   }
