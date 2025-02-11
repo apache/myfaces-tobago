@@ -15,13 +15,12 @@
  * limitations under the License.
  */
 
-// Menu
+// Main Nav
 .tobago-dropdown-menu {
   background-color: #ffffff !important;
 
-  .form-check-label,
-  .dropdown-item span {
-    color: #555555 !important;
+  .form-check-label {
+    color: #555555;
   }
 }
 
@@ -36,6 +35,24 @@
       border: 1px solid #61b5b5;
     }
   }
+
+  .tobago-link {
+    color: #333333 !important;
+  }
+
+  button.tobago-link.dropdown-item:disabled span {
+    color: #555555;
+    opacity: .5;
+  }
+}
+
+.tobago-dropdown-menu {
+  --bs-dropdown-min-width: 13rem !important;
+}
+
+// Side Nav
+tobago-tree label {
+  margin-top: 15px;
 }
 
 // Footer
@@ -64,10 +81,15 @@ h2,
 h3,
 h4,
 h5,
-.tobago-link,
 .tobago-section-content,
 .figure-caption {
   color: #333333 !important;
+}
+
+.tobago-header {
+  h2, .h2, h3, .h3, h4, .h4 {
+    margin-top: 14px;
+  }
 }
 
 .tobago-link {
@@ -85,9 +107,9 @@ tobago-tree {
   }
 }
 
-.tobago-header {
+/*.tobago-header {
   margin-top: 30px;
-}
+}*/
 
 demo-highlight {
   pre {
@@ -105,6 +127,12 @@ demo-highlight {
 
     }
   }
+}
+
+// Code snippets on the Tobago website
+code[class*="language-"],
+:not(pre) > code[class*="language-"] {
+  font-size: .8em;
 }
 
 tobago-form {
@@ -126,16 +154,28 @@ tobago-form {
 }
 
 // Forms
-.form-select,
-.form-control,
-.form-check-input {
-  background-color: #f7f7f7 !important;
-  border: 1px solid #d6dde3 !important;
+.tobago-label-container .form-select,
+.form-control:not(:disabled),
+.form-check-input:not(:checked) {
+  background-color: #f7f7f7;
+  border: 1px solid #d6dde3;
 
   &:focus {
     background-color: unset;
     border-color: unset;
   }
+}
+
+.form-control[type="text"], .form-control[type="date"], textarea {
+  &:not([readonly]):not([disabled]) {
+    color: #666666
+  }
+}
+
+.tobago-label-container .form-control:disabled,
+.tobago-label-container .form-select:disabled {
+  background-color: #d8d9db;
+  border: 1px solid #d6dde3;
 }
 
 .form-control-plaintext {
