@@ -50,9 +50,8 @@
 .tobago-dropdown-menu {
   background-color: #ffffff !important;
 }
-.tobago-dropdown-menu .form-check-label,
-.tobago-dropdown-menu .dropdown-item span {
-  color: #555555 !important;
+.tobago-dropdown-menu .form-check-label {
+  color: #555555;
 }
 
 .navbar .tobago-button {
@@ -62,6 +61,21 @@
 .navbar .tobago-button:hover {
   background-color: #61b5b5;
   border: 1px solid #61b5b5;
+}
+.navbar .tobago-link {
+  color: #333333 !important;
+}
+.navbar button.tobago-link.dropdown-item:disabled span {
+  color: #555555;
+  opacity: 0.5;
+}
+
+.tobago-dropdown-menu {
+  --bs-dropdown-min-width: 13rem !important;
+}
+
+tobago-tree label {
+  margin-top: 15px;
 }
 
 .fixed-bottom {
@@ -91,10 +105,13 @@ h4,
 .h4,
 h5,
 .h5,
-.tobago-link,
 .tobago-section-content,
 .figure-caption {
   color: #333333 !important;
+}
+
+.tobago-header h2, .tobago-header .h2, .tobago-header h3, .tobago-header .h3, .tobago-header h4, .tobago-header .h4 {
+  margin-top: 14px;
 }
 
 .tobago-link {
@@ -109,10 +126,9 @@ tobago-tree tobago-tree-node > .tobago-link {
   font-weight: 300;
 }
 
-.tobago-header {
+/*.tobago-header {
   margin-top: 30px;
-}
-
+}*/
 demo-highlight pre {
   background-color: #f7f7f7;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -127,6 +143,11 @@ demo-highlight pre .form-control-plaintext {
   color: #333333 !important;
 }
 
+code[class*=language-],
+:not(pre) > code[class*=language-] {
+  font-size: 0.8em;
+}
+
 tobago-form tobago-box {
   border: 1px solid #d6dde3 !important;
 }
@@ -139,17 +160,27 @@ tobago-form tobago-box .card-body {
   padding: 15px 15px 15px 30px;
 }
 
-.form-select,
-.form-control,
-.form-check-input {
-  background-color: #f7f7f7 !important;
-  border: 1px solid #d6dde3 !important;
+.tobago-label-container .form-select,
+.form-control:not(:disabled),
+.form-check-input:not(:checked) {
+  background-color: #f7f7f7;
+  border: 1px solid #d6dde3;
 }
-.form-select:focus,
-.form-control:focus,
-.form-check-input:focus {
+.tobago-label-container .form-select:focus,
+.form-control:not(:disabled):focus,
+.form-check-input:not(:checked):focus {
   background-color: unset;
   border-color: unset;
+}
+
+.form-control[type=text]:not([readonly]):not([disabled]), .form-control[type=date]:not([readonly]):not([disabled]), textarea:not([readonly]):not([disabled]) {
+  color: #666666;
+}
+
+.tobago-label-container .form-control:disabled,
+.tobago-label-container .form-select:disabled {
+  background-color: #d8d9db;
+  border: 1px solid #d6dde3;
 }
 
 .form-control-plaintext {
