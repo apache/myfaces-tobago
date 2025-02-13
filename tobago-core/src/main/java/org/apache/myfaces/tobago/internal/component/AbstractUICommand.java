@@ -29,6 +29,9 @@ import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.behavior.ClientBehaviorHolder;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
 /**
@@ -46,17 +49,10 @@ public abstract class AbstractUICommand extends AbstractUICommandBase
 
   public boolean isParentOfCommands() {
     if (parentOfCommands == null) {
-      parentOfCommands = false;
-      for (final UIComponent child : getChildren()) {
-        if (child.isRendered()
-            && !(child instanceof AbstractUIEvent)
-            && (child instanceof UICommand || child instanceof UIInput
-            // guessing composite component child is containing commands
-            || UIComponent.isCompositeComponent(child))) {
-          parentOfCommands = true;
-          break;
-        }
-      }
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+      ParentOfCommandVisitor visitor = new ParentOfCommandVisitor(facesContext, getClientId(facesContext));
+      visitTree(VisitContext.createVisitContext(facesContext, null, ComponentUtils.SET_SKIP_UNRENDERED), visitor);
+      parentOfCommands = visitor.isParentOfCommands();
     }
     return parentOfCommands;
   }
@@ -72,6 +68,36 @@ public abstract class AbstractUICommand extends AbstractUICommandBase
       return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "command";
     } else {
       return getClientId(facesContext);
+    }
+  }
+  private static class ParentOfCommandVisitor implements VisitCallback {
+    private boolean parentOfCommands = false;
+    private final FacesContext facesContext;
+    private final String clientId;
+
+    private ParentOfCommandVisitor(FacesContext facesContext, String clientId) {
+      this.facesContext = facesContext;
+      this.clientId = clientId;
+    }
+
+    @Override
+    public VisitResult visit(VisitContext context, UIComponent target) {
+      if (!target.getClientId(facesContext).equals(clientId)
+          && (target instanceof Visual && !((Visual) target).isPlain()
+          || target.getRendererType() != null && target.getRendererType().startsWith("jakarta.faces"))) {
+         if (!(target instanceof AbstractUIEvent)
+             && (target instanceof UICommand || target instanceof UIInput)) {
+           parentOfCommands = true;
+           return VisitResult.COMPLETE;
+         } else {
+           return VisitResult.ACCEPT;
+         }
+      } else {
+        return VisitResult.ACCEPT;
+      }
+    }
+    public boolean isParentOfCommands() {
+      return parentOfCommands;
     }
   }
 }

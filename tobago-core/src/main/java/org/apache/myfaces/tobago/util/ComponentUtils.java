@@ -49,6 +49,7 @@ import javax.faces.component.UIParameter;
 import javax.faces.component.UISelectMany;
 import javax.faces.component.UIViewRoot;
 import javax.faces.component.ValueHolder;
+import javax.faces.component.visit.VisitHint;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
@@ -61,10 +62,12 @@ import javax.faces.view.facelets.FaceletContext;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public final class ComponentUtils {
 
@@ -82,6 +85,7 @@ public final class ComponentUtils {
   public static final Class[] VALUE_CHANGE_LISTENER_ARGS = {ValueChangeEvent.class};
   public static final Class[] VALIDATOR_ARGS = {FacesContext.class, UIComponent.class, Object.class};
   public static final String LIST_SEPARATOR_CHARS = ", ";
+  public static final Set<VisitHint> SET_SKIP_UNRENDERED = EnumSet.of(VisitHint.SKIP_UNRENDERED);
 
   /**
    * Name of the map for data attributes in components. New in JSF 2.2.

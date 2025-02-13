@@ -21,12 +21,15 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
+import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
 import org.apache.myfaces.tobago.component.UISelectItem;
 import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
 import org.apache.myfaces.tobago.component.UISeparator;
+import org.apache.myfaces.tobago.component.UIStyle;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -38,11 +41,11 @@ public class LinkRendererUnitTest extends RendererTestBase {
   @Test
   public void booleanInsideLink() throws IOException {
     final UILink c = (UILink) ComponentUtils.createComponent(
-        facesContext, Tags.link.componentType(), RendererTypes.Link, "id");
+        facesContext, Tags.link.componentType(), RendererTypes.Link, "id1");
     c.setLabel("dropdown");
 
     final UISelectBooleanCheckbox s = (UISelectBooleanCheckbox) ComponentUtils.createComponent(
-        facesContext, Tags.selectBooleanCheckbox.componentType(), RendererTypes.SelectBooleanCheckbox, "id");
+        facesContext, Tags.selectBooleanCheckbox.componentType(), RendererTypes.SelectBooleanCheckbox, "id2");
     s.setLabel("boolean");
 
     c.getChildren().add(s);
@@ -50,6 +53,33 @@ public class LinkRendererUnitTest extends RendererTestBase {
     c.encodeAll(facesContext);
 
     Assertions.assertEquals(loadHtml("renderer/link/booleanInsideLink.html"), formattedResult());
+  }
+
+  @Test
+  public void plainFormEmbeddingBooleanInsideLink() throws IOException {
+    final UILink c = (UILink) ComponentUtils.createComponent(
+        facesContext, Tags.link.componentType(), RendererTypes.Link, "id1");
+    c.setLabel("dropdown");
+
+    final UIStyle style = (UIStyle) ComponentUtils.createComponent(
+        facesContext, Tags.style.componentType(), RendererTypes.Style, "id3");
+    style.setWidth(Measure.valueOf(100));
+    c.getChildren().add(style);
+
+    final UIForm f = (UIForm)
+        ComponentUtils.createComponent(facesContext, Tags.form.componentType(), RendererTypes.Form, "form");
+    f.setPlain(true);
+    c.getChildren().add(f);
+
+    final UISelectBooleanCheckbox s = (UISelectBooleanCheckbox) ComponentUtils.createComponent(
+        facesContext, Tags.selectBooleanCheckbox.componentType(), RendererTypes.SelectBooleanCheckbox, "id2");
+    s.setLabel("boolean");
+
+    f.getChildren().add(s);
+
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/link/plainFormEmbeddingBooleanInsideLink.html"), formattedResult());
   }
 
   @Test

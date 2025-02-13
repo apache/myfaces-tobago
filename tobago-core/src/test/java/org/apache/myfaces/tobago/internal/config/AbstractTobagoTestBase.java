@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.component.UIButtons;
 import org.apache.myfaces.tobago.component.UIColumn;
 import org.apache.myfaces.tobago.component.UIDate;
 import org.apache.myfaces.tobago.component.UIFile;
+import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UIImage;
 import org.apache.myfaces.tobago.component.UIIn;
@@ -84,6 +85,7 @@ import org.apache.myfaces.tobago.internal.renderkit.renderer.ButtonsRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.ColumnRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.DateRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.FileRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.FormRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.GridLayoutRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.ImageRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.InRenderer;
@@ -128,6 +130,7 @@ import static org.apache.myfaces.tobago.util.ResourceUtils.TOBAGO_RESOURCE_BUNDL
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
+import javax.faces.component.UIData;
 import javax.faces.component.UIParameter;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.convert.DateTimeConverter;
@@ -185,6 +188,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(Tags.date.componentType(), UIDate.class.getName());
     application.addComponent(Tags.column.componentType(), UIColumn.class.getName());
     application.addComponent(Tags.file.componentType(), UIFile.class.getName());
+    application.addComponent(Tags.form.componentType(), UIForm.class.getName());
     application.addComponent(Tags.gridLayout.componentType(), UIGridLayout.class.getName());
     application.addComponent(Tags.image.componentType(), UIImage.class.getName());
     application.addComponent(Tags.in.componentType(), UIIn.class.getName());
@@ -225,6 +229,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(Tags.treeNode.componentType(), UITreeNode.class.getName());
     application.addComponent(Tags.treeSelect.componentType(), UITreeSelect.class.getName());
     application.addComponent(UIParameter.COMPONENT_TYPE, UIParameter.class.getName());
+    application.addComponent(UIData.COMPONENT_TYPE, UIData.class.getName());
 
     application.addBehavior(AjaxBehavior.BEHAVIOR_ID, AjaxBehavior.class.getName());
     application.addBehavior(EventBehavior.BEHAVIOR_ID, EventBehavior.class.getName());
@@ -241,6 +246,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     renderKit.addRenderer(UIColumn.COMPONENT_FAMILY, RendererTypes.COLUMN, new ColumnRenderer<UIColumn>());
     renderKit.addRenderer(UIDate.COMPONENT_FAMILY, RendererTypes.DATE, new DateRenderer<UIDate>());
     renderKit.addRenderer(UIFile.COMPONENT_FAMILY, RendererTypes.FILE, new FileRenderer<UIFile>());
+    renderKit.addRenderer(UIForm.COMPONENT_FAMILY, RendererTypes.FORM, new FormRenderer<UIForm>());
     renderKit.addRenderer(UIGridLayout.COMPONENT_FAMILY, RendererTypes.GRID_LAYOUT,
         new GridLayoutRenderer<UIGridLayout>());
     renderKit.addRenderer(UIImage.COMPONENT_FAMILY, RendererTypes.IMAGE, new ImageRenderer<UIImage>());

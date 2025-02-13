@@ -30,24 +30,21 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.visit.VisitContext;
-import javax.faces.component.visit.VisitHint;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.EnumSet;
-import java.util.Set;
 
 /**
  * Renders the 12 columns grid layout.
  */
 public class SegmentLayoutRenderer<T extends AbstractUISegmentLayout> extends RendererBase<T> {
 
-  private static final Set<VisitHint> SET_SKIP_UNRENDERED = EnumSet.of(VisitHint.SKIP_UNRENDERED);
 
   @Override
   public boolean getRendersChildren() {
@@ -78,7 +75,7 @@ public class SegmentLayoutRenderer<T extends AbstractUISegmentLayout> extends Re
     }
     BootstrapClass.Generator generator = new BootstrapClass.Generator(component);
     TobagoResponseWriter writer = getResponseWriter(facesContext);
-    component.visitTree(VisitContext.createVisitContext(facesContext, null, SET_SKIP_UNRENDERED),
+    component.visitTree(VisitContext.createVisitContext(facesContext, null, ComponentUtils.SET_SKIP_UNRENDERED),
         (context, target) -> {
       if (!target.getClientId(facesContext).equals(component.getClientId(facesContext))
           && (target instanceof Visual && !((Visual) target).isPlain()
