@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIBadge;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
@@ -49,8 +50,12 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIParameter;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
@@ -189,7 +194,6 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     if (parentOfCommands) {
-      List<UIComponent> renderLater = null;
 
       writer.startElement(HtmlElements.DIV);
       writer.writeClassAttribute(
@@ -199,34 +203,13 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
       writer.writeAttribute(Arias.LABELLEDBY, component.getFieldId(facesContext), false);
       writer.writeAttribute(HtmlAttributes.NAME, component.getClientId(facesContext), false);
 
-      for (final UIComponent child : component.getChildren()) {
-        if (child.isRendered()
-            && !(child instanceof UIParameter)
-            && !(child instanceof AbstractUIBadge)) {
-          if (child instanceof AbstractUIStyle) {
-            if (renderLater == null) {
-              renderLater = new ArrayList<>();
-            }
-            renderLater.add(child);
-          } else if (child instanceof AbstractUILink
-              || child instanceof AbstractUISelectBooleanCheckbox
-              || child instanceof AbstractUISelectBooleanToggle
-              || child instanceof AbstractUISelectManyCheckbox
-              || child instanceof AbstractUISelectOneRadio
-              || child instanceof AbstractUISeparator
-              // rendering with inside command is best compromise for composite components
-              || UIComponent.isCompositeComponent(child)) {
-            insideBegin(facesContext, HtmlElements.COMMAND); // XXX may refactor / cleanup
-            child.encodeAll(facesContext);
-            insideEnd(facesContext, HtmlElements.COMMAND); // XXX may refactor / cleanup
-          } else {
-            writer.startElement(HtmlElements.DIV);
-            writer.writeClassAttribute(BootstrapClass.DROPDOWN_ITEM);
-            child.encodeAll(facesContext);
-            writer.endElement(HtmlElements.DIV);
-          }
-        }
-      }
+
+      RenderChildrenCommands visitor =
+          new RenderChildrenCommands(facesContext, writer, component.getClientId(facesContext));
+      component.visitTree(
+          VisitContext.createVisitContext(facesContext, null, ComponentUtils.SET_SKIP_UNRENDERED), visitor);
+      List<UIComponent> renderLater = visitor.getRenderLater();
+
       writer.endElement(HtmlElements.DIV);
 
       if (renderLater != null) {
@@ -283,5 +266,65 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
   }
 
   protected void encodeBadge(final FacesContext facesContext, final T command) throws IOException {
+  }
+
+  private class RenderChildrenCommands implements VisitCallback {
+    private List<UIComponent> renderLater = null;
+    private final FacesContext facesContext;
+    private final TobagoResponseWriter writer;
+    private final String clientId;
+
+    private RenderChildrenCommands(FacesContext context, TobagoResponseWriter writer, String clientId) {
+      this.facesContext = context;
+      this.writer = writer;
+      this.clientId = clientId;
+    }
+
+    @Override
+    public VisitResult visit(VisitContext context, UIComponent target) {
+      if (target.getClientId(facesContext).equals(clientId)) {
+        return VisitResult.ACCEPT;
+      } else if (target instanceof AbstractUIStyle) {
+        if (renderLater == null) {
+          renderLater = new ArrayList<>();
+        }
+        renderLater.add(target);
+        return VisitResult.REJECT;
+      } else if (target instanceof Visual && !((Visual) target).isPlain()
+          || target.getRendererType() != null && target.getRendererType().startsWith("jakarta.faces")) {
+        if (!(target instanceof UIParameter) && !(target instanceof AbstractUIBadge)) {
+          if (target instanceof AbstractUILink
+              || target instanceof AbstractUISelectBooleanCheckbox
+              || target instanceof AbstractUISelectBooleanToggle
+              || target instanceof AbstractUISelectManyCheckbox
+              || target instanceof AbstractUISelectOneRadio
+              || target instanceof AbstractUISeparator) {
+            insideBegin(facesContext, HtmlElements.COMMAND); // XXX may refactor / cleanup
+            try {
+              target.encodeAll(facesContext);
+            } catch (IOException ioException) {
+              throw new FacesException(ioException);
+            }
+            insideEnd(facesContext, HtmlElements.COMMAND);
+            // XXX may refactor / cleanup
+          } else {
+            try {
+              writer.startElement(HtmlElements.DIV);
+              writer.writeClassAttribute(BootstrapClass.DROPDOWN_ITEM);
+              target.encodeAll(facesContext);
+              writer.endElement(HtmlElements.DIV);
+            } catch (IOException ioException) {
+              throw new FacesException(ioException);
+            }
+          }
+          return VisitResult.REJECT;
+        }
+      }
+      return VisitResult.ACCEPT;
+    }
+
+    public List<UIComponent> getRenderLater() {
+      return renderLater;
+    }
   }
 }
