@@ -31,7 +31,7 @@
   <tc:link id="dropdownRepeat" label="Dropdown with ui:repeat" omit="true">
     <tc:style customClass="icon-button"/>
     <ui:repeat var="river" value="#{forEachController.rivers}">
-      <tc:link id="#{river.name}" label="#{river.name}" omit="true"/>
+      <tc:link label="#{river.name}" omit="true"/>
     </ui:repeat>
   </tc:link>
 </ui:composition>
