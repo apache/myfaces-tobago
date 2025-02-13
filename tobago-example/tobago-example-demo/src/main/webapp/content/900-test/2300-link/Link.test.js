@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import {querySelectorFn} from "/script/tobago-test.js";
+import {elementByIdFn, querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("compare a.link and button.link", function (done) {
@@ -24,5 +24,17 @@ it("compare a.link and button.link", function (done) {
 
   const test = new JasmineTestTool(done);
   test.do(() => expect(aLinkText().offsetLeft).toBe(buttonLinkText().offsetLeft));
+  test.start();
+});
+
+it("Dropdown menu must have three entries", function (done) {
+  const dropdown = elementByIdFn("page:mainForm:dropdownRepeat");
+
+  const test = new JasmineTestTool(done);
+  test.do(() => expect(dropdown()).not.toBeNull());
+  test.do(() => expect(dropdown().querySelectorAll(".dropdown-item").length).toBe(3));
+  test.do(() => expect(dropdown().querySelectorAll(".dropdown-item")[0].textContent).toBe("Nile"));
+  test.do(() => expect(dropdown().querySelectorAll(".dropdown-item")[1].textContent).toBe("Amazon"));
+  test.do(() => expect(dropdown().querySelectorAll(".dropdown-item")[2].textContent).toBe("Yangtze"));
   test.start();
 });
