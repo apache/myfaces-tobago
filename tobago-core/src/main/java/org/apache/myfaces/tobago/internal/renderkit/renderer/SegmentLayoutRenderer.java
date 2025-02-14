@@ -80,7 +80,7 @@ public class SegmentLayoutRenderer<T extends AbstractUISegmentLayout> extends Re
         (context, target) -> {
       if (!target.getClientId(facesContext).equals(component.getClientId(facesContext))
           && (target instanceof Visual && !((Visual) target).isPlain()
-          || target.getRendererType() != null && target.getRendererType().startsWith("jakarta.faces"))) {
+          || ComponentUtils.isStandardHtmlRendererType(target))) {
         try {
           encodeChild(facesContext, writer, generator, target);
         } catch (IOException ioException) {

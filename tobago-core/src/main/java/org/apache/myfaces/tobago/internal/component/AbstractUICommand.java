@@ -84,7 +84,7 @@ public abstract class AbstractUICommand extends AbstractUICommandBase
     public VisitResult visit(VisitContext context, UIComponent target) {
       if (!target.getClientId(facesContext).equals(clientId)
           && (target instanceof Visual && !((Visual) target).isPlain()
-          || target.getRendererType() != null && target.getRendererType().startsWith("jakarta.faces"))) {
+          || ComponentUtils.isStandardHtmlRendererType(target))) {
          if (!(target instanceof AbstractUIEvent)
              && (target instanceof UICommand || target instanceof UIInput)) {
            parentOfCommands = true;

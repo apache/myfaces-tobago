@@ -291,7 +291,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
         renderLater.add(target);
         return VisitResult.REJECT;
       } else if (target instanceof Visual && !((Visual) target).isPlain()
-          || target.getRendererType() != null && target.getRendererType().startsWith("jakarta.faces")) {
+          || ComponentUtils.isStandardHtmlRendererType(target)) {
         if (!(target instanceof UIParameter) && !(target instanceof AbstractUIBadge)) {
           if (target instanceof AbstractUILink
               || target instanceof AbstractUISelectBooleanCheckbox
