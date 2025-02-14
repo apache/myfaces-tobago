@@ -79,6 +79,7 @@ public final class ComponentUtils {
       = "org.apache.myfaces.tobago.util.ComponentUtils.RendererKeyPrefix_";
 
   private static final String PAGE_KEY = "org.apache.myfaces.tobago.Page.Key";
+  private static final String STANDARD_HTML_RENDER_KIT_RENDERER_TYPE_PREFIX = "javax.faces";
 
   public static final Class[] ACTION_ARGS = {};
   public static final Class[] ACTION_LISTENER_ARGS = {ActionEvent.class};
@@ -95,6 +96,11 @@ public final class ComponentUtils {
   public static final String DATA_ATTRIBUTES_KEY = "javax.faces.component.DATA_ATTRIBUTES_KEY";
 
   private ComponentUtils() {
+  }
+
+  public static boolean isStandardHtmlRendererType(UIComponent component) {
+    return component.getRendererType() != null
+        && component.getRendererType().startsWith(ComponentUtils.STANDARD_HTML_RENDER_KIT_RENDERER_TYPE_PREFIX);
   }
 
   @Deprecated(since = "3.0.1", forRemoval = true)
