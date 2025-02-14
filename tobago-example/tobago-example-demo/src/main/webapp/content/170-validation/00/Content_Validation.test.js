@@ -133,7 +133,7 @@ it("Validate Range: Submit number '64' which is within the range.", function (do
 
   let test = new JasmineTestTool(done);
   test.setup(() => messagesFn() && messagesFn().length === 1,
-      () => inFn().value = "10000",
+      () => inFn().value = "100000",
       "click", submitFn);
   test.do(() => inFn().value = "64");
   test.event("click", submitFn, () => messagesFn() && messagesFn().length === 0);
