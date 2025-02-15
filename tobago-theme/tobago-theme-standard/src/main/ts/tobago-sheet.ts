@@ -492,6 +492,8 @@ Type: ${data.type}`);
 
     if (this.columnSelector && this.columnSelector.disabled) {
       return;
+    } else if (this.columnSelector && this.columnSelector.rowElement(row).disabled) {
+      return;
     } else if ([Selectable.single, Selectable.singleOrNone, Selectable.multi].includes(this.selectable)) {
       clickElement = row;
     } else if (this.selectable === Selectable.none && this.columnSelector
@@ -598,17 +600,21 @@ Type: ${data.type}`);
       }
     } else {
       const rowIndexes: number[] = [];
-      this.rowElements.forEach((rowElement) => {
+      const tableRows = this.rowElements;
+      tableRows.forEach((rowElement) => {
         if (rowElement.hasAttribute("row-index")) {
-          rowIndexes.push(Number(rowElement.getAttribute("row-index")));
+          if(!this.columnSelector.rowElement(rowElement).disabled) {
+            rowIndexes.push(Number(rowElement.getAttribute("row-index")));
+          }
         }
       });
-
       let everyRowAlreadySelected = true;
       rowIndexes.forEach((rowIndex, index, array) => {
         if (!selected.has(rowIndex)) {
-          everyRowAlreadySelected = false;
-          selected.add(rowIndex);
+          if(!this.columnSelector.rowElement(tableRows.item(rowIndex-this.first)).disabled) {
+            everyRowAlreadySelected = false;
+            selected.add(rowIndex);
+          }
         }
       });
 
@@ -625,7 +631,8 @@ Type: ${data.type}`);
   private syncSelected(event: CustomEvent) {
     const selected = event ? event.detail.selection : this.selected;
 
-    this.rowElements.forEach((rowElement) => {
+    const tableRows = this.rowElements;
+    tableRows.forEach((rowElement) => {
       const isColumnPanel = rowElement.classList.contains(Css.TOBAGO_COLUMN_PANEL);
       const rowIndex = Number(isColumnPanel ? rowElement.getAttribute("name") : rowElement.getAttribute("row-index"));
       const inputElement = !isColumnPanel ? this.columnSelector?.rowElement(rowElement) : null;
@@ -652,7 +659,9 @@ Type: ${data.type}`);
         let everyRowSelected = true;
         for (let i = this.first; i < this.first + this.rows; i++) {
           if (!selected.has(i)) {
-            everyRowSelected = false;
+            if (!this.columnSelector.rowElement(tableRows.item(i - this.first)).disabled) {
+              everyRowSelected = false;
+            }
           }
         }
         this.columnSelector.headerElement.checked = everyRowSelected;
