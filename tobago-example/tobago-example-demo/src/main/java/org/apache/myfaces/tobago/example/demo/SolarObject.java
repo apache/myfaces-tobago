@@ -110,6 +110,10 @@ public class SolarObject implements Serializable {
     this.name = name;
   }
 
+  public boolean isDisabled() {
+    return name.equals("Earth");
+  }
+
   public String getMarkup() {
     if (name.equals("Sun")) {
       return "sun";
