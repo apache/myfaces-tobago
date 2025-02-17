@@ -492,7 +492,8 @@ Type: ${data.type}`);
 
     if (this.columnSelector && this.columnSelector.disabled) {
       return;
-    } else if (this.columnSelector && this.columnSelector.rowElement(row).disabled) {
+    } else if (this.columnSelector && this.columnSelector.rowElement(row)
+        && this.columnSelector.rowElement(row).disabled) {
       return;
     } else if ([Selectable.single, Selectable.singleOrNone, Selectable.multi].includes(this.selectable)) {
       clickElement = row;
@@ -611,10 +612,8 @@ Type: ${data.type}`);
       let everyRowAlreadySelected = true;
       rowIndexes.forEach((rowIndex, index, array) => {
         if (!selected.has(rowIndex)) {
-          if(!this.columnSelector.rowElement(tableRows.item(rowIndex-this.first)).disabled) {
-            everyRowAlreadySelected = false;
-            selected.add(rowIndex);
-          }
+          everyRowAlreadySelected = false;
+          selected.add(rowIndex);
         }
       });
 
@@ -659,7 +658,10 @@ Type: ${data.type}`);
         let everyRowSelected = true;
         for (let i = this.first; i < this.first + this.rows; i++) {
           if (!selected.has(i)) {
-            if (!this.columnSelector.rowElement(tableRows.item(i - this.first)).disabled) {
+            const factor = tableRows.length > this.rows ? 2 : 1; // columnPanel
+            const element = tableRows.item((i - this.first) * factor);
+            const inputElement= this.columnSelector.rowElement(element);
+            if (inputElement == null || !inputElement.disabled) {
               everyRowSelected = false;
             }
           }
