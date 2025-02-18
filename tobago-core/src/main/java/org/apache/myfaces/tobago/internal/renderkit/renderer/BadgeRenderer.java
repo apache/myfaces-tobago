@@ -50,10 +50,10 @@ public class BadgeRenderer<T extends AbstractUIBadge> extends RendererBase<T> {
         isInside(facesContext, HtmlElements.TOBAGO_BUTTONS) ? BootstrapClass.BTN : null,
         component.getCustomClass());
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
-    HtmlRendererUtils.encodeIconOrImage(writer, image);
     if (tip != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     }
+    HtmlRendererUtils.encodeIconOrImage(writer, image);
     if (value != null) {
       writer.startElement(HtmlElements.SPAN);
       writer.writeText(value);
