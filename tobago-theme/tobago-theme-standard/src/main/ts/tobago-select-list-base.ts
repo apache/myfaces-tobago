@@ -15,14 +15,13 @@
  * limitations under the License.
  */
 
-import {createPopper, Instance} from "@popperjs/core";
 import {Css} from "./tobago-css";
 import {TobagoFilterRegistry} from "./tobago-filter-registry";
 import {Key} from "./tobago-key";
-import {MenuStore} from "./tobago-menu-store";
+import {DropdownMenu, DropdownMenuAlignment} from "./tobago-dropdown-menu";
 
 export abstract class SelectListBase extends HTMLElement {
-  private popper: Instance;
+  private dropdownMenu: DropdownMenu;
 
   get disabled(): boolean {
     return this.classList.contains(Css.TOBAGO_DISABLED);
@@ -62,7 +61,7 @@ export abstract class SelectListBase extends HTMLElement {
     return this.querySelector(".tobago-filter");
   }
 
-  get dropdownMenu(): HTMLDivElement {
+  get dropdownMenuElement(): HTMLDivElement {
     const root = this.getRootNode() as ShadowRoot | Document;
     return root.querySelector(`.${Css.TOBAGO_DROPDOWN_MENU}[name='${this.id}']`);
   }
@@ -93,9 +92,9 @@ export abstract class SelectListBase extends HTMLElement {
   }
 
   connectedCallback(): void {
-    if (this.dropdownMenu) {
-      this.popper = createPopper(this.selectField, this.dropdownMenu, {});
-      window.addEventListener("resize", () => this.updateDropdownMenuWidth());
+    if (this.dropdownMenuElement) {
+      this.dropdownMenu = new DropdownMenu(this.dropdownMenuElement, this.selectField, this.localMenu,
+          DropdownMenuAlignment.centerFullWidth);
     }
     document.addEventListener("click", this.globalClickEvent.bind(this));
     this.hiddenSelect.addEventListener("click", this.labelClickEvent.bind(this));
@@ -122,7 +121,7 @@ export abstract class SelectListBase extends HTMLElement {
   }
 
   disconnectedCallback(): void {
-    this.dropdownMenu?.remove();
+    this.dropdownMenu.destroy();
   }
 
   protected abstract globalClickEvent(event: MouseEvent): void;
@@ -191,7 +190,9 @@ export abstract class SelectListBase extends HTMLElement {
   private filterEvent(event: Event): void {
     const input = event.currentTarget as HTMLInputElement;
     const searchString = input.value;
-    this.showDropdown();
+    if (searchString.length > 0) {
+      this.showDropdown(); // do not show dropdown menu while leaving the component
+    }
     const filterFunction = TobagoFilterRegistry.get(this.filter);
     // XXX todo: if filterFunction not found?
 
@@ -278,34 +279,18 @@ export abstract class SelectListBase extends HTMLElement {
   }
 
   protected showDropdown(): void {
-    if (this.dropdownMenu && !this.dropdownMenu.classList.contains(Css.SHOW)) {
-      if (!this.localMenu) {
-        MenuStore.appendChild(this.dropdownMenu);
-      }
-
+    if (this.dropdownMenuElement && !this.dropdownMenuElement.classList.contains(Css.SHOW)) {
       this.selectField.classList.add(Css.SHOW);
       this.selectField.ariaExpanded = "true";
-      this.dropdownMenu.classList.add(Css.SHOW);
-      this.updateDropdownMenuWidth();
-      this.popper.update();
+      this.dropdownMenu.show();
     }
   }
 
   protected hideDropdown(): void {
-    if (this.dropdownMenu?.classList.contains(Css.SHOW)) {
-      if (!this.localMenu) {
-        this.appendChild(this.dropdownMenu);
-      }
-
+    if (this.dropdownMenuElement && this.dropdownMenuElement.classList.contains(Css.SHOW)) {
       this.selectField.classList.remove(Css.SHOW);
       this.selectField.ariaExpanded = "false";
-      this.dropdownMenu.classList.remove(Css.SHOW);
-    }
-  }
-
-  private updateDropdownMenuWidth(): void {
-    if (this.dropdownMenu) {
-      this.dropdownMenu.style.width = `${this.selectField.offsetWidth}px`;
+      this.dropdownMenu.hide();
     }
   }
 
