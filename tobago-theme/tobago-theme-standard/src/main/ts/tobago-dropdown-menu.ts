@@ -16,6 +16,7 @@
  */
 
 import {Css} from "./tobago-css";
+import {ClientBehaviors} from "./tobago-client-behaviors";
 
 export enum DropdownMenuAlignment {
   start,
@@ -24,9 +25,9 @@ export enum DropdownMenuAlignment {
 }
 
 export class DropdownMenu {
-
-  private dropdownMenuElementId: string;
   private referenceElement: HTMLElement;
+  private dropdownMenuElementId: string;
+  private eventElement: HTMLElement;
   private parent: HTMLElement; //initial parent of the dropdown menu
   private localMenu: boolean;
   private alignment: DropdownMenuAlignment;
@@ -36,14 +37,17 @@ export class DropdownMenu {
   /**
    * @param dropdownMenuElement dropdown menu element
    * @param referenceElement the element which the dropdown menu is aligned for
+   * @param eventElement the element for which the show/shown/hide/hidden event is dispatched, usually the custom
+   * element
    * @param localMenu if true, do not use the menu store
    * @param alignment on the 'start' or 'end' of the reference element or in the center and the min-width is the same as
    * the reference element width
    */
-  constructor(dropdownMenuElement: HTMLElement, referenceElement: HTMLElement,
+  constructor(dropdownMenuElement: HTMLElement, referenceElement: HTMLElement, eventElement: HTMLElement,
               localMenu: boolean, alignment: DropdownMenuAlignment) {
     this.dropdownMenuElementId = dropdownMenuElement.getAttribute("name");
     this.referenceElement = referenceElement;
+    this.eventElement = eventElement;
     this.parent = dropdownMenuElement.parentElement;
     this.localMenu = localMenu;
     this.alignment = alignment;
@@ -91,26 +95,38 @@ export class DropdownMenu {
 
   show(): void {
     if (this.dropdownMenuElement && !this.dropdownMenuElement.classList.contains(Css.SHOW)) {
+      this.eventElement.dispatchEvent(new CustomEvent(ClientBehaviors.DROPDOWN_SHOW));
+
       window.addEventListener("resize", this.resizeEventListener);
       window.addEventListener("scroll", this.scrollEventListener, true);
 
       if (!this.localMenu) {
         this.menuStore.appendChild(this.dropdownMenuElement);
       }
+      this.referenceElement.classList.add(Css.SHOW);
+      this.referenceElement.ariaExpanded = "true";
       this.dropdownMenuElement.classList.add(Css.SHOW);
       this.updatePosition();
+
+      this.eventElement.dispatchEvent(new CustomEvent(ClientBehaviors.DROPDOWN_SHOWN));
     }
   }
 
   hide(): void {
     if (this.dropdownMenuElement && this.dropdownMenuElement.classList.contains(Css.SHOW)) {
+      this.eventElement.dispatchEvent(new CustomEvent(ClientBehaviors.DROPDOWN_HIDE));
+
       window.removeEventListener("resize", this.resizeEventListener);
       window.removeEventListener("scroll", this.scrollEventListener, true);
 
+      this.referenceElement.classList.remove(Css.SHOW);
+      this.referenceElement.ariaExpanded = "false";
       this.dropdownMenuElement.classList.remove(Css.SHOW);
       if (!this.localMenu) {
         this.parent?.appendChild(this.dropdownMenuElement);
       }
+
+      this.eventElement.dispatchEvent(new CustomEvent(ClientBehaviors.DROPDOWN_HIDDEN));
     }
   }
 
