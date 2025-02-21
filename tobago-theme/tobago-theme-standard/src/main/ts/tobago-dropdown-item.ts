@@ -84,6 +84,7 @@ export class DropdownItem {
   showSubMenu(): void {
     if (!this.disabled && this.dropdownMenu) {
       this.element.parentElement.classList.add(Css.TOBAGO_SHOW);
+      this.updatePosition();
     }
   }
 
@@ -91,5 +92,51 @@ export class DropdownItem {
     if (this.dropdownMenu) {
       this.element.parentElement.classList.remove(Css.TOBAGO_SHOW);
     }
+  }
+
+  private updatePosition(): void {
+    const refElementRect = this.element.getBoundingClientRect();
+
+    //calc horizontal positioning and max-width
+    const rightBorder = this.body.offsetWidth;
+    this.dropdownMenu.style.left = refElementRect.right + "px";
+    this.dropdownMenu.style.marginLeft = "0px";
+    this.dropdownMenu.style.marginRight = null;
+
+    //calc vertical positioning and max-height
+    const upperBorder = this.stickyHeader ? this.stickyHeader.offsetHeight : 0;
+    const lowerBorder = this.fixedFooter ? this.fixedFooter.offsetTop : window.innerHeight;
+    const spaceAbove = refElementRect.top - upperBorder;
+    const spaceBelow = lowerBorder - refElementRect.bottom;
+    if (spaceBelow >= spaceAbove) {
+      this.dropdownMenu.style.top = refElementRect.top + "px";
+      this.dropdownMenu.style.bottom = null;
+      this.dropdownMenu.style.marginTop = "0px";
+      this.dropdownMenu.style.marginBottom = null;
+      this.dropdownMenu.style.maxHeight = spaceBelow
+          - parseFloat(getComputedStyle(this.dropdownMenu).marginBottom) + "px";
+    } else {
+      this.dropdownMenu.style.top = null;
+      this.dropdownMenu.style.bottom = (window.innerHeight - refElementRect.bottom) + "px";
+      this.dropdownMenu.style.marginTop = null;
+      this.dropdownMenu.style.marginBottom = "0px";
+      this.dropdownMenu.style.maxHeight = spaceAbove
+          - parseFloat(getComputedStyle(this.dropdownMenu).marginTop) + "px";
+    }
+  }
+
+  private get body(): HTMLElement {
+    const root = document.getRootNode() as ShadowRoot | Document;
+    return root.querySelector("body");
+  }
+
+  private get stickyHeader(): HTMLElement {
+    const root = document.getRootNode() as ShadowRoot | Document;
+    return root.querySelector("tobago-header.sticky-top");
+  }
+
+  private get fixedFooter(): HTMLElement {
+    const root = document.getRootNode() as ShadowRoot | Document;
+    return root.querySelector("tobago-footer.fixed-bottom");
   }
 }
