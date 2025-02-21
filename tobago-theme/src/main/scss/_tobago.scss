@@ -45,6 +45,8 @@ $icon-sort-numbers: (
 ) !default;
 
 :root {
+  --tobago-dropdown-menu-offset: 1rem;
+  --tobago-dropdown-menu-component-offset: 2px; //offset between dropdown menu and component
   --tobago-dropdown-menu-z-index: 1100; //usually the highest z-index value
   --tobago-bs-input-padding-x: #{$input-padding-x};
   --tobago-page-padding-top: 1rem;
@@ -90,6 +92,16 @@ $icon-sort-numbers: (
       cursor: not-allowed;
     }
   }
+}
+
+@mixin dropdownMenuPositioning() {
+  /*.tobago-dropdown-menu extends .dropdown-menu which causes conflicts when used inside a .navbar, because the
+   "position" value would be overwritten. Hence the use of !important. */
+  position: fixed !important;
+  overflow: auto;
+  overscroll-behavior: none;
+  margin: var(--tobago-dropdown-menu-offset);
+  z-index: var(--tobago-dropdown-menu-z-index);
 }
 
 @mixin imageTextSpacing() {
@@ -299,11 +311,7 @@ $icon-sort-numbers: (
       /* Use .tobago-dropdown-menu instead of .dropdown-menu to prevent Bootstrap from creating a dropdown instance.
          This leads to javascript error if arrow up/down is pressed. */
       @extend .dropdown-menu;
-
-      position: fixed;
-      overflow: auto;
-      overscroll-behavior: none;
-      z-index: var(--tobago-dropdown-menu-z-index);
+      @include dropdownMenuPositioning();
     }
 
     &.list-group-item {
