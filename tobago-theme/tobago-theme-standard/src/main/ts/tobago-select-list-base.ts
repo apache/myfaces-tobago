@@ -21,7 +21,7 @@ import {Key} from "./tobago-key";
 import {DropdownMenu, DropdownMenuAlignment} from "./tobago-dropdown-menu";
 
 export abstract class SelectListBase extends HTMLElement {
-  private dropdownMenu: DropdownMenu;
+  protected dropdownMenu: DropdownMenu;
 
   get disabled(): boolean {
     return this.classList.contains(Css.TOBAGO_DISABLED);
@@ -93,7 +93,7 @@ export abstract class SelectListBase extends HTMLElement {
 
   connectedCallback(): void {
     if (this.dropdownMenuElement) {
-      this.dropdownMenu = new DropdownMenu(this.dropdownMenuElement, this.selectField, this.localMenu,
+      this.dropdownMenu = new DropdownMenu(this.dropdownMenuElement, this.selectField, this, this.localMenu,
           DropdownMenuAlignment.centerFullWidth);
     }
     document.addEventListener("click", this.globalClickEvent.bind(this));
@@ -138,18 +138,18 @@ export abstract class SelectListBase extends HTMLElement {
   private keydownEventBase(event: KeyboardEvent) {
     switch (event.key) {
       case Key.ESCAPE:
-        this.hideDropdown();
+        this.dropdownMenu.hide();
         this.removePreselection();
         this.filterInput.focus({preventScroll: true});
         break;
       case Key.ARROW_DOWN:
         event.preventDefault();
-        this.showDropdown();
+        this.dropdownMenu.show();
         this.preselectNextRow();
         break;
       case Key.ARROW_UP:
         event.preventDefault();
-        this.showDropdown();
+        this.dropdownMenu.show();
         this.preselectPreviousRow();
         break;
       case Key.ENTER:
@@ -159,7 +159,7 @@ export abstract class SelectListBase extends HTMLElement {
           const row = this.tbody.querySelector<HTMLTableRowElement>("." + Css.TOBAGO_PRESELECT);
           this.select(row);
         } else if (document.activeElement.id === this.filterInput.id) {
-          this.showDropdown();
+          this.dropdownMenu.show();
         }
         break;
       case Key.TAB:
@@ -191,7 +191,7 @@ export abstract class SelectListBase extends HTMLElement {
     const input = event.currentTarget as HTMLInputElement;
     const searchString = input.value;
     if (searchString.length > 0) {
-      this.showDropdown(); // do not show dropdown menu while leaving the component
+      this.dropdownMenu.show(); // do not show dropdown menu while leaving the component
     }
     const filterFunction = TobagoFilterRegistry.get(this.filter);
     // XXX todo: if filterFunction not found?
@@ -276,22 +276,6 @@ export abstract class SelectListBase extends HTMLElement {
 
   protected removePreselection(): void {
     this.preselectedRow?.classList.remove(Css.TOBAGO_PRESELECT);
-  }
-
-  protected showDropdown(): void {
-    if (this.dropdownMenuElement && !this.dropdownMenuElement.classList.contains(Css.SHOW)) {
-      this.selectField.classList.add(Css.SHOW);
-      this.selectField.ariaExpanded = "true";
-      this.dropdownMenu.show();
-    }
-  }
-
-  protected hideDropdown(): void {
-    if (this.dropdownMenuElement && this.dropdownMenuElement.classList.contains(Css.SHOW)) {
-      this.selectField.classList.remove(Css.SHOW);
-      this.selectField.ariaExpanded = "false";
-      this.dropdownMenu.hide();
-    }
   }
 
   protected isPartOfSelectField(element: Element): boolean {

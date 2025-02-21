@@ -84,6 +84,26 @@ $icon-sort-numbers: (
   }
 }
 
+@mixin buttonDropdownMenu() {
+  > .tobago-dropdown-menu {
+    @include tobagoDropdownMenuValues();
+
+    .form-check {
+      /* move form-check components to the right, so checkbox/radio buttons are inside dropdown-menu */
+      $paddingLeftCheckboxRadio: (divide($dropdown-item-padding-x, 1rem) + $form-check-padding-start);
+      padding-left: $paddingLeftCheckboxRadio;
+
+      &.form-switch {
+        padding-left: $paddingLeftCheckboxRadio + ($form-switch-width - $form-check-input-width);
+      }
+    }
+
+    label[for] {
+      width: 100%; //increased clickable area for checkbox/radio button label
+    }
+  }
+}
+
 @mixin buttonLinkDisabledCursor() {
   &:disabled {
     pointer-events: auto;
@@ -95,9 +115,6 @@ $icon-sort-numbers: (
 }
 
 @mixin dropdownMenuPositioning() {
-  /*.tobago-dropdown-menu extends .dropdown-menu which causes conflicts when used inside a .navbar, because the
-   "position" value would be overwritten. Hence the use of !important. */
-  position: fixed !important;
   overflow: auto;
   overscroll-behavior: none;
   margin: var(--tobago-dropdown-menu-offset);
@@ -308,10 +325,7 @@ $icon-sort-numbers: (
 @mixin selectListOptions() {
   .tobago-options {
     &.tobago-dropdown-menu {
-      /* Use .tobago-dropdown-menu instead of .dropdown-menu to prevent Bootstrap from creating a dropdown instance.
-         This leads to javascript error if arrow up/down is pressed. */
-      @extend .dropdown-menu;
-      @include dropdownMenuPositioning();
+      @include tobagoDropdownMenuValues();
     }
 
     &.list-group-item {
@@ -371,26 +385,16 @@ $icon-sort-numbers: (
   }
 }
 
-@mixin tobagoDropdownMenu() {
-  .tobago-dropdown-menu {
-    /* Use .tobago-dropdown-menu instead of .dropdown-menu to prevent Bootstrap from creating a dropdown instance.
-       This leads to javascript error if arrow up/down is pressed. */
-    @extend .dropdown-menu;
+@mixin tobagoDropdownMenuValues() { // use this mixin inside every .tobago-dropdown-menu class
+  /* Use .tobago-dropdown-menu instead of .dropdown-menu to prevent Bootstrap from creating a dropdown instance.
+     This leads to javascript error if arrow up/down is pressed. */
+  @extend .dropdown-menu;
 
-    .form-check {
-      /* move form-check components to the right, so checkbox/radio buttons are inside dropdown-menu */
-      $paddingLeftCheckboxRadio: (divide($dropdown-item-padding-x, 1rem) + $form-check-padding-start);
-      padding-left: $paddingLeftCheckboxRadio;
-
-      &.form-switch {
-        padding-left: $paddingLeftCheckboxRadio + ($form-switch-width - $form-check-input-width);
-      }
-    }
-
-    label[for] {
-      width: 100%; //increased clickable area for checkbox/radio button label
-    }
-  }
+  position: fixed;
+  overflow: auto;
+  overscroll-behavior: none;
+  margin: var(--tobago-dropdown-menu-offset);
+  z-index: var(--tobago-dropdown-menu-z-index);
 }
 
 @mixin tobagoTreeNodeToggle() {
@@ -581,9 +585,8 @@ tobago-date {
 }
 
 tobago-dropdown {
+  @include buttonDropdownMenu();
   display: inline-block; //make tobago-dropdown height the same the inner button. Important for dropdown-menu position
-
-  @include tobagoDropdownMenu();
 
   &.tobago-dropdown-submenu {
     cursor: pointer;
@@ -609,12 +612,21 @@ tobago-dropdown {
       margin-top: 7px;
       margin-right: -10px;
     }
+  }
 
-    > .tobago-dropdown-menu {
-      top: 0;
-      left: 100%;
-      margin-top: -0.5rem;
-      margin-left: -1px;
+  &.dropdown {
+    > .tobago-dropdown-menu.show {
+      /* "position: fixed" must be set to override position value of
+         ".navbar-expand-{sm|md|lg|xl|xxl} .navbar-nav tobago-dropdown > .tobago-dropdown-menu" */
+      position: fixed;
+
+      .tobago-dropdown-submenu {
+        > .tobago-dropdown-menu {
+          /* "position: fixed" must be set to override position value of
+             ".navbar-expand-{sm|md|lg|xl|xxl} .navbar-nav tobago-dropdown > .tobago-dropdown-menu" */
+          position: fixed;
+        }
+      }
     }
   }
 }
@@ -1112,14 +1124,15 @@ tobago-page {
   padding-bottom: 1rem;
 
   .tobago-page-menuStore {
-    @include tobagoDropdownMenu();
+    @include buttonDropdownMenu();
     @include selectListOptions();
 
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 0;
     height: 0;
+    z-index: var(--tobago-dropdown-menu-z-index);
   }
 
   .tobago-page-popoverStore {

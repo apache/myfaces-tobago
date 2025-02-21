@@ -18,24 +18,13 @@
 import {MenuStore} from "./tobago-menu-store";
 import {Css} from "./tobago-css";
 import {Key} from "./tobago-key";
-import {createPopper, Instance} from "@popperjs/core";
 import {DropdownItem} from "./tobago-dropdown-item";
 import {DropdownItemFactory} from "./tobago-dropdown-item-factory";
+import {DropdownMenu, DropdownMenuAlignment} from "./tobago-dropdown-menu";
+import {ClientBehaviors} from "./tobago-client-behaviors";
 
-const TobagoDropdownEvent = {
-  HIDE: "tobago.dropdown.hide",
-  HIDDEN: "tobago.dropdown.hidden",
-  SHOW: "tobago.dropdown.show",
-  SHOWN: "tobago.dropdown.shown"
-};
-
-/**
- * The dropdown implementation of Bootstrap does not move the menu to the tobago-page-menuStore. This behavior is
- * implemented in this class.
- */
 class Dropdown extends HTMLElement {
-
-  private popper: Instance;
+  private dropdownMenu: DropdownMenu;
   private globalClickEventListener: EventListenerOrEventListenerObject;
 
   constructor() {
@@ -44,13 +33,13 @@ class Dropdown extends HTMLElement {
 
   connectedCallback(): void {
     if (!this.classList.contains(Css.TOBAGO_DROPDOWN_SUBMENU)) { // ignore submenus
-      this.popper = createPopper(this.toggle, this.dropdownMenu, {
-        placement: this.dropdownMenu.classList.contains(Css.DROPDOWN_MENU_END) ? "bottom-end" : "bottom-start",
-      });
+      this.dropdownMenu = new DropdownMenu(this.dropdownMenuElement, this.toggle, this, this.insideNavbar(),
+          this.dropdownMenuElement.classList.contains(Css.DROPDOWN_MENU_END)
+              ? DropdownMenuAlignment.end : DropdownMenuAlignment.start);
       this.globalClickEventListener = this.globalClickEvent.bind(this) as EventListenerOrEventListenerObject;
       document.addEventListener("click", this.globalClickEventListener);
       this.addEventListener("keydown", this.keydownEvent.bind(this));
-      this.dropdownMenu.addEventListener("keydown", this.keydownEvent.bind(this));
+      this.dropdownMenuElement.addEventListener("keydown", this.keydownEvent.bind(this));
       this.toggle.addEventListener("keydown", this.tabHandling.bind(this));
       this.getAllDropdownItems(this.dropdownItems).forEach((dropdownItem) => {
         dropdownItem.element.addEventListener("focus", this.focusEvent.bind(this));
@@ -58,15 +47,16 @@ class Dropdown extends HTMLElement {
           dropdownItem.element.addEventListener("mouseenter", this.mouseenterEvent.bind(this));
         }
       });
+      this.addEventListener(ClientBehaviors.DROPDOWN_HIDDEN, this.dropdownHidden.bind(this));
     }
     // the click should not sort the column of a table - XXX not very nice - may look for a better solution
     if (this.closest("tr") != null) {
       this.addEventListener("click", (event) => {
         event.stopPropagation();
         if (this.expanded) {
-          this.hideDropdown();
+          this.dropdownMenu.hide();
         } else {
-          this.showDropdown();
+          this.dropdownMenu.show();
         }
       });
     }
@@ -86,10 +76,10 @@ class Dropdown extends HTMLElement {
   }
 
   get dropdownItems(): DropdownItem[] {
-    return DropdownItemFactory.create(this.dropdownMenu);
+    return DropdownItemFactory.create(this.dropdownMenuElement);
   }
 
-  get dropdownMenu(): HTMLDivElement {
+  get dropdownMenuElement(): HTMLDivElement {
     const root = this.getRootNode() as ShadowRoot | Document;
     return root.querySelector(`.${Css.TOBAGO_DROPDOWN_MENU}[name='${this.id}']`);
   }
@@ -107,12 +97,12 @@ class Dropdown extends HTMLElement {
           const subMenuToggle = this.getSubMenuToggle(element as HTMLElement);
           subMenuToggle.click();
         } else if (this.expanded) {
-          this.hideDropdown();
+          this.dropdownMenu.hide();
         } else {
-          this.showDropdown();
+          this.dropdownMenu.show();
         }
       } else {
-        this.hideDropdown();
+        this.dropdownMenu.hide();
       }
     }
   }
@@ -144,12 +134,12 @@ class Dropdown extends HTMLElement {
     switch (event.key) {
       case Key.ARROW_DOWN:
         event.preventDefault(); //prevent click event if radio button is selected
-        this.showDropdown();
+        this.dropdownMenu.show();
         this.getNextDropdownItem()?.focus();
         break;
       case Key.ARROW_UP:
         event.preventDefault(); //prevent click event if radio button is selected
-        this.showDropdown();
+        this.dropdownMenu.show();
         this.getPreviousDropdownItem()?.focus();
         break;
       case Key.ARROW_RIGHT:
@@ -161,7 +151,7 @@ class Dropdown extends HTMLElement {
         this.getParentDropdownItem()?.focus();
         break;
       case Key.ESCAPE:
-        this.hideDropdown();
+        this.dropdownMenu.hide();
         break;
       default:
         break;
@@ -171,42 +161,16 @@ class Dropdown extends HTMLElement {
   private tabHandling(event: KeyboardEvent): void {
     if (event.key === Key.TAB) {
       if (event.shiftKey) {
-        this.hideDropdown();
-      } else if (this.dropdownMenu.classList.contains(Css.SHOW)) {
+        this.dropdownMenu.hide();
+      } else if (this.dropdownMenuElement.classList.contains(Css.SHOW)) {
         event.preventDefault(); //avoid selecting second element
         this.getNextDropdownItem()?.focus();
       }
     }
   }
 
-  private showDropdown(): void {
-    this.dispatchEvent(new CustomEvent(TobagoDropdownEvent.SHOW));
-
-    // use Css.SHOW instead of Css.TOBAGO_SHOW for first dropdown menu to use bootstrap CSS
-    if (!this.insideNavbar() && !this.dropdownMenu.classList.contains(Css.SHOW)) {
-      MenuStore.appendChild(this.dropdownMenu);
-    }
-    this.toggle.classList.add(Css.SHOW);
-    this.toggle.ariaExpanded = "true";
-    this.dropdownMenu.classList.add(Css.SHOW);
-    this.popper.update();
-
-    this.dispatchEvent(new CustomEvent(TobagoDropdownEvent.SHOWN));
-  }
-
-  private hideDropdown(): void {
-    this.dispatchEvent(new CustomEvent(TobagoDropdownEvent.HIDE));
-
-    // use Css.SHOW instead of Css.TOBAGO_SHOW for first dropdown menu to use bootstrap CSS
-    this.toggle.classList.remove(Css.SHOW);
-    this.toggle.ariaExpanded = "false";
-    this.dropdownMenu.classList.remove(Css.SHOW);
+  private dropdownHidden(): void {
     this.getAllDropdownItems(this.dropdownItems).forEach((dropdownItem) => dropdownItem.hideSubMenu());
-    if (!this.insideNavbar()) {
-      this.appendChild(this.dropdownMenu);
-    }
-
-    this.dispatchEvent(new CustomEvent(TobagoDropdownEvent.HIDDEN));
   }
 
   private getNextDropdownItem(): DropdownItem {
