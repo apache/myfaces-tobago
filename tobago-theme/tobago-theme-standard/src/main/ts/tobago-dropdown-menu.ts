@@ -55,9 +55,21 @@ export class DropdownMenu {
 
   private scrollEventListenerEvent(event: Event): void {
     const target = event.target as HTMLElement;
-    if (!target.classList || !target.classList.contains(Css.TOBAGO_DROPDOWN_MENU)
-        || target.getAttribute("name") !== this.dropdownMenuElementId) {
+    if (!this.insideDropdownMenuElement(target)) {
       this.hide();
+    }
+  }
+
+  private insideDropdownMenuElement(element: HTMLElement): boolean {
+    if (element && element.classList) {
+      if (element.classList.contains(Css.TOBAGO_DROPDOWN_MENU)
+          && element.getAttribute("name") === this.dropdownMenuElementId) {
+        return true;
+      } else {
+        return this.insideDropdownMenuElement(element.parentElement);
+      }
+    } else {
+      return false;
     }
   }
 
@@ -103,54 +115,71 @@ export class DropdownMenu {
   }
 
   private updatePosition(): void {
-    const offset = 2; // 2px offset to every border
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
     const refElementRect = this.referenceElement.getBoundingClientRect();
 
+    //calc horizontal positioning and max-width
+    const rightBorder = this.body.offsetWidth;
+    switch (this.alignment) {
+      case DropdownMenuAlignment.start:
+      case DropdownMenuAlignment.centerFullWidth:
+        this.dropdownMenuElement.style.left = refElementRect.left + "px";
+        this.dropdownMenuElement.style.right = null;
+        this.dropdownMenuElement.style.marginLeft = "0px";
+        this.dropdownMenuElement.style.marginRight = null;
+        this.dropdownMenuElement.style.maxWidth = rightBorder - refElementRect.left
+            - parseFloat(getComputedStyle(this.dropdownMenuElement).marginRight) + "px";
+        break;
+      case DropdownMenuAlignment.end:
+        this.dropdownMenuElement.style.left = null;
+        this.dropdownMenuElement.style.right = rightBorder - refElementRect.right + "px";
+        this.dropdownMenuElement.style.marginLeft = null;
+        this.dropdownMenuElement.style.marginRight = "0px";
+        this.dropdownMenuElement.style.maxWidth = refElementRect.right
+            - parseFloat(getComputedStyle(this.dropdownMenuElement).marginLeft) + "px";
+        break;
+    }
+
     //calc width
-    this.dropdownMenuElement.style.width = null;
-    const naturalWidth = this.dropdownMenuElement.offsetWidth;
-    const maxWidth = windowWidth - offset - offset;
     switch (this.alignment) {
       case DropdownMenuAlignment.start:
       case DropdownMenuAlignment.end:
-        if (naturalWidth > maxWidth) {
-          this.dropdownMenuElement.style.width = maxWidth + "px";
-        }
+        this.dropdownMenuElement.style.width = null;
         break;
       case DropdownMenuAlignment.centerFullWidth:
-        if (refElementRect.width <= maxWidth) {
-          this.dropdownMenuElement.style.width = refElementRect.width + "px";
-        }
+        this.dropdownMenuElement.style.width = refElementRect.width + "px";
         break;
     }
 
-    //calc height
-    const topSpace = refElementRect.top - offset - offset;
-    const bottomSpace = windowHeight - refElementRect.bottom - offset - offset;
-    this.dropdownMenuElement.style.maxHeight = bottomSpace >= topSpace ? bottomSpace + "px" : topSpace + "px";
-
-    //calc top
-    if (bottomSpace >= topSpace) {
-      this.dropdownMenuElement.style.top = refElementRect.bottom + offset + "px";
+    //calc vertical positioning and max-height
+    const upperBorder = this.stickyHeader ? this.stickyHeader.offsetHeight : 0;
+    const lowerBorder = this.fixedFooter ? this.fixedFooter.offsetTop : window.innerHeight;
+    const spaceAbove = refElementRect.top - upperBorder;
+    const spaceBelow = lowerBorder - refElementRect.bottom;
+    if (spaceBelow >= spaceAbove) {
+      this.dropdownMenuElement.style.top = refElementRect.bottom + "px";
+      this.dropdownMenuElement.style.bottom = null;
+      this.dropdownMenuElement.style.marginTop = "var(--tobago-dropdown-menu-component-offset)";
+      this.dropdownMenuElement.style.marginBottom = null;
+      this.dropdownMenuElement.style.maxHeight = spaceBelow
+          - parseFloat(getComputedStyle(this.dropdownMenuElement).marginBottom) + "px";
     } else {
-      this.dropdownMenuElement.style.top = offset + "px";
+      this.dropdownMenuElement.style.top = null;
+      this.dropdownMenuElement.style.bottom = (window.innerHeight - refElementRect.top) + "px";
+      this.dropdownMenuElement.style.marginTop = null;
+      this.dropdownMenuElement.style.marginBottom = "var(--tobago-dropdown-menu-component-offset)";
+      this.dropdownMenuElement.style.maxHeight = spaceAbove
+          - parseFloat(getComputedStyle(this.dropdownMenuElement).marginTop) + "px";
     }
+  }
 
-    //calc left
-    const currentWidth = this.dropdownMenuElement.offsetWidth;
-    if (this.alignment === DropdownMenuAlignment.start) {
-      const naturalLeft = refElementRect.left;
-      const alternateLeft = window.innerWidth - offset - currentWidth;
-      this.dropdownMenuElement.style.left = naturalLeft <= alternateLeft ? naturalLeft + "px" : alternateLeft + "px";
-    } else if (this.alignment === DropdownMenuAlignment.centerFullWidth) {
-      const refElementCenter = refElementRect.left + (refElementRect.width / 2);
-      this.dropdownMenuElement.style.left = refElementCenter - (currentWidth / 2) + "px";
-    } else if (this.alignment === DropdownMenuAlignment.end) {
-      const naturalLeft = refElementRect.right - currentWidth;
-      this.dropdownMenuElement.style.left = naturalLeft >= offset ? naturalLeft + "px" : offset + "px";
-    }
+  private get body(): HTMLElement {
+    const root = document.getRootNode() as ShadowRoot | Document;
+    return root.querySelector("body");
+  }
+
+  private get stickyHeader(): HTMLElement {
+    const root = document.getRootNode() as ShadowRoot | Document;
+    return root.querySelector("tobago-header.sticky-top");
   }
 
   private get menuStore(): HTMLDivElement {
@@ -161,5 +190,10 @@ export class DropdownMenu {
   private get dropdownMenuElement(): HTMLElement {
     const root = document.getRootNode() as ShadowRoot | Document;
     return root.querySelector(`.${Css.TOBAGO_DROPDOWN_MENU}[name='${this.dropdownMenuElementId}']`);
+  }
+
+  private get fixedFooter(): HTMLElement {
+    const root = document.getRootNode() as ShadowRoot | Document;
+    return root.querySelector("tobago-footer.fixed-bottom");
   }
 }
