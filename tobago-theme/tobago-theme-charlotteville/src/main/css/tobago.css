@@ -12247,6 +12247,7 @@ textarea.form-control-lg {
  */
 /* icon variables ---------------------------------------------------- */
 :root {
+  --tobago-dropdown-menu-z-index: 1100;
   --tobago-bs-input-padding-x: 0.75rem;
   --tobago-page-padding-top: 1rem;
   --tobago-header-margin-bottom: var(--tobago-page-padding-top);
@@ -13188,6 +13189,10 @@ tobago-page .tobago-page-menuStore .tobago-dropdown-menu label[for] {
 tobago-page .tobago-page-menuStore .tobago-options.tobago-dropdown-menu {
   /* Use .tobago-dropdown-menu instead of .dropdown-menu to prevent Bootstrap from creating a dropdown instance.
      This leads to javascript error if arrow up/down is pressed. */
+  position: fixed;
+  overflow: auto;
+  overscroll-behavior: none;
+  z-index: var(--tobago-dropdown-menu-z-index);
 }
 tobago-page .tobago-page-menuStore .tobago-options.list-group-item {
   padding: 0;
@@ -13597,6 +13602,10 @@ tobago-select-one-list .tobago-select-field .tobago-filter:read-only {
 tobago-select-one-list .tobago-options.tobago-dropdown-menu {
   /* Use .tobago-dropdown-menu instead of .dropdown-menu to prevent Bootstrap from creating a dropdown instance.
      This leads to javascript error if arrow up/down is pressed. */
+  position: fixed;
+  overflow: auto;
+  overscroll-behavior: none;
+  z-index: var(--tobago-dropdown-menu-z-index);
 }
 tobago-select-one-list .tobago-options.list-group-item {
   padding: 0;
@@ -13771,6 +13780,10 @@ tobago-select-many-list .tobago-select-field .tobago-filter:read-only {
 tobago-select-many-list .tobago-options.tobago-dropdown-menu {
   /* Use .tobago-dropdown-menu instead of .dropdown-menu to prevent Bootstrap from creating a dropdown instance.
      This leads to javascript error if arrow up/down is pressed. */
+  position: fixed;
+  overflow: auto;
+  overscroll-behavior: none;
+  z-index: var(--tobago-dropdown-menu-z-index);
 }
 tobago-select-many-list .tobago-options.list-group-item {
   padding: 0;
