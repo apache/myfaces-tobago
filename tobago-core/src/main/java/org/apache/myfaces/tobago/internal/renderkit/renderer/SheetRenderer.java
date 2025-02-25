@@ -138,6 +138,12 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     }
 
     if (component.isLazy()) {
+      if (component.getRows() > 0) {
+        component.setRows(0);
+        LOG.warn("The 'rows' attribute must not be used for lazy sheets. Use 'lazyRows' instead. SheetId={}",
+            component.getClientId(facesContext));
+      }
+
       final String lazyScrollPosition = requestParameterMap.get(clientId + SUFFIX_LAZY_SCROLL_POSITION);
       if (lazyScrollPosition != null) {
         state.getLazyScrollPosition().update(lazyScrollPosition);
@@ -510,8 +516,8 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
     boolean emptySheet = true;
     // rows = 0 means: show all
-    final int first = (sheet.isLazy() && sheet.isRowsUnlimited()) ? sheet.getLazyFirstRow() : sheet.getFirst();
-    final int last = (sheet.isLazy() && sheet.isRowsUnlimited()) ? sheet.getLazyFirstRow() + sheet.getLazyRows()
+    final int first = sheet.isLazy() ? sheet.getLazyFirstRow() : sheet.getFirst();
+    final int last = sheet.isLazy() ? sheet.getLazyFirstRow() + sheet.getLazyRows()
         : sheet.isRowsUnlimited() ? Integer.MAX_VALUE : sheet.getFirst() + sheet.getRows();
 
     AbstractUIRow row = null;
