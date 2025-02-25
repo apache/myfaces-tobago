@@ -102,7 +102,7 @@ public abstract class AbstractUISheet extends AbstractUIData
   public void encodeAll(FacesContext facesContext) throws IOException {
 
     if (isLazy() && getRows() > 0) {
-      LOG.warn("Sheet id={} has lazy=true AND the rows attribute set. Use 'lazyRows' instead.",
+      LOG.warn("The 'rows' attribute must not be used for lazy sheets. Use 'lazyRows' instead. SheetId={}",
           getClientId(facesContext));
 
       if (getShowRowRange() != ShowPosition.none) {
