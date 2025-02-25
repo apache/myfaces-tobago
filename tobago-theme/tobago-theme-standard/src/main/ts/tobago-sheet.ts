@@ -233,7 +233,7 @@ export class Sheet extends HTMLElement {
   }
 
   nextLazyLoad(): number {
-    const rows = this.rows > 0 ? this.rows : this.lazyRows;
+    const rows = this.lazyRows;
     const firstVisibleRowIndex = this.firstVisibleRowIndex;
     const firstVisibleRow = this.tableBody.querySelector(`tr[row-index='${firstVisibleRowIndex}']`);
 
