@@ -17,6 +17,8 @@
  * under the License.
  */
 
+import {Css} from "./tobago-css";
+
 export class MenuStore {
   static appendChild<T extends Node>(node: T): T {
     return MenuStore.get().appendChild(node);
@@ -24,6 +26,6 @@ export class MenuStore {
 
   static get(): HTMLDivElement {
     const root = document.getRootNode() as ShadowRoot | Document;
-    return root.querySelector<HTMLDivElement>(".tobago-page-menuStore");
+    return root.querySelector<HTMLDivElement>(`.${Css.TOBAGO_PAGE_MENU_STORE}`);
   }
 }

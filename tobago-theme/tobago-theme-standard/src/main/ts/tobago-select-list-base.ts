@@ -121,7 +121,7 @@ export abstract class SelectListBase extends HTMLElement {
   }
 
   disconnectedCallback(): void {
-    this.dropdownMenu.destroy();
+    this.dropdownMenu.disconnect();
   }
 
   protected abstract globalClickEvent(event: MouseEvent): void;
