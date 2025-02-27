@@ -61,9 +61,20 @@ export class DropdownMenu {
     }
   }
 
-  destroy(): void {
+  /**
+   * Call this in the disconnectedCallback() method.
+   */
+  disconnect(): void {
     this.hide();
-    this.dropdownMenuElement?.remove();
+    if (this.dropdownMenuElement?.parentElement.classList.contains(Css.TOBAGO_PAGE_MENU_STORE)) {
+      this.dropdownMenuElement?.remove();
+    }
+
+    delete this.dropdownMenuElementId;
+    delete this.referenceElement;
+    delete this.parent;
+    delete this.localMenu;
+    delete this.alignment;
   }
 
   show(): void {
@@ -86,7 +97,7 @@ export class DropdownMenu {
 
       this.dropdownMenuElement.classList.remove(Css.SHOW);
       if (!this.localMenu) {
-        this.parent.appendChild(this.dropdownMenuElement);
+        this.parent?.appendChild(this.dropdownMenuElement);
       }
     }
   }
@@ -144,7 +155,7 @@ export class DropdownMenu {
 
   private get menuStore(): HTMLDivElement {
     const root = document.getRootNode() as ShadowRoot | Document;
-    return root.querySelector<HTMLDivElement>(".tobago-page-menuStore");
+    return root.querySelector<HTMLDivElement>(`.${Css.TOBAGO_PAGE_MENU_STORE}`);
   }
 
   private get dropdownMenuElement(): HTMLElement {
