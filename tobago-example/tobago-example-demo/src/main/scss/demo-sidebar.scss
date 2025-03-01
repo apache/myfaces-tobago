@@ -39,6 +39,7 @@ demo-sidebar {
     padding: 0.25rem 0.5rem;
     font-size: 0.875rem;
     text-decoration: none;
+    border-radius: 5px;
 
     &:hover {
       color: $sidebar-text-hover;

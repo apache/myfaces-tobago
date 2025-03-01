@@ -30,9 +30,7 @@ interface SectionNode {
 export class Sidebar extends HTMLElement {
   private sectionTree: SectionNode[] = [];
 
-  /**
-   * Gets the scroll offset from an attribute or uses the default
-   */
+  // Gets the scroll offset from an attribute or uses the default
   get scrollOffset(): number {
     const attributeValue = this.getAttribute("scroll-offset");
     return attributeValue ? parseInt(attributeValue, 10) : 70;
@@ -62,50 +60,9 @@ export class Sidebar extends HTMLElement {
 
     // Initial highlight of active section
     this.updateActiveSection();
-
-    // Adjust fixed position based on header height
-    this.adjustFixedPosition();
-
-    // Adjust position on window resize
-    window.addEventListener("resize", () => {
-      this.adjustFixedPosition();
-    });
   }
 
-  /**
-   * Adjusts the fixed position based on current header height
-   */
-  private adjustFixedPosition(): void {
-    try {
-      const headerElement = document.querySelector("header");
-      const navbarElement = document.querySelector(".navbar");
-      const fixedTopElement = document.querySelector(".fixed-top");
-
-      let topOffset = 20; // Default padding
-
-      if (headerElement) {
-        topOffset += headerElement.clientHeight;
-      }
-
-      if (navbarElement) {
-        topOffset = Math.max(topOffset, navbarElement.clientHeight + 10);
-      }
-
-      if (fixedTopElement) {
-        topOffset = Math.max(topOffset, fixedTopElement.clientHeight + 10);
-      }
-
-      // Apply the fixed position to the sidebar itself
-      this.style.top = `${topOffset}px`;
-      this.style.maxHeight = `calc(100vh - ${topOffset + 20}px)`;
-    } catch (error) {
-      // Silent error handling
-    }
-  }
-
-  /**
-   * Builds the hierarchical tree structure from the DOM
-   */
+  // Builds the hierarchical tree structure from the DOM
   buildSectionTree(): void {
     const sections = Array.from(this.sections);
 
@@ -160,9 +117,7 @@ export class Sidebar extends HTMLElement {
     }
   }
 
-  /**
-   * Determines the section level based on nesting or heading level
-   */
+  // Determines the section level based on nesting or heading level
   getSectionLevel(section: HTMLElement): number {
     // Try to determine level from the parent-child relationship
     let parent = section.parentElement;
@@ -185,17 +140,13 @@ export class Sidebar extends HTMLElement {
     return level;
   }
 
-  /**
-   * Get the position of an element in the DOM tree for sorting
-   */
+  // Get the position of an element in the DOM tree for sorting
   getElementPosition(element: HTMLElement): number {
     const allElements = document.querySelectorAll("*");
     return Array.prototype.indexOf.call(allElements, element);
   }
 
-  /**
-   * Updates the active section based on current URL hash
-   */
+  // Updates the active section based on current URL hash
   updateActiveSection(): void {
     // Remove active class from all links
     const links = this.querySelectorAll(".sidebar-link");
@@ -215,11 +166,6 @@ export class Sidebar extends HTMLElement {
         while (parent) {
           if (parent.classList.contains("sidebar-submenu")) {
             parent.classList.add("show");
-            const toggleButton = parent.previousElementSibling?.querySelector(".sidebar-toggle");
-            if (toggleButton) {
-              toggleButton.setAttribute("aria-expanded", "true");
-              toggleButton.classList.remove("collapsed");
-            }
           }
           parent = parent.parentElement;
         }
@@ -227,26 +173,20 @@ export class Sidebar extends HTMLElement {
     }
   }
 
-  /**
-   * Gets the page content element
-   */
+  // Gets the page content element
   get pageContent(): HTMLElement | null {
     const rootNode = this.getRootNode() as ShadowRoot | Document;
     return rootNode.getElementById("page:content");
   }
 
-  /**
-   * Gets all sections on the page
-   */
+  // Gets all sections on the page
   get sections(): NodeListOf<HTMLElement> {
     return document.querySelectorAll<HTMLElement>(
         "tobago-section[id^='page:mainForm:']"
     );
   }
 
-  /**
-   * Renders the content tree with the hierarchical structure
-   */
+  // Renders the content tree with the hierarchical structure
   renderContentTree(): void {
     // Create template with lit-html
     const template = html`
@@ -260,9 +200,7 @@ export class Sidebar extends HTMLElement {
     render(template, this);
   }
 
-  /**
-   * Recursively renders tree nodes using lit-html
-   */
+  // Recursively renders tree nodes using lit-html
   renderTreeNodes(nodes: SectionNode[]): any {
     // Bind this to a variable to use in the event listener
     const self = this;
@@ -284,23 +222,7 @@ export class Sidebar extends HTMLElement {
     `;
   }
 
-  /**
-   * Sets up Bootstrap collapse controls for tree nodes
-   */
-  setupCollapseControls(): void {
-    const toggleButtons = this.querySelectorAll(".sidebar-toggle");
-    toggleButtons.forEach(button => {
-      button.addEventListener("click", (e) => {
-        const isExpanded = button.getAttribute("aria-expanded") === "true";
-        button.classList.toggle("collapsed", isExpanded);
-        button.setAttribute("aria-expanded", isExpanded ? "false" : "true");
-      });
-    });
-  }
-
-  /**
-   * Extracts the title from a section
-   */
+  // Extracts the title from a section
   private getSectionTitle(section: HTMLElement): string {
     try {
       // Try to get title from header element
@@ -330,9 +252,7 @@ export class Sidebar extends HTMLElement {
     }
   }
 
-  /**
-   * Handles navigation when a link is clicked
-   */
+  // Handles navigation when a link is clicked
   private handleNavigation(event: Event): void {
     event.preventDefault();
     event.stopPropagation();
@@ -363,9 +283,7 @@ export class Sidebar extends HTMLElement {
     }
   }
 
-  /**
-   * Handle hash change events
-   */
+  // Handle hash change events
   private handleHashChange(): void {
     const hash = window.location.hash.substring(1);
     if (hash) {
@@ -377,9 +295,7 @@ export class Sidebar extends HTMLElement {
     this.updateActiveSection();
   }
 
-  /**
-   * Scrolls to the specified element with appropriate offset
-   */
+  // Scrolls to the specified element with appropriate offset
   private scrollToElement(targetElement: HTMLElement): void {
     try {
       // Get offset from attribute or use default
