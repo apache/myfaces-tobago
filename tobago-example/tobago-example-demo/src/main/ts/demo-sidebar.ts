@@ -29,8 +29,15 @@ interface SectionNode {
 
 export class Sidebar extends HTMLElement {
   private sectionTree: SectionNode[] = [];
+  private sectionElements: HTMLElement[] = [];
+  private resizeObserver: ResizeObserver | null = null;
+  private scrollThrottleTimeout: number | null = null;
+  private hashChangeHandler: () => void;
+  private resizeHandler: () => void;
 
-  // Gets the scroll offset from an attribute or uses the default
+  /**
+   * Gets the scroll offset from an attribute or uses the default
+   */
   get scrollOffset(): number {
     const attributeValue = this.getAttribute("scroll-offset");
     return attributeValue ? parseInt(attributeValue, 10) : 70;
@@ -38,45 +45,141 @@ export class Sidebar extends HTMLElement {
 
   constructor() {
     super();
+    // Bind methods to preserve this context
+    this.hashChangeHandler = this.handleHashChange.bind(this);
+    this.resizeHandler = this.throttle(this.adjustFixedPosition.bind(this), 100);
   }
 
   connectedCallback(): void {
-    // Build the section tree hierarchy
+    // Cache all section elements first to avoid repeated DOM queries
+    this.sectionElements = Array.from(document.querySelectorAll<HTMLElement>("tobago-section[id^='page:mainForm:']"));
+
+    // Build the section tree hierarchy once
     this.buildSectionTree();
 
     // Render the initial tree
     this.renderContentTree();
 
-    // Add event listener for page changes
-    window.addEventListener("hashchange", () => {
-      this.handleHashChange();
-    });
+    // Add event listeners for page changes
+    window.addEventListener("hashchange", this.hashChangeHandler);
+    window.addEventListener("resize", this.resizeHandler);
 
-    // Initial scroll to hash if present
+    // Use ResizeObserver instead of window resize for better performance
+    this.setupResizeObserver();
+
+    // Initial position adjustment
+    this.adjustFixedPosition();
+
+    // Initial scroll to hash if present with proper timing
     if (window.location.hash) {
-      // Delay to ensure DOM is ready
-      setTimeout(() => this.handleHashChange(), 100);
+      requestAnimationFrame(() => {
+        this.handleHashChange();
+        this.updateActiveSection();
+      });
+    } else {
+      this.updateActiveSection();
     }
-
-    // Initial highlight of active section
-    this.updateActiveSection();
   }
 
-  // Builds the hierarchical tree structure from the DOM
-  buildSectionTree(): void {
-    const sections = Array.from(this.sections);
+  disconnectedCallback(): void {
+    // Clean up event listeners
+    window.removeEventListener("hashchange", this.hashChangeHandler);
+    window.removeEventListener("resize", this.resizeHandler);
 
+    // Clean up resize observer
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+      this.resizeObserver = null;
+    }
+
+    // Clear any pending timeouts
+    if (this.scrollThrottleTimeout !== null) {
+      window.clearTimeout(this.scrollThrottleTimeout);
+      this.scrollThrottleTimeout = null;
+    }
+  }
+
+  /**
+   * Throttle function to limit execution frequency
+   */
+  private throttle(func: Function, delay: number): () => void {
+    let lastCall = 0;
+    return function(): void {
+      const now = new Date().getTime();
+      if (now - lastCall >= delay) {
+        lastCall = now;
+        func();
+      }
+    };
+  }
+
+  /**
+   * Set up resize observer for more efficient layout adjustments
+   */
+  private setupResizeObserver(): void {
+    if ("ResizeObserver" in window) {
+      this.resizeObserver = new ResizeObserver(this.throttle(() => {
+        this.adjustFixedPosition();
+      }, 100));
+
+      // Observe header elements that might affect positioning
+      const header = document.querySelector("header");
+      const navbar = document.querySelector(".navbar");
+
+      if (header) this.resizeObserver.observe(header);
+      if (navbar) this.resizeObserver.observe(navbar);
+    }
+  }
+
+  /**
+   * Adjusts the fixed position based on current header height
+   * Using requestAnimationFrame to batch layout reads/writes
+   */
+  private adjustFixedPosition(): void {
+    requestAnimationFrame(() => {
+      try {
+        // Batch all DOM reads first
+        const headerHeight = document.querySelector("header")?.clientHeight || 0;
+        const navbarHeight = document.querySelector(".navbar")?.clientHeight || 0;
+        const fixedTopHeight = document.querySelector(".fixed-top")?.clientHeight || 0;
+
+        // Calculate the offset only once
+        const topOffset = Math.max(20, headerHeight, navbarHeight + 10, fixedTopHeight + 10);
+
+        // Then batch all DOM writes
+        this.style.top = `${topOffset}px`;
+        this.style.maxHeight = `calc(100vh - ${topOffset + 20}px)`;
+      } catch (error) {
+        console.warn("Error adjusting sidebar position:", error);
+      }
+    });
+  }
+
+  /**
+   * Builds the hierarchical tree structure from the DOM using a single-pass algorithm
+   */
+  buildSectionTree(): void {
     // Reset the tree
     this.sectionTree = [];
 
-    if (sections.length === 0) {
+    if (this.sectionElements.length === 0) {
       return;
     }
 
-    // First pass: create all nodes with their level
-    const allNodes: SectionNode[] = sections.map(section => {
+    // Sort by DOM order (natural document position)
+    // This avoids the expensive getElementPosition method
+    this.sectionElements.sort((a, b) => {
+      // Use compareDocumentPosition for efficient DOM ordering
+      const position = a.compareDocumentPosition(b);
+      return position & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
+    });
+
+    // Use a stack-based approach for building the tree (single pass)
+    const stack: SectionNode[] = [];
+
+    this.sectionElements.forEach(section => {
       const level = this.getSectionLevel(section);
-      return {
+      const newNode: SectionNode = {
         element: section,
         id: section.id,
         title: this.getSectionTitle(section),
@@ -84,41 +187,35 @@ export class Sidebar extends HTMLElement {
         children: [],
         expanded: true
       };
-    });
 
-    // Sort by DOM order
-    allNodes.sort((a, b) => {
-      return this.getElementPosition(a.element) - this.getElementPosition(b.element);
-    });
-
-    // Second pass: build the tree structure
-    for (let i = 0; i < allNodes.length; i++) {
-      const currentNode = allNodes[i];
-
-      if (currentNode.level === 1) {
-        // Top level sections go directly into the tree
-        this.sectionTree.push(currentNode);
-      } else {
-        // Find the parent for this node
-        let parentIndex = i - 1;
-        while (parentIndex >= 0) {
-          if (allNodes[parentIndex].level < currentNode.level) {
-            allNodes[parentIndex].children.push(currentNode);
-            break;
-          }
-          parentIndex--;
-        }
-
-        // If no parent found, add to the root level
-        if (parentIndex < 0) {
-          this.sectionTree.push(currentNode);
-        }
+      // Pop the stack until we find the parent level
+      while (stack.length > 0 && stack[stack.length - 1].level >= level) {
+        stack.pop();
       }
-    }
+
+      if (stack.length === 0) {
+        // This is a top-level node
+        this.sectionTree.push(newNode);
+      } else {
+        // Add as child to the current parent
+        stack[stack.length - 1].children.push(newNode);
+      }
+
+      // Push this node to the stack
+      stack.push(newNode);
+    });
   }
 
-  // Determines the section level based on nesting or heading level
+  /**
+   * Determines the section level based on nesting or heading level
+   * Caches section heading information to avoid repeated DOM traversal
+   */
   getSectionLevel(section: HTMLElement): number {
+    // Cache for section levels
+    if ((section as any)._cachedLevel) {
+      return (section as any)._cachedLevel;
+    }
+
     // Try to determine level from the parent-child relationship
     let parent = section.parentElement;
     let level = 1;
@@ -131,62 +228,114 @@ export class Sidebar extends HTMLElement {
     }
 
     // Fallback to heading level if available
-    const heading = section.querySelector("h1, h2, h3, h4, h5, h6");
-    if (heading && level === 1) {
-      const headingLevel = parseInt(heading.tagName.substring(1));
-      return headingLevel - 1;
+    if (level === 1) {
+      const heading = section.querySelector("h1, h2, h3, h4, h5, h6");
+      if (heading) {
+        const headingLevel = parseInt(heading.tagName.substring(1));
+        level = headingLevel - 1;
+      }
     }
 
+    // Cache the result
+    (section as any)._cachedLevel = level;
     return level;
   }
 
-  // Get the position of an element in the DOM tree for sorting
-  getElementPosition(element: HTMLElement): number {
-    const allElements = document.querySelectorAll("*");
-    return Array.prototype.indexOf.call(allElements, element);
+  /**
+   * Updates the active section based on current URL hash
+   * Uses more efficient selectors and DOM operations
+   */
+  updateActiveSection(): void {
+    requestAnimationFrame(() => {
+      try {
+        // Remove active class from all links
+        const links = this.querySelectorAll(".sidebar-link.active");
+        links.forEach(link => link.classList.remove("active"));
+
+        // Get current hash without the #
+        const currentHash = window.location.hash.substring(1);
+
+        if (currentHash) {
+          // Find and activate the correct link - use attribute selector for better performance
+          const activeLink = this.querySelector(`a.sidebar-link[href="#${CSS.escape(currentHash)}"]`);
+          if (activeLink) {
+            activeLink.classList.add("active");
+
+            // Expand parent sections if needed
+            let parent = activeLink.closest("li")?.parentElement;
+            while (parent) {
+              if (parent.classList.contains("sidebar-submenu")) {
+                parent.classList.add("show");
+                const toggleButton = parent.previousElementSibling?.querySelector(".sidebar-toggle");
+                if (toggleButton) {
+                  toggleButton.setAttribute("aria-expanded", "true");
+                  toggleButton.classList.remove("collapsed");
+                }
+              }
+              parent = parent.parentElement;
+            }
+          }
+        }
+      } catch (error) {
+        console.warn("Error updating active section:", error);
+      }
+    });
   }
 
-  // Updates the active section based on current URL hash
-  updateActiveSection(): void {
-    // Remove active class from all links
-    const links = this.querySelectorAll(".sidebar-link");
-    links.forEach(link => link.classList.remove("active"));
+  /**
+   * Gets the title from a section with caching for performance
+   */
+  private getSectionTitle(section: HTMLElement): string {
+    // Use cached title if available
+    if ((section as any)._cachedTitle) {
+      return (section as any)._cachedTitle;
+    }
 
-    // Get current hash without the #
-    const currentHash = window.location.hash.substring(1);
+    try {
+      let title = "";
 
-    if (currentHash) {
-      // Find and activate the correct link
-      const activeLink = this.querySelector(`a[href="#${currentHash}"]`);
-      if (activeLink) {
-        activeLink.classList.add("active");
+      // Try to get title from header element
+      const header = section.querySelector(".tobago-header");
+      if (header) {
+        const heading = header.querySelector("h1, h2, h3, h4, h5, h6");
+        if (heading) {
+          title = heading.textContent?.trim() || "";
+        }
 
-        // Expand parent sections if needed
-        let parent = activeLink.closest("li")?.parentElement;
-        while (parent) {
-          if (parent.classList.contains("sidebar-submenu")) {
-            parent.classList.add("show");
+        if (!title) {
+          const span = header.querySelector("span");
+          if (span) {
+            title = span.textContent?.trim() || "";
           }
-          parent = parent.parentElement;
         }
       }
+
+      // Fallback: Try to find any heading in the section
+      if (!title) {
+        const heading = section.querySelector("h1, h2, h3, h4, h5, h6");
+        if (heading) {
+          title = heading.textContent?.trim() || "";
+        }
+      }
+
+      // Last resort: use ID
+      if (!title) {
+        title = section.id || "Unknown Section";
+      }
+
+      // Cache the result
+      (section as any)._cachedTitle = title;
+      return title;
+
+    } catch (error) {
+      console.warn("Error getting section title:", error);
+      return section.id || "Unknown Section";
     }
   }
 
-  // Gets the page content element
-  get pageContent(): HTMLElement | null {
-    const rootNode = this.getRootNode() as ShadowRoot | Document;
-    return rootNode.getElementById("page:content");
-  }
-
-  // Gets all sections on the page
-  get sections(): NodeListOf<HTMLElement> {
-    return document.querySelectorAll<HTMLElement>(
-        "tobago-section[id^='page:mainForm:']"
-    );
-  }
-
-  // Renders the content tree with the hierarchical structure
+  /**
+   * Renders the content tree with the hierarchical structure
+   */
   renderContentTree(): void {
     // Create template with lit-html
     const template = html`
@@ -198,137 +347,138 @@ export class Sidebar extends HTMLElement {
 
     // Render to this element
     render(template, this);
+
+    // Set up event handlers after rendering
+    this.setupEventHandlers();
   }
 
-  // Recursively renders tree nodes using lit-html
-  renderTreeNodes(nodes: SectionNode[]): any {
-    // Bind this to a variable to use in the event listener
-    const self = this;
+  /**
+   * Set up event handlers for navigation links
+   * Binds events once after rendering
+   */
+  private setupEventHandlers(): void {
+    // Use event delegation for better performance
+    this.addEventListener("click", (event) => {
+      const target = event.target as HTMLElement;
+      if (target.classList.contains("sidebar-link") ||
+          target.closest(".sidebar-link")) {
 
+        const link = target.classList.contains("sidebar-link") ?
+            target : target.closest(".sidebar-link") as HTMLElement;
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        const href = link.getAttribute("href");
+        if (href && href.startsWith("#")) {
+          const targetId = href.substring(1);
+          this.navigateToSection(targetId);
+        }
+      }
+    });
+  }
+
+  /**
+   * Recursively renders tree nodes using lit-html
+   */
+  renderTreeNodes(nodes: SectionNode[]): any {
     return html`
       <ul class="nav flex-column sidebar-nav">
         ${nodes.map(node => html`
           <li class="nav-item">
-            <a class="nav-link sidebar-link" href="#${node.id}" @click="${(e: Event) => self.handleNavigation(e)}">
+            <a class="nav-link sidebar-link" href="#${node.id}">
               ${node.title}
             </a>
             ${node.children.length > 0
-                ? html`<div class="sidebar-child-items">${this.renderTreeNodes(node.children)}</div>`
-                : null
-            }
+        ? html`<div class="sidebar-child-items">${this.renderTreeNodes(node.children)}</div>`
+        : null
+    }
           </li>
         `)}
       </ul>
     `;
   }
 
-  // Extracts the title from a section
-  private getSectionTitle(section: HTMLElement): string {
+  /**
+   * Navigate to a section with proper scrolling and history update
+   */
+  private navigateToSection(targetId: string): void {
     try {
-      // Try to get title from header element
-      const header = section.querySelector(".tobago-header");
-      if (header) {
-        const heading = header.querySelector("h1, h2, h3, h4, h5, h6");
-        if (heading) {
-          return heading.textContent?.trim() || section.id;
-        }
-
-        const span = header.querySelector("span");
-        if (span) {
-          return span.textContent?.trim() || section.id;
-        }
-      }
-
-      // Fallback: Try to find any heading in the section
-      const heading = section.querySelector("h1, h2, h3, h4, h5, h6");
-      if (heading) {
-        return heading.textContent?.trim() || section.id;
-      }
-
-      // Last resort: use ID
-      return section.id;
-    } catch (error) {
-      return section.id || "Unknown Section";
-    }
-  }
-
-  // Handles navigation when a link is clicked
-  private handleNavigation(event: Event): void {
-    event.preventDefault();
-    event.stopPropagation();
-
-    try {
-      // Get the ID from the href attribute
-      const linkElement = event.currentTarget as HTMLAnchorElement;
-      const targetId = linkElement.getAttribute("href")?.substring(1);
-
-      if (!targetId) {
-        return;
-      }
-
-      // Use querySelector with attribute selector to avoid issues with special characters in IDs
-      const target = document.querySelector(`[id="${targetId}"]`);
+      // Use querySelector with attribute selector, with CSS escaping for safety
+      const target = document.querySelector(`[id="${CSS.escape(targetId)}"]`);
 
       if (target && target instanceof HTMLElement) {
-        this.scrollToElement(target);
-
         // Update URL hash without triggering scroll
         history.replaceState(null, "", `#${targetId}`);
 
-        // Manually update active section
+        // Schedule the scroll
+        this.scrollToElement(target);
+
+        // Update active section
         this.updateActiveSection();
       }
     } catch (error) {
-      // Silent error handling in production
+      console.warn("Error navigating to section:", error);
     }
   }
 
-  // Handle hash change events
+  /**
+   * Handle hash change events with throttling
+   */
   private handleHashChange(): void {
-    const hash = window.location.hash.substring(1);
-    if (hash) {
-      const target = document.querySelector(`[id="${hash}"]`);
-      if (target instanceof HTMLElement) {
-        this.scrollToElement(target);
-      }
+    // Clear previous timeout if it exists
+    if (this.scrollThrottleTimeout !== null) {
+      window.clearTimeout(this.scrollThrottleTimeout);
     }
-    this.updateActiveSection();
+
+    // Set a new timeout
+    this.scrollThrottleTimeout = window.setTimeout(() => {
+      const hash = window.location.hash.substring(1);
+      if (hash) {
+        const target = document.querySelector(`[id="${CSS.escape(hash)}"]`);
+        if (target instanceof HTMLElement) {
+          this.scrollToElement(target);
+        }
+      }
+      this.updateActiveSection();
+      this.scrollThrottleTimeout = null;
+    }, 50); // Short timeout to batch multiple hash changes
   }
 
-  // Scrolls to the specified element with appropriate offset
+  /**
+   * Scrolls to the specified element with appropriate offset
+   * Uses more efficient position calculation
+   */
   private scrollToElement(targetElement: HTMLElement): void {
-    try {
-      // Get offset from attribute or use default
-      const offset = this.scrollOffset;
+    requestAnimationFrame(() => {
+      try {
+        // Get offset from attribute or use default
+        const offset = this.scrollOffset;
 
-      // Calculate absolute position of element relative to the document
-      let absoluteTop = 0;
-      let element = targetElement;
+        // Use getBoundingClientRect for more accurate positioning
+        const rect = targetElement.getBoundingClientRect();
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
-      while (element && element instanceof HTMLElement) {
-        absoluteTop += element.offsetTop;
-        const offsetParent = element.offsetParent as HTMLElement;
-        if (!offsetParent || !(offsetParent instanceof HTMLElement)) break;
-        element = offsetParent;
+        // Calculate position with offset
+        const targetPosition = Math.max(0, rect.top + scrollTop - offset);
+
+        // Perform the scroll
+        window.scrollTo({
+          top: targetPosition,
+          behavior: "smooth"
+        });
+      } catch (error) {
+        console.warn("Error scrolling to element:", error);
       }
-
-      // Apply offset
-      const targetPosition = Math.max(0, absoluteTop - offset);
-
-      // Perform the scroll
-      window.scrollTo({
-        top: targetPosition,
-        behavior: "smooth"
-      });
-    } catch (error) {
-      // Silent error handling in production
-    }
+    });
   }
 }
 
 // Register the custom element
-document.addEventListener("DOMContentLoaded", function (event: Event): void {
-  if (!window.customElements.get("demo-sidebar")) {
-    window.customElements.define("demo-sidebar", Sidebar);
-  }
-});
+if (typeof window !== "undefined") {
+  window.addEventListener("DOMContentLoaded", function(): void {
+    if (!window.customElements.get("demo-sidebar")) {
+      window.customElements.define("demo-sidebar", Sidebar);
+    }
+  });
+}
