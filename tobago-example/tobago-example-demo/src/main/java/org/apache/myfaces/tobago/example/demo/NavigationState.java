@@ -51,7 +51,7 @@ public class NavigationState implements Serializable {
   private TreeState state = new TreeState(new ExpandedState(1), new SelectedState());
 
   private boolean viewSource = false;
-  private boolean showTests = false;
+  private boolean showTestSection = false;
 
   private String searchString;
   private List<NavigationNode> searchResult;
@@ -173,12 +173,18 @@ public class NavigationState implements Serializable {
     this.viewSource = viewSource;
   }
 
-  public boolean isShowTests() {
-    return showTests;
+  public String gotoTestSection() {
+    showTestSection = true;
+    return "/content/900-test/Test.xhtml";
   }
 
-  public void setShowTests(boolean showTests) {
-    this.showTests = showTests;
+  public String deactivateTestSection() {
+    showTestSection = false;
+    return gotoFirst();
+  }
+
+  public boolean isShowTestSection() {
+    return showTestSection;
   }
 
   public String getSearchString() {
