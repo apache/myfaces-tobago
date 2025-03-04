@@ -86,14 +86,13 @@ public class TobagoRenderKit extends RenderKit {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final Charset charset = Charset.forName(characterEncoding);
     TobagoResponseWriter responseWriter;
-    boolean developmentMode = facesContext.isProjectStage(ProjectStage.Development);
     if (facesContext.getPartialViewContext().isAjaxRequest()) {
-      responseWriter = new XmlResponseWriter(writer, CONTENT_TYPE_TEXT_XML, charset, developmentMode);
+      responseWriter = new XmlResponseWriter(writer, CONTENT_TYPE_TEXT_XML, charset);
     } else {
       if (contentType != null && !contentType.contains(CONTENT_TYPE_TEXT_HTML)) {
         LOG.warn("Content-Type '{}' not supported! Using '{}'", contentType, CONTENT_TYPE_TEXT_HTML);
       }
-      responseWriter = new HtmlResponseWriter(writer, CONTENT_TYPE_TEXT_HTML, charset, developmentMode);
+      responseWriter = new HtmlResponseWriter(writer, CONTENT_TYPE_TEXT_HTML, charset);
       // XXX enable xhtml here, by hand:
       //      responseWriter = new XmlResponseWriter(writer, "application/xhtml+xml", characterEncoding);
     }
