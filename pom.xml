@@ -953,7 +953,7 @@
 
             <!-- optional -->
             <configuration>
-              <nodeVersion>v20.16.0</nodeVersion>
+              <nodeVersion>v22.14.0</nodeVersion>
               <!-- includes npm version 10.8.1 -->
               <!--
               todo: next version not running on Jenkins ubuntu - https://issues.apache.org/jira/browse/INFRA-23954
