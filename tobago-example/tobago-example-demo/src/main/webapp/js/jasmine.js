@@ -1,6 +1,6 @@
 /*
 Copyright (c) 2008-2019 Pivotal Labs
-Copyright (c) 2008-2024 The Jasmine developers
+Copyright (c) 2008-2025 The Jasmine developers
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -150,6 +150,7 @@ getJasmineRequireObj().requireMatchers = function(jRequire, j$) {
       'toBeTrue',
       'toBeTruthy',
       'toBeUndefined',
+      'toBeNullish',
       'toContain',
       'toEqual',
       'toHaveSize',
@@ -159,7 +160,9 @@ getJasmineRequireObj().requireMatchers = function(jRequire, j$) {
       'toHaveBeenCalledTimes',
       'toHaveBeenCalledWith',
       'toHaveClass',
+      'toHaveClasses',
       'toHaveSpyInteractions',
+      'toHaveNoOtherSpyInteractions',
       'toMatch',
       'toThrow',
       'toThrowError',
@@ -2896,6 +2899,10 @@ getJasmineRequireObj().CallTracker = function(j$) {
     this.saveArgumentsByValue = function() {
       opts.cloneArgs = true;
     };
+
+    this.unverifiedCount = function() {
+      return calls.reduce((count, call) => count + (call.verified ? 0 : 1), 0);
+    };
   }
 
   return CallTracker;
@@ -4332,7 +4339,9 @@ getJasmineRequireObj().toBePending = function(j$) {
     return {
       compare: function(actual) {
         if (!j$.isPromiseLike(actual)) {
-          throw new Error('Expected toBePending to be called on a promise.');
+          throw new Error(
+            `Expected toBePending to be called on a promise but was on a ${typeof actual}.`
+          );
         }
         const want = {};
         return Promise.race([actual, Promise.resolve(want)]).then(
@@ -4364,7 +4373,9 @@ getJasmineRequireObj().toBeRejected = function(j$) {
     return {
       compare: function(actual) {
         if (!j$.isPromiseLike(actual)) {
-          throw new Error('Expected toBeRejected to be called on a promise.');
+          throw new Error(
+            `Expected toBeRejected to be called on a promise but was on a ${typeof actual}.`
+          );
         }
         return actual.then(
           function() {
@@ -4397,7 +4408,7 @@ getJasmineRequireObj().toBeRejectedWith = function(j$) {
       compare: function(actualPromise, expectedValue) {
         if (!j$.isPromiseLike(actualPromise)) {
           throw new Error(
-            'Expected toBeRejectedWith to be called on a promise.'
+            `Expected toBeRejectedWith to be called on a promise but was on a ${typeof actualPromise}.`
           );
         }
 
@@ -4461,7 +4472,7 @@ getJasmineRequireObj().toBeRejectedWithError = function(j$) {
       compare: function(actualPromise, arg1, arg2) {
         if (!j$.isPromiseLike(actualPromise)) {
           throw new Error(
-            'Expected toBeRejectedWithError to be called on a promise.'
+            `Expected toBeRejectedWithError to be called on a promise but was on a ${typeof actualPromise}.`
           );
         }
 
@@ -4579,7 +4590,9 @@ getJasmineRequireObj().toBeResolved = function(j$) {
     return {
       compare: function(actual) {
         if (!j$.isPromiseLike(actual)) {
-          throw new Error('Expected toBeResolved to be called on a promise.');
+          throw new Error(
+            `Expected toBeResolved to be called on a promise but was on a ${typeof actual}.`
+          );
         }
 
         return actual.then(
@@ -4619,7 +4632,9 @@ getJasmineRequireObj().toBeResolvedTo = function(j$) {
     return {
       compare: function(actualPromise, expectedValue) {
         if (!j$.isPromiseLike(actualPromise)) {
-          throw new Error('Expected toBeResolvedTo to be called on a promise.');
+          throw new Error(
+            `Expected toBeResolvedTo to be called on a promise but was on a ${typeof actualPromise}.`
+          );
         }
 
         function prefix(passed) {
@@ -6010,6 +6025,28 @@ getJasmineRequireObj().toBeNull = function() {
   return toBeNull;
 };
 
+getJasmineRequireObj().toBeNullish = function() {
+  /**
+   * {@link expect} the actual value to be `null` or `undefined`.
+   * @function
+   * @name matchers#toBeNullish
+   * @since 5.6.0
+   * @example
+   * expect(result).toBeNullish():
+   */
+  function toBeNullish() {
+    return {
+      compare: function(actual) {
+        return {
+          pass: null === actual || void 0 === actual
+        };
+      }
+    };
+  }
+
+  return toBeNullish;
+};
+
 getJasmineRequireObj().toBePositiveInfinity = function(j$) {
   /**
    * {@link expect} the actual value to be `Infinity` (infinity).
@@ -6199,6 +6236,8 @@ getJasmineRequireObj().toHaveBeenCalled = function(j$) {
 
         result.pass = actual.calls.any();
 
+        actual.calls.all().forEach(call => (call.verified = true));
+
         result.message = result.pass
           ? 'Expected spy ' + actual.and.identity + ' not to have been called.'
           : 'Expected spy ' + actual.and.identity + ' to have been called.';
@@ -6263,6 +6302,9 @@ getJasmineRequireObj().toHaveBeenCalledBefore = function(j$) {
         result.pass = latest1stSpyCall < first2ndSpyCall;
 
         if (result.pass) {
+          firstSpy.calls.mostRecent().verified = true;
+          latterSpy.calls.first().verified = true;
+
           result.message =
             'Expected spy ' +
             firstSpy.and.identity +
@@ -6319,7 +6361,7 @@ getJasmineRequireObj().toHaveBeenCalledOnceWith = function(j$) {
    * @example
    * expect(mySpy).toHaveBeenCalledOnceWith('foo', 'bar', 2);
    */
-  function toHaveBeenCalledOnceWith(util) {
+  function toHaveBeenCalledOnceWith(matchersUtil) {
     return {
       compare: function() {
         const args = Array.prototype.slice.call(arguments, 0),
@@ -6328,20 +6370,29 @@ getJasmineRequireObj().toHaveBeenCalledOnceWith = function(j$) {
 
         if (!j$.isSpy(actual)) {
           throw new Error(
-            getErrorMsg('Expected a spy, but got ' + util.pp(actual) + '.')
+            getErrorMsg(
+              'Expected a spy, but got ' + matchersUtil.pp(actual) + '.'
+            )
           );
         }
 
         const prettyPrintedCalls = actual.calls
           .allArgs()
           .map(function(argsForCall) {
-            return '  ' + util.pp(argsForCall);
+            return '  ' + matchersUtil.pp(argsForCall);
           });
 
         if (
           actual.calls.count() === 1 &&
-          util.contains(actual.calls.allArgs(), expectedArgs)
+          matchersUtil.contains(actual.calls.allArgs(), expectedArgs)
         ) {
+          const firstIndex = actual.calls
+            .all()
+            .findIndex(call => matchersUtil.equals(call.args, expectedArgs));
+          if (firstIndex > -1) {
+            actual.calls.all()[firstIndex].verified = true;
+          }
+
           return {
             pass: true,
             message:
@@ -6349,7 +6400,7 @@ getJasmineRequireObj().toHaveBeenCalledOnceWith = function(j$) {
               actual.and.identity +
               ' to have been called 0 times, multiple times, or once, but with arguments different from:\n' +
               '  ' +
-              util.pp(expectedArgs) +
+              matchersUtil.pp(expectedArgs) +
               '\n' +
               'But the actual call was:\n' +
               prettyPrintedCalls.join(',\n') +
@@ -6360,7 +6411,7 @@ getJasmineRequireObj().toHaveBeenCalledOnceWith = function(j$) {
         function getDiffs() {
           return actual.calls.allArgs().map(function(argsForCall, callIx) {
             const diffBuilder = new j$.DiffBuilder();
-            util.equals(argsForCall, expectedArgs, diffBuilder);
+            matchersUtil.equals(argsForCall, expectedArgs, diffBuilder);
             return diffBuilder.getMessage();
           });
         }
@@ -6393,7 +6444,7 @@ getJasmineRequireObj().toHaveBeenCalledOnceWith = function(j$) {
             actual.and.identity +
             ' to have been called only once, and with given args:\n' +
             '  ' +
-            util.pp(expectedArgs) +
+            matchersUtil.pp(expectedArgs) +
             '\n' +
             butString()
         };
@@ -6442,23 +6493,35 @@ getJasmineRequireObj().toHaveBeenCalledTimes = function(j$) {
         }
 
         actual = args[0];
-        const calls = actual.calls.count();
+
+        const callsCount = actual.calls.count();
         const timesMessage = expected === 1 ? 'once' : expected + ' times';
-        result.pass = calls === expected;
+
+        result.pass = callsCount === expected;
+
+        if (result.pass) {
+          const allCalls = actual.calls.all();
+          const max = Math.min(expected, callsCount);
+
+          for (let i = 0; i < max; i++) {
+            allCalls[i].verified = true;
+          }
+        }
+
         result.message = result.pass
           ? 'Expected spy ' +
             actual.and.identity +
             ' not to have been called ' +
             timesMessage +
             '. It was called ' +
-            calls +
+            callsCount +
             ' times.'
           : 'Expected spy ' +
             actual.and.identity +
             ' to have been called ' +
             timesMessage +
             '. It was called ' +
-            calls +
+            callsCount +
             ' times.';
         return result;
       }
@@ -6514,6 +6577,11 @@ getJasmineRequireObj().toHaveBeenCalledWith = function(j$) {
         }
 
         if (matchersUtil.contains(actual.calls.allArgs(), expectedArgs)) {
+          actual.calls
+            .all()
+            .filter(call => matchersUtil.equals(call.args, expectedArgs))
+            .forEach(call => (call.verified = true));
+
           result.pass = true;
           result.message = function() {
             return (
@@ -6603,6 +6671,127 @@ getJasmineRequireObj().toHaveClass = function(j$) {
   }
 
   return toHaveClass;
+};
+
+getJasmineRequireObj().toHaveClasses = function(j$) {
+  /**
+   * {@link expect} the actual value to be a DOM element that has the expected classes
+   * @function
+   * @name matchers#toHaveClasses
+   * @since 5.6.0
+   * @param {Object} expected - The class names to test for
+   * @example
+   * const el = document.createElement('div');
+   * el.className = 'foo bar baz';
+   * expect(el).toHaveClasses(['bar', 'baz']);
+   */
+  function toHaveClasses(matchersUtil) {
+    return {
+      compare: function(actual, expected) {
+        if (!isElement(actual)) {
+          throw new Error(matchersUtil.pp(actual) + ' is not a DOM element');
+        }
+
+        return {
+          pass: expected.every(e => actual.classList.contains(e))
+        };
+      }
+    };
+  }
+
+  function isElement(maybeEl) {
+    return (
+      maybeEl && maybeEl.classList && j$.isFunction_(maybeEl.classList.contains)
+    );
+  }
+
+  return toHaveClasses;
+};
+
+getJasmineRequireObj().toHaveNoOtherSpyInteractions = function(j$) {
+  const getErrorMsg = j$.formatErrorMsg(
+    '<toHaveNoOtherSpyInteractions>',
+    'expect(<spyObj>).toHaveNoOtherSpyInteractions()'
+  );
+
+  /**
+   * {@link expect} the actual (a {@link SpyObj}) spies to have not been called except interactions which was already tracked with `toHaveBeenCalled`.
+   * @function
+   * @name matchers#toHaveNoOtherSpyInteractions
+   * @example
+   * expect(mySpyObj).toHaveNoOtherSpyInteractions();
+   * expect(mySpyObj).not.toHaveNoOtherSpyInteractions();
+   */
+  function toHaveNoOtherSpyInteractions(matchersUtil) {
+    return {
+      compare: function(actual) {
+        const result = {};
+
+        if (!j$.isObject_(actual)) {
+          throw new Error(
+            getErrorMsg('Expected an object, but got ' + typeof actual + '.')
+          );
+        }
+
+        if (arguments.length > 1) {
+          throw new Error(getErrorMsg('Does not take arguments'));
+        }
+
+        result.pass = true;
+        let hasSpy = false;
+        const unexpectedCalls = [];
+
+        for (const spy of Object.values(actual)) {
+          if (!j$.isSpy(spy)) {
+            continue;
+          }
+
+          hasSpy = true;
+
+          const unverifiedCalls = spy.calls
+            .all()
+            .filter(call => !call.verified);
+
+          if (unverifiedCalls.length > 0) {
+            result.pass = false;
+          }
+
+          unverifiedCalls.forEach(unverifiedCall => {
+            unexpectedCalls.push([
+              spy.and.identity,
+              matchersUtil.pp(unverifiedCall.args)
+            ]);
+          });
+        }
+
+        if (!hasSpy) {
+          throw new Error(
+            getErrorMsg(
+              'Expected an object with spies, but object has no spies.'
+            )
+          );
+        }
+
+        if (result.pass) {
+          result.message =
+            "Expected a spy object to have other spy interactions but it didn't.";
+        } else {
+          const ppUnexpectedCalls = unexpectedCalls
+            .map(([spyName, args]) => `  ${spyName} called with ${args}`)
+            .join(',\n');
+
+          result.message =
+            'Expected a spy object to have no other spy interactions, but it had the following calls:\n' +
+            ppUnexpectedCalls +
+            '.';
+        }
+
+        return result;
+      }
+    };
+  }
+
+  return toHaveNoOtherSpyInteractions;
 };
 
 getJasmineRequireObj().toHaveSize = function(j$) {
@@ -9183,7 +9372,8 @@ getJasmineRequireObj().Spy = function(j$) {
       const callData = {
         object: context,
         invocationOrder: nextOrder(),
-        args: Array.prototype.slice.apply(args)
+        args: Array.prototype.slice.apply(args),
+        verified: false
       };
 
       callTracker.track(callData);
@@ -11041,5 +11231,5 @@ getJasmineRequireObj().UserContext = function(j$) {
 };
 
 getJasmineRequireObj().version = function() {
-  return '5.5.0';
+  return '5.6.0';
 };
