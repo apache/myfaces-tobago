@@ -25,7 +25,7 @@
           id="#{linkId}"
           label="» #{node.label}"
           outcome="#{node.outcome}"
-          rendered="#{navigationState.showTests or (node.label != 'Test')}"/>
+          rendered="#{navigationState.showTestSection or (node.label != 'Test')}"/>
     </tc:treeNode>
   </tc:tree>
 </f:subview>
