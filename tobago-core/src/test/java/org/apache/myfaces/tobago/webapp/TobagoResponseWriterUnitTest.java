@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.webapp;
 
-import jakarta.faces.render.Renderer;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UIButton;
@@ -38,6 +37,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import jakarta.faces.render.Renderer;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
@@ -52,7 +52,7 @@ public class TobagoResponseWriterUnitTest extends AbstractTobagoTestBase {
   public void setUp() throws Exception {
     super.setUp();
     stringWriter = new StringWriter();
-    writer = new HtmlResponseWriter(stringWriter, "", StandardCharsets.UTF_8, true);
+    writer = new HtmlResponseWriter(stringWriter, "", StandardCharsets.UTF_8);
   }
 
   @Test
@@ -145,7 +145,7 @@ public class TobagoResponseWriterUnitTest extends AbstractTobagoTestBase {
   @Test
   public void testNonUtf8() throws IOException {
     try (TobagoResponseWriter writer1
-             = new HtmlResponseWriter(stringWriter, "", StandardCharsets.ISO_8859_1, true)) {
+             = new HtmlResponseWriter(stringWriter, "", StandardCharsets.ISO_8859_1)) {
       writer1.startElement(HtmlElements.INPUT);
       writer1.writeAttribute(HtmlAttributes.VALUE, "Gutschein über 100 €.", true);
       writer1.writeAttribute(HtmlAttributes.READONLY, true);
@@ -156,38 +156,23 @@ public class TobagoResponseWriterUnitTest extends AbstractTobagoTestBase {
   }
 
   @Test
-  public void testNonPrettyPrint() throws IOException {
+  public void testComment() throws IOException {
     try (TobagoResponseWriter writer1
-             = new HtmlResponseWriter(stringWriter, "", StandardCharsets.UTF_8, false)) {
+             = new HtmlResponseWriter(stringWriter, "", StandardCharsets.UTF_8)) {
       writer1.startElement(HtmlElements.P);
       writer1.writeAttribute(HtmlAttributes.VALUE, "Gutschein", true);
       writer1.writeAttribute(HtmlAttributes.READONLY, true);
       writer1.writeComment("Test");
       writer1.endElement(HtmlElements.P);
     }
-    Assertions.assertEquals("<p value='Gutschein' readonly='readonly'><!--Test--></p>",
+    Assertions.assertEquals("\n<p value='Gutschein' readonly='readonly'><!--Test-->\n</p>",
         stringWriter.toString());
   }
-
-  @Test
-  public void testPrettyPrint() throws IOException {
-    try (TobagoResponseWriter writer1
-             = new HtmlResponseWriter(stringWriter, "", StandardCharsets.UTF_8, true)) {
-      writer1.startElement(HtmlElements.P);
-      writer1.writeAttribute(HtmlAttributes.VALUE, "Gutschein", true);
-      writer1.writeAttribute(HtmlAttributes.READONLY, true);
-      writer1.writeComment("Test");
-      writer1.endElement(HtmlElements.P);
-    }
-    Assertions.assertEquals("\n<p value='Gutschein' readonly='readonly'>\n <!--Test-->\n</p>",
-        stringWriter.toString());
-  }
-
 
   @Test
   public void testCharArray() throws IOException {
     final TobagoResponseWriter xmlResponseWriter
-        = new XmlResponseWriter(stringWriter, "text/xml", StandardCharsets.ISO_8859_1, true);
+        = new XmlResponseWriter(stringWriter, "text/xml", StandardCharsets.ISO_8859_1);
     xmlResponseWriter.writeText("123".toCharArray(), 0, 3);
     Assertions.assertEquals("123", stringWriter.toString());
   }
@@ -243,7 +228,7 @@ public class TobagoResponseWriterUnitTest extends AbstractTobagoTestBase {
     c.getPassThroughAttributes().put(Renderer.PASSTHROUGH_RENDERER_LOCALNAME_KEY, HtmlElements.TEXTAREA.getValue());
     c.encodeAll(facesContext);
     Assertions.assertEquals("\n<tobago-in id='id' class='tobago-auto-spacing'>\n"
-        + " <textarea type='text' name='id' id='id::field' class='form-control' test='1'></textarea>\n"
+        + "<textarea type='text' name='id' id='id::field' class='form-control' test='1'></textarea>\n"
         + "</tobago-in>", getLastWritten());
 
   }
@@ -256,7 +241,7 @@ public class TobagoResponseWriterUnitTest extends AbstractTobagoTestBase {
     c.getPassThroughAttributes().put("spellcheck", true);
     c.encodeAll(facesContext);
     Assertions.assertEquals("\n<tobago-textarea id='id' class='tobago-auto-spacing'>\n"
-        + " <textarea name='id' id='id::field' class='form-control' spellcheck></textarea>\n"
+        + "<textarea name='id' id='id::field' class='form-control' spellcheck></textarea>\n"
         + "</tobago-textarea>", getLastWritten());
   }
 
@@ -268,7 +253,7 @@ public class TobagoResponseWriterUnitTest extends AbstractTobagoTestBase {
     c.getPassThroughAttributes().put("spellcheck", true);
     c.encodeAll(facesContext);
     Assertions.assertEquals("\n<tobago-image id='id'>\n"
-        + " <img alt='' spellcheck>\n"
+        + "<img alt='' spellcheck>\n"
         + "</tobago-image>", getLastWritten());
   }
 
