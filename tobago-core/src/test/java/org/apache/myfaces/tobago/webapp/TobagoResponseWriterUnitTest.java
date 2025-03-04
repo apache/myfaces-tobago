@@ -165,7 +165,7 @@ public class TobagoResponseWriterUnitTest extends AbstractTobagoTestBase {
       writer1.writeComment("Test");
       writer1.endElement(HtmlElements.P);
     }
-    Assertions.assertEquals("\n<p value='Gutschein' readonly='readonly'><!--Test-->\n</p>",
+    Assertions.assertEquals("\n<p value='Gutschein' readonly='readonly'><!--Test--></p>",
         stringWriter.toString());
   }
 
@@ -228,7 +228,7 @@ public class TobagoResponseWriterUnitTest extends AbstractTobagoTestBase {
     c.getPassThroughAttributes().put(Renderer.PASSTHROUGH_RENDERER_LOCALNAME_KEY, HtmlElements.TEXTAREA.getValue());
     c.encodeAll(facesContext);
     Assertions.assertEquals("\n<tobago-in id='id' class='tobago-auto-spacing'>\n"
-        + "<textarea type='text' name='id' id='id::field' class='form-control' test='1'></textarea>\n"
+        + "<textarea type='text' name='id' id='id::field' class='form-control' test='1'></textarea>"
         + "</tobago-in>", getLastWritten());
 
   }
@@ -241,7 +241,7 @@ public class TobagoResponseWriterUnitTest extends AbstractTobagoTestBase {
     c.getPassThroughAttributes().put("spellcheck", true);
     c.encodeAll(facesContext);
     Assertions.assertEquals("\n<tobago-textarea id='id' class='tobago-auto-spacing'>\n"
-        + "<textarea name='id' id='id::field' class='form-control' spellcheck></textarea>\n"
+        + "<textarea name='id' id='id::field' class='form-control' spellcheck></textarea>"
         + "</tobago-textarea>", getLastWritten());
   }
 
@@ -253,7 +253,7 @@ public class TobagoResponseWriterUnitTest extends AbstractTobagoTestBase {
     c.getPassThroughAttributes().put("spellcheck", true);
     c.encodeAll(facesContext);
     Assertions.assertEquals("\n<tobago-image id='id'>\n"
-        + "<img alt='' spellcheck>\n"
+        + "<img alt='' spellcheck>"
         + "</tobago-image>", getLastWritten());
   }
 

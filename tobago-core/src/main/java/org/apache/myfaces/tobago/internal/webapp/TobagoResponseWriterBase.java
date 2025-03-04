@@ -49,7 +49,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
   protected static final char[] XML_VERSION_1_0_ENCODING_UTF_8_CHARS = XML_VERSION_1_0_ENCODING_UTF_8.toCharArray();
 
-  private static final boolean COMPATIBLE = true;
+  private static final boolean COMPATIBLE = false;
 
   private int level = 0;
 
