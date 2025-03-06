@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-theme</artifactId>
-    <version>5.15.2-SNAPSHOT</version>
+    <version>5.15.1</version>
   </parent>
   <artifactId>tobago-theme-charlotteville</artifactId>
   <name>Tobago Theme Charlotteville</name>
