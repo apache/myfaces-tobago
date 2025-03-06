@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-example</artifactId>
-    <version>5.15.1-SNAPSHOT</version>
+    <version>5.15.1</version>
   </parent>
   <artifactId>tobago-example-blank</artifactId>
   <packaging>${app.packaging}</packaging>
