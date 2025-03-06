@@ -24,12 +24,16 @@ it("menu store must be available", function (done) {
   const forceNpeFn = elementByIdFn("page:mainForm:forceNpeButton");
   const menuStoreFn = querySelectorFn(".tobago-page-menuStore");
 
-  const timestampValue = timestampFn().textContent;
+  let timestampValue = timestampFn().textContent;
 
   let test = new JasmineTestTool(done);
   test.setup(() => menuStoreFn() !== null, null, "click", submitFn);
   test.do(() => expect(menuStoreFn()).not.toBeNull());
   test.event("click", forceNpeFn, () => timestampFn().textContent !== timestampValue);
   test.do(() => expect(menuStoreFn()).not.toBeNull());
+
+  // click submit to unbreak the page -> footer must be rendered
+  test.do(() => timestampValue = timestampFn().textContent);
+  test.event("click", submitFn, () => timestampFn().textContent !== timestampValue);
   test.start();
 });
