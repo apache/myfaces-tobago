@@ -92,6 +92,9 @@ public class SheetState implements Serializable, ScrollPositionState {
     this.selectedRows = selectedRows;
   }
 
+  /**
+   * @deprecated Please use {@link #getSortedColumnList()}.get(...).getId()
+   */
   @Deprecated(since = "5.3.0", forRemoval = true)
   public String getSortedColumnId() {
     if (sortedColumnList.isEmpty()) {
@@ -101,6 +104,9 @@ public class SheetState implements Serializable, ScrollPositionState {
     }
   }
 
+  /**
+   * @deprecated Please use {@link #getSortedColumnList()}.get(...).setId()
+   */
   @Deprecated(since = "5.3.0", forRemoval = true)
   public void setSortedColumnId(final String sortedColumnId) {
     if (!FacesContext.getCurrentInstance().isProjectStage(ProjectStage.Production)) {
@@ -115,6 +121,9 @@ public class SheetState implements Serializable, ScrollPositionState {
     }
   }
 
+  /**
+   * @deprecated Please use {@link #getSortedColumnList()}.get(...).isAscending()
+   */
   @Deprecated(since = "5.3.0", forRemoval = true)
   public boolean isAscending() {
     if (sortedColumnList.isEmpty()) {
@@ -124,6 +133,9 @@ public class SheetState implements Serializable, ScrollPositionState {
     }
   }
 
+  /**
+   * @deprecated Please use {@link #getSortedColumnList()}.get(...).setAscending()
+   */
   @Deprecated(since = "5.3.0", forRemoval = true)
   public void setAscending(final boolean ascending) {
     if (!FacesContext.getCurrentInstance().isProjectStage(ProjectStage.Production)) {
