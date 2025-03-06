@@ -1,6 +1,6 @@
 {
   "name": "myfaces-tobago",
-  "version": "5.15.1",
+  "version": "5.15.2-SNAPSHOT",
   "description": "The goal of Tobago is to provide the community with a well designed set of user interface components based on JSF and run on MyFaces.",
   "repository": {
     "type": "git",
