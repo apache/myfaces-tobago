@@ -23,7 +23,7 @@
     <version>5.15.2-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-example-blank</artifactId>
-  <packaging>${app.packaging}</packaging>
+  <packaging>war</packaging>
   <name>Tobago Example Blank</name>
   <description>A minimal Tobago application.</description>
 

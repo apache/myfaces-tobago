@@ -26,11 +26,6 @@
   <name>Tobago Examples</name>
   <artifactId>tobago-example</artifactId>
 
-  <properties>
-    <app.packaging>war</app.packaging>
-    <quarkus.version>1.13.7.Final</quarkus.version>
-  </properties>
-
   <modules>
     <module>tobago-example-blank</module>
     <module>tobago-example-demo</module>
@@ -221,118 +216,6 @@
         <!-- [END] -->
       </dependencies>
     </profile>
-
-    <profile>
-      <id>quarkus</id>
-      <properties>
-        <app.packaging>jar</app.packaging>
-      </properties>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-maven-plugin</artifactId>
-            <version>${quarkus.version}</version>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>build</goal>
-                </goals>
-              </execution>
-            </executions>
-            <configuration>
-              <source>${maven.compile.source}</source>
-              <target>${maven.compile.target}</target>
-            </configuration>
-          </plugin>
-          <plugin>
-            <artifactId>maven-resources-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>copy-web-pages</id>
-                <phase>compile</phase>
-                <goals>
-                  <goal>copy-resources</goal>
-                </goals>
-                <configuration>
-                  <outputDirectory>${project.build.outputDirectory}/META-INF/resources</outputDirectory>
-                  <resources>
-                    <resource>
-                      <directory>src/main/webapp</directory>
-                      <excludes>
-                        <exclude>WEB-INF/**</exclude>
-                      </excludes>
-                    </resource>
-                  </resources>
-                </configuration>
-              </execution>
-              <execution>
-                <id>copy-web-configuration</id>
-                <phase>compile</phase>
-                <goals>
-                  <goal>copy-resources</goal>
-                </goals>
-                <configuration>
-                  <outputDirectory>${project.build.outputDirectory}/META-INF</outputDirectory>
-                  <resources>
-                    <resource>
-                      <directory>src/main/webapp/WEB-INF</directory>
-                    </resource>
-                  </resources>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-      <dependencyManagement>
-        <dependencies>
-          <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-bom</artifactId>
-            <version>${quarkus.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-          </dependency>
-        </dependencies>
-      </dependencyManagement>
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.myfaces.core</groupId>
-          <artifactId>myfaces-api</artifactId>
-          <version>${myfaces23x.version}</version>
-          <scope>compile</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.myfaces.core</groupId>
-          <artifactId>myfaces-impl</artifactId>
-          <version>${myfaces23x.version}</version>
-          <scope>runtime</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.myfaces.core.extensions.quarkus</groupId>
-          <artifactId>myfaces-quarkus</artifactId>
-          <version>${myfaces23x.version}</version>
-        </dependency>
-        <!-- this enables the development mode -->
-        <dependency>
-          <groupId>org.apache.myfaces.tobago</groupId>
-          <artifactId>tobago-config-dev</artifactId>
-          <version>${project.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>ch.qos.logback</groupId>
-          <artifactId>logback-classic</artifactId>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>ch.qos.logback</groupId>
-          <artifactId>logback-core</artifactId>
-          <scope>provided</scope>
-        </dependency>
-      </dependencies>
-    </profile>
-
     <profile>
       <id>jetty</id>
       <build>

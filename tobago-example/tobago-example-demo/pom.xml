@@ -23,9 +23,7 @@
     <version>5.15.2-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-example-demo</artifactId>
-  <packaging>${app.packaging}</packaging>
-<!--  XXX Must use 'jar' for 'mvn quarkus:dev'. Can't be set via variable!-->
-<!--  <packaging>jar</packaging>-->
+  <packaging>war</packaging>
   <name>Tobago Example Demo</name>
   <description>Demonstration and documentation application.</description>
 
