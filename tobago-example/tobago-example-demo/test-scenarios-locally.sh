@@ -19,7 +19,7 @@
 # JDK
 # ProductionMode
 # Servers: Jetty, TomEE
-# todo: Springboot, Tomcat, Quarkus, Liberty, ...
+# todo: Springboot, Tomcat, Liberty, ...
 
 WORK=test-scenarios-locally/$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 

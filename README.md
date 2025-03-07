@@ -112,15 +112,6 @@ docker run -p 8080:8080 myfaces/tobago-example-demo:latest
 
 Browse to the local URL http://localhost:8080/
 
-***Quarkus (currently not working!)***
-
-```
-mvn clean install -Pquarkus
-java -jar ./target/tobago-example-demo-runner.jar
-```
-
-Browse to the local URL http://localhost:8080/
-
 ***Spring Boot***
 
 Switch to **different** subdirectory and call Maven to run the demo:
