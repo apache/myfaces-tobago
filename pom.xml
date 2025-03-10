@@ -36,7 +36,7 @@
   <properties>
     <frontend.skip>true</frontend.skip>
     <!-- old main branch of MyFaces -->
-    <myfaces23.version>2.3.10</myfaces23.version>
+    <myfaces23.version>2.3.11</myfaces23.version>
     <!-- new main branch of MyFaces "next" -->
     <myfaces23x.version>2.3-next-M7</myfaces23x.version>
     <myfaces-test23.version>1.0.8</myfaces-test23.version>
