@@ -77,7 +77,7 @@
       <tc:panel>
         <tc:style customClass="#{navigationState.viewSource ? '' : 'container-lg'}"/>
 
-        <tc:segmentLayout  large="2seg 10seg">
+        <tc:segmentLayout  large="2seg 8seg 2seg">
           <f:event type="preRenderView" listener="#{navigationState.sync}"/>
           <tc:panel>
             <tc:style customClass="d-lg-block hide-navigation"/>
@@ -107,6 +107,12 @@
               </demo-highlight>
             </tc:panel>
           </tc:splitLayout>
+          <tc:panel>
+            <demo-sidebar id="sidebar"
+                          class="offcanvas-lg offcanvas-start"
+                          tabindex="-1">
+            </demo-sidebar>
+          </tc:panel>
         </tc:segmentLayout>
       </tc:panel>
 

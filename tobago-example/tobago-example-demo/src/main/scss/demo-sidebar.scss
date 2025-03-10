@@ -1,0 +1,91 @@
+// Variables
+$sidebar-text-color: rgba(0, 0, 0, 0.65);
+$sidebar-text-hover: rgba(0, 0, 0, 0.85);
+$sidebar-active-color: #0d6efd;
+$sidebar-hover-bg: rgba(0, 0, 0, 0.05);
+$scrollbar-thumb-color: rgba(0, 0, 0, 0.2);
+$scrollbar-track-color: rgba(0, 0, 0, 0.05);
+$sidebar-border-color: #dee2e6;
+
+// Force the sidebar to be fixed
+demo-sidebar {
+  display: block;
+  position: fixed;
+  max-height: calc(100vh - 90px);
+  overflow-y: auto;
+  z-index: 1000;
+  background-color: #fff;
+  width: 250px;
+  padding: 1rem;
+  border-left: 1px solid $sidebar-border-color;
+}
+
+// Sidebar component styles
+.sidebar {
+  &-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    padding-left: 0.25rem;
+  }
+
+  &-nav {
+    padding-left: 0;
+  }
+
+  &-link {
+    color: $sidebar-text-color;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    text-decoration: none;
+    border-radius: 5px;
+
+    &:hover {
+      color: $sidebar-text-hover;
+      background-color: $sidebar-hover-bg;
+    }
+
+    &.active {
+      color: $sidebar-active-color;
+      font-weight: 400;
+    }
+  }
+
+  &-child-items {
+    padding-left: 1.5rem;
+  }
+
+  &-tree {
+    padding-bottom: 1rem;
+  }
+}
+
+// Scrollbar styling for the sidebar
+demo-sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: $scrollbar-thumb-color $scrollbar-track-color;
+
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $scrollbar-thumb-color;
+    border-radius: 0.25rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: $scrollbar-track-color;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 992px) {
+  demo-sidebar {
+    position: static;
+    width: 100%;
+    max-height: none;
+    box-shadow: none;
+    margin-bottom: 1rem;
+  }
+}
