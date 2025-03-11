@@ -17,7 +17,7 @@
 
 import {elementByIdFn, querySelectorAllFn} from "/script/tobago-test.js";
 
-it("Check DOM of segement layout", function () {
+it("Check DOM of segment layout", function () {
   const segmentLayout = elementByIdFn("page:mainForm:segmentLayout");
   const segLayoutIn = elementByIdFn("page:mainForm:segLayoutIn:in");
   const segLayoutOut = elementByIdFn("page:mainForm:segLayoutOut:out");
