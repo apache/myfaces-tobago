@@ -12331,7 +12331,7 @@ tobago-flex-layout > tobago-flex-layout {
 }
 .tobago-label-container > .form-check {
   /* .form-check has a margin-bottom which will be normally ignored, except in a label layout
-  this results in different hights for form-check components with label and itemLabel */
+  this results in different heights for form-check components with label and itemLabel */
   margin-bottom: 0;
 }
 
