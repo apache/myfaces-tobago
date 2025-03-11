@@ -53,70 +53,70 @@
     &lt;tc:out value="Information">
       &lt;tc:gridLayoutConstraint columnSpan="2"/>
     ...</demo-highlight>
-    <tc:sheet value="#{sheetController.solarList}" var="luminary" rows="11"
+    <tc:sheet id="sheet" value="#{sheetController.solarList}" var="luminary" rows="11"
               columns="3fr 2fr 30px 2fr 2fr 2fr 2fr 2fr 2fr" markup="bordered">
       <f:facet name="header">
-        <tc:panel>
-          <tc:out value="Name">
+        <tc:panel id="panel">
+          <tc:out id="outName" value="Name">
             <tc:gridLayoutConstraint rowSpan="3"/>
           </tc:out>
-          <tc:out value="Information">
+          <tc:out id="outInformation" value="Information">
             <tc:gridLayoutConstraint columnSpan="2"/>
           </tc:out>
-          <tc:out value="Data">
+          <tc:out id="outData" value="Data">
             <tc:gridLayoutConstraint columnSpan="4"/>
           </tc:out>
-          <tc:out value="Discovery">
+          <tc:out id="outDiscovery" value="Discovery">
             <tc:gridLayoutConstraint columnSpan="2"/>
           </tc:out>
 
-          <tc:out value="Orbit">
+          <tc:out  id="outOrbit" value="Orbit">
             <tc:gridLayoutConstraint columnSpan="3"/>
           </tc:out>
-          <tc:out value="Orb">
+          <tc:out  id="outOrb" value="Orb">
             <tc:gridLayoutConstraint columnSpan="3"/>
           </tc:out>
-          <tc:out value="Name">
+          <tc:out  id="outName2" value="Name">
             <tc:gridLayoutConstraint rowSpan="2"/>
           </tc:out>
-          <tc:out value="Year">
+          <tc:out id="outYear"  value="Year">
             <tc:gridLayoutConstraint rowSpan="2"/>
           </tc:out>
 
-          <tc:out value="of"/>
-          <tc:out value="#"/>
-          <tc:out value="Distance [1000 km]"/>
-          <tc:out value="Period [days]"/>
-          <tc:out value="Inclination [°]"/>
-          <tc:out value="Eccentricity"/>
+          <tc:out  id="outOf" value="of"/>
+          <tc:out  id="outHash" value="#"/>
+          <tc:out  id="outDistance" value="Distance [1000 km]"/>
+          <tc:out  id="outPeriod" value="Period [days]"/>
+          <tc:out  id="outInclination" value="Inclination [°]"/>
+          <tc:out  id="outEccentricity" value="Eccentricity"/>
         </tc:panel>
       </f:facet>
 
-      <tc:column id="c_name" align="center" sortable="true">
+      <tc:column id="columnName" align="center" sortable="true">
         <tc:out value="#{luminary.name}" labelLayout="skip"/>
       </tc:column>
-      <tc:column id="c_orbit" sortable="true">
+      <tc:column id="columnOrbit" sortable="true">
         <tc:out value="#{luminary.orbit}" labelLayout="skip"/>
       </tc:column>
-      <tc:column  id="c_number" align="center">
+      <tc:column  id="columnNumber" align="center">
         <tc:out value="#{luminary.number}" labelLayout="skip"/>
       </tc:column>
-      <tc:column align="right" sortable="true">
+      <tc:column id="columnDistance" align="right" sortable="true">
         <tc:out value="#{luminary.distance}" labelLayout="skip"/>
       </tc:column>
-      <tc:column align="right" sortable="true">
+      <tc:column id="columnPeriod" align="right" sortable="true">
         <tc:out value="#{luminary.period}" labelLayout="skip"/>
       </tc:column>
-      <tc:column align="right" sortable="true">
+      <tc:column id="columnInclination"  align="right" sortable="true">
         <tc:out value="#{luminary.incl}" labelLayout="skip"/>
       </tc:column>
-      <tc:column align="right" sortable="true">
+      <tc:column  id="columnEccentricity" align="right" sortable="true">
         <tc:out value="#{luminary.eccen}" labelLayout="skip"/>
       </tc:column>
-      <tc:column sortable="true">
+      <tc:column  id="columnDiscoverer" sortable="true">
         <tc:out value="#{luminary.discoverer}" labelLayout="skip"/>
       </tc:column>
-      <tc:column align="center" sortable="true">
+      <tc:column  id="columnYear" align="center" sortable="true">
         <tc:out value="#{luminary.discoverYear}" labelLayout="skip"/>
       </tc:column>
     </tc:sheet>
