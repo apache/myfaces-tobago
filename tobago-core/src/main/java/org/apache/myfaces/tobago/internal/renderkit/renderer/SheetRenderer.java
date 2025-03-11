@@ -763,6 +763,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
           final Cell cell = grid.getCell(j - offset, i);
           if (cell instanceof OriginCell) {
             writer.startElement(HtmlElements.TH);
+            writer.writeIdAttribute(column.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + i);
             if (cell.getColumnSpan() > 1) {
               writer.writeAttribute(HtmlAttributes.COLSPAN, cell.getColumnSpan());
             }
