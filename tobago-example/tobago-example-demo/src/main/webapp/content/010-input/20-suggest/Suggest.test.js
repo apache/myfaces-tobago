@@ -20,14 +20,14 @@ import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("Basics: 'M'", function (done) {
   const inputFn = elementByIdFn("page:mainForm:inBasic::field");
-  const resultId = inputFn().getAttribute("aria-owns");
-  const resultListFn = querySelectorAllFn("#" + resultId + " .autocomplete-result");
+  const resultId = inputFn().getAttribute("aria-owns").replaceAll(":", "\\:");
+  const resultListFn = querySelectorAllFn("#" + resultId + " .dropdown-item");
 
   const test = new JasmineTestTool(done);
   test.setup(() => resultListFn().length !== 10,
-      () => inputFn().value = "", "focus", inputFn);
+      () => inputFn().value = "", "input", inputFn);
   test.do(() => inputFn().value = "M");
-  test.event("focus", inputFn, () => resultListFn().length === 10);
+  test.event("input", inputFn, () => resultListFn().length === 10);
   test.do(() => expect(resultListFn().length).toBe(10));
   test.do(() => expect(resultListFn()[0].textContent).toBe("Mercury"));
   test.do(() => expect(resultListFn()[1].textContent).toBe("Mars"));
@@ -45,14 +45,14 @@ it("Basics: 'M'", function (done) {
 
 it("Basics: 'Ma'", function (done) {
   const inputFn = elementByIdFn("page:mainForm:inBasic::field");
-  const resultId = inputFn().getAttribute("aria-owns");
-  const resultListFn = querySelectorAllFn("#" + resultId + " .autocomplete-result");
+  const resultId = inputFn().getAttribute("aria-owns").replaceAll(":", "\\:");
+  const resultListFn = querySelectorAllFn("#" + resultId + " .dropdown-item");
 
   const test = new JasmineTestTool(done);
   test.setup(() => resultListFn().length !== 4,
-      () => inputFn().value = "", "focus", inputFn);
+      () => inputFn().value = "", "input", inputFn);
   test.do(() => inputFn().value = "Ma");
-  test.event("focus", inputFn, () => resultListFn().length === 4);
+  test.event("input", inputFn, () => resultListFn().length === 4);
   test.do(() => expect(resultListFn().length).toBe(4));
   test.do(() => expect(resultListFn()[0].textContent).toBe("Mars"));
   test.do(() => expect(resultListFn()[1].textContent).toBe("Amalthea"));
@@ -64,14 +64,14 @@ it("Basics: 'Ma'", function (done) {
 
 it("Basics: 'Mar'", function (done) {
   const inputFn = elementByIdFn("page:mainForm:inBasic::field");
-  const resultId = inputFn().getAttribute("aria-owns");
-  const resultListFn = querySelectorAllFn("#" + resultId + " .autocomplete-result");
+  const resultId = inputFn().getAttribute("aria-owns").replaceAll(":", "\\:");
+  const resultListFn = querySelectorAllFn("#" + resultId + " .dropdown-item");
 
   const test = new JasmineTestTool(done);
   test.setup(() => resultListFn().length !== 1,
-      () => inputFn().value = "", "focus", inputFn);
+      () => inputFn().value = "", "input", inputFn);
   test.do(() => inputFn().value = "Mar");
-  test.event("focus", inputFn, () => resultListFn().length === 1);
+  test.event("input", inputFn, () => resultListFn().length === 1);
   test.do(() => expect(resultListFn().length).toBe(1));
   test.do(() => expect(resultListFn()[0].textContent).toBe("Mars"));
   test.event("blur", inputFn, () => resultListFn().length === 0);
@@ -80,14 +80,14 @@ it("Basics: 'Mar'", function (done) {
 
 it("Basics: 'Mars'", function (done) {
   const inputFn = elementByIdFn("page:mainForm:inBasic::field");
-  const resultId = inputFn().getAttribute("aria-owns");
-  const resultListFn = querySelectorAllFn("#" + resultId + " .autocomplete-result");
+  const resultId = inputFn().getAttribute("aria-owns").replaceAll(":", "\\:");
+  const resultListFn = querySelectorAllFn("#" + resultId + " .dropdown-item");
 
   const test = new JasmineTestTool(done);
   test.setup(() => resultListFn().length !== 1,
-      () => inputFn().value = "", "focus", inputFn);
+      () => inputFn().value = "", "input", inputFn);
   test.do(() => inputFn().value = "Mars");
-  test.event("focus", inputFn, () => resultListFn().length === 1);
+  test.event("input", inputFn, () => resultListFn().length === 1);
   test.do(() => expect(resultListFn().length).toBe(1));
   test.do(() => expect(resultListFn()[0].textContent).toBe("Mars"));
   test.event("blur", inputFn, () => resultListFn().length === 0);
@@ -96,15 +96,15 @@ it("Basics: 'Mars'", function (done) {
 
 it("Basics: Add 'eus' and click first entry.", function (done) {
   const inputFn = elementByIdFn("page:mainForm:inBasic::field");
-  const resultId = inputFn().getAttribute("aria-owns");
-  const resultListFn = querySelectorAllFn("#" + resultId + " .autocomplete-result");
-  const firstResult = querySelectorFn("#" + resultId + " .autocomplete-result[data-result-index='0']");
+  const resultId = inputFn().getAttribute("aria-owns").replaceAll(":", "\\:");
+  const resultListFn = querySelectorAllFn("#" + resultId + " .dropdown-item");
+  const firstResult = querySelectorFn("#" + resultId + " [data-result-index='0'] > .dropdown-item");
 
   const test = new JasmineTestTool(done);
   test.setup(() => resultListFn().length !== 3,
-      () => inputFn().value = "", "focus", inputFn);
+      () => inputFn().value = "", "input", inputFn);
   test.do(() => inputFn().value = "eus");
-  test.event("focus", inputFn, () => resultListFn().length === 3);
+  test.event("input", inputFn, () => resultListFn().length === 3);
   test.do(() => expect(resultListFn().length).toBe(3));
   test.do(() => expect(resultListFn()[0].textContent).toBe("Prometheus"));
   test.do(() => expect(resultListFn()[1].textContent).toBe("Epimetheus"));
@@ -116,28 +116,28 @@ it("Basics: Add 'eus' and click first entry.", function (done) {
 
 it("Minimum Characters: 'C'", function (done) {
   const inputFn = elementByIdFn("page:mainForm:minimumCharacters::field");
-  const resultId = inputFn().getAttribute("aria-owns");
-  const resultListFn = querySelectorAllFn("#" + resultId + " .autocomplete-result");
+  const resultId = inputFn().getAttribute("aria-owns").replaceAll(":", "\\:");
+  const resultListFn = querySelectorAllFn("#" + resultId + " .dropdown-item");
 
   const test = new JasmineTestTool(done);
   test.setup(() => resultListFn().length !== 0,
-      () => inputFn().value = "Ear", "focus", inputFn);
+      () => inputFn().value = "Ear", "input", inputFn);
   test.do(() => inputFn().value = "C");
-  test.event("focus", inputFn, () => resultListFn().length === 0);
+  test.event("input", inputFn, () => resultListFn().length === 0);
   test.do(() => expect(resultListFn().length).toBe(0));
   test.start();
 });
 
 it("Minimum Characters: 'Ca'", function (done) {
   const inputFn = elementByIdFn("page:mainForm:minimumCharacters::field");
-  const resultId = inputFn().getAttribute("aria-owns");
-  const resultListFn = querySelectorAllFn("#" + resultId + " .autocomplete-result");
+  const resultId = inputFn().getAttribute("aria-owns").replaceAll(":", "\\:");
+  const resultListFn = querySelectorAllFn("#" + resultId + " .dropdown-item");
 
   const test = new JasmineTestTool(done);
   test.setup(() => resultListFn().length !== 7,
-      () => inputFn().value = "Ear", "focus", inputFn);
+      () => inputFn().value = "Ear", "input", inputFn);
   test.do(() => inputFn().value = "Ca");
-  test.event("focus", inputFn, () => resultListFn().length === 7);
+  test.event("input", inputFn, () => resultListFn().length === 7);
   test.do(() => expect(resultListFn().length).toBe(7));
   test.do(() => expect(resultListFn()[0].textContent).toBe("Callisto"));
   test.do(() => expect(resultListFn()[1].textContent).toBe("Carme"));
@@ -152,12 +152,12 @@ it("Minimum Characters: 'Ca'", function (done) {
 
 it("Minimum Characters: Zero", function (done) {
   const inputFn = elementByIdFn("page:mainForm:minimumCharacters0::field");
-  const resultId = inputFn().getAttribute("aria-owns");
-  const resultListFn = querySelectorAllFn("#" + resultId + " .autocomplete-result");
+  const resultId = inputFn().getAttribute("aria-owns").replaceAll(":", "\\:");
+  const resultListFn = querySelectorAllFn("#" + resultId + " .dropdown-item");
 
   const test = new JasmineTestTool(done);
   test.setup(() => resultListFn().length === 0, () => inputFn().value = "", "blur", inputFn);
-  test.event("focus", inputFn, () => resultListFn().length > 0);
+  test.event("input", inputFn, () => resultListFn().length > 0);
   test.do(() => expect(resultListFn().length).toBeGreaterThan(0));
   test.event("blur", inputFn, () => resultListFn().length === 0);
   test.start();
@@ -165,14 +165,14 @@ it("Minimum Characters: Zero", function (done) {
 
 it("Client side: 'Ju'", function (done) {
   const inputFn = elementByIdFn("page:mainForm:inClient::field");
-  const resultId = inputFn().getAttribute("aria-owns");
-  const resultListFn = querySelectorAllFn("#" + resultId + " .autocomplete-result");
+  const resultId = inputFn().getAttribute("aria-owns").replaceAll(":", "\\:");
+  const resultListFn = querySelectorAllFn("#" + resultId + " .dropdown-item");
 
   const test = new JasmineTestTool(done);
   test.setup(() => resultListFn().length !== 2,
-      () => inputFn().value = "", "focus", inputFn);
+      () => inputFn().value = "", "input", inputFn);
   test.do(() => inputFn().value = "Ju");
-  test.event("focus", inputFn, () => resultListFn().length === 2);
+  test.event("input", inputFn, () => resultListFn().length === 2);
   test.do(() => expect(resultListFn().length).toBe(2));
   test.do(() => expect(resultListFn()[0].textContent).toBe("Jupiter"));
   test.do(() => expect(resultListFn()[1].textContent).toBe("Juliet"));
@@ -182,14 +182,14 @@ it("Client side: 'Ju'", function (done) {
 
 it("Client side - Filter All: 'me'", function (done) {
   const inputFn = elementByIdFn("page:mainForm:inClientFilterAll::field");
-  const resultId = inputFn().getAttribute("aria-owns");
-  const resultListFn = querySelectorAllFn("#" + resultId + " .autocomplete-result");
+  const resultId = inputFn().getAttribute("aria-owns").replaceAll(":", "\\:");
+  const resultListFn = querySelectorAllFn("#" + resultId + " .dropdown-item");
 
   const test = new JasmineTestTool(done);
   test.setup(() => resultListFn().length !== 88,
-      () => inputFn().value = "", "focus", inputFn);
+      () => inputFn().value = "", "input", inputFn);
   test.do(() => inputFn().value = "me");
-  test.event("focus", inputFn, () => resultListFn().length === 88);
+  test.event("input", inputFn, () => resultListFn().length === 88);
   test.do(() => expect(resultListFn().length).toBe(88));
   test.do(() => expect(resultListFn()[0].textContent).toBe("Sun"));
   test.do(() => expect(resultListFn()[1].textContent).toBe("Mercury"));
@@ -285,14 +285,14 @@ it("Client side - Filter All: 'me'", function (done) {
 
 it("Client side - Filter Prefix: 'me'", function (done) {
   const inputFn = elementByIdFn("page:mainForm:inClientFilterPrefix::field");
-  const resultId = inputFn().getAttribute("aria-owns");
-  const resultListFn = querySelectorAllFn("#" + resultId + " .autocomplete-result");
+  const resultId = inputFn().getAttribute("aria-owns").replaceAll(":", "\\:");
+  const resultListFn = querySelectorAllFn("#" + resultId + " .dropdown-item");
 
   const test = new JasmineTestTool(done);
   test.setup(() => resultListFn().length !== 3,
-      () => inputFn().value = "", "focus", inputFn);
+      () => inputFn().value = "", "input", inputFn);
   test.do(() => inputFn().value = "me");
-  test.event("focus", inputFn, () => resultListFn().length === 3);
+  test.event("input", inputFn, () => resultListFn().length === 3);
   test.do(() => expect(resultListFn().length).toBe(3));
   test.do(() => expect(resultListFn()[0].textContent).toBe("Mercury"));
   test.do(() => expect(resultListFn()[1].textContent).toBe("Metis"));
@@ -303,14 +303,14 @@ it("Client side - Filter Prefix: 'me'", function (done) {
 
 it("Client side - Filter Contains: 'me'", function (done) {
   const inputFn = elementByIdFn("page:mainForm:inClientFilterContains::field");
-  const resultId = inputFn().getAttribute("aria-owns");
-  const resultListFn = querySelectorAllFn("#" + resultId + " .autocomplete-result");
+  const resultId = inputFn().getAttribute("aria-owns").replaceAll(":", "\\:");
+  const resultListFn = querySelectorAllFn("#" + resultId + " .dropdown-item");
 
   const test = new JasmineTestTool(done);
   test.setup(() => resultListFn().length !== 8,
-      () => inputFn().value = "", "focus", inputFn);
+      () => inputFn().value = "", "input", inputFn);
   test.do(() => inputFn().value = "me");
-  test.event("focus", inputFn, () => resultListFn().length === 8);
+  test.event("input", inputFn, () => resultListFn().length === 8);
   test.do(() => expect(resultListFn().length).toBe(8));
   test.do(() => expect(resultListFn()[0].textContent).toBe("Mercury"));
   test.do(() => expect(resultListFn()[1].textContent).toBe("Metis"));

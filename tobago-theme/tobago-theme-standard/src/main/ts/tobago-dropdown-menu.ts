@@ -212,4 +212,8 @@ export class DropdownMenu {
     const root = document.getRootNode() as ShadowRoot | Document;
     return root.querySelector("tobago-footer.fixed-bottom");
   }
+
+  get visible(): boolean {
+    return this.dropdownMenuElement.classList.contains(Css.SHOW);
+  }
 }
