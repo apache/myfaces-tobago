@@ -15,221 +15,321 @@
  * limitations under the License.
  */
 
-import Autocomplete from "@trevoreyre/autocomplete-js";
 import {SuggestFilter} from "./tobago-suggest-filter";
-import {MenuStore} from "./tobago-menu-store";
 import {Css} from "./tobago-css";
+import {DropdownMenu, DropdownMenuAlignment} from "./tobago-dropdown-menu";
+import {Key} from "./tobago-key";
+import {ClientBehaviors} from "./tobago-client-behaviors";
 
 export class Suggest {
-
-  autocomplete: Autocomplete;
-  tobagoIn: HTMLElement;
-  resolve: any;
+  private tobagoIn: HTMLElement;
+  private dropdownMenu: DropdownMenu;
+  private timeout: number;
 
   constructor(tobagoIn: HTMLElement) {
     this.tobagoIn = tobagoIn;
   }
 
   public init(): void {
-    if (!this.suggest) {
+    if (!this.tobagoSuggest) {
       console.warn("[tobago-suggest] could not find tobago-suggest");
       return;
     }
+    this.tobagoSuggest.insertAdjacentHTML("beforebegin", `<div class="${Css.SPINNER}"/>`);
+    this.tobagoSuggest.insertAdjacentHTML("beforebegin", `<div class="${Css.TOBAGO_DROPDOWN_MENU_ANCHOR}"}">
+    <ul id="${this.tobagoSuggest.id + "::dropdownMenu"}" class="${Css.TOBAGO_DROPDOWN_MENU}"
+    name="${this.tobagoSuggest.id}" role="listbox"/></div>`);
 
-    this.registerAjaxListener();
-    this.base.classList.add(Css.AUTOCOMPLETE);
-    this.suggestInput.classList.add(Css.AUTOCOMPLETE_INPUT);
+    this.dropdownMenu = new DropdownMenu(this.dropdownMenuElement, this.inputField, this.tobagoIn, this.localMenu,
+        DropdownMenuAlignment.centerFullWidth);
 
-    if (this.isInputGroup && this.suggestInput.previousElementSibling === null) {
-      this.suggestInput.insertAdjacentHTML("afterend", "<div class=\"autocomplete-pseudo-container\"></div>");
-    } else {
-      this.suggestInput.insertAdjacentHTML("beforebegin", "<div class=\"autocomplete-pseudo-container\"></div>");
+    this.inputField.role = "combobox";
+    this.inputField.autocomplete = "off";
+    this.inputField.autocapitalize = "off";
+    this.inputField.spellcheck = false;
+    this.inputField.ariaAutoComplete = "list";
+    this.inputField.ariaHasPopup = "listbox";
+    this.inputField.setAttribute("aria-owns", this.dropdownMenuElement.id);
+
+    this.tobagoIn.addEventListener(ClientBehaviors.DROPDOWN_HIDDEN, this.deleteResults.bind(this));
+    this.inputField.addEventListener("input", this.inputEvent.bind(this));
+    this.inputField.addEventListener("keydown", this.keydownEvent.bind(this));
+    this.dropdownMenuElement.addEventListener("keydown", this.keydownEvent.bind(this));
+
+    this.inputField.addEventListener("blur", this.blurEvent.bind(this));
+    this.dropdownMenuElement.addEventListener("blur", this.blurEvent.bind(this));
+  }
+
+  /**
+   * Call this in the disconnectedCallback() method.
+   */
+  public disconnect(): void {
+    this.dropdownMenu.disconnect();
+  }
+
+  private blurEvent(event: FocusEvent): void {
+    const element = (event.relatedTarget as Element);
+    if (!this.isPartOfSuggest(element)) {
+      this.dropdownMenu.hide();
     }
-    this.suggestInput.insertAdjacentHTML("afterend", "<ul class=\"autocomplete-result-list\"></ul>");
+  }
 
-    const options = {
-      search: (input: string) => {
-        console.debug("[tobago-suggest] input = '%s'", input);
-        if (input.length < this.minChars) {
-          return [];
+  private isPartOfSuggest(element: Element): boolean {
+    if (element) {
+      if (this.inputField.id === element.id || this.tobagoSuggest.id === element.getAttribute("name")) {
+        return true;
+      } else {
+        return element.parentElement ? this.isPartOfSuggest(element.parentElement) : false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  private keydownEvent(event: KeyboardEvent): void {
+    switch (event.key) {
+      case Key.ARROW_DOWN:
+        this.focusNextDropdownItem(event);
+        break;
+      case Key.ARROW_UP:
+        this.focusPreviousDropdownItem(event);
+        break;
+      case Key.TAB: {
+        if (event.shiftKey) {
+          this.focusPreviousDropdownItem(event);
+        } else {
+          this.focusNextDropdownItem(event);
         }
-        this.hiddenInput.value = input.toLowerCase();
+        break;
+      }
+      case Key.ESCAPE:
+        this.dropdownMenu.hide();
+        this.inputField.focus();
+        break;
+      default:
+        break;
+    }
+  }
 
-        this.positioningSpinner();
-
-        return new Promise(resolve => {
-
-          if (this.update) {
-            this.resolve = resolve;
-            const suggestId = this.suggest.id;
-            jsf.ajax.request(suggestId, null, {
-              params: {
-                "javax.faces.behavior.event": "suggest"
-              },
-              execute: suggestId,
-              render: suggestId
-            });
-          } else {
-            switch (this.filter) {
-              case SuggestFilter.all:
-                return resolve(this.filterAll());
-              case SuggestFilter.prefix:
-                return resolve(this.filterPrefix());
-              default:
-                return resolve(this.filterContains());
+  private focusNextDropdownItem(event: KeyboardEvent): void {
+    if (this.dropdownMenu.visible) {
+      event.preventDefault(); //prevent scrolling if dropdown menu has a scrollbar
+      if (this.inputField === this.activeElement) {
+        this.dropdownItems.item(0).focus();
+      } else {
+        for (let i = 0; i < this.dropdownItems.length; i++) {
+          if (this.dropdownItems.item(i) === this.activeElement) {
+            const nextItemIndex = ++i;
+            if (nextItemIndex >= this.dropdownItems.length) {
+              this.dropdownItems.item(0).focus();
+            } else {
+              this.dropdownItems.item(nextItemIndex).focus();
             }
+            break;
           }
-        });
-      },
-      onUpdate: (results, selectedIndex) => {
-        this.positioningResultList();
-        this.setResultListMaxHeight();
-      },
-      debounceTime: this.delay
-    };
-
-    new Autocomplete(this.base, options);
-    if (!this.localMenu) {
-      MenuStore.appendChild(this.resultList);
-    }
-  }
-
-  private registerAjaxListener(): void {
-    jsf.ajax.addOnEvent(this.resolvePromise.bind(this));
-  }
-
-  private resolvePromise(event: EventData): void {
-    if (event.source === this.suggest && event.status === "success") {
-      return this.resolve(this.filterAll());
-    }
-  }
-
-  private filterAll(): string[] {
-    return this.items;
-  }
-
-  private filterPrefix(): string[] {
-    return this.items.filter(item => {
-      return item.toLowerCase().startsWith(this.hiddenInput.value);
-    });
-  }
-
-  private filterContains(): string[] {
-    return this.items.filter(item => {
-      return item.toLowerCase().indexOf(this.hiddenInput.value) > -1;
-    });
-  }
-
-  private positioningSpinner(): void {
-    const baseRect = this.base.getBoundingClientRect();
-    const suggestInputRect = this.suggestInput.getBoundingClientRect();
-    const suggestInputStyle = getComputedStyle(this.suggestInput);
-    const pseudoContainer = this.pseudoContainer;
-    pseudoContainer.style.left = `${suggestInputRect.x - baseRect.x + suggestInputRect.width
-    - parseFloat(getComputedStyle(pseudoContainer, ":after").width)
-    - parseFloat(suggestInputStyle.marginRight)
-    - parseFloat(suggestInputStyle.borderRight)
-    - parseFloat(suggestInputStyle.paddingRight)}px`;
-    pseudoContainer.style.top = `${suggestInputRect.y - baseRect.y + (suggestInputRect.height / 2)}px`;
-  }
-
-  private positioningResultList(): void {
-    const space = 2;
-
-    if (this.localMenu) {
-      const parentRect = this.suggestInput.parentElement.getBoundingClientRect();
-      const suggestInputRect = this.suggestInput.getBoundingClientRect();
-      this.resultList.style.marginLeft = `${suggestInputRect.x - parentRect.x}px`;
-      this.resultList.style.maxWidth = `${suggestInputRect.width}px`;
-      this.resultList.style.marginTop = `${space}px`;
-      this.resultList.style.marginBottom = `${space}px`;
-    } else {
-      const suggestInputRect = this.suggestInput.getBoundingClientRect();
-      this.resultList.style.minWidth = `${suggestInputRect.width}px`;
-      this.resultList.style.left = `${suggestInputRect.left}px`;
-      if (this.resultListPosition === "below") {
-        this.resultList.style.marginTop =
-            `${window.scrollY + suggestInputRect.top + suggestInputRect.height + space}px`;
-        this.resultList.style.marginBottom = null;
-      } else if (this.resultListPosition === "above") {
-        this.resultList.style.marginTop = null;
-        this.resultList.style.marginBottom = `${-(window.scrollY + suggestInputRect.top - space)}px`;
+        }
       }
     }
   }
 
-  private setResultListMaxHeight(): void {
-    const resultListEntry = this.resultList.querySelector(".autocomplete-result");
-    if (this.maxItems && resultListEntry) {
-      const resultListStyle = getComputedStyle(this.resultList);
-      this.resultList.style.maxHeight = `${parseFloat(resultListStyle.borderTop)
-      + parseFloat(resultListStyle.paddingTop)
-      + (this.maxItems * parseFloat(getComputedStyle(resultListEntry).height))
-      + parseFloat(resultListStyle.paddingBottom)
-      + parseFloat(resultListStyle.borderBottom)}px`;
+  private focusPreviousDropdownItem(event: KeyboardEvent): void {
+    if (this.dropdownMenu.visible) {
+      event.preventDefault(); //prevent scrolling if dropdown menu has a scrollbar
+      if (this.inputField === this.activeElement) {
+        this.dropdownItems.item(this.dropdownItems.length - 1).focus();
+      } else {
+        for (let i = 0; i < this.dropdownItems.length; i++) {
+          if (this.dropdownItems.item(i) === this.activeElement) {
+            const previousItemIndex = --i;
+            if (previousItemIndex < 0) {
+              this.dropdownItems.item(this.dropdownItems.length - 1).focus();
+            } else {
+              this.dropdownItems.item(previousItemIndex).focus();
+            }
+            break;
+          }
+        }
+      }
     }
   }
 
-  private get base(): HTMLElement {
-    return this.tobagoIn;
+  private inputEvent(event: InputEvent): void {
+    window.clearTimeout(this.timeout);
+
+    const inputElement: HTMLInputElement = event.currentTarget as HTMLInputElement;
+    const input = inputElement.value;
+
+    if (input.length >= this.minChars) {
+      this.hiddenInput.value = input.toLowerCase();
+      this.showSpinner();
+
+      if (this.update) {
+        this.timeout = window.setTimeout(() => {
+          const suggestId = this.tobagoSuggest.id;
+          jsf.ajax.request(suggestId, null, {
+            params: {
+              "javax.faces.behavior.event": "suggest"
+            },
+            execute: suggestId,
+            render: suggestId,
+            onevent: this.ajaxEvent.bind(this),
+          });
+        }, this.delay);
+      } else {
+        switch (this.filter) {
+          case SuggestFilter.all:
+            this.renderResults(this.items);
+            break;
+          case SuggestFilter.prefix:
+            this.renderResults(this.items.filter(item => item.toLowerCase().startsWith(this.hiddenInput.value)));
+            break;
+          case SuggestFilter.contains:
+          default:
+            this.renderResults(this.items.filter(item => item.toLowerCase().indexOf(this.hiddenInput.value) > -1));
+            break;
+        }
+      }
+    } else {
+      this.dropdownMenu.hide();
+    }
   }
 
-  private get pseudoContainer(): HTMLDivElement {
-    return this.base.querySelector(".autocomplete-pseudo-container");
+  private showSpinner(): void {
+    const rect = this.inputField.getBoundingClientRect();
+    const cStyle = getComputedStyle(this.inputField);
+    const top = window.scrollY + rect.top;
+    const right = window.scrollX + rect.right;
+    const bottom = window.scrollY + rect.bottom;
+    const innerBorderTop = top + parseFloat(cStyle.borderTopWidth) + parseFloat(cStyle.paddingTop);
+    const innerBorderRight = right - parseFloat(cStyle.borderRight) - parseFloat(cStyle.paddingRight);
+    const innerBorderBottom = bottom - parseFloat(cStyle.borderBottom) - parseFloat(cStyle.paddingBottom);
+    const size = innerBorderBottom - innerBorderTop;
+    this.spinner.style.width = size + "px";
+    this.spinner.style.height = size + "px";
+    this.spinner.style.top = innerBorderTop + "px";
+    this.spinner.style.left = (innerBorderRight - size) + "px";
+    this.spinner.classList.add(Css.TOBAGO_SHOW);
   }
 
-  private get suggestInput(): HTMLInputElement {
-    const root = this.base.getRootNode() as ShadowRoot | Document;
-    return root.getElementById(this.suggest.getAttribute("for")) as HTMLInputElement;
+  private hideSpinner(): void {
+    this.spinner.classList.remove(Css.TOBAGO_SHOW);
   }
 
-  private get suggest(): HTMLElement {
-    return this.base.querySelector("tobago-suggest");
+  private ajaxEvent(event: EventData): void {
+    if (event.status === "success") {
+      this.renderResults(this.items);
+    }
   }
 
-  private get hiddenInput(): HTMLInputElement {
-    return this.suggest.querySelector(":scope > input[type=hidden]");
+  private renderResults(items: string[]): void {
+    if (items.length > 0) {
+      const dropdownItems: HTMLLIElement[] = [];
+      for (let i = 0; i < items.length; i++) {
+        const li = document.createElement("li");
+        li.setAttribute("data-result-index", i.toString());
+        li.setAttribute("role", "option");
+        const button = document.createElement("button");
+        button.type = "button";
+        button.classList.add(Css.DROPDOWN_ITEM);
+        button.textContent = items[i];
+        button.addEventListener("click", this.selectDropdownItem.bind(this));
+        li.appendChild(button);
+        dropdownItems.push(li);
+      }
+      this.dropdownMenuElement.replaceChildren(...dropdownItems);
+      this.hideSpinner();
+      this.dropdownMenu.show();
+
+      if (this.maxItems > 0) {
+        // do this after this.dropdownMenu.show(); to get the correct itemHeight
+        const itemHeight = this.dropdownMenuElement.querySelector("li").offsetHeight;
+        const dropdownMenuElementStyle = getComputedStyle(this.dropdownMenuElement);
+        const paddingTop = parseFloat(dropdownMenuElementStyle.paddingTop);
+        const paddingBottom = parseFloat(dropdownMenuElementStyle.paddingBottom);
+        const itemBasedMaxHeight = paddingTop + (this.maxItems * itemHeight) + paddingBottom;
+        const bodyBasedMaxHeight = parseFloat(this.dropdownMenuElement.style.maxHeight);
+
+        if (itemBasedMaxHeight < bodyBasedMaxHeight) {
+          this.dropdownMenuElement.style.maxHeight = itemBasedMaxHeight + "px";
+        }
+      }
+    } else {
+      this.hideSpinner();
+      this.dropdownMenu.hide();
+    }
   }
 
-  private get items(): string[] {
-    return JSON.parse(this.suggest.getAttribute("items")) as string[];
+  private deleteResults(): void {
+    this.dropdownMenuElement.innerHTML = null;
   }
 
-  private get resultList(): HTMLUListElement {
-    const root = this.base.getRootNode() as ShadowRoot | Document;
-    const resultListId = this.suggestInput.getAttribute("aria-owns");
-    return root.getElementById(resultListId) as HTMLUListElement;
+  private selectDropdownItem(event: MouseEvent): void {
+    const button: HTMLButtonElement = event.currentTarget as HTMLButtonElement;
+    this.inputField.value = button.textContent;
+    this.dropdownMenu.hide();
+    this.inputField.focus();
   }
 
-  private get resultListPosition(): string {
-    return this.base.dataset.position;
+  private get activeElement(): Element {
+    const root = this.tobagoIn.getRootNode() as ShadowRoot | Document;
+    return root.activeElement;
   }
 
-  private get update(): boolean {
-    return this.suggest.getAttribute("update") !== null;
+  private get inputField(): HTMLInputElement {
+    const root = this.tobagoIn.getRootNode() as ShadowRoot | Document;
+    return root.getElementById(this.tobagoSuggest.getAttribute("for")) as HTMLInputElement;
   }
 
-  private get delay(): number {
-    return parseInt(this.suggest.getAttribute("delay"));
+  private get spinner(): HTMLDivElement {
+    return this.tobagoIn.querySelector<HTMLDivElement>(`.${Css.SPINNER}`);
   }
 
-  private get maxItems(): number {
-    return parseInt(this.suggest.getAttribute("max-items"));
+  private get tobagoSuggest(): HTMLElement {
+    return this.tobagoIn.querySelector("tobago-suggest");
   }
 
   private get minChars(): number {
-    return parseInt(this.suggest.getAttribute("min-chars"));
+    return parseInt(this.tobagoSuggest.getAttribute("min-chars"));
   }
 
-  private get localMenu(): boolean {
-    return this.suggest.getAttribute("local-menu") !== null;
+  private get delay(): number {
+    return parseInt(this.tobagoSuggest.getAttribute("delay"));
+  }
+
+  private get maxItems(): number {
+    return parseInt(this.tobagoSuggest.getAttribute("max-items"));
+  }
+
+  private get update(): boolean {
+    return this.tobagoSuggest.getAttribute("update") !== null;
+  }
+
+  private get totalCount(): number {
+    return parseInt(this.tobagoSuggest.getAttribute("total-count"));
   }
 
   private get filter(): SuggestFilter {
-    return SuggestFilter[this.suggest.getAttribute("filter")] as SuggestFilter;
+    return SuggestFilter[this.tobagoSuggest.getAttribute("filter")] as SuggestFilter;
   }
 
-  private get isInputGroup(): boolean {
-    return this.suggestInput.parentElement.classList.contains(Css.INPUT_GROUP);
+  private get items(): string[] {
+    return JSON.parse(this.tobagoSuggest.getAttribute("items")) as string[];
+  }
+
+  private get localMenu(): boolean {
+    return this.tobagoSuggest.getAttribute("local-menu") !== null;
+  }
+
+  private get hiddenInput(): HTMLInputElement {
+    return this.tobagoSuggest.querySelector(":scope > input[type=hidden]");
+  }
+
+  private get dropdownMenuElement(): HTMLUListElement {
+    const root = this.tobagoIn.getRootNode() as ShadowRoot | Document;
+    return root.getElementById(this.tobagoSuggest.id + "::dropdownMenu") as HTMLUListElement;
+  }
+
+  private get dropdownItems(): NodeListOf<HTMLButtonElement> {
+    return this.dropdownMenuElement.querySelectorAll<HTMLButtonElement>("li button.dropdown-item");
   }
 }
