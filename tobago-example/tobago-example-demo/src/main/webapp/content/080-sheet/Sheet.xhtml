@@ -63,21 +63,21 @@
   &lt;tc:column label="Name">
     &lt;tc:out value="\#{solarobject.name}" labelLayout="skip"/>
       ...</demo-highlight>
-    <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" rows="4">
+    <tc:sheet id="sheet" value="#{sheetController.solarList}" var="object" rows="4">
       <tc:style maxHeight="500px"/>
-      <tc:column label="Name">
+      <tc:column id="name" label="Name">
         <tc:out value="#{object.name}" labelLayout="skip"/>
       </tc:column>
-      <tc:column label="Orbit">
+      <tc:column id="orbit" label="Orbit">
         <tc:out value="#{object.orbit}" labelLayout="skip"/>
       </tc:column>
-      <tc:column label="Period (Days)">
+      <tc:column id="period" label="Period (Days)">
         <tc:out value="#{object.period}" labelLayout="skip"/>
       </tc:column>
-      <tc:column label="Discoverer">
+      <tc:column id="discoverer" label="Discoverer">
         <tc:out value="#{object.discoverer}" labelLayout="skip"/>
       </tc:column>
-      <tc:column label="Year">
+      <tc:column id="year" label="Year">
         <tc:out value="#{object.discoverYear}" labelLayout="skip"/>
       </tc:column>
     </tc:sheet>
