@@ -26,19 +26,11 @@ interface SectionNode {
 
 export class Sidebar extends HTMLElement {
   private sectionTree: SectionNode[] = [];
-  private sectionElements: HTMLElement[] = [];
-  private resizeObserver: ResizeObserver | null = null;
-  private scrollThrottleTimeout: number | null = null;
-  private hashChangeHandler: () => void;
+  private scrollThrottleTimeout?: number;
   private resizeHandler = this.throttle(this.adjustFixedPosition.bind(this), 100);
-  private isManualNavigation = false;
-  private sectionObservers: IntersectionObserver[] = [];
 
   connectedCallback(): void {
-    // Cache all section elements first to avoid repeated DOM queries
-    this.sectionElements = Array.from(document.querySelectorAll<HTMLElement>("tobago-section[id^='page:mainForm:']"));
-
-    // Build the section tree hierarchy once
+    // Build the section tree hierarchy
     this.buildSectionTree();
 
     // Render the initial tree
@@ -46,12 +38,6 @@ export class Sidebar extends HTMLElement {
 
     // Add event listeners for page changes
     window.addEventListener("resize", this.resizeHandler);
-
-    // Use ResizeObserver instead of window resize for better performance
-    this.setupResizeObserver();
-
-    // Setup intersection observers for each section
-    this.setupIntersectionObservers();
 
     // Initial position adjustment
     this.adjustFixedPosition();
@@ -69,16 +55,6 @@ export class Sidebar extends HTMLElement {
     // Clean up event listeners
     window.removeEventListener("resize", this.resizeHandler);
 
-    // Clean up resize observer
-    if (this.resizeObserver) {
-      this.resizeObserver.disconnect();
-      this.resizeObserver = null;
-    }
-
-    // Clean up intersection observers
-    this.sectionObservers.forEach(observer => observer.disconnect());
-    this.sectionObservers = [];
-
     // Clear any pending timeouts
     if (this.scrollThrottleTimeout !== null) {
       window.clearTimeout(this.scrollThrottleTimeout);
@@ -86,25 +62,6 @@ export class Sidebar extends HTMLElement {
     }
   }
 
-  /**
-   * Debounce function to execute after events stop
-   */
-  private debounce(func: Function, delay: number): () => void {
-    let timeout: number | null = null;
-    return function(): void {
-      if (timeout !== null) {
-        window.clearTimeout(timeout);
-      }
-      timeout = window.setTimeout(() => {
-        func();
-        timeout = null;
-      }, delay);
-    };
-  }
-
-  /**
-   * Throttle function to limit execution frequency
-   */
   private throttle(func: Function, delay: number): () => void {
     let lastCall = 0;
     return function(): void {
@@ -116,109 +73,22 @@ export class Sidebar extends HTMLElement {
     };
   }
 
-  /**
-   * Set up resize observer for more efficient layout adjustments
-   */
-  private setupResizeObserver(): void {
-    if ("ResizeObserver" in window) {
-      this.resizeObserver = new ResizeObserver(this.throttle(() => {
-        this.adjustFixedPosition();
-      }, 100));
-
-      // Observe header and footer elements that might affect positioning
-      const header = document.querySelector("tobago-header.sticky-top");
-      const footer = document.querySelector("tobago-footer");
-
-      if (header) this.resizeObserver.observe(header);
-      if (footer) this.resizeObserver.observe(footer);
-    }
-  }
-
-  /**
-   * Sets up Intersection Observers for tracking section visibility
-   */
-  private setupIntersectionObservers(): void {
-    if (!("IntersectionObserver" in window)) return;
-
-    // Clean up existing observers
-    this.sectionObservers.forEach(observer => observer.disconnect());
-    this.sectionObservers = [];
-
-    // Get header height for offset calculation
-    const headerHeight = this.getHeaderHeight();
-    const scrollOffset = this.scrollOffset;
-    const totalOffset = headerHeight + scrollOffset;
-
-    // Create the observer options
-    const options = {
-      root: null,
-      rootMargin: `-${totalOffset}px 0px -${window.innerHeight - totalOffset - 10}px 0px`,
-      threshold: 0
-    };
-
-    // Create and setup observer
-    const observer = new IntersectionObserver(entries => {
-      if (this.isManualNavigation) return;
-
-      // Find the top-most visible section
-      const visibleEntries = entries.filter(entry => entry.isIntersecting);
-
-      if (visibleEntries.length > 0) {
-        // Sort by their position in the viewport (top to bottom)
-        visibleEntries.sort((a, b) => {
-          const rectA = a.boundingClientRect;
-          const rectB = b.boundingClientRect;
-          return rectA.top - rectB.top;
-        });
-
-        // Take the top-most visible section
-        const topSection = visibleEntries[0].target as HTMLElement;
-        const sectionId = topSection.id;
-
-        // Update URL and active state
-        history.replaceState(null, "", `#${sectionId}`);
-        this.updateActiveSection();
-      }
-    }, options);
-
-    // Observe all sections
-    this.sectionElements.forEach(section => {
-      observer.observe(section);
-    });
-
-    this.sectionObservers.push(observer);
-  }
-
-  /**
-   * Adjusts the fixed position based on current header height
-   * Using requestAnimationFrame to batch layout reads/writes
-   */
   private adjustFixedPosition(): void {
     requestAnimationFrame(() => {
       try {
-        // Get header and footer heights
-        const headerHeight = this.getHeaderHeight();
-        const footerHeight = this.getFooterHeight();
-
         // Calculate the offset only once
-        const topOffset = Math.max(20, headerHeight + 10);
+        const topOffset = Math.max(20, this.headerHeight + 10);
 
         // Then batch all DOM writes
         this.style.top = `${topOffset}px`;
-        this.style.maxHeight = `calc(100vh - ${topOffset + 20 + footerHeight}px)`;
+        this.style.maxHeight = `calc(100vh - ${topOffset + 20 + this.footerHeight}px)`;
       } catch (error) {
         console.warn("Error adjusting sidebar position:", error);
       }
     });
   }
 
-  /**
-   * Builds the hierarchical tree structure from the DOM recursively
-   */
   private buildSectionTree(): void {
-    // Reset the tree
-    this.sectionTree = [];
-
     // Create a root node to start the recursion
     const rootNode: SectionNode = {
       id: "root",
@@ -234,9 +104,6 @@ export class Sidebar extends HTMLElement {
     this.sectionTree = rootNode.children;
   }
 
-  /**
-   * Recursively builds the section tree
-   */
   private buildSectionTreeRecursive(element: Element, level: number, parent: SectionNode): void {
     for (let i = 0; i < element.children.length; i++) {
       const child = element.children[i];
@@ -255,45 +122,6 @@ export class Sidebar extends HTMLElement {
     }
   }
 
-  /**
-   * Determines the section level based on nesting or heading level
-   * Caches section heading information to avoid repeated DOM traversal
-   */
-  private getSectionLevel(section: HTMLElement): number {
-    // Cache for section levels
-    if ((section as any)._cachedLevel) {
-      return (section as any)._cachedLevel;
-    }
-
-    // Try to determine level from the parent-child relationship
-    let parent = section.parentElement;
-    let level = 1;
-
-    while (parent) {
-      if (parent.tagName.toLowerCase() === "tobago-section") {
-        level++;
-      }
-      parent = parent.parentElement;
-    }
-
-    // Fallback to heading level if available
-    if (level === 1) {
-      const heading = section.querySelector("h1, h2, h3, h4, h5, h6");
-      if (heading) {
-        const headingLevel = parseInt(heading.tagName.substring(1));
-        level = headingLevel - 1;
-      }
-    }
-
-    // Cache the result
-    (section as any)._cachedLevel = level;
-    return level;
-  }
-
-  /**
-   * Updates the active section based on current URL hash
-   * Uses more efficient selectors and DOM operations
-   */
   private updateActiveSection(): void {
     requestAnimationFrame(() => {
       try {
@@ -331,17 +159,11 @@ export class Sidebar extends HTMLElement {
     });
   }
 
-  /**
-   * Gets the title from a section with caching for performance
-   */
   private getSectionTitle(section: Element): string {
     const titleSpan = section.querySelector(".tobago-header span");
     return titleSpan ? titleSpan.textContent.trim() : section.id;
   }
 
-  /**
-   * Renders the content tree with the hierarchical structure
-   */
   private renderContentTree(): void {
     // Create template with lit-html
     const template = html`
@@ -358,10 +180,6 @@ export class Sidebar extends HTMLElement {
     this.setupEventHandlers();
   }
 
-  /**
-   * Set up event handlers for navigation links
-   * Binds events once after rendering
-   */
   private setupEventHandlers(): void {
     // Use event delegation for better performance
     this.addEventListener("click", (event) => {
@@ -384,9 +202,6 @@ export class Sidebar extends HTMLElement {
     });
   }
 
-  /**
-   * Recursively renders tree nodes using lit-html
-   */
   private renderTreeNodes(nodes: SectionNode[]): any {
     return html`
       <ul class="nav flex-column sidebar-nav">
@@ -396,23 +211,17 @@ export class Sidebar extends HTMLElement {
               ${node.title}
             </a>
             ${node.children.length > 0
-        ? html`<div class="sidebar-child-items">${this.renderTreeNodes(node.children)}</div>`
-        : null
-    }
+                ? html`<div class="sidebar-child-items">${this.renderTreeNodes(node.children)}</div>`
+                : null
+            }
           </li>
         `)}
       </ul>
     `;
   }
 
-  /**
-   * Navigate to a section with proper scrolling and history update
-   */
   private navigateToSection(targetId: string): void {
     try {
-      // Set flag to indicate manual navigation
-      this.isManualNavigation = true;
-
       // Use querySelector with attribute selector, with CSS escaping for safety
       const target = document.querySelector(`[id="${CSS.escape(targetId)}"]`);
 
@@ -434,11 +243,6 @@ export class Sidebar extends HTMLElement {
         // Schedule the scroll
         this.scrollToElement(target);
 
-        // Reset the manual navigation flag after scrolling completes
-        setTimeout(() => {
-          this.isManualNavigation = false;
-        }, 500); // Slightly longer than the scroll animation
-
         // Remove focus from current element after navigation
         if (document.activeElement instanceof HTMLElement) {
           document.activeElement.blur();
@@ -446,13 +250,9 @@ export class Sidebar extends HTMLElement {
       }
     } catch (error) {
       console.warn("Error navigating to section:", error);
-      this.isManualNavigation = false;
     }
   }
 
-  /**
-   * Handle hash change events with throttling
-   */
   private handleHashChange(): void {
     // Clear previous timeout if it exists
     if (this.scrollThrottleTimeout !== null) {
@@ -473,22 +273,15 @@ export class Sidebar extends HTMLElement {
     }, 50); // Short timeout to batch multiple hash changes
   }
 
-  /**
-   * Scrolls to the specified element with appropriate offset
-   * Uses more efficient position calculation
-   */
   private scrollToElement(targetElement: HTMLElement): void {
     requestAnimationFrame(() => {
       try {
-        // Get offset from attribute or use default
-        const offset = this.scrollOffset;
-
         // Use getBoundingClientRect for more accurate positioning
         const rect = targetElement.getBoundingClientRect();
         const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
         // Calculate position with offset
-        const targetPosition = Math.max(0, rect.top + scrollTop - offset);
+        const targetPosition = Math.max(0, rect.top + scrollTop - this.scrollOffset);
 
         // Perform the scroll
         window.scrollTo({
@@ -501,38 +294,29 @@ export class Sidebar extends HTMLElement {
     });
   }
 
-  /**
-   * Gets the header height using offsetHeight
-   */
-  private getHeaderHeight(): number {
-    const header = document.querySelector("tobago-header.sticky-top") as HTMLElement;
-    return header ? header.offsetHeight : 0;
+  get header(): HTMLElement | null {
+    return document.querySelector<HTMLElement>("tobago-header.sticky-top");
   }
 
-  /**
-   * Gets the footer height accounting for margins
-   */
-  private getFooterHeight(): number {
-    const footer = document.querySelector("tobago-footer.fixed-bottom");
-    if (!footer) {
+  get headerHeight(): number {
+    return this.header ? this.header.offsetHeight : 0;
+  }
+
+  get footer(): HTMLElement | null {
+    return document.querySelector<HTMLElement>("tobago-footer.fixed-bottom");
+  }
+
+  get footerHeight(): number {
+    if (!this.footer) {
       return 0;
     }
 
-    // Use the height property from Footer class if available
-    if ((footer as any).height !== undefined) {
-      return (footer as any).height;
-    }
-
-    // Fallback calculation if height property is not available
-    const style = getComputedStyle(footer);
-    return (footer as HTMLElement).offsetHeight +
-        parseFloat(style.marginTop || "0") +
-        parseFloat(style.marginBottom || "0");
+    const style = getComputedStyle(this.footer);
+    return this.footer.offsetHeight +
+        parseFloat(style.marginTop) +
+        parseFloat(style.marginBottom);
   }
 
-  /**
-   * Gets the scroll offset from an attribute or uses the default
-   */
   get scrollOffset(): number {
     const attributeValue = this.getAttribute("scroll-offset");
     return attributeValue ? parseInt(attributeValue, 10) : 70;
