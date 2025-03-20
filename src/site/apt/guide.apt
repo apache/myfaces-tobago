@@ -18,7 +18,7 @@
  ------
 
 TODO: this docs are outdated
-TODO: please insert relevant infomation into "Demo"
+TODO: please insert relevant information into "Demo"
 
 {Guide to Tobago}
 
@@ -39,7 +39,7 @@ TODO: please insert relevant infomation into "Demo"
 
 {Content}
 
-  \ 
+  \
 
 %{toc|fromDepth=0|toDepth=4}
 
@@ -68,14 +68,14 @@ mvn jetty:run-exploded
 
   If you point your browser to {{http://localhost:8080/}} and you will be directed to the login dialog of the address
   book example.\
-  \ 
+  \
 
 [images/guide-addressbook-login.png] Address Book Login
 
   You can click on the guest/guest or admin/admin links or fill in the authentication information yourself
   and press the 'Login' button. After displaying a splash screen for a while the application will direct you to
   the address list page.\
-  \ 
+  \
 
 [images/guide-addressbook-list.png] Address List
 
@@ -157,7 +157,7 @@ mvn install
 
   A simple version of an address editor allows to edit the first and last name of a person and basic address data
   like street, house number and city. Such an editor could look like this:\
-  \ 
+  \
 
 [images/guide-simple-editor.png] Simple Address Editor
 
@@ -196,7 +196,7 @@ mvn install
 </f:view>
 +------------------------------------------+
 
-  We have a box with the label "Address" containing four rows of input controls for first name, last name, street, 
+  We have a box with the label "Address" containing four rows of input controls for first name, last name, street,
   house number, and city.
 
 * {Basic Controls}
@@ -205,9 +205,9 @@ mvn install
   single-line input controls, text areas, check boxes, radio buttons, links, buttons, labels, and others.
 
   The Tobago demo contains an overview page for the basic controls.\
-  \ 
+  \
 
-[images/guide-basic-controls.png] Basic Controls  
+[images/guide-basic-controls.png] Basic Controls
 
   Live demo of the basic controls: {{http://tobago-vm.apache.org/demo-2-release/faces/content/01-basic/basic.xhtml}}
 
@@ -256,7 +256,7 @@ mvn install
   The sheet control is used to display tabular data.
 
   The address book example uses a sheet to give an overview of all stored addresses.\
-  \ 
+  \
 
 [images/guide-sheet.png] Sheet
 
@@ -295,7 +295,7 @@ mvn install
 
   In the address book example the tab group is used to structure the input controls for an address into three groups
   for general, business, and miscellaneous information.\
-  \ 
+  \
 
 [images/guide-tab-group.png] Tab Group
 
@@ -323,8 +323,8 @@ mvn install
 
   The menu control can be used to render a menu bar at the top of a screen like it is typically used in desktop
   applications. But the location for menus is not limited to this place.\
-  \ 
-  
+  \
+
 [images/guide-menu.png] Menu
 
   Live demo of a menu: {{http://tobago-vm.apache.org/demo-2-release/faces/content/05-toolBar/toolBar.xhtml}}
@@ -363,7 +363,7 @@ mvn install
 
   The address book example uses a tool bar below the menu to provide convenient access to the most common actions
   from the menu.\
-  \ 
+  \
 
 [images/guide-toolbar.png] Tool Bar
 
@@ -391,7 +391,7 @@ mvn install
 
   Popups are used to render small modal dialogs inside the current screen. The original screen is disabled until
   the popup is released with one of the popup buttons.\
-  \ 
+  \
 
 [images/guide-popup.png] Tool Bar
 
@@ -430,7 +430,7 @@ mvn install
 * {File Upload}
 
   The file select control can be used to upload files.\
-  \ 
+  \
 
 [images/guide-upload.png] File Upload
 
@@ -494,22 +494,22 @@ mvn install
   Tobago includes a small collection of themes called after cities on the island Tobago: Scarborough, Speyside,
   Charlotteville, and Richmond. Scarborough is a basic theme, which tries to focus on features of plain
   HTML, Speyside is the main theme of Tobago, Charlotteville and Richmond are mainly color variations of Speyside.\
-  \  
+  \
 
 [images/guide-theme-scarborough.png] Scarborough
 
   Scarborough\
-  \ 
+  \
 
 [images/guide-theme-speyside.png] Speyside
 
   Speyside\
-  \ 
+  \
 
 [images/guide-theme-charlotteville.png] Charlotteville
 
   Charlotteville\
-  \ 
+  \
 
 [images/guide-theme-richmond.png] Richmond
 
@@ -520,7 +520,7 @@ mvn install
   Since you don't have direct control over design without writing your own theme, Tobago supports the concept of
   markup. You can assign certain logical markup values to a control to fine-tune the rendering. A theme specifies
   the supported markup for every control. The standard theme already provides some helpful markups.\
-  \ 
+  \
 
 *-----------------------+-------------------------+
 | <<<\<tc:out\>>>>      | strong, deleted, number |
@@ -554,7 +554,7 @@ mvn install
 +------------------------------------------+
 
   This code fragment is rendered like this:\
-  \ 
+  \
 
 [images/guide-markup.png] Markup example
 
@@ -581,7 +581,7 @@ mvn install
   See the {{{https://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-example-addressbook-war/src/main/webapp/WEB-INF/tobago-config.xml}address book <<<tobago-config.xml>>>}} for a complete example.
 
   The various progress variants look like this:\
-  \ 
+  \
 
 [images/guide-progress.png] Progress markup
 
@@ -603,7 +603,7 @@ mvn install
 }
 +------------------------------------------+
 
-  See the address book example 
+  See the address book example
   {{{https://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-example/tobago-example-addressbook-web/src/main/webapp/tobago-resource/html/speyside/standard/style/tobago.css}Speyside <<<tobago.css>>>}}.
 
   The <<<tobago.css>>> file is collected by the Tobago resource manager and can be used to overwrite and extend the

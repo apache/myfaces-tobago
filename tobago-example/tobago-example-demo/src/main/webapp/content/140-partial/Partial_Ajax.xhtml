@@ -113,12 +113,12 @@
         <tc:badge value="Error handling currently not working" markup="warning"/>
       </p>
 
-      <tc:button label="Error left" tip="Reload left side box, but an exception occures"
+      <tc:button label="Error left" tip="Reload left side box, but an exception occurs"
                  action="#{partialReloadController.error}">
         <f:ajax render="left :page:header:headerInfo"/>
       </tc:button>
 
-      <tc:button label="Error right" tip="Reload right side box, but an exception occures"
+      <tc:button label="Error right" tip="Reload right side box, but an exception occurs"
                  action="#{partialReloadController.error}">
         <f:ajax render="right :page:header:headerInfo"/>
       </tc:button>
