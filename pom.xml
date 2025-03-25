@@ -955,12 +955,6 @@
             <configuration>
               <nodeVersion>v22.14.0</nodeVersion>
               <!-- includes npm version 10.8.1 -->
-              <!--
-              todo: next version not running on Jenkins ubuntu - https://issues.apache.org/jira/browse/INFRA-23954
-              todo: Update Jenkins file to use "docker"
-              <nodeVersion>v18.12.1</nodeVersion>
-              -->
-              <!-- contains npm version 8.19.2 -->
 
               <!-- optional: Where to download Node.js binary from. Defaults to http://nodejs.org/dist/ -->
               <!--<nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>-->
