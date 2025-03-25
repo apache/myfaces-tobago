@@ -183,9 +183,9 @@ public class TobagoResponseWriterUnitTest extends AbstractTobagoTestBase {
         facesContext, Tags.in.componentType(), RendererTypes.In, "id");
     c.getPassThroughAttributes().put("step", 1);
     c.getPassThroughAttributes().put("type", "number");
-    writer.startElement(HtmlElements.INPUT.getValue(), c);
-    writer.writeAttribute(HtmlAttributes.VALUE.getValue(), "100", null);
-    writer.endElement(HtmlElements.INPUT.getValue());
+    writer.startElement(HtmlElements.INPUT, c);
+    writer.writeAttribute(HtmlAttributes.VALUE, 100);
+    writer.endElement(HtmlElements.INPUT);
 
     Assertions.assertTrue(stringWriter.toString().trim().matches(
         "<input value='100' (step='1' type='number'|type='number' step='1')\\s*>"
@@ -198,9 +198,9 @@ public class TobagoResponseWriterUnitTest extends AbstractTobagoTestBase {
         facesContext, Tags.in.componentType(), RendererTypes.In, "id");
     c.getPassThroughAttributes().put("step", 1);
     c.getPassThroughAttributes().put(Renderer.PASSTHROUGH_RENDERER_LOCALNAME_KEY, HtmlElements.TEXTAREA.getValue());
-    writer.startElement(HtmlElements.INPUT.getValue(), c);
-    writer.writeAttribute(HtmlAttributes.VALUE.getValue(), "100", null);
-    writer.endElement(HtmlElements.INPUT.getValue());
+    writer.startElement(HtmlElements.INPUT, c);
+    writer.writeAttribute(HtmlAttributes.VALUE, 100);
+    writer.endElement(HtmlElements.INPUT);
 
     Assertions.assertEquals("\n<textarea value='100' step='1'></textarea>",
         stringWriter.toString());
