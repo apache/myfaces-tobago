@@ -20,10 +20,22 @@
 package org.apache.myfaces.tobago.internal.component;
 
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.SelectItem;
 import org.apache.myfaces.tobago.component.SupportFieldId;
+import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.SearchOnce;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
+import java.util.List;
 
 public abstract class AbstractUISelectOneList extends AbstractUISelectOneBase implements SupportFieldId {
+
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
+  private final transient SearchOnce abstractUISelectItemsFilteredSearch = new SearchOnce();
 
   @Override
   public String getFieldId(final FacesContext facesContext) {
@@ -35,4 +47,39 @@ public abstract class AbstractUISelectOneList extends AbstractUISelectOneBase im
   public abstract boolean isExpanded();
 
   public abstract boolean isLocalMenu();
+
+  public abstract String getFooter();
+
+  public boolean isReadonlyState() {
+    final String filter = getFilter();
+    return isReadonly() || getAbstractUISelectItemsFiltered() == null && (filter == null || filter.isEmpty());
+  }
+
+  public boolean isDisabledState(FacesContext facesContext) {
+    final List<SelectItem> items = getItemList(facesContext, false);
+    return isDisabled() || isReadonly() || getAbstractUISelectItemsFiltered() == null && !items.iterator().hasNext();
+  }
+
+  public AbstractUISelectItemsFiltered getAbstractUISelectItemsFiltered() {
+    return abstractUISelectItemsFilteredSearch.findChild(this, AbstractUISelectItemsFiltered.class);
+  }
+
+  /**
+   * If “filtered=true”, only the filtered SelectItems (without deferred SelectItems) are returned.
+   * If server-side filtering is not used, the “filtered” attribute has no meaning.
+   */
+  public List<SelectItem> getItemList(FacesContext facesContext, boolean filtered) {
+    final AbstractUISelectItemsFiltered abstractUISelectItemsFiltered = getAbstractUISelectItemsFiltered();
+    if (abstractUISelectItemsFiltered != null) { //server side filtering
+
+      if (filtered) {
+        return abstractUISelectItemsFiltered.getFilteredItemList(facesContext, this);
+      } else {
+        return abstractUISelectItemsFiltered.getItemList(facesContext, this);
+      }
+
+    } else {
+      return SelectItemUtils.getItemList(facesContext, this);
+    }
+  }
 }

@@ -121,6 +121,7 @@ public enum DataAttributes implements MarkupLanguageAttributes {
    * Holds the names of the months of a calendar control.
    */
   MONTH_NAMES("data-tobago-month-names"),
+  MIN_CHARS("data-tobago-min-chars"),
 
   /**
    * Contains the open tree icon or style.

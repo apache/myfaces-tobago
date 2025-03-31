@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.component;
 
 import jakarta.faces.component.behavior.ClientBehaviorHolder;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.SelectItem;
 import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
 import org.apache.myfaces.tobago.component.SupportsFilter;
@@ -28,9 +29,15 @@ import org.apache.myfaces.tobago.component.SupportsHelp;
 import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.internal.taglib.component.SelectManyListTagDeclaration;
+import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.SearchOnce;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.lang.invoke.MethodHandles;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * {@link SelectManyListTagDeclaration}
@@ -39,7 +46,9 @@ public abstract class AbstractUISelectManyList extends AbstractUISelectManyBase
     implements SupportsAutoSpacing, Visual, SupportsLabelLayout, ClientBehaviorHolder, SupportsHelp, SupportFieldId,
     SupportsFilter {
 
-  private transient boolean nextToRenderIsLabel;
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
+  private final transient SearchOnce abstractUISelectItemsFilteredSearch = new SearchOnce();
 
   @Override
   public Object[] getSelectedValues() {
@@ -58,8 +67,6 @@ public abstract class AbstractUISelectManyList extends AbstractUISelectManyBase
 
   public abstract Integer getTabIndex();
 
-  public abstract boolean isDisabled();
-
   public abstract boolean isExpanded();
 
   public boolean isError() {
@@ -67,19 +74,42 @@ public abstract class AbstractUISelectManyList extends AbstractUISelectManyBase
     return !isValid() || !facesContext.getMessageList(getClientId(facesContext)).isEmpty();
   }
 
-  public abstract boolean isFocus();
-
   public abstract String getFilter();
 
   public abstract boolean isLocalMenu();
 
-  @Override
-  public boolean isNextToRenderIsLabel() {
-    return nextToRenderIsLabel;
+  public abstract String getFooter();
+
+  public boolean isReadonlyState() {
+    final String filter = getFilter();
+    return isReadonly() || getAbstractUISelectItemsFiltered() == null && (filter == null || filter.isEmpty());
   }
 
-  @Override
-  public void setNextToRenderIsLabel(final boolean nextToRenderIsLabel) {
-    this.nextToRenderIsLabel = nextToRenderIsLabel;
+  public boolean isDisabledState(FacesContext facesContext) {
+    final List<SelectItem> items = getItemList(facesContext, false);
+    return isDisabled() || isReadonly() || getAbstractUISelectItemsFiltered() == null && !items.iterator().hasNext();
+  }
+
+  public AbstractUISelectItemsFiltered getAbstractUISelectItemsFiltered() {
+    return abstractUISelectItemsFilteredSearch.findChild(this, AbstractUISelectItemsFiltered.class);
+  }
+
+  /**
+   * If “filtered=true”, only the filtered SelectItems (without deferred SelectItems) are returned.
+   * If server-side filtering is not used, the “filtered” attribute has no meaning.
+   */
+  public List<SelectItem> getItemList(FacesContext facesContext, boolean filtered) {
+    final AbstractUISelectItemsFiltered abstractUISelectItemsFiltered = getAbstractUISelectItemsFiltered();
+    if (abstractUISelectItemsFiltered != null) { //server side filtering
+
+      if (filtered) {
+        return abstractUISelectItemsFiltered.getFilteredItemList(facesContext, this);
+      } else {
+        return abstractUISelectItemsFiltered.getItemList(facesContext, this);
+      }
+
+    } else {
+      return SelectItemUtils.getItemList(facesContext, this);
+    }
   }
 }

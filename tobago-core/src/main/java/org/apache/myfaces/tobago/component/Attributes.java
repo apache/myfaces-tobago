@@ -113,6 +113,7 @@ public enum Attributes {
   focus,
   focusOnError,
   focusId,
+  footer,
   formatPattern,
   forValue("for"),
   globalOnly,

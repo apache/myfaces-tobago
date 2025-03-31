@@ -25,6 +25,7 @@ import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,6 +53,11 @@ public class SelectOneListController implements Serializable {
   private final List<String> names = new ArrayList<>();
   private String selectedName;
 
+  private List<SolarObject> solarObjects;
+  private SolarObject selectedSolarObject;
+  private String query;
+  private String footerText;
+
   @PostConstruct
   public void init() {
     planets = astroData.getSatellites("Sun");
@@ -70,6 +76,8 @@ public class SelectOneListController implements Serializable {
     } catch (Exception e) {
       LOG.error("Can't load names", e);
     }
+
+    solarObjects = astroData.findAll().toList();
   }
 
   public List<SolarObject> getPlanets() {
@@ -107,5 +115,43 @@ public class SelectOneListController implements Serializable {
 
   public void setSelectedName(String selectedName) {
     this.selectedName = selectedName;
+  }
+
+  public List<SolarObject> getSolarObjects() {
+    if (query == null || query.length() < 2) {
+      footerText = "type 2 characters for filtering";
+      return new ArrayList<>();
+    } else {
+      List<SolarObject> list = solarObjects.stream()
+          .filter(p -> StringUtils.containsIgnoreCase(p.getName(), query))
+          .limit(11)
+          .toList();
+      if (list.size() > 10) {
+        footerText = "showing top 10 results";
+        return list.subList(0, 10);
+      } else if (list.isEmpty()) {
+        footerText = "---";
+        return list;
+      } else {
+        footerText = "";
+        return list;
+      }
+    }
+  }
+
+  public SolarObject getSelectedSolarObject() {
+    return selectedSolarObject;
+  }
+
+  public void setSelectedSolarObject(SolarObject selectedSolarObject) {
+    this.selectedSolarObject = selectedSolarObject;
+  }
+
+  public void setQuery(String query) {
+    this.query = query;
+  }
+
+  public String getFooterText() {
+    return footerText;
   }
 }
