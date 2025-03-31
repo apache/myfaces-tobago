@@ -21,7 +21,13 @@ import {Key} from "./tobago-key";
 import {DropdownMenu, DropdownMenuAlignment} from "./tobago-dropdown-menu";
 
 export abstract class SelectListBase extends HTMLElement {
+
+  private static readonly SUFFIX_FILTER_UPDATE: string = "::filter-update";
+
   protected dropdownMenu: DropdownMenu;
+  private timeout: number;
+  private filterUpdateLoader: HTMLElement;
+  protected lastSuccessfulSearchQuery: string;
 
   connectedCallback(): void {
     if (this.dropdownMenuElement) {
@@ -35,8 +41,11 @@ export abstract class SelectListBase extends HTMLElement {
     this.filterInput.addEventListener("blur", this.blurEvent.bind(this));
     this.options.addEventListener("keydown", this.keydownEventBase.bind(this));
     this.rows.forEach(row => row.addEventListener("blur", this.blurEvent.bind(this)));
-    if (this.filter) {
-      this.filterInput.addEventListener("input", this.filterEvent.bind(this));
+    if (this.filter || this.serverSideFiltering) {
+      this.filterInput.addEventListener("input", this.filterInputEvent.bind(this));
+    }
+    if (this.serverSideFiltering) {
+      this.insertAdjacentHTML("beforeend", `<div class="${Css.SPINNER}"/>`);
     }
     this.tbody.addEventListener("click", this.tbodyClickEvent.bind(this));
 
@@ -119,35 +128,153 @@ export abstract class SelectListBase extends HTMLElement {
     }
   }
 
-  private filterEvent(event: Event): void {
+  private filterInputEvent(event: Event): void {
     const input = event.currentTarget as HTMLInputElement;
     const searchString = input.value;
-    if (searchString.length > 0) {
-      this.dropdownMenu?.show(); // do not show dropdown menu while leaving the component
-    }
-    const filterFunction = TobagoFilterRegistry.get(this.filter);
-    // XXX todo: if filterFunction not found?
+    this.dropdownMenu?.show();
 
-    let entriesCount = 0;
-    if (filterFunction != null) {
-      this.rows.forEach(row => {
-        const itemValue = row.cells.item(0).textContent;
-        if (filterFunction(itemValue, searchString)) {
-          row.classList.remove(Css.D_NONE);
-          entriesCount++;
-        } else {
-          row.classList.add(Css.D_NONE);
-          row.classList.remove(Css.TOBAGO_PRESELECT);
-        }
-      });
-    }
+    if (this.serverSideFiltering) {
+      if (searchString.length >= this.minChars) {
+        this.showSpinner();
 
-    const noEntriesHint = this.options.querySelector("." + Css.TOBAGO_NO_ENTRIES);
-    if (entriesCount === 0) {
-      noEntriesHint.classList.remove(Css.D_NONE);
+        window.clearTimeout(this.timeout);
+        this.timeout = window.setTimeout(() => this.doFilter(searchString), this.delay);
+      }
     } else {
-      noEntriesHint.classList.add(Css.D_NONE);
+      this.doFilter(searchString);
     }
+  }
+
+  /**
+   * This function is also used for resetting the filter. Therefor "delay" and "minChar" must not be tested inside this
+   * function.
+   */
+  protected doFilter(searchString: string) {
+    if (this.serverSideFiltering) {
+      this.hiddenQueryInput.value = searchString;
+      faces.ajax.request(
+          this.id,
+          null,
+          {
+            params: {
+              "javax.faces.behavior.event": "filter",
+              selectListUpdate: this.id
+            },
+            execute: this.id,
+            render: this.id,
+            onevent: this.lazyResponse.bind(this),
+            onerror: this.lazyError.bind(this)
+          });
+    } else {
+      const filterFunction = TobagoFilterRegistry.get(this.filter);
+      // XXX todo: if filterFunction not found?
+
+      let entriesCount = 0;
+      if (filterFunction != null) {
+        this.rows.forEach(row => {
+          const itemValue = row.cells.item(0).textContent;
+          if (filterFunction(itemValue, searchString)) {
+            row.classList.remove(Css.D_NONE);
+            entriesCount++;
+          } else {
+            row.classList.add(Css.D_NONE);
+            row.classList.remove(Css.TOBAGO_PRESELECT);
+          }
+        });
+      }
+
+      if (entriesCount === 0) {
+        this.noEntriesHint.classList.remove(Css.D_NONE);
+      } else {
+        this.noEntriesHint.classList.add(Css.D_NONE);
+      }
+    }
+  }
+
+  private lazyResponse(event: EventData): void {
+    const updates: NodeListOf<Element> = event.responseXML?.querySelectorAll("update");
+    if (updates && event.status === "complete") {
+      for (const update of updates) {
+        const id = update.getAttribute("id");
+        if (this.id === id) { // is a JSF element id, but not a technical id from the framework
+          update.id = update.id + SelectListBase.SUFFIX_FILTER_UPDATE; //hide from faces.js
+          this.filterUpdateLoader = document.createElement("div");
+          this.filterUpdateLoader.innerHTML = update.textContent;
+        }
+      }
+    } else if (updates && event.status === "success") {
+      for (const update of updates) {
+        const id = update.getAttribute("id");
+        if (this.id + SelectListBase.SUFFIX_FILTER_UPDATE === id) {
+          this.lastSuccessfulSearchQuery = this.hiddenQueryInput.value;
+
+          const newHiddenSelect = this.filterUpdateLoader.querySelector<HTMLSelectElement>("select");
+          const oldHiddenSelect = this.hiddenSelect;
+          oldHiddenSelect.insertAdjacentElement("beforebegin", newHiddenSelect);
+          oldHiddenSelect.remove();
+
+          const oldOptions = this.options;
+          const newOptions = this.filterUpdateLoader
+              .querySelector<HTMLElement>(`.tobago-options[name='${this.id}'] table`);
+          oldOptions.insertAdjacentElement("beforebegin", newOptions);
+          oldOptions.remove();
+
+          const oldBehaviors = this.querySelectorAll("tobago-behavior");
+          const newBehaviors = this.filterUpdateLoader.querySelectorAll("tobago-behavior");
+          oldBehaviors.forEach((oldBehavior, index) => {
+            oldBehavior.insertAdjacentElement("beforebegin", newBehaviors.item(index));
+            oldBehavior.remove();
+          });
+
+          this.filterUpdateLoader.remove();
+        }
+      }
+
+      this.hiddenSelect.addEventListener("click", this.labelClickEvent.bind(this));
+      this.options.addEventListener("keydown", this.keydownEventBase.bind(this));
+      this.rows.forEach(row => row.addEventListener("blur", this.blurEvent.bind(this)));
+      this.tbody.addEventListener("click", this.tbodyClickEvent.bind(this));
+
+      // redirect click events for ajax behavior
+      this.options.addEventListener("click", () => this.hiddenSelect.dispatchEvent(new Event("click")));
+      this.options.addEventListener("dblclick", () => this.hiddenSelect.dispatchEvent(new Event("dblclick")));
+
+      this.hideSpinner();
+    }
+  }
+
+  private lazyError(data: ErrorData): void {
+    console.error(`Select[One|Many]List filter loading error:
+Error Name: ${data.errorName}
+Error errorMessage: ${data.errorMessage}
+Response Code: ${data.responseCode}
+Response Text: ${data.responseText}
+Status: ${data.status}
+Type: ${data.type}`);
+  }
+
+  private showSpinner(): void {
+    const rect = this.selectField.getBoundingClientRect();
+    const cStyle = getComputedStyle(this.selectField);
+    const top = window.scrollY + rect.top;
+    const right = window.scrollX + rect.right;
+    const bottom = window.scrollY + rect.bottom;
+    const innerBorderTop = top + parseFloat(cStyle.borderTopWidth) + parseFloat(cStyle.paddingTop);
+    const innerBorderRight = right - parseFloat(cStyle.borderRight) - parseFloat(cStyle.paddingRight);
+    const innerBorderBottom = bottom - parseFloat(cStyle.borderBottom) - parseFloat(cStyle.paddingBottom);
+    const size = innerBorderBottom - innerBorderTop;
+    this.spinner.style.width = size + "px";
+    this.spinner.style.height = size + "px";
+    this.spinner.style.top = innerBorderTop + "px";
+    this.spinner.style.left = (innerBorderRight - size) + "px";
+    this.spinner.classList.add(Css.TOBAGO_SHOW);
+
+    this.filterInput.style.marginRight = size + "px";
+  }
+
+  private hideSpinner(): void {
+    this.spinner.classList.remove(Css.TOBAGO_SHOW);
+    this.filterInput.style.marginRight = null;
   }
 
   private tbodyClickEvent(event: MouseEvent): void {
@@ -287,6 +414,10 @@ export abstract class SelectListBase extends HTMLElement {
     return this.options.querySelector("tbody");
   }
 
+  get noEntriesHint(): HTMLTableRowElement {
+    return this.options.querySelector("." + Css.TOBAGO_NO_ENTRIES);
+  }
+
   get rows(): NodeListOf<HTMLTableRowElement> {
     return this.tbody.querySelectorAll<HTMLTableRowElement>("tr");
   }
@@ -301,5 +432,27 @@ export abstract class SelectListBase extends HTMLElement {
 
   get localMenu(): boolean {
     return this.hasAttribute("local-menu");
+  }
+
+  get hiddenQueryInput(): HTMLInputElement {
+    return this.querySelector("input[id$='::query']");
+  }
+
+  get serverSideFiltering(): boolean {
+    return !!this.hiddenQueryInput;
+  }
+
+  get delay(): number {
+    const delay = this.hiddenQueryInput?.dataset.tobagoDelay;
+    return delay ? parseInt(delay) : 0;
+  }
+
+  get minChars(): number {
+    const minChars = this.hiddenQueryInput?.dataset.tobagoMinChars;
+    return minChars ? parseInt(minChars) : 0;
+  }
+
+  private get spinner(): HTMLDivElement {
+    return this.querySelector<HTMLDivElement>(`.${Css.SPINNER}`);
   }
 }

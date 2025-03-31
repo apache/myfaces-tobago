@@ -19,13 +19,15 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.model.SelectItem;
 import jakarta.faces.model.SelectItemGroup;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectItemsFiltered;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneList;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -37,12 +39,19 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends SelectOneRendererBase<T> {
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+  private static final String SELECT_LIST_UPDATE = "selectListUpdate";
+
   @Override
   public HtmlElements getComponentTag() {
     return HtmlElements.TOBAGO_SELECT_ONE_LIST;
@@ -50,8 +59,7 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
 
   @Override
   protected CssItem[] getComponentCss(final FacesContext facesContext, final T component) {
-    final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, component);
-    final boolean disabled = !items.iterator().hasNext() || component.isDisabled() || component.isReadonly();
+    final boolean disabled = component.isDisabledState(facesContext);
 
     List<CssItem> cssItems = new ArrayList<>();
     if (disabled) {
@@ -68,6 +76,27 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
     writer.writeAttribute(CustomAttributes.LOCAL_MENU, component.isLocalMenu());
   }
 
+  /**
+   * If server side filtering is used, the submitted value is only processed for "selectListUpdate" AJAX requests
+   * to avoid "Validation Error: Value is not valid".
+   * “selectListUpdate” AJAX requests are sent during filtering or if a value is selected.
+   */
+  @Override
+  public void decodeInternal(final FacesContext facesContext, final T component) {
+    super.decodeInternal(facesContext, component);
+
+    final AbstractUISelectItemsFiltered abstractUISelectItemsFiltered = component.getAbstractUISelectItemsFiltered();
+    if (abstractUISelectItemsFiltered != null) {
+      final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
+
+      if (component.getClientId(facesContext).equals(requestParameterMap.get(SELECT_LIST_UPDATE))) {
+        abstractUISelectItemsFiltered.updateDeferredSelectedItems(facesContext, component, component.getValue());
+      } else {
+        component.setSubmittedValue(null);
+      }
+    }
+  }
+
   @Override
   protected void encodeBeginField(FacesContext facesContext, T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
@@ -76,14 +105,15 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
     final String fieldId = component.getFieldId(facesContext);
     final String selectFieldId = clientId + ComponentUtils.SUB_SEPARATOR + "selectField";
     final String filterId = clientId + ComponentUtils.SUB_SEPARATOR + "filter";
-    final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, component);
-    final boolean disabled = !items.iterator().hasNext() || component.isDisabled() || component.isReadonly();
+    final List<SelectItem> allItems = component.getItemList(facesContext, false);
+    final List<SelectItem> filteredItems = component.getItemList(facesContext, true);
+    final boolean disabled = component.isDisabledState(facesContext);
     final String filter = component.getFilter();
     final boolean expanded = component.isExpanded();
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     final Integer tabIndex = component.getTabIndex();
 
-    encodeHiddenSelect(facesContext, component, items, clientId, fieldId, disabled);
+    encodeHiddenSelect(facesContext, component, allItems, clientId, fieldId, disabled);
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(
@@ -92,7 +122,7 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
 
     encodeSelectField(facesContext, component,
         clientId, selectFieldId, filterId, filter, disabled, expanded, title, tabIndex);
-    encodeOptions(facesContext, component, items, clientId, expanded, disabled);
+    encodeOptions(facesContext, component, filteredItems, clientId, expanded, disabled);
 
     writer.endElement(HtmlElements.DIV);
   }
@@ -121,6 +151,7 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
       final boolean disabled, final boolean expanded, final String title, final Integer tabIndex) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final Markup markup = component.getMarkup() != null ? component.getMarkup() : Markup.NULL;
+    final boolean readonly = component.isReadonlyState();
 
     writer.startElement(HtmlElements.DIV);
     writer.writeIdAttribute(selectFieldId);
@@ -152,7 +183,7 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
         markup.contains(Markup.LARGE) ? BootstrapClass.FORM_CONTROL_LG : null,
         markup.contains(Markup.SMALL) ? BootstrapClass.FORM_CONTROL_SM : null);
     writer.writeAttribute(HtmlAttributes.AUTOCOMPLETE, "off", false);
-    writer.writeAttribute(HtmlAttributes.READONLY, filter == null || filter.isEmpty());
+    writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     renderFocus(clientId, component.isFocus(), component.isError(), facesContext, writer);
@@ -167,6 +198,8 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
       final String clientId, final boolean expanded, final boolean disabled) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final Markup markup = component.getMarkup() != null ? component.getMarkup() : Markup.NULL;
+    final UIComponent footerFacet = ComponentUtils.getFacet(component, Facets.footer);
+    final String footerString = component.getFooter();
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(
@@ -181,6 +214,7 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
         markup.contains(Markup.LARGE) ? null : BootstrapClass.TABLE_SM);
     writer.startElement(HtmlElements.TBODY);
 
+    int entryCount = 0;
     final Object value = component.getValue();
     final Object submittedValue = component.getSubmittedValue();
     for (SelectItem item : items) {
@@ -199,18 +233,30 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
         for (SelectItem selectItem : selectItems) {
           encodeSelectItem(facesContext, writer, component, selectItem, value, submittedValue,
               disabled || item.isDisabled(), true);
+          entryCount++;
         }
       } else {
         encodeSelectItem(facesContext, writer, component, item, value, submittedValue, disabled, false);
+        entryCount++;
       }
     }
 
     writer.endElement(HtmlElements.TBODY);
     writer.startElement(HtmlElements.TFOOT);
     writer.startElement(HtmlElements.TR);
-    writer.writeClassAttribute(TobagoClass.NO__ENTRIES, BootstrapClass.D_NONE);
+    if (footerFacet != null || footerString != null) {
+      writer.writeClassAttribute(TobagoClass.CUSTOM__FOOTER);
+    } else {
+      writer.writeClassAttribute(TobagoClass.NO__ENTRIES, entryCount > 0 ? BootstrapClass.D_NONE : null);
+    }
     writer.startElement(HtmlElements.TD);
-    writer.writeText("---");
+    if (footerFacet != null) {
+      insideBegin(facesContext, Facets.footer);
+      footerFacet.encodeAll(facesContext);
+      insideEnd(facesContext, Facets.footer);
+    } else {
+      writer.writeText(footerString != null ? footerString : "---");
+    }
     writer.endElement(HtmlElements.TD);
     writer.endElement(HtmlElements.TR);
     writer.endElement(HtmlElements.TFOOT);
