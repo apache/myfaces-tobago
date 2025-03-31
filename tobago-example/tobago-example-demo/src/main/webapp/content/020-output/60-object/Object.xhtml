@@ -72,7 +72,7 @@
           </tc:button>
         </tc:buttons>
       </f:facet>
-      <demo-highlight language="javascript"><tc:out value="#{objectController.javaScriptSource}"/></demo-highlight>
+      <demo-highlight language="javascript"><tc:out value="#{sourceFileReader.getJavaSource('object.js', true)}"/></demo-highlight>
     </tc:box>
     <tc:buttons id="t1">
       <tc:button id="c1" label="Show Tobago" omit="true">

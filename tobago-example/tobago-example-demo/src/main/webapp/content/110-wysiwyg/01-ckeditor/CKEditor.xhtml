@@ -31,7 +31,7 @@
       This demo uses the CDN of CKEditor as a showcase.
       There are other integration possibilities.
       For more information to setup see
-      <tc:link image="bi-box-arrow-up-right" link="https://ckeditor.com//" label="CKEditor"/>.
+      <tc:link image="bi-box-arrow-up-right" link="https://ckeditor.com/" label="CKEditor"/>.
     </p>
 
     <p>
@@ -42,12 +42,15 @@
 
     <p>
       The setup needs entries in <code>tobago-config.xml</code> for CSP.
+      The simple way would be, to turn it of with
+      <code class="language-markup">&lt;content-security-policy mode="on"&gt;</code>,
+      but this is not recommended for security reasons.
       More information about these entries you find also on their website.
     </p>
 
     <p>
       <tc:badge
-          value="Not working with CSP mode='on'! Can be turned off in tobago-config.xml, or configured correctly."
+          value="Not working with CSP mode='on'! Can be turned off or configured in tobago-config.xml."
           markup="warning"/>
     </p>
 
@@ -71,7 +74,7 @@
           </tc:button>
         </tc:buttons>
       </f:facet>
-      <demo-highlight language="javascript"><tc:out value="#{ckeditorController.source}"/></demo-highlight>
+      <demo-highlight language="javascript"><tc:out value="#{sourceFileReader.getJavaSource('init-ckeditor.js', true)}"/></demo-highlight>
     </tc:box>
 
     <tc:textarea value="#{ckeditorController.text}">
