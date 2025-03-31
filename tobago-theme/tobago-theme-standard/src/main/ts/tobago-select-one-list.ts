@@ -27,7 +27,7 @@ class SelectOneList extends SelectListBase {
   connectedCallback(): void {
     super.connectedCallback();
     this.selectField.addEventListener("keydown", this.keydownEvent.bind(this));
-    if (this.filter) {
+    if (this.filter || this.tobagoFilter) {
       this.filterInput.addEventListener("input", this.clearSpan.bind(this));
     }
 
@@ -86,8 +86,9 @@ class SelectOneList extends SelectListBase {
   }
 
   private sync() {
-    this.spanText = this.selectedOption?.textContent;
-    this.rows.forEach((row) => {
+    this.spanText = this.selectedOption ? this.selectedOption.textContent : "";
+
+    this.rows?.forEach((row) => {
       if (row.dataset.tobagoValue === this.hiddenSelect.value) {
         row.classList.add(Css.TABLE_PRIMARY); // highlight list row
       } else {
@@ -98,9 +99,11 @@ class SelectOneList extends SelectListBase {
 
   protected leaveComponent(): void {
     this.focused = false;
-    this.filterInput.value = null;
-    this.filterInput.dispatchEvent(new Event("input"));
-    this.spanText = this.selectedOption?.textContent;
+    if (!this.tobagoFilter || (this.lastSuccessfulSearchQuery && this.lastSuccessfulSearchQuery.length > 0)) {
+      this.filterInput.value = null;
+      this.doFilter("");
+    }
+    this.spanText = this.selectedOption ? this.selectedOption.textContent : "";
     this.dropdownMenu?.hide();
   }
 
@@ -109,7 +112,9 @@ class SelectOneList extends SelectListBase {
   }
 
   set spanText(text: string) {
-    this.selectField.querySelector("span").textContent = text;
+    const spanElement = this.selectField.querySelector("span");
+    spanElement.textContent = text;
+    spanElement.style.marginRight = text ? null : "0"; //null remove inline style, so the margin from the CSS is used
   }
 
   get selectedOption(): HTMLOptionElement {

@@ -22,9 +22,6 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-  <p>
-    <tc:badge markup="warning" value="Preliminary feature, may be subject to change!"/>
-  </p>
   <p>Tag Library Documentation:
     <tc:link label="&lt;tc:selectOneList/>" image="#{request.contextPath}/image/feather-leaf.png"
              link="#{apiController.tobagoTld}/tc/selectOneList.html"/>
@@ -33,42 +30,47 @@
              link="#{apiController.tobagoTld}/tc/selectItem.html"/>
     |
     <tc:link label="&lt;tc:selectItems/>" image="#{request.contextPath}/image/feather-leaf.png"
-             link="#{apiController.tobagoTld}/tc/selectItems.html"/></p>
+             link="#{apiController.tobagoTld}/tc/selectItems.html"/>
+    |
+    <tc:link label="&lt;tc:filter/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.tobagoTld}/tc/filter.html"/></p>
 
   <tc:section label="Basic">
-    <tc:form id="basic">
-      <tc:selectOneList id="selectedStandard" label="Standard" value="#{selectOneListController.selectedPlanet}">
+    <tc:segmentLayout small="6seg">
+      <tc:panel>
+        <tc:selectOneList id="selectedStandard" label="Standard"
+                          value="#{selectOneListController.selectedPlanet}" labelLayout="top">
+          <tc:selectItems value="#{selectOneListController.planets}"
+                          var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+        </tc:selectOneList>
+        <tc:selectOneList id="selectedDisabled" label="Disabled"
+                          value="#{selectOneListController.selectedPlanet}"
+                          disabled="true" labelLayout="top">
+          <tc:selectItems value="#{selectOneListController.planets}"
+                          var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+        </tc:selectOneList>
+        <tc:selectOneList id="large" label="Large" markup="large" labelLayout="top">
+          <tc:selectItems value="#{selectOneListController.planets}"
+                          var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+        </tc:selectOneList>
+        <tc:selectOneList id="small" label="Small" markup="small" labelLayout="top">
+          <tc:selectItems value="#{selectOneListController.planets}"
+                          var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+        </tc:selectOneList>
+      </tc:panel>
+      <tc:selectOneList id="expanded" label="Expanded" expanded="true" labelLayout="top">
         <tc:selectItems value="#{selectOneListController.planets}"
                         var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
       </tc:selectOneList>
-      <tc:selectOneList id="selectedDisabled" label="Disabled" value="#{selectOneListController.selectedPlanet}"
-                        disabled="true">
-        <tc:selectItems value="#{selectOneListController.planets}"
-                        var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
-      </tc:selectOneList>
-      <tc:selectOneList id="large" label="Large" markup="large">
-        <tc:selectItems value="#{selectOneListController.planets}"
-                        var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
-      </tc:selectOneList>
-      <tc:selectOneList id="small" label="Small" markup="small">
-        <tc:selectItems value="#{selectOneListController.planets}"
-                        var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
-      </tc:selectOneList>
-      <tc:button id="submit" label="Submit"/>
-    </tc:form>
+    </tc:segmentLayout>
   </tc:section>
 
-  <tc:section label="Filter">
+  <tc:section label="Client side filtering">
     <p>The <code class="language-markup">&lt;tc:selectOneList/></code> component has a <code
         class="language-markup">filter</code> attribute with four predefined values:
       contains, startsWith, containsExact, startsWithExact</p>
-    <tc:selectOneList id="selectedFilter" label="Filter (contains)" filter="contains">
-      <tc:selectItems value="#{selectOneListController.planets}"
-                      var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
-    </tc:selectOneList>
-    <tc:separator/>
     <p>Choose between different filter types.</p>
-    <tc:segmentLayout id="advancedFilterExample" medium="4seg 8seg">
+    <tc:segmentLayout id="advancedFilterExample" small="4seg 8seg">
       <tc:selectOneRadio label="Filter type" value="#{selectOneListController.filterType}" required="true"
                          labelLayout="top">
         <tc:selectItem itemValue="contains"/>
@@ -94,18 +96,27 @@
     <!-- todo custom filter types -->
   </tc:section>
 
-  <tc:section label="Expanded">
-    <tc:selectOneList id="selectedExpanded" expanded="true">
-      <tc:selectItems value="#{selectOneListController.planets}"
-                      var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
-    </tc:selectOneList>
-    <tc:selectOneList id="selectedExpandedLarge" label="Large" expanded="true" markup="large">
-      <tc:selectItems value="#{selectOneListController.planets}"
-                      var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
-    </tc:selectOneList>
-    <tc:selectOneList id="selectedExpandedSmall" label="Small" expanded="true" markup="small">
-      <tc:selectItems value="#{selectOneListController.planets}"
-                      var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+  <tc:section label="Server side filtering">
+    <p>Server-side filtering is enabled by wrapping the select items within a
+      <code class="language-markup">tc:filter</code> component. Footer text is defined using the <code>footer</code>
+      attribute. For advanced customization, there is also a <code>footer</code> facet.</p>
+    <demo-highlight language="markup">
+&lt;tc:selectOneList
+  value="\#{selectOneListController.selectedSolarObject}"
+  footer="\#{selectOneListController.footerText}">
+  &lt;tc:filter query="\#{selectOneListController.query}" minimumCharacters="2">
+    &lt;tc:selectItems
+      value="\#{selectOneListController.solarObjects}"
+      var="planet" itemLabel="\#{planet.name}" itemValue="\#{planet}"/>
+  &lt;/tc:filter>
+&lt;/tc:selectOneList>
+    </demo-highlight>
+    <tc:selectOneList id="server" value="#{selectOneListController.selectedSolarObject}"
+                      footer="#{selectOneListController.footerText}">
+      <tc:filter query="#{selectOneListController.query}" minimumCharacters="2">
+        <tc:selectItems value="#{selectOneListController.solarObjects}"
+                        var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+      </tc:filter>
     </tc:selectOneList>
   </tc:section>
 </ui:composition>

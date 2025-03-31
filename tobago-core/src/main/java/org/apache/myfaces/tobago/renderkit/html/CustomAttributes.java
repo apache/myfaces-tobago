@@ -39,6 +39,7 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
   EXPANDABLE("expandable"),
   FIELD_ID("field-id"),
   FILTER("filter"),
+  FILTER_UPDATE("filter-update"),
   FOCUS_ID("focus-id"),
   /**
    * Internationalization strings for e.g. date specific labels, e.g. January or Monday.

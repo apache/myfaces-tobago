@@ -143,6 +143,7 @@ public enum HtmlElements {
   TOBAGO_DATE("tobago-date"),
   TOBAGO_DROPDOWN("tobago-dropdown"),
   TOBAGO_FILE("tobago-file"),
+  TOBAGO_FILTER("tobago-filter"),
   TOBAGO_FLEX_LAYOUT("tobago-flex-layout"),
   TOBAGO_FLOW_LAYOUT("tobago-flow-layout"),
   TOBAGO_FOCUS("tobago-focus"),

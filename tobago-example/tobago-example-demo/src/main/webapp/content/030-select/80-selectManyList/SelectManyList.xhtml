@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -16,15 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-  <p>
-    <tc:badge markup="warning" value="Preliminary feature, may be subject to change!"/>
-  </p>
   <p>Tag Library Documentation:
     <tc:link label="&lt;tc:selectManyList/>" image="#{request.contextPath}/image/feather-leaf.png"
              link="#{apiController.tobagoTld}/tc/selectManyList.html"/>
@@ -33,45 +28,46 @@
              link="#{apiController.tobagoTld}/tc/selectItem.html"/>
     |
     <tc:link label="&lt;tc:selectItems/>" image="#{request.contextPath}/image/feather-leaf.png"
-             link="#{apiController.tobagoTld}/tc/selectItems.html"/></p>
+             link="#{apiController.tobagoTld}/tc/selectItems.html"/>
+    |
+    <tc:link label="&lt;tc:filter/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.tobagoTld}/tc/filter.html"/></p>
 
   <tc:section label="Basic">
-    <tc:form id="basic">
-      <tc:selectManyList id="selectedStandard" label="Standard" value="#{selectManyListController.selectedPlanets}">
+    <tc:segmentLayout small="6seg">
+      <tc:panel>
+        <tc:selectManyList id="selectedStandard" label="Standard" value="#{selectManyListController.selectedPlanets}"
+                           labelLayout="top">
+          <tc:selectItems value="#{selectManyListController.planets}"
+                          var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+        </tc:selectManyList>
+        <tc:selectManyList id="selectedDisabled" label="Disabled" value="#{selectManyListController.selectedPlanets}"
+                           disabled="true" labelLayout="top">
+          <tc:selectItems value="#{selectManyListController.planets}"
+                          var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+        </tc:selectManyList>
+        <tc:selectManyList id="selectedLarge" label="Large" markup="large" labelLayout="top">
+          <tc:selectItems value="#{selectManyListController.planets}"
+                          var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+        </tc:selectManyList>
+        <tc:selectManyList id="selectedSmall" label="Small" markup="small" labelLayout="top">
+          <tc:selectItems value="#{selectManyListController.planets}"
+                          var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+        </tc:selectManyList>
+      </tc:panel>
+      <tc:selectManyList id="selectedExpanded" label="Expanded" expanded="true" labelLayout="top">
         <tc:selectItems value="#{selectManyListController.planets}"
                         var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
       </tc:selectManyList>
-      <tc:selectManyList id="selectedDisabled" label="Disabled" value="#{selectManyListController.selectedPlanets}"
-                         disabled="true">
-        <tc:selectItems value="#{selectManyListController.planets}"
-                        var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
-      </tc:selectManyList>
-      <tc:selectManyList id="selectedLarge" label="Large" markup="large">
-        <tc:selectItems value="#{selectManyListController.planets}"
-                        var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
-      </tc:selectManyList>
-      <tc:selectManyList id="selectedSmall" label="Small" markup="small">
-        <tc:selectItems value="#{selectManyListController.planets}"
-                        var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
-      </tc:selectManyList>
-      <tc:button id="submit" label="Submit"/>
-      <tc:button id="reset" label="reset for test" action="#{selectManyListController.resetSelectedPlanets()}">
-        <tc:style customClass="d-none"/>
-      </tc:button>
-    </tc:form>
+    </tc:segmentLayout>
   </tc:section>
 
-  <tc:section label="Filter">
+  <tc:section label="Client side filtering">
     <p>The <code class="language-markup">&lt;tc:selectManyList/></code> component has a <code
         class="language-markup">filter</code> attribute with four predefined values:
       contains, startsWith, containsExact, startsWithExact</p>
-    <tc:selectManyList id="selectedFilter" label="Filter (contains)" filter="contains">
-      <tc:selectItems value="#{selectManyListController.planets}"
-                      var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
-    </tc:selectManyList>
-    <tc:separator/>
     <p>Choose between different filter types.</p>
-    <tc:segmentLayout id="advancedFilterExample" medium="4seg 8seg">
+    <tc:segmentLayout id="advancedFilterExample" small="4seg 8seg">
       <tc:selectOneRadio label="Filter type" value="#{selectManyListController.filterType}" required="true"
                          labelLayout="top">
         <tc:selectItem itemValue="contains"/>
@@ -94,21 +90,28 @@
         dieresis (ü or ï), and cedilla (ç).
       </tc:panel>
     </tc:segmentLayout>
-    <!-- todo custom filter types -->
   </tc:section>
 
-  <tc:section label="Expanded">
-    <tc:selectManyList id="selectedExpanded" expanded="true">
-      <tc:selectItems value="#{selectManyListController.planets}"
-                      var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
-    </tc:selectManyList>
-    <tc:selectManyList id="selectedExpandedLarge" label="Large" expanded="true" markup="large">
-      <tc:selectItems value="#{selectManyListController.planets}"
-                      var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
-    </tc:selectManyList>
-    <tc:selectManyList id="selectedExpandedSmall" label="Small" expanded="true" markup="small">
-      <tc:selectItems value="#{selectManyListController.planets}"
-                      var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+  <tc:section label="Server side filtering">
+    <p>Server-side filtering is enabled by wrapping the select items within a
+      <code class="language-markup">tc:filter</code> component. Footer text is defined using the <code>footer</code>
+      attribute. For advanced customization, there is also a <code>footer</code> facet.</p>
+    <demo-highlight language="markup">
+&lt;tc:selectManyList
+    value="\#{selectManyListController.selectedSolarObjects}"
+    footer="\#{selectManyListController.footerText}">
+  &lt;tc:filter query="\#{selectManyListController.query}" minimumCharacters="2">
+    &lt;tc:selectItems value="\#{selectManyListController.solarObjects}"
+        var="planet" itemLabel="\#{planet.name}" itemValue="\#{planet}"/>
+  &lt;/tc:filter>
+&lt;/tc:selectManyList>
+    </demo-highlight>
+    <tc:selectManyList id="server" value="#{selectManyListController.selectedSolarObjects}"
+                       footer="#{selectManyListController.footerText}">
+      <tc:filter query="#{selectManyListController.query}" minimumCharacters="2">
+        <tc:selectItems value="#{selectManyListController.solarObjects}"
+                        var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+      </tc:filter>
     </tc:selectManyList>
   </tc:section>
 </ui:composition>

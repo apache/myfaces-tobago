@@ -28,4 +28,31 @@
     <tc:selectItem itemLabel="One" itemValue="one"/>
     <tc:selectItem itemLabel="Two" itemValue="two"/>
   </tc:selectManyList>
+
+  <tc:separator/>
+
+  <tc:section label="Basic">
+    <tc:form id="basic">
+      <tc:selectManyList id="selectedStandard" label="Standard" value="#{selectManyListController.selectedPlanets}">
+        <tc:selectItems value="#{selectManyListController.planets}"
+                        var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+      </tc:selectManyList>
+      <tc:selectManyList id="selectedDisabled" label="Disabled" value="#{selectManyListController.selectedPlanets}"
+                         disabled="true">
+        <tc:selectItems value="#{selectManyListController.planets}"
+                        var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+      </tc:selectManyList>
+      <tc:button id="submit" label="Submit"/>
+      <tc:button id="reset" label="reset for test" action="#{selectManyListController.resetSelectedPlanets()}">
+        <tc:style customClass="d-none"/>
+      </tc:button>
+    </tc:form>
+  </tc:section>
+
+  <tc:section label="Filter">
+    <tc:selectManyList id="selectedFilter" label="Filter (contains)" filter="contains">
+      <tc:selectItems value="#{selectManyListController.planets}"
+                      var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+    </tc:selectManyList>
+  </tc:section>
 </ui:composition>

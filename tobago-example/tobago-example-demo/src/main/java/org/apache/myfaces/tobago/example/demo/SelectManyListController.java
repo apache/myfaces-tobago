@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,6 +53,11 @@ public class SelectManyListController implements Serializable {
   private final List<String> names = new ArrayList<>();
   private String[] selectedNames = new String[0];
 
+  private List<SolarObject> solarObjects;
+  private SolarObject[] selectedSolarObjects;
+  private String query;
+  private String footerText;
+
   @PostConstruct
   public void init() {
     planets = astroData.getSatellites("Sun");
@@ -70,6 +76,8 @@ public class SelectManyListController implements Serializable {
     } catch (Exception e) {
       LOG.error("Can't load names", e);
     }
+
+    solarObjects = astroData.findAll().toList();
   }
 
   public List<SolarObject> getPlanets() {
@@ -111,5 +119,43 @@ public class SelectManyListController implements Serializable {
 
   public void setSelectedNames(String[] selectedNames) {
     this.selectedNames = selectedNames;
+  }
+
+  public List<SolarObject> getSolarObjects() {
+    if (query == null || query.length() < 2) {
+      footerText = "type 2 characters for filtering";
+      return new ArrayList<>();
+    } else {
+      List<SolarObject> list = solarObjects.stream()
+          .filter(p -> StringUtils.containsIgnoreCase(p.getName(), query))
+          .limit(11)
+          .toList();
+      if (list.size() > 10) {
+        footerText = "showing top 10 results";
+        return list.subList(0, 10);
+      } else if (list.isEmpty()) {
+        footerText = "---";
+        return list;
+      } else {
+        footerText = "";
+        return list;
+      }
+    }
+  }
+
+  public SolarObject[] getSelectedSolarObjects() {
+    return selectedSolarObjects;
+  }
+
+  public void setSelectedSolarObjects(SolarObject[] selectedSolarObjects) {
+    this.selectedSolarObjects = selectedSolarObjects;
+  }
+
+  public void setQuery(String query) {
+    this.query = query;
+  }
+
+  public String getFooterText() {
+    return footerText;
   }
 }

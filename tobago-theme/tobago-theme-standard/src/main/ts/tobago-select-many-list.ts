@@ -81,18 +81,18 @@ class SelectManyList extends SelectListBase {
       span.role = "group";
       span.dataset.tobagoValue = itemValue;
       this.badges.insertAdjacentElement("beforeend", span);
-      render(this.getRowTemplate(row.innerText, option.disabled || this.hiddenSelect.disabled, tabIndex), span);
+      render(this.getBadgeTemplate(option.innerText, option.disabled || this.hiddenSelect.disabled, tabIndex), span);
 
-      row.classList.add(Css.TABLE_PRIMARY); // highlight list row
+      row?.classList.add(Css.TABLE_PRIMARY); // highlight list row
     } else {
       // remove badge
       const badge = this.selectField.querySelector(`[data-tobago-value="${itemValue}"]`);
       badge.remove();
 
-      row.classList.remove(Css.TABLE_PRIMARY); // remove highlight list row
+      row?.classList.remove(Css.TABLE_PRIMARY); // remove highlight list row
     }
 
-    if (!this.disabled && !this.filter) {
+    if (!this.disabled && !this.filter && !this.tobagoFilter) {
       // disable input field to prevent focus.
       if (this.badgeCloseButtons.length > 0 && this.filterInput.id === document.activeElement.id) {
         this.badgeCloseButtons.item(this.badgeCloseButtons.length - 1).focus();
@@ -101,7 +101,7 @@ class SelectManyList extends SelectListBase {
     }
   }
 
-  private getRowTemplate(text: string, disabled: boolean, tabIndex: number): HTMLTemplateResult {
+  private getBadgeTemplate(text: string, disabled: boolean, tabIndex: number): HTMLTemplateResult {
     console.debug("creating span: ", text, disabled, tabIndex);
     return disabled
         ? html`<tobago-badge class="badge text-bg-primary btn disabled">${text}</tobago-badge>`
@@ -139,8 +139,10 @@ class SelectManyList extends SelectListBase {
 
   protected leaveComponent(): void {
     this.focused = false;
-    this.filterInput.value = null;
-    this.filterInput.dispatchEvent(new Event("input"));
+    if (!this.tobagoFilter || (this.lastSuccessfulSearchQuery && this.lastSuccessfulSearchQuery.length > 0)) {
+      this.filterInput.value = null;
+      this.doFilter("");
+    }
     this.dropdownMenu?.hide();
   }
 

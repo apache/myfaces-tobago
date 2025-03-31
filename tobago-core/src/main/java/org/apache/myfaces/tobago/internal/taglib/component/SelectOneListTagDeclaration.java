@@ -20,12 +20,17 @@
 package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Markup;
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.component.AbstractUIFilter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
@@ -64,7 +69,15 @@ import javax.faces.component.UISelectMany;
     uiComponentFacesClass = "javax.faces.component.UISelectOne",
     componentFamily = UISelectMany.COMPONENT_FAMILY,
     rendererType = RendererTypes.SELECT_ONE_LIST,
-    allowedChildComponents = {"javax.faces.SelectItem", "javax.faces.SelectItems"},
+    allowedChildComponents = {
+        "javax.faces.SelectItem",
+        "javax.faces.SelectItems",
+        AbstractUIFilter.COMPONENT_FAMILY
+    },
+    facets = {
+        @Facet(name = Facets.FOOTER, description = "Replace the no-entries footer at the end of the result list with a"
+            + " custom footer. If no elements are rendered, the custom footer is hidden.")
+    },
     behaviors = {
         @Behavior(name = ClientBehaviors.CHANGE, isDefault = true),
         @Behavior(name = ClientBehaviors.CLICK),
@@ -86,4 +99,12 @@ public interface SelectOneListTagDeclaration
     HasLabel, HasValidator, HasValue, HasValueChangeListener, HasLabelLayout, HasValidatorMessage, HasConverterMessage,
     HasRequiredMessageForSelect, HasTabIndex, IsFocus, IsVisual, HasAutoSpacing, HasFilter, IsExpanded,
     HasDecorationPosition, HasLocalMenu {
+
+  /**
+   * Replace the no-entries footer at the end of the result list with a custom footer. The text in the custom footer is
+   * set by this attribute. If the string is empty, the footer is hidden.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute
+  void setFooter(String footer);
 }

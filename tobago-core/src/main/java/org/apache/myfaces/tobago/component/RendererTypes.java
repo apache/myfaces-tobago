@@ -38,6 +38,7 @@ public enum RendererTypes {
   Event,
   Figure,
   File,
+  Filter,
   FlexLayout,
   FlowLayout,
   Footer,
@@ -116,6 +117,7 @@ public enum RendererTypes {
   public static final String DATE = "Date";
   public static final String FIGURE = "Figure";
   public static final String FILE = "File";
+  public static final String FILTER = "Filter";
   public static final String FLEX_LAYOUT = "FlexLayout";
   public static final String FLOW_LAYOUT = "FlowLayout";
   public static final String FOOTER = "Footer";

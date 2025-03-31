@@ -43,6 +43,7 @@ public enum Tags {
   event,
   figure,
   file,
+  filter,
   flexLayout,
   flowLayout,
   footer,
@@ -123,6 +124,7 @@ public enum Tags {
   public static final String DATE = "date";
   public static final String FIGURE = "figure";
   public static final String FILE = "file";
+  public static final String FILTER = "filter";
   public static final String FLEX_LAYOUT = "flexLayout";
   public static final String FLOW_LAYOUT = "flowLayout";
   public static final String FOOTER = "footer";

@@ -59,7 +59,7 @@ class Behavior extends HTMLElement {
     if (eventElement) {
       eventElement.removeEventListener(this.event, this.eventListener);
     } else {
-      this.parentElement.removeEventListener(this.event, this.eventListener);
+      this.parentElement?.removeEventListener(this.event, this.eventListener);
     }
   }
 
