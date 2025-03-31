@@ -29,4 +29,28 @@
     <f:ajax render="selectedStandard output"/>
   </tc:selectOneList>
   <tc:out id="output" label="Planet" value="#{selectOneListController.selectedPlanet}"/>
+
+  <tc:separator/>
+
+  <tc:section label="Basic">
+    <tc:form id="basic">
+      <tc:selectOneList id="selectedStandard" label="Standard" value="#{selectOneListController.selectedPlanet}">
+        <tc:selectItems value="#{selectOneListController.planets}"
+                        var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+      </tc:selectOneList>
+      <tc:selectOneList id="selectedDisabled" label="Disabled" value="#{selectOneListController.selectedPlanet}"
+                        disabled="true">
+        <tc:selectItems value="#{selectOneListController.planets}"
+                        var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+      </tc:selectOneList>
+      <tc:button id="submit" label="Submit"/>
+    </tc:form>
+  </tc:section>
+
+  <tc:section label="Filter">
+    <tc:selectOneList id="selectedFilter" label="Filter (contains)" filter="contains">
+      <tc:selectItems value="#{selectOneListController.planets}"
+                      var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+    </tc:selectOneList>
+  </tc:section>
 </ui:composition>

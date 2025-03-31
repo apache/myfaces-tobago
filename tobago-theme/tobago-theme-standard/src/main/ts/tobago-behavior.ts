@@ -59,7 +59,7 @@ class Behavior extends HTMLElement {
     if (eventElement) {
       eventElement.removeEventListener(this.event, this.eventListener);
     } else {
-      this.parentElement.removeEventListener(this.event, this.eventListener);
+      this.parentElement?.removeEventListener(this.event, this.eventListener);
     }
   }
 
@@ -145,7 +145,7 @@ class Behavior extends HTMLElement {
                 upload: {
                   progress: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
                     // console.debug(`progress: ${event.loaded} of ${event.total}`);
-                    if (this.actionElement.tagName === "TOBAGO-FILE") {
+                    if (this.actionElement?.tagName === "TOBAGO-FILE") {
                       (this.actionElement as File).updateProgress(event.loaded, event.total);
                     }
                   },
@@ -154,7 +154,7 @@ class Behavior extends HTMLElement {
                   },
                   loadstart: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
                     // console.debug(`loadstart: ${event.loaded} of ${event.total}`);
-                    if (this.actionElement.tagName === "TOBAGO-FILE") {
+                    if (this.actionElement?.tagName === "TOBAGO-FILE") {
                       (this.actionElement as File).startProgress(event.loaded, event.total);
                     }
                   },
@@ -163,7 +163,7 @@ class Behavior extends HTMLElement {
                   },
                   loadend: (upload: XMLHttpRequestUpload, event: ProgressEvent) => {
                     // console.debug(`loadend: ${event.loaded} of ${event.total}`);
-                    if (this.actionElement.tagName === "TOBAGO-FILE") {
+                    if (this.actionElement?.tagName === "TOBAGO-FILE") {
                       (this.actionElement as File).finishProgress();
                     }
                   },
@@ -411,7 +411,11 @@ class Behavior extends HTMLElement {
   get actionElement(): HTMLElement {
     const rootNode = this.getRootNode() as ShadowRoot | Document;
     const id = this.clientId;
-    return rootNode.getElementById(id);
+    if (typeof rootNode.getElementById === "function") {
+      return rootNode.getElementById(id);
+    } else {
+      return null;
+    }
   }
 
   get eventElement(): HTMLElement {
