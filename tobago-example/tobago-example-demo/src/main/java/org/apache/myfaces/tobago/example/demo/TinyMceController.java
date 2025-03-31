@@ -25,7 +25,7 @@ import java.io.Serializable;
 
 @SessionScoped
 @Named
-public class TinyMceController extends SourceFileReader implements Serializable {
+public class TinyMceController implements Serializable {
 
   private String text;
 
@@ -40,9 +40,5 @@ public class TinyMceController extends SourceFileReader implements Serializable 
 
   public void setText(final String text) {
     this.text = text;
-  }
-
-  public String getSource() {
-    return getSource("init-tinymce.js");
   }
 }

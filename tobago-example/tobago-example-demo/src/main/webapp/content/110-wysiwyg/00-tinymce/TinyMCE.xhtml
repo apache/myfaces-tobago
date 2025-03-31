@@ -65,7 +65,7 @@
           </tc:button>
         </tc:buttons>
       </f:facet>
-      <demo-highlight language="javascript"><tc:out value="#{tinyMceController.source}"/></demo-highlight>
+      <demo-highlight language="javascript"><tc:out value="#{sourceFileReader.getJavaSource('init-tinymce.js', true)}"/></demo-highlight>
     </tc:box>
 
     <tc:textarea value="#{tinyMceController.text}">
