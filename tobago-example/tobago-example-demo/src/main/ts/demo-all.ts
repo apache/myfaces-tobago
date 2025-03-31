@@ -21,4 +21,5 @@ import "./demo-date";
 import "./demo-highlight";
 import "./demo-inspect";
 import "./demo-login";
+import "./demo-sidebar";
 import "./demo-test";
