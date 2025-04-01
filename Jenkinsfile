@@ -59,8 +59,8 @@ pipeline {
                         }
                         post {
                             always {
-                               junit(testResults: '**/surefire-reports/*.xml', allowEmptyResults: true)
-                               junit(testResults: '**/failsafe-reports/*.xml', allowEmptyResults: true)
+                               junit(testResults: '**/tobago-*/target/surefire-reports/*.xml', allowEmptyResults: true)
+                               junit(testResults: '**/tobago-*/target/failsafe-reports/*.xml', allowEmptyResults: true)
                                archiveArtifacts '**/target/*.jar'
                             }
                         }
