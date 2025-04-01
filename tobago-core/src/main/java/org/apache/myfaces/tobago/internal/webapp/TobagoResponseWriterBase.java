@@ -163,7 +163,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
   public void flush() throws IOException {
     /*
     From the api:
-    Flush any ouput buffered by the output method to the underlying Writer or OutputStream.
+    Flush any output buffered by the output method to the underlying Writer or OutputStream.
     This method will not flush the underlying Writer or OutputStream;
     it simply clears any values buffered by this ResponseWriter.
      */
