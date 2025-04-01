@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.layout.Margin;
 import javax.el.ValueExpression;
 
 /**
- * Set a offset for the parent UIComponent withing a segment layout.
+ * Set a offset for the parent UIComponent within a segment layout.
  */
 @Tag(name = "segmentLayoutConstraint")
 @SimpleTag(faceletHandler = "org.apache.myfaces.tobago.facelets.SegmentLayoutConstraintHandler")
