@@ -157,7 +157,7 @@
       <tc:section id="layout-script" label="Migration script for layout attributes">
         <p>Here is a simple <tc:link label="migration script" link="migrate4-layout.sh"/>, that may help you to change the layout attributes in the
           facelets XHTML files.</p>
-        <demo-highlight language="bash"><tc:out value="#{migration4Controller.scriptSource}"/></demo-highlight>
+        <demo-highlight language="bash"><tc:out value="#{sourceFileReader.getShellSource('migrate4-layout.sh', true)}"/></demo-highlight>
       </tc:section>
 
     </tc:section>
