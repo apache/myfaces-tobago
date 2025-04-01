@@ -63,7 +63,7 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
     encodeBeginSurroundingLabel(facesContext, component);
 
     if (component.isNextToRenderIsLabel()) {
-      // skip, because its only the lable to render
+      // skip, because its only the label to render
     } else {
       encodeBeginMessageField(facesContext, component);
     }
@@ -73,7 +73,7 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
   public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
 
     if (component.isNextToRenderIsLabel()) {
-      // skip, because its only the lable to render
+      // skip, because its only the label to render
     } else {
       encodeEndMessageField(facesContext, component);
     }
@@ -153,7 +153,7 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
     }
 
     if (nextToRenderIsLabel) {
-      // skip, because its only the lable to render
+      // skip, because its only the label to render
     } else {
       writer.startElement(getComponentTag());
       writer.writeIdAttribute(clientId);

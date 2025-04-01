@@ -208,7 +208,7 @@ public class DateRenderer<T extends AbstractUIDate> extends DecorationPositionRe
   }
 
   /**
-   * Creates a converter (if not defined any) which satifies the requirements of HTML5.
+   * Creates a converter (if not defined any) which satisfies the requirements of HTML5.
    * @see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Date_and_time_formats">MDN Web Docs</a>
    */
   @Override
