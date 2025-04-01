@@ -112,6 +112,16 @@ mvn clean package quarkus:dev
 
 Browse to the local URL http://localhost:8080/
 
+***Spring Boot***
+
+```shell
+mvn clean install
+cd tobago-example/tobago-example-spring-boot
+mvn clean package spring-boot:run
+```
+
+Browse to the local URL http://localhost:8080/
+
 ***Tomcat in Docker***
 
 ```
