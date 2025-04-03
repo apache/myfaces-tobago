@@ -24,19 +24,6 @@ class SelectOneList extends SelectListBase {
     super();
   }
 
-  get spanText(): string {
-    return this.selectField.querySelector("span").textContent;
-  }
-
-  set spanText(text: string) {
-    this.selectField.querySelector("span").textContent = text;
-  }
-
-  get selectedOption(): HTMLOptionElement {
-    const value = this.hiddenSelect.value;
-    return this.hiddenSelect.querySelector(`[value="${value}"]`);
-  }
-
   connectedCallback(): void {
     super.connectedCallback();
     this.selectField.addEventListener("keydown", this.keydownEvent.bind(this));
@@ -115,6 +102,19 @@ class SelectOneList extends SelectListBase {
     this.filterInput.dispatchEvent(new Event("input"));
     this.spanText = this.selectedOption.textContent;
     this.dropdownMenu?.hide();
+  }
+
+  get spanText(): string {
+    return this.selectField.querySelector("span").textContent;
+  }
+
+  set spanText(text: string) {
+    this.selectField.querySelector("span").textContent = text;
+  }
+
+  get selectedOption(): HTMLOptionElement {
+    const value = this.hiddenSelect.value;
+    return this.hiddenSelect.querySelector(`[value="${value}"]`);
   }
 }
 

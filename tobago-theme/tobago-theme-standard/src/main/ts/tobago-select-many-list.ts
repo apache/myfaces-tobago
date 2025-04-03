@@ -24,14 +24,6 @@ class SelectManyList extends SelectListBase {
     super();
   }
 
-  get badges(): HTMLDivElement {
-    return this.selectField.querySelector(".tobago-badges");
-  }
-
-  get badgeCloseButtons(): NodeListOf<HTMLButtonElement> {
-    return this.badges.querySelectorAll("button.btn.badge");
-  }
-
   connectedCallback(): void {
     super.connectedCallback();
 
@@ -154,6 +146,14 @@ class SelectManyList extends SelectListBase {
 
   private isDeleted(element: Element): boolean {
     return element.closest("html") === null;
+  }
+
+  get badges(): HTMLDivElement {
+    return this.selectField.querySelector(".tobago-badges");
+  }
+
+  get badgeCloseButtons(): NodeListOf<HTMLButtonElement> {
+    return this.badges.querySelectorAll("button.btn.badge");
   }
 }
 
