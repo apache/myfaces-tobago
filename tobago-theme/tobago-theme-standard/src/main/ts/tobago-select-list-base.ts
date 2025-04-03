@@ -23,74 +23,6 @@ import {DropdownMenu, DropdownMenuAlignment} from "./tobago-dropdown-menu";
 export abstract class SelectListBase extends HTMLElement {
   protected dropdownMenu: DropdownMenu;
 
-  get disabled(): boolean {
-    return this.classList.contains(Css.TOBAGO_DISABLED);
-  }
-
-  get focused(): boolean {
-    return this.classList.contains(Css.TOBAGO_FOCUS);
-  }
-
-  set focused(focused: boolean) {
-    if (focused && !this.focused) {
-      this.classList.add(Css.TOBAGO_FOCUS);
-      this.hiddenSelect.dispatchEvent(new Event("focus", {bubbles: true}));
-    } else if (!focused && this.focused) {
-      this.classList.remove(Css.TOBAGO_FOCUS);
-      this.hiddenSelect.dispatchEvent(new Event("blur", {bubbles: true}));
-    }
-  }
-
-  get filter(): string {
-    return this.getAttribute("filter");
-  }
-
-  get hiddenSelect(): HTMLSelectElement {
-    return this.querySelector("select");
-  }
-
-  get hiddenOptions(): NodeListOf<HTMLOptionElement> {
-    return this.hiddenSelect.querySelectorAll<HTMLOptionElement>("option");
-  }
-
-  get selectField(): HTMLDivElement {
-    return this.querySelector(".tobago-select-field");
-  }
-
-  get filterInput(): HTMLInputElement {
-    return this.querySelector(".tobago-filter");
-  }
-
-  get dropdownMenuElement(): HTMLDivElement {
-    const root = this.getRootNode() as ShadowRoot | Document;
-    return root.querySelector(`.${Css.TOBAGO_DROPDOWN_MENU}[name='${this.id}']`);
-  }
-
-  get options(): HTMLElement {
-    const root = this.getRootNode() as ShadowRoot | Document;
-    return root.querySelector(`.tobago-options[name='${this.id}'] table`);
-  }
-
-  get tbody(): HTMLElement {
-    return this.options.querySelector("tbody");
-  }
-
-  get rows(): NodeListOf<HTMLTableRowElement> {
-    return this.tbody.querySelectorAll<HTMLTableRowElement>("tr");
-  }
-
-  get enabledRows(): NodeListOf<HTMLTableRowElement> {
-    return this.tbody.querySelectorAll<HTMLTableRowElement>("tr:not(." + Css.D_NONE + "):not(." + Css.DISABLED);
-  }
-
-  get preselectedRow(): HTMLTableRowElement {
-    return this.tbody.querySelector<HTMLTableRowElement>("." + Css.TOBAGO_PRESELECT);
-  }
-
-  get localMenu(): boolean {
-    return this.hasAttribute("local-menu");
-  }
-
   connectedCallback(): void {
     if (this.dropdownMenuElement) {
       this.dropdownMenu = new DropdownMenu(this.dropdownMenuElement, this.selectField, this, this.localMenu,
@@ -301,5 +233,73 @@ export abstract class SelectListBase extends HTMLElement {
     } else {
       return false;
     }
+  }
+
+  get disabled(): boolean {
+    return this.classList.contains(Css.TOBAGO_DISABLED);
+  }
+
+  get focused(): boolean {
+    return this.classList.contains(Css.TOBAGO_FOCUS);
+  }
+
+  set focused(focused: boolean) {
+    if (focused && !this.focused) {
+      this.classList.add(Css.TOBAGO_FOCUS);
+      this.hiddenSelect.dispatchEvent(new Event("focus", {bubbles: true}));
+    } else if (!focused && this.focused) {
+      this.classList.remove(Css.TOBAGO_FOCUS);
+      this.hiddenSelect.dispatchEvent(new Event("blur", {bubbles: true}));
+    }
+  }
+
+  get filter(): string {
+    return this.getAttribute("filter");
+  }
+
+  get hiddenSelect(): HTMLSelectElement {
+    return this.querySelector("select");
+  }
+
+  get hiddenOptions(): NodeListOf<HTMLOptionElement> {
+    return this.hiddenSelect.querySelectorAll<HTMLOptionElement>("option");
+  }
+
+  get selectField(): HTMLDivElement {
+    return this.querySelector(".tobago-select-field");
+  }
+
+  get filterInput(): HTMLInputElement {
+    return this.querySelector(".tobago-filter");
+  }
+
+  get dropdownMenuElement(): HTMLDivElement {
+    const root = this.getRootNode() as ShadowRoot | Document;
+    return root.querySelector(`.${Css.TOBAGO_DROPDOWN_MENU}[name='${this.id}']`);
+  }
+
+  get options(): HTMLElement {
+    const root = this.getRootNode() as ShadowRoot | Document;
+    return root.querySelector(`.tobago-options[name='${this.id}'] table`);
+  }
+
+  get tbody(): HTMLElement {
+    return this.options.querySelector("tbody");
+  }
+
+  get rows(): NodeListOf<HTMLTableRowElement> {
+    return this.tbody.querySelectorAll<HTMLTableRowElement>("tr");
+  }
+
+  get enabledRows(): NodeListOf<HTMLTableRowElement> {
+    return this.tbody.querySelectorAll<HTMLTableRowElement>("tr:not(." + Css.D_NONE + "):not(." + Css.DISABLED);
+  }
+
+  get preselectedRow(): HTMLTableRowElement {
+    return this.tbody.querySelector<HTMLTableRowElement>("." + Css.TOBAGO_PRESELECT);
+  }
+
+  get localMenu(): boolean {
+    return this.hasAttribute("local-menu");
   }
 }
