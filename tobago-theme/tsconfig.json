@@ -3,6 +3,7 @@
     "module": "es6",
     "target": "ES2015",
     "noImplicitAny": false,
+    "moduleResolution": "bundler",
     "rootDir": "tobago-theme-standard/src/main/ts",
     "sourceRoot": "../ts",
     "outDir": "tobago-theme-standard/src/main/js",
