@@ -56,7 +56,7 @@
                   <artifactItem>
                     <groupId>com.google.javascript</groupId>
                     <artifactId>closure-compiler</artifactId>
-                    <version>v20220502</version>
+                    <version>v20250402</version>
                     <overWrite>true</overWrite>
                     <outputDirectory>${project.build.directory}/javascript-min</outputDirectory>
                     <destFileName>closure-compiler.jar</destFileName>
