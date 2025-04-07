@@ -276,6 +276,9 @@ updates:
       - dependency-name: "org.apache.deltaspike.modules:deltaspike-jsf-module-impl"
         versions:
           - ">= 2.0.0"
+      - dependency-name: "com.google.javascript:closure-compiler"
+        versions:
+          - ">= v20250402" # requires Java 21
 
   - package-ecosystem: "maven"
     directory: "/"
@@ -346,6 +349,9 @@ updates:
       - dependency-name: "org.apache.deltaspike.modules:deltaspike-jsf-module-impl"
         versions:
           - ">= 2.0.0"
+      - dependency-name: "com.google.javascript:closure-compiler"
+        versions:
+          - ">= v20250402" # requires Java 21
 
   - package-ecosystem: "github-actions"
     directory: "/"
