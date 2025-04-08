@@ -53,12 +53,12 @@ class SelectOneList extends SelectListBase {
         if (!this.filterInput.disabled) {
           this.filterInput.focus();
         }
-        this.dropdownMenu.show();
+        this.dropdownMenu?.show();
       } else if (this.isPartOfTobagoOptions(event.target as Element)) {
         if (!this.filterInput.disabled) {
           this.filterInput.focus();
         }
-        this.dropdownMenu.hide();
+        this.dropdownMenu?.hide();
       } else {
         this.leaveComponent();
       }
@@ -114,7 +114,7 @@ class SelectOneList extends SelectListBase {
     this.filterInput.value = null;
     this.filterInput.dispatchEvent(new Event("input"));
     this.spanText = this.selectedOption.textContent;
-    this.dropdownMenu.hide();
+    this.dropdownMenu?.hide();
   }
 }
 
