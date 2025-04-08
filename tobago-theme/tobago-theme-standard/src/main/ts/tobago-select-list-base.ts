@@ -121,7 +121,7 @@ export abstract class SelectListBase extends HTMLElement {
   }
 
   disconnectedCallback(): void {
-    this.dropdownMenu.disconnect();
+    this.dropdownMenu?.disconnect();
   }
 
   protected abstract globalClickEvent(event: MouseEvent): void;
@@ -138,18 +138,18 @@ export abstract class SelectListBase extends HTMLElement {
   private keydownEventBase(event: KeyboardEvent) {
     switch (event.key) {
       case Key.ESCAPE:
-        this.dropdownMenu.hide();
+        this.dropdownMenu?.hide();
         this.removePreselection();
         this.filterInput.focus({preventScroll: true});
         break;
       case Key.ARROW_DOWN:
         event.preventDefault();
-        this.dropdownMenu.show();
+        this.dropdownMenu?.show();
         this.preselectNextRow();
         break;
       case Key.ARROW_UP:
         event.preventDefault();
-        this.dropdownMenu.show();
+        this.dropdownMenu?.show();
         this.preselectPreviousRow();
         break;
       case Key.ENTER:
@@ -159,7 +159,7 @@ export abstract class SelectListBase extends HTMLElement {
           const row = this.tbody.querySelector<HTMLTableRowElement>("." + Css.TOBAGO_PRESELECT);
           this.select(row);
         } else if (document.activeElement.id === this.filterInput.id) {
-          this.dropdownMenu.show();
+          this.dropdownMenu?.show();
         }
         break;
       case Key.TAB:
@@ -191,7 +191,7 @@ export abstract class SelectListBase extends HTMLElement {
     const input = event.currentTarget as HTMLInputElement;
     const searchString = input.value;
     if (searchString.length > 0) {
-      this.dropdownMenu.show(); // do not show dropdown menu while leaving the component
+      this.dropdownMenu?.show(); // do not show dropdown menu while leaving the component
     }
     const filterFunction = TobagoFilterRegistry.get(this.filter);
     // XXX todo: if filterFunction not found?
