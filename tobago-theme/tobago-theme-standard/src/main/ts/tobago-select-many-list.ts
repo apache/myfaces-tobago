@@ -53,7 +53,7 @@ class SelectManyList extends SelectListBase {
         } else if (this.badgeCloseButtons.length > 0) {
           this.badgeCloseButtons[0].focus();
         }
-        this.dropdownMenu.show();
+        this.dropdownMenu?.show();
 
       } else {
         this.leaveComponent();
@@ -149,7 +149,7 @@ class SelectManyList extends SelectListBase {
     this.focused = false;
     this.filterInput.value = null;
     this.filterInput.dispatchEvent(new Event("input"));
-    this.dropdownMenu.hide();
+    this.dropdownMenu?.hide();
   }
 
   private isDeleted(element: Element): boolean {
