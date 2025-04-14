@@ -84,6 +84,7 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.REQUIRED, component.isRequired());
     writer.writeClassAttribute(BootstrapClass.D_NONE);
+    writer.writeAttribute(HtmlAttributes.SIZE, 2);
 
     final String submittedValue = (String) component.getSubmittedValue();
     renderSelectItems(component, null, items, component.getValue(), submittedValue, writer, facesContext);

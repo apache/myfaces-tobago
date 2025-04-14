@@ -79,16 +79,16 @@ class SelectOneList extends SelectListBase {
   protected select(row: HTMLTableRowElement): void {
     const itemValue = row.dataset.tobagoValue;
     const option: HTMLOptionElement = this.hiddenSelect.querySelector(`[value="${itemValue}"]`);
-    option.selected = true;
+    option.selected = this.hiddenSelect.required ? true : !option.selected;
     this.filterInput.value = null;
     this.sync();
     this.hiddenSelect.dispatchEvent(new Event("change", {bubbles: true}));
   }
 
   private sync() {
+    this.spanText = this.selectedOption?.textContent;
     this.rows.forEach((row) => {
       if (row.dataset.tobagoValue === this.hiddenSelect.value) {
-        this.spanText = this.selectedOption.textContent;
         row.classList.add(Css.TABLE_PRIMARY); // highlight list row
       } else {
         row.classList.remove(Css.TABLE_PRIMARY); // remove highlight list row
@@ -100,7 +100,7 @@ class SelectOneList extends SelectListBase {
     this.focused = false;
     this.filterInput.value = null;
     this.filterInput.dispatchEvent(new Event("input"));
-    this.spanText = this.selectedOption.textContent;
+    this.spanText = this.selectedOption?.textContent;
     this.dropdownMenu?.hide();
   }
 
