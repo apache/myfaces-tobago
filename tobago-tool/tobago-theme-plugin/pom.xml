@@ -89,14 +89,10 @@
       <artifactId>plexus-utils</artifactId>
       <version>3.6.0</version>
     </dependency>
-    <!--
-      this is to avoid the following vulnerabilities in
-      plexus-xml-3.0.0.jar: CVE-2022-4245(4.3), CVE-2022-4244(7.5)
-      -->
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-xml</artifactId>
-      <version>4.0.4</version>
+      <version>3.0.2</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
@@ -159,11 +155,24 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>7</source>
-          <target>7</target>
+          <source>8</source>
+          <target>8</target>
         </configuration>
       </plugin>
     </plugins>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-plugin-plugin</artifactId>
+          <!-- Version from Apache Parent is 3.5.2 and too old for us -->
+          <version>3.15.1</version>
+          <configuration>
+            <goalPrefix>tobago-theme</goalPrefix>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
   </build>
 
 </project>
