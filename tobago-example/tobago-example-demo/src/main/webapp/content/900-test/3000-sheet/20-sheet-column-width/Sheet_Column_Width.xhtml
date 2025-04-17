@@ -17,14 +17,56 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/plain.xhtml"
+<ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="jakarta.faces.facelets">
   <tc:style file="#{request.contextPath}/css/demo.css"/>
 
+  <tc:sheet id="pixelOnly" value="#{sheetController.solarList}" var="object" rows="2"
+            columns="10px 20px 30px">
+    <tc:column label="Name">
+      <tc:out value="#{object.name}"/>
+    </tc:column>
+    <tc:column label="Orbit">
+      <tc:out value="#{object.orbit}"/>
+    </tc:column>
+    <tc:column label="Period (Days)">
+      <tc:out value="#{object.period}"/>
+    </tc:column>
+  </tc:sheet>
+
+  <tc:sheet id="percentOnly" value="#{sheetController.solarList}" var="object" rows="2"
+            columns="10% 20% 30%">
+    <tc:style width="1000px"/>
+    <tc:column label="Name">
+      <tc:out value="#{object.name}"/>
+    </tc:column>
+    <tc:column label="Orbit">
+      <tc:out value="#{object.orbit}"/>
+    </tc:column>
+    <tc:column label="Period (Days)">
+      <tc:out value="#{object.period}"/>
+    </tc:column>
+  </tc:sheet>
+
+  <tc:sheet id="autoOnly" value="#{sheetController.solarList}" var="object" rows="2"
+            columns="auto">
+    <tc:style width="900px"/>
+    <tc:column label="Name">
+      <tc:out value="#{object.name}"/>
+    </tc:column>
+    <tc:column label="Orbit">
+      <tc:out value="#{object.orbit}"/>
+    </tc:column>
+    <tc:column label="Period (Days)">
+      <tc:out value="#{object.period}"/>
+    </tc:column>
+  </tc:sheet>
+
   <tc:sheet id="testSheetColumnWidth" value="#{sheetController.solarList}" var="luminary"
             columns="200px 1fr 1fr" rows="5" markup="bordered">
+    <tc:style customClass="vertical-border-big"/>
     <tc:column label="Name">
       <tc:out value="#{luminary.name}" labelLayout="skip"/>
     </tc:column>
