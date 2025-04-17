@@ -107,7 +107,7 @@ tobago-tree .tobago-selected a {
   margin-bottom: 2px;
 }
 
-#page\:testSheetColumnWidth td {
+tobago-sheet.vertical-border-big td {
   border-left: 7px solid;
   border-right: 13px solid;
 }
