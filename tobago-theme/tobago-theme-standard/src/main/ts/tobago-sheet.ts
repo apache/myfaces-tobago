@@ -372,15 +372,6 @@ Status: ${data.status}
 Type: ${data.type}`);
   }
 
-  saveColumnWidths(widths: number[]): void {
-    const hidden = document.getElementById(this.id + "::widths");
-    if (hidden) {
-      hidden.setAttribute("value", JSON.stringify(widths));
-    } else {
-      console.warn("ignored, should not be called, id='%s'", this.id);
-    }
-  }
-
   private initScrollbarFiller(): void {
     // set width of the scrollbar filler
     if (this.scrollbarFiller) {
@@ -458,16 +449,30 @@ Type: ${data.type}`);
     // switch off the mouse move listener
     document.removeEventListener("mousemove", this.mousemoveData.mousemoveListener);
     document.removeEventListener("mouseup", this.mousemoveData.mouseupListener);
-    const widths: number[] = [];
+    const renderedColWidths: number[] = [];
 
     this.headerCols.forEach((col, i) => {
       if (!col.classList.contains(Css.TOBAGO_ROW_FILLER) && !col.classList.contains(Css.TOBAGO_BEHAVIOR_CONTAINER)) {
-        widths[i] = parseInt(getComputedStyle(col).width);
+        renderedColWidths[i] = parseInt(getComputedStyle(col).width);
       }
     });
 
-    // store the width values in a hidden field
-    this.saveColumnWidths(widths);
+    const oldWidth: number[] = this.hiddenInputWidthValue;
+    const newWidth: number[] = [];
+
+    let renderedColWidthsIndex = 0;
+    this.hiddenInputRenderedValue.forEach((rendered, index) => {
+      if (rendered) {
+        newWidth[index] = renderedColWidths[renderedColWidthsIndex];
+        renderedColWidthsIndex++;
+      } else if (oldWidth[index]) {
+        newWidth[index] = oldWidth[index];
+      } else {
+        newWidth[index] = -1;
+      }
+    });
+
+    this.hiddenInputWidthValue = newWidth;
   }
 
   scrollAction(event: Event): void {
@@ -604,7 +609,7 @@ Type: ${data.type}`);
       const tableRows = this.rowElements;
       tableRows.forEach((rowElement) => {
         if (rowElement.hasAttribute("row-index")) {
-          if(!this.columnSelector.rowElement(rowElement).disabled) {
+          if (!this.columnSelector.rowElement(rowElement).disabled) {
             rowIndexes.push(Number(rowElement.getAttribute("row-index")));
           }
         }
@@ -660,7 +665,7 @@ Type: ${data.type}`);
           if (!selected.has(i)) {
             const factor = tableRows.length > this.rows ? 2 : 1; // columnPanel
             const element = tableRows.item((i - this.first) * factor);
-            const inputElement= this.columnSelector.rowElement(element);
+            const inputElement = this.columnSelector.rowElement(element);
             if (inputElement == null || !inputElement.disabled) {
               everyRowSelected = false;
             }
@@ -722,6 +727,36 @@ Type: ${data.type}`);
     }
   }
 
+  public get selectable(): Selectable {
+    return Selectable[this.dataset.tobagoSelectionMode];
+  }
+
+  get hiddenInputWidthValue(): number[] {
+    return JSON.parse(this.hiddenInputWidth.value);
+  }
+
+  set hiddenInputWidthValue(value: number[]) {
+    this.hiddenInputWidth.value = JSON.stringify(value);
+  }
+
+  private get hiddenInputWidth(): HTMLInputElement {
+    const rootNode = this.getRootNode() as ShadowRoot | Document;
+    return rootNode.getElementById(this.id + "::widths") as HTMLInputElement;
+  }
+
+  get hiddenInputRenderedValue(): boolean[] {
+    return JSON.parse(this.hiddenInputRendered.value);
+  }
+
+  set hiddenInputRenderedValue(value: boolean[]) {
+    this.hiddenInputRendered.value = JSON.stringify(value);
+  }
+
+  private get hiddenInputRendered(): HTMLInputElement {
+    const rootNode = this.getRootNode() as ShadowRoot | Document;
+    return rootNode.getElementById(this.id + "::rendered") as HTMLInputElement;
+  }
+
   get scrollPosition(): number[] {
     return JSON.parse(this.hiddenInputScrollPosition.value);
   }
@@ -733,10 +768,6 @@ Type: ${data.type}`);
   private get hiddenInputScrollPosition(): HTMLInputElement {
     const rootNode = this.getRootNode() as ShadowRoot | Document;
     return rootNode.getElementById(this.id + "::scrollPosition") as HTMLInputElement;
-  }
-
-  public get selectable(): Selectable {
-    return Selectable[this.dataset.tobagoSelectionMode];
   }
 
   get selected(): Set<number> {
