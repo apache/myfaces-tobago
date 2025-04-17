@@ -955,8 +955,8 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       if (!(column instanceof AbstractUIRow) && !(column instanceof AbstractUIColumnPanel)) {
         if (column.isRendered()) {
           writeCol(writer, null);
+          numOfCols++;
         }
-        numOfCols++;
       }
     }
     writeCol(writer, TobagoClass.ROW__FILLER);
@@ -967,52 +967,72 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       final MeasureList columnLayout = sheet.getColumnLayout();
       final String sheetId = sheet.getClientId(facesContext);
       final String encodedSheetId = StyleRenderUtils.encodeIdSelector(sheetId);
-      final boolean columnWidthSetByUser = columnWidths.stream().noneMatch(columnWidth -> columnWidth <= -1);
       final boolean hasAutoOrFrValue = columnLayout.stream()
           .anyMatch(measure -> measure.getUnit().equals(Measure.Unit.AUTO)
               || measure.getUnit().equals(Measure.Unit.FR));
+      boolean columnWidthSetByUser = false;
 
       float fr = 0;
       MeasureList tangibleMeasures = new MeasureList();
-      for (int colIndex = 0; colIndex < numOfCols; colIndex++) {
-        Measure measure;
-        if (columnWidthSetByUser) {
-          measure = new Measure(columnWidths.get(colIndex), Measure.Unit.PX);
-        } else {
-          measure = columnLayout.get(colIndex % columnLayout.getSize());
-        }
-        if (Measure.Unit.FR.equals(measure.getUnit())) {
-          fr += measure.getValue();
-        } else {
-          if (Measure.Unit.AUTO.equals(measure.getUnit())) {
-            tangibleMeasures.add(new Measure(100.0 / (numOfCols + 2), Measure.Unit.PERCENT));
-            /* (numOfCols + 2) for backwards compatibility, because the
-            previous initialization in TypeScript had included the COL.tobago-row-filler and
-            COL.tobago-behavior-container in the calculation. */
-          } else {
-            tangibleMeasures.add(measure);
+
+      int columnIndex = 0;
+      int renderedColumnIndex = 0;
+      for (final AbstractUIColumnBase column : columns) {
+        if (!(column instanceof AbstractUIRow) && !(column instanceof AbstractUIColumnPanel)) {
+          if (column.isRendered()) {
+            Measure measure;
+            int columnWidth = columnWidths.get(columnIndex);
+            if (columnWidth > -1) {
+              columnWidthSetByUser = true;
+              measure = new Measure(columnWidth, Measure.Unit.PX);
+            } else {
+              measure = columnLayout.get(columnIndex % columnLayout.getSize());
+            }
+            if (Measure.Unit.FR.equals(measure.getUnit())) {
+              fr += measure.getValue();
+            } else {
+              if (Measure.Unit.AUTO.equals(measure.getUnit())) {
+                tangibleMeasures.add(new Measure(100.0 / (numOfCols + 2), Measure.Unit.PERCENT));
+                /* (numOfCols + 2) for backwards compatibility, because the
+                previous initialization in TypeScript had included the COL.tobago-row-filler and
+                COL.tobago-behavior-container in the calculation. */
+              } else {
+                tangibleMeasures.add(measure);
+              }
+              encodeColStyle(facesContext, encodedSheetId, null, renderedColumnIndex, measure);
+            }
+
+            renderedColumnIndex++;
           }
-          encodeColStyle(facesContext, encodedSheetId, null, colIndex, measure);
+          columnIndex++;
         }
       }
 
       if (fr > 0) {
-        for (int colIndex = 0; colIndex < numOfCols; colIndex++) {
-          Measure measure = columnLayout.get(colIndex % columnLayout.getSize());
-          if (Measure.Unit.FR.equals(measure.getUnit())) {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("calc((100%");
-            for (Measure tangibleMeasure : tangibleMeasures) {
-              stringBuilder.append(" - ");
-              stringBuilder.append(tangibleMeasure.getValue());
-              stringBuilder.append(tangibleMeasure.getUnit().getValue());
+        columnIndex = 0;
+        renderedColumnIndex = 0;
+        for (final AbstractUIColumnBase column : columns) {
+          if (!(column instanceof AbstractUIRow) && !(column instanceof AbstractUIColumnPanel)) {
+            if (column.isRendered()) {
+              Measure measure = columnLayout.get(columnIndex % columnLayout.getSize());
+              if (Measure.Unit.FR.equals(measure.getUnit())) {
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.append("calc((100%");
+                for (Measure tangibleMeasure : tangibleMeasures) {
+                  stringBuilder.append(" - ");
+                  stringBuilder.append(tangibleMeasure.getValue());
+                  stringBuilder.append(tangibleMeasure.getUnit().getValue());
+                }
+                stringBuilder.append(") / ");
+                stringBuilder.append(fr);
+                stringBuilder.append(" * ");
+                stringBuilder.append(measure.getValue());
+                stringBuilder.append(")");
+                encodeColStyle(facesContext, writer, encodedSheetId, renderedColumnIndex, stringBuilder.toString());
+              }
+              renderedColumnIndex++;
             }
-            stringBuilder.append(") / ");
-            stringBuilder.append(fr);
-            stringBuilder.append(" * ");
-            stringBuilder.append(measure.getValue());
-            stringBuilder.append(")");
-            encodeColStyle(facesContext, writer, encodedSheetId, colIndex, stringBuilder.toString());
+            columnIndex++;
           }
         }
       }
