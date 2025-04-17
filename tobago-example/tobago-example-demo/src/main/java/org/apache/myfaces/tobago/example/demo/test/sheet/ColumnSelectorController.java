@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.example.demo.test;
+package org.apache.myfaces.tobago.example.demo.test.sheet;
 
 import org.apache.myfaces.tobago.example.demo.AstroData;
 import org.apache.myfaces.tobago.example.demo.SolarObject;
