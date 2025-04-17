@@ -949,9 +949,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       final FacesContext facesContext, final AbstractUISheet sheet, final TobagoResponseWriter writer,
       final List<Integer> columnWidths, final List<AbstractUIColumnBase> columns, final boolean isHeader)
       throws IOException {
-
-    final boolean columnWidthSetByUser = columnWidths.stream().noneMatch(columnWidth -> columnWidth <= -1);
-
     writer.startElement(HtmlElements.COLGROUP);
     int numOfCols = 0;
     for (final AbstractUIColumnBase column : columns) {
@@ -970,6 +967,11 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       final MeasureList columnLayout = sheet.getColumnLayout();
       final String sheetId = sheet.getClientId(facesContext);
       final String encodedSheetId = StyleRenderUtils.encodeIdSelector(sheetId);
+      final boolean columnWidthSetByUser = columnWidths.stream().noneMatch(columnWidth -> columnWidth <= -1);
+      final boolean hasAutoOrFrValue = columnLayout.stream()
+          .anyMatch(measure -> measure.getUnit().equals(Measure.Unit.AUTO)
+              || measure.getUnit().equals(Measure.Unit.FR));
+
       float fr = 0;
       MeasureList tangibleMeasures = new MeasureList();
       for (int colIndex = 0; colIndex < numOfCols; colIndex++) {
@@ -1017,7 +1019,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
       Measure zeroPixel = new Measure(0, Measure.Unit.PX);
       encodeColStyle(facesContext, encodedSheetId, TobagoClass.ROW__FILLER, null,
-          columnWidthSetByUser ? Measure.AUTO : zeroPixel);
+          columnWidthSetByUser || !hasAutoOrFrValue ? Measure.AUTO : zeroPixel);
       encodeColStyle(facesContext, encodedSheetId, TobagoClass.BEHAVIOR__CONTAINER, null, zeroPixel);
     }
   }
