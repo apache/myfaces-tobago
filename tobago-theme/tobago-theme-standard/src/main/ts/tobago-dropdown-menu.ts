@@ -34,6 +34,8 @@ export class DropdownMenu {
   private resizeEventListener: EventListenerOrEventListenerObject = this.resizeEventListenerEvent.bind(this);
   private scrollEventListener: EventListenerOrEventListenerObject = this.scrollEventListenerEvent.bind(this);
 
+  private popper;
+
   /**
    * @param dropdownMenuElement dropdown menu element
    * @param referenceElement the element which the dropdown menu is aligned for
@@ -51,6 +53,10 @@ export class DropdownMenu {
     this.parent = dropdownMenuElement.parentElement;
     this.localMenu = localMenu;
     this.alignment = alignment;
+
+    /*this.popper = createPopper(this.referenceElement, this.dropdownMenuElement, {
+      placement: this.dropdownMenuElement.classList.contains(Css.DROPDOWN_MENU_END) ? "bottom-end" : "bottom-start",
+    });*/
   }
 
   private resizeEventListenerEvent(event: Event): void {
@@ -138,18 +144,16 @@ export class DropdownMenu {
     switch (this.alignment) {
       case DropdownMenuAlignment.start:
       case DropdownMenuAlignment.centerFullWidth:
-        this.dropdownMenuElement.style.left = refElementRect.left + "px";
+        this.dropdownMenuElement.style.left = "0px";
+        this.dropdownMenuElement.style.left = (refElementRect.left - this.dropdownRect.left) + "px";
         this.dropdownMenuElement.style.right = null;
-        this.dropdownMenuElement.style.marginLeft = "0px";
-        this.dropdownMenuElement.style.marginRight = null;
         this.dropdownMenuElement.style.maxWidth = rightBorder - refElementRect.left
             - parseFloat(getComputedStyle(this.dropdownMenuElement).marginRight) + "px";
         break;
       case DropdownMenuAlignment.end:
         this.dropdownMenuElement.style.left = null;
-        this.dropdownMenuElement.style.right = rightBorder - refElementRect.right + "px";
-        this.dropdownMenuElement.style.marginLeft = null;
-        this.dropdownMenuElement.style.marginRight = "0px";
+        this.dropdownMenuElement.style.right = "0px";
+        this.dropdownMenuElement.style.right = (this.dropdownRect.right - refElementRect.right) + "px";
         this.dropdownMenuElement.style.maxWidth = refElementRect.right
             - parseFloat(getComputedStyle(this.dropdownMenuElement).marginLeft) + "px";
         break;
@@ -172,15 +176,19 @@ export class DropdownMenu {
     const spaceAbove = refElementRect.top - upperBorder;
     const spaceBelow = lowerBorder - refElementRect.bottom;
     if (spaceBelow >= spaceAbove) {
-      this.dropdownMenuElement.style.top = refElementRect.bottom + "px";
+      this.dropdownMenuElement.style.marginTop = "0px";
+      this.dropdownMenuElement.style.top = "0px";
+      this.dropdownMenuElement.style.top = (refElementRect.bottom - this.dropdownRect.top) + "px";
       this.dropdownMenuElement.style.bottom = null;
       this.dropdownMenuElement.style.marginTop = "var(--tobago-dropdown-menu-component-offset)";
       this.dropdownMenuElement.style.marginBottom = null;
       this.dropdownMenuElement.style.maxHeight = spaceBelow
           - parseFloat(getComputedStyle(this.dropdownMenuElement).marginBottom) + "px";
     } else {
+      this.dropdownMenuElement.style.marginBottom = "0px";
       this.dropdownMenuElement.style.top = null;
-      this.dropdownMenuElement.style.bottom = (window.innerHeight - refElementRect.top) + "px";
+      this.dropdownMenuElement.style.bottom = "0px";
+      this.dropdownMenuElement.style.bottom = (this.dropdownRect.bottom - refElementRect.top) + "px";
       this.dropdownMenuElement.style.marginTop = null;
       this.dropdownMenuElement.style.marginBottom = "var(--tobago-dropdown-menu-component-offset)";
       this.dropdownMenuElement.style.maxHeight = spaceAbove
@@ -206,6 +214,10 @@ export class DropdownMenu {
   private get dropdownMenuElement(): HTMLElement {
     const root = document.getRootNode() as ShadowRoot | Document;
     return root.querySelector(`.${Css.TOBAGO_DROPDOWN_MENU}[name='${this.dropdownMenuElementId}']`);
+  }
+
+  private get dropdownRect(): DOMRect {
+    return this.dropdownMenuElement.getBoundingClientRect();
   }
 
   private get fixedFooter(): HTMLElement {

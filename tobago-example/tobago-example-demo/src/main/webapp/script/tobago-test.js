@@ -60,7 +60,15 @@ function isFirefox() {
   return navigator.userAgent.toLowerCase().includes('firefox');
 }
 
-export {elementByIdFn, querySelectorFn, querySelectorAllFn, activeElementFn, isFirefox};
+function scrollTo(x, y) {
+  return document.getElementById("page:testframe").contentWindow.scrollTo({top: y, left: x, behavior: 'instant'});
+}
+
+function innerHeight() {
+  return document.getElementById("page:testframe").contentWindow.innerHeight;
+}
+
+export {elementByIdFn, querySelectorFn, querySelectorAllFn, activeElementFn, isFirefox, scrollTo, innerHeight};
 
 beforeEach(function (done) {
   jasmine.DEFAULT_TIMEOUT_INTERVAL = 5 * 60 * 1000; //5 minutes
