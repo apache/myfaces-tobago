@@ -80,6 +80,46 @@
     </tc:column>
   </tc:sheet>
 
+  <tc:sheet id="fixFr100px20p4fr1frAuto" value="#{columnWidthController.solarList}" var="object" rows="2"
+            columns="100px 20% 4fr 1fr auto">
+    <tc:style width="1000px"/>
+    <tc:column label="Name">
+      <tc:out value="#{object.name}"/>
+    </tc:column>
+    <tc:column label="Orbit">
+      <tc:out value="#{object.orbit}"/>
+    </tc:column>
+    <tc:column label="Period (Days)">
+      <tc:out value="#{object.period}"/>
+    </tc:column>
+    <tc:column id="discoverer" label="Discoverer">
+      <tc:out value="#{object.discoverer}"/>
+    </tc:column>
+    <tc:column id="year" label="Year">
+      <tc:out value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."/>
+    </tc:column>
+  </tc:sheet>
+
+  <tc:sheet id="fixFr150px20p4fr1fr" value="#{columnWidthController.solarList}" var="object" rows="2"
+            columns="150px 20% 4fr 1fr">
+    <tc:style width="1000px"/>
+    <tc:column label="Name">
+      <tc:out value="#{object.name}"/>
+    </tc:column>
+    <tc:column label="Orbit">
+      <tc:out value="#{object.orbit}"/>
+    </tc:column>
+    <tc:column label="Period (Days)">
+      <tc:out value="#{object.period}"/>
+    </tc:column>
+    <tc:column id="discoverer" label="Discoverer">
+      <tc:out value="#{object.discoverer}"/>
+    </tc:column>
+    <tc:column id="year" label="Year">
+      <tc:out value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."/>
+    </tc:column>
+  </tc:sheet>
+
   <tc:sheet id="testSheetColumnWidth" value="#{columnWidthController.solarList}" var="luminary"
             columns="200px 1fr 1fr" rows="5" markup="bordered">
     <tc:style customClass="vertical-border-big"/>
