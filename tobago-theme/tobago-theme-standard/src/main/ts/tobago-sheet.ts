@@ -92,6 +92,8 @@ export class Sheet extends HTMLElement {
     }
 
     this.initScrollbarFiller();
+    const resizeObserver = new ResizeObserver((entries) => this.fixColumnWidth());
+    resizeObserver.observe(this);
 
     // resize column: mouse events -------------------------------------------------------------------------------- //
 
@@ -399,6 +401,46 @@ Type: ${data.type}`);
       this.scrollbarFiller.classList.add(Css.TOBAGO_SHOW);
     } else {
       this.scrollbarFiller.classList.remove(Css.TOBAGO_SHOW);
+    }
+  }
+
+  /**
+   * Fix column width for columns with fr-value if the layout contains both fr-values and px-values.
+   * The CSS function calc(100% - [number]px) doesn't work in table.
+   */
+  private fixColumnWidth(): void {
+    const renderedColumnWidth: string[] = this.renderedColumnWidth;
+
+    const hasPxAndFrValues = renderedColumnWidth.some(value => value.endsWith("px") || value.endsWith("fr"));
+    if (hasPxAndFrValues) {
+      const percent100InPx = parseFloat(getComputedStyle(this).width);
+      if (percent100InPx > 0) {
+        let frBaseInPx = percent100InPx;
+        renderedColumnWidth.forEach((value) => {
+          if (value.endsWith("px")) {
+            frBaseInPx -= parseFloat(value);
+          } else if (value.endsWith("%")) {
+            frBaseInPx -= (percent100InPx * parseFloat(value) / 100);
+          } else if (value === "auto") {
+            const autoInPercent = 100 / (this.headerCols.length - 2);
+            frBaseInPx -= (percent100InPx * autoInPercent / 100);
+          }
+        });
+
+        const sumOfFr = renderedColumnWidth
+            .filter(value => value.endsWith("fr"))
+            .map(value => parseFloat(value))
+            .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+
+        renderedColumnWidth.forEach((value, index) => {
+          if (value.endsWith("fr")) {
+            // Use percent value instead of px value to prioritize the sheet width over column (percentage) width.
+            const widthPercent = 100 * frBaseInPx / percent100InPx / sumOfFr * parseFloat(value) + "%";
+            this.headerCols.item(index).style.width = widthPercent;
+            this.bodyCols.item(index).style.width = widthPercent;
+          }
+        });
+      }
     }
   }
 
@@ -755,6 +797,37 @@ Type: ${data.type}`);
   private get hiddenInputRendered(): HTMLInputElement {
     const rootNode = this.getRootNode() as ShadowRoot | Document;
     return rootNode.getElementById(this.id + "::rendered") as HTMLInputElement;
+  }
+
+  /**
+   * Return the width of all rendered col tags as a string array. If the user has set the width manually, the exact
+   * pixel value is used, otherwise the layout value.
+   */
+  private get renderedColumnWidth(): string[] {
+    const renderedColumnWidth: string[] = [];
+    const layoutValues: any[] = JSON.parse(this.dataset.tobagoLayout).columns;
+    this.hiddenInputRenderedValue.forEach((rendered, i) => {
+      if (rendered) {
+        let pxValue = -1;
+        if (this.hiddenInputWidthValue.length > i) {
+          pxValue = this.hiddenInputWidthValue[i];
+        }
+
+        if (pxValue > -1) {
+          renderedColumnWidth.push(pxValue + "px");
+        } else {
+          const layoutValue = layoutValues[i % layoutValues.length];
+          if (typeof layoutValue === "number") {
+            renderedColumnWidth.push(layoutValue + "fr");
+          } else if (typeof layoutValue === "object" && layoutValue.measure !== undefined) {
+            renderedColumnWidth.push(layoutValue.measure);
+          } else {
+            renderedColumnWidth.push(layoutValue); //auto
+          }
+        }
+      }
+    });
+    return renderedColumnWidth;
   }
 
   get scrollPosition(): number[] {
