@@ -34,7 +34,7 @@ public class AjaxSpecialCharacterController implements Serializable {
   }
 
   public String getString() {
-    return "SubstituteChar=“\u001A” Five=“5” SigleQuote=“\'” DoubleQuote=“\"” "
+    return "SubstituteChar=“\u001A” Five=“5” SingleQuote=“\'” DoubleQuote=“\"” "
         + "Micro=“µ” Euro=“€” Atom=“⚛” Guitar=“\uD83C\uDFB8”";
   }
 }
