@@ -93,6 +93,30 @@ it("Only auto value set for a 900px-sheet", function (done) {
   test.start();
 });
 
+it("'100px 20% 4fr 1fr auto' for a 1000px-sheet", function (done) {
+  const columnHeads = querySelectorAllFn("#page\\:mainForm\\:fixFr100px20p4fr1frAuto header table thead tr th");
+
+  const test = new JasmineTestTool(done);
+  test.do(() => expect(getComputedStyle(columnHeads()[0]).width).toBe("100px"));
+  test.do(() => expect(getComputedStyle(columnHeads()[1]).width).toBe("200px"));
+  test.do(() => expect(getComputedStyle(columnHeads()[2]).width).toBe("400px"));
+  test.do(() => expect(getComputedStyle(columnHeads()[3]).width).toBe("100px"));
+  test.do(() => expect(getComputedStyle(columnHeads()[4]).width).toBe("200px"));
+  test.start();
+});
+
+it("'150px 20% 4fr 1fr' for a 1000px-sheet", function (done) {
+  const columnHeads = querySelectorAllFn("#page\\:mainForm\\:fixFr150px20p4fr1fr header table thead tr th");
+
+  const test = new JasmineTestTool(done);
+  test.do(() => expect(getComputedStyle(columnHeads()[0]).width).toBe("150px"));
+  test.do(() => expect(getComputedStyle(columnHeads()[1]).width).toBe("200px"));
+  test.do(() => expect(getComputedStyle(columnHeads()[2]).width).toBe("400px"));
+  test.do(() => expect(getComputedStyle(columnHeads()[3]).width).toBe("100px"));
+  test.do(() => expect(getComputedStyle(columnHeads()[4]).width).toBe("150px"));
+  test.start();
+});
+
 it("There must be no horizontal scrollbar", function (done) {
   const sheetBody = querySelectorFn("#page\\:mainForm\\:testSheetColumnWidth .tobago-body");
 
