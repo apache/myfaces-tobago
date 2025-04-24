@@ -55,7 +55,7 @@
     <tomcat.version>11.0.6</tomcat.version>
     <joinfaces.version>5.4.4</joinfaces.version>
     <joinfaces-plugin.version>5.1.12</joinfaces-plugin.version>
-    <spring-boot.version>3.4.4</spring-boot.version>
+    <spring-boot.version>3.4.5</spring-boot.version>
     <spring.version>6.2.6</spring.version>
     <jackson.version>2.18.3</jackson.version>
   </properties>
