@@ -39,7 +39,7 @@
     <tc:form id="form2">
       <p>To create a client side popup you have to know about <code>collapsedMode</code>.
         The mode indicated whether a collapsed popup should be rendered.
-        If <code>collapsedMode="absent"</code>, which is default, a hidden popup dialog will no be rendered.
+        If <code>collapsedMode="absent"</code>, which is default, a hidden popup dialog will not be rendered.
         If <code>collapsedMode="hidden"</code>, a hidden popup dialog will be rendered on the page, but hidden by CSS.
       </p>
       <p>Be careful with validations. For example, hidden required input fields will be validated after submit.</p>
@@ -53,7 +53,7 @@
         The attribute <code>name</code> must be set and can have the value 'show' and 'hide'
         which is to show and hide the popup, obviously.
         The other mandatory attribute is the <code>for</code> attribute.
-        It contain the ID of the popup on which the transition should be executed.</p>
+        It contains the ID of the popup on which the transition should be executed.</p>
 
       <demo-highlight language="markup">&lt;tc:button label="Open" omit="true">
   &lt;tc:operation name="show" for="clientPopup"/>
@@ -189,7 +189,7 @@
     <tc:badge markup="warning">!</tc:badge> missing content
   </tc:section>
 
-  <tc:section label="Popup opend after AJAX call">
+  <tc:section label="Popup opened after AJAX call">
     <tc:button label="Open Popup" immediate="true" id="ajaxButton">
       <tc:operation name="show" for="ajaxPopup"/>
       <f:ajax render="ajaxPopup" execute="ajaxPopup"/>

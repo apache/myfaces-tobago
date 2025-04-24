@@ -24,7 +24,7 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
   <tc:section label="Suggest Input - AJAX">
-    <p>The out component will show the selected value choosen from the suggest input field. Ajax case is covered and component is reloaded after valid selection.</p>
+    <p>The out component will show the selected value chosen from the suggest input field. Ajax case is covered and component is reloaded after valid selection.</p>
     <tc:out id="outBasic" label="Selection" value="#{suggestController.selection1}"/>
     <tc:in id="inBasic" value="#{suggestController.selection1}">
       <tc:suggest totalCount="10" query="#{suggestController.query}">
@@ -35,7 +35,7 @@
   </tc:section>
 
   <tc:section label="Suggest Input - No AJAX">
-    <p>The out component will show the selected value choosen from the suggest input field. Page is reloaded after selection.</p>
+    <p>The out component will show the selected value chosen from the suggest input field. Page is reloaded after selection.</p>
     <tc:out id="outTwo" label="Selection" value="#{suggestController.selection2}"/>
     <tc:in id="inTwo" value="#{suggestController.selection2}">
       <tc:suggest totalCount="10" query="#{suggestController.query}">
