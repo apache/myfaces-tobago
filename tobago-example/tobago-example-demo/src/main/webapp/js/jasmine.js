@@ -7839,7 +7839,7 @@ getJasmineRequireObj().makePrettyPrinter = function(j$) {
     }
 
     append(value) {
-      // This check protects us from the rare case where an object has overridden
+      // This check protects us from the rare case where an object has overriden
       // `toString()` with an invalid implementation (returning a non-string).
       if (typeof value !== 'string') {
         value = Object.prototype.toString.call(value);
