@@ -128,4 +128,8 @@ tobago-sheet.vertical-border-big td {
   color: #009aff;
 }
 
+.transformX0 {
+  transform: translateX(0);
+}
+
 /*# sourceMappingURL=demo.css.map */
