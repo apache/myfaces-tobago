@@ -132,4 +132,8 @@ tobago-sheet.vertical-border-big td {
   transform: translateX(0);
 }
 
+.text-tertiary-color {
+  color: var(--bs-tertiary-color);
+}
+
 /*# sourceMappingURL=demo.css.map */
