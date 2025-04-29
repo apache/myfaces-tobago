@@ -13046,10 +13046,10 @@ tobago-page .tobago-page-menuStore .tobago-options .table tbody tr:last-of-type 
   border-bottom-width: 0;
 }
 tobago-page .tobago-page-menuStore .tobago-options .table tfoot tr.tobago-no-entries {
-  color: var(--bs-tertiary-color);
   text-align: center;
 }
 tobago-page .tobago-page-menuStore .tobago-options .table tfoot tr.tobago-no-entries td {
+  color: var(--bs-tertiary-color);
   border-bottom-width: 0;
 }
 tobago-page .tobago-page-menuStore > .tobago-dropdown-menu {
@@ -13471,10 +13471,10 @@ tobago-select-one-list .tobago-options .table tbody tr:last-of-type td {
   border-bottom-width: 0;
 }
 tobago-select-one-list .tobago-options .table tfoot tr.tobago-no-entries {
-  color: var(--bs-tertiary-color);
   text-align: center;
 }
 tobago-select-one-list .tobago-options .table tfoot tr.tobago-no-entries td {
+  color: var(--bs-tertiary-color);
   border-bottom-width: 0;
 }
 tobago-select-one-list .tobago-select-field span {
@@ -13652,10 +13652,10 @@ tobago-select-many-list .tobago-options .table tbody tr:last-of-type td {
   border-bottom-width: 0;
 }
 tobago-select-many-list .tobago-options .table tfoot tr.tobago-no-entries {
-  color: var(--bs-tertiary-color);
   text-align: center;
 }
 tobago-select-many-list .tobago-options .table tfoot tr.tobago-no-entries td {
+  color: var(--bs-tertiary-color);
   border-bottom-width: 0;
 }
 tobago-select-many-list.tobago-focus[filter] .tobago-select-field {
