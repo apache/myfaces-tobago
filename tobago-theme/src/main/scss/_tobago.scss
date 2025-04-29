@@ -368,10 +368,10 @@ $icon-sort-numbers: (
       }
 
       tfoot tr.tobago-no-entries {
-        color: $dropdown-link-disabled-color;
         text-align: center;
 
         td {
+          color: $dropdown-link-disabled-color;
           border-bottom-width: 0;
         }
       }
