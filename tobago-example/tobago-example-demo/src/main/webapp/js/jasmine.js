@@ -21,6 +21,7 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
 // eslint-disable-next-line no-unused-vars,no-var
 var getJasmineRequireObj = (function(jasmineGlobal) {
   let jasmineRequire;
@@ -791,11 +792,11 @@ getJasmineRequireObj().Spec = function(j$) {
     this.onStart = attrs.onStart || function() {};
     this.autoCleanClosures =
       attrs.autoCleanClosures === undefined ? true : !!attrs.autoCleanClosures;
-    this.getSpecName =
-      attrs.getSpecName ||
-      function() {
-        return '';
-      };
+
+    this.getPath = function() {
+      return attrs.getPath ? attrs.getPath(this) : [];
+    };
+
     this.onLateError = attrs.onLateError || function() {};
     this.catchingExceptions =
       attrs.catchingExceptions ||
@@ -918,6 +919,9 @@ getJasmineRequireObj().Spec = function(j$) {
      * @property {String} fullName - The full description including all ancestors of this spec.
      * @property {String|null} parentSuiteId - The ID of the suite containing this spec, or null if this spec is not in a describe().
      * @property {String} filename - The name of the file the spec was defined in.
+     * Note: The value may be incorrect if zone.js is installed or
+     * `it`/`fit`/`xit` have been replaced with versions that don't maintain the
+     *  same call stack height as the originals.
      * @property {ExpectationResult[]} failedExpectations - The list of expectations that failed during execution of this spec.
      * @property {ExpectationResult[]} passedExpectations - The list of expectations that passed during execution of this spec.
      * @property {ExpectationResult[]} deprecationWarnings - The list of deprecation warnings that occurred during execution this spec.
@@ -1021,7 +1025,7 @@ getJasmineRequireObj().Spec = function(j$) {
   };
 
   Spec.prototype.getFullName = function() {
-    return this.getSpecName(this);
+    return this.getPath().join(' ');
   };
 
   Spec.prototype.addDeprecationWarning = function(deprecation) {
@@ -1075,6 +1079,10 @@ getJasmineRequireObj().Spec = function(j$) {
    * @since 2.0.0
    */
   Object.defineProperty(Spec.prototype, 'metadata', {
+    // NOTE: Although most of jasmine-core only exposes these metadata objects,
+    // actual Spec instances are still passed to Configuration#specFilter. Until
+    // that is fixed, it's important to make sure that all metadata properties
+    // also exist in compatible form on the underlying Spec.
     get: function() {
       if (!this.metadata_) {
         this.metadata_ = {
@@ -1103,7 +1111,16 @@ getJasmineRequireObj().Spec = function(j$) {
            * @returns {string}
            * @since 2.0.0
            */
-          getFullName: this.getFullName.bind(this)
+          getFullName: this.getFullName.bind(this),
+
+          /**
+           * The full path of the spec, as an array of names.
+           * @name Spec#getPath
+           * @function
+           * @returns {Array.<string>}
+           * @since 5.7.0
+           */
+          getPath: this.getPath.bind(this)
         };
       }
 
@@ -1545,7 +1562,9 @@ getJasmineRequireObj().Env = function(j$) {
 
       // If we get here, all results have been reported and there's nothing we
       // can do except log the result and hope the user sees it.
+      // eslint-disable-next-line no-console
       console.error('Jasmine received a result after the suite finished:');
+      // eslint-disable-next-line no-console
       console.error(expectationResult);
     }
 
@@ -2693,7 +2712,8 @@ getJasmineRequireObj().buildExpectationResult = function(j$) {
      * in a future release. In many Jasmine configurations they are passed
      * through JSON serialization and deserialization, which is inherently
      * lossy. In such cases, the expected and actual values may be placeholders
-     * or approximations of the original objects.
+     * or approximations of the original objects. jasmine-browser-runner 3.0 and
+     * later omits them entirely.
      *
      * @typedef ExpectationResult
      * @property {String} matcherName - The name of the matcher that was executed for this expectation.
@@ -3065,6 +3085,15 @@ getJasmineRequireObj().Clock = function() {
     let installed = false;
     let delayedFunctionScheduler;
     let timer;
+    // Tracks how the clock ticking behaves.
+    // By default, the clock only ticks when the user manually calls a tick method.
+    // There is also an 'auto' mode which will advance the clock automatically to
+    // to the next task. Once enabled, there is currently no mechanism for users
+    // to disable the auto ticking.
+    let tickMode = {
+      mode: 'manual',
+      counter: 0
+    };
 
     this.FakeTimeout = FakeTimeout;
 
@@ -3096,6 +3125,10 @@ getJasmineRequireObj().Clock = function() {
      * @function
      */
     this.uninstall = function() {
+      // Ensure auto ticking loop is aborted when clock is uninstalled
+      if (tickMode.mode === 'auto') {
+        tickMode = { mode: 'manual', counter: tickMode.counter + 1 };
+      }
       delayedFunctionScheduler = null;
       mockDate.uninstall();
       replace(global, realTimingFunctions);
@@ -3174,7 +3207,97 @@ getJasmineRequireObj().Clock = function() {
       }
     };
 
+    /**
+     * Updates the clock to automatically advance time.
+     *
+     * With this mode, the clock advances to the first scheduled timer and fires it, in a loop.
+     * Between each timer, it will also break the event loop, allowing any scheduled promise
+callbacks to execute _before_ running the next one.
+     *
+     * This mode allows tests to be authored in a way that does not need to be aware of the
+     * mock clock. Consequently, tests which have been authored without a mock clock installed
+     * can one with auto tick enabled without any other updates to the test logic.
+     *
+     * In many cases, this can greatly improve test execution speed because asynchronous tasks
+     * will execute as quickly as possible rather than waiting real time to complete.
+     *
+     * Furthermore, tests can be authored in a consistent manner. They can always be written in an asynchronous style
+     * rather than having `tick` sprinkled throughout the tests with mock time in order to manually
+     * advance the clock.
+     *
+     * When auto tick is enabled, `tick` can still be used to synchronously advance the clock if necessary.
+     * @name Clock#autoTick
+     * @function
+     * @since 5.7.0
+     */
+    this.autoTick = function() {
+      if (tickMode.mode === 'auto') {
+        return;
+      }
+
+      tickMode = { mode: 'auto', counter: tickMode.counter + 1 };
+      advanceUntilModeChanges();
+    };
+
     return this;
+
+    // Advances the Clock's time until the mode changes.
+    //
+    // The time is advanced asynchronously, giving microtasks and events a chance
+    // to run before each timer runs.
+    //
+    // @function
+    // @return {!Promise<undefined>}
+    async function advanceUntilModeChanges() {
+      if (!installed) {
+        throw new Error(
+          'Mock clock is not installed, use jasmine.clock().install()'
+        );
+      }
+      const { counter } = tickMode;
+
+      while (true) {
+        await newMacrotask();
+
+        if (
+          tickMode.counter !== counter ||
+          !installed ||
+          delayedFunctionScheduler === null
+        ) {
+          return;
+        }
+
+        if (!delayedFunctionScheduler.isEmpty()) {
+          delayedFunctionScheduler.runNextQueuedFunction(function(millis) {
+            mockDate.tick(millis);
+          });
+        }
+      }
+    }
+
+    // Waits until a new macro task.
+    //
+    // Used with autoTick(), which is meant to act when the test is waiting, we need
+    // to insert ourselves in the macro task queue.
+    //
+    // @return {!Promise<undefined>}
+    async function newMacrotask() {
+      // MessageChannel ensures that setTimeout is not throttled to 4ms.
+      // https://developer.mozilla.org/en-US/docs/Web/API/setTimeout#reasons_for_delays_longer_than_specified
+      // https://stackblitz.com/edit/stackblitz-starters-qtlpcc
+      // Note: This trick does not work in Safari, which will still throttle the setTimeout
+      const channel = new MessageChannel();
+      await new Promise(resolve => {
+        channel.port1.onmessage = resolve;
+        channel.port2.postMessage(undefined);
+      });
+      channel.port1.close();
+      channel.port2.close();
+      // setTimeout ensures that we interleave with other setTimeouts.
+      await new Promise(resolve => {
+        realTimingFunctions.setTimeout.call(global, resolve);
+      });
+    }
 
     function originalTimingFunctionsIntact() {
       return (
@@ -3406,6 +3529,37 @@ getJasmineRequireObj().DelayedFunctionScheduler = function(j$) {
       }
     };
 
+    // Returns whether there are any scheduled functions.
+    // Returns true if there are any scheduled functions, otherwise false.
+    this.isEmpty = function() {
+      return this.scheduledFunctions_.length === 0;
+    };
+
+    // Runs the next timeout in the queue, advancing the clock.
+    this.runNextQueuedFunction = function(tickDate) {
+      if (this.scheduledLookup_.length === 0) {
+        return;
+      }
+
+      const newCurrentTime = this.scheduledLookup_[0];
+      if (newCurrentTime >= this.currentTime_) {
+        tickDate(newCurrentTime - this.currentTime_);
+        this.currentTime_ = newCurrentTime;
+      }
+
+      const funcsAtTime = this.scheduledFunctions_[this.currentTime_];
+      const fn = funcsAtTime.shift();
+      if (funcsAtTime.length === 0) {
+        delete this.scheduledFunctions_[this.currentTime_];
+        this.scheduledLookup_.splice(0, 1);
+      }
+
+      if (fn.recurring) {
+        this.reschedule_(fn);
+      }
+      fn.funcToCall.apply(null, fn.params || []);
+    };
+
     return this;
   }
 
@@ -3542,6 +3696,7 @@ getJasmineRequireObj().Deprecator = function(j$) {
 
   Deprecator.prototype.log_ = function(runnable, deprecation, options) {
     if (j$.isError_(deprecation)) {
+      // eslint-disable-next-line no-console
       console.error(deprecation);
       return;
     }
@@ -3564,6 +3719,7 @@ getJasmineRequireObj().Deprecator = function(j$) {
       context += '\n' + verboseNote;
     }
 
+    // eslint-disable-next-line no-console
     console.error('DEPRECATION: ' + deprecation + context);
   };
 
@@ -5861,6 +6017,7 @@ getJasmineRequireObj().toBeInstanceOf = function(j$) {
         try {
           expectedMatcher = new j$.Any(expected);
           pass = expectedMatcher.asymmetricMatch(actual);
+          // eslint-disable-next-line no-unused-vars
         } catch (error) {
           throw new Error(
             usageError('Expected value is not a constructor function')
@@ -7618,6 +7775,7 @@ getJasmineRequireObj().makePrettyPrinter = function(j$) {
         ) {
           try {
             this.emitScalar(value.toString());
+            // eslint-disable-next-line no-unused-vars
           } catch (e) {
             this.emitScalar('has-invalid-toString-method');
           }
@@ -7864,6 +8022,7 @@ getJasmineRequireObj().makePrettyPrinter = function(j$) {
         value.toString !== Object.prototype.toString &&
         value.toString() !== Object.prototype.toString.call(value)
       );
+      // eslint-disable-next-line no-unused-vars
     } catch (e) {
       // The custom toString() threw.
       return true;
@@ -7942,6 +8101,7 @@ getJasmineRequireObj().QueueRunner = function(j$) {
   }
 
   function fallbackOnMultipleDone() {
+    // eslint-disable-next-line no-console
     console.error(
       new Error(
         "An asynchronous function called its 'done' " +
@@ -8055,6 +8215,7 @@ getJasmineRequireObj().QueueRunner = function(j$) {
           // Any error we catch here is probably due to a bug in Jasmine,
           // and it's not likely to end up anywhere useful if we let it
           // propagate. Log it so it can at least show up when debugging.
+          // eslint-disable-next-line no-console
           console.error(error);
         }
       }
@@ -9894,6 +10055,7 @@ getJasmineRequireObj().SpyRegistry = function(j$) {
     let value;
     try {
       value = obj[prop];
+      // eslint-disable-next-line no-unused-vars
     } catch (e) {
       return false;
     }
@@ -10326,6 +10488,9 @@ getJasmineRequireObj().Suite = function(j$) {
      * @property {String} fullName - The full description including all ancestors of this suite.
      * @property {String|null} parentSuiteId - The ID of the suite containing this suite, or null if this is not in another describe().
      * @property {String} filename - The name of the file the suite was defined in.
+     * Note: The value may be incorrect if zone.js is installed or
+     * `describe`/`fdescribe`/`xdescribe` have been replaced with versions that
+     * don't maintain the same call stack height as the originals.
      * @property {ExpectationResult[]} failedExpectations - The list of expectations that failed in an {@link afterAll} for this suite.
      * @property {ExpectationResult[]} deprecationWarnings - The list of deprecation warnings that occurred on this suite.
      * @property {String} status - Once the suite has completed, this string represents the pass/fail status of this suite.
@@ -10808,9 +10973,7 @@ getJasmineRequireObj().SuiteBuilder = function(j$) {
         resultCallback: (result, next) => {
           this.specResultCallback_(spec, result, next);
         },
-        getSpecName: function(spec) {
-          return getSpecName(spec, suite);
-        },
+        getPath: spec => this.getSpecPath_(spec, suite),
         onStart: (spec, next) => this.specStarted_(spec, suite, next),
         description: description,
         userContext: function() {
@@ -10825,6 +10988,17 @@ getJasmineRequireObj().SuiteBuilder = function(j$) {
         timer: new j$.Timer()
       });
       return spec;
+    }
+
+    getSpecPath_(spec, suite) {
+      const path = [spec.description];
+
+      while (suite && suite !== this.topSuite) {
+        path.unshift(suite.description);
+        suite = suite.parentSuite;
+      }
+
+      return path;
     }
 
     unfocusAncestor_() {
@@ -10888,16 +11062,6 @@ getJasmineRequireObj().SuiteBuilder = function(j$) {
         afters: afters
       };
     };
-  }
-
-  function getSpecName(spec, suite) {
-    const fullName = [spec.description],
-      suiteFullName = suite.getFullName();
-
-    if (suiteFullName !== '') {
-      fullName.unshift(suiteFullName);
-    }
-    return fullName.join(' ');
   }
 
   return SuiteBuilder;
@@ -11231,5 +11395,5 @@ getJasmineRequireObj().UserContext = function(j$) {
 };
 
 getJasmineRequireObj().version = function() {
-  return '5.6.0';
+  return '5.7.1';
 };
