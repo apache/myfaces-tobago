@@ -22,9 +22,9 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="jakarta.faces.facelets">
 
-  <tc:selectOneList id="selectOneList" label="Filter (contains)" filter="contains">
+  <tc:selectManyList id="selectManyList" label="Filter (contains)" filter="contains">
     <tc:selectItems value="#{selectOneListController.planets}"
                     var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
-  </tc:selectOneList>
+  </tc:selectManyList>
   <tc:button id="submit" label="Submit"/>
 </ui:composition>
