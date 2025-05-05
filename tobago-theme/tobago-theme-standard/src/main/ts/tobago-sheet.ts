@@ -92,8 +92,10 @@ export class Sheet extends HTMLElement {
     }
 
     this.initScrollbarFiller();
-    const resizeObserver = new ResizeObserver((entries) => this.fixColumnWidth());
-    resizeObserver.observe(this);
+    if (this.dataset.tobagoLayout) {
+      const resizeObserver = new ResizeObserver((entries) => this.fixColumnWidth());
+      resizeObserver.observe(this);
+    }
 
     // resize column: mouse events -------------------------------------------------------------------------------- //
 
