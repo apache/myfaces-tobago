@@ -203,7 +203,6 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
       writer.writeAttribute(Arias.LABELLEDBY, component.getFieldId(facesContext), false);
       writer.writeAttribute(HtmlAttributes.NAME, component.getClientId(facesContext), false);
 
-
       RenderChildrenCommands visitor =
           new RenderChildrenCommands(facesContext, writer, component.getClientId(facesContext));
       component.visitTree(
@@ -307,6 +306,9 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
             }
             insideEnd(facesContext, HtmlElements.COMMAND);
             // XXX may refactor / cleanup
+          } else if (UIComponent.isCompositeComponent(target)) {
+            UIComponent facet = target.getFacet(UIComponent.COMPOSITE_FACET_NAME);
+            return visit(context, facet);
           } else {
             try {
               writer.startElement(HtmlElements.DIV);
