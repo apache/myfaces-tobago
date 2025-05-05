@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import {elementByIdFn, querySelectorFn} from "/script/tobago-test.js";
+import {elementByIdFn, querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("TOBAGO-2349: Lazy sheet: tobago-behavior not initialized", function (done) {
@@ -35,16 +35,17 @@ it("TOBAGO-2349: Lazy sheet: tobago-behavior not initialized", function (done) {
   let timestamp;
 
   const test = new JasmineTestTool(done);
+  test.setup(() => getFirstVisibleRow() === 0, null, "click", reset);
   test.setup(() => checkAjax().checked, () => selectAjax().checked = true, "change", selectAjax);
   test.setup(() => checkSelectable().value === "multi", () => selectMulti().checked = true, "change", selectMulti);
   test.setup(() => name().value === "Sun", null, "click", reset);
 
-  test.do(() => focusRowIndex(18));
-  test.wait(() => isLoaded(18, 67));
-  test.do(() => expect(isLoaded(18, 67)).toBeTrue());
+  test.do(() => focusRowIndex(30)); //discovered area; visible rows 30 to 34; range 5 to 59
+  test.wait(() => isLoaded(50));
+  test.do(() => expect(isLoaded(0, 87)).toBeTrue()); //loaded to row 99, but max row is 87
   test.do(() => timestamp = Number(timestampElement().textContent));
   test.event("click", ajaxButton, () => Number(timestampElement().textContent) > timestamp);
-  test.wait(() => isLoaded(18, 67));
+  test.wait(() => isLoaded(5, 69));
   test.event("click", europaRow, () => name().value === "Europa");
   test.do(() => expect(name().value).toBe("Europa"));
   test.do(() => timestamp = Number(timestampElement().textContent));
@@ -72,4 +73,20 @@ function row(rowIndex) {
 
 function focusRowIndex(rowIndex) {
   querySelectorFn("#page\\:mainForm\\:solar .tobago-body")().scrollTop = row(rowIndex).offsetTop;
+}
+
+function getFirstVisibleRow() {
+  const tobagoBodyScrollTop = querySelectorFn("tobago-sheet .tobago-body")().scrollTop;
+  const rows = querySelectorAllFn("tobago-sheet tr[row-index]")();
+
+  let firstVisibleRow = 0;
+  for (const row of rows) {
+    if (row.offsetTop <= tobagoBodyScrollTop) {
+      firstVisibleRow = Number(row.getAttribute("row-index"));
+    } else {
+      return firstVisibleRow;
+    }
+  }
+
+  return -1;
 }

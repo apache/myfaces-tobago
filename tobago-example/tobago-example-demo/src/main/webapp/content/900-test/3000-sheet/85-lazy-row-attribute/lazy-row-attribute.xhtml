@@ -20,6 +20,8 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="jakarta.faces.facelets">
 
+  <p>"rows" attribute is used instead of "lazyRows". Ignore "rows" and use default value of "lazyRows" attribute.</p>
+
   <tc:out id="timestamp" label="Timestamp" value="#{eventController.currentTimestamp}"/>
 
   <tc:sheet id="sheet" value="#{sheetController.hugeSolarList}"
