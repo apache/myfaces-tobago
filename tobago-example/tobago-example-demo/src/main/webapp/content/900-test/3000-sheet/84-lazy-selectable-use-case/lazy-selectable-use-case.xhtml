@@ -64,7 +64,7 @@
           <tc:out value="#{object.name}" id="t_name" labelLayout="skip"/>
         </tc:column>
         <tc:row id="rowAjax" rendered="#{selectableUseCaseController.columnEvent == 'ajax'}">
-          <f:ajax render=":::timestamp solar :::detail" listener="#{selectableUseCaseController.selectSolarObject}"
+          <f:ajax execute="solar" render=":::timestamp solar :::detail" listener="#{selectableUseCaseController.selectSolarObject}"
                   id="columnEventAjax"/>
         </tc:row>
         <tc:columnPanel>

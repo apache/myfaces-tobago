@@ -31,30 +31,25 @@ it("initial load", function (done) {
 
 it("focus row index 500 and scroll up", function (done) {
   const reset = elementByIdFn("page:mainForm:reset");
-  let timestamp;
 
   const test = new JasmineTestTool(done);
   test.setup(() => !isLoaded(500), null, "click", reset);
 
-  test.do(() => timestamp = Date.now());
-  test.wait(() => Date.now() - timestamp > 200);
-  test.do(() => focusRowIndex(500));
+  test.do(() => focusRowIndex(500)); //new area; rows 500 to 513 visible; range 485 to 528
   test.wait(() => isLoaded(500));
-  test.do(() => expect(isLoaded(499)).toBeFalse());
-  test.do(() => expect(isLoaded(500, 529)).toBeTrue());
-  test.do(() => expect(isLoaded(530)).toBeFalse());
+  test.do(() => expect(isLoaded(484)).toBeFalse());
+  test.do(() => expect(isLoaded(485, 528)).toBeTrue());
+  test.do(() => expect(isLoaded(529)).toBeFalse());
 
-  test.do(() => timestamp = Date.now());
-  test.wait(() => Date.now() - timestamp > 200);
-  test.do(() => focusRowIndex(499));
-  test.wait(() => isLoaded(470));
-  test.do(() => expect(isLoaded(469)).toBeFalse());
-  test.do(() => expect(isLoaded(470, 529)).toBeTrue());
-  test.do(() => expect(isLoaded(530)).toBeFalse());
+  test.do(() => focusRowIndex(494)); //discovered area: 494 to 504 visible; range 484 to 514
+  test.wait(() => isLoaded(484));
+  test.do(() => expect(isLoaded(454)).toBeFalse());
+  test.do(() => expect(isLoaded(455, 528)).toBeTrue());
+  test.do(() => expect(isLoaded(529)).toBeFalse());
   test.start();
 });
 
-it("focus row index 2, select row 1 and 40, then press 'Period'", function (done) {
+it("scroll down, select row 1 and 40, then press 'Period'", function (done) {
   const row1 = querySelectorFn("tbody tr[row-index='1']");
   const row40 = querySelectorFn("tbody tr[row-index='40']");
   const selectedInput = elementByIdFn("page:mainForm:sheet::selected");
@@ -63,20 +58,15 @@ it("focus row index 2, select row 1 and 40, then press 'Period'", function (done
   const selectedRows = querySelectorFn("#page\\:mainForm\\:selectedRows .form-control-plaintext");
   const actionCountOut = querySelectorFn("#page\\:mainForm\\:actionCount .form-control-plaintext");
   const actionListenerCountOut = querySelectorFn("#page\\:mainForm\\:actionListenerCount .form-control-plaintext");
-  let timestamp;
   let actionCount = Number(actionCountOut().textContent);
   let actionListenerCount = Number(actionListenerCountOut().textContent);
 
   const test = new JasmineTestTool(done);
-  test.setup(() => isLoaded(0) && selectedInput().value === "[]", null, "click", resetButton);
-  test.do(() => timestamp = Date.now());
-  test.wait(() => Date.now() - timestamp > 200);
-  test.do(() => focusRowIndex(2));
+  test.setup(() => isLoaded(0) && !isLoaded(30) && selectedInput().value === "[]", null, "click", resetButton);
+  test.do(() => focusRowIndex(12)); //discovered area: rows 12 to 21 visible; range 2 to 31
   test.wait(() => isLoaded(30));
   test.do(() => expect(isLoaded(0, 59)).toBeTrue());
   test.do(() => expect(isLoaded(60)).toBeFalse());
-  test.do(() => timestamp = Date.now());
-  test.wait(() => Date.now() - timestamp > 200);
   test.event("click", row1, () => selectedInput().value === "[1]");
   test.event("click", row40, () => selectedInput().value === "[1,40]");
   test.event("click", periodButton, () => Number(actionCountOut().textContent) > actionCount);
@@ -94,18 +84,16 @@ it("focus row index 800, press 'Ajax'", function (done) {
 
   const test = new JasmineTestTool(done);
   test.setup(() => !isLoaded(800), null, "click", reset);
-  test.do(() => timestamp = Date.now());
-  test.wait(() => Date.now() - timestamp > 200);
-  test.do(() => focusRowIndex(800));
+  test.do(() => focusRowIndex(800)); //new area: rows 800 to 813 visible; range 785 to 828
   test.wait(() => isLoaded(800));
-  test.do(() => expect(isLoaded(799)).toBeFalse());
-  test.do(() => expect(isLoaded(800, 829)).toBeTrue());
-  test.do(() => expect(isLoaded(830)).toBeFalse());
+  test.do(() => expect(isLoaded(784)).toBeFalse());
+  test.do(() => expect(isLoaded(785, 828)).toBeTrue());
+  test.do(() => expect(isLoaded(829)).toBeFalse());
   test.do(() => expect(getFirstVisibleRow()).toBe(800));
 
   test.do(() => timestamp = Number(timestampOut().textContent));
   test.event("click", ajax, () => Number(timestampOut().textContent) > timestamp);
-  test.do(() => expect(isLoaded(800, 829)).toBeTrue());
+  test.do(() => expect(isLoaded(785, 829)).toBeTrue()); //preloaded
   test.do(() => expect(isLoaded(830)).toBeFalse());
   test.do(() => expect(getFirstVisibleRow()).toBe(800));
   test.start();

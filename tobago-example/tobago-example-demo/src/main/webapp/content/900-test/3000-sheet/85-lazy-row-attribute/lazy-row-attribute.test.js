@@ -15,69 +15,38 @@
  * limitations under the License.
  */
 
-import {isFirefox, querySelectorFn} from "/script/tobago-test.js";
+import {querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("focus row index 200 and scroll up", function (done) {
-  let timestamp;
-
   const test = new JasmineTestTool(done);
-  test.do(() => timestamp = Date.now());
-  test.wait(() => Date.now() - timestamp > 200);
-  test.do(() => focusRowIndex(200));
+  test.do(() => focusRowIndex(200)); //new area; visible: 200 to 213; range: 175 to 238
   test.wait(() => isLoaded(200));
+  test.do(() => expect(isLoaded(174)).toBeFalse());
+  test.do(() => expect(isLoaded(175, 238)).toBeTrue());
+  test.do(() => expect(isLoaded(239)).toBeFalse());
 
-  if (isFirefox()) {
-    test.wait(() => isLoaded(199));
-    test.do(() => expect(isLoaded(149)).toBeFalse());
-    test.do(() => expect(isLoaded(150, 199)).toBeTrue());
-  } else {
-    test.do(() => expect(isLoaded(199)).toBeFalse());
-  }
-  test.do(() => expect(isLoaded(200, 249)).toBeTrue());
-  test.do(() => expect(isLoaded(250)).toBeFalse());
-
-  test.do(() => timestamp = Date.now());
-  test.wait(() => Date.now() - timestamp > 200);
-  test.do(() => focusRowIndex(199));
-  test.wait(() => isLoaded(199));
-  test.do(() => expect(isLoaded(149)).toBeFalse());
-  test.do(() => expect(isLoaded(150, 249)).toBeTrue());
-  test.do(() => expect(isLoaded(250)).toBeFalse());
+  test.do(() => focusRowIndex(189)); //discovered area; visible 189 to 202; range: 174 to 217
+  test.wait(() => isLoaded(174));
+  test.do(() => expect(isLoaded(124)).toBeFalse());
+  test.do(() => expect(isLoaded(125, 238)).toBeTrue());
+  test.do(() => expect(isLoaded(239)).toBeFalse());
   test.start();
 });
 
 it("focus row index 400 and scroll down", function (done) {
-  let timestamp;
-
   const test = new JasmineTestTool(done);
-  test.do(() => timestamp = Date.now());
-  test.wait(() => Date.now() - timestamp > 200);
-  test.do(() => focusRowIndex(400));
+  test.do(() => focusRowIndex(400)); //new area; visible: 400 to 413; range: 375 to 438
   test.wait(() => isLoaded(400));
+  test.do(() => expect(isLoaded(374)).toBeFalse());
+  test.do(() => expect(isLoaded(375, 438)).toBeTrue());
+  test.do(() => expect(isLoaded(439)).toBeFalse());
 
-  if (isFirefox()) {
-    test.wait(() => isLoaded(399));
-    test.do(() => expect(isLoaded(349)).toBeFalse());
-    test.do(() => expect(isLoaded(350, 399)).toBeTrue());
-  } else {
-    test.do(() => expect(isLoaded(399)).toBeFalse());
-  }
-  test.do(() => expect(isLoaded(400, 449)).toBeTrue());
-  test.do(() => expect(isLoaded(450)).toBeFalse());
-
-  test.do(() => timestamp = Date.now());
-  test.wait(() => Date.now() - timestamp > 200);
-  test.do(() => focusRowIndex(401));
-  test.wait(() => isLoaded(450));
-  if (isFirefox()) {
-    test.do(() => expect(isLoaded(349)).toBeFalse());
-    test.do(() => expect(isLoaded(350, 399)).toBeTrue());
-  } else {
-    test.do(() => expect(isLoaded(399)).toBeFalse());
-  }
-  test.do(() => expect(isLoaded(400, 499)).toBeTrue());
-  test.do(() => expect(isLoaded(500)).toBeFalse());
+  test.do(() => focusRowIndex(411)); //discovered area; visible 411 to 424; range: 396 to 439
+  test.wait(() => isLoaded(439));
+  test.do(() => expect(isLoaded(374)).toBeFalse());
+  test.do(() => expect(isLoaded(375, 488)).toBeTrue());
+  test.do(() => expect(isLoaded(489)).toBeFalse());
   test.start();
 });
 

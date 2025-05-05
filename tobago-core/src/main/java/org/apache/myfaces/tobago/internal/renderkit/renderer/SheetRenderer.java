@@ -154,6 +154,10 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
         if (requestParameterMap.containsKey(key)) {
           component.setLazyFirstRow(Integer.parseInt(requestParameterMap.get(key)));
         }
+        key = "tobago.sheet.lazyLastRow";
+        if (requestParameterMap.containsKey(key)) {
+          component.setLazyLastRow(Integer.parseInt(requestParameterMap.get(key)));
+        }
         facesContext.renderResponse();
       }
     }
@@ -530,7 +534,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     boolean emptySheet = true;
     // rows = 0 means: show all
     final int first = sheet.isLazy() ? sheet.getLazyFirstRow() : sheet.getFirst();
-    final int last = sheet.isLazy() ? sheet.getLazyFirstRow() + sheet.getLazyRows()
+    final int last = sheet.isLazy() ? sheet.getLazyLastRow()
         : sheet.isRowsUnlimited() ? Integer.MAX_VALUE : sheet.getFirst() + sheet.getRows();
 
     AbstractUIRow row = null;

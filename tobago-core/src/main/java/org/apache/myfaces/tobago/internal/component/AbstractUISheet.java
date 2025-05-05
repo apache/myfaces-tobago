@@ -19,6 +19,28 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import jakarta.el.ELContext;
+import jakarta.el.MethodExpression;
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.UIColumn;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UINamingContainer;
+import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.component.behavior.ClientBehavior;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitHint;
+import jakarta.faces.component.visit.VisitResult;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ComponentSystemEventListener;
+import jakarta.faces.event.FacesEvent;
+import jakarta.faces.event.ListenerFor;
+import jakarta.faces.event.PhaseId;
+import jakarta.faces.event.PreRenderComponentEvent;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.PageActionEvent;
@@ -43,28 +65,6 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jakarta.el.ELContext;
-import jakarta.el.MethodExpression;
-import jakarta.el.ValueExpression;
-import jakarta.faces.component.UIColumn;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UINamingContainer;
-import jakarta.faces.component.behavior.AjaxBehavior;
-import jakarta.faces.component.behavior.ClientBehavior;
-import jakarta.faces.component.behavior.ClientBehaviorContext;
-import jakarta.faces.component.behavior.ClientBehaviorHolder;
-import jakarta.faces.component.visit.VisitCallback;
-import jakarta.faces.component.visit.VisitContext;
-import jakarta.faces.component.visit.VisitHint;
-import jakarta.faces.component.visit.VisitResult;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.AbortProcessingException;
-import jakarta.faces.event.ComponentSystemEvent;
-import jakarta.faces.event.ComponentSystemEventListener;
-import jakarta.faces.event.FacesEvent;
-import jakarta.faces.event.ListenerFor;
-import jakarta.faces.event.PhaseId;
-import jakarta.faces.event.PreRenderComponentEvent;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
@@ -95,6 +95,7 @@ public abstract class AbstractUISheet extends AbstractUIData
   private transient boolean autoLayout;
   private transient boolean lazyUpdate;
   private transient int lazyFirstRow;
+  private transient int lazyLastRow;
 
   private transient Grid headerGrid;
 
@@ -133,7 +134,9 @@ public abstract class AbstractUISheet extends AbstractUIData
     }
 
     if (isLazy() && !getLazyUpdate()) {
-      setLazyFirstRow(theState.getLazyScrollPosition().getFirstVisibleRow());
+      Integer firstVisibleRow = theState.getLazyScrollPosition().getFirstVisibleRow();
+      setLazyFirstRow(Math.max(0, firstVisibleRow - Math.max(0, getLazyRows() / 2)));
+      setLazyLastRow(firstVisibleRow + Math.max(1, getLazyRows()));
     }
 
     super.encodeBegin(facesContext);
@@ -863,6 +866,14 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   public void setLazyFirstRow(int lazyFirstRow) {
     this.lazyFirstRow = lazyFirstRow;
+  }
+
+  public int getLazyLastRow() {
+    return lazyLastRow;
+  }
+
+  public void setLazyLastRow(int lazyLastRow) {
+    this.lazyLastRow = lazyLastRow;
   }
 
   public AjaxBehavior createReloadBehavior(final AbstractUISheet sheet) {

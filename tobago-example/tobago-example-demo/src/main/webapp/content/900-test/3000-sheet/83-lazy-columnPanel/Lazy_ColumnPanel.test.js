@@ -15,14 +15,14 @@
  * limitations under the License.
  */
 
-import {elementByIdFn, isFirefox, querySelectorFn} from "/script/tobago-test.js";
+import {elementByIdFn, querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("initial load", function (done) {
   const submit = elementByIdFn("page:mainForm:submit");
 
   const test = new JasmineTestTool(done);
-  test.setup(() => isLoaded(0) && isLoaded(9), null, "click", submit);
+  test.setup(() => isLoaded(0) && isLoaded(9), () => focusRowIndex(0), "click", submit);
   test.do(() => expect(isLoaded(0)).toBeTrue());
   test.do(() => expect(isLoaded(9)).toBeTrue());
   test.do(() => expect(isLoaded(10)).toBeFalse());
@@ -30,65 +30,34 @@ it("initial load", function (done) {
 });
 
 it("focus row index 200 and scroll up", function (done) {
-  let timestamp;
-
   const test = new JasmineTestTool(done);
-  test.do(() => timestamp = Date.now());
-  test.wait(() => Date.now() - timestamp > 200);
-  test.do(() => focusRowIndex(200));
+  test.do(() => focusRowIndex(200)); //new area; 200 to 213 visible; range 195 to 218
   test.wait(() => isLoaded(200));
+  test.do(() => expect(isLoaded(194)).toBeFalse());
+  test.do(() => expect(isLoaded(195, 218)).toBeTrue());
+  test.do(() => expect(isLoaded(219)).toBeFalse());
 
-  if (isFirefox()) {
-    test.wait(() => isLoaded(199));
-    test.do(() => expect(isLoaded(189)).toBeFalse());
-    test.do(() => expect(isLoaded(190, 199)).toBeTrue());
-  } else {
-    test.do(() => expect(isLoaded(199)).toBeFalse());
-  }
-  test.do(() => expect(isLoaded(200, 209)).toBeTrue());
-  test.do(() => expect(isLoaded(210)).toBeFalse());
-
-  test.do(() => timestamp = Date.now());
-  test.wait(() => Date.now() - timestamp > 200);
-  test.do(() => focusRowIndex(199));
-  test.wait(() => isLoaded(199));
-  test.do(() => expect(isLoaded(189)).toBeFalse());
-  test.do(() => expect(isLoaded(190, 209)).toBeTrue());
-  test.do(() => expect(isLoaded(210)).toBeFalse());
+  test.do(() => focusRowIndex(197)); //discovered area; 197 to 200 visible; range 194 to 203
+  test.wait(() => isLoaded(194));
+  test.do(() => expect(isLoaded(184)).toBeFalse());
+  test.do(() => expect(isLoaded(185, 218)).toBeTrue());
+  test.do(() => expect(isLoaded(219)).toBeFalse());
   test.start();
 });
 
 it("focus row index 300 and scroll down", function (done) {
-  let timestamp;
-
   const test = new JasmineTestTool(done);
-  test.do(() => timestamp = Date.now());
-  test.wait(() => Date.now() - timestamp > 200);
-  test.do(() => focusRowIndex(300));
+  test.do(() => focusRowIndex(300)); //new area; 300 to 313 visible; range 295 to 318
   test.wait(() => isLoaded(300));
+  test.do(() => expect(isLoaded(294)).toBeFalse());
+  test.do(() => expect(isLoaded(295, 318)).toBeTrue());
+  test.do(() => expect(isLoaded(319)).toBeFalse());
 
-  if (isFirefox()) {
-    test.wait(() => isLoaded(299));
-    test.do(() => expect(isLoaded(289)).toBeFalse());
-    test.do(() => expect(isLoaded(290, 299)).toBeTrue());
-  } else {
-    test.do(() => expect(isLoaded(299)).toBeFalse());
-  }
-  test.do(() => expect(isLoaded(300, 309)).toBeTrue());
-  test.do(() => expect(isLoaded(310)).toBeFalse());
-
-  test.do(() => timestamp = Date.now());
-  test.wait(() => Date.now() - timestamp > 200);
-  test.do(() => focusRowIndex(301));
-  test.wait(() => isLoaded(310));
-  if (isFirefox()) {
-    test.do(() => expect(isLoaded(289)).toBeFalse());
-    test.do(() => expect(isLoaded(290, 299)).toBeTrue());
-  } else {
-    test.do(() => expect(isLoaded(299)).toBeFalse());
-  }
-  test.do(() => expect(isLoaded(300, 319)).toBeTrue());
-  test.do(() => expect(isLoaded(320)).toBeFalse());
+  test.do(() => focusRowIndex(313)); //discovered area; 313 to 316 visible; range 310 to 319
+  test.wait(() => isLoaded(319));
+  test.do(() => expect(isLoaded(294)).toBeFalse());
+  test.do(() => expect(isLoaded(295, 328)).toBeTrue());
+  test.do(() => expect(isLoaded(329)).toBeFalse());
   test.start();
 });
 

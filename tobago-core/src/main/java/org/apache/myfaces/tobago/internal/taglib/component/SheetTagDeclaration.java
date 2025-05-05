@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import jakarta.faces.component.UIData;
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
@@ -39,8 +40,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 import org.apache.myfaces.tobago.layout.PaginatorMode;
 import org.apache.myfaces.tobago.layout.ShowPosition;
 import org.apache.myfaces.tobago.model.Selectable;
-
-import jakarta.faces.component.UIData;
 
 /**
  * Render a sheet element.
@@ -295,7 +294,8 @@ public interface SheetTagDeclaration
   void setLazy(String lazy);
 
   /**
-   * Indicate how many rows are loaded at once when lazy loading is enabled. Default is 50.
+   * Indicate how many rows must be loaded when lazy loading is enabled and how many rows are loaded at once.
+   * Default is 50.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "50")
@@ -391,10 +391,8 @@ public interface SheetTagDeclaration
    * doesn't require updates potentially saving processing time.
    * This optimization should only be applied when there are no non-readonly
    * {@link jakarta.faces.component.EditableValueHolder} components in the sheet rows.
-   *
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setReadonlyRows(String readonly);
-
 }
