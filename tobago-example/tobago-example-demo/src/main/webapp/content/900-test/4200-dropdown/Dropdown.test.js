@@ -141,9 +141,15 @@ it("Composite component inside dropdown menu", function () {
   expect(tobagoDropdown().children[1].classList.contains("tobago-dropdown-menu")).toBeTrue();
 
   const tobagoDropdownMenu = tobagoDropdown().children[1];
-  expect(tobagoDropdownMenu.children.length).toEqual(2);
+  expect(tobagoDropdownMenu.children.length).toEqual(5);
   expect(tobagoDropdownMenu.children[0].tagName).toEqual("TOBAGO-DROPDOWN");
   expect(tobagoDropdownMenu.children[0].id).toContain("page:mainForm:ccddEntry");
   expect(tobagoDropdownMenu.children[1].tagName).toEqual("TOBAGO-DROPDOWN");
   expect(tobagoDropdownMenu.children[1].id).toContain("page:mainForm:compositeComponent:");
+  expect(tobagoDropdownMenu.children[2].tagName).toEqual("DIV");
+  expect(tobagoDropdownMenu.children[2].classList.contains("dropdown-item")).toBeTrue();
+  expect(tobagoDropdownMenu.children[3].tagName).toEqual("BUTTON");
+  expect(tobagoDropdownMenu.children[3].classList.contains("tobago-link")).toBeTrue();
+  expect(tobagoDropdownMenu.children[4].tagName).toEqual("BUTTON");
+  expect(tobagoDropdownMenu.children[4].classList.contains("tobago-link")).toBeTrue();
 });
