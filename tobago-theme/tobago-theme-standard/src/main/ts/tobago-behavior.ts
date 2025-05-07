@@ -77,9 +77,12 @@ class Behavior extends HTMLElement {
 
     switch (this.mode) {
       case BehaviorMode.ajax:
-        if (!this.validate(this.execute)) {
-          console.warn("Validation failed! No request will be sent.");
-          return;
+        if (!this.immediate) {
+          const valid = this.validate(this.execute);
+          if (!valid) {
+            console.warn("Validation failed! No request will be sent.");
+            return;
+          }
         }
         break;
       case BehaviorMode.full:
@@ -382,6 +385,18 @@ class Behavior extends HTMLElement {
       this.setAttribute("decoupled", "");
     } else {
       this.removeAttribute("decoupled");
+    }
+  }
+
+  get immediate(): boolean {
+    return this.hasAttribute("immediate");
+  }
+
+  set immediate(immediate: boolean) {
+    if (immediate) {
+      this.setAttribute("immediate", "");
+    } else {
+      this.removeAttribute("immediate");
     }
   }
 

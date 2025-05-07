@@ -44,6 +44,7 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
    * Internationalization strings for e.g. date specific labels, e.g. January or Monday.
    */
   I18N("i18n"),
+  IMMEDIATE("immediate"),
   /**
    * The index of the tab inside the tab group.
    */

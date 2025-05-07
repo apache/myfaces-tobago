@@ -340,7 +340,8 @@ public final class RenderUtils {
           TobagoClientBehaviorRenderer.createCollapsible(facesContext, holder),
           holder.isOmit(),
           null,
-          null));
+          null,
+          holder.isImmediate()));
     }
 
     return commandMap;

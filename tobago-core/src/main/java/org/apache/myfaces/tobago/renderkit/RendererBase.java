@@ -308,6 +308,7 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
     }
     writer.writeAttribute(CustomAttributes.CUSTOM_EVENT_NAME, command.getCustomEventName(), true);
     // todo: all the other attributes
+    writer.writeAttribute(CustomAttributes.IMMEDIATE, command.getImmediate());
     writer.endElement(HtmlElements.TOBAGO_BEHAVIOR);
   }
 
@@ -359,7 +360,8 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
           TobagoClientBehaviorRenderer.createCollapsible(facesContext, holder),
           holder.isOmit(),
           null,
-          null));
+          null,
+          holder.isImmediate()));
     }
 
     return commandMap;
