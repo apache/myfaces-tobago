@@ -62,8 +62,11 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
   }
 
   @Override
-  protected String getFieldId(FacesContext facesContext, T component) {
-    return component.getFieldId(facesContext);
+  protected void writeAdditionalAttributes(FacesContext facesContext, TobagoResponseWriter writer, T component)
+      throws IOException {
+    super.writeAdditionalAttributes(facesContext, writer, component);
+    writer.writeAttribute(CustomAttributes.FILTER, component.getFilter(), true);
+    writer.writeAttribute(CustomAttributes.LOCAL_MENU, component.isLocalMenu());
   }
 
   @Override
@@ -93,14 +96,6 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
     encodeOptions(facesContext, component, items, clientId, expanded, disabled);
 
     writer.endElement(HtmlElements.DIV);
-  }
-
-  @Override
-  protected void writeAdditionalAttributes(FacesContext facesContext, TobagoResponseWriter writer, T component)
-      throws IOException {
-    super.writeAdditionalAttributes(facesContext, writer, component);
-    writer.writeAttribute(CustomAttributes.FILTER, component.getFilter(), true);
-    writer.writeAttribute(CustomAttributes.LOCAL_MENU, component.isLocalMenu());
   }
 
   private void encodeHiddenSelect(
@@ -275,5 +270,10 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     encodeBehavior(writer, facesContext, component);
+  }
+
+  @Override
+  protected String getFieldId(FacesContext facesContext, T component) {
+    return component.getFieldId(facesContext);
   }
 }

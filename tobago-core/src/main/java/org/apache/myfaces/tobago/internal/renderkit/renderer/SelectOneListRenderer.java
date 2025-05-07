@@ -43,6 +43,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends SelectOneRendererBase<T> {
+  @Override
+  public HtmlElements getComponentTag() {
+    return HtmlElements.TOBAGO_SELECT_ONE_LIST;
+  }
+
+  @Override
+  protected CssItem[] getComponentCss(final FacesContext facesContext, final T component) {
+    final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, component);
+    final boolean disabled = !items.iterator().hasNext() || component.isDisabled() || component.isReadonly();
+
+    List<CssItem> cssItems = new ArrayList<>();
+    if (disabled) {
+      cssItems.add(TobagoClass.DISABLED);
+    }
+    return cssItems.toArray(new CssItem[0]);
+  }
+
+  @Override
+  protected void writeAdditionalAttributes(FacesContext facesContext, TobagoResponseWriter writer, T component)
+      throws IOException {
+    super.writeAdditionalAttributes(facesContext, writer, component);
+    writer.writeAttribute(CustomAttributes.FILTER, component.getFilter(), true);
+    writer.writeAttribute(CustomAttributes.LOCAL_MENU, component.isLocalMenu());
+  }
 
   @Override
   protected void encodeBeginField(FacesContext facesContext, T component) throws IOException {
@@ -243,31 +267,6 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
     encodeBehavior(writer, facesContext, component);
-  }
-
-  @Override
-  public HtmlElements getComponentTag() {
-    return HtmlElements.TOBAGO_SELECT_ONE_LIST;
-  }
-
-  @Override
-  protected CssItem[] getComponentCss(final FacesContext facesContext, final T component) {
-    final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, component);
-    final boolean disabled = !items.iterator().hasNext() || component.isDisabled() || component.isReadonly();
-
-    List<CssItem> cssItems = new ArrayList<>();
-    if (disabled) {
-      cssItems.add(TobagoClass.DISABLED);
-    }
-    return cssItems.toArray(new CssItem[0]);
-  }
-
-  @Override
-  protected void writeAdditionalAttributes(FacesContext facesContext, TobagoResponseWriter writer, T component)
-      throws IOException {
-    super.writeAdditionalAttributes(facesContext, writer, component);
-    writer.writeAttribute(CustomAttributes.FILTER, component.getFilter(), true);
-    writer.writeAttribute(CustomAttributes.LOCAL_MENU, component.isLocalMenu());
   }
 
   @Override
