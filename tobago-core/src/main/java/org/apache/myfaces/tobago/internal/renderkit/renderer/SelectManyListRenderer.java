@@ -96,11 +96,11 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
   }
 
   @Override
-  protected void writeAdditionalAttributes(FacesContext facesContext, TobagoResponseWriter writer, T input)
+  protected void writeAdditionalAttributes(FacesContext facesContext, TobagoResponseWriter writer, T component)
       throws IOException {
-    super.writeAdditionalAttributes(facesContext, writer, input);
-    writer.writeAttribute(CustomAttributes.FILTER, input.getFilter(), true);
-    writer.writeAttribute(CustomAttributes.LOCAL_MENU, input.isLocalMenu());
+    super.writeAdditionalAttributes(facesContext, writer, component);
+    writer.writeAttribute(CustomAttributes.FILTER, component.getFilter(), true);
+    writer.writeAttribute(CustomAttributes.LOCAL_MENU, component.isLocalMenu());
   }
 
   private void encodeHiddenSelect(

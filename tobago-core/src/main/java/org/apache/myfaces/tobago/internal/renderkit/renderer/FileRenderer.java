@@ -239,15 +239,15 @@ public class FileRenderer<T extends AbstractUIFile>
 
   @Override
   protected void writeAdditionalAttributes(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final T input)
+      final FacesContext facesContext, final TobagoResponseWriter writer, final T component)
       throws IOException {
-    super.writeAdditionalAttributes(facesContext, writer, input);
-    final String dropZone = input.getDropZone();
+    super.writeAdditionalAttributes(facesContext, writer, component);
+    final String dropZone = component.getDropZone();
     if (dropZone != null) {
-      final String forId = ComponentUtils.evaluateClientId(facesContext, input, dropZone);
+      final String forId = ComponentUtils.evaluateClientId(facesContext, component, dropZone);
       writer.writeAttribute(CustomAttributes.DROP_ZONE, forId, true);
     }
-    final long maxSize = createMaxSizeFromValidators(input);
+    final long maxSize = createMaxSizeFromValidators(component);
     if (maxSize > 0) {
       writer.writeAttribute(CustomAttributes.MAX_SIZE, maxSize);
       final Locale locale = facesContext.getViewRoot().getLocale();

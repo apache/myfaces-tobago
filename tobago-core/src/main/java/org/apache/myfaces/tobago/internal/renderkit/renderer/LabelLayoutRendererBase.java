@@ -189,7 +189,7 @@ public abstract class LabelLayoutRendererBase<T extends UIComponent & SupportsLa
   }
 
   protected void writeAdditionalAttributes(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final T input)
+      final FacesContext facesContext, final TobagoResponseWriter writer, final T component)
       throws IOException {
   }
 
