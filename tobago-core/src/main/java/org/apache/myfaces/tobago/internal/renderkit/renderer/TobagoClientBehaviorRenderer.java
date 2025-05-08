@@ -80,6 +80,7 @@ public class TobagoClientBehaviorRenderer extends jakarta.faces.render.ClientBeh
     Integer delay = null;
     Boolean stopPropagation = null;
     String customEventName = null;
+    boolean immediate = false;
 
     final String confirmation = ComponentUtils.getConfirmation(uiComponent);
     if (behavior instanceof AjaxBehavior) {
@@ -119,6 +120,7 @@ public class TobagoClientBehaviorRenderer extends jakarta.faces.render.ClientBeh
         omit = command.isOmit() || StringUtils.isNotBlank(RenderUtils.generateUrl(facesContext, command));
       }
       renderIds = ComponentUtils.evaluateClientIds(facesContext, uiComponent, render.toArray(new String[0]));
+      immediate = ajaxBehavior.isImmediate();
     } else if (behavior instanceof EventBehavior) { // <tc:event>
       final EventBehavior eventBehavior = (EventBehavior) behavior;
       final AbstractUIEvent event = RenderUtils.getAbstractUIEvent(uiComponent, eventBehavior);
@@ -136,6 +138,7 @@ public class TobagoClientBehaviorRenderer extends jakarta.faces.render.ClientBeh
           omit = event.isOmit() || StringUtils.isNotBlank(RenderUtils.generateUrl(facesContext, event));
           stopPropagation = event.getStopPropagation();
           customEventName = event.getCustomEventName();
+          immediate = event.isImmediate();
         }
       }
     } else {
@@ -154,7 +157,8 @@ public class TobagoClientBehaviorRenderer extends jakarta.faces.render.ClientBeh
         collapse,
         omit,
         stopPropagation,
-        customEventName);
+        customEventName,
+        immediate);
 
     if (resetValues) {
       command.setResetValues(true);

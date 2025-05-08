@@ -39,7 +39,24 @@ public class Command {
   private Boolean resetValues;
   private Boolean stopPropagation;
   private String customEventName;
+  private Boolean immediate;
 
+  public Command(
+      final String clientId, final String fieldId, final Boolean transition, final String target, final String execute,
+      final String render, final String confirmation, final Integer delay,
+      final Collapse collapse, final Boolean omit, final Boolean stopPropagation, final String customEventName,
+      final Boolean immediate) {
+    this(clientId, fieldId, transition, target, execute, render, confirmation, delay, collapse, omit, stopPropagation,
+        customEventName);
+    this.immediate = immediate;
+  }
+
+  /**
+   * @deprecated Please use
+   * {@link Command#Command(String, String, Boolean, String, String, String, String, Integer, Collapse, Boolean,
+   * Boolean, String, Boolean)}
+   */
+  @Deprecated(since = "6.7.2")
   public Command(
       final String clientId, final String fieldId, final Boolean transition, final String target, final String execute,
       final String render, final String confirmation, final Integer delay,
@@ -158,6 +175,14 @@ public class Command {
     return customEventName;
   }
 
+  public Boolean getImmediate() {
+    return immediate;
+  }
+
+  public void setImmediate(Boolean immediate) {
+    this.immediate = immediate;
+  }
+
   public void merge(final Command c) {
 
     //XXX TBD: check if this is okay.
@@ -209,6 +234,9 @@ public class Command {
     }
     if (customEventName == null) {
       customEventName = c.customEventName;
+    }
+    if (immediate == null) {
+      immediate = c.immediate;
     }
   }
 }

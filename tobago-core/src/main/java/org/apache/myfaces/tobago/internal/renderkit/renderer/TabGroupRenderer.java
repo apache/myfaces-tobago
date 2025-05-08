@@ -80,6 +80,7 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
     final AbstractUITabGroup tabGroup = (AbstractUITabGroup) event.getComponent();
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final ClientBehaviors tabChange = ClientBehaviors.tabChange;
+    final boolean immediate = tabGroup.isImmediate();
     switch (tabGroup.getSwitchType()) {
       case none:
         break;
@@ -92,6 +93,7 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
             UINamingContainer.getSeparatorChar(facesContext) + tabGroup.getClientId(facesContext));
         ajaxBehavior.setExecute(ids);
         ajaxBehavior.setRender(ids);
+        ajaxBehavior.setImmediate(immediate);
         tabGroup.addClientBehavior(tabChange.getJsEvent(), ajaxBehavior);
         break;
       case reloadPage:
@@ -101,6 +103,7 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
         tabGroup.getChildren().add(component);
         final EventBehavior eventBehavior = new EventBehavior();
         eventBehavior.setFor(component.getId());
+        eventBehavior.setImmediate(immediate);
         tabGroup.addClientBehavior(tabChange.getJsEvent(), eventBehavior);
         break;
       default:
