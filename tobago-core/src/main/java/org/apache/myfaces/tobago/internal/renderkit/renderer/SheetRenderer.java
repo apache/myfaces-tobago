@@ -402,6 +402,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
 
     final List<Integer> expandedValue = component.isTreeModel() ? new ArrayList<>() : null;
 
+    encodeTableHeader(facesContext, component, writer, columnWidths, columns, autoLayout);
     encodeTableBody(
         facesContext, component, writer, sheetId, selectable, columnWidths, selectedRows, columns, autoLayout,
         expandedValue);
@@ -435,11 +436,11 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     insideEnd(facesContext, HtmlElements.TOBAGO_SHEET);
   }
 
-  private void encodeTableBody(
+  private void encodeTableHeader(
       final FacesContext facesContext, final AbstractUISheet sheet,
-      final TobagoResponseWriter writer, final String sheetId, final Selectable selectable,
-      final List<Integer> columnWidths, final List<Integer> selectedRows, final List<AbstractUIColumnBase> columns,
-      final boolean autoLayout, final List<Integer> expandedValue) throws IOException {
+      final TobagoResponseWriter writer,
+      final List<Integer> columnWidths, final List<AbstractUIColumnBase> columns, final boolean autoLayout)
+      throws IOException {
 
     final boolean showHeader = sheet.isShowHeader();
     final Markup sheetMarkup = sheet.getMarkup() != null ? sheet.getMarkup() : Markup.NULL;
@@ -480,6 +481,18 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
         writer.endElement(HtmlElements.HEADER);
       }
     }
+  }
+
+  private void encodeTableBody(
+      final FacesContext facesContext, final AbstractUISheet sheet,
+      final TobagoResponseWriter writer, final String sheetId, final Selectable selectable,
+      final List<Integer> columnWidths, final List<Integer> selectedRows, final List<AbstractUIColumnBase> columns,
+      final boolean autoLayout, final List<Integer> expandedValue) throws IOException {
+
+    final boolean showHeader = sheet.isShowHeader();
+    final Markup sheetMarkup = sheet.getMarkup() != null ? sheet.getMarkup() : Markup.NULL;
+
+    boolean nonLazyUpdate = !sheet.isLazyUpdate(facesContext);
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(TobagoClass.BODY);
 
@@ -655,9 +668,13 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
       }
     }
     sheet.setRowIndex(-1);
+    writer.endElement(HtmlElements.TBODY);
 
     if (emptySheet && showHeader) {
+      writer.startElement(HtmlElements.TFOOT);
       writer.startElement(HtmlElements.TR);
+      writer.writeClassAttribute(TobagoClass.NO__ENTRIES);
+
       int countColumns = 0;
       for (final UIColumn column : columns) {
         if (!(column instanceof AbstractUIRow)) {
@@ -683,9 +700,9 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
         writer.endElement(HtmlElements.TD);
       }
       writer.endElement(HtmlElements.TR);
+      writer.endElement(HtmlElements.TFOOT);
     }
 
-    writer.endElement(HtmlElements.TBODY);
     writer.endElement(HtmlElements.TABLE);
     writer.endElement(HtmlElements.DIV);
   }
