@@ -56,7 +56,7 @@
 
     <!-- Note: defined here in master pom, because of problems with enforcer plugin -->
     <jetty.version>9.4.50.v20221201</jetty.version>
-    <tomcat9.version>9.0.104</tomcat9.version>
+    <tomcat9.version>9.0.105</tomcat9.version>
     <joinfaces.version>4.7.18</joinfaces.version>
     <spring-boot.version>2.7.18</spring-boot.version>
     <spring.version>5.3.39</spring.version>
