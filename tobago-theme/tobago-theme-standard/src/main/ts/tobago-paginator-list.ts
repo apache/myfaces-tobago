@@ -16,7 +16,6 @@
  */
 
 import {TobagoPaginator} from "./tobago-paginator";
-import {Key} from "./tobago-key";
 
 export class TobagoPaginatorList extends TobagoPaginator {
 
