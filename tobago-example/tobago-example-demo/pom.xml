@@ -431,13 +431,15 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-maven-plugin</artifactId>
+            <groupId>org.eclipse.jetty.ee10</groupId>
+            <artifactId>jetty-ee10-maven-plugin</artifactId>
             <configuration>
               <loginServices>
                 <loginService implementation="org.eclipse.jetty.security.HashLoginService">
                   <name>demo-realm</name>
-                  <config>src/test/resources/realm.properties</config>
+                  <config implementation="org.eclipse.jetty.maven.MavenResource">
+                    <resourceAsString>${project.basedir}/src/test/resources/realm.properties</resourceAsString>
+                  </config>
                 </loginService>
               </loginServices>
               <stopKey>stopKey</stopKey>
