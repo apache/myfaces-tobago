@@ -18,6 +18,21 @@
 import {elementByIdFn, innerHeight, querySelectorFn, scrollTo} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
+it("Button dropdown on the right", function (done) {
+  const button = elementByIdFn("page:mainForm:buttonDropdownRight::command");
+  const dropdownMenu = querySelectorFn(".tobago-dropdown-menu[name='page:mainForm:buttonDropdownRight']");
+
+  const test = new JasmineTestTool(done);
+  test.event("click", button, () => dropdownMenu().classList.contains("show"));
+  test.waitMs(100);
+  test.do(() => expect(dropdownMenu().classList).toContain("show"));
+  test.do(() => expect(dropdownMenu().getBoundingClientRect().left).toBeGreaterThan(0));
+  test.do(() => expect(dropdownMenu().getBoundingClientRect().left).toBeLessThan(window.innerWidth));
+  test.do(() => expect(dropdownMenu().getBoundingClientRect().right).toBeGreaterThan(0));
+  test.do(() => expect(dropdownMenu().getBoundingClientRect().right).toBeLessThan(window.innerWidth));
+  test.start();
+});
+
 it("default - SelectOneList: upper half", function (done) {
   const tobagoHeader = querySelectorFn("tobago-header.sticky-top");
   const selectOneList = elementByIdFn("page:mainForm:defaultSelectOneList");

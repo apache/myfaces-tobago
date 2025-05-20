@@ -140,23 +140,11 @@ export class DropdownMenu {
     const refElementRect = this.referenceElement.getBoundingClientRect();
 
     //calc horizontal positioning and max-width
-    const rightBorder = this.body.offsetWidth;
-    switch (this.alignment) {
-      case DropdownMenuAlignment.start:
-      case DropdownMenuAlignment.centerFullWidth:
-        this.dropdownMenuElement.style.left = "0px";
-        this.dropdownMenuElement.style.left = (refElementRect.left - this.dropdownRect.left) + "px";
-        this.dropdownMenuElement.style.right = null;
-        this.dropdownMenuElement.style.maxWidth = rightBorder - refElementRect.left
-            - parseFloat(getComputedStyle(this.dropdownMenuElement).marginRight) + "px";
-        break;
-      case DropdownMenuAlignment.end:
-        this.dropdownMenuElement.style.left = null;
-        this.dropdownMenuElement.style.right = "0px";
-        this.dropdownMenuElement.style.right = (this.dropdownRect.right - refElementRect.right) + "px";
-        this.dropdownMenuElement.style.maxWidth = refElementRect.right
-            - parseFloat(getComputedStyle(this.dropdownMenuElement).marginLeft) + "px";
-        break;
+    this.calcHorizontalPositioningAndMaxWidth(refElementRect, this.alignment);
+    if (this.dropdownMenuElement.offsetWidth - 1 > parseInt(this.dropdownMenuElement.style.maxWidth)
+        && (window.innerWidth / 2) <= refElementRect.left + (refElementRect.right - refElementRect.left)) {
+      // Content of dropdown is too big and reference element is on the right side; do DropdownMenuAlignment.end
+      this.calcHorizontalPositioningAndMaxWidth(refElementRect, DropdownMenuAlignment.end);
     }
 
     //calc width
@@ -193,6 +181,27 @@ export class DropdownMenu {
       this.dropdownMenuElement.style.marginBottom = "var(--tobago-dropdown-menu-component-offset)";
       this.dropdownMenuElement.style.maxHeight = spaceAbove
           - parseFloat(getComputedStyle(this.dropdownMenuElement).marginTop) + "px";
+    }
+  }
+
+  private calcHorizontalPositioningAndMaxWidth(refElementRect: DOMRect, alignment: DropdownMenuAlignment): void {
+    const rightBorder = this.body.offsetWidth;
+    switch (alignment) {
+      case DropdownMenuAlignment.start:
+      case DropdownMenuAlignment.centerFullWidth:
+        this.dropdownMenuElement.style.left = "0px";
+        this.dropdownMenuElement.style.left = (refElementRect.left - this.dropdownRect.left) + "px";
+        this.dropdownMenuElement.style.right = null;
+        this.dropdownMenuElement.style.maxWidth = rightBorder - refElementRect.left
+            - parseFloat(getComputedStyle(this.dropdownMenuElement).marginRight) + "px";
+        break;
+      case DropdownMenuAlignment.end:
+        this.dropdownMenuElement.style.left = null;
+        this.dropdownMenuElement.style.right = "0px";
+        this.dropdownMenuElement.style.right = (this.dropdownRect.right - refElementRect.right) + "px";
+        this.dropdownMenuElement.style.maxWidth = refElementRect.right
+            - parseFloat(getComputedStyle(this.dropdownMenuElement).marginLeft) + "px";
+        break;
     }
   }
 
