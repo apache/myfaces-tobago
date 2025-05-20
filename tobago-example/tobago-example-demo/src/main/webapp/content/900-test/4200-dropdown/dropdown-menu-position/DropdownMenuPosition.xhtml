@@ -23,6 +23,23 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="jakarta.faces.facelets">
 
+  <tc:header>
+    <tc:style position="fixed" top="60px" left="0" width="100%" customClass="blue"/>
+    <tc:bar>
+      <f:facet name="brand">
+        BRAND
+      </f:facet>
+      CONTENT OF TC:BAR
+      <f:facet name="after">
+        <tc:button id="buttonDropdownRight" label="X" omit="true">
+          <tc:link
+              label="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
+              omit="true"/>
+        </tc:button>
+      </f:facet>
+    </tc:bar>
+  </tc:header>
+
   <tc:panel>
     <tc:style height="1000px"/>
     This is a 1000px height panel to make sure the components for testing can be at the top of the browser window.
