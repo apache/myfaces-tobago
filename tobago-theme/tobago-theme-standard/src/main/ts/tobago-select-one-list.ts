@@ -27,7 +27,7 @@ class SelectOneList extends SelectListBase {
   connectedCallback(): void {
     super.connectedCallback();
     this.selectField.addEventListener("keydown", this.keydownEvent.bind(this));
-    if (this.filter) {
+    if (this.filter || this.serverSideFiltering) {
       this.filterInput.addEventListener("input", this.clearSpan.bind(this));
     }
 
@@ -81,13 +81,27 @@ class SelectOneList extends SelectListBase {
     const option: HTMLOptionElement = this.hiddenSelect.querySelector(`[value="${itemValue}"]`);
     option.selected = this.hiddenSelect.required ? true : !option.selected;
     this.filterInput.value = null;
+
+    if (this.serverSideFiltering) {
+      faces.ajax.request(
+          this.id,
+          null,
+          {
+            params: {
+              "javax.faces.behavior.event": "select",
+              selectListUpdate: this.id
+            }
+          });
+    }
+
     this.sync();
     this.hiddenSelect.dispatchEvent(new Event("change", {bubbles: true}));
   }
 
   private sync() {
-    this.spanText = this.selectedOption?.textContent;
-    this.rows.forEach((row) => {
+    this.spanText = this.selectedOption ? this.selectedOption.textContent : "";
+
+    this.rows?.forEach((row) => {
       if (row.dataset.tobagoValue === this.hiddenSelect.value) {
         row.classList.add(Css.TABLE_PRIMARY); // highlight list row
       } else {
@@ -97,11 +111,15 @@ class SelectOneList extends SelectListBase {
   }
 
   protected leaveComponent(): void {
-    this.focused = false;
-    this.filterInput.value = null;
-    this.filterInput.dispatchEvent(new Event("input"));
-    this.spanText = this.selectedOption?.textContent;
-    this.dropdownMenu?.hide();
+    if (this.focused) {
+      if (!this.serverSideFiltering || (this.lastSuccessfulSearchQuery && this.lastSuccessfulSearchQuery.length > 0)) {
+        this.filterInput.value = null;
+        this.doFilter("");
+      }
+      this.spanText = this.selectedOption ? this.selectedOption.textContent : "";
+      this.dropdownMenu?.hide();
+      this.focused = false; //dispatch blur event; should be called after doFilter("")
+    }
   }
 
   get spanText(): string {
@@ -109,7 +127,9 @@ class SelectOneList extends SelectListBase {
   }
 
   set spanText(text: string) {
-    this.selectField.querySelector("span").textContent = text;
+    const spanElement = this.selectField.querySelector("span");
+    spanElement.textContent = text;
+    spanElement.style.marginRight = text ? null : "0"; //null remove inline style, so the margin from the CSS is used
   }
 
   get selectedOption(): HTMLOptionElement {

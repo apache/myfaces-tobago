@@ -54,6 +54,7 @@ public enum TobagoClass implements CssItem {
   COLLAPSED("tobago-collapsed"),
   COLUMN__PANEL("tobago-column-panel"),
   CONTROLS("tobago-controls"),
+  CUSTOM__FOOTER("tobago-custom-footer"),
   DELETED("tobago-deleted"),
   DESCENDING("tobago-descending"),
   DISABLED("tobago-disabled"),

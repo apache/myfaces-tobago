@@ -367,12 +367,18 @@ $icon-sort-numbers: (
         }
       }
 
-      tfoot tr.tobago-no-entries {
-        text-align: center;
+      tfoot tr {
+        &.tobago-no-entries, &.tobago-custom-footer {
+          text-align: center;
 
-        td {
-          color: $dropdown-link-disabled-color;
-          border-bottom-width: 0;
+          td {
+            color: $dropdown-link-disabled-color;
+            border-bottom-width: 0;
+          }
+        }
+
+        &.tobago-custom-footer td:empty {
+          display: none;
         }
       }
     }
@@ -382,6 +388,31 @@ $icon-sort-numbers: (
 @mixin selectListBorderColorShadow($name, $color) {
   &.border-#{$name} {
     box-shadow: 0 0 $input-btn-focus-blur $input-focus-width rgba($color, $input-btn-focus-color-opacity);
+  }
+}
+
+@mixin spinner() {
+  .spinner {
+    display: none;
+    position: absolute;
+
+    &.tobago-show {
+      display: block;
+    }
+
+    &:after {
+      content: "";
+      border: 3px solid rgba(0, 0, 0, .12);
+      border-right-color: rgba(0, 0, 0, .48);
+      border-radius: 100%;
+      width: 100%;
+      height: 100%;
+      top: 50%;
+      position: absolute;
+      z-index: 5;
+      transform: translateY(-50%);
+      animation: rotate 1s linear infinite
+    }
   }
 }
 
@@ -845,28 +876,7 @@ tobago-in {
     }
   }
 
-  .spinner {
-    display: none;
-    position: absolute;
-
-    &.tobago-show {
-      display: block;
-    }
-
-    &:after {
-      content: "";
-      border: 3px solid rgba(0, 0, 0, .12);
-      border-right-color: rgba(0, 0, 0, .48);
-      border-radius: 100%;
-      width: 100%;
-      height: 100%;
-      top: 50%;
-      position: absolute;
-      z-index: 5;
-      transform: translateY(-50%);
-      animation: rotate 1s linear infinite
-    }
-  }
+  @include spinner();
 
   .tobago-dropdown-menu-anchor {
     @include suggestDropdownMenu();
@@ -1506,12 +1516,14 @@ tobago-select-one-choice {
 tobago-select-one-list {
   @include selectListBase();
   @include selectListOptions();
+  @include spinner();
 
   .tobago-select-field {
     span {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      margin-right: 0.25rem;
     }
   }
 }
@@ -1536,6 +1548,7 @@ tobago-select-one-radio {
 tobago-select-many-list {
   @include selectListBase();
   @include selectListOptions();
+  @include spinner();
 
   &.tobago-focus[filter] .tobago-select-field {
     flex-wrap: wrap;
