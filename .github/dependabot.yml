@@ -402,24 +402,3 @@ updates:
       include: "scope"
     schedule:
       interval: "monthly"
-
-  - package-ecosystem: "npm"
-    # Look for `package.json` and `lock` files in the `root` directory
-    directory: "/tobago-theme"
-    target-branch: "tobago-5.x"
-    commit-message:
-      prefix: "build"
-      prefix-development: "build"
-      include: "scope"
-    # Check the npm registry for updates every day (weekdays)
-    schedule:
-      interval: "monthly"
-  - package-ecosystem: "npm"
-    directory: "/tobago-example/tobago-example-demo"
-    target-branch: "tobago-5.x"
-    commit-message:
-      prefix: "build"
-      prefix-development: "build"
-      include: "scope"
-    schedule:
-      interval: "monthly"
