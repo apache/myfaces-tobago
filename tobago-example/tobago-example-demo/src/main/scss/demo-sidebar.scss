@@ -35,16 +35,15 @@ demo-sidebar {
       color: var(--bs-secondary);
       text-decoration: none;
       padding-left: 0.5rem;
+      border-left: 2px solid transparent;
 
       &:hover {
-        color: var(--bs-primary);
-        border-left: 2px solid var(--bs-primary);
+        font-weight: 600;
       }
 
       &.active {
         color: var(--bs-primary);
-        border-left: 2px solid var(--bs-primary);
-        font-weight: 600;
+        border-left-color: var(--bs-primary);
       }
     }
 

@@ -24,9 +24,8 @@ interface SectionNode {
 
 export class Sidebar extends HTMLElement {
   private sectionTree: SectionNode;
-  private scrollThrottleTimeout?: number;
   private scrollEventListener;
-  private scrollTimeout: number;
+  private resizeEventListener;
 
   connectedCallback(): void {
     if (this.fixedHeader) {
@@ -53,15 +52,18 @@ export class Sidebar extends HTMLElement {
     };
     this.buildSectionTree(this.rootSection, this.sectionTree);
     this.renderTableOfContent(this.sectionTree, this.tableOfContentsNav);
-    this.updateActiveNavLink();
+    this.updateActiveNavLinks();
 
     this.scrollEventListener = this.scrollEvent.bind(this);
     window.addEventListener("scroll", this.scrollEventListener);
+
+    this.resizeEventListener = this.resizeEvent.bind(this);
+    window.addEventListener("resize", this.resizeEventListener);
   }
 
   disconnectedCallback(): void {
     window.removeEventListener("scroll", this.scrollEventListener);
-    window.clearTimeout(this.scrollTimeout);
+    window.removeEventListener("resize", this.resizeEventListener);
   }
 
   private buildSectionTree(element: HTMLElement, parent: SectionNode): void {
@@ -111,30 +113,41 @@ export class Sidebar extends HTMLElement {
   }
 
   private scrollEvent(event: Event): void {
-    window.clearTimeout(this.scrollTimeout);
-    this.scrollTimeout = window.setTimeout(() => this.updateActiveNavLink(), 10);
+    requestAnimationFrame(() => this.updateActiveNavLinks());
   }
 
-  private updateActiveNavLink(): void {
+  private resizeEvent(event: Event): void {
+    requestAnimationFrame(() => this.updateActiveNavLinks());
+  }
+
+  private updateActiveNavLinks(): void {
     const scrollPaddingTop = parseFloat(this.rootHtml.style.scrollPaddingTop) + 1;
-    let activeSectionId = this.rootSection.id;
-    let activeSectionTop = this.rootSection.getBoundingClientRect().top;
+    const footerMarginTop = parseFloat(getComputedStyle(this.fixedFooter).marginTop);
+    const bottomBorder = this.fixedFooter.getBoundingClientRect().top - footerMarginTop;
 
+    const sectionIds = [this.rootSection.id];
+    const sectionTops = [this.rootSection.getBoundingClientRect().top];
+    const sectionBottoms = [this.rootSection.getBoundingClientRect().bottom];
     this.rootSection.querySelectorAll("tobago-section").forEach((section: HTMLElement) => {
-      const sectionTop = section.getBoundingClientRect().top;
-      if (sectionTop > activeSectionTop && sectionTop <= scrollPaddingTop) {
-        activeSectionId = section.id;
-        activeSectionTop = sectionTop;
-      }
+      sectionIds.push(section.id);
+      const sectionRect = section.getBoundingClientRect();
+      sectionTops.push(sectionRect.top);
+      sectionBottoms.push(sectionRect.bottom);
     });
 
-    this.navLinks.forEach((navLink: HTMLAnchorElement) => {
-      if (navLink.href.endsWith("#" + activeSectionId)) {
-        navLink.classList.add("active");
-      } else {
+    for (let i = 0; i < sectionIds.length; i++) {
+      const lastIndex = i >= sectionIds.length - 1;
+
+      const top = sectionTops[i];
+      const bottom = lastIndex ? sectionBottoms[i] : sectionTops[i + 1];
+
+      const navLink = this.tableOfContentsNav.querySelector("a[href='#" + sectionIds[i] + "']");
+      if (top > bottomBorder || bottom < scrollPaddingTop) {
         navLink.classList.remove("active");
+      } else {
+        navLink.classList.add("active");
       }
-    });
+    }
   }
 
   get rootHtml(): HTMLElement {
