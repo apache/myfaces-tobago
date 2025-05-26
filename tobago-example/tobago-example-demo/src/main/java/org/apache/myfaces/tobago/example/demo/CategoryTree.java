@@ -76,7 +76,7 @@ public class CategoryTree {
     final DefaultMutableTreeNode temp2 = new DefaultMutableTreeNode(new Node("1.3.3 Pictures"));
     temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.1 Education")));
     temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.2 Family")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.3 Comercial")));
+    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.3 Commercial")));
     temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.4 Summer (disabled)", true)));
     temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.5 Winter (disabled)", true)));
     temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.6 Red")));

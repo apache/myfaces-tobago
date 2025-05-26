@@ -41,7 +41,7 @@
         refactor TobagoConstants changed from interface -> class (using static import)
       </action>
       <action dev="lofwyr" type="update">
-        ResourceMananger supports XML properties now
+        ResourceManager supports XML properties now
       </action>
       <action dev="lofwyr" type="update">
         siblingLeafOnly mode for t:treeListbox
@@ -72,7 +72,7 @@
         last atanion release
       </action>
       <action dev="lofwyr" type="update">
-        many refatoring in the tag-names and attribute-names
+        many refactoring in the tag-names and attribute-names
       </action>
       <action dev="lofwyr" type="update">
         enhanced performance
@@ -87,13 +87,13 @@
 
     <release version="1.0.3" date="2005-02-23">
       <action dev="lofwyr" type="update">
-        refator: rename many tags and tag-attributes to have a consitent scheme
+        refactor: rename many tags and tag-attributes to have a consistent scheme
       </action>
       <action dev="lofwyr" type="update">
         sheet paging: direct input of page or row
       </action>
       <action dev="lofwyr" type="update">
-        make UIForm tranparent for layouting.
+        make UIForm transparent for layouting.
       </action>
       <action dev="lofwyr" type="update">
         refactor UISelectMany removed: workaround is no longer needed.
@@ -123,7 +123,7 @@
 
     <release version="1.0.1" date="2004-12-15">
       <action dev="lofwyr" type="update">
-        eleminate "SNAPSHOT" dependencies
+        eliminate "SNAPSHOT" dependencies
       </action>
     </release>
 

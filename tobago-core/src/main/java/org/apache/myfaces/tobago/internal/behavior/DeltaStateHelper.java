@@ -40,13 +40,13 @@ import java.util.function.Supplier;
 /**
  * A delta enabled state holder implementing the StateHolder Interface.
  * <p>
- * Components implementing the PartalStateHolder interface have an initial state
+ * Components implementing the PartialStateHolder interface have an initial state
  * and delta states, the initial state is the one holding all root values
  * and deltas store differences to the initial states
  * </p>
  * <p>
  * For components not implementing partial state saving only the initial states are
- * of importance, everything is stored and restored continously there
+ * of importance, everything is stored and restored continuously there
  * </p>
  * <p>
  * The state helper seems to have three internal storage mechanisms:
@@ -455,7 +455,7 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
 
         /*
         int stateHolderKeyCount = 0;
-        if (isInitalStateMarked())
+        if (isInitialStateMarked())
         {
             for (Iterator<Serializable> it = _stateHolderKeys.iterator(); it.hasNext();)
             {
@@ -493,7 +493,7 @@ class DeltaStateHelper<A extends EventBehavior> implements StateHelper {
     }
 
         /*
-        if (isInitalStateMarked())
+        if (isInitialStateMarked())
         {
             for (Iterator<Serializable> it2 = _stateHolderKeys.iterator(); it.hasNext();)
             {

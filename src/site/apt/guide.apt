@@ -562,7 +562,7 @@ mvn install
   into the <<<tobago-config.xml.>>>
 
   The address book example adds markup values to the <<<\<tc:progress\>>>> control to be able to colorize the control
-  depending on the criticallity of the progress value. On the administration page the progress control is used to
+  depending on the criticality of the progress value. On the administration page the progress control is used to
   visualize the memory consumption of the VM.
 
 +------------------------------------------+
@@ -613,7 +613,7 @@ mvn install
   <<<tobago.css>>> is used, <<<style.css>>> will also be included for compatibility (in Tobago 2.x).
 
   The {{{https://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-theme/tobago-theme-example/}example theme}} provides
-  an example for styling sheet cells and contains more complex examples of markup, which need addtional JavaScript
+  an example for styling sheet cells and contains more complex examples of markup, which need additional JavaScript
   to generate more dynamic behaviours like fade-out effects or client-side change detection.
 
 * {Partial Rendering}

@@ -47,7 +47,7 @@
   <tc:section label="Custom CSS class">
     <p>To assign a CSS class on the popover window use the <code
         class="language-markup">&lt;tc:style customClass="..."/></code> attribute.</p>
-    <p>In the following example, the width is changed to 600px using a CSS class. By default the width of a popover
+    <p>In the following example, the width is changed to 600px using a CSS class. By default, the width of a popover
       window is <code>276px;</code>. It can be changed with <code>$popover-max-width</code> (SCSS variable when
       compiling a theme) or <code>--bs-popover-max-width</code> (CSS). See:
       <tc:link label="Bootstrap Popover CSS" image="bi-box-arrow-up-right"
@@ -83,7 +83,7 @@
         <tc:popover value="#{popoverController.html}" escape="false"/>
       </f:facet>
     </tc:button>
-    <p>Although the HTML code is not escaped, the text is not colored because the code is sanitzed.
+    <p>Although the HTML code is not escaped, the text is not colored because the code is sanitized.
       "Sanitize" remove HTML/XML-Tags from a given string if not escaped. It can be configured in the tobago-config.xml.
       If you want to write your own sanitizer, you have to implement
       <code>org.apache.myfaces.tobago.sanitizer.Sanitizer</code>.

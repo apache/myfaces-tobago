@@ -23,7 +23,7 @@
                 xmlns:ui="jakarta.faces.facelets">
 
   The <code class="language-markup">&lt;tc:columnPanel/></code> tag creates a panel space under each column.
-  The content may be futher information about the entries.
+  The content may be further information about the entries.
 
   <tc:section label="Panel after each row">
     <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" rows="4">
@@ -39,16 +39,16 @@
       </tc:column>
       <tc:columnPanel>
         This is the content of the column panel.
-        Here e. g. can be placed some information about each entry, in this case
+        Here e.g. can be placed some information about each entry, in this case
         over the planet or moon.
-        It was discoverd by #{object.discoverer} in the year #{object.discoverYear}.
+        It was discovered by #{object.discoverer} in the year #{object.discoverYear}.
       </tc:columnPanel>
     </tc:sheet>
   </tc:section>
 
   <tc:section label="Responsive with Bootstrap classes">
 
-    In this example there is a cobination with the bootstrap classes to show either the discoverer and the year
+    In this example there is a combination with the bootstrap classes to show either the discoverer and the year
     as a column, or on small displays in the panel after each row.
 
     See also the <tc:link label="Bootstrap" outcome="/content/205-style/20-bootstrap/Bootstrap.xhtml"/>
