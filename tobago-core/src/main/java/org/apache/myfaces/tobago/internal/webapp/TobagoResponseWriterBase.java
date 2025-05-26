@@ -191,7 +191,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
         if (value instanceof ValueExpression) {
           value = ((ValueExpression) value).getValue(FacesContext.getCurrentInstance().getELContext());
         }
-        // Faces 2.2 In the renderkit javadoc of jsf 2.2 spec says this
+        // Faces 2.2 In the renderkit javadoc of JSF 2.2 spec says this
         // (Rendering Pass Through Attributes):
         // "... The ResponseWriter must ensure that any pass through attributes are
         // rendered on the outer-most markup element for the component. If there is
