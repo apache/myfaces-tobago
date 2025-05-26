@@ -102,7 +102,7 @@ public class EventHandler extends TobagoComponentHandler implements BehaviorHold
       // but does not appear on spec or javadoc, maybe because this could be
       // understand as an implementation detail, after all there exists a key
       // called AttachedObjectTarget.ATTACHED_OBJECT_TARGETS_KEY that could be
-      // used to create a tag outside jsf implementation to attach targets.
+      // used to create a tag outside JSF implementation to attach targets.
 //todo        mctx.addAttachedObjectHandler(parent, this);
     } else {
       throw new TagException(this.tag,

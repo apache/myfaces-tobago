@@ -119,8 +119,8 @@ import java.util.function.Supplier;
  * delta per row.</li>
  * <li>The map backed by method put(Serializable,String,Object) is
  * a replacement of UIComponentBase.attributesMap and UIComponent.bindings map.
- * Note that on jsf 1.2, instances saved on attributesMap should not be
- * StateHolder, but on jsf 2.0 it is possible to have it. PartialStateHolder
+ * Note that on JSF 1.2, instances saved on attributesMap should not be
+ * StateHolder, but on JSF 2.0 it is possible to have it. PartialStateHolder
  * instances are not handled in this map, or in other words delta state is not
  * handled in this classes (markInitialState and clearInitialState is not propagated).</li>
  * <li>The list backed by method add(Serializable,Object) should be (is not) a
