@@ -32,7 +32,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 import jakarta.faces.component.UIPanel;
 
 /**
- * Use figure to show e. g. images or videos inside.
+ * Use figure to show e.g. images or videos inside.
  */
 @Tag(name = "figure")
 @UIComponentTag(

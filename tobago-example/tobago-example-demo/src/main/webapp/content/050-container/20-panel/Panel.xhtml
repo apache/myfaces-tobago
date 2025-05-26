@@ -84,7 +84,7 @@
     <tc:link label="explicit reload link">
       <f:ajax execute="panel-reload-update" render="panel-reload-update"/>
     </tc:link>
-    reloads the panel directly (only for testing purpuse here).
+    reloads the panel directly (only for testing purpose here).
   </tc:section>
 
   <tc:section label="Ajax">
@@ -93,7 +93,7 @@
       <code class="language-markup">&lt;f:ajax/></code> tag.
       In this example, 'Outputfield One' and 'Outputfield Two' should be rerendered.
       To do so, the output fields are wrapped in a panel.
-      After the input field loosing the focus, the given text is shown by the output fields.</p>
+      After the input field losing the focus, the given text is shown by the output fields.</p>
     <tc:in id="i1" label="Inputfield" value="#{panelController.text}">
       <f:ajax render="outputfields"/>
     </tc:in>

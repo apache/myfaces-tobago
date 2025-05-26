@@ -826,7 +826,7 @@ public final class ComponentUtils {
   }
 
   /**
-   * Adding a data attribute to the component. The name must start with "data-", e. g. "data-tobago-foo" or "data-bar"
+   * Adding a data attribute to the component. The name must start with "data-", e.g. "data-tobago-foo" or "data-bar"
    */
   public static void putDataAttributeWithPrefix(
       final UIComponent component, final DataAttributes name, final Object value) {
@@ -838,7 +838,7 @@ public final class ComponentUtils {
   }
 
   /**
-   * Adding a data attribute to the component. The name should not start with "data-", e. g. "tobago-foo" or "bar"
+   * Adding a data attribute to the component. The name should not start with "data-", e.g. "tobago-foo" or "bar"
    */
   public static void putDataAttribute(final UIComponent component, final Object name, final Object value) {
     Map<Object, Object> map = getDataAttributes(component);
@@ -950,7 +950,7 @@ public final class ComponentUtils {
       final ValueHolder valueHolder = (ValueHolder) facet;
       return "" + valueHolder.getValue();
     } else if (facet != null && !(facet instanceof ValueHolder)) {
-      LOG.warn("The content of a confirmation facet must be a ValueHolder. Use e. g. <tc:out>.");
+      LOG.warn("The content of a confirmation facet must be a ValueHolder. Use e.g. <tc:out>.");
     }
     return null;
   }

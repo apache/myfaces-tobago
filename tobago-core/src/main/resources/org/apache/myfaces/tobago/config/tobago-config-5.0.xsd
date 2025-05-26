@@ -252,7 +252,7 @@
         <xs:attribute name="name" type="xs:string" use="required">
           <xs:annotation>
             <xs:documentation>
-              Name of the CSP directive e. g. script-src, style-src, frame-ancestors, child-src, ...
+              Name of the CSP directive e.g. script-src, style-src, frame-ancestors, child-src, ...
             </xs:documentation>
           </xs:annotation>
         </xs:attribute>
@@ -300,7 +300,7 @@
       <xs:element name="name" type="xs:string">
         <xs:annotation>
           <xs:documentation>
-            The technical name of the theme, which e. g. is used in paths.
+            The technical name of the theme, which e.g. is used in paths.
           </xs:documentation>
         </xs:annotation>
       </xs:element>

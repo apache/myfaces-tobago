@@ -135,7 +135,7 @@ public interface OutTagDeclaration
 
   /**
    * Indicates that the renderer should create an element in the output language
-   * (e. g. an span or div tag around the output text).
+   * (e.g. an span or div tag around the output text).
    * Use true, if you enable the possibility to apply styles to the output.
    * Use false, if you want to keep the code small (especially inside of sheets).
    *
