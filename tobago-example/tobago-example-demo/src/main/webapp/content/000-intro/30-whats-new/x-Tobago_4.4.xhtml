@@ -17,28 +17,29 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/main.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="jakarta.faces.facelets"
-                xmlns:f="jakarta.faces.core">
+                xmlns:ui="jakarta.faces.facelets">
 
   <tc:section label="Overview">
     <p>
-      In September 2018, Tobago 3.1 was released with some bugfixes and new features.
+      In March 2019, Tobago 4.4 was released with some bugfixes and new features.
     </p>
   </tc:section>
 
   <tc:section label="New Features and Enhancements">
 
     <ul>
-      <li>Update to jQuery 3</li>
-      <li>Passwords aren't sent to the client</li>
+      <li>A context message can now be added to form-component.</li>
+      <li>Update to Bootstrap 4.3.1</li>
+      <li>&lt;tc:date&gt; todayButton</li>
+      <li>Placeholder attribute for &lt;tc:file&gt;</li>
+      <li>Markups for text</li>
       <li>Bugfixes</li>
     </ul>
 
     The full list is available in
-    <tc:link label="Jira" image="bi-box-arrow-up-right" link="#{apiController.getJiraUrl('3.1.0')}"/>.
+    <tc:link label="Jira" image="bi-box-arrow-up-right" link="#{apiController.getJiraUrl('4.4.0')}"/>.
 
   </tc:section>
 </ui:composition>
