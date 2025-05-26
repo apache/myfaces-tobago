@@ -17,34 +17,28 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/main.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="jakarta.faces.facelets"
-                xmlns:f="jakarta.faces.core">
+                xmlns:ui="jakarta.faces.facelets">
 
   <tc:section label="Overview">
     <p>
-      In January 2019, Tobago 2.4 was released with a new features.
+      In September 2018, Tobago 2.2 was released with some bugfixes and new features.
     </p>
   </tc:section>
 
   <tc:section label="New Features and Enhancements">
 
     <ul>
-      <li>File upload switched from commons-fileupload to Servlet 3.0 specification.
-        <ul>
-          <li>You no long need to define a TobagoMultipartFormdataFilter in the web.xml</li>
-          <li>There is no longer a tobago-fileupload.jar</li>
-          <li>Remove the dependency to commons-fileupload.jar in your web app, if there is any.</li>
-          <li>If using JSF 2.0 or 2.1 you will need to add a tag <code>&lt;multipart-config&gt;</code> tag to the
-            FacesServlet config in the <code>&lt;web.xml&gt;</code>.</li>
-        </ul>
-      </li>
+      <li>Update to jQuery 3</li>
+      <li>IE 8 is no longer supported</li>
+      <li>PageState is usable for layout</li>
+      <li>Passwords aren't sent to the client</li>
+      <li>Bugfixes</li>
     </ul>
 
     The full list is available in
-    <tc:link label="Jira" image="bi-box-arrow-up-right" link="#{apiController.getJiraUrl('2.4.0')}"/>.
+    <tc:link label="Jira" image="bi-box-arrow-up-right" link="#{apiController.getJiraUrl('2.2.0')}"/>.
 
   </tc:section>
 </ui:composition>

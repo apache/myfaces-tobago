@@ -22,58 +22,47 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="jakarta.faces.facelets">
 
-  <p>
-    Here you find a condensed overview by versions:
-  </p>
-  <ul>
-    <li>
-      <tc:link label="Tobago 5"
-               outcome="/content/000-intro/30-whats-new/60-new-in-5-0/Tobago_5.0.xhtml"/>
-    </li>
-    <li>
-      <tc:link label="Tobago 4.5"
-               outcome="/content/000-intro/30-whats-new/65-new-in-4-5/Tobago_4.5.xhtml"/>
-    </li>
-    <li>
-      <tc:link label="Tobago 4.4"
-               outcome="/content/000-intro/30-whats-new/66-new-in-4-4/Tobago_4.4.xhtml"/>
-    </li>
-    <li>
-      <tc:link label="Tobago 4.3"
-               outcome="/content/000-intro/30-whats-new/67-new-in-4-3/Tobago_4.3.xhtml"/>
-    </li>
-    <li>
-      <tc:link label="Tobago 4.2"
-               outcome="/content/000-intro/30-whats-new/68-new-in-4-2/Tobago_4.2.xhtml"/>
-    </li>
-    <li>
-      <tc:link label="Tobago 4.1"
-               outcome="/content/000-intro/30-whats-new/69-new-in-4-1/Tobago_4.1.xhtml"/>
-    </li>
-    <li>
-      <tc:link label="Tobago 4"
-               outcome="/content/000-intro/30-whats-new/70-new-in-4-0/Tobago_4.xhtml"/>
-    </li>
-    <li>
-      <tc:link label="Tobago 3.1"
-               outcome="/content/000-intro/30-whats-new/79-new-in-3-1/Tobago_3.1.xhtml"/>
-    </li>
-    <li>
-      <tc:link label="Tobago 3"
-               outcome="/content/000-intro/30-whats-new/80-new-in-3-0/Tobago_3.xhtml"/>
-    </li>
-    <li>
-      <tc:link label="Tobago 2.2"
-               outcome="/content/000-intro/30-whats-new/88-new-in-2-2/Tobago_2.2.xhtml"/>
-    </li>
-    <li>
-      <tc:link label="Tobago 2"
-               outcome="/content/000-intro/30-whats-new/90-new-in-2-0/Tobago_2.xhtml"/>
-    </li>
-  </ul>
-  <p>
-    You'll find all changes in the issue tracking system
-    <tc:link label="Jira" link="https://issues.apache.org/jira/projects/TOBAGO" image="bi-box-arrow-up-right"/>.
-  </p>
 
+  <tc:section label="Tobago 5.0">
+    <ui:include src="x-Tobago_5.0.xhtml"/>
+  </tc:section>
+  <tc:section label="Tobago 4">
+    <tc:section label="4.5">
+      <ui:include src="x-Tobago_4.5.xhtml"/>
+    </tc:section>
+    <tc:section label="4.4">
+      <ui:include src="x-Tobago_4.4.xhtml"/>
+    </tc:section>
+    <tc:section label="4.3">
+      <ui:include src="x-Tobago_4.3.xhtml"/>
+    </tc:section>
+    <tc:section label="4.2">
+      <ui:include src="x-Tobago_4.2.xhtml"/>
+    </tc:section>
+    <tc:section label="4.1">
+      <ui:include src="x-Tobago_4.1.xhtml"/>
+    </tc:section>
+    <tc:section label="4.0">
+      <ui:include src="x-Tobago_4.xhtml"/>
+    </tc:section>
+  </tc:section>
+  <tc:section label="Tobago 3">
+    <tc:section label="3.1">
+      <ui:include src="x-Tobago_3.1.xhtml"/>
+    </tc:section>
+    <tc:section label="3.0">
+      <ui:include src="x-Tobago_3.xhtml"/>
+    </tc:section>
+  </tc:section>
+  <tc:section label="Tobago 2">
+    <tc:section label="2.4">
+      <ui:include src="x-Tobago_2.4.xhtml"/>
+    </tc:section>
+    <tc:section label="2.2">
+      <ui:include src="x-Tobago_2.2.xhtml"/>
+    </tc:section>
+    <tc:section label="2.0">
+      <ui:include src="x-Tobago_2.xhtml"/>
+    </tc:section>
+  </tc:section>
 </ui:composition>

@@ -17,34 +17,26 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/main.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="jakarta.faces.facelets"
-                xmlns:f="jakarta.faces.core">
+                xmlns:ui="jakarta.faces.facelets">
 
   <tc:section label="Overview">
     <p>
-      Plan for 2021: Tobago 5.0 release with new features and some bugfixes.
+      In September 2018, Tobago 3.1 was released with some bugfixes and new features.
     </p>
   </tc:section>
 
   <tc:section label="New Features and Enhancements">
 
     <ul>
-      <li>Introducing: Web Components</li>
-      <li>Refactoring: JavaScript -> TypeScript</li>
-      <li>Refactoring: ResourceBunde and MessageBundle</li>
-      <li>A context message can now be added to form-component.</li>
-      <li>Update to Bootstrap 5</li>
-      <li>tc:date todayButton</li>
-      <li>Remove &lt;tc:treeCommand&gt;, just use &lt;tc:link&gt;</li>
-      <li>...</li>
+      <li>Update to jQuery 3</li>
+      <li>Passwords aren't sent to the client</li>
       <li>Bugfixes</li>
     </ul>
 
     The full list is available in
-    <tc:link label="Jira" image="bi-box-arrow-up-right" link="#{apiController.getJiraUrl('5.0.0')}"/>.
+    <tc:link label="Jira" image="bi-box-arrow-up-right" link="#{apiController.getJiraUrl('3.1.0')}"/>.
 
   </tc:section>
 </ui:composition>
