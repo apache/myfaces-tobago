@@ -372,13 +372,15 @@
             };
             this.buildSectionTree(this.rootSection, this.sectionTree);
             this.renderTableOfContent(this.sectionTree, this.tableOfContentsNav);
-            this.updateActiveNavLink();
+            this.updateActiveNavLinks();
             this.scrollEventListener = this.scrollEvent.bind(this);
             window.addEventListener("scroll", this.scrollEventListener);
+            this.resizeEventListener = this.resizeEvent.bind(this);
+            window.addEventListener("resize", this.resizeEventListener);
         }
         disconnectedCallback() {
             window.removeEventListener("scroll", this.scrollEventListener);
-            window.clearTimeout(this.scrollTimeout);
+            window.removeEventListener("resize", this.resizeEventListener);
         }
         buildSectionTree(element, parent) {
             for (const child of element.children) {
@@ -422,28 +424,36 @@
             return div.innerText;
         }
         scrollEvent(event) {
-            window.clearTimeout(this.scrollTimeout);
-            this.scrollTimeout = window.setTimeout(() => this.updateActiveNavLink(), 10);
+            requestAnimationFrame(() => this.updateActiveNavLinks());
         }
-        updateActiveNavLink() {
+        resizeEvent(event) {
+            requestAnimationFrame(() => this.updateActiveNavLinks());
+        }
+        updateActiveNavLinks() {
             const scrollPaddingTop = parseFloat(this.rootHtml.style.scrollPaddingTop) + 1;
-            let activeSectionId = this.rootSection.id;
-            let activeSectionTop = this.rootSection.getBoundingClientRect().top;
+            const footerMarginTop = parseFloat(getComputedStyle(this.fixedFooter).marginTop);
+            const bottomBorder = this.fixedFooter.getBoundingClientRect().top - footerMarginTop;
+            const sectionIds = [this.rootSection.id];
+            const sectionTops = [this.rootSection.getBoundingClientRect().top];
+            const sectionBottoms = [this.rootSection.getBoundingClientRect().bottom];
             this.rootSection.querySelectorAll("tobago-section").forEach((section) => {
-                const sectionTop = section.getBoundingClientRect().top;
-                if (sectionTop > activeSectionTop && sectionTop <= scrollPaddingTop) {
-                    activeSectionId = section.id;
-                    activeSectionTop = sectionTop;
-                }
+                sectionIds.push(section.id);
+                const sectionRect = section.getBoundingClientRect();
+                sectionTops.push(sectionRect.top);
+                sectionBottoms.push(sectionRect.bottom);
             });
-            this.navLinks.forEach((navLink) => {
-                if (navLink.href.endsWith("#" + activeSectionId)) {
-                    navLink.classList.add("active");
-                }
-                else {
+            for (let i = 0; i < sectionIds.length; i++) {
+                const lastIndex = i >= sectionIds.length - 1;
+                const top = sectionTops[i];
+                const bottom = lastIndex ? sectionBottoms[i] : sectionTops[i + 1];
+                const navLink = this.tableOfContentsNav.querySelector("a[href='#" + sectionIds[i] + "']");
+                if (top > bottomBorder || bottom < scrollPaddingTop) {
                     navLink.classList.remove("active");
                 }
-            });
+                else {
+                    navLink.classList.add("active");
+                }
+            }
         }
         get rootHtml() {
             const rootNode = this.getRootNode();
