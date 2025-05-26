@@ -113,7 +113,10 @@ export class Sidebar extends HTMLElement {
   }
 
   private scrollEvent(event: Event): void {
-    requestAnimationFrame(() => this.updateActiveNavLinks());
+    requestAnimationFrame(() => {
+      this.updateActiveNavLinks();
+      this.updateTableOfContentsScrollPosition();
+    });
   }
 
   private resizeEvent(event: Event): void {
@@ -150,6 +153,12 @@ export class Sidebar extends HTMLElement {
     }
   }
 
+  private updateTableOfContentsScrollPosition(): void {
+    const activeNavLinks = this.activeNavLinks;
+    const centerIndex = Math.floor(activeNavLinks.length / 2);
+    activeNavLinks.item(centerIndex).scrollIntoView({block: "center", behavior: "smooth"});
+  }
+
   get rootHtml(): HTMLElement {
     const rootNode = this.getRootNode() as ShadowRoot | Document;
     return rootNode.querySelector<HTMLElement>("html");
@@ -170,8 +179,8 @@ export class Sidebar extends HTMLElement {
     return rootNode.getElementById("tableOfContents");
   }
 
-  get navLinks(): NodeListOf<HTMLAnchorElement> {
-    return this.tableOfContentsNav.querySelectorAll("a");
+  get activeNavLinks(): NodeListOf<HTMLAnchorElement> {
+    return this.tableOfContentsNav.querySelectorAll("a.active");
   }
 
   get fixedFooter(): HTMLElement | null {
