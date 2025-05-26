@@ -56,15 +56,15 @@
       browser-based date-picker might be too slow to use, because they are used to typing fast.
     </p>
     <p>
-      In this demo is an script file <code>demo-date.ts</code> to
+      In this demo is a script file <code>demo-date.ts</code> to
       show a second input field for shortcuts.
       Just type e.g. 0212 for December, 2nd in the current year.
-      The next input field will filled automatically and the date-picker can be used.
+      The next input field will be filled automatically and the date-picker can be used.
       This is activated by
     </p>
     <demo-highlight language="markup">&lt;tc:dataAttribute name="quick-pattern" value="ddmm"/&gt;</demo-highlight>
     <p>
-      This script is just an showcase.
+      This script is just a showcase.
       A real application may use specially adjusted shortcuts. E.g. using also a 2-digit year or
       creating the special quick input field by a keyboard shortcut, or button.
     </p>
@@ -96,10 +96,10 @@
       <li><tc:link label="java.lang.String" link="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html"/> for plain text (TBD)</li>
     </ul>
     <p>
-      Technical hint: Until Tobago 4 the user readable localized formatted String (e. g. 12/31/2050) was rendered into the HTML file and
+      Technical hint: Until Tobago 4 the user readable localized formatted String (e.g. 12/31/2050) was rendered into the HTML file and
       was post back to the server.
       <tc:badge value="New!" markup="info"/>
-      Since Tobago 5 the string will be tranfered as ISO 8601 (e. g. 2050-12-31) to satisfy the HTML5 specification for
+      Since Tobago 5 the string will be transferred as ISO 8601 (e.g. 2050-12-31) to satisfy the HTML5 specification for
       input type="date", type="time" and type="datetime-local".
     </p>
     <tc:date id="typeLocalDate" label="LocalDate" value="#{dateController.typeLocalDate}"/>
@@ -229,7 +229,7 @@
     <tc:badge markup="warning" value="Attention:"/>
     Using AJAX on change of date is currently problematic.
     In some cases, e.g. changing the last field, the change event will be fired (at the first key you've typed)
-    and the cursor will lost it's position.<br/>
+    and the cursor will lose its position.<br/>
     <hr/>
     <p>The output field in this example, display the given date.
       With <code class="language-markup">&lt;f:ajax render="outputfield"/></code>,

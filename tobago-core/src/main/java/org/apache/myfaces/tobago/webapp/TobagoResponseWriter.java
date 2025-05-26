@@ -36,7 +36,7 @@ import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 
 /**
- * <p> This provides an alternative ResponseWriter interfaces, which allows optimizations. E. g. some attributes needed
+ * <p> This provides an alternative ResponseWriter interfaces, which allows optimizations. E.g. some attributes needed
  * to to be escaped. </p>
  */
 public abstract class TobagoResponseWriter extends ResponseWriter {

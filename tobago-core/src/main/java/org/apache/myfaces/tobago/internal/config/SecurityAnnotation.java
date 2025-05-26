@@ -20,7 +20,7 @@
 package org.apache.myfaces.tobago.internal.config;
 
 /**
- * Defines how Tobago should check security annotations like e. g. {@link jakarta.annotation.security.RolesAllowed}.
+ * Defines how Tobago should check security annotations like e.g. {@link jakarta.annotation.security.RolesAllowed}.
  */
 public enum SecurityAnnotation {
 

@@ -140,7 +140,7 @@ public abstract class AbstractUIData extends jakarta.faces.component.UIData impl
         LOG.warn("Illegal paging state detected, first='{}' >= rowCount='{}'. Setting first to 0. "
             + "This might happen because the data model has changed. "
             + "You may want to manipulate the sheet state in your application after manipulating the model "
-            + "(e. g. filtering) to avoid this warning.", getFirst(), getRowCount());
+            + "(e.g. filtering) to avoid this warning.", getFirst(), getRowCount());
       }
       setFirst(0);
     }

@@ -36,12 +36,12 @@ import java.util.Objects;
 /**
  * <p>
  * A markup signs a component to be rendered different from the normal.
- * E. g. <code>markup="emphasized"</code> might be rendered bold
+ * E.g. <code>markup="emphasized"</code> might be rendered bold
  * or a <code>markup="deleted"</code> might be rendered with line-through style.
  * The concrete rendering depends from the theme.
  * </p>
  * <p>
- * The markup can also hold more than one value, e. g. <code>markup="emphasized, deleted"</code>.
+ * The markup can also hold more than one value, e.g. <code>markup="emphasized, deleted"</code>.
  * </p>
  * <p>
  * The value of the markup is unmodifiable.

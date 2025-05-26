@@ -58,7 +58,7 @@ public abstract class AbstractUISelectBoolean extends UISelectBoolean
   protected void validateValue(final FacesContext facesContext, final Object convertedValue) {
     if (isRequired()) {
       if (convertedValue instanceof Boolean && !((Boolean) convertedValue)
-          // String: e. g. if there is no ValueExpression
+          // String: e.g. if there is no ValueExpression
           || convertedValue instanceof String && !Boolean.parseBoolean((String) convertedValue)) {
         facesContext.addMessage(getClientId(facesContext),
             MessageUtils.getMessage(facesContext, FacesMessage.SEVERITY_ERROR, REQUIRED_MESSAGE_ID, getId()));

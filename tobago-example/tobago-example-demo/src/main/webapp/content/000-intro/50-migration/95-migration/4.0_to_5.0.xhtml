@@ -24,7 +24,7 @@
 
   <tc:section label="Migration from Tobago 4.0 to 5.0">
     <p>
-      There are some migration steps to do, dependent on the application
+      There are some migration steps to take, dependent on the application
       you want to migrate. The steps can be classified by
     </p>
 
@@ -60,12 +60,12 @@
       </tc:section>
 
       <tc:section label="File Upload">
-        The attribute <code class="language-markup">placehoder</code> in <code class="language-markup">&lt;tc:file></code>
-        has been removed, because its not supported with Bootstrap 5.
+        The attribute <code class="language-markup">placeholder</code> in <code class="language-markup">&lt;tc:file></code>
+        has been removed, because it's not supported with Bootstrap 5.
       </tc:section>
 
       <tc:section label="Application Icon">
-        The attribute <code class="language-markup">applicatonIcon</code> in <code class="language-markup">&lt;tc:page></code>
+        The attribute <code class="language-markup">applicationIcon</code> in <code class="language-markup">&lt;tc:page></code>
         has been removed. Please use the <code class="language-markup">&lt;tc:metaLink></code> tag instead.
       </tc:section>
 
@@ -73,7 +73,7 @@
         <ul>
           <li>Completely refactored</li>
           <li>Support for HTML input types: date, time, datetime-local</li>
-          <li>Droped support for java.util.Calendar</li>
+          <li>Dropped support for java.util.Calendar</li>
           <li>Replace &lt;tc:convertDateTime> with &lt;f:convertDateTime></li>
         </ul>
       </tc:section>
@@ -82,7 +82,7 @@
         On form components <code
         class="language-markup">labelLayout='skip'</code> could be used in Tobago 4 to remove the bottom margin. The new attribute
         <code
-          class="language-markup">autoSpacing</code> replace this. By default it's 'true' and a bottom margin is set on form components. Use
+          class="language-markup">autoSpacing</code> replace this. By default, it's 'true' and a bottom margin is set on form components. Use
         <code class="language-markup">autoSpacing='false'</code> to remove the margin.
       </tc:section>
 

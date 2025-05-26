@@ -24,7 +24,7 @@
 
   <tc:section label="Migration from Tobago 3.0 to 4.0">
     <p>
-      There are some migration steps to do, dependent on the application
+      There are some migration steps to take, dependent on the application
       you want to migrate. The steps can be classified by
     </p>
 
@@ -62,16 +62,16 @@
             <p>
               Here you need to add the contextPath which might not be an empty string:
               <code class="language-markup">link="\#{request.contextPath}/image/alps.png"</code>.
-              So, this is now the same like resources used over other attributes.
+              So, this is now the same as resources used over other attributes.
             </p>
           </li>
           <li>
-            Internal link to a viewId e. g. <code class="language-markup">link="/intro.xhtml"</code>
+            Internal link to a viewId e.g. <code class="language-markup">link="/intro.xhtml"</code>
             <p>
               In this case you need to use the new attribute <code class="language-markup">outcome="/intro.xhtml"</code>.
-              Please use only full pathes here!
+              Please use only full paths here!
               This this, the GET parameter will be respected.
-              This is needed e. g. for the windowId of <tc:link label="DeltaSpike"
+              This is needed e.g. for the windowId of <tc:link label="DeltaSpike"
                                                                 link="https://deltaspike.apache.org/"/>.
             </p>
           </li>
@@ -107,7 +107,7 @@
 
     <tc:section id="markups" label="Markups">
       <p>Markups are now space separated. Instead of <code>markupOne, markupTwo</code> you can write
-        <code>markupOne markupTwo</code>. Comma seperated markups are deprecated but still possible.</p>
+        <code>markupOne markupTwo</code>. Comma separated markups are deprecated but still possible.</p>
 
       <p>Default markups are removed.
         The default markups had rendered specific CSS classes for required/readonly/disabled components.</p>
@@ -129,7 +129,7 @@
       </tc:section>
 
       <tc:section id="segmentLayout" label="&lt;tc:segmentLayout>">
-        <p>Attribute values are now space seperated. Integer values now have the unit 'seg'.</p>
+        <p>Attribute values are now space separated. Integer values now have the unit 'seg'.</p>
         <p>The old syntax is deprecated but still possible.</p>
         <p>The 12 columns of a segment layout are no longer filled up.</p>
         <p>Explained on the example <code>medium="3seg 4seg"</code>:</p>
@@ -211,7 +211,7 @@
     <tc:section id="resourceResolver" label="Removed class: MetaInfResourcesClasspathResourceResolver">
       <p>
         The deprecated class <code>org.apache.myfaces.tobago.facelets.MetaInfResourcesClasspathResourceResolver</code>
-        has been removed, because it was no longer needed since Servelt 3.0.
+        has been removed, because it was no longer needed since Servlet 3.0.
         You may remove this context parameter in your <code>web.xml</code>.
       </p>
 

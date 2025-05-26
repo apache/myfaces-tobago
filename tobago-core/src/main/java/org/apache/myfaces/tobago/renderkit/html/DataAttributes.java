@@ -132,7 +132,7 @@ public enum DataAttributes implements MarkupLanguageAttributes {
   PARTIAL_ACTION("data-tobago-partial-action"),
 
   /**
-   * Custom attribute to describe a pattern, e. g. for an date input field.
+   * Custom attribute to describe a pattern, e.g. for an date input field.
    */
   PATTERN("data-tobago-pattern"),
   PLACEMENT("data-tobago-placement"),
@@ -145,7 +145,7 @@ public enum DataAttributes implements MarkupLanguageAttributes {
   SELECTION_MODE("data-tobago-selection-mode"),
 
   /**
-   * The selectable attribute e. g. for trees.
+   * The selectable attribute e.g. for trees.
    *
    * @deprecated Please use {@link CustomAttributes#SELECTABLE}
    */
@@ -188,7 +188,7 @@ public enum DataAttributes implements MarkupLanguageAttributes {
   TREE_PARENT("data-tobago-tree-parent"),
 
   /**
-   * Defines the unit, e. g. to differ between hours, minutes and seconds in a time control.
+   * Defines the unit, e.g. to differ between hours, minutes and seconds in a time control.
    */
   UNIT("data-tobago-unit"),
 

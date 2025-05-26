@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 public interface IsFixed {
   /**
-   * Flag indicating that this element is fixed on its position, e. g. it will not scroll with the
+   * Flag indicating that this element is fixed on its position, e.g. it will not scroll with the
    * neighbour elements.
    */
   @TagAttribute()

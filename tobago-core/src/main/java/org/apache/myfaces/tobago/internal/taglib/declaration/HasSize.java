@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 public interface HasSize {
 
   /**
-   * The number of the shown rows in the element. E. g. the size attribute of the select element in HTML.
+   * The number of the shown rows in the element. E.g. the size attribute of the select element in HTML.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer")

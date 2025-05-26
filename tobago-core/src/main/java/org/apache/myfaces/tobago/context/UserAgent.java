@@ -95,7 +95,7 @@ public final class UserAgent implements Serializable {
   public static final UserAgent MSIE_6_0_MAC = new UserAgent("msie", "6_0_mac");
 
   /**
-   * e. g. Opera 10
+   * e.g. Opera 10
    */
   public static final UserAgent PRESTO = new UserAgent("presto", null, EnumSet.of(Capability.CONTENT_TYPE_XHTML));
 
@@ -148,38 +148,38 @@ public final class UserAgent implements Serializable {
   public static final UserAgent MOZILLA_5_0_R1_6 = new UserAgent("mozilla", "5_0_r1_6");
 
   /**
-   * e. g. Firefox
+   * e.g. Firefox
    */
   public static final UserAgent GECKO = new UserAgent("gecko", null, EnumSet.of(Capability.CONTENT_TYPE_XHTML));
 
   /**
-   * e. g. Firefox 2.0
+   * e.g. Firefox 2.0
    */
   public static final UserAgent GECKO_1_8 = new UserAgent("gecko", "1_8", EnumSet.of(Capability.CONTENT_TYPE_XHTML),
       CspHeader.NOT_SUPPORTED, CsproHeader.NOT_SUPPORTED);
 
   /**
-   * e. g. Firefox 3.0, 3.5, 3.6
+   * e.g. Firefox 3.0, 3.5, 3.6
    */
   public static final UserAgent GECKO_1_9 = new UserAgent("gecko", "1_9", EnumSet.of(Capability.CONTENT_TYPE_XHTML),
       CspHeader.NOT_SUPPORTED, CsproHeader.NOT_SUPPORTED);
 
   /**
-   * e. g. Firefox 4 to 22
+   * e.g. Firefox 4 to 22
    */
   public static final UserAgent GECKO_2_0
       = new UserAgent("gecko", null,
       EnumSet.of(Capability.PLACEHOLDER, Capability.CONTENT_TYPE_XHTML), CspHeader.X, CsproHeader.X);
 
   /**
-   * e. g. Firefox 23 or higher
+   * e.g. Firefox 23 or higher
    */
   public static final UserAgent GECKO_23_0
       = new UserAgent("gecko", null,
       EnumSet.of(Capability.PLACEHOLDER, Capability.CONTENT_TYPE_XHTML), CspHeader.STANDARD, CsproHeader.STANDARD);
 
   /**
-   * e. g. Safari 4, Safari 5, Chrome
+   * e.g. Safari 4, Safari 5, Chrome
    */
   public static final UserAgent WEBKIT
       = new UserAgent("webkit", null,
