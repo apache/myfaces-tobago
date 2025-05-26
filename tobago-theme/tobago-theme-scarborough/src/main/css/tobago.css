@@ -13049,12 +13049,15 @@ tobago-page .tobago-page-menuStore .tobago-options .table tbody tr.tobago-presel
 tobago-page .tobago-page-menuStore .tobago-options .table tbody tr:last-of-type td {
   border-bottom-width: 0;
 }
-tobago-page .tobago-page-menuStore .tobago-options .table tfoot tr.tobago-no-entries {
+tobago-page .tobago-page-menuStore .tobago-options .table tfoot tr.tobago-no-entries, tobago-page .tobago-page-menuStore .tobago-options .table tfoot tr.tobago-custom-footer {
   text-align: center;
 }
-tobago-page .tobago-page-menuStore .tobago-options .table tfoot tr.tobago-no-entries td {
+tobago-page .tobago-page-menuStore .tobago-options .table tfoot tr.tobago-no-entries td, tobago-page .tobago-page-menuStore .tobago-options .table tfoot tr.tobago-custom-footer td {
   color: var(--bs-tertiary-color);
   border-bottom-width: 0;
+}
+tobago-page .tobago-page-menuStore .tobago-options .table tfoot tr.tobago-custom-footer td:empty {
+  display: none;
 }
 tobago-page .tobago-page-menuStore > .tobago-dropdown-menu {
   /* Use .tobago-dropdown-menu instead of .dropdown-menu to prevent Bootstrap from creating a dropdown instance.
@@ -13474,17 +13477,41 @@ tobago-select-one-list .tobago-options .table tbody tr.tobago-preselect {
 tobago-select-one-list .tobago-options .table tbody tr:last-of-type td {
   border-bottom-width: 0;
 }
-tobago-select-one-list .tobago-options .table tfoot tr.tobago-no-entries {
+tobago-select-one-list .tobago-options .table tfoot tr.tobago-no-entries, tobago-select-one-list .tobago-options .table tfoot tr.tobago-custom-footer {
   text-align: center;
 }
-tobago-select-one-list .tobago-options .table tfoot tr.tobago-no-entries td {
+tobago-select-one-list .tobago-options .table tfoot tr.tobago-no-entries td, tobago-select-one-list .tobago-options .table tfoot tr.tobago-custom-footer td {
   color: var(--bs-tertiary-color);
   border-bottom-width: 0;
+}
+tobago-select-one-list .tobago-options .table tfoot tr.tobago-custom-footer td:empty {
+  display: none;
+}
+tobago-select-one-list .spinner {
+  display: none;
+  position: absolute;
+}
+tobago-select-one-list .spinner.tobago-show {
+  display: block;
+}
+tobago-select-one-list .spinner:after {
+  content: "";
+  border: 3px solid rgba(0, 0, 0, 0.12);
+  border-right-color: rgba(0, 0, 0, 0.48);
+  border-radius: 100%;
+  width: 100%;
+  height: 100%;
+  top: 50%;
+  position: absolute;
+  z-index: 5;
+  transform: translateY(-50%);
+  animation: rotate 1s linear infinite;
 }
 tobago-select-one-list .tobago-select-field span {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-right: 0.25rem;
 }
 
 tobago-select-one-listbox {
@@ -13655,12 +13682,35 @@ tobago-select-many-list .tobago-options .table tbody tr.tobago-preselect {
 tobago-select-many-list .tobago-options .table tbody tr:last-of-type td {
   border-bottom-width: 0;
 }
-tobago-select-many-list .tobago-options .table tfoot tr.tobago-no-entries {
+tobago-select-many-list .tobago-options .table tfoot tr.tobago-no-entries, tobago-select-many-list .tobago-options .table tfoot tr.tobago-custom-footer {
   text-align: center;
 }
-tobago-select-many-list .tobago-options .table tfoot tr.tobago-no-entries td {
+tobago-select-many-list .tobago-options .table tfoot tr.tobago-no-entries td, tobago-select-many-list .tobago-options .table tfoot tr.tobago-custom-footer td {
   color: var(--bs-tertiary-color);
   border-bottom-width: 0;
+}
+tobago-select-many-list .tobago-options .table tfoot tr.tobago-custom-footer td:empty {
+  display: none;
+}
+tobago-select-many-list .spinner {
+  display: none;
+  position: absolute;
+}
+tobago-select-many-list .spinner.tobago-show {
+  display: block;
+}
+tobago-select-many-list .spinner:after {
+  content: "";
+  border: 3px solid rgba(0, 0, 0, 0.12);
+  border-right-color: rgba(0, 0, 0, 0.48);
+  border-radius: 100%;
+  width: 100%;
+  height: 100%;
+  top: 50%;
+  position: absolute;
+  z-index: 5;
+  transform: translateY(-50%);
+  animation: rotate 1s linear infinite;
 }
 tobago-select-many-list.tobago-focus[filter] .tobago-select-field {
   flex-wrap: wrap;
