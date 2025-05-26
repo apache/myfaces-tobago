@@ -21,6 +21,7 @@ demo-sidebar {
   overflow-y: auto;
   padding: 1rem;
   margin-right: 0.5rem;
+  overscroll-behavior: none;
 
   nav {
     > ul {
