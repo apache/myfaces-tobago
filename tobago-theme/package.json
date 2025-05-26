@@ -70,8 +70,8 @@
   },
   "dependencies": {
     "@trevoreyre/autocomplete-js": "3.0.3",
-    "bootstrap": "5.3.5",
-    "bootstrap-icons": "1.11.3",
+    "bootstrap": "5.3.6",
+    "bootstrap-icons": "1.13.1",
     "jsf.js_next_gen": "4.0.4-beta.7",
     "lit-html": "3.3.0"
   },
