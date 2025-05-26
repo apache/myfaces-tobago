@@ -108,7 +108,7 @@ public interface ColumnTagDeclaration
 
   /**
    * The layout token for this column.
-   * Allowd layout tokens ('*', '&lt;x>*', '&lt;x>px' or '&lt;x>%').
+   * Allowed layout tokens ('*', '&lt;x>*', '&lt;x>px' or '&lt;x>%').
    * Where '*' is equivalent to '1*'.
    */
 /* TBD

@@ -26,7 +26,7 @@ public interface IsPassword {
 
   /**
    * Flag indicating whether or not this component should be rendered as
-   * password field , so you will not see the typed charakters.
+   * password field , so you will not see the typed characters.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")

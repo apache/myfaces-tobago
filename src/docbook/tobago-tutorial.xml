@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<!-- XXX check rendering of ulink with content and markup; replace footnotes and literal when appropiate -->
+<!-- XXX check rendering of ulink with content and markup; replace footnotes and literal when appropriate -->
 <!DOCTYPE article PUBLIC
     "-//OASIS//DTD DocBook XML V4.5//EN"
     "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
@@ -451,7 +451,7 @@
       <programlisting role="JAVA">public String deleteAddresses() {
   List&lt;Integer&gt; selection = selectedAddresses.getSelectedRows();
   if (selection.size() &lt; 1) {
-    FacesMessage error 
+    FacesMessage error
         = new FacesMessage("Please select at least one address.");
     FacesContext.getCurrentInstance().addMessage(null, error);
     return null;
@@ -561,7 +561,7 @@
       the standard button tag.</para>
 
       <programlisting role="XML">&lt;tc:toolBar iconSize="big"&gt;
-  &lt;tc:toolBarCommand label="#{bundle.toolbarAddressList}" 
+  &lt;tc:toolBarCommand label="#{bundle.toolbarAddressList}"
       action="#{controller.search}" immediate="true" image=
  "image/org/tango-project/tango-icon-theme/32x32/mimetypes/x-office-address-book.png"
       disabled="#{facesContext.viewRoot.viewId == '/application/list.jsp'}"/&gt;
@@ -788,7 +788,7 @@
 
     <programlisting role="JAVA">public String themeChanged() {
   FacesContext facesContext = FacesContext.getCurrentInstance();
-  ClientProperties client 
+  ClientProperties client
       = VariableResolverUtil.resolveClientProperties(facesContext);
   client.setTheme(theme);
   return null;
@@ -936,7 +936,7 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
     control is the sandbox. To access the sandbox you have to check it
     out:</para>
 
-    <programlisting>svn checkout \ 
+    <programlisting>svn checkout \
     http://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-sandbox \
     tobago-sandbox</programlisting>
 
@@ -1256,7 +1256,7 @@ Measure width = style.getWidth();</programlisting>
 public interface NumberSliderTagDeclaration extends
   HasIdBindingAndRendered, IsReadonly, IsDisabled,
   HasValue, HasValueChangeListener {
-  
+
   @TagAttribute()
   @UIComponentTagAttribute(type="java.lang.Integer", defaultValue="0")
   void setMin(String min);
@@ -1333,7 +1333,7 @@ public interface NumberSliderTagDeclaration extends
     var pass = document.getElementById("page:j_password");
     pass.name = "j_password";
     var form = document.getElementById("page::form");
-    form.action 
+    form.action
         = "${pageContext.request.contextPath}/j_security_check";
   }
 &lt;/tc:script&gt;</programlisting>
@@ -1421,7 +1421,7 @@ public String admin() {
 
     <programlisting role="XML">&lt;tc:page id="page"&gt;
   &lt;tc:box label="Container" id="box"&gt;
-    &lt;tx:selectBooleanCheckbox label="Enable" 
+    &lt;tx:selectBooleanCheckbox label="Enable"
         value="#{controller.miscEnabled}"&gt;
       &lt;f:facet name="change"&gt;
         &lt;tc:command&gt;

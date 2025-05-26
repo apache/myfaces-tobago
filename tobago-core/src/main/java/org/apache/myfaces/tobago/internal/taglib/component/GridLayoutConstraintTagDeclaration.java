@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import jakarta.el.ValueExpression;
 
 /**
- * Set grid layout specific contraints to the parent component.
+ * Set grid layout specific constraints to the parent component.
  */
 @Tag(name = "gridLayoutConstraint")
 @SimpleTag(faceletHandler = "org.apache.myfaces.tobago.facelets.GridLayoutConstraintHandler")

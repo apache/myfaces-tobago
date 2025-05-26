@@ -27,7 +27,7 @@
   <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
            link="#{apiController.tobagoTld}/tc/out.html"/>
   <tc:section label="Basics">
-    <p>To put a label in front of a outputtext, use the <code>label</code> attribute.</p>
+    <p>To put a label in front of an outputtext, use the <code>label</code> attribute.</p>
     <demo-highlight language="markup">&lt;tc:out label="Output" value="Some Text"/&gt;</demo-highlight>
     <tc:out id="o1" label="Output" value="Some Text"/>
     <tc:out id="o2" value="Output without a label"/>
@@ -89,7 +89,7 @@
     </tc:section>
     <tc:section label="Escape off">
       <p>Although the HTML code is not escaped, you can see, that the text is not colored.
-        This is, because the code is sanitzed (see next section).</p>
+        This is, because the code is sanitized (see next section).</p>
       <demo-highlight language="markup">&lt;tc:out label="Escape off" escape="false" value="\#{outController.html}"/&gt;</demo-highlight>
       <tc:out id="o4" label="Escape off" escape="false" value="#{outController.html}"/>
     </tc:section>
@@ -98,12 +98,12 @@
     <p>Sanitize remove HTML/XML-Tags from a given string if not escaped. It can be configured in the tobago-config.xml.
       If you want to write your own sanitizer, you have to implement
       <code>org.apache.myfaces.tobago.sanitizer.Sanitizer</code>.</p>
-    <p>Sanitzing can be deactivated for a component using the <code>sanitize</code> attribute.
+    <p>Sanitizing can be deactivated for a component using the <code>sanitize</code> attribute.
       But be careful, because of XSS vulnerability.</p>
     <demo-highlight language="markup">&lt;tc:out label="Sanitize off" escape="false" sanitize="never" value="\#{outController.html}"/&gt;</demo-highlight>
     <tc:out id="o5" label="Sanitize off" escape="false" sanitize="never" value="#{outController.html}"/>
     <p>
-      Probably you will find no colors here. In that case, the CSP in the browser protectes against inline style.
+      Probably you will find no colors here. In that case, the CSP in the browser protects against inline style.
       Further information about CSP in Tobago can be found in the
       <tc:link label="security section"
                link="#{request.contextPath}/content/280-security/05-csp/Content_Security_Policy.xhtml"/>.
