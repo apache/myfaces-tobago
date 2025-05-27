@@ -16,6 +16,8 @@
  */
 export class Sidebar extends HTMLElement {
     connectedCallback() {
+        this.updateLeft();
+        this.insertAdjacentHTML("afterbegin", "<strong>On this page</strong><nav id='tableOfContents'></nav>");
         if (this.fixedHeader) {
             const resizeObserver = new ResizeObserver(() => {
                 const headerHeight = this.fixedHeader.offsetHeight;
@@ -29,7 +31,6 @@ export class Sidebar extends HTMLElement {
             const resizeObserver = new ResizeObserver(() => this.style.bottom = this.fixedFooter.offsetHeight + "px");
             resizeObserver.observe(this.fixedFooter);
         }
-        this.insertAdjacentHTML("afterbegin", "<strong>On this page</strong><nav id='tableOfContents'></nav>");
         this.sectionTree = {
             id: this.rootSection.id,
             title: this.getSectionTitle(this.rootSection),
@@ -38,11 +39,11 @@ export class Sidebar extends HTMLElement {
         };
         this.buildSectionTree(this.rootSection, this.sectionTree);
         this.renderTableOfContent(this.sectionTree, this.tableOfContentsNav);
-        this.updateActiveNavLinks();
         this.scrollEventListener = this.scrollEvent.bind(this);
         window.addEventListener("scroll", this.scrollEventListener);
         this.resizeEventListener = this.resizeEvent.bind(this);
         window.addEventListener("resize", this.resizeEventListener);
+        this.updateActiveNavLinks();
     }
     disconnectedCallback() {
         window.removeEventListener("scroll", this.scrollEventListener);
@@ -85,9 +86,7 @@ export class Sidebar extends HTMLElement {
         }
     }
     sanitize(value) {
-        const div = document.createElement("div");
-        div.innerHTML = value;
-        return div.innerText;
+        return value.split("<").join("&lt;").split(">").join("&gt;");
     }
     scrollEvent(event) {
         requestAnimationFrame(() => {
@@ -96,7 +95,10 @@ export class Sidebar extends HTMLElement {
         });
     }
     resizeEvent(event) {
-        requestAnimationFrame(() => this.updateActiveNavLinks());
+        requestAnimationFrame(() => {
+            this.updateActiveNavLinks();
+            this.updateLeft();
+        });
     }
     updateActiveNavLinks() {
         const scrollPaddingTop = parseFloat(this.rootHtml.style.scrollPaddingTop) + 1;
@@ -128,6 +130,9 @@ export class Sidebar extends HTMLElement {
         const activeNavLinks = this.activeNavLinks;
         const centerIndex = Math.floor(activeNavLinks.length / 2);
         activeNavLinks.item(centerIndex).scrollIntoView({ block: "center", behavior: "smooth" });
+    }
+    updateLeft() {
+        this.style.left = this.parentElement.getBoundingClientRect().left + "px";
     }
     get rootHtml() {
         const rootNode = this.getRootNode();

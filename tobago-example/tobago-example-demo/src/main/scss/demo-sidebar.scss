@@ -15,31 +15,55 @@
  * limitations under the License.
  */
 
+$border-width: 2px;
+$firstTitlePadding: 0.25rem;
+
 demo-sidebar {
-  display: block;
   position: fixed;
+  overflow-x: hidden;
   overflow-y: auto;
-  padding: 1rem;
-  margin-right: 0.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   overscroll-behavior: none;
+  right: 0;
+
+  strong {
+    padding-left: calc($border-width + $firstTitlePadding);
+  }
 
   nav {
-    > ul {
+    ul {
       padding-left: 0;
     }
 
-    ul ul {
-      padding-left: 1rem;
+    > a {
+      padding-left: $firstTitlePadding;
     }
 
+    @mixin aPadding($level) {
+      li {
+        a {
+          padding-left: calc($level * 0.75rem);
+        }
+
+        @if ($level < 10) {
+          @include aPadding($level + 1);
+        }
+      }
+    }
+    @include aPadding(1);
+
     a {
+      font-size: 0.875rem;
       color: var(--bs-secondary);
       text-decoration: none;
-      padding-left: 0.5rem;
-      border-left: 2px solid transparent;
+      border-left: $border-width solid transparent;
+      display: block;
+      margin-top: 3px;
+      margin-bottom: 3px;
 
       &:hover {
-        font-weight: 600;
+        text-decoration: underline;
       }
 
       &.active {

@@ -28,6 +28,9 @@ export class Sidebar extends HTMLElement {
   private resizeEventListener;
 
   connectedCallback(): void {
+    this.updateLeft();
+    this.insertAdjacentHTML("afterbegin", "<strong>On this page</strong><nav id='tableOfContents'></nav>");
+
     if (this.fixedHeader) {
       const resizeObserver = new ResizeObserver(() => {
         const headerHeight = this.fixedHeader.offsetHeight;
@@ -42,8 +45,6 @@ export class Sidebar extends HTMLElement {
       resizeObserver.observe(this.fixedFooter);
     }
 
-    this.insertAdjacentHTML("afterbegin", "<strong>On this page</strong><nav id='tableOfContents'></nav>");
-
     this.sectionTree = {
       id: this.rootSection.id,
       title: this.getSectionTitle(this.rootSection),
@@ -52,13 +53,14 @@ export class Sidebar extends HTMLElement {
     };
     this.buildSectionTree(this.rootSection, this.sectionTree);
     this.renderTableOfContent(this.sectionTree, this.tableOfContentsNav);
-    this.updateActiveNavLinks();
 
     this.scrollEventListener = this.scrollEvent.bind(this);
     window.addEventListener("scroll", this.scrollEventListener);
 
     this.resizeEventListener = this.resizeEvent.bind(this);
     window.addEventListener("resize", this.resizeEventListener);
+
+    this.updateActiveNavLinks();
   }
 
   disconnectedCallback(): void {
@@ -107,9 +109,7 @@ export class Sidebar extends HTMLElement {
   }
 
   private sanitize(value: string): string {
-    const div = document.createElement("div");
-    div.innerHTML = value;
-    return div.innerText;
+    return value.split("<").join("&lt;").split(">").join("&gt;");
   }
 
   private scrollEvent(event: Event): void {
@@ -120,7 +120,10 @@ export class Sidebar extends HTMLElement {
   }
 
   private resizeEvent(event: Event): void {
-    requestAnimationFrame(() => this.updateActiveNavLinks());
+    requestAnimationFrame(() => {
+      this.updateActiveNavLinks();
+      this.updateLeft();
+    });
   }
 
   private updateActiveNavLinks(): void {
@@ -157,6 +160,10 @@ export class Sidebar extends HTMLElement {
     const activeNavLinks = this.activeNavLinks;
     const centerIndex = Math.floor(activeNavLinks.length / 2);
     activeNavLinks.item(centerIndex).scrollIntoView({block: "center", behavior: "smooth"});
+  }
+
+  private updateLeft(): void {
+    this.style.left = this.parentElement.getBoundingClientRect().left + "px";
   }
 
   get rootHtml(): HTMLElement {
