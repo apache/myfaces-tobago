@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-theme</artifactId>
-    <version>6.7.3-SNAPSHOT</version>
+    <version>6.8.0-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-theme-roxborough</artifactId>
   <packaging>jar</packaging>
