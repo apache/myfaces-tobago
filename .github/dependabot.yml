@@ -89,6 +89,10 @@ updates:
       - dependency-name: "jakarta.xml.bind:jakarta.xml.bind-api"
         versions:
           - ">= 5.0.0"
+      # tomcat-jasper-el is used in myfaces-quarkus 4.0.x which is for Tomcat 10
+      - dependency-name: "org.apache.tomcat:tomcat-jasper-el"
+        versions:
+          - ">= 11.0.0"
 
   - package-ecosystem: "maven"
     directory: "/"
