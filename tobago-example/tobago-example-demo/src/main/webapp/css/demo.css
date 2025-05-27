@@ -31,27 +31,64 @@
  * limitations under the License.
  */
 demo-sidebar {
-  display: block;
   position: fixed;
+  overflow-x: hidden;
   overflow-y: auto;
-  padding: 1rem;
-  margin-right: 0.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   overscroll-behavior: none;
+  right: 0;
 }
-demo-sidebar nav > ul {
+demo-sidebar strong {
+  padding-left: calc(2px + 0.25rem);
+}
+demo-sidebar nav ul {
   padding-left: 0;
 }
-demo-sidebar nav ul ul {
-  padding-left: 1rem;
+demo-sidebar nav > a {
+  padding-left: 0.25rem;
+}
+demo-sidebar nav li a {
+  padding-left: 0.75rem;
+}
+demo-sidebar nav li li a {
+  padding-left: 1.5rem;
+}
+demo-sidebar nav li li li a {
+  padding-left: 2.25rem;
+}
+demo-sidebar nav li li li li a {
+  padding-left: 3rem;
+}
+demo-sidebar nav li li li li li a {
+  padding-left: 3.75rem;
+}
+demo-sidebar nav li li li li li li a {
+  padding-left: 4.5rem;
+}
+demo-sidebar nav li li li li li li li a {
+  padding-left: 5.25rem;
+}
+demo-sidebar nav li li li li li li li li a {
+  padding-left: 6rem;
+}
+demo-sidebar nav li li li li li li li li li a {
+  padding-left: 6.75rem;
+}
+demo-sidebar nav li li li li li li li li li li a {
+  padding-left: 7.5rem;
 }
 demo-sidebar nav a {
+  font-size: 0.875rem;
   color: var(--bs-secondary);
   text-decoration: none;
-  padding-left: 0.5rem;
   border-left: 2px solid transparent;
+  display: block;
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 demo-sidebar nav a:hover {
-  font-weight: 600;
+  text-decoration: underline;
 }
 demo-sidebar nav a.active {
   color: var(--bs-primary);
