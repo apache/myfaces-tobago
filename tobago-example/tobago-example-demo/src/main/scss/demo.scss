@@ -17,6 +17,10 @@
 
 @import "demo-sidebar";
 
+html {
+  scroll-padding-top: 72px;
+}
+
 .hide-navigation {
   display: none;
 }
