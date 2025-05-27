@@ -98,6 +98,10 @@ demo-sidebar nav ul, demo-sidebar nav li {
   list-style: none;
 }
 
+html {
+  scroll-padding-top: 72px;
+}
+
 .hide-navigation {
   display: none;
 }

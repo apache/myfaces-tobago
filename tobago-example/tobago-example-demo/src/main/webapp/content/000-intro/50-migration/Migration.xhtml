@@ -19,42 +19,12 @@
 
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="jakarta.faces.facelets">
 
-  <tc:section label="Migration of Tobago applications">
-
-    <p>
-      Here you can find migration guides to the major versions of Tobago.
-    </p>
-
-    <ul>
-      <li>
-        <tc:link label="Upgrade from 5.0 to 6.0"
-                 outcome="/content/000-intro/50-migration/94-migration/5.0_to_6.0.xhtml"/>
-      </li>
-      <li>
-        <tc:link label="Upgrade from 4.0 to 5.0"
-                 outcome="/content/000-intro/50-migration/95-migration/4.0_to_5.0.xhtml"/>
-      </li>
-      <li>
-        <tc:link label="Upgrade from 3.0 to 4.0"
-                 outcome="/content/000-intro/50-migration/96-migration/3.0_to_4.0.xhtml"/>
-      </li>
-      <li>
-        <tc:link label="Upgrade from 2.0 to 3.0"
-                 outcome="/content/000-intro/50-migration/97-migration/2.0_to_3.0.xhtml"/>
-      </li>
-      <li>
-        <tc:link label="Upgrade from 1.5 to 2.0"
-                 outcome="/content/000-intro/50-migration/98-migration/1.5_to_2.0.xhtml"/>
-      </li>
-      <li>
-        <tc:link label="Upgrade from 1.0 to 1.5"
-                 outcome="/content/000-intro/50-migration/99-migration/1.0_to_1.5.xhtml"/>
-      </li>
-    </ul>
-
-  </tc:section>
-
+  <ui:include src="x-5.0_to_6.0.xhtml"/>
+  <ui:include src="x-4.0_to_5.0.xhtml"/>
+  <ui:include src="x-3.0_to_4.0.xhtml"/>
+  <ui:include src="x-2.0_to_3.0.xhtml"/>
+  <ui:include src="x-1.5_to_2.0.xhtml"/>
+  <ui:include src="x-1.0_to_1.5.xhtml"/>
 </ui:composition>
