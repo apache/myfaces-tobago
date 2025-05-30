@@ -102,6 +102,27 @@ html {
   scroll-padding-top: 72px;
 }
 
+#page\:navigation\:nav tobago-tree-node[data-tobago-level="0"], #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="0"] {
+  font-weight: bold;
+  margin-top: 1rem;
+  white-space: nowrap;
+}
+#page\:navigation\:nav tobago-tree-node[data-tobago-level="0"][index="1"], #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="0"][index="1"] {
+  margin-top: 0;
+}
+#page\:navigation\:nav tobago-tree-node[data-tobago-level="1"] a, #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="1"] a {
+  padding: 0.25rem;
+  color: var(--bs-secondary);
+  border-radius: var(--bs-border-radius);
+}
+#page\:navigation\:nav tobago-tree-node[data-tobago-level="1"] a:hover, #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="1"] a:hover {
+  background-color: rgba(var(--bs-secondary-rgb), 0.1);
+}
+#page\:navigation\:nav tobago-tree-node[data-tobago-level="1"] a.active, #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="1"] a.active {
+  color: var(--bs-primary);
+  background-color: rgba(var(--bs-primary-rgb), 0.1);
+}
+
 .hide-navigation {
   display: none;
 }
