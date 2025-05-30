@@ -46,7 +46,7 @@
     <required.maven.version>3.8.1</required.maven.version>
     <maven-pmd-plugin.version>3.26.0</maven-pmd-plugin.version>
     <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
-    <junit-jupiter.version>5.12.2</junit-jupiter.version>
+    <junit-jupiter.version>5.13.0</junit-jupiter.version>
     <testcontainers.version>1.21.0</testcontainers.version>
     <checkstyle-rules.version>24</checkstyle-rules.version>
 
