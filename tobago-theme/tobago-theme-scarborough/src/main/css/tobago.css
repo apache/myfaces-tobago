@@ -13200,6 +13200,26 @@ tobago-section > .tobago-header > h1 > .fa:first-child, tobago-section > .tobago
   margin-right: 0.7em;
 }
 
+tobago-sidebar {
+  display: block;
+}
+tobago-sidebar > .offcanvas-header > .offcanvas-title {
+  font-size: 1.25rem;
+}
+tobago-sidebar > .offcanvas-header > .tobago-bar {
+  margin-left: auto;
+}
+tobago-sidebar > .offcanvas-header > .tobago-bar .tobago-link {
+  color: #000;
+  opacity: 0.5;
+}
+tobago-sidebar > .offcanvas-header > .tobago-bar .tobago-link:hover {
+  opacity: 0.75;
+}
+tobago-sidebar > .offcanvas-header > .tobago-bar .tobago-link:focus {
+  opacity: 1;
+}
+
 /* stars rating ------------------------------------------------------------ */
 tobago-stars {
   display: block;
