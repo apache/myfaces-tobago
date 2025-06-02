@@ -19,11 +19,13 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Markup;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
@@ -44,6 +46,11 @@ import org.apache.myfaces.tobago.model.CollapseMode;
         "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
     rendererType = RendererTypes.POPUP,
+    facets = {
+        @Facet(name = Facets.BAR, description = "Code is placed in the header at the bar position."),
+        @Facet(name = Facets.LABEL, description = "Code is placed in the header at the label position."),
+        @Facet(name = Facets.FOOTER, description = "Code is placed in the footer.")
+    },
     markups = {
         @Markup(
             name = org.apache.myfaces.tobago.context.Markup.STRING_EXTRA_LARGE,
