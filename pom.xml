@@ -58,7 +58,7 @@
     <jsf.target>2.0</jsf.target>
     <required.maven.version>3.8.1</required.maven.version>
     <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
-    <checkstyle.version>10.24.0</checkstyle.version>
+    <checkstyle.version>10.25.0</checkstyle.version>
     <checkstyle-rules.version>24</checkstyle-rules.version>
     <tobago.basedir>${project.basedir}</tobago.basedir>
   </properties>
