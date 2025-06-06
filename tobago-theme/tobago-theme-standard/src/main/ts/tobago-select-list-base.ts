@@ -169,13 +169,11 @@ export abstract class SelectListBase extends HTMLElement {
       const filterFunction = TobagoFilterRegistry.get(this.filter);
       // XXX todo: if filterFunction not found?
 
-      let entriesCount = 0;
       if (filterFunction != null) {
         this.rows.forEach(row => {
           const itemValue = row.cells.item(0).textContent;
           if (filterFunction(itemValue, searchString)) {
             row.classList.remove(Css.D_NONE);
-            entriesCount++;
           } else {
             row.classList.add(Css.D_NONE);
             row.classList.remove(Css.TOBAGO_PRESELECT);
@@ -183,11 +181,7 @@ export abstract class SelectListBase extends HTMLElement {
         });
       }
 
-      if (entriesCount === 0) {
-        this.noEntriesHint.classList.remove(Css.D_NONE);
-      } else {
-        this.noEntriesHint.classList.add(Css.D_NONE);
-      }
+      this.showNoEntriesHint = this.visibleRows.length === 0;
     }
   }
 
@@ -418,12 +412,24 @@ Type: ${data.type}`);
     return this.options.querySelector("." + Css.TOBAGO_NO_ENTRIES);
   }
 
+  set showNoEntriesHint(show: boolean) {
+    if (show) {
+      this.noEntriesHint.classList.remove(Css.D_NONE);
+    } else {
+      this.noEntriesHint.classList.add(Css.D_NONE);
+    }
+  }
+
   get rows(): NodeListOf<HTMLTableRowElement> {
     return this.tbody.querySelectorAll<HTMLTableRowElement>("tr");
   }
 
+  get visibleRows(): NodeListOf<HTMLTableRowElement> {
+    return this.tbody.querySelectorAll<HTMLTableRowElement>("tr:not(." + Css.D_NONE + ")");
+  }
+
   get enabledRows(): NodeListOf<HTMLTableRowElement> {
-    return this.tbody.querySelectorAll<HTMLTableRowElement>("tr:not(." + Css.D_NONE + "):not(." + Css.DISABLED);
+    return this.tbody.querySelectorAll<HTMLTableRowElement>("tr:not(." + Css.D_NONE + "):not(." + Css.DISABLED + ")");
   }
 
   get preselectedRow(): HTMLTableRowElement {
