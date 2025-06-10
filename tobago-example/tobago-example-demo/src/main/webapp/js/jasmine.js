@@ -2803,7 +2803,7 @@ getJasmineRequireObj().CallTracker = function(j$) {
 
     this.track = function(context) {
       if (opts.cloneArgs) {
-        context.args = j$.util.cloneArgs(context.args);
+        context.args = opts.argsCloner(context.args);
       }
       calls.push(context);
     };
@@ -2911,13 +2911,15 @@ getJasmineRequireObj().CallTracker = function(j$) {
     };
 
     /**
-     * Set this spy to do a shallow clone of arguments passed to each invocation.
+     * Set this spy to do a clone of arguments passed to each invocation.
      * @name Spy#calls#saveArgumentsByValue
      * @since 2.5.0
+     * @param {Function} [argsCloner] A function to use to clone the arguments. Defaults to a shallow cloning function.
      * @function
      */
-    this.saveArgumentsByValue = function() {
+    this.saveArgumentsByValue = function(argsCloner = j$.util.cloneArgs) {
       opts.cloneArgs = true;
+      opts.argsCloner = argsCloner;
     };
 
     this.unverifiedCount = function() {
@@ -3282,6 +3284,12 @@ callbacks to execute _before_ running the next one.
     //
     // @return {!Promise<undefined>}
     async function newMacrotask() {
+      if (NODE_JS) {
+        // setImmediate is generally faster than setTimeout in Node
+        // https://nodejs.org/en/learn/asynchronous-work/event-loop-timers-and-nexttick#setimmediate-vs-settimeout
+        return new Promise(resolve => void setImmediate(resolve));
+      }
+
       // MessageChannel ensures that setTimeout is not throttled to 4ms.
       // https://developer.mozilla.org/en-US/docs/Web/API/setTimeout#reasons_for_delays_longer_than_specified
       // https://stackblitz.com/edit/stackblitz-starters-qtlpcc
@@ -4875,7 +4883,10 @@ getJasmineRequireObj().DiffBuilder = function(j$) {
         );
 
         if (useCustom) {
-          messages.push(wrapPrettyPrinted(actualCustom, expectedCustom, path));
+          const prettyActual = actualCustom || this.prettyPrinter_(actual);
+          const prettyExpected =
+            expectedCustom || this.prettyPrinter_(expected);
+          messages.push(wrapPrettyPrinted(prettyActual, prettyExpected, path));
           return false; // don't recurse further
         }
 
@@ -7752,7 +7763,11 @@ getJasmineRequireObj().makePrettyPrinter = function(j$) {
         } else if (value instanceof RegExp) {
           this.emitScalar(value.toString());
         } else if (typeof value === 'function') {
-          this.emitScalar('Function');
+          if (value.name) {
+            this.emitScalar(`Function '${value.name}'`);
+          } else {
+            this.emitScalar('Function');
+          }
         } else if (j$.isDomNode(value)) {
           if (value.tagName) {
             this.emitDomElement(value);
@@ -9668,7 +9683,7 @@ getJasmineRequireObj().Spy = function(j$) {
             "Spy '" +
               strategyArgs.name +
               "' received a call with arguments " +
-              j$.basicPrettyPrinter_(Array.prototype.slice.call(args)) +
+              matchersUtil.pp(Array.prototype.slice.call(args)) +
               ' but all configured strategies specify other arguments.'
           );
         } else {
@@ -11395,5 +11410,5 @@ getJasmineRequireObj().UserContext = function(j$) {
 };
 
 getJasmineRequireObj().version = function() {
-  return '5.7.1';
+  return '5.8.0';
 };
