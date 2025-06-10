@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.event.SheetAction;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPaginatorList;
 import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
@@ -29,7 +28,6 @@ import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,8 +65,8 @@ public class PaginatorListRenderer<T extends AbstractUIPaginatorList> extends Pa
       writer.startElement(HtmlElements.UL);
       writer.writeClassAttribute(BootstrapClass.PAGINATION);
 
-      int linkCount = ComponentUtils.getIntAttribute(sheet, Attributes.directLinkCount);
-      linkCount--;  // current page needs no link
+      int linkCount = paginator.getMax();
+      linkCount--;  // the current page needs no link
       final ArrayList<Integer> prevs = new ArrayList<>(linkCount);
       int page = sheet.getCurrentPage() + 1;
       for (int i = 0; i < linkCount && page > 1; i++) {
@@ -107,10 +105,10 @@ public class PaginatorListRenderer<T extends AbstractUIPaginatorList> extends Pa
       }
 
       final Arrows arrows = paginator.getArrows();
-      if (arrows == Arrows.show || arrows == Arrows.auto) {
-        final boolean disabled = sheet.isAtBeginning();
-        encodeLink(facesContext, disabled, SheetAction.first, null, Icons.SKIP_START, null);
-        encodeLink(facesContext, disabled, SheetAction.prev, null, Icons.CARET_LEFT, null);
+      final boolean atBeginning = sheet.isAtBeginning();
+      if (arrows == Arrows.show || (arrows == Arrows.auto && !atBeginning)) {
+        encodeLink(facesContext, atBeginning, SheetAction.first, null, Icons.SKIP_START, null);
+        encodeLink(facesContext, atBeginning, SheetAction.prev, null, Icons.CARET_LEFT, null);
       }
 
       int skip = !prevs.isEmpty() ? prevs.get(0) : 1;
@@ -122,9 +120,11 @@ public class PaginatorListRenderer<T extends AbstractUIPaginatorList> extends Pa
         }
         encodeLink(facesContext, false, SheetAction.toPage, skip, Icons.THREE_DOTS, null);
       }
+
       for (final Integer prev : prevs) {
         encodeLink(facesContext, false, SheetAction.toPage, prev, null, null);
       }
+
       encodeLink(facesContext, false, SheetAction.toPage, sheet.getCurrentPage() + 1, null, BootstrapClass.ACTIVE);
 
       for (final Integer next : nexts) {
@@ -140,12 +140,13 @@ public class PaginatorListRenderer<T extends AbstractUIPaginatorList> extends Pa
         }
         encodeLink(facesContext, false, SheetAction.toPage, skip, Icons.THREE_DOTS, null);
       }
-      if (arrows == Arrows.show || arrows == Arrows.auto) {
-        final boolean disabled = sheet.isAtEnd();
-        final boolean disabledEnd = disabled || !sheet.hasRowCount();
-        encodeLink(facesContext, disabled, SheetAction.next, null, Icons.CARET_RIGHT, null);
-        encodeLink(facesContext, disabledEnd, SheetAction.last, null, Icons.SKIP_END, null);
+
+      final boolean atEnd = sheet.isAtEnd();
+      if (arrows == Arrows.show || (arrows == Arrows.auto && !atEnd)) {
+        encodeLink(facesContext, atEnd, SheetAction.next, null, Icons.CARET_RIGHT, null);
+        encodeLink(facesContext, atEnd || !sheet.hasRowCount(), SheetAction.last, null, Icons.SKIP_END, null);
       }
+
       writer.endElement(HtmlElements.UL);
     } else {
       LOG.warn("No sheet found for paginator with clientId='{}'!", clientId);

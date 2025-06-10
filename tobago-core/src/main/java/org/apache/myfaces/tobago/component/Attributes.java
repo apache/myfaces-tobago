@@ -87,6 +87,7 @@ public enum Attributes {
   dateStyle,
   defaultCommand,
   delay,
+  @Deprecated(since = "5.15.0, 6.7.0", forRemoval = true)
   directLinkCount,
   disabled,
   display,
@@ -381,16 +382,22 @@ public enum Attributes {
   selector,
   sheetAction,
   showCheckbox,
+  @Deprecated(since = "5.15.0, 6.7.0", forRemoval = true)
   showDirectLinks,
+  @Deprecated(since = "5.15.0, 6.7.0", forRemoval = true)
   showDirectLinksArrows,
   showHeader,
   showJunctions,
   showNavigationBar,
+  @Deprecated(since = "5.15.0, 6.7.0", forRemoval = true)
   showPageRange,
+  @Deprecated(since = "5.15.0, 6.7.0", forRemoval = true)
   showPageRangeArrows,
+  @Deprecated(since = "5.15.0, 6.7.0", forRemoval = true)
   showPagingAlways,
   showRoot,
   showRootJunction,
+  @Deprecated(since = "5.15.0, 6.7.0", forRemoval = true)
   showRowRange,
   showSummary,
   showDetail,

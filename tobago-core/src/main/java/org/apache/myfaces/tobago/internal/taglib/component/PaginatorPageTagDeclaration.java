@@ -20,9 +20,7 @@
 package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasArrows;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasFor;
@@ -47,12 +45,4 @@ import jakarta.faces.component.UIOutput;
 
 public interface PaginatorPageTagDeclaration
     extends HasIdBindingAndRendered, HasTip, IsVisual, IsAlwaysVisible, HasArrows, HasFor {
-
-  /**
-   * Show this amount of links, if available.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(
-      type = {"java.lang.Integer"})
-  void setMax(String max);
 }

@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.model.SelectItem;
 
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
-
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.InputStreamReader;
 import java.io.Serializable;
@@ -38,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 //XXX Using SessionScoped, because Singleton is not passivation capable.
@@ -75,10 +75,18 @@ public class AstroData implements Serializable {
 
   public Stream<SolarObject> findAll() {
     final AtomicInteger counter = new AtomicInteger(0);
-    return dataList.stream().map(object -> {
-      object.setId(counter.incrementAndGet());
-      return object;
-    });
+    return dataList.stream().peek(object -> object.setId(counter.incrementAndGet()));
+  }
+
+  public Stream<SolarObject> findOrFill(int size) {
+
+    final List<SolarObject> baseList = findAll().toList();
+    return IntStream.range(0, size)
+        .mapToObj(i -> {
+          final SolarObject next = new SolarObject(baseList.get(i % baseList.size()));
+          next.setName("#" + i + " " + next.getName());
+          return next;
+        });
   }
 
   public Map<String, SolarObject> findAllAsMap() {

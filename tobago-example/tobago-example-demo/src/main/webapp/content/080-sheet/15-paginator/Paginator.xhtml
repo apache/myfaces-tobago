@@ -25,54 +25,107 @@
 
   <tc:section label="New implementation of paginators">
 
-    Since Tobago 5.15.0 and 6.7.0 there are new Paginator tags. You can use them to define the paginator by
-    using the new attribute <code>paginator</code>. Possible values are
-    <ul>
-      <li><code>auto</code> automatically select an paginator</li>
-      <li><code>custom</code> render no paginator, the paginator will be provieded explicitly as tags</li>
-      <li><code>list</code> render a list of pages</li>
-      <li><code>row</code> render the row, it can be modified by click</li>
-      <li><code>page</code> render the page, it can be modiefied by click</li>
-      <li><code>useShowAttributes</code> the classic paginator for backward compatibility
-        (deprected, will be removed in further releases)
-      </li>
-    </ul>
+    Since Tobago 5.15.0 and 6.7.0 there are new paginator tags and attributes.
 
-    An alternative way to define the paginator is to use the new tags <code>tc:paginatorPanel</code>,
-    and inside of it <code>tc:paginatorRow</code>, <code>tc:paginatorList</code> and <code>tc:paginatorPage</code>.
-    This way is much more flexible, because you can define the paginators and combinations of it in any way you like.
+    <tc:section label="Simple paginator attribute">
+      You can use them to define the paginator by
+      using the new attribute <code>paginator</code>. Possible values are
+      <ul>
+        <li><code>auto</code> automatically select an paginator</li>
+        <li><code>custom</code> render no paginator, the paginator will be provieded explicitly as tags (see below)</li>
+        <li><code>list</code> render a list of pages</li>
+        <li><code>row</code> render the row, it can be modified by click</li>
+        <li><code>page</code> render the page, it can be modiefied by click</li>
+        <li><code>useShowAttributes</code> the classic paginator for backward compatibility
+          (deprected, will be removed in further releases)
+        </li>
+      </ul>
+    </tc:section>
 
-    <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" rows="5"
-              paginator="custom">
-      <f:facet name="before">
-        <tc:paginatorPanel>
-          <tc:paginatorRow />
-          <tc:paginatorList arrows="hide"/>
-          <tc:paginatorPage />
-        </tc:paginatorPanel>
-      </f:facet>
-      <f:facet name="after">
-        <tc:paginatorPanel>
-          <tc:paginatorRow/>
-          <tc:paginatorList arrows="hide"/>
-          <tc:paginatorPage/>
-        </tc:paginatorPanel>
-      </f:facet>
-      <tc:column label="Name">
-        <tc:out value="#{object.name}"/>
-      </tc:column>
-      <tc:column label="Orbit">
-        <tc:out value="#{object.orbit}"/>
-      </tc:column>
-      <tc:column label="Period (Days)">
-        <tc:out value="#{object.period}"/>
-      </tc:column>
-      <tc:column label="Discoverer">
-        <tc:out value="#{object.discoverer}"/>
-      </tc:column>
-      <tc:column label="Year">
-        <tc:out value="#{object.discoverYear}"/>
-      </tc:column>
-    </tc:sheet>
+    <tc:section label="Need more flexiblility? Use &lt;tc:paginatorPanel&gt;!">
+
+      An alternative way to define the paginator is to use the new tags <code>tc:paginatorPanel</code>,
+      and inside of it <code>tc:paginatorRow</code>, <code>tc:paginatorList</code> and <code>tc:paginatorPage</code>.
+      This way is much more flexible, because you can define the paginators and combinations of it in any way you like.
+
+      <tc:sheet id="s1" value="#{sheetController.solarList}" var="object" rows="5"
+                paginator="custom">
+        <f:facet name="before">
+          <tc:paginatorPanel>
+            <tc:paginatorRow/>
+            <tc:paginatorList arrows="hide"/>
+            <tc:paginatorPage/>
+          </tc:paginatorPanel>
+        </f:facet>
+        <f:facet name="after">
+          <tc:paginatorPanel>
+            <tc:paginatorRow/>
+            <tc:paginatorList arrows="hide"/>
+            <tc:paginatorPage/>
+          </tc:paginatorPanel>
+        </f:facet>
+        <tc:column label="Name">
+          <tc:out value="#{object.name}"/>
+        </tc:column>
+        <tc:column label="Orbit">
+          <tc:out value="#{object.orbit}"/>
+        </tc:column>
+        <tc:column label="Period (Days)">
+          <tc:out value="#{object.period}"/>
+        </tc:column>
+      </tc:sheet>
+    </tc:section>
+
+    <tc:section label="&lt;tc:paginatorList&gt;">
+
+      Show a list for paging, with direct links to some pages in the neighborhood to the current page.
+
+      <tc:segmentLayout id="p2" large="6seg;6seg">
+        <tc:box label="Properties of the paginator:">
+          <tc:selectOneList label="arrows" value="#{paginatorListController.arrows}" required="true">
+            <f:selectItems value="#{paginatorListController.arrowsItems}"
+                           var="arrow"
+                           itemValue="#{arrow}"/>
+          </tc:selectOneList>
+          <tc:in label="max" value="#{paginatorListController.max}" required="true">
+            <f:validateLongRange minimum="1"/>
+          </tc:in>
+          <tc:selectBooleanToggle label="alwaysVisible" value="#{paginatorListController.alwaysVisible}"/>
+        </tc:box>
+        <tc:box label="Properties of the sheet:">
+          <tc:in label="rows" value="#{paginatorListController.rows}" required="true">
+            <f:validateLongRange minimum="0"/>
+          </tc:in>
+          <tc:in label="size of list" value="#{paginatorListController.size}" required="true">
+            <f:validateLongRange minimum="0" maximum="10000"/>
+          </tc:in>
+        </tc:box>
+      </tc:segmentLayout>
+
+      <tc:button label="Apply" action="#{paginatorListController.apply}">
+        <f:ajax execute="p2" render="s2 p2 :page:messages"/>
+      </tc:button>
+
+      <tc:sheet id="s2" value="#{paginatorListController.solarList}" var="object" rows="#{paginatorListController.rows}"
+                paginator="custom">
+        <f:facet name="before">
+          <tc:paginatorPanel>
+            <tc:paginatorList
+                arrows="#{paginatorListController.arrows}"
+                max="#{paginatorListController.max}"
+                alwaysVisible="#{paginatorListController.alwaysVisible}"/>
+          </tc:paginatorPanel>
+        </f:facet>
+        <tc:column label="Name">
+          <tc:out value="#{object.name}"/>
+        </tc:column>
+        <tc:column label="Orbit">
+          <tc:out value="#{object.orbit}"/>
+        </tc:column>
+        <tc:column label="Period (Days)">
+          <tc:out value="#{object.period}"/>
+        </tc:column>
+      </tc:sheet>
+    </tc:section>
   </tc:section>
 </ui:composition>
