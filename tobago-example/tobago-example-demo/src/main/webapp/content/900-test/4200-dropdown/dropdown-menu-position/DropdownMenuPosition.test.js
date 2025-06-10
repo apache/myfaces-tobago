@@ -35,13 +35,15 @@ it("Button dropdown on the right", function (done) {
 
 it("default - SelectOneList: upper half", function (done) {
   const tobagoHeader = querySelectorFn("tobago-header.sticky-top");
+  const secondHeader = elementByIdFn("page:mainForm:secondHeader");
   const selectOneList = elementByIdFn("page:mainForm:defaultSelectOneList");
   const selectField = elementByIdFn("page:mainForm:defaultSelectOneList::selectField");
   const dropdownMenu = querySelectorFn(".tobago-options.tobago-dropdown-menu[name='page:mainForm:defaultSelectOneList']");
 
   const test = new JasmineTestTool(done);
   test.do(() => scrollTo(0, 0));
-  test.do(() => scrollTo(rect(selectOneList()).x, rect(selectOneList()).y - parseStyle(tobagoHeader(), "height")));
+  test.do(() => scrollTo(rect(selectOneList()).x,
+      rect(selectOneList()).y - parseHeight(tobagoHeader()) - parseHeight(secondHeader())));
   test.waitMs(1000);
   test.do(() => expect(dropdownMenu().classList).not.toContain("show"));
   test.event("click", selectField, () => dropdownMenu().classList.contains("show"));
@@ -140,13 +142,15 @@ it("default - button dropdown in tc:in after-facet: lower half", function (done)
 
 it("transformX0 - SelectOneList: upper half", function (done) {
   const tobagoHeader = querySelectorFn("tobago-header.sticky-top");
+  const secondHeader = elementByIdFn("page:mainForm:secondHeader");
   const selectOneList = elementByIdFn("page:mainForm:transformX0selectOneList");
   const selectField = elementByIdFn("page:mainForm:transformX0selectOneList::selectField");
   const dropdownMenu = querySelectorFn(".tobago-options.tobago-dropdown-menu[name='page:mainForm:transformX0selectOneList']");
 
   const test = new JasmineTestTool(done);
   test.do(() => scrollTo(0, 0));
-  test.do(() => scrollTo(rect(selectOneList()).x, rect(selectOneList()).y - parseStyle(tobagoHeader(), "height")));
+  test.do(() => scrollTo(rect(selectOneList()).x,
+      rect(selectOneList()).y - parseHeight(tobagoHeader()) - parseHeight(secondHeader())));
   test.waitMs(1000);
   test.do(() => expect(dropdownMenu().classList).not.toContain("show"));
   test.event("click", selectField, () => dropdownMenu().classList.contains("show"));
@@ -245,6 +249,10 @@ it("transformX0 - button dropdown in tc:in after-facet: lower half", function (d
 
 function rect(element) {
   return element.getBoundingClientRect();
+}
+
+function parseHeight(element) {
+  return parseInt(getComputedStyle(element)["height"])
 }
 
 function parseStyle(element, style) {
