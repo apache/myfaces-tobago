@@ -23,14 +23,14 @@
                 xmlns:ui="jakarta.faces.facelets"
                 xmlns:f="jakarta.faces.core">
 
-  <p>This page show some examples for the collapsible concept of a
+  <p>This page shows some examples for the collapsible concept of a
     <tc:link label="Panel" outcome="/content/050-container/20-panel/Panel.xhtml"/>.
-    Every panel contain a required input field to see if a validation occur while submitting.
-    For better visibility every panel has a border.</p>
+    Every panel contains a required input field to see if a validation occurs while submitting.
+    For better visibility, every panel has a border.</p>
   <tc:section label="Simple Panel">
-    <p>A simple panel using an controller for the collapsible state.
-      For the 'hide'-Button is the attribute <code>immediate="true"</code> set to submitting without validation.
-      So the panel could be hide even if the input field is empty.</p>
+    <p>A simple panel using a controller for the collapsible state.
+      For the 'hide'-Button, the attribute <code>immediate="true"</code> is set to submitting without validation.
+      So the panel could be hidden even if the input field is empty.</p>
     <p>For the panel <code>collapsibleMode="absent"</code> is set.
       The 'Submit'-button can be executed without violation if the panel is in the hidden state.</p>
     <tc:form id="simple">
@@ -48,10 +48,10 @@
 
   <tc:section label="Full Server Request">
     <p>In this example the collapsible state is changed by <code class="language-markup">&lt;tc:operation/></code>
-      with full server request. So the server get the current state.</p>
+      with full server request. So the server gets the current state.</p>
     <p>The <code>collapsibleMode="absent"</code> is set.
       The 'Submit'-button can be executed without violation if the panel is hidden.</p>
-    <p>For the 'hide'-Button the attribute <code>immediate="true"</code> is set to submitting without validation.</p>
+    <p>For the 'hide'-Button, the attribute <code>immediate="true"</code> is set to submitting without validation.</p>
     <tc:form id="server">
       <tc:buttons>
         <tc:button id="showServer" label="show">
@@ -75,7 +75,7 @@
     <p>For the panel <code>collapsibleMode="hidden"</code> is set.
       After the 'hide' transition, the panel will be in the 'hidden' state - not the 'absent' state.
       The content of the hidden panel will also be validated.<br/>
-      So, if the input field is empty and the panel is hidden, a violation occur when pressing the 'Submit'-button.</p>
+      So, if the input field is empty and the panel is hidden, a violation occurs when pressing the 'Submit'-button.</p>
     <tc:form id="client">
       <tc:buttons>
         <tc:button id="showClient" label="show" omit="true">
@@ -125,7 +125,7 @@
     <p>A JavaScript custom event is fired if a <code class="language-markup">&lt;tc:panel/></code> is collapsed or expanded.</p>
     <p><code>tobago.panel.show</code> is fired before the panel is expanded.</p>
     <p><code>tobago.panel.shown</code> is fired after the panel is expanded. (Does not wait for a possible Ajax reload.)</p>
-    <p><code>tobago.panel.hide</code> is fired before the panel is collaped.</p>
+    <p><code>tobago.panel.hide</code> is fired before the panel is collapsed.</p>
     <p><code>tobago.panel.hidden</code> is fired after the panel is collapsed. (Does not wait for a possible Ajax reload.)</p>
   </tc:section>
 </ui:composition>

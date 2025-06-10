@@ -45,7 +45,7 @@
 
   <tc:section label="Full Server Request">
     <tc:form id="server">
-      <p>In this example, the operaction tag is used to change the state of the boxes.</p>
+      <p>In this example, the operation tag is used to change the state of the boxes.</p>
       <demo-highlight language="markup">&lt;tc:box id="box1" label="Full Request Box 1" collapsedMode="absent">
   &lt;f:facet name="bar">
     &lt;tc:buttons>
@@ -83,10 +83,10 @@
 
   <tc:section label="Client Side">
     <tc:form id="client">
-      <p>This example show a content box which could be opened and closed without a server request.<br/>
+      <p>This example shows a content box which could be opened and closed without a server request.<br/>
         To render the hidden content of the box, <code>collapsedMode="hidden"</code> must be set.
         The content is hidden by CSS display property.</p>
-      <p>Also the content contain a required input field.
+      <p>Also the content contains a required input field.
         This field will be also validated if the content is hidden.<br/>
         To demonstrate that, leave the input field blank, hide the content and press the 'Submit'-button.</p>
       <p>Notice the <code>omit</code> attribute of the buttons is set to avoid server request.</p>
@@ -118,7 +118,7 @@
         The buttons have set <code>omit="false"</code> which is the default.
         Also the attribute <code>immediate="true"</code> is set to execute the transition without validation.</p>
       <p>The mode is set to <code>collapsedMode="absent"</code> (default), so the hidden content won't be rendered
-        and therefor not validated.</p>
+        and therefore not validated.</p>
       <p>You can press the 'Submit'-button after hiding the blank input field.
         The submit will be executed without validation.
         If the content is shown and the field is empty, a violation occurs after hitting 'Submit'.</p>
@@ -152,7 +152,7 @@
         class="language-markup">&lt;tc:box/></code> is collapsed or expanded.</p>
     <p><code>tobago.box.show</code> is fired before the box is expanded.</p>
     <p><code>tobago.box.shown</code> is fired after the box is expanded. (Does not wait for a possible Ajax reload.)</p>
-    <p><code>tobago.box.hide</code> is fired before the box is collaped.</p>
+    <p><code>tobago.box.hide</code> is fired before the box is collapsed.</p>
     <p><code>tobago.box.hidden</code> is fired after the box is collapsed. (Does not wait for a possible Ajax reload.)
     </p>
   </tc:section>
