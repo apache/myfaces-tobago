@@ -59,6 +59,7 @@ public enum Tags {
   meta,
   metaLink,
   object,
+  offcanvas,
   operation,
   out,
   page,
@@ -92,7 +93,6 @@ public enum Tags {
   selectReference,
   separator,
   sheet,
-  sidebar,
   splitLayout,
   stars,
   style,
@@ -141,6 +141,7 @@ public enum Tags {
   public static final String META = "meta";
   public static final String META_LINK = "metaLink";
   public static final String OBJECT = "object";
+  public static final String OFFCANVAS = "offcanvas";
   public static final String OPERATION = "operation";
   public static final String OUT = "out";
   public static final String PAGE = "page";
@@ -174,7 +175,6 @@ public enum Tags {
   public static final String SELECT_REFERENCE = "selectReference";
   public static final String SEPARATOR = "separator";
   public static final String SHEET = "sheet";
-  public static final String SIDEBAR = "sidebar";
   public static final String SPLIT_LAYOUT = "splitLayout";
   public static final String STARS = "stars";
   public static final String STYLE = "style";

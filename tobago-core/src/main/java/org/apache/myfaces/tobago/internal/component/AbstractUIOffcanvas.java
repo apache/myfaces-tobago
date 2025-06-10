@@ -17,13 +17,10 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.layout;
+package org.apache.myfaces.tobago.internal.component;
 
-public enum SidebarPlacement {
-  top, left, right, bottom;
+import org.apache.myfaces.tobago.layout.OffcanvasPlacement;
 
-  public static final String TOP = "top";
-  public static final String LEFT = "left";
-  public static final String RIGHT = "right";
-  public static final String BOTTOM = "bottom";
+public abstract class AbstractUIOffcanvas extends AbstractUICollapsiblePanel {
+  public abstract OffcanvasPlacement getPlacement();
 }

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import {Offcanvas} from "bootstrap";
+import {Offcanvas as BootstrapOffcanvas} from "bootstrap";
 import {BehaviorMode} from "./tobago-behavior-mode";
 import {Collapse} from "./tobago-collapse";
 
@@ -27,8 +27,8 @@ const BootstrapOffcanvasEvent = {
   SHOWN: "shown.bs.offcanvas"
 };
 
-export class Sidebar extends HTMLElement {
-  private offcanvas: Offcanvas;
+export class Offcanvas extends HTMLElement {
+  private offcanvas: BootstrapOffcanvas;
 
   constructor() {
     super();
@@ -36,14 +36,14 @@ export class Sidebar extends HTMLElement {
 
   connectedCallback(): void {
     const options = {};
-    this.offcanvas = new Offcanvas(this, options);
+    this.offcanvas = new BootstrapOffcanvas(this, options);
     if (!this.collapsed) {
       this.clientBehaviorShow();
     }
 
     this.addEventListener(BootstrapOffcanvasEvent.HIDDEN, () => {
       /**
-       * Make sure that collapsed=true is set when the sidebar is closed by clicking on the background or pressing ESC.
+       * Make sure collapsed=true is set when the offcanvas is closed by clicking on the background or pressing ESC.
        */
       if (this.connected) {
         this.collapsed = true;
@@ -87,7 +87,7 @@ export class Sidebar extends HTMLElement {
 }
 
 document.addEventListener("tobago.init", function (event: Event): void {
-  if (window.customElements.get("tobago-sidebar") == null) {
-    window.customElements.define("tobago-sidebar", Sidebar);
+  if (window.customElements.get("tobago-offcanvas") == null) {
+    window.customElements.define("tobago-offcanvas", Offcanvas);
   }
 });

@@ -22,9 +22,9 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.internal.component.AbstractUISidebar;
+import org.apache.myfaces.tobago.internal.component.AbstractUIOffcanvas;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
-import org.apache.myfaces.tobago.layout.SidebarPlacement;
+import org.apache.myfaces.tobago.layout.OffcanvasPlacement;
 import org.apache.myfaces.tobago.model.CollapseMode;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
@@ -36,7 +36,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import java.io.IOException;
 
-public class SidebarRenderer<T extends AbstractUISidebar> extends CollapsiblePanelRendererBase<T> {
+public class OffcanvasRenderer<T extends AbstractUIOffcanvas> extends CollapsiblePanelRendererBase<T> {
   private static final String SUFFIX_LABEL = ComponentUtils.SUB_SEPARATOR + "label";
 
   @Override
@@ -44,17 +44,17 @@ public class SidebarRenderer<T extends AbstractUISidebar> extends CollapsiblePan
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final String clientId = component.getClientId(facesContext);
     final boolean collapsed = component.isCollapsed();
-    final SidebarPlacement placement = component.getPlacement();
+    final OffcanvasPlacement placement = component.getPlacement();
     final UIComponent labelFacet = ComponentUtils.getFacet(component, Facets.label);
     final UIComponent barFacet = ComponentUtils.getFacet(component, Facets.bar);
 
-    writer.startElement(HtmlElements.TOBAGO_SIDEBAR);
+    writer.startElement(HtmlElements.TOBAGO_OFFCANVAS);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(BootstrapClass.OFFCANVAS,
-        SidebarPlacement.top.equals(placement) ? BootstrapClass.OFFCANVAS_TOP : null,
-        SidebarPlacement.left.equals(placement) ? BootstrapClass.OFFCANVAS_START : null,
-        SidebarPlacement.right.equals(placement) ? BootstrapClass.OFFCANVAS_END : null,
-        SidebarPlacement.bottom.equals(placement) ? BootstrapClass.OFFCANVAS_BOTTOM : null);
+        OffcanvasPlacement.top.equals(placement) ? BootstrapClass.OFFCANVAS_TOP : null,
+        OffcanvasPlacement.left.equals(placement) ? BootstrapClass.OFFCANVAS_START : null,
+        OffcanvasPlacement.right.equals(placement) ? BootstrapClass.OFFCANVAS_END : null,
+        OffcanvasPlacement.bottom.equals(placement) ? BootstrapClass.OFFCANVAS_BOTTOM : null);
     writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
     writer.writeAttribute(Arias.LABELLEDBY, component.getClientId(facesContext), false);
 
@@ -101,6 +101,6 @@ public class SidebarRenderer<T extends AbstractUISidebar> extends CollapsiblePan
   public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     writer.endElement(HtmlElements.DIV);
-    writer.endElement(HtmlElements.TOBAGO_SIDEBAR);
+    writer.endElement(HtmlElements.TOBAGO_OFFCANVAS);
   }
 }

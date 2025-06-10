@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="jakarta.faces.core"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="jakarta.faces.facelets">
+
+  <p>A offcanvas is created with <code class="language-markup">&lt;tc:offcanvas/></code>. It's based one the
+    <tc:link label="Collapsible" outcome="/content/130-collapsible/01-overview/Overview.xhtml"/> concept.</p>
+  <p>Tag Library Documentation:
+    <tc:link label="&lt;tc:offcanvas/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.tobagoTld}/tc/offcanvas.html"/>
+    |
+    <tc:link label="&lt;tc:operation/>" image="#{request.contextPath}/image/feather-leaf.png"
+             link="#{apiController.tobagoTld}/tc/operation.html"/></p>
+
+  <tc:section label="Server side (Ajax)">
+    <demo-highlight language="markup">&lt;tc:button label="Open offcanvas">
+  &lt;tc:operation for="ajaxOffcanvas" name="show"/>
+  &lt;f:ajax execute="ajaxOffcanvas" render="ajaxOffcanvas"/>
+&lt;/tc:button>
+&lt;tc:offcanvas id="ajaxOffcanvas">
+  &lt;f:facet name="label">Server side (Ajax)&lt;/f:facet>
+  &lt;f:facet name="bar">
+    &lt;tc:link image="bi-x-lg">
+      &lt;tc:operation name="hide" for="ajaxOffcanvas"/>
+      &lt;f:ajax execute="ajaxOffcanvas" render="ajaxOffcanvas"/>
+    &lt;/tc:link>
+  &lt;/f:facet>
+  Content of the server side offcanvas.
+&lt;/tc:offcanvas></demo-highlight>
+    <tc:button label="Open offcanvas">
+      <tc:operation for="ajaxOffcanvas" name="show"/>
+      <f:ajax execute="ajaxOffcanvas" render="ajaxOffcanvas"/>
+    </tc:button>
+    <tc:offcanvas id="ajaxOffcanvas">
+      <f:facet name="label">Server side (Ajax)</f:facet>
+      <f:facet name="bar">
+        <tc:link image="bi-x-lg">
+          <tc:operation name="hide" for="ajaxOffcanvas"/>
+          <f:ajax execute="ajaxOffcanvas" render="ajaxOffcanvas"/>
+        </tc:link>
+      </f:facet>
+      Content of the server side offcanvas.
+    </tc:offcanvas>
+  </tc:section>
+
+  <tc:section label="Client side">
+    <demo-highlight language="markup">&lt;tc:button label="Open offcanvas" omit="true">
+  &lt;tc:operation for="clientOffcanvas" name="show"/>
+&lt;/tc:button>
+&lt;tc:offcanvas id="clientOffcanvas" collapsedMode="hidden">
+  &lt;f:facet name="label">Client side&lt;/f:facet>
+  &lt;f:facet name="bar">
+    &lt;tc:link image="bi-x-lg" omit="true">
+      &lt;tc:operation name="hide" for="clientOffcanvas"/>
+    &lt;/tc:link>
+  &lt;/f:facet>
+  Content of the client side offcanvas.
+&lt;/tc:offcanvas></demo-highlight>
+    <tc:button label="Open offcanvas" omit="true">
+      <tc:operation for="clientOffcanvas" name="show"/>
+    </tc:button>
+    <tc:offcanvas id="clientOffcanvas" collapsedMode="hidden">
+      <f:facet name="label">Client side</f:facet>
+      <f:facet name="bar">
+        <tc:link image="bi-x-lg" omit="true">
+          <tc:operation name="hide" for="clientOffcanvas"/>
+        </tc:link>
+      </f:facet>
+      Content of the client side offcanvas.
+    </tc:offcanvas>
+  </tc:section>
+
+  <tc:section label="Placement">
+    <p>Use the <code class="language-markup">placement</code> attribute to set the position of the offcanvas.
+      Possible values are <code>top</code>, <code>left</code>, <code>right</code> and <code>bottom</code>.
+    </p>
+
+    <tc:button label="Open top offcanvas" omit="true">
+      <tc:operation for="topOffcanvas" name="show"/>
+    </tc:button>
+    <tc:button label="Open left offcanvas" omit="true">
+      <tc:operation for="leftOffcanvas" name="show"/>
+    </tc:button>
+    <tc:button label="Open right offcanvas" omit="true">
+      <tc:operation for="rightOffcanvas" name="show"/>
+    </tc:button>
+    <tc:button label="Open bottom offcanvas" omit="true">
+      <tc:operation for="bottomOffcanvas" name="show"/>
+    </tc:button>
+
+    <tc:offcanvas id="topOffcanvas" collapsedMode="hidden" placement="top">
+      <p>Content of the top offcanvas.</p>
+      <tc:link label="Close offcanvas" omit="true">
+        <tc:operation for="topOffcanvas" name="hide"/>
+      </tc:link>
+    </tc:offcanvas>
+    <tc:offcanvas id="leftOffcanvas" collapsedMode="hidden" placement="left">
+      <p>Content of the left offcanvas.</p>
+      <tc:link label="Close offcanvas" omit="true">
+        <tc:operation for="leftOffcanvas" name="hide"/>
+      </tc:link>
+    </tc:offcanvas>
+    <tc:offcanvas id="rightOffcanvas" collapsedMode="hidden" placement="right">
+      <p>Content of the right offcanvas.</p>
+      <tc:link label="Close offcanvas" omit="true">
+        <tc:operation for="rightOffcanvas" name="hide"/>
+      </tc:link>
+    </tc:offcanvas>
+    <tc:offcanvas id="bottomOffcanvas" collapsedMode="hidden" placement="bottom">
+      <p>Content of the bottom offcanvas.</p>
+      <tc:link label="Close offcanvas" omit="true">
+        <tc:operation for="bottomOffcanvas" name="hide"/>
+      </tc:link>
+    </tc:offcanvas>
+  </tc:section>
+
+  <tc:section label="Events">
+    <p>A JavaScript custom event is fired if a <code
+        class="language-markup">&lt;tc:offcanvas/></code> is collapsed or expanded.</p>
+    <p><code>tobago.offcanvas.show</code> is fired before the box is expanded.</p>
+    <p>
+      <code>tobago.offcanvas.shown</code> is fired after the box is expanded. (Does not wait for a possible Ajax reload.)
+    </p>
+    <p><code>tobago.offcanvas.hide</code> is fired before the box is collaped.</p>
+    <p>
+      <code>tobago.offcanvas.hidden</code> is fired after the box is collapsed. (Does not wait for a possible Ajax reload.)
+    </p>
+  </tc:section>
+</ui:composition>

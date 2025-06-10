@@ -54,6 +54,7 @@ public enum RendererTypes {
   Meta,
   MetaLink,
   Object,
+  Offcanvas,
   Operation,
   Out,
   Page,
@@ -85,7 +86,6 @@ public enum RendererTypes {
   SelectReference,
   Separator,
   Sheet,
-  Sidebar,
   Stars,
   Style,
   Suggest,
@@ -134,6 +134,7 @@ public enum RendererTypes {
   public static final String META = "Meta";
   public static final String META_LINK = "MetaLink";
   public static final String OBJECT = "Object";
+  public static final String OFFCANVAS = "Offcanvas";
   public static final String OPERATION = "Operation";
   public static final String OUT = "Out";
   public static final String PAGE = "Page";
@@ -165,7 +166,6 @@ public enum RendererTypes {
   public static final String SELECT_REFERENCE = "SelectReference";
   public static final String SEPARATOR = "Separator";
   public static final String SHEET = "Sheet";
-  public static final String SIDEBAR = "Sidebar";
   public static final String STARS = "Stars";
   public static final String STYLE = "Style";
   public static final String SUGGEST = "Suggest";
