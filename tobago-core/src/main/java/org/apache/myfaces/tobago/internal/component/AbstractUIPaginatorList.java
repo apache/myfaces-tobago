@@ -25,4 +25,6 @@ public abstract class AbstractUIPaginatorList extends AbstractUIPaginator {
 
   public abstract Arrows getArrows();
 
+  public abstract Integer getMax();
+
 }

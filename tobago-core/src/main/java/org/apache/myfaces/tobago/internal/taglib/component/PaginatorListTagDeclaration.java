@@ -49,10 +49,11 @@ public interface PaginatorListTagDeclaration
     extends HasIdBindingAndRendered, HasTip, IsVisual, IsAlwaysVisible, HasArrows, HasFor {
 
   /**
-   * Show this amount of links, if available.
+   * Show this number of links, if available.
    */
   @TagAttribute
   @UIComponentTagAttribute(
-      type = {"java.lang.Integer"})
+      type = {"java.lang.Integer"},
+      defaultValue = "9")
   void setMax(String max);
 }
