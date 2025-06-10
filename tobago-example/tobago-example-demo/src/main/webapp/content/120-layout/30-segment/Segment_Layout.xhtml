@@ -86,7 +86,7 @@
     <p>In the following example, all attributes are used. If you are on a desktop you can see the different
       behavior by changing the size of the browser window.</p>
     <demo-highlight
-      language="markup">&lt;tc:segmentLayout extra2Large="1seg" extraLarge="2seg"
+        language="markup">&lt;tc:segmentLayout extra2Large="1seg" extraLarge="2seg"
       large="3seg" medium="4seg" small="5seg" extraSmall="6seg">
       ...
     </demo-highlight>
@@ -109,22 +109,44 @@
   </tc:section>
 
   <tc:section id="marginConcept" label="Margin">
-    <p>A margin can be set for the different proportions with the attributes
+    <p>The segment layout has 12 columns. If a row doesn't use all columns, the position of the content can be
+      influenced with a <tc:link label="margin" link="https://developer.mozilla.org/de/docs/Web/CSS/margin"/>.</p>
+    <p>If a margin is set in a segment, it try to use all remaining space.</p>
+    <ul>
+      <li>Margin on the left pushes the segment to the right.</li>
+      <li>Margin on the right pushes the segment to the left.</li>
+      <li>Margin on both sides center the segment.</li>
+    </ul>
+    <p>The margin is set for different screen sizes with the following attributes:
       <code>marginExtraSmall</code>, <code>marginSmall</code>, <code>marginMedium</code>, <code>marginLarge</code>,
       <code>marginExtraLarge</code> and <code>marginExtra2Large</code>.</p>
     <p>Possible values are <code>none</code>, <code>left</code>, <code>right</code> and <code>both</code>.</p>
 
-    <demo-highlight language="markup">&lt;tc:segmentLayout extraSmall="5seg 3seg"
-      marginExtraSmall="none both left both">
-      ...
-    </demo-highlight>
-    <tc:segmentLayout extraSmall="5seg 3seg" marginExtraSmall="none both left both">
+    <p>In the example, each row has two segments that use 5 columns and 4 columns, leaving 3 columns unused.
+      <br/>
+      In the first row, no margin is set. Both segments are on the most left side. The remaining space is on the right.
+      <br/>
+      In the second row, the first segment has a margin on the left, pushing the segment to the right.
+      <br/>
+      In the third row, the first segment has margin on both sides. The margin use all available space, centering the
+      first segment. The second segment is pushed on the most right side.
+      <br/>
+      In the fourth row, the first segment has a margin on the right, unsing the remaining 3 columns, so the second
+      segment is on the most right position.
+    </p>
+    <demo-highlight language="markup">&lt;tc:segmentLayout extraSmall="5seg 4seg"
+  marginExtraSmall="none none left none both none right none">
+  ...</demo-highlight>
+    <tc:segmentLayout extraSmall="5seg 4seg"
+                      marginExtraSmall="none none left none both none right none">
       <tc:in value="none"/>
-      <tc:in value="both"/>
       <tc:in value="none"/>
-      <tc:in value="both"/>
+      <tc:in value="margin on the left"/>
       <tc:in value="none"/>
-      <tc:in value="both"/>
+      <tc:in value="margin on both sides"/>
+      <tc:in value="none"/>
+      <tc:in value="margin on the right"/>
+      <tc:in value="none"/>
     </tc:segmentLayout>
   </tc:section>
 
