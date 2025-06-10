@@ -402,7 +402,7 @@ PlacementProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
-SidebarPlacementProperty(property) ::= <<
+OffcanvasPlacementProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 

@@ -30,27 +30,27 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
-import org.apache.myfaces.tobago.layout.SidebarPlacement;
+import org.apache.myfaces.tobago.layout.OffcanvasPlacement;
 import org.apache.myfaces.tobago.model.CollapseMode;
 
 /**
- * Sidebar component for hidden content that slides into the page.
+ * Offcanvas component for hidden content that slides into the page.
  */
-@Tag(name = "sidebar")
+@Tag(name = "offcanvas")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UISidebar",
+    uiComponent = "org.apache.myfaces.tobago.component.UIOffcanvas",
     uiComponentFacesClass = "jakarta.faces.component.UIPanel",
     componentFamily = UIPanel.COMPONENT_FAMILY,
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
         "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
-    rendererType = RendererTypes.SIDEBAR,
+    rendererType = RendererTypes.OFFCANVAS,
     facets = {
         @Facet(name = Facets.BAR, description = "Code is placed in the header at the bar position."),
         @Facet(name = Facets.LABEL, description = "Code is placed in the header at the label position.")
     })
-public interface SidebarTagDeclaration extends HasIdBindingAndRendered, IsVisual, HasTip {
+public interface OffcanvasTagDeclaration extends HasIdBindingAndRendered, IsVisual, HasTip {
 
   /**
    * Indicating the collapsed state of this component.
@@ -70,18 +70,18 @@ public interface SidebarTagDeclaration extends HasIdBindingAndRendered, IsVisual
   void setCollapsedMode(String collapsed);
 
   /**
-   * Defines the placement of the sidebar. Default is "left".
+   * Defines the placement of the offcanvas. Default is "left".
    */
   @TagAttribute
   @UIComponentTagAttribute(
-      type = "org.apache.myfaces.tobago.layout.SidebarPlacement",
+      type = "org.apache.myfaces.tobago.layout.OffcanvasPlacement",
       allowedValues = {
-          SidebarPlacement.TOP,
-          SidebarPlacement.LEFT,
-          SidebarPlacement.RIGHT,
-          SidebarPlacement.BOTTOM
+          OffcanvasPlacement.TOP,
+          OffcanvasPlacement.LEFT,
+          OffcanvasPlacement.RIGHT,
+          OffcanvasPlacement.BOTTOM
       },
-      defaultValue = SidebarPlacement.LEFT,
-      defaultCode = "org.apache.myfaces.tobago.layout.SidebarPlacement.left")
+      defaultValue = OffcanvasPlacement.LEFT,
+      defaultCode = "org.apache.myfaces.tobago.layout.OffcanvasPlacement.left")
   void setPlacement(String placement);
 }
