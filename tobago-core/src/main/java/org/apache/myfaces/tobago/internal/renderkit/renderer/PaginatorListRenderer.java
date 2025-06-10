@@ -106,7 +106,7 @@ public class PaginatorListRenderer<T extends AbstractUIPaginatorList> extends Pa
 
       final Arrows arrows = paginator.getArrows();
       final boolean atBeginning = sheet.isAtBeginning();
-      if (arrows == Arrows.show || (arrows == Arrows.auto && !atBeginning)) {
+      if (arrows == Arrows.show || arrows == Arrows.auto && !atBeginning) {
         encodeLink(facesContext, atBeginning, SheetAction.first, null, Icons.SKIP_START, null);
         encodeLink(facesContext, atBeginning, SheetAction.prev, null, Icons.CARET_LEFT, null);
       }
@@ -142,7 +142,7 @@ public class PaginatorListRenderer<T extends AbstractUIPaginatorList> extends Pa
       }
 
       final boolean atEnd = sheet.isAtEnd();
-      if (arrows == Arrows.show || (arrows == Arrows.auto && !atEnd)) {
+      if (arrows == Arrows.show || arrows == Arrows.auto && !atEnd) {
         encodeLink(facesContext, atEnd, SheetAction.next, null, Icons.CARET_RIGHT, null);
         encodeLink(facesContext, atEnd || !sheet.hasRowCount(), SheetAction.last, null, Icons.SKIP_END, null);
       }

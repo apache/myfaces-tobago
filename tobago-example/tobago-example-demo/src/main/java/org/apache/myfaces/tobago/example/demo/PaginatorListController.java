@@ -55,7 +55,9 @@ public class PaginatorListController implements Serializable {
     LOG.info("apply");
   }
 
-  public Arrows[] getArrowsItems() {return Arrows.values();}
+  public Arrows[] getArrowsItems() {
+    return Arrows.values();
+  }
 
   public List<SolarObject> getSolarList() {
     if (solarList == null || solarList.size() != size) {
