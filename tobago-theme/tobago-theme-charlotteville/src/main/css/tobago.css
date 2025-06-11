@@ -13152,6 +13152,26 @@ tobago-messages .alert.alert-dismissible.alert-info:before {
   content: "\f646";
 }
 /* object ----------------------------------------------------------------- */
+tobago-offcanvas {
+  display: block;
+}
+tobago-offcanvas > .offcanvas-header > .offcanvas-title {
+  font-size: 1.25rem;
+}
+tobago-offcanvas > .offcanvas-header > .tobago-bar {
+  margin-left: auto;
+}
+tobago-offcanvas > .offcanvas-header > .tobago-bar .tobago-link {
+  color: #000000;
+  opacity: 0.5;
+}
+tobago-offcanvas > .offcanvas-header > .tobago-bar .tobago-link:hover {
+  opacity: 0.75;
+}
+tobago-offcanvas > .offcanvas-header > .tobago-bar .tobago-link:focus {
+  opacity: 1;
+}
+
 /* out -------------------------------------------------------------------- */
 tobago-out {
   display: inline-block;
@@ -13349,7 +13369,6 @@ tobago-paginator-list .page-link input, tobago-paginator-page .page-link input, 
   width: 3em;
 }
 
-/* panel ------------------------------------------------------------- */
 tobago-panel {
   display: block;
 }
@@ -13375,7 +13394,6 @@ tobago-popup .modal-content > .card {
   margin-bottom: 0;
 }
 
-/* progress ---------------------------------------------------------- */
 tobago-range {
   align-items: center;
 }
@@ -13393,8 +13411,6 @@ label.tobago-required:after {
   color: var(--bs-danger);
 }
 
-/* reload ---------------------------------------------------------- */
-/* section ----------------------------------------------------------- */
 tobago-section {
   display: block;
 }
@@ -13410,27 +13426,6 @@ tobago-section > .tobago-header > h1 > .fa:first-child, tobago-section > .tobago
   margin-right: 0.7em;
 }
 
-tobago-sidebar {
-  display: block;
-}
-tobago-sidebar > .offcanvas-header > .offcanvas-title {
-  font-size: 1.25rem;
-}
-tobago-sidebar > .offcanvas-header > .tobago-bar {
-  margin-left: auto;
-}
-tobago-sidebar > .offcanvas-header > .tobago-bar .tobago-link {
-  color: #000000;
-  opacity: 0.5;
-}
-tobago-sidebar > .offcanvas-header > .tobago-bar .tobago-link:hover {
-  opacity: 0.75;
-}
-tobago-sidebar > .offcanvas-header > .tobago-bar .tobago-link:focus {
-  opacity: 1;
-}
-
-/* stars rating ------------------------------------------------------------ */
 tobago-stars {
   display: block;
 }
