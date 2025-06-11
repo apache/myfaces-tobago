@@ -1,6 +1,6 @@
 {
   "name": "tobago-example-demo",
-  "version": "6.8.0",
+  "version": "6.8.1-SNAPSHOT",
   "description": "The demo for the Tobago framework",
   "repository": {
     "type": "git",
