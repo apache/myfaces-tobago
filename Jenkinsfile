@@ -36,6 +36,11 @@ pipeline {
 
     stages {
         stage('Prepare') {
+            when {
+                not {
+                    branch pattern: "^dependabot\/.*", comparator: "REGEXP"
+                }
+            }
             matrix {
                 agent {
                   label 'ubuntu'
@@ -69,6 +74,11 @@ pipeline {
             }
         }
         stage('Deploy') {
+            when {
+                not {
+                    branch pattern: "^dependabot\/.*", comparator: "REGEXP"
+                }
+            }
             tools {
                 maven "maven_latest"
                 jdk "jdk_17_latest"
