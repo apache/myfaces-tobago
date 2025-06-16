@@ -38,7 +38,7 @@ pipeline {
         stage('Prepare') {
             when {
                 not {
-                    branch pattern: "^dependabot\/.*", comparator: "REGEXP"
+                    branch pattern: "^dependabot/.*", comparator: "REGEXP"
                 }
             }
             matrix {
