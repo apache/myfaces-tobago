@@ -293,7 +293,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
           builder.append(c);
           lastInBuilder = c;
         }
-      } else if ('0' <= c && c <= '9') { // number
+      } else if (lastInBuilder == colon && '0' <= c && c <= '9') { // number
 
       } else { // any other
         builder.append(c);
