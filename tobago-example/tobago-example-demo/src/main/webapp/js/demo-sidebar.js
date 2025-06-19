@@ -128,8 +128,10 @@ export class Sidebar extends HTMLElement {
     }
     updateTableOfContentsScrollPosition() {
         const activeNavLinks = this.activeNavLinks;
-        const centerIndex = Math.floor(activeNavLinks.length / 2);
-        activeNavLinks.item(centerIndex).scrollIntoView({ block: "center", behavior: "smooth" });
+        if (activeNavLinks.length > 0) {
+            const centerIndex = Math.floor(activeNavLinks.length / 2);
+            activeNavLinks.item(centerIndex).scrollIntoView({ block: "center", behavior: "smooth" });
+        }
     }
     updateLeft() {
         this.style.left = this.parentElement.getBoundingClientRect().left + "px";
