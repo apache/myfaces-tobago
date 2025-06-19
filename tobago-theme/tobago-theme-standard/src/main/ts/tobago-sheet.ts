@@ -785,7 +785,7 @@ Type: ${data.type}`);
 
   private get hiddenInputWidth(): HTMLInputElement {
     const rootNode = this.getRootNode() as ShadowRoot | Document;
-    return rootNode.getElementById(this.id + "::widths") as HTMLInputElement;
+    return rootNode.querySelector("input[id='" + this.id + "::widths']");
   }
 
   get hiddenInputRenderedValue(): boolean[] {
@@ -798,7 +798,7 @@ Type: ${data.type}`);
 
   private get hiddenInputRendered(): HTMLInputElement {
     const rootNode = this.getRootNode() as ShadowRoot | Document;
-    return rootNode.getElementById(this.id + "::rendered") as HTMLInputElement;
+    return rootNode.querySelector("input[id='" + this.id + "::rendered']");
   }
 
   /**
@@ -842,7 +842,7 @@ Type: ${data.type}`);
 
   private get hiddenInputScrollPosition(): HTMLInputElement {
     const rootNode = this.getRootNode() as ShadowRoot | Document;
-    return rootNode.getElementById(this.id + "::scrollPosition") as HTMLInputElement;
+    return rootNode.querySelector("input[id='" + this.id + "::scrollPosition']");
   }
 
   get selected(): Set<number> {
@@ -868,12 +868,12 @@ Type: ${data.type}`);
 
   private get hiddenInputSelected(): HTMLInputElement {
     const rootNode = this.getRootNode() as ShadowRoot | Document;
-    return rootNode.getElementById(this.id + "::selected") as HTMLInputElement;
+    return rootNode.querySelector("input[id='" + this.id + "::selected']");
   }
 
   get hiddenExpanded(): HTMLInputElement {
     const rootNode = this.getRootNode() as ShadowRoot | Document;
-    return rootNode.getElementById(this.id + "::expanded") as HTMLInputElement;
+    return rootNode.querySelector("input[id='" + this.id + "::expanded']");
   }
 
   get lastClickedRowIndex(): number {
@@ -906,7 +906,7 @@ Type: ${data.type}`);
 
   private get hiddenInputLazyScrollPosition(): HTMLInputElement {
     const rootNode = this.getRootNode() as ShadowRoot | Document;
-    return rootNode.getElementById(this.id + "::lazyScrollPosition") as HTMLInputElement;
+    return rootNode.querySelector("input[id='" + this.id + "::lazyScrollPosition']");
   }
 
   get lazyRows(): number {
