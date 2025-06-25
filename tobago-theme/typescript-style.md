@@ -4,7 +4,7 @@ Ready Rules
 Data Objects:
 ---
 * class vs. interfaces (todo: internet says interface, but why?)
-* Using JSON.parse + JSON.stringify to store data objects in element.dataset 
+* Using JSON.parse + JSON.stringify to store data objects in element.dataset
 
 
 Open Questions:
