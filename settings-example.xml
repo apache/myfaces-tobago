@@ -18,7 +18,7 @@
 <settings>
   <servers>
 
-   <server> 
+   <server>
       <!-- example tomcat configuration -->
       <username>tomcat</username>
       <password>tomcat</password>
