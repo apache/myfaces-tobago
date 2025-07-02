@@ -267,7 +267,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       tableBodyWidth = tableBodyWidth.subtractNotNegative(getVerticalScrollbarWeight(facesContext, sheet));
     }
     List<Integer> dataWidths = null;
-    if (columnWidths != null) {
+    if (columnWidths != null && !columnWidths.isEmpty()) {
       dataWidths = new ArrayList<Integer>(columnWidths);
       int usedWidth = 0;
       for (int i = 0, dataWidthsSize = dataWidths.size(); i < dataWidthsSize - 1; i++) {
