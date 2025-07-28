@@ -23,15 +23,16 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 /**
- * @deprecated since Tobago 2.0.0. Conflicts with CSP.
+ * @deprecated since Tobago 2.0.0. This attribute does not work with CSP (Content Security Policy).
  */
 @Deprecated
 public interface HasOnclick {
   /**
-   * Script to be invoked when clicked
+   * Script to be invoked when clicked.
+   *
+   * @deprecated since Tobago 2.0.0. This attribute does not work with CSP (Content Security Policy).
    */
   @TagAttribute
   @UIComponentTagAttribute()
   void setOnclick(String onclick);
-
 }
