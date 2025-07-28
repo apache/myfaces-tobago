@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 /**
- * @deprecated Since 2.0.0. This attribute work not with SCP
+ * @deprecated Since 2.0.0. This attribute does not work with CSP (Content Security Policy).
  */
 @Deprecated
 public interface HasOnchange {
@@ -31,7 +31,7 @@ public interface HasOnchange {
   /**
    * Client side script function to add to this component's onchange handler.
    *
-   * @deprecated Since 2.0.0. This attribute work not with SCP
+   * @deprecated Since 2.0.0. This attribute does not work with CSP (Content Security Policy).
    */
   @Deprecated
   @TagAttribute
