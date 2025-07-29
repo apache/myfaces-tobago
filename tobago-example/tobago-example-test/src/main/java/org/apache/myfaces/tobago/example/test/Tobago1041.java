@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.example.test;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
 
 import javax.faces.application.FacesMessage;

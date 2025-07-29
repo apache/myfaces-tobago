@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.apt.generate;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class PropertyInfo {
   private String name;
