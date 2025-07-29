@@ -316,8 +316,8 @@ public class TaglibGenerator extends AbstractGenerator {
     final String deprecated = "@deprecated";
     final int begin = string.indexOf(deprecated);
     if (begin > -1) {
-      String comment = string.substring(begin + deprecated.length());
-      final int end = string.indexOf("@");
+      String comment = string.substring(begin);
+      final int end = comment.indexOf("@", 1);
       if (end > -1) {
         comment = string.substring(0, end);
       }
