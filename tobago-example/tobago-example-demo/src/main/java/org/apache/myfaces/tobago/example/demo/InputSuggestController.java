@@ -19,7 +19,7 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
-import org.apache.commons.lang.math.RandomUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.apache.myfaces.tobago.model.AutoSuggestExtensionItem;
 import org.apache.myfaces.tobago.model.AutoSuggestItem;
 import org.apache.myfaces.tobago.model.AutoSuggestItems;
@@ -125,7 +125,7 @@ public class InputSuggestController implements Serializable {
       prefix = "";
     }
     final List<String> list = new ArrayList<String>();
-    final int n = RandomUtils.nextInt(10);
+    final int n = RandomUtils.insecure().randomInt(0, 10);
     for (int i = 0; i < n; i++) {
       list.add(prefix + i);
     }
