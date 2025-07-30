@@ -32,6 +32,7 @@ public interface HasOnclick {
    *
    * @deprecated since Tobago 2.0.0. This attribute does not work with CSP (Content Security Policy).
    */
+  @Deprecated
   @TagAttribute
   @UIComponentTagAttribute()
   void setOnclick(String onclick);
