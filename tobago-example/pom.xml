@@ -36,7 +36,8 @@
     CVE-2022-22968(5.3), CVE-2022-22965(9.8), CVE-2016-1000027(9.8),
     CVE-2022-22968(5.3), CVE-2022-22965(9.8), CVE-2016-1000027(9.8)
     <module>tobago-example-addressbook</module>-->
-    <module>tobago-example-addressbook-cdi</module>
+    <!--disable tobago-example-addressbook-cdi because of CVE-2025-48924
+    <module>tobago-example-addressbook-cdi</module>-->
     <module>tobago-example-blank</module>
     <module>tobago-example-data</module>
     <module>tobago-example-demo</module>
