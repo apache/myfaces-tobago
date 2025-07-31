@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.internal.util.AccessKeyLogger;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
@@ -43,6 +44,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InRenderer<T extends AbstractUIIn> extends DecorationPositionRendererBase<T> {
 
@@ -56,6 +59,18 @@ public class InRenderer<T extends AbstractUIIn> extends DecorationPositionRender
   @Override
   public HtmlElements getComponentTag() {
     return HtmlElements.TOBAGO_IN;
+  }
+
+  @Override
+  protected CssItem[] getComponentCss(final FacesContext facesContext, final T component) {
+    List<CssItem> cssItems = new ArrayList<>();
+    if (component.isReadonly()) {
+      cssItems.add(TobagoClass.READONLY);
+    }
+    if (component.isDisabled()) {
+      cssItems.add(TobagoClass.DISABLED);
+    }
+    return cssItems.toArray(new CssItem[0]);
   }
 
   @Override
