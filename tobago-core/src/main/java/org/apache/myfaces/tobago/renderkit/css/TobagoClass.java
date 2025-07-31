@@ -93,6 +93,7 @@ public enum TobagoClass implements CssItem {
   BUTTON__LEFT("tobago-button-left"),
   BUTTON__RIGHT("tobago-button-right"),
   RANGE("tobago-range"),
+  READONLY("tobago-readonly"),
   REQUIRED("tobago-required"),
   RESIZE("tobago-resize"),
   ROW__FILLER("tobago-row-filler"),

@@ -848,6 +848,10 @@ tobago-image {
 tobago-in {
   display: block;
 
+  &.tobago-readonly {
+    //added because of TobagoClassUnitTest
+  }
+
   .input-group {
     > tobago-dropdown {
       /* fix corner styling, because tobago-dropdown use a surrounding container inside an input group */
