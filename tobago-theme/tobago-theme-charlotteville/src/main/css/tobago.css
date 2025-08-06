@@ -13268,7 +13268,7 @@ tobago-page .tobago-page-menuStore .tobago-options .table tbody tr {
   cursor: pointer;
 }
 tobago-page .tobago-page-menuStore .tobago-options .table tbody tr.tobago-disabled {
-  background-color: #323232;
+  --bs-table-bg: #323232;
   cursor: initial;
   pointer-events: none;
 }
@@ -13689,7 +13689,7 @@ tobago-select-one-list .tobago-options .table tbody tr {
   cursor: pointer;
 }
 tobago-select-one-list .tobago-options .table tbody tr.tobago-disabled {
-  background-color: #323232;
+  --bs-table-bg: #323232;
   cursor: initial;
   pointer-events: none;
 }
@@ -13892,7 +13892,7 @@ tobago-select-many-list .tobago-options .table tbody tr {
   cursor: pointer;
 }
 tobago-select-many-list .tobago-options .table tbody tr.tobago-disabled {
-  background-color: #323232;
+  --bs-table-bg: #323232;
   cursor: initial;
   pointer-events: none;
 }
