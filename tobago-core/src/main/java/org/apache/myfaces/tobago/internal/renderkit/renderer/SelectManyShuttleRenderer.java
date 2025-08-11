@@ -64,8 +64,8 @@ public class SelectManyShuttleRenderer<T extends AbstractUISelectManyShuttle> ex
     }
 //    final boolean hasLabel = component.hasLabel(); // XXX is needed?
     final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, component);
-    final boolean disabled = !items.iterator().hasNext() || component.isDisabled();
     final boolean readonly = component.isReadonly();
+    final boolean disabled = !items.iterator().hasNext() || component.isDisabled() || readonly;
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(TobagoClass.UNSELECTED__CONTAINER);
