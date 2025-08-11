@@ -113,4 +113,44 @@ public class SelectManyShuttleRendererUnitTest extends RendererTestBase {
 
     Assertions.assertEquals(loadHtml("renderer/selectManyShuttle/help.html"), formattedResult());
   }
+
+  @Test
+  public void readonly() throws IOException {
+    final UISelectManyShuttle c = (UISelectManyShuttle) ComponentUtils.createComponent(
+        facesContext, Tags.selectManyShuttle.componentType(), RendererTypes.SelectManyShuttle, "id");
+    c.setReadonly(true);
+
+    final UISelectItem i1 = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "i1");
+    i1.setItemLabel("Value 1");
+    c.getChildren().add(i1);
+    final UISelectItem i2 = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "i2");
+    i2.setItemLabel("Value 2");
+    c.getChildren().add(i2);
+
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/selectManyShuttle/readonly.html"), formattedResult());
+  }
+
+  @Test
+  public void disabled() throws IOException {
+    final UISelectManyShuttle c = (UISelectManyShuttle) ComponentUtils.createComponent(
+        facesContext, Tags.selectManyShuttle.componentType(), RendererTypes.SelectManyShuttle, "id");
+    c.setDisabled(true);
+
+    final UISelectItem i1 = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "i1");
+    i1.setItemLabel("Value 1");
+    c.getChildren().add(i1);
+    final UISelectItem i2 = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "i2");
+    i2.setItemLabel("Value 2");
+    c.getChildren().add(i2);
+
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/selectManyShuttle/disabled.html"), formattedResult());
+  }
 }
