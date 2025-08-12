@@ -130,6 +130,12 @@ $icon-sort-numbers: (
   }
 }
 
+@mixin formCheckInput() {
+  .form-check-input:not(:checked):disabled {
+    background-color: rgba($border-color, 0.5);
+  }
+}
+
 @mixin formControlFocusShadows() {
   //_form-control:focus from bootstrap
   @if $enable-shadows {
@@ -1525,12 +1531,14 @@ tobago-stars {
 tobago-select-boolean-checkbox {
   display: block;
   @include adjustCustomControlLabel();
+  @include formCheckInput();
 }
 
 /* selectBooleanToggle ---------------------------------------------------- */
 tobago-select-boolean-toggle {
   display: block;
   @include adjustCustomControlLabel();
+  @include formCheckInput();
 }
 
 tobago-select-one-choice {
@@ -1556,11 +1564,11 @@ tobago-select-one-listbox {
   display: block;
 }
 
-/* selectOneRadio ---------------------------------------------------------- */
 tobago-select-one-radio {
   display: block;
   @include adjustCustomControlLabel();
   @include radioCheckboxInline();
+  @include formCheckInput();
 
   &.tobago-label-container {
     .form-check-inline {
@@ -1605,15 +1613,13 @@ tobago-select-many-checkbox {
   display: block;
   @include adjustCustomControlLabel();
   @include radioCheckboxInline();
+  @include formCheckInput();
 
   &.tobago-label-container {
     .form-check-inline {
       @include inlinePadding();
     }
   }
-}
-
-.tobago-selectManyCheckbox {
 }
 
 tobago-select-many-listbox {
@@ -1652,10 +1658,6 @@ tobago-select-many-shuttle {
     }
   }
 }
-
-/* selectOneChoice ---------------------------------------------------------- */
-
-/* segmentLayout ----------------------------------------------------------- */
 
 tobago-segment-layout {
   /*
@@ -1796,12 +1798,11 @@ tobago-sheet {
 
       td {
         overflow: hidden;
-
         @include treeNodeMarginLeftLevel();
 
-        > input.tobago-selected {
-          margin-top: ($spacer * 0.75);
-          margin-bottom: ($spacer * 0.75);
+        &.tobago-column-selector {
+          vertical-align: middle;
+          @include formCheckInput();
         }
 
         > tobago-out {

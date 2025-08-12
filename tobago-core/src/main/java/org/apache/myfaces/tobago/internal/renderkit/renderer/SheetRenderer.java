@@ -608,6 +608,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
                     column instanceof AbstractUIColumn ? ((AbstractUIColumn) column).getAlign() : null),
                 BootstrapClass.verticalAlign(
                     column instanceof AbstractUIColumn ? ((AbstractUIColumn) column).getVerticalAlign() : null),
+                column instanceof AbstractUIColumnSelector ? TobagoClass.COLUMN__SELECTOR : null,
                 column.getCustomClass());
 
             if (column instanceof AbstractUIColumnSelector selector) {
@@ -626,7 +627,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
               writer.writeAttribute(HtmlAttributes.CHECKED, selected);
               writer.writeAttribute(HtmlAttributes.DISABLED, selector.isDisabled());
               writer.writeClassAttribute(
-                  BootstrapClass.FORM_CHECK_INLINE,
+                  BootstrapClass.FORM_CHECK_INPUT,
                   TobagoClass.SELECTED);
               writer.endElement(HtmlElements.INPUT);
             } else if (column instanceof AbstractUIColumnNode) {
@@ -915,7 +916,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
                 writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
               }
               writer.writeNameAttribute(sheetClientId + SUFFIX_COLUMN_SELECTOR);
-              writer.writeClassAttribute(TobagoClass.SELECTED);
+              writer.writeClassAttribute(TobagoClass.SELECTED, BootstrapClass.FORM_CHECK_INPUT);
               writer.writeAttribute(DataAttributes.SELECTION_MODE, currentSelectable.name(), false);
               writer.endElement(HtmlElements.INPUT);
             } else {
