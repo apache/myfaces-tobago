@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="jakarta.faces.facelets">
+
+  <tc:section label="tc:selectBooleanCheckbox">
+    <tc:flexLayout columns="auto">
+      <tc:selectBooleanCheckbox id="selectBooleanCheckbox" value="false"/>
+      <tc:selectBooleanCheckbox id="selectBooleanCheckboxChecked" value="true"/>
+      <tc:selectBooleanCheckbox id="selectBooleanCheckboxDisabled" value="false" disabled="true"/>
+      <tc:selectBooleanCheckbox id="selectBooleanCheckboxCheckedDisabled" value="true" disabled="true"/>
+    </tc:flexLayout>
+  </tc:section>
+
+  <tc:section label="tc:selectBooleanToggle">
+    <tc:flexLayout columns="auto">
+      <tc:selectBooleanToggle id="selectBooleanToggle" value="false"/>
+      <tc:selectBooleanToggle id="selectBooleanToggleChecked" value="true"/>
+      <tc:selectBooleanToggle id="selectBooleanToggleDisabled" value="false" disabled="true"/>
+      <tc:selectBooleanToggle id="selectBooleanToggleCheckedDisabled" value="true" disabled="true"/>
+    </tc:flexLayout>
+  </tc:section>
+
+  <tc:section label="tc:selectOneRadio">
+    <tc:flexLayout columns="auto">
+      <tc:selectOneRadio id="selectOneRadio" value="dog">
+        <tc:selectItem itemLabel="Cat" itemValue="cat"/>
+        <tc:selectItem itemLabel="Dog" itemValue="dog"/>
+      </tc:selectOneRadio>
+
+      <tc:selectOneRadio id="selectOneRadioDisabled" value="rabbit">
+        <tc:selectItem itemLabel="Fox" itemValue="fox" itemDisabled="true"/>
+        <tc:selectItem itemLabel="Rabbit" itemValue="rabbit" itemDisabled="true"/>
+      </tc:selectOneRadio>
+    </tc:flexLayout>
+  </tc:section>
+
+  <tc:section label="tc:selectManyCheckbox">
+    <tc:selectManyCheckbox id="selectManyCheckbox" value="#{checkboxController.animals}">
+      <tc:selectItem itemLabel="Cat" itemValue="cat"/>
+      <tc:selectItem itemLabel="Dog" itemValue="dog"/>
+      <tc:selectItem itemLabel="Fox" itemValue="fox" itemDisabled="true"/>
+      <tc:selectItem itemLabel="Rabbit" itemValue="rabbit" itemDisabled="true"/>
+    </tc:selectManyCheckbox>
+  </tc:section>
+
+  <tc:section label="tc:sheet">
+    <tc:sheet id="sheetMulti" value="#{checkboxController.solarList}" var="object" rows="4"
+              selectable="multi" state="#{checkboxController.sheetState}">
+      <tc:columnSelector disabled="#{object.name == 'Venus' || object.name == 'Earth'}"/>
+      <tc:column label="Name">
+        <tc:in value="#{object.name}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="Orbit">
+        <tc:out value="#{object.orbit}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="Period (Days)">
+        <tc:out value="#{object.period}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="Discoverer">
+        <tc:out value="#{object.discoverer}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="Year">
+        <tc:out value="#{object.discoverYear}" labelLayout="skip"/>
+      </tc:column>
+    </tc:sheet>
+
+    <tc:sheet id="sheetSingle" value="#{checkboxController.solarList}" var="object" rows="4"
+              selectable="single" state="#{checkboxController.sheetState}">
+      <tc:columnSelector disabled="#{object.name == 'Venus' || object.name == 'Earth'}"/>
+      <tc:column label="Name">
+        <tc:in value="#{object.name}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="Orbit">
+        <tc:out value="#{object.orbit}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="Period (Days)">
+        <tc:out value="#{object.period}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="Discoverer">
+        <tc:out value="#{object.discoverer}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="Year">
+        <tc:out value="#{object.discoverYear}" labelLayout="skip"/>
+      </tc:column>
+    </tc:sheet>
+  </tc:section>
+</ui:composition>
