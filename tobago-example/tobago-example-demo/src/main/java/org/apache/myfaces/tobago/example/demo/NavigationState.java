@@ -166,7 +166,7 @@ public class NavigationState implements Serializable {
 
   public String gotoTestSection() {
     showTestSection = true;
-    return "/content/900-test/Test.xhtml";
+    return gotoNode(((NavigationNode) tree.getTree().getLastChild()).getNextNode());
   }
 
   public String deactivateTestSection() {
