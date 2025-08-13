@@ -13540,6 +13540,9 @@ tobago-select-boolean-checkbox .form-check-label:after {
 tobago-select-boolean-checkbox .form-check-label img {
   padding-right: 0.3em;
 }
+tobago-select-boolean-checkbox .form-check-input:not(:checked):disabled {
+  background-color: rgba(222, 226, 230, 0.5);
+}
 
 /* selectBooleanToggle ---------------------------------------------------- */
 tobago-select-boolean-toggle {
@@ -13550,6 +13553,9 @@ tobago-select-boolean-toggle .form-check-label:after {
 }
 tobago-select-boolean-toggle .form-check-label img {
   padding-right: 0.3em;
+}
+tobago-select-boolean-toggle .form-check-input:not(:checked):disabled {
+  background-color: rgba(222, 226, 230, 0.5);
 }
 
 tobago-select-one-choice {
@@ -13741,7 +13747,6 @@ tobago-select-one-listbox {
   display: block;
 }
 
-/* selectOneRadio ---------------------------------------------------------- */
 tobago-select-one-radio {
   display: block;
 }
@@ -13753,6 +13758,9 @@ tobago-select-one-radio .form-check-label img {
 }
 tobago-select-one-radio label + .form-check-inline {
   display: block;
+}
+tobago-select-one-radio .form-check-input:not(:checked):disabled {
+  background-color: rgba(222, 226, 230, 0.5);
 }
 tobago-select-one-radio.tobago-label-container .form-check-inline {
   padding-top: calc(0.375rem + var(--bs-border-width));
@@ -13965,6 +13973,9 @@ tobago-select-many-checkbox .form-check-label img {
 tobago-select-many-checkbox label + .form-check-inline {
   display: block;
 }
+tobago-select-many-checkbox .form-check-input:not(:checked):disabled {
+  background-color: rgba(222, 226, 230, 0.5);
+}
 tobago-select-many-checkbox.tobago-label-container .form-check-inline {
   padding-top: calc(0.375rem + var(--bs-border-width));
   padding-bottom: calc(0.375rem + var(--bs-border-width));
@@ -13997,8 +14008,6 @@ tobago-select-many-shuttle.tobago-label-container > .tobago-body, tobago-select-
   flex: 1 0 0px;
 }
 
-/* selectOneChoice ---------------------------------------------------------- */
-/* segmentLayout ----------------------------------------------------------- */
 tobago-segment-layout {
   /*
   Makes, that the height of the div is set.
@@ -14206,9 +14215,11 @@ tobago-sheet .tobago-body .table td tobago-tree-node[data-tobago-level="19"] {
 tobago-sheet .tobago-body .table td tobago-tree-node[data-tobago-level="20"] {
   margin-left: 20rem;
 }
-tobago-sheet .tobago-body .table td > input.tobago-selected {
-  margin-top: 0.75rem;
-  margin-bottom: 0.75rem;
+tobago-sheet .tobago-body .table td.tobago-column-selector {
+  vertical-align: middle;
+}
+tobago-sheet .tobago-body .table td.tobago-column-selector .form-check-input:not(:checked):disabled {
+  background-color: rgba(222, 226, 230, 0.5);
 }
 tobago-sheet .tobago-body .table td > tobago-out {
   display: block;
