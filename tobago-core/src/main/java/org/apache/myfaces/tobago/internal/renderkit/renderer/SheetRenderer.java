@@ -803,6 +803,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
               align = null;
             }
             writer.writeClassAttribute(
+                column instanceof AbstractUIColumnSelector ? TobagoClass.COLUMN__SELECTOR : null,
                 BootstrapClass.textAlign(align),
                 column.getCustomClass());
             writer.startElement(HtmlElements.SPAN);
