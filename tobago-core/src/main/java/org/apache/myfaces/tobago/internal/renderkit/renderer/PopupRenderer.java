@@ -52,6 +52,7 @@ public class PopupRenderer<T extends AbstractUIPopup> extends CollapsiblePanelRe
 
     if (modal) {
       ComponentUtils.putDataAttribute(component, "bs-backdrop", "static");
+      ComponentUtils.putDataAttribute(component, "bs-keyboard", "false");
     }
 
     writer.startElement(HtmlElements.TOBAGO_POPUP);
