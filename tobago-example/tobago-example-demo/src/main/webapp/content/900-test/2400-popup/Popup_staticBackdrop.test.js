@@ -53,6 +53,41 @@ it("Open 'modal=false'-Popup, close it, press 'Submit'", function (done) {
   test.start();
 });
 
+it("Open 'modal=false'-Popup, close it via ESC, press 'Submit'", function (done) {
+  const timestampOutput = querySelectorFn("#page\\:mainForm\\:timestamp .form-control-plaintext");
+  const openButton = elementByIdFn("page:mainForm:showModalFalse");
+  const submit = elementByIdFn("page:mainForm:submit");
+  const wrapper = elementByIdFn("page:mainForm:popupWrapper");
+  const popup = elementByIdFn("page:mainForm:modalFalse");
+  const collapse = elementByIdFn("page:mainForm:modalFalse::collapse");
+
+  let timestamp;
+  let shownEventCount = 0;
+  let hiddenEventCount = 0;
+  wrapper().addEventListener("shown.bs.modal", () => shownEventCount++);
+  wrapper().addEventListener("hidden.bs.modal", () => hiddenEventCount++);
+
+  const test = new JasmineTestTool(done);
+  test.do(() => expect(popup().classList).not.toContain("show"));
+  test.do(() => expect(collapse().getAttribute("value")).toBe("true"));
+
+  test.event("click", openButton, () => shownEventCount === 1);
+  test.do(() => expect(popup().classList).toContain("show"));
+  test.do(() => expect(collapse().getAttribute("value")).toBe("false"));
+
+  test.do(() => popup().dispatchEvent(new KeyboardEvent("keydown", {key: "Escape", bubbles: true})));
+  test.wait(() => hiddenEventCount === 1);
+  test.do(() => expect(popup().classList).not.toContain("show"));
+  test.do(() => expect(collapse().getAttribute("value")).toBe("true"));
+
+  test.do(() => timestamp = Number(timestampOutput().textContent));
+  test.event("click", submit, () => Number(timestampOutput().textContent) > timestamp);
+  test.do(() => expect(popup().classList).not.toContain("show"));
+  test.do(() => expect(collapse().getAttribute("value")).toBe("true"));
+
+  test.start();
+});
+
 it("Open 'modal=true'-Popup, close it, press 'Submit'", function (done) {
   const body = querySelectorFn("body");
   const timestampOutput = querySelectorFn("#page\\:mainForm\\:timestamp .form-control-plaintext");
@@ -81,6 +116,38 @@ it("Open 'modal=true'-Popup, close it, press 'Submit'", function (done) {
 
   test.do(() => timestamp = Number(timestampOutput().textContent));
   test.event("click", submit, () => Number(timestampOutput().textContent) > timestamp);
+  test.do(() => expect(popup().classList).not.toContain("show"));
+  test.do(() => expect(collapse().getAttribute("value")).toBe("true"));
+
+  test.start();
+});
+
+it("Open 'modal=true'-Popup, try to close it via ESC", function (done) {
+  const body = querySelectorFn("body");
+  const openButton = elementByIdFn("page:mainForm:showModalTrue");
+  const wrapper = elementByIdFn("page:mainForm:popupWrapper");
+  const popup = elementByIdFn("page:mainForm:modalTrue");
+  const collapse = elementByIdFn("page:mainForm:modalTrue::collapse");
+  const closeButton = elementByIdFn("page:mainForm:modalTrue:hideModalTrue");
+
+  let shownEventCount = 0;
+  wrapper().addEventListener("shown.bs.modal", () => shownEventCount++);
+
+  const test = new JasmineTestTool(done);
+  test.do(() => expect(popup().classList).not.toContain("show"));
+  test.do(() => expect(collapse().getAttribute("value")).toBe("true"));
+
+  test.event("click", openButton, () => shownEventCount === 1);
+  test.do(() => expect(popup().classList).toContain("show"));
+  test.do(() => expect(collapse().getAttribute("value")).toBe("false"));
+
+  test.do(() => popup().dispatchEvent(new KeyboardEvent("keydown", {key: "Escape", bubbles: true})));
+  test.waitMs(1000);
+  test.do(() => expect(popup().classList).toContain("show"));
+  test.do(() => expect(collapse().getAttribute("value")).toBe("false"));
+
+  //finally close via close button
+  test.event("click", closeButton, () => !body().classList.contains("modal-open"));
   test.do(() => expect(popup().classList).not.toContain("show"));
   test.do(() => expect(collapse().getAttribute("value")).toBe("true"));
 
