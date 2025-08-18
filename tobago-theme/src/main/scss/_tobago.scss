@@ -1885,29 +1885,21 @@ tobago-split-layout {
   z-index: 10000; /* TODO: check, if needed (check also with iframes) */
 }
 
-tobago-tab {
-  .nav-link:not([href]):not([tabindex]) {
-    /* fix .nav-links without 'href'; bootstrap tab only works if 'href' is set */
-    &.active {
-      color: $nav-tabs-link-active-color;
-      cursor: pointer;
-    }
-
-    &:not(.active) {
-      color: $link-color;
-      cursor: pointer;
-
-      &:hover {
-        color: $link-hover-color;
-      }
-    }
-
+tobago-tab-group {
+  tobago-tab {
     &.disabled {
-      color: $nav-link-disabled-color;
       cursor: not-allowed;
+    }
 
-      &:focus, &:hover {
-        color: $nav-link-disabled-color;
+    .nav-link {
+      @include imageTextSpacing();
+
+      &.active {
+        cursor: default; //cursor must be set for .nav-links without "href"
+      }
+
+      &:not(.active) {
+        cursor: pointer; //cursor must be set for .nav-links without "href"
       }
     }
   }
@@ -1947,14 +1939,6 @@ tobago-tab.tobago-bar {
     & > a {
       display: inline-block;
       padding-top: 0.5rem;
-    }
-  }
-}
-
-tobago-tab-group {
-  tobago-tab {
-    > .nav-link {
-      @include imageTextSpacing();
     }
   }
 }
