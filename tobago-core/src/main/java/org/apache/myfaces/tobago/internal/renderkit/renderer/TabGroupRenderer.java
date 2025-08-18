@@ -243,6 +243,7 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
           writer.writeClassAttribute(
               BootstrapClass.NAV_ITEM,
               barFacet != null ? TobagoClass.BAR : null,
+              disabled ? BootstrapClass.DISABLED : null,
               tab.getCustomClass());
           writer.writeAttribute(HtmlAttributes.FOR, tabGroupClientId, true);
           writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.PRESENTATION.toString(), false);
