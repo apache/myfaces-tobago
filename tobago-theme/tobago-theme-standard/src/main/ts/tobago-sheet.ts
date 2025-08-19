@@ -628,6 +628,12 @@ Type: ${data.type}`);
       });
 
       clickElement.addEventListener("click", (event: MouseEvent) => {
+        const target = (event.target as HTMLElement);
+        if (target.closest("tobago-dropdown")) {
+          // do not change selection
+          // the click event must go to the document to trigger the globalClickEvent of other dropdown menus.
+          return;
+        }
         const row: HTMLTableRowElement = (event.currentTarget as HTMLElement).closest("tr");
 
         if (this.mousedownOnRowData) { // integration test: mousedownOnRowData may be 'null'
