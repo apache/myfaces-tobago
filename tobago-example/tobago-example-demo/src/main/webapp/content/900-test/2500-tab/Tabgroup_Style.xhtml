@@ -19,6 +19,7 @@
 
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="jakarta.faces.core"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="jakarta.faces.facelets">
   <tc:tabGroup id="tabGroup">
@@ -41,6 +42,59 @@
     <tc:tab id="tabSix" label="Six">
       <tc:style customClass="tab-six-custom"/>
       Sixth tab.
+    </tc:tab>
+  </tc:tabGroup>
+
+  <tc:tabGroup id="tabGroup2">
+    <tc:tab id="tabFirst" label="First">
+      <tc:out value="Content of tabFirst."/>
+    </tc:tab>
+    <tc:tab id="tabNormal" label="Normal">
+      <tc:out value="Content of tabNormal."/>
+    </tc:tab>
+    <tc:tab id="tabDisabled" label="Disabled" disabled="true">
+      <tc:out value="Content of tabDisabled."/>
+    </tc:tab>
+    <tc:tab id="tabIcon" label="Icon" image="bi-exclamation-circle-fill">
+      <tc:out value="Content of tabIcon."/>
+    </tc:tab>
+    <tc:tab id="tabBarFacetClose" label="Facet: close">
+      <f:facet name="bar">
+        <tc:link image="fa-times" omit="true"/>
+      </f:facet>
+      <tc:out value="Content of tabBarFacetClose."/>
+    </tc:tab>
+    <tc:tab id="tabBarFacetCloseDisabled" label="Facet: close disabled" disabled="true">
+      <f:facet name="bar">
+        <tc:link image="fa-times" omit="true"/>
+      </f:facet>
+      <tc:out value="Content of tabBarFacetClose."/>
+    </tc:tab>
+    <tc:tab id="tabBarFacetLink" label="Facet: link">
+      <f:facet name="bar">
+        <tc:link label="apache.org" link="https://www.apache.org/"/>
+      </f:facet>
+      <tc:out value="Content of tabBarFacetLink."/>
+    </tc:tab>
+    <tc:tab id="tabBarFacetImage" label="Facet: image">
+      <f:facet name="bar">
+        <tc:image value="bi-check-circle-fill"/>
+      </f:facet>
+      <tc:out value="Content of tabBarFacetImage."/>
+    </tc:tab>
+    <tc:tab id="tabBarFacetText" label="Facet: text">
+      <f:facet name="bar">
+        text
+      </f:facet>
+      <tc:out value="Content of tabBarFacetText."/>
+    </tc:tab>
+    <tc:tab id="tabBarFacetCombine" label="Facet: combine">
+      <f:facet name="bar">
+        <tc:link image="fa-times" omit="true"/>
+        <tc:image value="bi-check-circle-fill"/>
+        <tc:link image="fa-times" omit="true"/>
+      </f:facet>
+      <tc:out value="Content of tabBarFacet."/>
     </tc:tab>
   </tc:tabGroup>
 </ui:composition>
