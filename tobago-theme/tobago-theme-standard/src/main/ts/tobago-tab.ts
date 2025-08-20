@@ -60,6 +60,20 @@ export class Tab extends HTMLElement {
     if (!navLink.classList.contains(Css.DISABLED)) {
       navLink.addEventListener("click", this.select.bind(this));
     }
+
+    if (this.classList.contains(Css.TOBAGO_BAR)) {
+      this.addEventListener("mouseenter", () => this.classList.add(Css.TOBAGO_HOVER));
+      this.addEventListener("mouseleave", () => this.classList.remove(Css.TOBAGO_HOVER));
+
+      const mutationObserver = new MutationObserver((mutations, observer) => {
+        if (this.navLink.classList.contains(Css.ACTIVE)) {
+          this.classList.add(Css.TOBAGO_ACTIVE);
+        } else {
+          this.classList.remove(Css.TOBAGO_ACTIVE);
+        }
+      });
+      mutationObserver.observe(this.navLink, {attributes: true, attributeFilter: ["class"]});
+    }
   }
 
   get index(): number {
@@ -68,6 +82,10 @@ export class Tab extends HTMLElement {
 
   get navLink(): HTMLLinkElement {
     return this.querySelector(".nav-link");
+  }
+
+  get barFacet(): HTMLDivElement {
+    return this.querySelector(":scope > div");
   }
 
   get tabGroup(): TabGroup {

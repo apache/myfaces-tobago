@@ -1891,7 +1891,42 @@ tobago-tab-group {
       cursor: not-allowed;
     }
 
-    .nav-link {
+    &.tobago-bar {
+      display: flex;
+
+      &.tobago-hover:not(.disabled):not(.tobago-active) {
+        > .nav-link {
+          border-color: var(--#{$prefix}nav-tabs-link-hover-border-color);
+        }
+
+        > div {
+          border-color: var(--#{$prefix}nav-tabs-link-hover-border-color);
+        }
+      }
+
+      > .nav-link {
+        border-right: 0;
+        border-top-right-radius: 0;
+
+        &.active + div {
+          background-color: var(--#{$prefix}card-bg);
+          border-color: var(--#{$prefix}nav-tabs-link-active-border-color);
+          border-bottom-color: var(--#{$prefix}card-bg);
+        }
+      }
+
+      > div {
+        padding: var(--#{$prefix}nav-link-padding-y) var(--#{$prefix}nav-link-padding-x);
+        padding-left: 0;
+        border: $nav-tabs-border-width solid transparent;
+        border-top-right-radius: $nav-tabs-border-radius;
+        border-left: 0;
+        margin-bottom: calc(-1 * var(--bs-nav-tabs-border-width));
+        @include transition($nav-link-transition);
+      }
+    }
+
+    > .nav-link {
       @include imageTextSpacing();
 
       &.active {
@@ -1901,44 +1936,6 @@ tobago-tab-group {
       &:not(.active) {
         cursor: pointer; //cursor must be set for .nav-links without "href"
       }
-    }
-  }
-}
-
-tobago-tab.tobago-bar {
-  display: flex;
-
-  > .nav-link {
-    border-right: 0;
-    border-top-right-radius: 0;
-
-    &:hover:not(.disabled):not(.active) + div {
-      border-color: var(--#{$prefix}nav-tabs-link-hover-border-color);
-    }
-
-    &.active + div {
-      background-color: var(--#{$prefix}card-bg);
-      border-color: var(--#{$prefix}nav-tabs-link-active-border-color);
-      border-bottom-color: var(--#{$prefix}card-bg);
-    }
-  }
-
-  > div {
-    padding: var(--#{$prefix}nav-link-padding-y) var(--#{$prefix}nav-link-padding-x);
-    padding-left: 0;
-    border: $nav-tabs-border-width solid transparent;
-    border-top-right-radius: $nav-tabs-border-radius;
-    border-left: 0;
-    margin-bottom: calc(-1 * var(--bs-nav-tabs-border-width));
-    @include transition($nav-link-transition);
-
-    & > button {
-      height: 100%;
-    }
-
-    & > a {
-      display: inline-block;
-      padding-top: 0.5rem;
     }
   }
 }
