@@ -14078,44 +14078,28 @@ tobago-split-layout {
   z-index: 10000; /* TODO: check, if needed (check also with iframes) */
 }
 
-tobago-tab .nav-link:not([href]):not([tabindex]) {
-  /* fix .nav-links without 'href'; bootstrap tab only works if 'href' is set */
-}
-tobago-tab .nav-link:not([href]):not([tabindex]).active {
-  color: var(--bs-emphasis-color);
-  cursor: pointer;
-}
-tobago-tab .nav-link:not([href]):not([tabindex]):not(.active) {
-  color: #0d6efd;
-  cursor: pointer;
-}
-tobago-tab .nav-link:not([href]):not([tabindex]):not(.active):hover {
-  color: rgb(10.4, 88, 202.4);
-}
-tobago-tab .nav-link:not([href]):not([tabindex]).disabled {
-  color: var(--bs-secondary-color);
+tobago-tab-group tobago-tab.disabled {
   cursor: not-allowed;
 }
-tobago-tab .nav-link:not([href]):not([tabindex]).disabled:focus, tobago-tab .nav-link:not([href]):not([tabindex]).disabled:hover {
-  color: var(--bs-secondary-color);
-}
-
-tobago-tab.tobago-bar {
+tobago-tab-group tobago-tab.tobago-bar {
   display: flex;
 }
-tobago-tab.tobago-bar > .nav-link {
+tobago-tab-group tobago-tab.tobago-bar.tobago-hover:not(.disabled):not(.tobago-active) > .nav-link {
+  border-color: var(--bs-nav-tabs-link-hover-border-color);
+}
+tobago-tab-group tobago-tab.tobago-bar.tobago-hover:not(.disabled):not(.tobago-active) > div {
+  border-color: var(--bs-nav-tabs-link-hover-border-color);
+}
+tobago-tab-group tobago-tab.tobago-bar > .nav-link {
   border-right: 0;
   border-top-right-radius: 0;
 }
-tobago-tab.tobago-bar > .nav-link:hover:not(.disabled):not(.active) + div {
-  border-color: var(--bs-nav-tabs-link-hover-border-color);
-}
-tobago-tab.tobago-bar > .nav-link.active + div {
+tobago-tab-group tobago-tab.tobago-bar > .nav-link.active + div {
   background-color: var(--bs-card-bg);
   border-color: var(--bs-nav-tabs-link-active-border-color);
   border-bottom-color: var(--bs-card-bg);
 }
-tobago-tab.tobago-bar > div {
+tobago-tab-group tobago-tab.tobago-bar > div {
   padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
   padding-left: 0;
   border: var(--bs-border-width) solid transparent;
@@ -14125,23 +14109,21 @@ tobago-tab.tobago-bar > div {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
-  tobago-tab.tobago-bar > div {
+  tobago-tab-group tobago-tab.tobago-bar > div {
     transition: none;
   }
 }
-tobago-tab.tobago-bar > div > button {
-  height: 100%;
-}
-tobago-tab.tobago-bar > div > a {
-  display: inline-block;
-  padding-top: 0.5rem;
-}
-
 tobago-tab-group tobago-tab > .nav-link > img + span {
   margin-left: 0.4em;
 }
 tobago-tab-group tobago-tab > .nav-link > i + span {
   margin-left: 0.4em;
+}
+tobago-tab-group tobago-tab > .nav-link.active {
+  cursor: default;
+}
+tobago-tab-group tobago-tab > .nav-link:not(.active) {
+  cursor: pointer;
 }
 
 tobago-textarea {
