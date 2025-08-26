@@ -21,179 +21,184 @@ import {expect, Locator, test} from "@playwright/test";
 import {Color} from "./base/browser-styles";
 import {Card, Nav, Root} from "./base/bootstrap-variables";
 
-test("tc:tabGroup: Tabgroup_Style", async ({page}) => {
-  await page.goto("http://localhost:8080/content/900-test/2500-tab/Tabgroup_Style.xhtml");
+test.describe("900-test/2500-tab/Tabgroup_Style.xhtml", () => {
 
-  const tabGroup = page.locator("tobago-tab-group[id='page:mainForm:tabGroup2']");
-  await expect(tabGroup).toHaveCSS("background-color", Root.white);
+  test.beforeEach(async ({page}) => {
+    await page.goto("http://localhost:8080/content/900-test/2500-tab/Tabgroup_Style.xhtml");
+  });
 
-  const tabHeader = tabGroup.locator(".card-header");
-  await expect(tabHeader).toHaveCSS("background-color", Card.capBg);
+  test("tc:tabGroup: Tabgroup_Style", async ({page}) => {
+    const tabGroup = page.locator("tobago-tab-group[id='page:mainForm:tabGroup2']");
+    await expect(tabGroup).toHaveCSS("background-color", Root.white);
 
-  const tabList = tabHeader.locator(".nav.nav-tabs.card-header-tabs");
-  await expect(tabList).toHaveCSS("background-color", Color.transparent);
+    const tabHeader = tabGroup.locator(".card-header");
+    await expect(tabHeader).toHaveCSS("background-color", Card.capBg);
 
-  await testTab(tabList.locator("tobago-tab[id='page:mainForm:tabNormal']"));
-  await testTabDisabled(tabList.locator("tobago-tab[id='page:mainForm:tabDisabled']"));
-  await testTab(tabList.locator("tobago-tab[id='page:mainForm:tabIcon']"));
-  await testTabWithBarFacet(tabList.locator("tobago-tab[id='page:mainForm:tabBarFacetClose']"));
-  await testTabWithBarFacetDisabled(tabList.locator("tobago-tab[id='page:mainForm:tabBarFacetCloseDisabled']"));
-  await testTabWithBarFacet(tabList.locator("tobago-tab[id='page:mainForm:tabBarFacetLink']"));
-  await testTabWithBarFacet(tabList.locator("tobago-tab[id='page:mainForm:tabBarFacetImage']"));
-  await testTabWithBarFacet(tabList.locator("tobago-tab[id='page:mainForm:tabBarFacetText']"));
-  await testTabWithBarFacet(tabList.locator("tobago-tab[id='page:mainForm:tabBarFacetCombine']"));
+    const tabList = tabHeader.locator(".nav.nav-tabs.card-header-tabs");
+    await expect(tabList).toHaveCSS("background-color", Color.transparent);
 
-  const tabPaneActive = tabGroup.locator(".tab-pane.active");
-  await expect(tabPaneActive).toHaveCSS("background-color", Color.transparent);
+    await testTab(tabList.locator("tobago-tab[id='page:mainForm:tabNormal']"));
+    await testTabDisabled(tabList.locator("tobago-tab[id='page:mainForm:tabDisabled']"));
+    await testTab(tabList.locator("tobago-tab[id='page:mainForm:tabIcon']"));
+    await testTabWithBarFacet(tabList.locator("tobago-tab[id='page:mainForm:tabBarFacetClose']"));
+    await testTabWithBarFacetDisabled(tabList.locator("tobago-tab[id='page:mainForm:tabBarFacetCloseDisabled']"));
+    await testTabWithBarFacet(tabList.locator("tobago-tab[id='page:mainForm:tabBarFacetLink']"));
+    await testTabWithBarFacet(tabList.locator("tobago-tab[id='page:mainForm:tabBarFacetImage']"));
+    await testTabWithBarFacet(tabList.locator("tobago-tab[id='page:mainForm:tabBarFacetText']"));
+    await testTabWithBarFacet(tabList.locator("tobago-tab[id='page:mainForm:tabBarFacetCombine']"));
+
+    const tabPaneActive = tabGroup.locator(".tab-pane.active");
+    await expect(tabPaneActive).toHaveCSS("background-color", Color.transparent);
+  });
+
+  async function testTab(tab: Locator): Promise<void> {
+    await expect(tab).toHaveCSS("height", "41px");
+    await expect(tab).toHaveCSS("background-color", Color.transparent);
+    await expect(tab).toHaveCSS("border-width", "0px");
+
+    const navLink = tab.locator(".nav-link");
+    await expect(navLink).toHaveCSS("color", Nav.linkColor);
+    await expect(navLink).toHaveCSS("background-color", Color.transparent);
+    await expect(navLink).toHaveCSS("border-width", Nav.tabsBorderWidth);
+    await expect(navLink).toHaveCSS("border-radius", "6px 6px 0px 0px");
+    await expect(navLink).toHaveCSS("border-color", Color.transparent);
+
+    await navLink.hover();
+    await expect(navLink).toHaveCSS("color", Nav.linkHoverColor);
+    await expect(navLink).toHaveCSS("background-color", Color.transparent);
+    await expect(navLink).toHaveCSS("border-width", Nav.tabsBorderWidth);
+    await expect(navLink).toHaveCSS("border-left-color", Root.secondaryBg);
+    await expect(navLink).toHaveCSS("border-top-color", Root.secondaryBg);
+    await expect(navLink).toHaveCSS("border-right-color", Root.secondaryBg);
+    await expect(navLink).toHaveCSS("border-bottom-color", Root.borderColor);
+
+    await navLink.click();
+    await expect(navLink).toHaveCSS("color", Nav.tabsLinkActiveColor);
+    await expect(navLink).toHaveCSS("background-color", Card.bg);
+    await expect(navLink).toHaveCSS("border-width", Nav.tabsBorderWidth);
+    await expect(navLink).toHaveCSS("border-left-color", Root.borderColor);
+    await expect(navLink).toHaveCSS("border-top-color", Root.borderColor);
+    await expect(navLink).toHaveCSS("border-right-color", Root.borderColor);
+    await expect(navLink).toHaveCSS("border-bottom-color", Root.white);
+  }
+
+  async function testTabWithBarFacet(tab: Locator): Promise<void> {
+    await expect(tab).toHaveCSS("height", "41px");
+    await expect(tab).toHaveCSS("background-color", Color.transparent);
+    await expect(tab).toHaveCSS("border-width", "0px");
+
+    const navLink = tab.locator(".nav-link");
+    await expect(navLink).toHaveCSS("color", Nav.linkColor);
+    await expect(navLink).toHaveCSS("background-color", Color.transparent);
+    await expect(navLink).toHaveCSS("border-width", "1px 0px 1px 1px");
+    await expect(navLink).toHaveCSS("border-radius", "6px 0px 0px");
+    await expect(navLink).toHaveCSS("border-left-color", Color.transparent);
+    await expect(navLink).toHaveCSS("border-top-color", Color.transparent);
+    await expect(navLink).toHaveCSS("border-bottom-color", Color.transparent);
+    const barFacet = tab.locator(":scope > div");
+    await expect(barFacet).toHaveCSS("background-color", Color.transparent);
+    await expect(barFacet).toHaveCSS("border-width", "1px 1px 1px 0px");
+    await expect(barFacet).toHaveCSS("border-radius", "0px 6px 0px 0px");
+    await expect(barFacet).toHaveCSS("border-top-color", Color.transparent);
+    await expect(barFacet).toHaveCSS("border-right-color", Color.transparent);
+    await expect(barFacet).toHaveCSS("border-bottom-color", Color.transparent);
+
+    await navLink.hover();
+    await expect(navLink).toHaveCSS("color", Nav.linkHoverColor);
+    await expect(navLink).toHaveCSS("background-color", Color.transparent);
+    await expect(navLink).toHaveCSS("border-width", "1px 0px 1px 1px");
+    await expect(navLink).toHaveCSS("border-left-color", Root.secondaryBg);
+    await expect(navLink).toHaveCSS("border-top-color", Root.secondaryBg);
+    await expect(navLink).toHaveCSS("border-bottom-color", Root.borderColor);
+    await expect(barFacet).toHaveCSS("background-color", Color.transparent);
+    await expect(barFacet).toHaveCSS("border-width", "1px 1px 1px 0px");
+    await expect(barFacet).toHaveCSS("border-top-color", Root.secondaryBg);
+    await expect(barFacet).toHaveCSS("border-right-color", Root.secondaryBg);
+    await expect(barFacet).toHaveCSS("border-bottom-color", Root.borderColor);
+
+    await navLink.click();
+    await expect(navLink).toHaveCSS("color", Nav.tabsLinkActiveColor);
+    await expect(navLink).toHaveCSS("background-color", Card.bg);
+    await expect(navLink).toHaveCSS("border-width", "1px 0px 1px 1px");
+    await expect(navLink).toHaveCSS("border-left-color", Root.borderColor);
+    await expect(navLink).toHaveCSS("border-top-color", Root.borderColor);
+    await expect(navLink).toHaveCSS("border-bottom-color", Root.white);
+    await expect(barFacet).toHaveCSS("background-color", Card.bg);
+    await expect(barFacet).toHaveCSS("border-width", "1px 1px 1px 0px");
+    await expect(barFacet).toHaveCSS("border-top-color", Root.borderColor);
+    await expect(barFacet).toHaveCSS("border-right-color", Root.borderColor);
+    await expect(barFacet).toHaveCSS("border-bottom-color", Root.white);
+  }
+
+  async function testTabDisabled(tab: Locator): Promise<void> {
+    await expect(tab).toHaveCSS("height", "41px");
+    await expect(tab).toHaveCSS("background-color", Color.transparent);
+    await expect(tab).toHaveCSS("border-width", "0px");
+
+    const navLink = tab.locator(".nav-link");
+    await expect(navLink).toHaveCSS("color", Nav.linkDisabledColor);
+    await expect(navLink).toHaveCSS("background-color", Color.transparent);
+    await expect(navLink).toHaveCSS("border-width", Nav.tabsBorderWidth);
+    await expect(navLink).toHaveCSS("border-color", Color.transparent);
+
+    await navLink.hover({force: true});
+    await expect(navLink).toHaveCSS("color", Nav.linkDisabledColor);
+    await expect(navLink).toHaveCSS("background-color", Color.transparent);
+    await expect(navLink).toHaveCSS("border-width", Nav.tabsBorderWidth);
+    await expect(navLink).toHaveCSS("border-color", Color.transparent);
+
+    await navLink.click({force: true});
+    await expect(navLink).toHaveCSS("color", Nav.linkDisabledColor);
+    await expect(navLink).toHaveCSS("background-color", Color.transparent);
+    await expect(navLink).toHaveCSS("border-width", Nav.tabsBorderWidth);
+    await expect(navLink).toHaveCSS("border-color", Color.transparent);
+  }
+
+  async function testTabWithBarFacetDisabled(tab: Locator): Promise<void> {
+    await expect(tab).toHaveCSS("height", "41px");
+    await expect(tab).toHaveCSS("background-color", Color.transparent);
+    await expect(tab).toHaveCSS("border-width", "0px");
+
+    const navLink = tab.locator(".nav-link");
+    await expect(navLink).toHaveCSS("color", Nav.linkDisabledColor);
+    await expect(navLink).toHaveCSS("background-color", Color.transparent);
+    await expect(navLink).toHaveCSS("border-width", "1px 0px 1px 1px");
+    await expect(navLink).toHaveCSS("border-radius", "6px 0px 0px");
+    await expect(navLink).toHaveCSS("border-left-color", Color.transparent);
+    await expect(navLink).toHaveCSS("border-top-color", Color.transparent);
+    await expect(navLink).toHaveCSS("border-bottom-color", Color.transparent);
+    const barFacet = tab.locator(":scope > div");
+    await expect(barFacet).toHaveCSS("background-color", Color.transparent);
+    await expect(barFacet).toHaveCSS("border-width", "1px 1px 1px 0px");
+    await expect(barFacet).toHaveCSS("border-radius", "0px 6px 0px 0px");
+    await expect(barFacet).toHaveCSS("border-top-color", Color.transparent);
+    await expect(barFacet).toHaveCSS("border-right-color", Color.transparent);
+    await expect(barFacet).toHaveCSS("border-bottom-color", Color.transparent);
+
+    await navLink.hover({force: true});
+    await expect(navLink).toHaveCSS("color", Nav.linkDisabledColor);
+    await expect(navLink).toHaveCSS("background-color", Color.transparent);
+    await expect(navLink).toHaveCSS("border-width", "1px 0px 1px 1px");
+    await expect(navLink).toHaveCSS("border-left-color", Color.transparent);
+    await expect(navLink).toHaveCSS("border-top-color", Color.transparent);
+    await expect(navLink).toHaveCSS("border-bottom-color", Color.transparent);
+    await expect(barFacet).toHaveCSS("background-color", Color.transparent);
+    await expect(barFacet).toHaveCSS("border-width", "1px 1px 1px 0px");
+    await expect(barFacet).toHaveCSS("border-top-color", Color.transparent);
+    await expect(barFacet).toHaveCSS("border-right-color", Color.transparent);
+    await expect(barFacet).toHaveCSS("border-bottom-color", Color.transparent);
+
+    await navLink.click({force: true});
+    await expect(navLink).toHaveCSS("color", Nav.linkDisabledColor);
+    await expect(navLink).toHaveCSS("background-color", Color.transparent);
+    await expect(navLink).toHaveCSS("border-width", "1px 0px 1px 1px");
+    await expect(navLink).toHaveCSS("border-left-color", Color.transparent);
+    await expect(navLink).toHaveCSS("border-top-color", Color.transparent);
+    await expect(navLink).toHaveCSS("border-bottom-color", Color.transparent);
+    await expect(barFacet).toHaveCSS("background-color", Color.transparent);
+    await expect(barFacet).toHaveCSS("border-width", "1px 1px 1px 0px");
+    await expect(barFacet).toHaveCSS("border-top-color", Color.transparent);
+    await expect(barFacet).toHaveCSS("border-right-color", Color.transparent);
+    await expect(barFacet).toHaveCSS("border-bottom-color", Color.transparent);
+  }
 });
-
-async function testTab(tab: Locator): Promise<void> {
-  await expect(tab).toHaveCSS("height", "41px");
-  await expect(tab).toHaveCSS("background-color", Color.transparent);
-  await expect(tab).toHaveCSS("border-width", "0px");
-
-  const navLink = tab.locator(".nav-link");
-  await expect(navLink).toHaveCSS("color", Nav.linkColor);
-  await expect(navLink).toHaveCSS("background-color", Color.transparent);
-  await expect(navLink).toHaveCSS("border-width", Nav.tabsBorderWidth);
-  await expect(navLink).toHaveCSS("border-radius", "6px 6px 0px 0px");
-  await expect(navLink).toHaveCSS("border-color", Color.transparent);
-
-  await navLink.hover();
-  await expect(navLink).toHaveCSS("color", Nav.linkHoverColor);
-  await expect(navLink).toHaveCSS("background-color", Color.transparent);
-  await expect(navLink).toHaveCSS("border-width", Nav.tabsBorderWidth);
-  await expect(navLink).toHaveCSS("border-left-color", Root.secondaryBg);
-  await expect(navLink).toHaveCSS("border-top-color", Root.secondaryBg);
-  await expect(navLink).toHaveCSS("border-right-color", Root.secondaryBg);
-  await expect(navLink).toHaveCSS("border-bottom-color", Root.borderColor);
-
-  await navLink.click();
-  await expect(navLink).toHaveCSS("color", Nav.tabsLinkActiveColor);
-  await expect(navLink).toHaveCSS("background-color", Card.bg);
-  await expect(navLink).toHaveCSS("border-width", Nav.tabsBorderWidth);
-  await expect(navLink).toHaveCSS("border-left-color", Root.borderColor);
-  await expect(navLink).toHaveCSS("border-top-color", Root.borderColor);
-  await expect(navLink).toHaveCSS("border-right-color", Root.borderColor);
-  await expect(navLink).toHaveCSS("border-bottom-color", Root.white);
-}
-
-async function testTabWithBarFacet(tab: Locator): Promise<void> {
-  await expect(tab).toHaveCSS("height", "41px");
-  await expect(tab).toHaveCSS("background-color", Color.transparent);
-  await expect(tab).toHaveCSS("border-width", "0px");
-
-  const navLink = tab.locator(".nav-link");
-  await expect(navLink).toHaveCSS("color", Nav.linkColor);
-  await expect(navLink).toHaveCSS("background-color", Color.transparent);
-  await expect(navLink).toHaveCSS("border-width", "1px 0px 1px 1px");
-  await expect(navLink).toHaveCSS("border-radius", "6px 0px 0px");
-  await expect(navLink).toHaveCSS("border-left-color", Color.transparent);
-  await expect(navLink).toHaveCSS("border-top-color", Color.transparent);
-  await expect(navLink).toHaveCSS("border-bottom-color", Color.transparent);
-  const barFacet = tab.locator(":scope > div");
-  await expect(barFacet).toHaveCSS("background-color", Color.transparent);
-  await expect(barFacet).toHaveCSS("border-width", "1px 1px 1px 0px");
-  await expect(barFacet).toHaveCSS("border-radius", "0px 6px 0px 0px");
-  await expect(barFacet).toHaveCSS("border-top-color", Color.transparent);
-  await expect(barFacet).toHaveCSS("border-right-color", Color.transparent);
-  await expect(barFacet).toHaveCSS("border-bottom-color", Color.transparent);
-
-  await navLink.hover();
-  await expect(navLink).toHaveCSS("color", Nav.linkHoverColor);
-  await expect(navLink).toHaveCSS("background-color", Color.transparent);
-  await expect(navLink).toHaveCSS("border-width", "1px 0px 1px 1px");
-  await expect(navLink).toHaveCSS("border-left-color", Root.secondaryBg);
-  await expect(navLink).toHaveCSS("border-top-color", Root.secondaryBg);
-  await expect(navLink).toHaveCSS("border-bottom-color", Root.borderColor);
-  await expect(barFacet).toHaveCSS("background-color", Color.transparent);
-  await expect(barFacet).toHaveCSS("border-width", "1px 1px 1px 0px");
-  await expect(barFacet).toHaveCSS("border-top-color", Root.secondaryBg);
-  await expect(barFacet).toHaveCSS("border-right-color", Root.secondaryBg);
-  await expect(barFacet).toHaveCSS("border-bottom-color", Root.borderColor);
-
-  await navLink.click();
-  await expect(navLink).toHaveCSS("color", Nav.tabsLinkActiveColor);
-  await expect(navLink).toHaveCSS("background-color", Card.bg);
-  await expect(navLink).toHaveCSS("border-width", "1px 0px 1px 1px");
-  await expect(navLink).toHaveCSS("border-left-color", Root.borderColor);
-  await expect(navLink).toHaveCSS("border-top-color", Root.borderColor);
-  await expect(navLink).toHaveCSS("border-bottom-color", Root.white);
-  await expect(barFacet).toHaveCSS("background-color", Card.bg);
-  await expect(barFacet).toHaveCSS("border-width", "1px 1px 1px 0px");
-  await expect(barFacet).toHaveCSS("border-top-color", Root.borderColor);
-  await expect(barFacet).toHaveCSS("border-right-color", Root.borderColor);
-  await expect(barFacet).toHaveCSS("border-bottom-color", Root.white);
-}
-
-async function testTabDisabled(tab: Locator): Promise<void> {
-  await expect(tab).toHaveCSS("height", "41px");
-  await expect(tab).toHaveCSS("background-color", Color.transparent);
-  await expect(tab).toHaveCSS("border-width", "0px");
-
-  const navLink = tab.locator(".nav-link");
-  await expect(navLink).toHaveCSS("color", Nav.linkDisabledColor);
-  await expect(navLink).toHaveCSS("background-color", Color.transparent);
-  await expect(navLink).toHaveCSS("border-width", Nav.tabsBorderWidth);
-  await expect(navLink).toHaveCSS("border-color", Color.transparent);
-
-  await navLink.hover({force: true});
-  await expect(navLink).toHaveCSS("color", Nav.linkDisabledColor);
-  await expect(navLink).toHaveCSS("background-color", Color.transparent);
-  await expect(navLink).toHaveCSS("border-width", Nav.tabsBorderWidth);
-  await expect(navLink).toHaveCSS("border-color", Color.transparent);
-
-  await navLink.click({force: true});
-  await expect(navLink).toHaveCSS("color", Nav.linkDisabledColor);
-  await expect(navLink).toHaveCSS("background-color", Color.transparent);
-  await expect(navLink).toHaveCSS("border-width", Nav.tabsBorderWidth);
-  await expect(navLink).toHaveCSS("border-color", Color.transparent);
-}
-
-async function testTabWithBarFacetDisabled(tab: Locator): Promise<void> {
-  await expect(tab).toHaveCSS("height", "41px");
-  await expect(tab).toHaveCSS("background-color", Color.transparent);
-  await expect(tab).toHaveCSS("border-width", "0px");
-
-  const navLink = tab.locator(".nav-link");
-  await expect(navLink).toHaveCSS("color", Nav.linkDisabledColor);
-  await expect(navLink).toHaveCSS("background-color", Color.transparent);
-  await expect(navLink).toHaveCSS("border-width", "1px 0px 1px 1px");
-  await expect(navLink).toHaveCSS("border-radius", "6px 0px 0px");
-  await expect(navLink).toHaveCSS("border-left-color", Color.transparent);
-  await expect(navLink).toHaveCSS("border-top-color", Color.transparent);
-  await expect(navLink).toHaveCSS("border-bottom-color", Color.transparent);
-  const barFacet = tab.locator(":scope > div");
-  await expect(barFacet).toHaveCSS("background-color", Color.transparent);
-  await expect(barFacet).toHaveCSS("border-width", "1px 1px 1px 0px");
-  await expect(barFacet).toHaveCSS("border-radius", "0px 6px 0px 0px");
-  await expect(barFacet).toHaveCSS("border-top-color", Color.transparent);
-  await expect(barFacet).toHaveCSS("border-right-color", Color.transparent);
-  await expect(barFacet).toHaveCSS("border-bottom-color", Color.transparent);
-
-  await navLink.hover({force: true});
-  await expect(navLink).toHaveCSS("color", Nav.linkDisabledColor);
-  await expect(navLink).toHaveCSS("background-color", Color.transparent);
-  await expect(navLink).toHaveCSS("border-width", "1px 0px 1px 1px");
-  await expect(navLink).toHaveCSS("border-left-color", Color.transparent);
-  await expect(navLink).toHaveCSS("border-top-color", Color.transparent);
-  await expect(navLink).toHaveCSS("border-bottom-color", Color.transparent);
-  await expect(barFacet).toHaveCSS("background-color", Color.transparent);
-  await expect(barFacet).toHaveCSS("border-width", "1px 1px 1px 0px");
-  await expect(barFacet).toHaveCSS("border-top-color", Color.transparent);
-  await expect(barFacet).toHaveCSS("border-right-color", Color.transparent);
-  await expect(barFacet).toHaveCSS("border-bottom-color", Color.transparent);
-
-  await navLink.click({force: true});
-  await expect(navLink).toHaveCSS("color", Nav.linkDisabledColor);
-  await expect(navLink).toHaveCSS("background-color", Color.transparent);
-  await expect(navLink).toHaveCSS("border-width", "1px 0px 1px 1px");
-  await expect(navLink).toHaveCSS("border-left-color", Color.transparent);
-  await expect(navLink).toHaveCSS("border-top-color", Color.transparent);
-  await expect(navLink).toHaveCSS("border-bottom-color", Color.transparent);
-  await expect(barFacet).toHaveCSS("background-color", Color.transparent);
-  await expect(barFacet).toHaveCSS("border-width", "1px 1px 1px 0px");
-  await expect(barFacet).toHaveCSS("border-top-color", Color.transparent);
-  await expect(barFacet).toHaveCSS("border-right-color", Color.transparent);
-  await expect(barFacet).toHaveCSS("border-bottom-color", Color.transparent);
-}
