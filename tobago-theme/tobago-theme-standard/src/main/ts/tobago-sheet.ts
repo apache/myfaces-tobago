@@ -629,9 +629,13 @@ Type: ${data.type}`);
 
       clickElement.addEventListener("click", (event: MouseEvent) => {
         const target = (event.target as HTMLElement);
-        if (target.closest("tobago-dropdown")) {
+        if (target.closest("tobago-dropdown") || target.closest(".tobago-toggle")) {
+          /*
+          - tobago-dropdown: The click event must go to the document to trigger the globalClickEvent of other dropdown
+          menus.
+          - .tobago-toggle: Expand/collapse branch in sheet tree,
+           */
           // do not change selection
-          // the click event must go to the document to trigger the globalClickEvent of other dropdown menus.
           return;
         }
         const row: HTMLTableRowElement = (event.currentTarget as HTMLElement).closest("tr");
