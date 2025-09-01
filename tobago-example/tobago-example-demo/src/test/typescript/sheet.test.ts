@@ -18,7 +18,7 @@
  */
 
 import {expect, test} from "@playwright/test";
-import {Color} from "./base/browser-styles";
+import {Table} from "./base/bootstrap-variables";
 
 test.describe("900-test/3000-sheet/70-tree/Sheet_Tree.xhtml", () => {
 
@@ -86,8 +86,8 @@ test.describe("900-test/3000-sheet/70-tree/Sheet_Tree.xhtml", () => {
     const node9Toggle = sheet.locator("tobago-tree-node[index='9'] .tobago-toggle");
     await node9Toggle.click();
 
-    const row9cell = sheet.locator("tr[row-index='9'] td");
-    await expect(row9cell).toHaveCSS("background-color", Color.transparent);
+    const row9cell = sheet.locator("tr[row-index='9'] td:first-child");
+    await expect(row9cell).toHaveCSS("background-color", Table.bg);
     await expect(hiddenSelected).toHaveValue("[]");
 
     await expect(node8Out).toBeVisible();
@@ -106,8 +106,8 @@ test.describe("900-test/3000-sheet/70-tree/Sheet_Tree.xhtml", () => {
     const node8Toggle = sheet.locator("tobago-tree-node[index='8'] .tobago-toggle");
     await node8Toggle.click();
 
-    const row8cell = sheet.locator("tr[row-index='8'] td");
-    await expect(row8cell).toHaveCSS("background-color", Color.transparent);
+    const row8cell = sheet.locator("tr[row-index='8'] td:first-child");
+    await expect(row8cell).toHaveCSS("background-color", Table.bg);
     await expect(hiddenSelected).toHaveValue("[]");
 
     await expect(node8Out).toBeVisible();
