@@ -1,6 +1,6 @@
 {
   "name": "tobago-theme",
-  "version": "6.8.1-SNAPSHOT",
+  "version": "6.8.1",
   "description": "The themes of the Tobago framework",
   "repository": {
     "type": "git",
