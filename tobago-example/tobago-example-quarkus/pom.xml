@@ -36,7 +36,7 @@
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
     <quarkus.platform.version>3.18.2</quarkus.platform.version>
-    <quarkus.version>3.26.1</quarkus.version>
+    <quarkus.version>3.26.2</quarkus.version>
     <skipITs>true</skipITs>
   </properties>
 
