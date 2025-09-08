@@ -36,7 +36,7 @@
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
     <quarkus.platform.version>3.18.2</quarkus.platform.version>
-    <quarkus.version>3.26.1</quarkus.version>
+    <quarkus.version>3.26.2</quarkus.version>
     <skipITs>true</skipITs>
   </properties>
 
@@ -78,7 +78,28 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-codec-http2</artifactId>
-      <version>4.2.4.Final</version>
+      <version>4.2.5.Final</version>
+      <exclusions>
+        <!-- Can this be removed with version >4.2.5 ? -->
+        <exclusion>
+          <groupId>io.netty</groupId>
+          <artifactId>netty-codec</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>io.netty</groupId>
+          <artifactId>netty-codec-http</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-codec</artifactId>
+      <version>4.2.5.Final</version>
+    </dependency>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-codec-http</artifactId>
+      <version>4.2.5.Final</version>
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
@@ -129,7 +150,7 @@
       <plugin>
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-maven-plugin</artifactId>
-        <version>3.26.1</version>
+        <version>${quarkus.version}</version>
         <executions>
           <execution>
             <goals>
