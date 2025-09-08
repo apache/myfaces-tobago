@@ -26,6 +26,10 @@
   <name>Tobago Examples</name>
   <artifactId>tobago-example</artifactId>
 
+  <properties>
+    <maven.javadoc.skip>true</maven.javadoc.skip>
+  </properties>
+
   <modules>
     <module>tobago-example-blank</module>
     <module>tobago-example-demo</module>
