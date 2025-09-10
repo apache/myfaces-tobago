@@ -62,10 +62,6 @@
           <groupId>org.apache.tomcat</groupId>
           <artifactId>tomcat-jasper-el</artifactId>
         </exclusion>
-        <exclusion>
-          <groupId>io.netty</groupId>
-          <artifactId>netty-codec-http2</artifactId>
-        </exclusion>
       </exclusions>
     </dependency>
     <!-- tomcat version set to avoid CVE-2025-31651 -->
@@ -73,33 +69,6 @@
       <groupId>org.apache.tomcat</groupId>
       <artifactId>tomcat-jasper-el</artifactId>
       <version>10.1.44</version>
-    </dependency>
-    <!-- netty-codec-http2 version set to avoid CVE-2025-55163 -->
-    <dependency>
-      <groupId>io.netty</groupId>
-      <artifactId>netty-codec-http2</artifactId>
-      <version>4.2.5.Final</version>
-      <exclusions>
-        <!-- Can this be removed with version >4.2.5 ? -->
-        <exclusion>
-          <groupId>io.netty</groupId>
-          <artifactId>netty-codec</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>io.netty</groupId>
-          <artifactId>netty-codec-http</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>io.netty</groupId>
-      <artifactId>netty-codec</artifactId>
-      <version>4.2.5.Final</version>
-    </dependency>
-    <dependency>
-      <groupId>io.netty</groupId>
-      <artifactId>netty-codec-http</artifactId>
-      <version>4.2.5.Final</version>
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
