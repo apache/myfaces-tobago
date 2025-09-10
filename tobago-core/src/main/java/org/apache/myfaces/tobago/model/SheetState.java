@@ -19,12 +19,12 @@
 
 package org.apache.myfaces.tobago.model;
 
+import jakarta.faces.application.ProjectStage;
+import jakarta.faces.context.FacesContext;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 
-import jakarta.faces.application.ProjectStage;
-import jakarta.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,20 +42,42 @@ public class SheetState implements Serializable, ScrollPositionState {
   private ExpandedState expandedState;
   private SelectedState selectedState;
 
+  /**
+   * @deprecated use ShettState(1) instead
+   */
   @Deprecated(since = "5.3.0", forRemoval = true)
   public SheetState() {
     this(1);
   }
 
+  /**
+   * Creates a sheet state with a maximum number of simultaneously sortable columns.
+   *
+   * <p>
+   * The parameter {@code maxSortColumns} specifies how many columns are taken into account when sorting.
+   * Use a value {@code >1} if multiple rows contain the same value. In this case, the value in the next sort-selected
+   * column is used for further sorting.
+   * </p>
+   *
+   * @param maxSortColumns number of columns considered for sorting
+   */
   public SheetState(final int maxSortColumns) {
     reset(maxSortColumns);
   }
 
+  /**
+   * @deprecated use reset(1) instead
+   */
   @Deprecated(since = "5.3.0", forRemoval = true)
   public void reset() {
     reset(1);
   }
 
+  /**
+   * Reset the sheet state.
+   *
+   * @param maxSortColumns number of columns considered for sorting
+   */
   public void reset(final int maxSortColumns) {
     first = -1;
     sortedColumnList = new SortedColumnList(maxSortColumns);
@@ -79,14 +101,23 @@ public class SheetState implements Serializable, ScrollPositionState {
     }
   }
 
+  /**
+   * Reset selected rows.
+   */
   public void resetSelected() {
     selectedRows = new ArrayList<>();
   }
 
+  /**
+   * @return list of selected row indexes
+   */
   public List<Integer> getSelectedRows() {
     return selectedRows;
   }
 
+  /**
+   * @param selectedRows indexes of selected rows
+   */
   public void setSelectedRows(final List<Integer> selectedRows) {
     assert selectedRows != null;
     this.selectedRows = selectedRows;
@@ -171,10 +202,16 @@ public class SheetState implements Serializable, ScrollPositionState {
     return columnWidths.size() > 0;
   }
 
+  /**
+   * @return index of the first visible row
+   */
   public int getFirst() {
     return first;
   }
 
+  /**
+   * @param first index of the first visible row
+   */
   public void setFirst(final int first) {
     this.first = first;
   }
