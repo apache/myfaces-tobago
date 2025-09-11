@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <tc:section label="Test of &lt;ui:repeat>">
+
+    <p>
+      There were issues with ids.
+      The id of UIRepeat contains or not contains digits.
+    </p>
+
+    <p>
+      Expected behaviour: Click on the link will call the action (see log file or counter progress).
+    </p>
+
+    <tc:out id="counter" value="#{repeatController.counter}" label="Counter"/>
+
+    <tc:box label="id=loop and id=link">
+      <ui:repeat id="loop" value="#{repeatController.list}" var="item">
+        <tc:link id="link"
+                 label="#{item}"
+                 action="#{repeatController.action}"/>
+      </ui:repeat>
+    </tc:box>
+
+    <tc:box label="id=loop66 and id=other">
+      Problem: id contains a digit!
+      <br/>
+      <ui:repeat id="loop66" value="#{repeatController.list}" var="item">
+        <tc:link id="other"
+                 label="#{item}"
+                 action="#{repeatController.action}"/>
+      </ui:repeat>
+    </tc:box>
+
+    <tc:box label="id=repeat and no id">
+      Problem: link has no id!
+      <br/>
+      <ui:repeat id="repeat" value="#{repeatController.list}" var="item">
+        <tc:link label="#{item}"
+                 action="#{repeatController.action}"/>
+      </ui:repeat>
+    </tc:box>
+
+  </tc:section>
+
+</ui:composition>
