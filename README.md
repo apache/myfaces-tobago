@@ -49,16 +49,15 @@ See `tobago-example` directory for some simple examples on how to use Tobago:
 
 * [tobago-example-blank](tobago-example/tobago-example-blank) a minimal hello world application,
 * [tobago-example-demo](tobago-example/tobago-example-demo) a demo and documentation application,
-* [tobago-example-spring-boot](tobago-example/tobago-example-spring-boot) same demo using spring-boot.
-
-**Demo**
+* [tobago-example-quarkus](tobago-example/tobago-example-quarkus) same demo using Quarkus.
+* [tobago-example-spring-boot](tobago-example/tobago-example-spring-boot) same demo using Spring Boot.
 
 ```shell
 mvn clean install
 cd tobago-example/tobago-example-demo
 ```
 
-***Jetty, MyFaces and Weld***
+### Jetty, MyFaces and Weld
 
 If you want to run the demo locally you need to run the following command:
 
@@ -70,7 +69,7 @@ Browse to the local URL http://localhost:8080/
 
 You can also run the demo with different servers and JSF implementations:
 
-***Jetty, Mojarra and Weld***
+### Jetty, Mojarra and Weld
 
 ```shell
 mvn jetty:run -Pjetty -Pdev -Djsf=mojarra-4.0
@@ -78,7 +77,7 @@ mvn jetty:run -Pjetty -Pdev -Djsf=mojarra-4.0
 
 Browse to the local URL http://localhost:8080/
 
-***Tomcat, MyFaces and Weld***
+### Tomcat, MyFaces and Weld
 
 ```shell
 mvn cargo:run -Ptomcat
@@ -86,7 +85,7 @@ mvn cargo:run -Ptomcat
 
 Browse to the local URL http://localhost:8080/tobago-example-demo/
 
-***TomEE***
+### TomEE
 
 ```shell
 mvn tomee:run -Ptomee
@@ -94,7 +93,7 @@ mvn tomee:run -Ptomee
 
 Browse to the local URL http://localhost:8080/
 
-***Open Liberty***
+### Open Liberty
 
 ```shell
 mvn liberty:run -Pliberty
@@ -102,7 +101,7 @@ mvn liberty:run -Pliberty
 
 Browse to the local URL http://localhost:9080/
 
-***Quarkus***
+### Quarkus
 
 ```shell
 mvn clean install
@@ -112,7 +111,7 @@ mvn clean package quarkus:dev
 
 Browse to the local URL http://localhost:8080/
 
-***Spring Boot***
+### Spring Boot
 
 ```shell
 mvn clean install
@@ -122,7 +121,7 @@ mvn clean package spring-boot:run
 
 Browse to the local URL http://localhost:8080/
 
-***Tomcat in Docker***
+### Tomcat in Docker
 
 ```
 mvn clean package -Pdocker
@@ -131,13 +130,26 @@ docker run -p 8080:8080 myfaces/tobago-example-demo:latest
 
 Browse to the local URL http://localhost:8080/
 
+### Docker compose
+
+```shell
+cd tobago-example
+./buildDockerimages.sh
+docker compose up
+```
+
+Browse to the local URL http://localhost:8080/
+The different server can be accessed by increasing the port number by 1.
+
 # Issue Tracking
 
-If you find any issues regarding MyFaces Tobago you can use the [Apache Issue Tracker](https://issues.apache.org/jira/projects/TOBAGO) to report them.
+If you find any issues regarding MyFaces Tobago you can use
+the [Apache Issue Tracker](https://issues.apache.org/jira/projects/TOBAGO) to report them.
 
 # Contributing
 
-[Pull requests](https://help.github.com/articles/creating-a-pull-request) are welcome; see the [contributor guidelines](CONTRIBUTING.md) for details.
+[Pull requests](https://help.github.com/articles/creating-a-pull-request) are welcome; see
+the [contributor guidelines](CONTRIBUTING.md) for details.
 
 # Licensing
 
