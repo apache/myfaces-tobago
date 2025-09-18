@@ -26,8 +26,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -61,7 +61,9 @@ public class NavigationNode extends DefaultMutableTreeNode implements Comparable
     outcome = null;
     branch = path.substring(0, path.lastIndexOf(File.separator));
     Properties properties = new Properties();
-    properties.load(new FileReader(servletContext.getRealPath(path)));
+    try (InputStream resourceAsStream = servletContext.getResourceAsStream(path)) {
+      properties.load(resourceAsStream);
+    }
     label = properties.getProperty("label");
     icon = properties.getProperty("icon");
   }
