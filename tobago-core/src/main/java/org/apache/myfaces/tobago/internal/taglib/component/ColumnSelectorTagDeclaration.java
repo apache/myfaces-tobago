@@ -19,17 +19,18 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import jakarta.faces.component.UIColumn;
+import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 import org.apache.myfaces.tobago.model.Selectable;
-
-import jakarta.faces.component.UIColumn;
 
 /**
  * Renders a column with checkboxes to mark selected rows.
@@ -43,6 +44,9 @@ import jakarta.faces.component.UIColumn;
     interfaces = {
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
         "jakarta.faces.component.behavior.ClientBehaviorHolder"
+    },
+    behaviors = {
+        @Behavior(name = ClientBehaviors.CHANGE, isDefault = true)
     },
     allowedChildComponents = "NONE")
 public interface ColumnSelectorTagDeclaration

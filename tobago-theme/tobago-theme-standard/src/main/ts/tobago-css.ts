@@ -52,6 +52,7 @@ export enum Css {
   TOBAGO_BEHAVIOR_CONTAINER = "tobago-behavior-container",
   TOBAGO_COLLAPSED = "tobago-collapsed",
   TOBAGO_COLUMN_PANEL = "tobago-column-panel",
+  TOBAGO_COLUMN_SELECTOR  = "tobago-column-selector",
   TOBAGO_DISABLED = "tobago-disabled",
   TOBAGO_DROP_ZONE = "tobago-drop-zone",
   TOBAGO_DROPDOWN_MENU = "tobago-dropdown-menu",

@@ -54,7 +54,7 @@
                 state="#{selectableUseCaseController.sheetState}"
                 markup="small" selectable="none">
         <tc:style maxHeight="486px"/>
-        <tc:columnSelector selectable="#{selectableUseCaseController.selectable}"/>
+        <tc:columnSelector id="cs" selectable="#{selectableUseCaseController.selectable}"/>
         <tc:column label="Name">
           <tc:out value="#{object.name}" id="t_name" labelLayout="skip"/>
         </tc:column>
