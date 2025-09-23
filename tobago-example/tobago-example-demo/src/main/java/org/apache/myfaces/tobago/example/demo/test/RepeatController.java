@@ -27,6 +27,7 @@ import jakarta.inject.Named;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.util.List;
+import java.util.Locale;
 
 @SessionScoped
 @Named
@@ -36,6 +37,7 @@ public class RepeatController implements Serializable {
 
   private final List<String> list = List.of("A", "B", "C");
   private int counter = 0;
+  private Locale locale;
 
   public List<String> getList() {
     return list;
@@ -52,5 +54,17 @@ public class RepeatController implements Serializable {
   public void action() {
     counter++;
     LOG.info("Action on RepeatController. Counter now: " + counter);
+  }
+
+  public List<Locale> getAllLocales() {
+    return List.of(Locale.US, Locale.GERMANY, Locale.JAPAN);
+  }
+
+  public Locale getLocale() {
+    return locale;
+  }
+
+  public void setLocale(Locale locale) {
+    this.locale = locale;
   }
 }
