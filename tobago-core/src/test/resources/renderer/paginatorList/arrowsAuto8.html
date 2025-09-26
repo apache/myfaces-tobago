@@ -17,7 +17,8 @@
 
 <tobago-sheet id='sheet' data-tobago-selection-mode='multi' data-tobago-first='8' rows='2' row-count='10'>
 <input id='sheet::scrollPosition' name='sheet::scrollPosition' type='hidden' value='[0,0]'>
-<input id='sheet::selected' name='sheet::selected' type='hidden' value='[]'>
+<tobago-column-selector>
+<input id='sheet::selected' name='sheet::selected' type='hidden' value='[]'></tobago-column-selector>
 <tobago-paginator-panel id='sheet:panel' class='d-flex justify-content-center'>
 <tobago-paginator-list id='sheet:list'>
 <input type='hidden' id='sheet:list::field' name='sheet:list'>

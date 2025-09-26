@@ -26,7 +26,7 @@ it("AJAX, selectable=single", function (done) {
   const reset = elementByIdFn("page:mainForm:reset");
   const checkAjax = elementByIdFn("page:mainForm:checkAjax::field");
   const checkSelectable = elementByIdFn("page:mainForm:checkSelectable::field");
-  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:solar::columnSelector']");
+  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:solar:cs::columnSelectorToggle']");
   const mercuryCheckbox = querySelectorFn("input[name='page:mainForm:solar_data_row_selector_1']");
   const mercuryRow = elementByIdFn("page:mainForm:solar:1:rowAjax");
   const venusCheckbox = querySelectorFn("input[name='page:mainForm:solar_data_row_selector_2']");
@@ -82,7 +82,7 @@ it("AJAX, selectable=singleOrNone", function (done) {
   const reset = elementByIdFn("page:mainForm:reset");
   const checkAjax = elementByIdFn("page:mainForm:checkAjax::field");
   const checkSelectable = elementByIdFn("page:mainForm:checkSelectable::field");
-  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:solar::columnSelector']");
+  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:solar:cs::columnSelectorToggle']");
   const mercuryCheckbox = querySelectorFn("input[name='page:mainForm:solar_data_row_selector_1']");
   const mercuryRow = elementByIdFn("page:mainForm:solar:1:rowAjax");
   const venusCheckbox = querySelectorFn("input[name='page:mainForm:solar_data_row_selector_2']");
@@ -147,7 +147,7 @@ it("AJAX, selectable=multi", function (done) {
   const reset = elementByIdFn("page:mainForm:reset");
   const checkAjax = elementByIdFn("page:mainForm:checkAjax::field");
   const checkSelectable = elementByIdFn("page:mainForm:checkSelectable::field");
-  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:solar::columnSelector']");
+  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:solar:cs::columnSelectorToggle']");
   const mercuryCheckbox = querySelectorFn("input[name='page:mainForm:solar_data_row_selector_1']");
   const mercuryRow = elementByIdFn("page:mainForm:solar:1:rowAjax");
   const venusCheckbox = querySelectorFn("input[name='page:mainForm:solar_data_row_selector_2']");
@@ -212,7 +212,7 @@ it("Full server request, selectable=single", function (done) {
   const reset = elementByIdFn("page:mainForm:reset");
   const checkAjax = elementByIdFn("page:mainForm:checkAjax::field");
   const checkSelectable = elementByIdFn("page:mainForm:checkSelectable::field");
-  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:solar::columnSelector']");
+  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:solar:cs::columnSelectorToggle']");
   const mercuryCheckbox = querySelectorFn("input[name='page:mainForm:solar_data_row_selector_1']");
   const mercuryRow = elementByIdFn("page:mainForm:solar:1:rowAjax");
   const venusCheckbox = querySelectorFn("input[name='page:mainForm:solar_data_row_selector_2']");
@@ -268,7 +268,7 @@ it("Full server request, selectable=singleOrNone", function (done) {
   const reset = elementByIdFn("page:mainForm:reset");
   const checkAjax = elementByIdFn("page:mainForm:checkAjax::field");
   const checkSelectable = elementByIdFn("page:mainForm:checkSelectable::field");
-  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:solar::columnSelector']");
+  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:solar:cs::columnSelectorToggle']");
   const mercuryCheckbox = querySelectorFn("input[name='page:mainForm:solar_data_row_selector_1']");
   const mercuryRow = elementByIdFn("page:mainForm:solar:1:rowAjax");
   const venusCheckbox = querySelectorFn("input[name='page:mainForm:solar_data_row_selector_2']");
@@ -333,7 +333,7 @@ it("Full server request, selectable=multi", function (done) {
   const reset = elementByIdFn("page:mainForm:reset");
   const checkAjax = elementByIdFn("page:mainForm:checkAjax::field");
   const checkSelectable = elementByIdFn("page:mainForm:checkSelectable::field");
-  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:solar::columnSelector']");
+  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:solar:cs::columnSelectorToggle']");
   const mercuryCheckbox = querySelectorFn("input[name='page:mainForm:solar_data_row_selector_1']");
   const mercuryRow = elementByIdFn("page:mainForm:solar:1:rowAjax");
   const venusCheckbox = querySelectorFn("input[name='page:mainForm:solar_data_row_selector_2']");

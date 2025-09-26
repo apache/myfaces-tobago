@@ -46,6 +46,7 @@ export class Sheet extends HTMLElement {
 
   static readonly SCROLL_BAR_SIZE: number = Sheet.getScrollBarSize();
   private static readonly SUFFIX_LAZY_UPDATE: string = "::lazy-update";
+  private static readonly SUFFIX_COLUMN_SELECTOR_TOGGLE: string = "::columnSelectorToggle";
 
   private columnSelector: ColumnSelector;
 
@@ -88,7 +89,7 @@ export class Sheet extends HTMLElement {
   }
 
   connectedCallback(): void {
-    if (this.querySelector("thead input.tobago-selected[name='" + this.id + "::columnSelector']")) {
+    if (this.columnSelectorToggle) {
       this.columnSelector = new ColumnSelector(this);
     }
 
@@ -947,6 +948,7 @@ Type: ${data.type}`);
           rowCount: this.rowCount
         },
       }));
+      this.querySelector("tobago-column-selector").dispatchEvent(new Event("change"));
     }
   }
 
@@ -1039,6 +1041,12 @@ Type: ${data.type}`);
 
   get bodyCols(): NodeListOf<HTMLElement> {
     return this.bodyTable.querySelectorAll(":scope > colgroup > col");
+  }
+
+  get columnSelectorToggle(): HTMLInputElement {
+    const columnSelectorCustomTag = this.querySelector(":scope > tobago-column-selector");
+    return this.querySelector("thead input.tobago-selected[name='"
+        + columnSelectorCustomTag.id + Sheet.SUFFIX_COLUMN_SELECTOR_TOGGLE + "']");
   }
 
   get tableBody(): HTMLTableSectionElement {

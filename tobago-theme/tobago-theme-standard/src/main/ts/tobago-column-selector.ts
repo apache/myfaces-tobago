@@ -19,6 +19,7 @@
 
 import {Sheet} from "./tobago-sheet";
 import {Selectable} from "./tobago-selectable";
+import {Css} from "./tobago-css";
 
 export class ColumnSelector {
   private sheet: Sheet;
@@ -28,7 +29,7 @@ export class ColumnSelector {
   }
 
   public get headerElement(): HTMLInputElement {
-    return this.sheet.querySelector("thead input.tobago-selected[name='" + this.sheet.id + "::columnSelector']");
+    return this.sheet.columnSelectorToggle;
   }
 
   public get selectable(): Selectable {
@@ -36,7 +37,7 @@ export class ColumnSelector {
   }
 
   public rowElement(element: HTMLTableRowElement): HTMLInputElement {
-    return element.querySelector("td:first-child > input.tobago-selected");
+    return element.querySelector(`td.${Css.TOBAGO_COLUMN_SELECTOR} > input.tobago-selected`);
   }
 
   public get disabled(): boolean {
