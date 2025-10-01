@@ -23,18 +23,16 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="jakarta.faces.facelets">
 
-  <tc:panel id="panel">
-    <tc:out id="timestamp" label="Timestamp" value="#{eventController.currentTimestamp}"/>
-    <tc:out id="selectedRows" label="selectedRows" value="#{sheetController.selectedRows}"/>
-    <tc:button id="resetSelected" label="Reset selected" action="#{sheetController.sheetState.resetSelected()}"/>
-  </tc:panel>
+  <tc:button id="reset" label="Reset" immediate="true" action="#{columnSelectorAjaxController.reset}"/>
 
-  <tc:sheet id="sheet" value="#{sheetController.solarList}" var="object" rows="4" state="#{sheetController.sheetState}">
+  <tc:sheet id="sheet" value="#{columnSelectorAjaxController.solarList}" var="object" rows="5"
+            state="#{columnSelectorAjaxController.sheetState}" selectable="multi">
     <tc:style maxHeight="500px"/>
-    <f:ajax event="tobago.sheet.rowSelectionChange" render="::panel"/>
-    <tc:columnSelector id="cs"/>
+    <tc:columnSelector id="colSelect">
+      <f:ajax render=":::selectedCount"/>
+    </tc:columnSelector>
     <tc:column label="Name">
-      <tc:out value="#{object.name}" labelLayout="skip"/>
+      <tc:in value="#{object.name}" labelLayout="skip"/>
     </tc:column>
     <tc:column label="Orbit">
       <tc:out value="#{object.orbit}" labelLayout="skip"/>
@@ -47,6 +45,9 @@
     </tc:column>
     <tc:column label="Year">
       <tc:out value="#{object.discoverYear}" labelLayout="skip"/>
+      <tc:in required="true"/>
     </tc:column>
   </tc:sheet>
+  <tc:out id="selectedCount" label="Selected count"
+          value="#{columnSelectorAjaxController.sheetState.selectedRows.size()}"/>
 </ui:composition>
