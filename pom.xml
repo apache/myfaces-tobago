@@ -742,6 +742,7 @@
 
               <exclude>**/.eslintignore</exclude>
               <exclude>.asf.yaml</exclude>
+              <exclude>**/*.svg</exclude>
             </excludes>
           </configuration>
         </plugin>
