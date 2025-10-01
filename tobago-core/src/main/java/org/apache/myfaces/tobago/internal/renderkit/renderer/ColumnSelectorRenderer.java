@@ -54,9 +54,7 @@ public class ColumnSelectorRenderer<T extends AbstractUIColumnSelector> extends 
     String key = sheetId + SUFFIX_SELECTED;
     if (requestParameterMap.containsKey(key)) {
       final String selected = requestParameterMap.get(key);
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("selected = " + selected);
-      }
+      LOG.debug("selected = {}", selected);
       List<Integer> selectedRows;
       try {
         selectedRows = JsonUtils.decodeIntegerArray(selected);

@@ -19,9 +19,11 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.behavior.ClientBehaviorHolder;
 import jakarta.faces.context.FacesContext;
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.model.Selectable;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -69,7 +71,12 @@ public abstract class AbstractUIColumnSelector extends AbstractUIColumnBase impl
 
   public AbstractUISheet getSheet() {
     if (abstractUISheet == null) {
-      abstractUISheet = (AbstractUISheet) this.getParent();
+      final UIComponent parent = this.getParent();
+      if (parent instanceof AbstractUISheet) {
+        abstractUISheet = (AbstractUISheet) parent;
+      } else {
+        LOG.warn("Component of type '{}' must be placed inside a sheet.", RendererTypes.COLUMN_SELECTOR);
+      }
     }
     return abstractUISheet;
   }
