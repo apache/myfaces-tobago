@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "font-awesome": "4.7.0",
-    "jasmine-core": "5.10.0"
+    "jasmine-core": "5.11.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.55.0",
