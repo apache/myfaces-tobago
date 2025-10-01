@@ -33,8 +33,10 @@
       <tc:style customClass="bg-light box-shadow"/>
       <f:facet name="brand">
         <!-- label="Tobago Demo" contains a NO-BREAK SPACE character -->
-        <tc:link image="#{request.contextPath}/image/feather-leaf.png" label="Tobago Demo" id="brand"
-                 link="#{request.contextPath}/"/>
+        <tc:image value="#{request.contextPath}/image/feather.svg">
+          <tc:style height="1.875rem" marginRight="0.5rem"/>
+        </tc:image>
+        <tc:link label="Tobago Demo" id="brand" link="#{request.contextPath}/"/>
       </f:facet>
 
       <tc:form id="header">
