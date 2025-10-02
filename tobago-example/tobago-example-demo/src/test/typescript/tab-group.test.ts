@@ -202,3 +202,39 @@ test.describe("900-test/2500-tab/Tabgroup_Style.xhtml", () => {
     await expect(barFacet).toHaveCSS("border-bottom-color", Color.transparent);
   }
 });
+
+test.describe("900-test/2510-tab-file/TabGroup_Immediate_File.xhtml", () => {
+
+  test.beforeEach(async ({page}) => {
+    await page.goto("http://localhost:8080/content/900-test/2510-tab-file/TabGroup_Immediate_File.xhtml");
+  });
+
+  test("Select tab 'Two', press OK, select tab 'One', press OK", async ({page}) => {
+    const tabGroupIndex = page.locator("input[id='page:mainForm:tabgroup::index']");
+    const tab1 = page.locator("tobago-tab[id='page:mainForm:nt1'] .nav-link");
+    const tab2 = page.locator("tobago-tab[id='page:mainForm:nt2'] .nav-link");
+    const file = page.locator("tobago-file[id='page:mainForm:nt1:file']");
+    const output = page.locator("tobago-out[id='page:mainForm:nt2:output']");
+    const messagesWarning = page.locator("tobago-messages[id='page:messages'] .alert-warning");
+    const messagesError = page.locator("tobago-messages[id='page:messages'] .alert-danger");
+    const okButton = page.locator("button[id='page:mainForm:ok']");
+
+    await tab2.click();
+    await expect(tabGroupIndex).toHaveValue("1");
+    await expect(file).not.toBeVisible();
+    await expect(output).toBeVisible();
+
+    await okButton.click();
+    await expect(tabGroupIndex).toHaveValue("1");
+    await expect(messagesWarning).toBeVisible();
+
+    await tab1.click();
+    await expect(tabGroupIndex).toHaveValue("0");
+    await expect(file).toBeVisible();
+    await expect(output).not.toBeVisible();
+
+    await okButton.click();
+    await expect(tabGroupIndex).toHaveValue("0");
+    await expect(messagesError).toBeVisible();
+  });
+});

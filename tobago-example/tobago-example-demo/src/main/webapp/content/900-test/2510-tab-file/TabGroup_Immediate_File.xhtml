@@ -20,18 +20,17 @@
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="jakarta.faces.facelets"
-                xmlns:f="jakarta.faces.core">
+                xmlns:ui="jakarta.faces.facelets">
 
-  <tc:tabGroup switchType="reloadTab" immediate="true">
+  <tc:tabGroup id="tabgroup" switchType="reloadTab" immediate="true">
     <tc:tab id="nt1" label="One">
-      <tc:file required="true"/>
+      <tc:file id="file" required="true"/>
     </tc:tab>
     <tc:tab id="nt2" label="Two">
-      Two
+      <tc:out id="output" value="Two"/>
     </tc:tab>
   </tc:tabGroup>
 
-  <tc:button action="ok" label="ok"/>
+  <tc:button id="ok" action="ok" label="ok"/>
 
 </ui:composition>
