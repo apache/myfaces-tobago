@@ -68,6 +68,12 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
     rendererType = RendererTypes.SELECT_MANY_LIST,
     allowedChildComponents = {"jakarta.faces.SelectItem", "jakarta.faces.SelectItems"},
     facets = {
+        @Facet(name = Facets.BEFORE,
+            description =
+                "This facet can contain a part for input groups."),
+        @Facet(name = Facets.AFTER,
+            description =
+                "This facet can contain a part for input groups."),
         @Facet(name = Facets.FOOTER, description = "Replace the no-entries footer at the end of the result list with a"
             + " custom footer. If no elements are rendered, the custom footer is hidden.")
     },

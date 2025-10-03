@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneChoice;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
@@ -30,6 +31,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
+import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.model.SelectItem;
 
@@ -68,6 +70,15 @@ public class SelectOneChoiceRenderer<T extends AbstractUISelectOneChoice> extend
     final boolean disabled = !items.iterator().hasNext() || component.isDisabled() || component.isReadonly();
     final Markup markup = component.getMarkup() != null ? component.getMarkup() : Markup.NULL;
 
+    final UIComponent after = ComponentUtils.getFacet(component, Facets.after);
+    final UIComponent before = ComponentUtils.getFacet(component, Facets.before);
+
+    if (after != null || before != null) {
+      writer.startElement(HtmlElements.DIV);
+      writer.writeClassAttribute(BootstrapClass.INPUT_GROUP);
+    }
+    encodeGroupAddon(facesContext, writer, before, false);
+
     writer.startElement(HtmlElements.SELECT);
     writer.writeIdAttribute(fieldId);
     writer.writeNameAttribute(clientId);
@@ -92,6 +103,12 @@ public class SelectOneChoiceRenderer<T extends AbstractUISelectOneChoice> extend
 
     writer.endElement(HtmlElements.SELECT);
     encodeBehavior(writer, facesContext, component);
+
+    encodeGroupAddon(facesContext, writer, after, true);
+
+    if (after != null || before != null) {
+      writer.endElement(HtmlElements.DIV);
+    }
   }
 
   @Override
