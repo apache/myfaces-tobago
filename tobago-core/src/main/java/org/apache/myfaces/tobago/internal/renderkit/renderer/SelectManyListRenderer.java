@@ -123,9 +123,25 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
         expanded ? BootstrapClass.LIST_GROUP : BootstrapClass.DROPDOWN,
         expanded ? BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)) : null);
 
+    final UIComponent after = ComponentUtils.getFacet(component, Facets.after);
+    final UIComponent before = ComponentUtils.getFacet(component, Facets.before);
+
+    if (after != null || before != null) {
+      writer.startElement(HtmlElements.DIV);
+      writer.writeClassAttribute(BootstrapClass.INPUT_GROUP);
+    }
+
+    encodeGroupAddon(facesContext, writer, before, false);
+
     encodeSelectField(facesContext, component,
         clientId, selectFieldId, filterId, filter, disabled, expanded, title, tabIndex);
     encodeOptions(facesContext, component, filteredItems, clientId, expanded, disabled);
+
+    encodeGroupAddon(facesContext, writer, after, true);
+
+    if (after != null || before != null) {
+      writer.endElement(HtmlElements.DIV);
+    }
 
     writer.endElement(HtmlElements.DIV);
   }

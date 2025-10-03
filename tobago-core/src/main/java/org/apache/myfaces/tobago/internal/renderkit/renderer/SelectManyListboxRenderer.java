@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyListbox;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
@@ -30,6 +31,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
+import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.model.SelectItem;
 
@@ -55,6 +57,16 @@ public class SelectManyListboxRenderer<T extends AbstractUISelectManyListbox> ex
     final Markup markup = component.getMarkup() != null ? component.getMarkup() : Markup.NULL;
     Integer size = component.getSize();
     size = Math.max(size != null ? size : items.size(), 2); // must be > 1
+
+    final UIComponent after = ComponentUtils.getFacet(component, Facets.after);
+    final UIComponent before = ComponentUtils.getFacet(component, Facets.before);
+
+    if (after != null || before != null) {
+      writer.startElement(HtmlElements.DIV);
+      writer.writeClassAttribute(BootstrapClass.INPUT_GROUP);
+    }
+
+    encodeGroupAddon(facesContext, writer, before, false);
 
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
     writer.startElement(HtmlElements.SELECT);
@@ -84,6 +96,12 @@ public class SelectManyListboxRenderer<T extends AbstractUISelectManyListbox> ex
 
     writer.endElement(HtmlElements.SELECT);
     encodeBehavior(writer, facesContext, component);
+
+    encodeGroupAddon(facesContext, writer, after, true);
+
+    if (after != null || before != null) {
+      writer.endElement(HtmlElements.DIV);
+    }
   }
 
   @Override
