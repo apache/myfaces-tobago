@@ -28,11 +28,15 @@ import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.component.behavior.ClientBehaviorContext;
 import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitResult;
 import jakarta.faces.context.FacesContext;
 import java.lang.invoke.MethodHandles;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
+import java.util.Set;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.PageTagDeclaration}
@@ -90,26 +94,13 @@ public abstract class AbstractUIPage extends AbstractUIFormBase implements Clien
       if (LOG.isDebugEnabled()) {
         LOG.debug("sourceId = '" + sourceId + "'");
       }
-      command = viewRoot.findComponent(sourceId);
+      FindCommandVisitor visitor = new FindCommandVisitor();
+      viewRoot.visitTree(VisitContext
+              .createVisitContext(facesContext, Set.of(sourceId), ComponentUtils.SET_SKIP_UNRENDERED),
+          visitor);
+      command = visitor.getCommand();
     } else {
       LOG.warn("No sourceId found!");
-    }
-
-    if (command == null && sourceId != null) {
-      // If currentActionId component was inside a sheet the id contains the
-      // rowIndex and is therefore not found here.
-      // We do not need the row here because we want just to find the
-      // related form, so removing the rowIndex will help here.
-      sourceId = cutIteratorFromId(sourceId);
-      try {
-        command = viewRoot.findComponent(sourceId);
-      } catch (final Exception e) {
-        // ignore
-        if (LOG.isTraceEnabled()) {
-          LOG.trace("sourceId='{}'", sourceId);
-          LOG.trace("Exception in findComponent", e);
-        }
-      }
     }
 
     if (LOG.isTraceEnabled()) {
@@ -138,41 +129,22 @@ public abstract class AbstractUIPage extends AbstractUIFormBase implements Clien
     }
   }
 
-  // TODO: Remove this method if proven this never happens anymore
-  // TODO: This workaround is stil needed for Mojarra
-  // TODO: Otherwise actions in tree/sheet will not be detected
-  protected String cutIteratorFromId(final String sourceId) {
-
-    final char[] chars = sourceId.toCharArray();
-    final int n = chars.length;
-    final char colon = getFacesContext().getNamingContainerSeparatorChar();
-    final StringBuilder builder = new StringBuilder(n);
-    char lastInBuilder = ' '; // any non-colon
-    for (char c : chars) {
-      if (c == colon) { // colon
-        if (lastInBuilder != colon) {
-          builder.append(c);
-          lastInBuilder = c;
-        }
-      } else if ('0' <= c && c <= '9') { // number
-
-      } else { // any other
-        builder.append(c);
-        lastInBuilder = c;
-      }
-    }
-
-    if (builder.length() == n) {
-      return sourceId;
-    } else if (lastInBuilder == colon) {
-      builder.deleteCharAt(builder.length() - 1);
-      return builder.toString();
-    } else {
-      return builder.toString();
-    }
-  }
-
   public abstract String getLabel();
 
   public abstract String getFocusId();
+
+  private static class FindCommandVisitor implements VisitCallback {
+    private UIComponent command;
+
+    @Override
+    public VisitResult visit(VisitContext context, UIComponent target) {
+      command = target;
+      return VisitResult.COMPLETE;
+    }
+
+    public UIComponent getCommand() {
+      return command;
+    }
+  }
+
 }
