@@ -92,6 +92,9 @@ public class SortedColumnList implements Serializable {
     list.clear();
   }
 
+  /**
+   * Indicates that every column is sorted and a SortActionEvent is not executed in this request.
+   */
   public void sorted() {
     toBeSortedLevel = 0;
   }
@@ -110,6 +113,9 @@ public class SortedColumnList implements Serializable {
     return showNumbers;
   }
 
+  /**
+   * @return the number of levels (columns) which must be sorted this request
+   */
   public int getToBeSortedLevel() {
     return toBeSortedLevel;
   }
