@@ -81,6 +81,13 @@ jasmineRequire.HtmlReporter = function(j$) {
     }
   };
 
+  /**
+   * @class HtmlReporter
+   * @classdesc Displays results and allows re-running individual specs and suites.
+   * @implements {Reporter}
+   * @param options Options object. See lib/jasmine-core/boot1.js for details.
+   * @since 1.2.0
+   */
   function HtmlReporter(options) {
     function config() {
       return (options.env && options.env.configuration()) || {};
@@ -98,6 +105,11 @@ jasmineRequire.HtmlReporter = function(j$) {
     const deprecationWarnings = [];
     const failures = [];
 
+    /**
+     * Initializes the reporter. Should be called before {@link Env#execute}.
+     * @function
+     * @name HtmlReporter#initialize
+     */
     this.initialize = function() {
       clearPrior();
       htmlReporterMain = createDom(
@@ -881,6 +893,8 @@ jasmineRequire.HtmlReporter = function(j$) {
 };
 
 jasmineRequire.HtmlSpecFilter = function() {
+  // Legacy HTML spec filter, preserved for backward compatibility with
+  // boot files that predate HtmlExactSpecFilterV2
   function HtmlSpecFilter(options) {
     const filterString =
       options &&
@@ -888,6 +902,13 @@ jasmineRequire.HtmlSpecFilter = function() {
       options.filterString().replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
     const filterPattern = new RegExp(filterString);
 
+    /**
+     * Determines whether the spec with the specified name should be executed.
+     * @name HtmlSpecFilter#matches
+     * @function
+     * @param {string} specName The full name of the spec
+     * @returns {boolean}
+     */
     this.matches = function(specName) {
       return filterPattern.test(specName);
     };
@@ -921,38 +942,57 @@ jasmineRequire.ResultsNode = function() {
 };
 
 jasmineRequire.QueryString = function() {
-  function QueryString(options) {
-    this.navigateWithNewParam = function(key, value) {
-      options.getWindowLocation().search = this.fullStringWithNewParam(
+  /**
+   * Reads and manipulates the query string.
+   * @since 2.0.0
+   */
+  class QueryString {
+    #getWindowLocation;
+
+    /**
+     * @param options Object with a getWindowLocation property, which should be
+     * a function returning the current value of window.location.
+     */
+    constructor(options) {
+      this.#getWindowLocation = options.getWindowLocation;
+    }
+
+    /**
+     * Sets the specified query parameter and navigates to the resulting URL.
+     * @param {string} key
+     * @param {string} value
+     */
+    navigateWithNewParam(key, value) {
+      this.#getWindowLocation().search = this.fullStringWithNewParam(
         key,
         value
       );
-    };
-
-    this.fullStringWithNewParam = function(key, value) {
-      const paramMap = queryStringToParamMap();
-      paramMap[key] = value;
-      return toQueryString(paramMap);
-    };
-
-    this.getParam = function(key) {
-      return queryStringToParamMap()[key];
-    };
-
-    return this;
-
-    function toQueryString(paramMap) {
-      const qStrPairs = [];
-      for (const prop in paramMap) {
-        qStrPairs.push(
-          encodeURIComponent(prop) + '=' + encodeURIComponent(paramMap[prop])
-        );
-      }
-      return '?' + qStrPairs.join('&');
     }
 
-    function queryStringToParamMap() {
-      const paramStr = options.getWindowLocation().search.substring(1);
+    /**
+     * Returns a new URL based on the current location, with the specified
+     * query parameter set.
+     * @param {string} key
+     * @param {string} value
+     * @return {string}
+     */
+    fullStringWithNewParam(key, value) {
+      const paramMap = this.#queryStringToParamMap();
+      paramMap[key] = value;
+      return toQueryString(paramMap);
+    }
+
+    /**
+     * Gets the value of the specified query parameter.
+     * @param {string} key
+     * @return {string}
+     */
+    getParam(key) {
+      return this.#queryStringToParamMap()[key];
+    }
+
+    #queryStringToParamMap() {
+      const paramStr = this.#getWindowLocation().search.substring(1);
       let params = [];
       const paramMap = {};
 
@@ -970,6 +1010,16 @@ jasmineRequire.QueryString = function() {
 
       return paramMap;
     }
+  }
+
+  function toQueryString(paramMap) {
+    const qStrPairs = [];
+    for (const prop in paramMap) {
+      qStrPairs.push(
+        encodeURIComponent(prop) + '=' + encodeURIComponent(paramMap[prop])
+      );
+    }
+    return '?' + qStrPairs.join('&');
   }
 
   return QueryString;

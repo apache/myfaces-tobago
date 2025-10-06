@@ -12086,9 +12086,6 @@ button tobago-popover {
   display: none;
 }
 
-tobago-badge {
-  background-color: var(--bs-secondary);
-}
 tobago-badge.badge.btn {
   --bs-btn-border-width: 0;
 }
@@ -12100,6 +12097,9 @@ tobago-badge > i + span {
 }
 tobago-badge.btn {
   cursor: initial;
+}
+tobago-badge {
+  background-color: var(--bs-secondary);
 }
 
 /* bar -------------------------------------------------------------- */
@@ -12241,9 +12241,6 @@ tobago-date input::-ms-clear {
   display: none;
 }
 
-tobago-dropdown {
-  display: inline-block;
-}
 tobago-dropdown > .tobago-dropdown-menu {
   /* Use .tobago-dropdown-menu instead of .dropdown-menu to prevent Bootstrap from creating a dropdown instance.
      This leads to javascript error if arrow up/down is pressed. */
@@ -12262,6 +12259,9 @@ tobago-dropdown > .tobago-dropdown-menu .form-check.form-switch {
 }
 tobago-dropdown > .tobago-dropdown-menu label[for] {
   width: 100%;
+}
+tobago-dropdown {
+  display: inline-block;
 }
 tobago-dropdown.tobago-dropdown-submenu {
   cursor: pointer;
@@ -12349,12 +12349,12 @@ tobago-flex-layout > tobago-flex-layout {
   margin-bottom: 0;
 }
 
-tobago-flow-layout {
-  display: block;
-}
 tobago-flow-layout.tobago-text-justify {
   /* added here, because Bootstrap has removed .text-justify */
   text-align: justify !important;
+}
+tobago-flow-layout {
+  display: block;
 }
 
 /* focus --------------------------------------------------------------- */
@@ -12399,9 +12399,6 @@ tobago-header.sticky-top {
   margin-right: -0.75rem;
 }
 
-.tobago-help-container {
-  width: 100%;
-}
 .tobago-help-container .help-feedback {
   display: none;
   width: 100%;
@@ -12473,9 +12470,8 @@ tobago-header.sticky-top {
 .tobago-help-container .form-check-inline .form-check-input ~ .help-feedback {
   margin-left: 0.5em;
 }
-.tobago-help-container.tobago-button-left, .tobago-help-container.tobago-button-right {
-  display: flex;
-  align-items: flex-start;
+.tobago-help-container {
+  width: 100%;
 }
 .tobago-help-container.tobago-button-left.tobago-button-left > tobago-popover, .tobago-help-container.tobago-button-right.tobago-button-left > tobago-popover {
   margin-right: 0.75rem;
@@ -12485,6 +12481,10 @@ tobago-header.sticky-top {
 }
 .tobago-help-container.tobago-button-left tobago-popover > a, .tobago-help-container.tobago-button-right tobago-popover > a {
   --bs-btn-padding-x: .4rem;
+}
+.tobago-help-container.tobago-button-left, .tobago-help-container.tobago-button-right {
+  display: flex;
+  align-items: flex-start;
 }
 .tobago-help-container.tobago-tooltip {
   position: relative;
@@ -12610,9 +12610,6 @@ tobago-links .nav .nav-item .nav-link {
 }
 
 /* link ----------------------------------------------------------- */
-.tobago-link {
-  white-space: nowrap;
-}
 .tobago-link > img + span {
   margin-left: 0.4em;
 }
@@ -12621,6 +12618,9 @@ tobago-links .nav .nav-item .nav-link {
 }
 .tobago-link.tobago-hideToggleIcon:after {
   content: none;
+}
+.tobago-link {
+  white-space: nowrap;
 }
 .tobago-link span {
   white-space: normal;
@@ -12643,16 +12643,16 @@ h1 button.tobago-link, .h1 button.tobago-link, h2 button.tobago-link, .h2 button
   font-weight: inherit;
 }
 
-button.tobago-link.btn {
-  padding: 0;
-  border: 0;
-  vertical-align: baseline;
-}
 button.tobago-link.btn:disabled {
   pointer-events: auto;
 }
 button.tobago-link.btn:disabled:hover {
   cursor: not-allowed;
+}
+button.tobago-link.btn {
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
 }
 button.tobago-link.btn:focus {
   box-shadow: none;
@@ -12672,9 +12672,6 @@ button.nav-link { /* bootstrap don't know button.nav-link*/
   padding: 0.55em var(--bs-nav-link-padding-x) 0.45em;
 }
 
-.tobago-messages-container {
-  width: 100%;
-}
 .tobago-messages-container .error-feedback {
   display: none;
   width: 100%;
@@ -12888,9 +12885,8 @@ button.nav-link { /* bootstrap don't know button.nav-link*/
 .tobago-messages-container .form-check-inline .form-check-input ~ .info-feedback {
   margin-left: 0.5em;
 }
-.tobago-messages-container.tobago-button-left, .tobago-messages-container.tobago-button-right {
-  display: flex;
-  align-items: flex-start;
+.tobago-messages-container {
+  width: 100%;
 }
 .tobago-messages-container.tobago-button-left.tobago-button-left > tobago-popover, .tobago-messages-container.tobago-button-right.tobago-button-left > tobago-popover {
   margin-right: 0.75rem;
@@ -12900,6 +12896,10 @@ button.nav-link { /* bootstrap don't know button.nav-link*/
 }
 .tobago-messages-container.tobago-button-left tobago-popover > a, .tobago-messages-container.tobago-button-right tobago-popover > a {
   --bs-btn-padding-x: .4rem;
+}
+.tobago-messages-container.tobago-button-left, .tobago-messages-container.tobago-button-right {
+  display: flex;
+  align-items: flex-start;
 }
 .tobago-messages-container.tobago-tooltip {
   position: relative;
@@ -13015,14 +13015,6 @@ tobago-page {
   padding-top: var(--tobago-page-padding-top);
   padding-bottom: 1rem;
 }
-tobago-page .tobago-page-menuStore {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  z-index: var(--tobago-dropdown-menu-z-index);
-}
 tobago-page .tobago-page-menuStore > .tobago-dropdown-menu {
   /* Use .tobago-dropdown-menu instead of .dropdown-menu to prevent Bootstrap from creating a dropdown instance.
      This leads to javascript error if arrow up/down is pressed. */
@@ -13096,6 +13088,14 @@ tobago-page .tobago-page-menuStore > .tobago-dropdown-menu {
   overflow: auto;
   overscroll-behavior: none;
   margin: var(--tobago-dropdown-menu-offset);
+  z-index: var(--tobago-dropdown-menu-z-index);
+}
+tobago-page .tobago-page-menuStore {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
   z-index: var(--tobago-dropdown-menu-z-index);
 }
 tobago-page .tobago-page-popoverStore .popover .popover-body {
@@ -14206,10 +14206,12 @@ tobago-tree tobago-tree-node[data-tobago-level="20"] {
 }
 tobago-tree tobago-tree-node {
   /* Links in a tree shouldn't be underlined to look more like a menu point. */
-  display: block;
 }
 tobago-tree tobago-tree-node > .tobago-link {
   text-decoration: none;
+}
+tobago-tree tobago-tree-node {
+  display: block;
 }
 tobago-tree tobago-tree-node tobago-tree-select.form-check-inline {
   margin-left: 0.375rem;
