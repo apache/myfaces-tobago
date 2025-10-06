@@ -291,10 +291,16 @@ public class SheetState implements Serializable, ScrollPositionState {
     }
   }
 
+  /**
+   * @return the number of levels (columns) which must be sorted this request
+   */
   public int getToBeSortedLevel() {
     return sortedColumnList.getToBeSortedLevel();
   }
 
+  /**
+   * Indicates that the sheet is sorted and a SortActionEvent is not executed in this request.
+   */
   public void sorted() {
     sortedColumnList.sorted();
   }
