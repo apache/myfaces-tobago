@@ -35,6 +35,7 @@ import jakarta.faces.component.visit.VisitHint;
 import jakarta.faces.component.visit.VisitResult;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ActionListener;
 import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.event.ComponentSystemEventListener;
 import jakarta.faces.event.FacesEvent;
@@ -45,6 +46,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.PageActionEvent;
 import org.apache.myfaces.tobago.event.SheetAction;
+import org.apache.myfaces.tobago.event.SheetRowSelectionChangeEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeListener;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
@@ -62,6 +64,7 @@ import org.apache.myfaces.tobago.model.ScrollPosition;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.SearchOnce;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,7 +72,6 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -98,6 +100,7 @@ public abstract class AbstractUISheet extends AbstractUIData
   private transient int lazyLastRow;
 
   private transient Grid headerGrid;
+  private final transient SearchOnce abstractUIColumnSelectorSearch = new SearchOnce();
 
   @Override
   public void encodeAll(FacesContext facesContext) throws IOException {
@@ -355,9 +358,6 @@ public abstract class AbstractUISheet extends AbstractUIData
 
     final SheetState sheetState = getSheetState(context);
     if (sheetState != null) {
-      final List<Integer> list = (List<Integer>) ComponentUtils.getAttribute(this, Attributes.selectedListString);
-      sheetState.setSelectedRows(list != null ? list : Collections.emptyList());
-      ComponentUtils.removeAttribute(this, Attributes.selectedListString);
       ComponentUtils.removeAttribute(this, Attributes.scrollPosition);
     }
   }
@@ -518,6 +518,22 @@ public abstract class AbstractUISheet extends AbstractUIData
       facesEvent.setPhaseId(PhaseId.INVOKE_APPLICATION);
       parent.queueEvent(facesEvent);
     } else {
+      if (facesEvent.getComponent() == this
+          && facesEvent instanceof SheetRowSelectionChangeEvent sheetRowSelectionChangeEvent) {
+
+        final SheetState sheetState = getSheetState(sheetRowSelectionChangeEvent.getFacesContext());
+        if (sheetState != null) {
+          /* selected rows has to be set in queueEvent() instead of broadcast(), because sheet state reset is executed
+             after queueEvent() and before broadcast() */
+          sheetState.setSelectedRows(sheetRowSelectionChangeEvent.getNewSelectedRows());
+        }
+
+        if (getColumnSelector() != null && getColumnSelector().isImmediate()) {
+          facesEvent.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
+        } else {
+          facesEvent.setPhaseId(PhaseId.INVOKE_APPLICATION);
+        }
+      }
       super.queueEvent(facesEvent);
     }
   }
@@ -539,6 +555,11 @@ public abstract class AbstractUISheet extends AbstractUIData
     } else if (facesEvent instanceof SortActionEvent) {
       getSheetState(getFacesContext()).updateSortState(((SortActionEvent) facesEvent).getColumn().getId());
       sort(getFacesContext(), (SortActionEvent) facesEvent);
+    } else if (facesEvent instanceof SheetRowSelectionChangeEvent sheetRowSelectionChangeEvent) {
+      final ActionListener defaultActionListener = getFacesContext().getApplication().getActionListener();
+      if (defaultActionListener != null) {
+        defaultActionListener.processAction(sheetRowSelectionChangeEvent);
+      }
     }
   }
 
@@ -902,6 +923,10 @@ public abstract class AbstractUISheet extends AbstractUIData
     } else {
       return null;
     }
+  }
+
+  public AbstractUIColumnSelector getColumnSelector() {
+    return abstractUIColumnSelectorSearch.findChild(this, AbstractUIColumnSelector.class);
   }
 
   @Override

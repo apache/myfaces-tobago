@@ -24,9 +24,15 @@ import jakarta.faces.component.UIColumn;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIData;
 import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.component.behavior.ClientBehavior;
 import jakarta.faces.component.behavior.ClientBehaviorContext;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ComponentSystemEventListener;
+import jakarta.faces.event.ListenerFor;
+import jakarta.faces.event.PostAddToViewEvent;
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.LabelLayout;
 import org.apache.myfaces.tobago.component.RendererTypes;
@@ -36,6 +42,7 @@ import org.apache.myfaces.tobago.component.UIPaginatorList;
 import org.apache.myfaces.tobago.component.UIPaginatorPage;
 import org.apache.myfaces.tobago.component.UIPaginatorRow;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.event.SheetRowSelectionChangeEvent;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumn;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnBase;
@@ -94,7 +101,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
+@ListenerFor(systemEventClass = PostAddToViewEvent.class)
+public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> implements ComponentSystemEventListener {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -105,6 +113,20 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
   private static final String SUFFIX_LAZY = NamingContainer.SEPARATOR_CHAR + "pageActionlazy";
   private static final String SUFFIX_LAZY_SCROLL_POSITION = ComponentUtils.SUB_SEPARATOR + "lazyScrollPosition";
   private static final String SUFFIX_COLUMN_SELECTOR = ComponentUtils.SUB_SEPARATOR + "columnSelector";
+
+  @Override
+  public void processEvent(final ComponentSystemEvent event) {
+    final AbstractUISheet sheet = (AbstractUISheet) event.getComponent();
+    final AbstractUIColumnSelector columnSelector = sheet.getColumnSelector();
+    if (columnSelector != null) {
+      List<ClientBehavior> clientBehaviors =
+          columnSelector.getClientBehaviors().get(ClientBehaviors.ROW_SELECTION_CHANGE);
+      if (clientBehaviors != null && !clientBehaviors.isEmpty()) {
+        ClientBehavior clientBehavior = clientBehaviors.get(0);
+        sheet.addClientBehavior(ClientBehaviors.ROW_SELECTION_CHANGE, clientBehavior);
+      }
+    }
+  }
 
   @Override
   public void decodeInternal(final FacesContext facesContext, final T component) {
@@ -134,7 +156,12 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
         selectedRows = Collections.emptyList();
       }
 
-      ComponentUtils.setAttribute(component, Attributes.selectedListString, selectedRows);
+      List<Integer> oldSelectedRows = component.getSheetState(facesContext).getSelectedRows();
+      if (!selectedRows.equals(oldSelectedRows)) {
+        final SheetRowSelectionChangeEvent event =
+            new SheetRowSelectionChangeEvent(component, oldSelectedRows, selectedRows);
+        component.queueEvent(event);
+      }
     }
 
     if (component.isLazy()) {
@@ -366,9 +393,9 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
     final String sheetId = component.getClientId(facesContext);
     final Selectable selectable = component.getSelectable();
     final SheetState state = component.getSheetState(facesContext);
-    final List<Integer> columnWidths = component.getState().getColumnWidths();
-    final boolean definedColumnWidths = component.getState().isDefinedColumnWidths();
-    final List<Integer> selectedRows = getSelectedRows(component, state);
+    final List<Integer> columnWidths = state.getColumnWidths();
+    final boolean definedColumnWidths = state.isDefinedColumnWidths();
+    final List<Integer> selectedRows = state.getSelectedRows();
     final List<AbstractUIColumnBase> columns = component.getAllColumns();
     final boolean autoLayout = component.isAutoLayout();
 
@@ -1133,17 +1160,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> {
   @Override
   public boolean getRendersChildren() {
     return true;
-  }
-
-  private List<Integer> getSelectedRows(final AbstractUISheet data, final SheetState state) {
-    List<Integer> selected = (List<Integer>) ComponentUtils.getAttribute(data, Attributes.selectedListString);
-    if (selected == null && state != null) {
-      selected = state.getSelectedRows();
-    }
-    if (selected == null) {
-      selected = Collections.emptyList();
-    }
-    return selected;
   }
 
   private void encodeResizing(final TobagoResponseWriter writer, final AbstractUISheet sheet, final int columnIndex)
