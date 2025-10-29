@@ -19,12 +19,13 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
 import org.apache.myfaces.tobago.model.Selectable;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.ColumnSelectorTagDeclaration}
  */
-public abstract class AbstractUIColumnSelector extends AbstractUIColumnBase {
+public abstract class AbstractUIColumnSelector extends AbstractUIColumnBase implements ClientBehaviorHolder {
 
 /* TBD
   @Override
@@ -36,4 +37,6 @@ public abstract class AbstractUIColumnSelector extends AbstractUIColumnBase {
   public abstract boolean isDisabled();
 
   public abstract Selectable getSelectable();
+
+  public abstract boolean isImmediate();
 }
