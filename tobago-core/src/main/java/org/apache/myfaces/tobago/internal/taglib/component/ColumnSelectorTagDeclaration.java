@@ -19,17 +19,19 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import jakarta.faces.component.UIColumn;
+import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsImmediateCommand;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 import org.apache.myfaces.tobago.model.Selectable;
-
-import jakarta.faces.component.UIColumn;
 
 /**
  * Renders a column with checkboxes to mark selected rows.
@@ -44,9 +46,12 @@ import jakarta.faces.component.UIColumn;
         // As long as no behavior event names are defined, ClientBehaviorHolder must be implemented for Mojarra.
         "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
+    behaviors = {
+        @Behavior(name = ClientBehaviors.ROW_SELECTION_CHANGE, isDefault = true)
+    },
     allowedChildComponents = "NONE")
 public interface ColumnSelectorTagDeclaration
-    extends HasIdBindingAndRendered, IsVisual, IsDisabled {
+    extends HasIdBindingAndRendered, IsImmediateCommand, IsVisual, IsDisabled {
 
   /**
    * Indicating the selection mode of the columnSelector. Only effective if sheet selection mode is none.
