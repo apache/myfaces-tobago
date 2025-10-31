@@ -26,7 +26,7 @@
              link="#{request.contextPath}/content/900-test/3000-sheet/90-sheet-in-sheet/Sheet_in_sheet.xhtml"/>
 
   <tc:sheet id="mainSheet" var="object" value="#{sheetController.solarList}" rows="5">
-    <tc:columnSelector id="cs"/>
+    <tc:columnSelector/>
     <tc:column label="Name">
       <tc:out id="name" value="#{object.name}"/>
     </tc:column>

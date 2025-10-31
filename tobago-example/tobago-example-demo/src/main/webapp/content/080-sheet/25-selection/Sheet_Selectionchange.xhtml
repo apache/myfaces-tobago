@@ -32,7 +32,7 @@
   <tc:sheet id="sheet" value="#{sheetController.solarList}" var="object" rows="4" state="#{sheetController.sheetState}">
     <tc:style maxHeight="500px"/>
     <f:ajax event="tobago.sheet.rowSelectionChange" render="::panel"/>
-    <tc:columnSelector id="cs"/>
+    <tc:columnSelector/>
     <tc:column label="Name">
       <tc:out value="#{object.name}" labelLayout="skip"/>
     </tc:column>
