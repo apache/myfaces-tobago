@@ -25,7 +25,7 @@ it("there must be no 'tobago-auto-spacing'", function () {
 
 it("main sheet: select all; sun sub sheet: select Mercury; venus sub sheet: select earth", function (done) {
   const reloadPage = querySelectorFn("page:mainForm:reloadPage");
-  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:mainSheet:cs::columnSelectorToggle']");
+  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:mainSheet::columnSelector']");
   const sunSheetMercuryRow = querySelectorFn("#page\\:mainForm\\:mainSheet\\:0\\:subSheet tr[row-index='1']");
   const venusSheetEarthRow = querySelectorFn("#page\\:mainForm\\:mainSheet\\:2\\:subSheet tr[row-index='3']");
 

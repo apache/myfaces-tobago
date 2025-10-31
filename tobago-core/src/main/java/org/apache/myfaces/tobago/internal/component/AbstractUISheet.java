@@ -62,7 +62,6 @@ import org.apache.myfaces.tobago.model.ScrollPosition;
 import org.apache.myfaces.tobago.model.SelectedState;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.util.SearchOnce;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,6 +69,7 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -98,7 +98,6 @@ public abstract class AbstractUISheet extends AbstractUIData
   private transient int lazyLastRow;
 
   private transient Grid headerGrid;
-  private final transient SearchOnce abstractUIColumnSelectorSearch = new SearchOnce();
 
   @Override
   public void encodeAll(FacesContext facesContext) throws IOException {
@@ -356,7 +355,9 @@ public abstract class AbstractUISheet extends AbstractUIData
 
     final SheetState sheetState = getSheetState(context);
     if (sheetState != null) {
-      AbstractUIColumnSelector.processSelectedRows(this, sheetState);
+      final List<Integer> list = (List<Integer>) ComponentUtils.getAttribute(this, Attributes.selectedListString);
+      sheetState.setSelectedRows(list != null ? list : Collections.emptyList());
+      ComponentUtils.removeAttribute(this, Attributes.selectedListString);
       ComponentUtils.removeAttribute(this, Attributes.scrollPosition);
     }
   }
@@ -901,10 +902,6 @@ public abstract class AbstractUISheet extends AbstractUIData
     } else {
       return null;
     }
-  }
-
-  public AbstractUIColumnSelector getColumnSelector() {
-    return abstractUIColumnSelectorSearch.findChild(this, AbstractUIColumnSelector.class);
   }
 
   @Override
