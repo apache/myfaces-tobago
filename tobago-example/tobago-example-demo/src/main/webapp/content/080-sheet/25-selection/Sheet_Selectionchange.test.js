@@ -22,7 +22,7 @@ it("select 'Sun', select 'Venus', select all, deselect 'Mercury'", function (don
   const selectedRows = querySelectorFn("#page\\:mainForm\\:selectedRows .form-control-plaintext");
   const resetSelected = elementByIdFn("page:mainForm:resetSelected");
   const hiddenSelectedField = elementByIdFn("page:mainForm:sheet::selected");
-  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:sheet:cs::columnSelectorToggle']");
+  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:sheet::columnSelector']");
   const sun = querySelectorFn("tr[row-index='0']");
   const mercury = querySelectorFn("tr[row-index='1']");
   const venus = querySelectorFn("tr[row-index='2']");

@@ -89,7 +89,7 @@ it("selectable=single: page 1; select row 3; page 4; select row 18; page 1", fun
   const columnSelectorRendered = elementByIdFn("page:mainForm:columnSelectorRendered::field");
   const columnPanelRendered = elementByIdFn("page:mainForm:columnPanelRendered::field");
   const setupSelectableSingle = elementByIdFn("page:mainForm:selectableSingle");
-  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:sheet:cs::columnSelectorToggle']");
+  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:sheet::columnSelector']");
   const row3 = querySelectorFn("tr[row-index='3']");
   const row18 = querySelectorFn("tr[row-index='18']");
   const page4 = querySelectorFn("#page\\:mainForm\\:sheet [data-tobago-action*='\\:4\\}']");
@@ -133,7 +133,7 @@ it("selectable=singleOrNone: page 1; select row 3; deselect row 3", function (do
   const columnSelectorRendered = elementByIdFn("page:mainForm:columnSelectorRendered::field");
   const columnPanelRendered = elementByIdFn("page:mainForm:columnPanelRendered::field");
   const setupSelectableSingleOrNone = elementByIdFn("page:mainForm:selectableSingleOrNone");
-  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:sheet:cs::columnSelectorToggle']");
+  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:sheet::columnSelector']");
   const row3 = querySelectorFn("tr[row-index='3']");
   const row18 = querySelectorFn("tr[row-index='18']");
   const page4 = querySelectorFn("#page\\:mainForm\\:sheet [data-tobago-action*='\\:4\\}']");
@@ -165,7 +165,7 @@ it("selectable=multi: page 1; select row 4; page 4; select row 17; page 1", func
   const columnSelectorRendered = elementByIdFn("page:mainForm:columnSelectorRendered::field");
   const columnPanelRendered = elementByIdFn("page:mainForm:columnPanelRendered::field");
   const setupSelectableMulti = elementByIdFn("page:mainForm:selectableMulti");
-  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:sheet:cs::columnSelectorToggle']");
+  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:sheet::columnSelector']");
   const row4 = querySelectorFn("tr[row-index='4']");
   const row17 = querySelectorFn("tr[row-index='17']");
   const page4 = querySelectorFn("#page\\:mainForm\\:sheet [data-tobago-action*='\\:4\\}']");
@@ -209,7 +209,7 @@ it("selectable=multi: select all; page 4; select row 17; page 1", function (done
   const columnSelectorRendered = elementByIdFn("page:mainForm:columnSelectorRendered::field");
   const columnPanelRendered = elementByIdFn("page:mainForm:columnPanelRendered::field");
   const setupSelectableMulti = elementByIdFn("page:mainForm:selectableMulti");
-  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:sheet:cs::columnSelectorToggle']");
+  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:sheet::columnSelector']");
   const row0 = querySelectorFn("tr[row-index='0']");
   const row1 = querySelectorFn("tr[row-index='1']");
   const row2 = querySelectorFn("tr[row-index='2']");
@@ -282,7 +282,7 @@ it("selectable=multi: select all; deselect row 3; select row 3", function (done)
   const columnSelectorRendered = elementByIdFn("page:mainForm:columnSelectorRendered::field");
   const columnPanelRendered = elementByIdFn("page:mainForm:columnPanelRendered::field");
   const setupSelectableMulti = elementByIdFn("page:mainForm:selectableMulti");
-  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:sheet:cs::columnSelectorToggle']");
+  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:sheet::columnSelector']");
   const row0 = querySelectorFn("tr[row-index='0']");
   const row1 = querySelectorFn("tr[row-index='1']");
   const row2 = querySelectorFn("tr[row-index='2']");
@@ -355,7 +355,7 @@ it("disabled column selector", function (done) {
   const columnPanelRendered = elementByIdFn("page:mainForm:columnPanelRendered::field");
   const setupDisabledColumnSelector = elementByIdFn("page:mainForm:disabledColumnSelector");
   const hiddenSelectedField = elementByIdFn("page:mainForm:sheet::selected");
-  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:sheet:cs::columnSelectorToggle']");
+  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:sheet::columnSelector']");
   const rowSelector = querySelectorFn("input[name='page:mainForm:sheet_data_row_selector_0']");
   const row2 = querySelectorFn("tr[row-index='2']");
   const row4 = querySelectorFn("tr[row-index='4']");
@@ -391,7 +391,7 @@ it("column panel: page 1; select row 4; page 4; select row 17; page 1", function
   const columnSelectorRendered = elementByIdFn("page:mainForm:columnSelectorRendered::field");
   const columnPanelRendered = elementByIdFn("page:mainForm:columnPanelRendered::field");
   const setupColumnPanel = elementByIdFn("page:mainForm:columnPanel");
-  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:sheet:cs::columnSelectorToggle']");
+  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:sheet::columnSelector']");
   const row4 = querySelectorFn("tr[row-index='4']");
   const row17 = querySelectorFn("tr[row-index='17']");
   const columnPanel4 = querySelectorFn(".tobago-column-panel[name='4']");
@@ -441,7 +441,7 @@ it("lazy: select all; scroll down; deselect row 17; deselect row 3", function (d
   const columnPanelRendered = elementByIdFn("page:mainForm:columnPanelRendered::field");
   const setupLazy = elementByIdFn("page:mainForm:setupLazy");
   const hiddenSelectedField = elementByIdFn("page:mainForm:sheet::selected");
-  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:sheet:cs::columnSelectorToggle']");
+  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:sheet::columnSelector']");
   const row3 = querySelectorFn("tr[row-index='3']");
   const row17 = querySelectorFn("tr[row-index='17']");
 
@@ -483,7 +483,7 @@ it("lazy: scroll down, select row 17 column panel, select row 3 column panel", f
   const columnPanelRendered = elementByIdFn("page:mainForm:columnPanelRendered::field");
   const lazyColumnPanel = elementByIdFn("page:mainForm:lazyColumnPanel");
   const hiddenSelectedField = elementByIdFn("page:mainForm:sheet::selected");
-  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:sheet:cs::columnSelectorToggle']");
+  const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:sheet::columnSelector']");
   const row3 = querySelectorFn("tr[row-index='3']");
   const row17 = querySelectorFn("tr[row-index='17']");
   const columnPanel3 = querySelectorFn(".tobago-column-panel[name='3']");

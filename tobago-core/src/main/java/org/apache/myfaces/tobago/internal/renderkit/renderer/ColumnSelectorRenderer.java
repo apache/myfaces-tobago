@@ -19,51 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import jakarta.faces.context.FacesContext;
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.component.AbstractUIColumnSelector;
-import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
-import org.apache.myfaces.tobago.internal.util.JsonUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.lang.invoke.MethodHandles;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 
 public class ColumnSelectorRenderer<T extends AbstractUIColumnSelector> extends RendererBase<T> {
-
-  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
-  public static final String SUFFIX_SELECTED = ComponentUtils.SUB_SEPARATOR + "selected";
-
-  @Override
-  public void decodeInternal(final FacesContext facesContext, final T component) {
-    super.decodeInternal(facesContext, component);
-
-    final AbstractUISheet sheet = component.getSheet();
-    decodeSelectedRows(facesContext, sheet);
-  }
-
-  static void decodeSelectedRows(final FacesContext facesContext, final AbstractUISheet sheet) {
-    final String sheetId = sheet.getClientId(facesContext);
-    final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    String key = sheetId + SUFFIX_SELECTED;
-    if (requestParameterMap.containsKey(key)) {
-      final String selected = requestParameterMap.get(key);
-      LOG.debug("selected = {}", selected);
-      List<Integer> selectedRows;
-      try {
-        selectedRows = JsonUtils.decodeIntegerArray(selected);
-      } catch (final NumberFormatException e) {
-        LOG.warn(selected, e);
-        selectedRows = Collections.emptyList();
-      }
-
-      ComponentUtils.setAttribute(sheet, Attributes.selectedListString, selectedRows);
-    }
-  }
 }
