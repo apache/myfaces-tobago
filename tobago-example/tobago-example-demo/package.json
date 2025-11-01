@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.55.1",
-    "@rollup/plugin-node-resolve": "^16.0.2",
+    "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-replace": "^6.0.2",
     "@types/node": "^24.7.0",
     "@types/prismjs": "^1.26.5",
