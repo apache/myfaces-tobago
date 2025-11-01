@@ -378,7 +378,6 @@ public enum Attributes {
   selectable,
   selectedIndex,
   selectedLabel,
-  selectedListString,
   selector,
   sheetAction,
   showCheckbox,

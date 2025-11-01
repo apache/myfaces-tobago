@@ -35,6 +35,7 @@ import jakarta.faces.component.visit.VisitHint;
 import jakarta.faces.component.visit.VisitResult;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ActionListener;
 import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.event.ComponentSystemEventListener;
 import jakarta.faces.event.FacesEvent;
@@ -45,6 +46,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.event.PageActionEvent;
 import org.apache.myfaces.tobago.event.SheetAction;
+import org.apache.myfaces.tobago.event.SheetRowSelectionChangeEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeListener;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
@@ -356,7 +358,6 @@ public abstract class AbstractUISheet extends AbstractUIData
 
     final SheetState sheetState = getSheetState(context);
     if (sheetState != null) {
-      AbstractUIColumnSelector.processSelectedRows(this, sheetState);
       ComponentUtils.removeAttribute(this, Attributes.scrollPosition);
     }
   }
@@ -517,6 +518,22 @@ public abstract class AbstractUISheet extends AbstractUIData
       facesEvent.setPhaseId(PhaseId.INVOKE_APPLICATION);
       parent.queueEvent(facesEvent);
     } else {
+      if (facesEvent.getComponent() == this
+          && facesEvent instanceof SheetRowSelectionChangeEvent sheetRowSelectionChangeEvent) {
+
+        final SheetState sheetState = getSheetState(sheetRowSelectionChangeEvent.getFacesContext());
+        if (sheetState != null) {
+          /* selected rows has to be set in queueEvent() instead of broadcast(), because sheet state reset is executed
+             after queueEvent() and before broadcast() */
+          sheetState.setSelectedRows(sheetRowSelectionChangeEvent.getNewSelectedRows());
+        }
+
+        if (getColumnSelector() != null && getColumnSelector().isImmediate()) {
+          facesEvent.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
+        } else {
+          facesEvent.setPhaseId(PhaseId.INVOKE_APPLICATION);
+        }
+      }
       super.queueEvent(facesEvent);
     }
   }
@@ -538,6 +555,11 @@ public abstract class AbstractUISheet extends AbstractUIData
     } else if (facesEvent instanceof SortActionEvent) {
       getSheetState(getFacesContext()).updateSortState(((SortActionEvent) facesEvent).getColumn().getId());
       sort(getFacesContext(), (SortActionEvent) facesEvent);
+    } else if (facesEvent instanceof SheetRowSelectionChangeEvent sheetRowSelectionChangeEvent) {
+      final ActionListener defaultActionListener = getFacesContext().getApplication().getActionListener();
+      if (defaultActionListener != null) {
+        defaultActionListener.processAction(sheetRowSelectionChangeEvent);
+      }
     }
   }
 

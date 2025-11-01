@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsImmediateCommand;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 import org.apache.myfaces.tobago.model.Selectable;
 
@@ -46,11 +47,11 @@ import org.apache.myfaces.tobago.model.Selectable;
         "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
     behaviors = {
-        @Behavior(name = ClientBehaviors.CHANGE, isDefault = true)
+        @Behavior(name = ClientBehaviors.ROW_SELECTION_CHANGE, isDefault = true)
     },
     allowedChildComponents = "NONE")
 public interface ColumnSelectorTagDeclaration
-    extends HasIdBindingAndRendered, IsVisual, IsDisabled {
+    extends HasIdBindingAndRendered, IsImmediateCommand, IsVisual, IsDisabled {
 
   /**
    * Indicating the selection mode of the columnSelector. Only effective if sheet selection mode is none.

@@ -42,7 +42,7 @@ test.describe("900-test/3000-sheet/38-column-selector/ajax/ajax.xhtml", () => {
     await row4Orbit.click();
     await expect(selectedCount).toHaveText("2");
 
-    const toggleAll = sheet.locator("th[id='page:mainForm:sheet:colSelect::columnSelectorToggle'] input");
+    const toggleAll = sheet.locator("th[id='page:mainForm:sheet:colSelect'] input");
     await toggleAll.click();
     await expect(selectedCount).toHaveText("5");
 

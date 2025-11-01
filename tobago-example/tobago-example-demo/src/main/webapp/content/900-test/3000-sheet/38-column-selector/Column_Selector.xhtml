@@ -72,8 +72,7 @@
             selectable="#{columnSelectorController.sheetSelectable}"
             lazy="#{columnSelectorController.lazy}" lazyRows="10">
     <tc:style maxHeight="500px"/>
-    <tc:columnSelector id="cs"
-                       selectable="#{columnSelectorController.columnSelectorSelectable}"
+    <tc:columnSelector selectable="#{columnSelectorController.columnSelectorSelectable}"
                        disabled="#{columnSelectorController.columnSelectorDisabled}"
                        rendered="#{columnSelectorController.columnSelectorRendered}"/>
     <tc:column label="Name">
