@@ -11514,7 +11514,10 @@ getJasmineRequireObj().TreeRunner = function(j$) {
     _executeSpec(spec, specOverallDone) {
       const onStart = next => {
         this.#currentRunableTracker.setCurrentSpec(spec);
-        this.#runableResources.initForRunable(spec.id, spec.parentSuiteId);
+        this.#runableResources.initForRunable(
+          spec.id,
+          spec.parentSuiteId || this.#executionTree.topSuite.id
+        );
         this.#reportDispatcher.specStarted(spec.result).then(next);
       };
       const resultCallback = (result, next) => {
@@ -11788,5 +11791,5 @@ getJasmineRequireObj().UserContext = function(j$) {
 };
 
 getJasmineRequireObj().version = function() {
-  return '5.12.0';
+  return '5.12.1';
 };
