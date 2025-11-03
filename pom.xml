@@ -669,7 +669,7 @@
         <plugin>
           <groupId>org.apache.rat</groupId>
           <artifactId>apache-rat-plugin</artifactId>
-          <version>0.16.1</version>
+          <version>0.17</version>
           <configuration>
             <excludes>
               <!-- This file is created during a release and needs no licensing text -->
