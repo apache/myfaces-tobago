@@ -15,7 +15,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.myfaces</groupId>
@@ -27,7 +28,9 @@
   <packaging>pom</packaging>
   <name>Apache Tobago</name>
   <version>2.6.0-SNAPSHOT</version>
-  <description>The goal of Tobago is to provide the community with a well-designed set of user interface components based on JSF and run on MyFaces.</description>
+  <description>The goal of Tobago is to provide the community with a well-designed set of user interface components
+    based on JSF and run on MyFaces.
+  </description>
   <prerequisites>
     <maven>${required.maven.version}</maven>
   </prerequisites>
@@ -96,7 +99,9 @@
       <name>Myfaces Developer List (use [Tobago] prefix)</name>
       <subscribe>dev-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>dev-unsubscribe@myfaces.apache.org</unsubscribe>
-      <post>List for posting patches and discussing internal code implementation issues. Subscribe to this list before posting</post>
+      <post>List for posting patches and discussing internal code implementation issues. Subscribe to this list before
+        posting
+      </post>
       <archive>http://mail-archives.apache.org/mod_mbox/myfaces-dev</archive>
       <otherArchives>
         <otherArchive>http://www.mail-archive.com/dev@myfaces.apache.org/</otherArchive>
@@ -121,7 +126,8 @@
       <post>do not post</post>
       <archive>http://mail-archives.apache.org/mod_mbox/myfaces-notifications</archive>
       <otherArchives>
-        <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.notifications</otherArchive>
+        <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.notifications
+        </otherArchive>
       </otherArchives>
     </mailingList>
     <mailingList>
@@ -348,21 +354,21 @@
     </dependency>
 
     <!-- you may want to add this for debugging -->
-<!--
-    <dependency>
-    	<groupId>org.jboss.portletbridge</groupId>
-    	<artifactId>portletbridge-api</artifactId>
-    	<version>3.2.1.Final</version>
-      <scope>provided</scope>
-    </dependency>
+    <!--
+        <dependency>
+          <groupId>org.jboss.portletbridge</groupId>
+          <artifactId>portletbridge-api</artifactId>
+          <version>3.2.1.Final</version>
+          <scope>provided</scope>
+        </dependency>
 
-    <dependency>
-    	<groupId>org.jboss.portletbridge</groupId>
-    	<artifactId>portletbridge-impl</artifactId>
-    	<version>3.2.1.Final</version>
-      <scope>provided</scope>
-    </dependency>
--->
+        <dependency>
+          <groupId>org.jboss.portletbridge</groupId>
+          <artifactId>portletbridge-impl</artifactId>
+          <version>3.2.1.Final</version>
+          <scope>provided</scope>
+        </dependency>
+    -->
 
   </dependencies>
 
@@ -499,36 +505,36 @@
           </execution>
         </executions>
       </plugin>
-<!--
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        &lt;!&ndash; XXX better use antrun? &ndash;&gt;
-        <artifactId>maven-resources-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>copy-config-schema</id>
-&lt;!&ndash; XXX why it is not possible to use the site phase here? &ndash;&gt;
-            &lt;!&ndash;<phase>site</phase>&ndash;&gt;
-            <phase>package</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${project.build.directory}/site</outputDirectory>
-              <resources>
-                <resource>
-                  <directory>tobago-core/src/main/resources/org/apache/myfaces/tobago/config</directory>
-                  <includes>
-                    <include>**/*.xsd</include>
-                    <include>**/*.dtd</include>
-                  </includes>
-                </resource>
-              </resources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
--->
+      <!--
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              &lt;!&ndash; XXX better use antrun? &ndash;&gt;
+              <artifactId>maven-resources-plugin</artifactId>
+              <executions>
+                <execution>
+                  <id>copy-config-schema</id>
+      &lt;!&ndash; XXX why it is not possible to use the site phase here? &ndash;&gt;
+                  &lt;!&ndash;<phase>site</phase>&ndash;&gt;
+                  <phase>package</phase>
+                  <goals>
+                    <goal>copy-resources</goal>
+                  </goals>
+                  <configuration>
+                    <outputDirectory>${project.build.directory}/site</outputDirectory>
+                    <resources>
+                      <resource>
+                        <directory>tobago-core/src/main/resources/org/apache/myfaces/tobago/config</directory>
+                        <includes>
+                          <include>**/*.xsd</include>
+                          <include>**/*.dtd</include>
+                        </includes>
+                      </resource>
+                    </resources>
+                  </configuration>
+                </execution>
+              </executions>
+            </plugin>
+      -->
     </plugins>
     <pluginManagement>
       <plugins>
@@ -628,10 +634,10 @@
             <childDelegation>false</childDelegation>
             <forkMode>perTest</forkMode>
             -->
-<!--
-            <argLine>-Xdebug -Xnoagent -Djava.compiler=NONE
-            -Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=y</argLine>
--->
+            <!--
+                        <argLine>-Xdebug -Xnoagent -Djava.compiler=NONE
+                        -Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=y</argLine>
+            -->
           </configuration>
         </plugin>
         <plugin>
@@ -712,45 +718,48 @@
         <plugin>
           <groupId>org.apache.rat</groupId>
           <artifactId>apache-rat-plugin</artifactId>
-          <version>0.16.1</version>
+          <version>0.17</version>
           <configuration>
-            <excludes>
+            <inputExcludes>
               <!-- This file is created during a release and needs no licensing text -->
-              <exclude>DEPENDENCIES</exclude>
+              <inputExclude>DEPENDENCIES</inputExclude>
 
               <!-- jQuery -->
-              <exclude>**/jquery*.js</exclude>
-              <exclude>**/jquery*.map</exclude>
-              <exclude>**/jquery*.css</exclude>
+              <inputExclude>**/jquery*.js</inputExclude>
+              <inputExclude>**/jquery*.map</inputExclude>
+              <inputExclude>**/jquery*.css</inputExclude>
 
               <!-- log files -->
-              <exclude>**/*.log</exclude>
+              <inputExclude>**/*.log</inputExclude>
 
               <!-- maven -->
-              <exclude>**/target/**/*</exclude>
+              <inputExclude>**/target/**/*</inputExclude>
 
               <!-- idea -->
-              <exclude>.idea/**/*</exclude>
-              <exclude>**/*.iml</exclude>
-              <exclude>**/*.ipr</exclude>
-              <exclude>**/*.iws</exclude>
+              <inputExclude>.idea/**/*</inputExclude>
+              <inputExclude>**/*.iml</inputExclude>
+              <inputExclude>**/*.ipr</inputExclude>
+              <inputExclude>**/*.iws</inputExclude>
 
               <!-- photo shop -->
-              <exclude>**/*.psd</exclude>
+              <inputExclude>**/*.psd</inputExclude>
+
+              <!-- sample -->
+              <inputExclude>**/x-sample.pdf</inputExclude>
 
               <!-- pixelmator -->
-              <exclude>**/*.pxm</exclude>
+              <inputExclude>**/*.pxm</inputExclude>
 
               <!-- select2 -->
-              <exclude>**/contrib/select2/**.css</exclude>
-              <exclude>**/contrib/select2/**/*.js</exclude>
+              <inputExclude>**/contrib/select2/**.css</inputExclude>
+              <inputExclude>**/contrib/select2/**/*.js</inputExclude>
 
               <!-- jetty key store for testing -->
-              <exclude>**/jettykeystore</exclude>
+              <inputExclude>**/jettykeystore</inputExclude>
 
               <!-- readme -->
-              <exclude>**/README.md</exclude>
-            </excludes>
+              <inputExclude>**/README.md</inputExclude>
+            </inputExcludes>
           </configuration>
         </plugin>
 
@@ -989,7 +998,9 @@
             <executions>
               <execution>
                 <id>attach-javadoc</id>
-                <goals><goal>jar</goal></goals>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
               </execution>
             </executions>
           </plugin>
@@ -999,7 +1010,9 @@
             <executions>
               <execution>
                 <id>attach-source</id>
-                <goals><goal>jar-no-fork</goal></goals>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
               </execution>
             </executions>
           </plugin>
@@ -1033,64 +1046,64 @@
       </build>
     </profile>
 
-<!--
-    Attention: The next profiles should only be changed by a clean build.
-    They define the JSF version which are generally incompatible.
-    They also define the JSF implementation used to compile and for runtime.
+    <!--
+        Attention: The next profiles should only be changed by a clean build.
+        They define the JSF version which are generally incompatible.
+        They also define the JSF implementation used to compile and for runtime.
 
-    Usage for a standard build (jsf-2.0):
-    mvn
+        Usage for a standard build (jsf-2.0):
+        mvn
 
-    Usage for specific build:
-    mvn -Pjsf-2.1
-    mvn -Pjsf-2.2
+        Usage for specific build:
+        mvn -Pjsf-2.1
+        mvn -Pjsf-2.2
 
--->
+    -->
 
-<!--
-    <profile>
-      <id>jsf-2.0</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>myfaces-2.0</value>
-        </property>
-      </activation>
-      <properties>
-        <jsf.target>2.0</jsf.target>
-      </properties>
-      <dependencyManagement>
-        <dependencies>
-          <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-api</artifactId>
-            <version>${myfaces20.version}</version>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-impl</artifactId>
-            <version>${myfaces20.version}</version>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.1.2</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-          </dependency>
-          <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <optional>true</optional>
-            <scope>provided</scope>
-          </dependency>
-        </dependencies>
-      </dependencyManagement>
-    </profile>
--->
+    <!--
+        <profile>
+          <id>jsf-2.0</id>
+          <activation>
+            <property>
+              <name>jsf</name>
+              <value>myfaces-2.0</value>
+            </property>
+          </activation>
+          <properties>
+            <jsf.target>2.0</jsf.target>
+          </properties>
+          <dependencyManagement>
+            <dependencies>
+              <dependency>
+                <groupId>org.apache.myfaces.core</groupId>
+                <artifactId>myfaces-api</artifactId>
+                <version>${myfaces20.version}</version>
+                <optional>true</optional>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.myfaces.core</groupId>
+                <artifactId>myfaces-impl</artifactId>
+                <version>${myfaces20.version}</version>
+                <optional>true</optional>
+              </dependency>
+              <dependency>
+                <groupId>javax.servlet.jsp</groupId>
+                <artifactId>jsp-api</artifactId>
+                <version>2.1.2</version>
+                <scope>provided</scope>
+                <optional>true</optional>
+              </dependency>
+              <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>2.5</version>
+                <optional>true</optional>
+                <scope>provided</scope>
+              </dependency>
+            </dependencies>
+          </dependencyManagement>
+        </profile>
+    -->
 
     <profile>
       <id>jsf-2.1</id>
