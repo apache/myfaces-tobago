@@ -15,7 +15,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.myfaces</groupId>
@@ -94,7 +95,9 @@
       <name>Myfaces Developer List (use [Tobago] prefix)</name>
       <subscribe>dev-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>dev-unsubscribe@myfaces.apache.org</unsubscribe>
-      <post>List for posting patches and discussing internal code implementation issues. Subscribe to this list before posting</post>
+      <post>List for posting patches and discussing internal code implementation issues. Subscribe to this list before
+        posting
+      </post>
       <archive>https://lists.apache.org/list.html?dev@myfaces.apache.org</archive>
       <otherArchives>
         <otherArchive>http://mail-archives.apache.org/mod_mbox/myfaces-dev</otherArchive>
@@ -122,7 +125,8 @@
       <archive>https://lists.apache.org/list.html?notifications@myfaces.apache.org</archive>
       <otherArchives>
         <otherArchive>http://mail-archives.apache.org/mod_mbox/myfaces-notifications</otherArchive>
-        <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.notifications</otherArchive>
+        <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.notifications
+        </otherArchive>
       </otherArchives>
     </mailingList>
     <mailingList>
@@ -467,22 +471,22 @@
             This settings prints no warning at all, so verify the signatures
             at least once with full dependencies.
           -->
-<!--          <ignoreSignaturesOfMissingClasses>true</ignoreSignaturesOfMissingClasses>-->
+          <!--          <ignoreSignaturesOfMissingClasses>true</ignoreSignaturesOfMissingClasses>-->
           <bundledSignatures>
             <!--
               This will automatically choose the right
               signatures based on 'maven.compiler.target':
             -->
-<!--            <bundledSignature>jdk-unsafe</bundledSignature>-->
-<!--            <bundledSignature>jdk-deprecated</bundledSignature>-->
+            <!--            <bundledSignature>jdk-unsafe</bundledSignature>-->
+            <!--            <bundledSignature>jdk-deprecated</bundledSignature>-->
             <!-- disallow undocumented classes like sun.misc.Unsafe: -->
             <bundledSignature>jdk-non-portable</bundledSignature>
             <!-- don't allow unsafe reflective access: -->
             <bundledSignature>jdk-reflection</bundledSignature>
           </bundledSignatures>
-<!--          <signaturesFiles>-->
-<!--            <signaturesFile>./rel/path/to/signatures.txt</signaturesFile>-->
-<!--          </signaturesFiles>-->
+          <!--          <signaturesFiles>-->
+          <!--            <signaturesFile>./rel/path/to/signatures.txt</signaturesFile>-->
+          <!--          </signaturesFiles>-->
         </configuration>
         <executions>
           <execution>
@@ -601,10 +605,10 @@
             <childDelegation>false</childDelegation>
             <forkMode>perTest</forkMode>
             -->
-<!--
-            <argLine>-Xdebug -Xnoagent -Djava.compiler=NONE
-            -Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=y</argLine>
--->
+            <!--
+                        <argLine>-Xdebug -Xnoagent -Djava.compiler=NONE
+                        -Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=y</argLine>
+            -->
           </configuration>
         </plugin>
         <plugin>
@@ -619,10 +623,10 @@
           <configuration>
             <!-- switched off check in Java 8 -->
             <additionalparam>
-                -Xdoclint:accessibility
-                -Xdoclint:html
-                -Xdoclint:reference
-                -Xdoclint:syntax
+              -Xdoclint:accessibility
+              -Xdoclint:html
+              -Xdoclint:reference
+              -Xdoclint:syntax
             </additionalparam>
           </configuration>
         </plugin>
@@ -669,81 +673,82 @@
         <plugin>
           <groupId>org.apache.rat</groupId>
           <artifactId>apache-rat-plugin</artifactId>
-          <version>0.16.1</version>
+          <version>0.17</version>
           <configuration>
-            <excludes>
+            <inputExcludes>
               <!-- This file is created during a release and needs no licensing text -->
-              <exclude>DEPENDENCIES</exclude>
+              <inputExclude>DEPENDENCIES</inputExclude>
 
               <!-- js-min-map / min-css -->
-              <exclude>**/*.map</exclude>
-              <exclude>**/*.min.css</exclude>
+              <inputExclude>**/*.map</inputExclude>
+              <inputExclude>**/*.min.css</inputExclude>
 
               <!-- faces.js XXX check for official release -->
-              <exclude>**/faces.js</exclude>
-              <exclude>**/tobago.js</exclude>
+              <inputExclude>**/faces.js</inputExclude>
+              <inputExclude>**/tobago.js</inputExclude>
 
               <!-- jettykeystore -->
-              <exclude>**/jettykeystore</exclude>
+              <inputExclude>**/jettykeystore</inputExclude>
 
               <!-- prism (tobago-example-demo) -->
-              <exclude>**/src/main/webapp/*/prism*.*</exclude>
+              <inputExclude>**/src/main/webapp/*/prism*.*</inputExclude>
 
               <!-- jasmine (tobago-example-demo) -->
-              <exclude>**/src/main/webapp/js/boot*.js</exclude>
-              <exclude>**/src/main/webapp/js/jasmine*.js</exclude>
-              <exclude>**/src/main/webapp/css/jasmine.css</exclude>
+              <inputExclude>**/src/main/webapp/js/boot*.js</inputExclude>
+              <inputExclude>**/src/main/webapp/js/jasmine*.js</inputExclude>
+              <inputExclude>**/src/main/webapp/css/jasmine.css</inputExclude>
 
               <!-- jQuery (tobago-example-demo) -->
-              <exclude>**/src/main/webapp/*/jquery*.*</exclude>
+              <inputExclude>**/src/main/webapp/*/jquery*.*</inputExclude>
 
               <!-- log files -->
-              <exclude>**/*.log</exclude>
-              <exclude>**/test-scenarios-locally/**/*</exclude>
+              <inputExclude>**/*.log</inputExclude>
+              <inputExclude>**/test-scenarios-locally/**/*</inputExclude>
 
               <!-- git -->
-              <exclude>**/.gitkeep</exclude>
+              <inputExclude>**/.gitkeep</inputExclude>
 
               <!-- maven -->
-              <exclude>**/target/**/*</exclude>
+              <inputExclude>**/target/**/*</inputExclude>
 
               <!-- idea -->
-              <exclude>.idea/**/*</exclude>
-              <exclude>**/*.iml</exclude>
-              <exclude>**/*.ipr</exclude>
-              <exclude>**/*.iws</exclude>
+              <inputExclude>.idea/**/*</inputExclude>
+              <inputExclude>**/*.iml</inputExclude>
+              <inputExclude>**/*.ipr</inputExclude>
+              <inputExclude>**/*.iws</inputExclude>
 
               <!-- json -->
-              <exclude>**/*.json</exclude>
+              <inputExclude>**/*.json</inputExclude>
 
               <!-- photo shop -->
-              <exclude>**/*.psd</exclude>
+              <inputExclude>**/*.psd</inputExclude>
 
               <!-- sample -->
-              <exclude>**/x-sample.txt</exclude>
+              <inputExclude>**/x-sample.txt</inputExclude>
+              <inputExclude>**/x-sample.pdf</inputExclude>
 
               <!-- readme -->
-              <exclude>**/readme.*</exclude>
-              <exclude>**/*.md</exclude>
+              <inputExclude>**/readme.*</inputExclude>
+              <inputExclude>**/*.md</inputExclude>
 
               <!-- banner -->
-              <exclude>**/banner.txt</exclude>
+              <inputExclude>**/banner.txt</inputExclude>
 
               <!-- tobago-vm index page -->
-              <exclude>**/tobago-vm/docker/apache-proxy/bootstrap*.css</exclude>
+              <inputExclude>**/tobago-vm/docker/apache-proxy/bootstrap*.css</inputExclude>
 
               <!-- local npm for IDE -->
-              <exclude>node/**/*</exclude>
-              <exclude>node_modules/**/*</exclude>
-              <exclude>src/main/webapp/css/font-awesome.css</exclude>
-              <exclude>src/main/css/bootstrap-icons.css</exclude>
-              <exclude>src/main/js/tobago.min.js</exclude>
-              <exclude>src/main/webapp/js/demo.js</exclude>
+              <inputExclude>node/**/*</inputExclude>
+              <inputExclude>node_modules/**/*</inputExclude>
+              <inputExclude>src/main/webapp/css/font-awesome.css</inputExclude>
+              <inputExclude>src/main/css/bootstrap-icons.css</inputExclude>
+              <inputExclude>src/main/js/tobago.min.js</inputExclude>
+              <inputExclude>src/main/webapp/js/demo.js</inputExclude>
 
-              <exclude>**/.eslintignore</exclude>
-              <exclude>.asf.yaml</exclude>
-              <exclude>**/*.svg</exclude>
-            </excludes>
+              <inputExclude>**/.eslintignore</inputExclude>
+              <inputExclude>.asf.yaml</inputExclude>
+              <inputExclude>**/*.svg</inputExclude>
+            </inputExcludes>
           </configuration>
         </plugin>
 
@@ -784,7 +789,7 @@
             <failBuildOnCVSS>0</failBuildOnCVSS>
             <suppressionFile>tobago/dependency-check-suppression-for-tobago-6.x.xml</suppressionFile>
             <!-- nvdApiKey can be set in your settings.xml -->
-<!--            <nvdApiKey>${nvdApiKey}</nvdApiKey>-->
+            <!--            <nvdApiKey>${nvdApiKey}</nvdApiKey>-->
           </configuration>
           <dependencies>
             <dependency>
@@ -835,20 +840,20 @@
 
   <!-- Use this to include the staging repository for testing a new unreleased myfaces core.
   Change the number 1100 the the current for that. -->
-<!--
-  <repositories>
-    <repository>
-      <id>myfaces-staging</id>
-      <url>https://repository.apache.org/content/repositories/orgapachemyfaces-1100/</url>
-    </repository>
-  </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>myfaces-staging</id>
-      <url>https://repository.apache.org/content/repositories/orgapachemyfaces-1100/</url>
-    </pluginRepository>
-  </pluginRepositories>
--->
+  <!--
+    <repositories>
+      <repository>
+        <id>myfaces-staging</id>
+        <url>https://repository.apache.org/content/repositories/orgapachemyfaces-1100/</url>
+      </repository>
+    </repositories>
+    <pluginRepositories>
+      <pluginRepository>
+        <id>myfaces-staging</id>
+        <url>https://repository.apache.org/content/repositories/orgapachemyfaces-1100/</url>
+      </pluginRepository>
+    </pluginRepositories>
+  -->
   <profiles>
     <profile>
       <id>apache-release</id>
@@ -1036,7 +1041,9 @@
             <executions>
               <execution>
                 <id>attach-javadoc</id>
-                <goals><goal>jar</goal></goals>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
               </execution>
             </executions>
           </plugin>
@@ -1046,7 +1053,9 @@
             <executions>
               <execution>
                 <id>attach-source</id>
-                <goals><goal>jar</goal></goals>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
               </execution>
             </executions>
           </plugin>
