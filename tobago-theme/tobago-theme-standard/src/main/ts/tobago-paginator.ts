@@ -16,6 +16,9 @@
  */
 
 import {Key} from "./tobago-key";
+import {Overlay} from "./tobago-overlay";
+import {OverlayType} from "./tobago-overlay-type";
+import {Page} from "./tobago-page";
 
 export class TobagoPaginator extends HTMLElement {
 
@@ -96,16 +99,7 @@ export class TobagoPaginator extends HTMLElement {
       output.innerHTML = number.toString();
       const action = this.tagName == "TOBAGO-PAGINATOR-ROW" ? "toRow" : "toPage";
       input.value = `{"action":"${action}","target":${number}}`;
-      faces.ajax.request(
-          this.id,
-          null,
-          {
-            params: {
-              "javax.faces.behavior.event": "reload"
-            },
-            execute: this.sheet.id,
-            render: this.sheet.id
-          });
+      this.overlayAndAjaxReload();
     } else {
       console.info("no update needed");
     }
@@ -117,6 +111,14 @@ export class TobagoPaginator extends HTMLElement {
     const button = event.currentTarget as HTMLButtonElement;
     const input = this.input;
     input.value = button.dataset.tobagoAction;
+    this.overlayAndAjaxReload();
+  }
+
+  private overlayAndAjaxReload() {
+    const sheet = this.sheet;
+
+    sheet.insertAdjacentHTML("beforeend",
+        Overlay.htmlText(sheet.id, OverlayType.ajax, Page.page(this).waitOverlayDelayAjax));
 
     faces.ajax.request(
         this.id,
@@ -125,8 +127,8 @@ export class TobagoPaginator extends HTMLElement {
           params: {
             "javax.faces.behavior.event": "reload"
           },
-          execute: this.sheet.id,
-          render: this.sheet.id
+          execute: sheet.id,
+          render: sheet.id
         });
   }
 }
