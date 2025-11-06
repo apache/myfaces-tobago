@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISection;
@@ -26,12 +28,10 @@ import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.model.CollapseMode;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
 
 import java.io.IOException;
 
@@ -45,6 +45,7 @@ public class SectionRenderer<T extends AbstractUISection> extends CollapsiblePan
     final boolean collapsed = component.isCollapsed();
     final Markup markup = component.getMarkup();
     final boolean autoSpacing = component.getAutoSpacing(facesContext);
+    final Integer level = component.getLevel();
 
     writer.startElement(HtmlElements.TOBAGO_SECTION);
     writer.writeIdAttribute(clientId);
@@ -52,10 +53,11 @@ public class SectionRenderer<T extends AbstractUISection> extends CollapsiblePan
         collapsed ? TobagoClass.COLLAPSED : null,
         autoSpacing ? TobagoClass.AUTO__SPACING : null,
         component.getCustomClass());
+    writer.writeAttribute(DataAttributes.LEVEL, level);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
     final HtmlElements tag;
-    switch (component.getLevel()) {
+    switch (level) {
       case 1:
         tag = HtmlElements.H1;
         break;

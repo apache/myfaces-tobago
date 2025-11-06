@@ -103,7 +103,7 @@ public enum DataAttributes implements MarkupLanguageAttributes {
   LAYOUT("data-tobago-layout"),
 
   /**
-   * Defines the depth level of a tree node.
+   * Defines the depth level of a tree node or a section.
    */
   LEVEL("data-tobago-level"),
 
