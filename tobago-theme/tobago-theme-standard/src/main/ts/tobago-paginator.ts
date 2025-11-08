@@ -109,6 +109,7 @@ export class TobagoPaginator extends HTMLElement {
 
   clickOnButton(event: MouseEvent): void {
     const button = event.currentTarget as HTMLButtonElement;
+    button.disabled = true;
     const input = this.input;
     input.value = button.dataset.tobagoAction;
     this.overlayAndAjaxReload();
