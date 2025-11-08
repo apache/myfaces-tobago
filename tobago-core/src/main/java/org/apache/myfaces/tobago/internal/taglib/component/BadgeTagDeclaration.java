@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.Markup;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
@@ -87,5 +88,5 @@ import jakarta.faces.component.UIOutput;
             description = "Colorless badge."
         )
     })
-public interface BadgeTagDeclaration extends HasIdBindingAndRendered, HasTip, IsVisual, HasValue, HasImage {
+public interface BadgeTagDeclaration extends HasIdBindingAndRendered, HasTip, IsVisual, HasConverter, HasValue, HasImage {
 }
