@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import jakarta.faces.component.UIOutput;
 import org.apache.myfaces.tobago.apt.annotation.Markup;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
@@ -29,8 +30,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
-
-import jakarta.faces.component.UIOutput;
 
 /**
  * Renders a badge element.
@@ -88,5 +87,6 @@ import jakarta.faces.component.UIOutput;
             description = "Colorless badge."
         )
     })
-public interface BadgeTagDeclaration extends HasIdBindingAndRendered, HasTip, IsVisual, HasConverter, HasValue, HasImage {
+public interface BadgeTagDeclaration
+    extends HasIdBindingAndRendered, HasTip, IsVisual, HasConverter, HasValue, HasImage {
 }
