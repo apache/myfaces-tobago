@@ -72,6 +72,7 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -358,6 +359,9 @@ public abstract class AbstractUISheet extends AbstractUIData
 
     final SheetState sheetState = getSheetState(context);
     if (sheetState != null) {
+      final List<Integer> list = (List<Integer>) ComponentUtils.getAttribute(this, Attributes.selectedListString);
+      sheetState.setSelectedRows(list != null ? list : Collections.emptyList());
+      ComponentUtils.removeAttribute(this, Attributes.selectedListString);
       ComponentUtils.removeAttribute(this, Attributes.scrollPosition);
     }
   }
@@ -518,19 +522,12 @@ public abstract class AbstractUISheet extends AbstractUIData
       facesEvent.setPhaseId(PhaseId.INVOKE_APPLICATION);
       parent.queueEvent(facesEvent);
     } else {
-      if (facesEvent.getComponent() == this
-          && facesEvent instanceof SheetRowSelectionChangeEvent sheetRowSelectionChangeEvent) {
-
-        final SheetState sheetState = getSheetState(sheetRowSelectionChangeEvent.getFacesContext());
-        if (sheetState != null) {
-          /* selected rows has to be set in queueEvent() instead of broadcast(), because sheet state reset is executed
-             after queueEvent() and before broadcast() */
-          sheetState.setSelectedRows(sheetRowSelectionChangeEvent.getNewSelectedRows());
-        }
-
+      if (facesEvent.getComponent() == this && facesEvent instanceof SheetRowSelectionChangeEvent) {
         if (getColumnSelector() != null && getColumnSelector().isImmediate()) {
           facesEvent.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
         } else {
+          /* This should not happen, because SheetRowSelectionChangeEvent is only queued if
+          columnSelector immediate=true. See SheetRenderer#decodeInternal(). */
           facesEvent.setPhaseId(PhaseId.INVOKE_APPLICATION);
         }
       }
@@ -556,6 +553,10 @@ public abstract class AbstractUISheet extends AbstractUIData
       getSheetState(getFacesContext()).updateSortState(((SortActionEvent) facesEvent).getColumn().getId());
       sort(getFacesContext(), (SortActionEvent) facesEvent);
     } else if (facesEvent instanceof SheetRowSelectionChangeEvent sheetRowSelectionChangeEvent) {
+      final SheetState sheetState = getSheetState(sheetRowSelectionChangeEvent.getFacesContext());
+      if (sheetState != null) {
+        sheetState.setSelectedRows(sheetRowSelectionChangeEvent.getNewSelectedRows());
+      }
       final ActionListener defaultActionListener = getFacesContext().getApplication().getActionListener();
       if (defaultActionListener != null) {
         defaultActionListener.processAction(sheetRowSelectionChangeEvent);

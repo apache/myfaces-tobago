@@ -25,32 +25,43 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="jakarta.faces.facelets">
 
-  <tc:button id="reset" label="Reset" immediate="true" action="#{columnSelectorAjaxController.reset}"/>
+  <tc:button id="resetImmediateTrueAjaxEnabled" label="Reset immediate=true ajax=enabled" immediate="true"
+             action="#{columnSelectorAjaxController.reset(true, false)}"/>
+  <tc:button id="resetImmediateTrueAjaxDisabled" label="Reset immediate=true ajax=disabled" immediate="true"
+             action="#{columnSelectorAjaxController.reset(true, true)}"/>
+  <tc:button id="resetImmediateFalseAjaxEnabled" label="Reset immediate=false ajax=enabled" immediate="true"
+             action="#{columnSelectorAjaxController.reset(false, false)}"/>
+  <tc:button id="resetImmediateFalseAjaxDisabled" label="Reset immediate=false ajax=disabled" immediate="true"
+             action="#{columnSelectorAjaxController.reset(false, true)}"/>
 
-  <!--   -->
+  <tc:out label="immediate" value="#{columnSelectorAjaxController.columnSelectorImmediate}"/>
+  <tc:out label="f:ajax" value="#{columnSelectorAjaxController.columnSelectorAjaxDisabled ? 'disabled' : 'enabled'}"/>
+
   <tc:sheet id="sheet" value="#{columnSelectorAjaxController.solarList}" var="object" rows="5"
             state="#{columnSelectorAjaxController.sheetState}" selectable="multi">
-    <tc:style maxHeight="500px"/>
-    <tc:columnSelector id="colSelect" immediate="true">
-      <f:ajax render="sheet ::selectedCount"/>
+    <tc:columnSelector id="colSelect" immediate="#{columnSelectorAjaxController.columnSelectorImmediate}">
+      <f:ajax render="sheet ::selectedCount :::messages"
+              disabled="#{columnSelectorAjaxController.columnSelectorAjaxDisabled}"/>
     </tc:columnSelector>
     <tc:column label="Name">
-      <tc:in value="#{object.name}" labelLayout="skip"/>
+      <tc:in value="#{object.name}" autoSpacing="false"/>
     </tc:column>
     <tc:column label="Orbit">
-      <tc:out value="#{object.orbit}" labelLayout="skip"/>
+      <tc:out value="#{object.orbit}" autoSpacing="false"/>
     </tc:column>
     <tc:column label="Period (Days)">
-      <tc:out value="#{object.period}" labelLayout="skip"/>
+      <tc:out value="#{object.period}" autoSpacing="false"/>
     </tc:column>
     <tc:column label="Discoverer">
-      <tc:out value="#{object.discoverer}" labelLayout="skip"/>
+      <tc:out value="#{object.discoverer}" autoSpacing="false"/>
     </tc:column>
-    <tc:column label="Year">
-      <tc:out value="#{object.discoverYear}" labelLayout="skip"/>
-      <tc:in required="true"/>
+    <tc:column label="Required">
+      <tc:in required="true">
+        <tc:event event="click" stopPropagation="true" omit="true"/>
+      </tc:in>
     </tc:column>
   </tc:sheet>
   <tc:out id="selectedCount" label="Selected count"
           value="#{columnSelectorAjaxController.sheetState.selectedRows.size()}"/>
+  <tc:button id="submit" label="Submit"/>
 </ui:composition>
