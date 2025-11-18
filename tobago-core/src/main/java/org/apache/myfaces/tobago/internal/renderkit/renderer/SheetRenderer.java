@@ -156,11 +156,21 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> im
         selectedRows = Collections.emptyList();
       }
 
-      List<Integer> oldSelectedRows = component.getSheetState(facesContext).getSelectedRows();
-      if (!selectedRows.equals(oldSelectedRows)) {
-        final SheetRowSelectionChangeEvent event =
-            new SheetRowSelectionChangeEvent(component, oldSelectedRows, selectedRows);
-        component.queueEvent(event);
+      /* There are two ways to update the sheet state with the new selected rows value.
+      1. <tc:columnSelector immediate=false>
+         In this case, the selected rows value is stored into Attributes.selectedListString and processed in the
+         AbstractUISheet#processUpdates() method (Update Model Value phase).
+      2. <tc:columnSelector immediate=true>
+         In this case, a SheetRowSelectionChangeEvent is queued and because of immediate=true, the phase ID is set to
+         "Apply Request Values" in the AbstractUISheet#queueEvent() method. The SheetRowSelectionChangeEvent is
+         processed in the AbstractUISheet#broadcast() method. */
+      if (component.getColumnSelector() != null && component.getColumnSelector().isImmediate()) {
+        List<Integer> oldSelectedRows = component.getSheetState(facesContext).getSelectedRows();
+        if (!selectedRows.equals(oldSelectedRows)) {
+          component.queueEvent(new SheetRowSelectionChangeEvent(component, oldSelectedRows, selectedRows));
+        }
+      } else {
+        ComponentUtils.setAttribute(component, Attributes.selectedListString, selectedRows);
       }
     }
 

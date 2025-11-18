@@ -46,14 +46,18 @@ public class ColumnSelectorAjaxController implements Serializable {
 
   private List<SolarObject> solarList = new ArrayList<>();
   private SheetState sheetState = new SheetState(0);
+  private boolean columnSelectorImmediate = false;
+  private boolean columnSelectorAjaxDisabled = false;
 
   @PostConstruct
   private void init() {
     solarList = astroData.findAll().collect(Collectors.toList());
   }
 
-  public void reset() {
+  public void reset(boolean immediate, boolean ajaxDisabled) {
     sheetState = new SheetState(0);
+    columnSelectorImmediate = immediate;
+    columnSelectorAjaxDisabled = ajaxDisabled;
   }
 
   public List<SolarObject> getSolarList() {
@@ -70,5 +74,21 @@ public class ColumnSelectorAjaxController implements Serializable {
 
   public void setSheetState(SheetState sheetState) {
     this.sheetState = sheetState;
+  }
+
+  public boolean isColumnSelectorImmediate() {
+    return columnSelectorImmediate;
+  }
+
+  public void setColumnSelectorImmediate(boolean columnSelectorImmediate) {
+    this.columnSelectorImmediate = columnSelectorImmediate;
+  }
+
+  public boolean isColumnSelectorAjaxDisabled() {
+    return columnSelectorAjaxDisabled;
+  }
+
+  public void setColumnSelectorAjaxDisabled(boolean columnSelectorAjaxDisabled) {
+    this.columnSelectorAjaxDisabled = columnSelectorAjaxDisabled;
   }
 }
