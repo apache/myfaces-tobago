@@ -76,25 +76,25 @@ test.describe("900-test/3000-sheet/38-column-selector/ajax/ajax.xhtml", () => {
     await expect(selectedCount).toHaveText("0");
     await submit.click();
     await expect(selectedCount).toHaveText("1");
-    await expect(alert).not.toBeVisible();
+    await expect(alert).toBeVisible();
 
     await row4Orbit.click();
     await expect(selectedCount).toHaveText("1");
     await submit.click();
     await expect(selectedCount).toHaveText("2");
-    await expect(alert).not.toBeVisible();
+    await expect(alert).toBeVisible();
 
     await toggleAll.click();
     await expect(selectedCount).toHaveText("2");
     await submit.click();
     await expect(selectedCount).toHaveText("5");
-    await expect(alert).not.toBeVisible();
+    await expect(alert).toBeVisible();
 
     await toggleAll.click();
     await expect(selectedCount).toHaveText("5");
     await submit.click();
     await expect(selectedCount).toHaveText("0");
-    await expect(alert).not.toBeVisible();
+    await expect(alert).toBeVisible();
   });
 
   test("immediate=false, ajax=enabled", async ({page}) => {
