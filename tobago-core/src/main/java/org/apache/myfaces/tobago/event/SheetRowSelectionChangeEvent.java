@@ -29,14 +29,27 @@ public class SheetRowSelectionChangeEvent extends ActionEvent {
 
   @Serial
   private static final long serialVersionUID = 1482246499642513120L;
+  private final String sourceId;
   private final List<Integer> oldSelectedRows;
   private final List<Integer> newSelectedRows;
 
+  /**
+   * @param uiComponent     on which the event is queued
+   * @param sourceId        of the current action
+   * @param oldSelectedRows selected rows before the change
+   * @param newSelectedRows selected rows after the change
+   */
   public SheetRowSelectionChangeEvent(
-      final UIComponent uiComponent, final List<Integer> oldSelectedRows, final List<Integer> newSelectedRows) {
+      final UIComponent uiComponent, final String sourceId,
+      final List<Integer> oldSelectedRows, final List<Integer> newSelectedRows) {
     super(uiComponent);
+    this.sourceId = sourceId;
     this.oldSelectedRows = oldSelectedRows;
     this.newSelectedRows = newSelectedRows;
+  }
+
+  public String getSourceId() {
+    return sourceId;
   }
 
   public List<Integer> getOldSelectedRows() {

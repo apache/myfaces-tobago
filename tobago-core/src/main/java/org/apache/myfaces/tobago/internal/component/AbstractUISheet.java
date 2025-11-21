@@ -557,9 +557,11 @@ public abstract class AbstractUISheet extends AbstractUIData
       if (sheetState != null) {
         sheetState.setSelectedRows(sheetRowSelectionChangeEvent.getNewSelectedRows());
       }
-      final ActionListener defaultActionListener = getFacesContext().getApplication().getActionListener();
-      if (defaultActionListener != null) {
-        defaultActionListener.processAction(sheetRowSelectionChangeEvent);
+      if (getClientId().equals(sheetRowSelectionChangeEvent.getSourceId())) {
+        final ActionListener defaultActionListener = getFacesContext().getApplication().getActionListener();
+        if (defaultActionListener != null) {
+          defaultActionListener.processAction(sheetRowSelectionChangeEvent);
+        }
       }
     }
   }

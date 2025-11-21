@@ -165,9 +165,10 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> im
          "Apply Request Values" in the AbstractUISheet#queueEvent() method. The SheetRowSelectionChangeEvent is
          processed in the AbstractUISheet#broadcast() method. */
       if (component.getColumnSelector() != null && component.getColumnSelector().isImmediate()) {
+        final String sourceId = requestParameterMap.get(ClientBehaviorContext.BEHAVIOR_SOURCE_PARAM_NAME);
         List<Integer> oldSelectedRows = component.getSheetState(facesContext).getSelectedRows();
         if (!selectedRows.equals(oldSelectedRows)) {
-          component.queueEvent(new SheetRowSelectionChangeEvent(component, oldSelectedRows, selectedRows));
+          component.queueEvent(new SheetRowSelectionChangeEvent(component, sourceId, oldSelectedRows, selectedRows));
         }
       } else {
         ComponentUtils.setAttribute(component, Attributes.selectedListString, selectedRows);
