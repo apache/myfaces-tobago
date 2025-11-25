@@ -135,8 +135,8 @@ class SelectManyList extends SelectListBase {
     option.selected = false;
 
     const badge = this.badges.querySelector(`[data-tobago-value="${itemValue}"]`);
-    const previousBadge = badge.previousElementSibling;
-    const nextBadge = badge.nextElementSibling?.tagName === "SPAN" ? badge.nextElementSibling : null;
+    const previousBadge = this.getPreviousEnabledBadge(badge);
+    const nextBadge = this.getNextEnabledBadge(badge);
     if (previousBadge) {
       previousBadge.querySelector<HTMLButtonElement>("button.btn.badge").focus();
     } else if (nextBadge) {
@@ -160,6 +160,28 @@ class SelectManyList extends SelectListBase {
 
     this.sync(option);
     this.hiddenSelect.dispatchEvent(new Event("change", {bubbles: true}));
+  }
+
+  private getPreviousEnabledBadge(currentBadge: Element): Element {
+    const previousElementSibling = currentBadge.previousElementSibling;
+    if (previousElementSibling === null) {
+      return null;
+    } else if (previousElementSibling.querySelector<HTMLButtonElement>(".tobago-button")) {
+      return previousElementSibling;
+    } else {
+      return this.getPreviousEnabledBadge(previousElementSibling);
+    }
+  }
+
+  private getNextEnabledBadge(currentBadge: Element): Element {
+    const NextElementSibling = currentBadge.nextElementSibling;
+    if (NextElementSibling === null) {
+      return null;
+    } else if (NextElementSibling.querySelector<HTMLButtonElement>(".tobago-button")) {
+      return NextElementSibling;
+    } else {
+      return this.getNextEnabledBadge(NextElementSibling);
+    }
   }
 
   protected leaveComponent(): void {
