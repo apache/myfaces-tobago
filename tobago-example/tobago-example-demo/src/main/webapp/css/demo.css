@@ -110,17 +110,20 @@ html {
 #page\:navigation\:nav tobago-tree-node[data-tobago-level="0"][index="1"], #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="0"][index="1"] {
   margin-top: 0;
 }
-#page\:navigation\:nav tobago-tree-node[data-tobago-level="1"] a, #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="1"] a {
+#page\:navigation\:nav tobago-tree-node[data-tobago-level="1"] a, #page\:navigation\:nav tobago-tree-node[data-tobago-level="2"] a, #page\:navigation\:nav tobago-tree-node[data-tobago-level="3"] a, #page\:navigation\:nav tobago-tree-node[data-tobago-level="4"] a, #page\:navigation\:nav tobago-tree-node[data-tobago-level="5"] a, #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="1"] a, #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="2"] a, #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="3"] a, #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="4"] a, #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="5"] a {
   padding: 0.25rem;
   color: var(--bs-secondary);
   border-radius: var(--bs-border-radius);
 }
-#page\:navigation\:nav tobago-tree-node[data-tobago-level="1"] a:hover, #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="1"] a:hover {
+#page\:navigation\:nav tobago-tree-node[data-tobago-level="1"] a:hover, #page\:navigation\:nav tobago-tree-node[data-tobago-level="2"] a:hover, #page\:navigation\:nav tobago-tree-node[data-tobago-level="3"] a:hover, #page\:navigation\:nav tobago-tree-node[data-tobago-level="4"] a:hover, #page\:navigation\:nav tobago-tree-node[data-tobago-level="5"] a:hover, #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="1"] a:hover, #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="2"] a:hover, #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="3"] a:hover, #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="4"] a:hover, #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="5"] a:hover {
   background-color: rgba(var(--bs-secondary-rgb), 0.1);
 }
-#page\:navigation\:nav tobago-tree-node[data-tobago-level="1"] a.active, #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="1"] a.active {
+#page\:navigation\:nav tobago-tree-node[data-tobago-level="1"] a.active, #page\:navigation\:nav tobago-tree-node[data-tobago-level="2"] a.active, #page\:navigation\:nav tobago-tree-node[data-tobago-level="3"] a.active, #page\:navigation\:nav tobago-tree-node[data-tobago-level="4"] a.active, #page\:navigation\:nav tobago-tree-node[data-tobago-level="5"] a.active, #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="1"] a.active, #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="2"] a.active, #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="3"] a.active, #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="4"] a.active, #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="5"] a.active {
   color: var(--bs-primary);
   background-color: rgba(var(--bs-primary-rgb), 0.1);
+}
+#page\:navigation\:nav tobago-tree-node[data-tobago-level="2"] a, #page\:navigation\:nav tobago-tree-node[data-tobago-level="3"] a, #page\:navigation\:nav tobago-tree-node[data-tobago-level="4"] a, #page\:navigation\:nav tobago-tree-node[data-tobago-level="5"] a, #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="2"] a, #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="3"] a, #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="4"] a, #page\:navigation-small\:nav-small tobago-tree-node[data-tobago-level="5"] a {
+  font-size: small;
 }
 
 .hide-navigation {

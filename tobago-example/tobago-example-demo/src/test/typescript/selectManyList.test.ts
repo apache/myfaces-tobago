@@ -22,7 +22,7 @@ import {expect, test} from "@playwright/test";
 test.describe("900-test/2100-selectManyList/deselect/deselect.xhtml", () => {
 
   test.beforeEach(async ({page}) => {
-    await page.goto("http://localhost:8080/content/900-test/2100-selectManyList/deselect/deselect.xhtml");
+    await page.goto("http://localhost:8080/content/900-test/selectManyList/deselect/deselect.xhtml");
   });
 
   test("tc:selectManyList: deselect", async ({page}) => {

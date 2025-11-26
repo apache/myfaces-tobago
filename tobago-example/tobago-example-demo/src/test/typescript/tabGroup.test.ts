@@ -21,10 +21,10 @@ import {expect, Locator, test} from "@playwright/test";
 import {Color} from "./base/browser-styles";
 import {Card, Nav, Root} from "./base/bootstrap-variables";
 
-test.describe("900-test/2500-tab/Tabgroup_Style.xhtml", () => {
+test.describe("tabGroup/style/Style.xhtml", () => {
 
   test.beforeEach(async ({page}) => {
-    await page.goto("http://localhost:8080/content/900-test/2500-tab/Tabgroup_Style.xhtml");
+    await page.goto("http://localhost:8080/content/900-test/tabGroup/style/Style.xhtml");
   });
 
   test("tc:tabGroup: Tabgroup_Style", async ({page}) => {
@@ -203,10 +203,10 @@ test.describe("900-test/2500-tab/Tabgroup_Style.xhtml", () => {
   }
 });
 
-test.describe("900-test/2510-tab-file/TabGroup_Immediate_File.xhtml", () => {
+test.describe("tabGroup/file_immediate/File_immediate.xhtml", () => {
 
   test.beforeEach(async ({page}) => {
-    await page.goto("http://localhost:8080/content/900-test/2510-tab-file/TabGroup_Immediate_File.xhtml");
+    await page.goto("http://localhost:8080/content/900-test/tabGroup/file_immediate/File_immediate.xhtml");
   });
 
   test("Select tab 'Two', press OK, select tab 'One', press OK", async ({page}) => {
