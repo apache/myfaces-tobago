@@ -20,10 +20,10 @@
 import {expect, test} from "@playwright/test";
 import {Table} from "./base/bootstrap-variables";
 
-test.describe("900-test/3000-sheet/70-tree/Sheet_Tree.xhtml", () => {
+test.describe("sheet/columnNode/ColumnNode.xhtml", () => {
 
   test.beforeEach(async ({page}) => {
-    await page.goto("http://localhost:8080/content/900-test/3000-sheet/70-tree/Sheet_Tree.xhtml");
+    await page.goto("http://localhost:8080/content/900-test/sheet/columnNode/ColumnNode.xhtml");
   });
 
   test("Open the 'World' node to see 'Carib' and 'Africa'", async ({page}) => {
