@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-theme</artifactId>
-    <version>6.9.1-SNAPSHOT</version>
+    <version>6.9.0</version>
   </parent>
   <artifactId>tobago-theme-standard</artifactId>
   <packaging>jar</packaging>
@@ -48,4 +48,9 @@
       <artifactId>myfaces-test</artifactId>
     </dependency>
   </dependencies>
+
+
+  <scm>
+    <tag>tobago-6.9.0</tag>
+  </scm>
 </project>

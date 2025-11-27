@@ -20,9 +20,13 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-tool</artifactId>
-    <version>6.9.1-SNAPSHOT</version>
+    <version>6.9.0</version>
   </parent>
   <artifactId>tobago-tool-annotation</artifactId>
   <packaging>jar</packaging>
   <name>Tobago Tool Annotation</name>
+
+  <scm>
+    <tag>tobago-6.9.0</tag>
+  </scm>
 </project>

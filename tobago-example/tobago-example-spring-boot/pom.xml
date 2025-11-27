@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-example</artifactId>
-    <version>6.9.1-SNAPSHOT</version>
+    <version>6.9.0</version>
   </parent>
   <artifactId>tobago-example-spring-boot</artifactId>
   <packaging>jar</packaging>
@@ -174,4 +174,8 @@
       <version>1.2.26</version>
     </dependency>
   </dependencies>
+
+  <scm>
+    <tag>tobago-6.9.0</tag>
+  </scm>
 </project>
