@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-tool</artifactId>
-    <version>6.9.0</version>
+    <version>6.9.1-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-tool-apt</artifactId>
   <packaging>jar</packaging>
@@ -56,8 +56,4 @@
       <version>2.0.6.1</version>
     </dependency>
   </dependencies>
-
-  <scm>
-    <tag>tobago-6.9.0</tag>
-  </scm>
 </project>

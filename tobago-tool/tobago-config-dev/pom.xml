@@ -20,14 +20,10 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-tool</artifactId>
-    <version>6.9.0</version>
+    <version>6.9.1-SNAPSHOT</version>
   </parent>
 
   <artifactId>tobago-config-dev</artifactId>
   <packaging>jar</packaging>
   <name>Tobago Helper to set Project stage to Development</name>
-
-  <scm>
-    <tag>tobago-6.9.0</tag>
-  </scm>
 </project>
