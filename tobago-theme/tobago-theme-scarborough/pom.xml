@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-theme</artifactId>
-    <version>6.9.0</version>
+    <version>6.9.0-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-theme-scarborough</artifactId>
   <packaging>jar</packaging>
@@ -45,8 +45,4 @@
     </dependency>
   </dependencies>
 
-
-  <scm>
-    <tag>tobago-6.9.0</tag>
-  </scm>
 </project>
