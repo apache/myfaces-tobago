@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.util.Locale;
@@ -32,6 +33,7 @@ import java.util.Locale;
  */
 public final class Measure implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());

@@ -21,11 +21,12 @@ package org.apache.myfaces.tobago.context;
 
 import jakarta.faces.component.StateHolder;
 import jakarta.faces.context.FacesContext;
-
+import java.io.Serial;
 import java.io.Serializable;
 
 public class TransientStateHolder implements StateHolder, Serializable {
 
+  @Serial
   private static final long serialVersionUID = -5260593843885016768L;
 
   private transient Object object;

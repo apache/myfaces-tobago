@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.Tags;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ import java.util.Map;
 
 public class ThemeImpl implements Theme, Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());

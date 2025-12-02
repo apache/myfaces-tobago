@@ -21,11 +21,13 @@ package org.apache.myfaces.tobago.event;
 
 import org.apache.myfaces.tobago.internal.util.JsonUtils;
 
-import jakarta.faces.event.ActionEvent;
 import jakarta.faces.component.UIComponent;
+import jakarta.faces.event.ActionEvent;
+import java.io.Serial;
 
 public class PageActionEvent extends ActionEvent {
 
+  @Serial
   private static final long serialVersionUID = 3364193750247386220L;
 
   private final SheetAction action;

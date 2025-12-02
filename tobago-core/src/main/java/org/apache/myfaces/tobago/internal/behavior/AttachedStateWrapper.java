@@ -19,12 +19,14 @@
 
 package org.apache.myfaces.tobago.internal.behavior;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 // todo: clean up (is a copy of MyFaces, but not all stuff is refactored)
 
 class AttachedStateWrapper implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 4948301780259917764L;
 
   private Class<?> clazz;

@@ -27,11 +27,11 @@ import jakarta.el.MethodNotFoundException;
 import jakarta.el.PropertyNotFoundException;
 import jakarta.faces.FacesWrapper;
 import jakarta.faces.view.facelets.TagAttribute;
-
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import java.io.Serial;
 
 /*
  * Was copied from MyFaces-Impl.
@@ -43,6 +43,7 @@ import java.io.ObjectOutput;
 public final class TagMethodExpression extends MethodExpression
     implements Externalizable, FacesWrapper<MethodExpression> {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   private String attr;

@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.behavior;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -29,6 +30,7 @@ import java.util.List;
  */
 class AttachedListStateWrapper implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = -3958718149793179776L;
 
   private List<Object> wrappedStateList;

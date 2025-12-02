@@ -19,12 +19,14 @@
 
 package org.apache.myfaces.tobago.context;
 
-import java.util.Set;
-import java.util.HashSet;
+import java.io.Serial;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MarkupConfig implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   private Set<String> markups = new HashSet<>();
