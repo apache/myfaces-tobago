@@ -23,9 +23,11 @@ import jakarta.faces.component.UIColumn;
 import jakarta.faces.component.UIData;
 import jakarta.faces.event.ActionEvent;
 import jakarta.faces.event.PhaseId;
+import java.io.Serial;
 
 public class SortActionEvent extends ActionEvent {
 
+  @Serial
   private static final long serialVersionUID = 4906962574581815720L;
 
   private transient UIColumn column;

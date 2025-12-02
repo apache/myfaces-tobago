@@ -22,9 +22,11 @@ package org.apache.myfaces.tobago.event;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.event.ActionEvent;
 import jakarta.faces.event.FacesListener;
+import java.io.Serial;
 
 public class TabChangeEvent extends ActionEvent {
 
+  @Serial
   private static final long serialVersionUID = 422186716954088729L;
 
   private Integer oldTabIndex;

@@ -35,6 +35,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.Serial;
 import java.lang.invoke.MethodHandles;
 
 /**
@@ -43,6 +44,7 @@ import java.lang.invoke.MethodHandles;
 @Deprecated(since = "2.0.8", forRemoval = true)
 public abstract class NonFacesRequestServlet extends HttpServlet {
 
+  @Serial
   private static final long serialVersionUID = -7448621953821447997L;
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());

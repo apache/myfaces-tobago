@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import jakarta.faces.application.ProjectStage;
 import jakarta.faces.context.FacesContext;
+import java.io.Serial;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
@@ -185,6 +186,7 @@ public final class UserAgent implements Serializable {
       = new UserAgent("webkit", null,
       EnumSet.of(Capability.PLACEHOLDER, Capability.CONTENT_TYPE_XHTML), CspHeader.WEBKIT, CsproHeader.WEBKIT);
 
+  @Serial
   private static final long serialVersionUID = 2L;
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());

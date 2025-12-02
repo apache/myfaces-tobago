@@ -20,11 +20,13 @@
 package org.apache.myfaces.tobago.event;
 
 import jakarta.faces.component.UIComponent;
-import jakarta.faces.event.FacesListener;
 import jakarta.faces.event.ActionEvent;
+import jakarta.faces.event.FacesListener;
+import java.io.Serial;
 
 public class SheetStateChangeEvent extends ActionEvent {
 
+  @Serial
   private static final long serialVersionUID = 2875570768774425451L;
 
   public SheetStateChangeEvent(final UIComponent uiComponent) {

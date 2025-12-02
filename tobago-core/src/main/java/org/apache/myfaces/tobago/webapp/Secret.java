@@ -23,11 +23,12 @@ import org.apache.myfaces.tobago.internal.util.RandomUtils;
 
 import jakarta.faces.context.FacesContext;
 import jakarta.servlet.http.HttpSession;
-
+import java.io.Serial;
 import java.io.Serializable;
 
 public final class Secret implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   public static final String KEY = Secret.class.getName();

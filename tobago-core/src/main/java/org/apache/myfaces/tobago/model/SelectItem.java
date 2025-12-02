@@ -23,8 +23,11 @@ import org.apache.myfaces.tobago.component.Visual;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.renderkit.css.CustomClass;
 
+import java.io.Serial;
+
 public class SelectItem extends jakarta.faces.model.SelectItem implements Visual {
 
+  @Serial
   private static final long serialVersionUID = 2582455665060354639L;
 
   private String image;

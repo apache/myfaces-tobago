@@ -19,18 +19,20 @@
 
 package org.apache.myfaces.tobago.model;
 
-import jakarta.faces.application.ProjectStage;
-import jakarta.faces.context.FacesContext;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 
+import jakarta.faces.application.ProjectStage;
+import jakarta.faces.context.FacesContext;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SheetState implements Serializable, ScrollPositionState {
 
+  @Serial
   private static final long serialVersionUID = 2L;
 
   private int first;
@@ -43,7 +45,7 @@ public class SheetState implements Serializable, ScrollPositionState {
   private SelectedState selectedState;
 
   /**
-   * @deprecated use ShettState(1) instead
+   * @deprecated use SheetState(1) instead
    */
   @Deprecated(since = "5.3.0", forRemoval = true)
   public SheetState() {

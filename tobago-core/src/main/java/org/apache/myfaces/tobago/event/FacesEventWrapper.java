@@ -23,9 +23,11 @@ import jakarta.faces.component.UIComponent;
 import jakarta.faces.event.FacesEvent;
 import jakarta.faces.event.FacesListener;
 import jakarta.faces.event.PhaseId;
+import java.io.Serial;
 
 public class FacesEventWrapper extends FacesEvent {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   private FacesEvent wrappedFacesEvent;
