@@ -164,6 +164,30 @@
     </profile>
 
     <profile>
+      <id>myfaces-4.1</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>myfaces-4.1</value>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.myfaces.core</groupId>
+          <artifactId>myfaces-api</artifactId>
+          <version>${myfaces41.version}</version>
+          <scope>compile</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.myfaces.core</groupId>
+          <artifactId>myfaces-impl</artifactId>
+          <version>${myfaces41.version}</version>
+          <scope>runtime</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <profile>
       <id>mojarra-4.0</id>
       <activation>
         <property>
@@ -215,6 +239,43 @@
         <dependency>
           <groupId>org.jboss.weld.servlet</groupId>
           <artifactId>weld-servlet-shaded</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
+      <id>jetty-ee11</id>
+      <build>
+        <!-- For the examples "mvn clean -Pjetty jetty:run" should work.
+        to run the webapp in jetty in development mode use: mvn clean -Pjetty -Pdev jetty:run
+        For Debugging with jetty set following options
+        MAVEN_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005" -->
+        <plugins>
+          <plugin>
+            <groupId>org.eclipse.jetty.ee11</groupId>
+            <artifactId>jetty-ee11-maven-plugin</artifactId>
+            <version>${jetty.version}</version>
+            <configuration>
+              <scan>5</scan>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+      <dependencies>
+        <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>jcl-over-slf4j</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>jakarta.enterprise</groupId>
+          <artifactId>jakarta.enterprise.cdi-api</artifactId>
+          <version>4.1.0</version>
+          <scope>compile</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.jboss.weld.servlet</groupId>
+          <artifactId>weld-servlet-shaded</artifactId>
+          <version>6.0.3.Final</version>
           <scope>runtime</scope>
         </dependency>
       </dependencies>

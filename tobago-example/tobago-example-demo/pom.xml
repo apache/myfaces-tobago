@@ -674,6 +674,54 @@
       </dependencies>
     </profile>
     <profile>
+      <id>jetty-ee11</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.eclipse.jetty.ee11</groupId>
+            <artifactId>jetty-ee11-maven-plugin</artifactId>
+            <configuration>
+              <loginServices>
+                <loginService implementation="org.eclipse.jetty.security.HashLoginService">
+                  <name>demo-realm</name>
+                  <config implementation="org.eclipse.jetty.maven.MavenResource">
+                    <resourceAsString>${project.basedir}/src/test/resources/realm.properties</resourceAsString>
+                  </config>
+                </loginService>
+              </loginServices>
+              <stopKey>stopKey</stopKey>
+              <stopPort>9999</stopPort>
+              <systemProperties>
+                <systemProperty>
+                  <name>derby.stream.error.file</name>
+                  <value>target/derby.log</value>
+                </systemProperty>
+              </systemProperties>
+              <!--
+                <webApp>
+                  <contextPath>/example</contextPath>
+                </webApp>
+              -->
+              <webApp>
+                <resourceBases>${basedir}/src/main/webapp,${tobago-theme-standard-dir}/META-INF/resources,${tobago-theme-charlotteville-dir}/META-INF/resources
+                </resourceBases>
+              </webApp>
+            </configuration>
+            <dependencies>
+            </dependencies>
+          </plugin>
+        </plugins>
+      </build>
+      <dependencies>
+        <dependency>
+          <groupId>org.hibernate.validator</groupId>
+          <artifactId>hibernate-validator</artifactId>
+          <version>8.0.3.Final</version>
+          <scope>compile</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
       <id>tomcat</id>
       <dependencies>
         <dependency>

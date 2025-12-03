@@ -67,7 +67,13 @@ mvn jetty:run -Pjetty -Pdev
 
 Browse to the local URL http://localhost:8080/
 
-You can also run the demo with different servers and JSF implementations:
+### Jetty, MyFaces and Weld on Jakarta EE 11 basis
+
+Run the demo with Jakarta EE 11 which includes Faces 4.1.
+
+```shell
+mvn jetty:run -Pjetty-ee11 -Pdev -Djsf=myfaces-4.1
+```
 
 ### Jetty, Mojarra and Weld
 
