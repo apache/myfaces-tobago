@@ -120,3 +120,32 @@ test.describe("sheet/columnNode/ColumnNode.xhtml", () => {
     await expect(node13Out).not.toBeVisible();
   });
 });
+
+test.describe("sheet/columnPanel/ColumnPanel.xhtml", () => {
+
+  test.beforeEach(async ({page}, testInfo) => {
+    await goto(test, page, testInfo, "content/900-test/sheet/columnPanel/ColumnPanel.xhtml");
+  });
+
+  test("Markup 'striped'", async ({page}) => {
+    const colorWhite = "rgb(255, 255, 255)";
+    const boxShadowLightGray = "rgba(0, 0, 0, 0.05) 0px 0px 0px 9999px inset";
+    const boxShadowTransparent = "rgba(0, 0, 0, 0) 0px 0px 0px 9999px inset";
+
+    const sheet = page.locator("tobago-sheet[id='page:mainForm:sheet']");
+    await expect(sheet).toBeVisible();
+
+    const tableStriped = sheet.locator(".table-striped");
+    await expect(tableStriped).toBeVisible();
+
+    for (let i = 0; i < 17; i++) {
+      const rowTd = tableStriped.locator("tr[row-index='" + i + "'] td:first-child");
+      const columPanelTd = tableStriped.locator("tr[name='" + i + "'] td");
+
+      await expect(rowTd).toHaveCSS("background-color", colorWhite);
+      await expect(rowTd).toHaveCSS("box-shadow", i % 2 ? boxShadowTransparent : boxShadowLightGray);
+      await expect(columPanelTd).toHaveCSS("background-color", colorWhite);
+      await expect(columPanelTd).toHaveCSS("box-shadow", i % 2 ? boxShadowTransparent : boxShadowLightGray);
+    }
+  });
+});
