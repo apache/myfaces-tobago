@@ -66,6 +66,7 @@ public enum TobagoClass implements CssItem {
   FOCUS("tobago-focus"),
   FOLDER("tobago-folder"),
   FILTER("tobago-filter"),
+  HAS__COLUMN__PANEL("tobago-has-column-panel"),
   HEADER("tobago-header"),
   HELP__CONTAINER("tobago-help-container"),
   HIDE_CLOSE_BUTTON("tobago-hideCloseButton"),
