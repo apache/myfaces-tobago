@@ -25,7 +25,7 @@ import {goto} from "./base/Functions";
 test.describe("tabGroup/style/Style.xhtml", () => {
 
   test.beforeEach(async ({page}, testInfo) => {
-    await goto(test, page, testInfo, "http://localhost:8080/content/900-test/tabGroup/style/Style.xhtml");
+    await goto(test, page, testInfo, "/content/900-test/tabGroup/style/Style.xhtml");
   });
 
   test("tc:tabGroup: Tabgroup_Style", async ({page}) => {
@@ -207,7 +207,7 @@ test.describe("tabGroup/style/Style.xhtml", () => {
 test.describe("tabGroup/file_immediate/File_immediate.xhtml", () => {
 
   test.beforeEach(async ({page}, testInfo) => {
-    await goto(test, page, testInfo, "http://localhost:8080/content/900-test/tabGroup/file_immediate/File_immediate.xhtml");
+    await goto(test, page, testInfo, "/content/900-test/tabGroup/file_immediate/File_immediate.xhtml");
   });
 
   test("Select tab 'Two', press OK, select tab 'One', press OK", async ({page}) => {
