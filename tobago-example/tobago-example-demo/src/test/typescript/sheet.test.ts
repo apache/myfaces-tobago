@@ -19,11 +19,12 @@
 
 import {expect, test} from "@playwright/test";
 import {Table} from "./base/bootstrap-variables";
+import {goto} from "./base/Functions";
 
 test.describe("sheet/columnNode/ColumnNode.xhtml", () => {
 
-  test.beforeEach(async ({page}) => {
-    await page.goto("http://localhost:8080/content/900-test/sheet/columnNode/ColumnNode.xhtml");
+  test.beforeEach(async ({page}, testInfo) => {
+    await goto(test, page, testInfo, "http://localhost:8080/content/900-test/sheet/columnNode/ColumnNode.xhtml");
   });
 
   test("Open the 'World' node to see 'Carib' and 'Africa'", async ({page}) => {

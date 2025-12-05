@@ -18,11 +18,12 @@
  */
 
 import {expect, test} from "@playwright/test";
+import {goto} from "./base/Functions";
 
 test.describe("sheet/columnSelector/ajax/ajax.xhtml", () => {
 
-  test.beforeEach(async ({page}) => {
-    await page.goto("http://localhost:8080/content/900-test/sheet/columnSelector/ajax/ajax.xhtml");
+  test.beforeEach(async ({page}, testInfo) => {
+    await goto(test, page, testInfo, "/content/900-test/sheet/columnSelector/ajax/ajax.xhtml");
   });
 
   test("immediate=true, ajax=enabled", async ({page}) => {

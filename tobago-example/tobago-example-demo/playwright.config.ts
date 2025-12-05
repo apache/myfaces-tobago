@@ -26,24 +26,36 @@ export default defineConfig({
   use: {video: "on"},
   projects: [
     {
-      name: "Chromium",
-      use: {...devices["Desktop Chrome"]},
+      name: "Jetty - Chromium",
+      use: {baseURL: "http://localhost:8080", ...devices["Desktop Chrome"]}
     },
     {
-      name: "Firefox",
-      use: {...devices["Desktop Firefox"]},
+      name: "Jetty - Firefox",
+      use: {baseURL: "http://localhost:8080", ...devices["Desktop Firefox"]}
     },
     {
-      name: "Google Chrome",
-      use: {...devices["Desktop Chrome"], channel: "chrome"},
+      name: "Jetty - Google Chrome",
+      use: {baseURL: "http://localhost:8080", ...devices["Desktop Chrome"], channel: "chrome"}
     },
     {
-      name: "Microsoft Edge",
-      use: {...devices["Desktop Edge"], channel: "msedge"},
+      name: "Jetty - Microsoft Edge",
+      use: {baseURL: "http://localhost:8080", ...devices["Desktop Edge"], channel: "msedge"}
     },
     {
-      name: "Safari",
-      use: {...devices["Desktop Safari"]},
+      name: "Jetty - Safari",
+      use: {baseURL: "http://localhost:8080", ...devices["Desktop Safari"]}
+    },
+    {
+      name: "Open Liberty - Chromium",
+      use: {baseURL: "http://localhost:8081", ...devices["Desktop Chrome"]}
+    },
+    {
+      name: "Tomcat - Chromium",
+      use: {baseURL: "http://localhost:8082", ...devices["Desktop Chrome"]}
+    },
+    {
+      name: "TomEE - Chromium",
+      use: {baseURL: "http://localhost:8083", ...devices["Desktop Chrome"]}
     }
   ]
 });
