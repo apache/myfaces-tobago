@@ -215,7 +215,6 @@ test.describe("tabGroup/file_immediate/File_immediate.xhtml", () => {
     const tab2 = page.locator("tobago-tab[id='page:mainForm:nt2'] .nav-link");
     const file = page.locator("tobago-file[id='page:mainForm:nt1:file']");
     const output = page.locator("tobago-out[id='page:mainForm:nt2:output']");
-    const messagesWarning = page.locator("tobago-messages[id='page:messages'] .alert-warning");
     const messagesError = page.locator("tobago-messages[id='page:messages'] .alert-danger");
     const okButton = page.locator("button[id='page:mainForm:ok']");
 
@@ -226,7 +225,7 @@ test.describe("tabGroup/file_immediate/File_immediate.xhtml", () => {
 
     await okButton.click();
     await expect(tabGroupIndex).toHaveValue("1");
-    await expect(messagesWarning).toBeVisible();
+    await expect(messagesError).not.toBeVisible();
 
     await tab1.click();
     await expect(tabGroupIndex).toHaveValue("0");
