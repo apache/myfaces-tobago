@@ -533,6 +533,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> im
 
     final boolean showHeader = sheet.isShowHeader();
     final Markup sheetMarkup = sheet.getMarkup() != null ? sheet.getMarkup() : Markup.NULL;
+    final boolean hasColumnPanel = sheet.getColumnPanel() != null;
 
     boolean nonLazyUpdate = !sheet.isLazyUpdate(facesContext);
     writer.startElement(HtmlElements.DIV);
@@ -549,6 +550,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> im
         sheetMarkup.contains(Markup.BORDERED) ? BootstrapClass.TABLE_BORDERED : null,
         sheetMarkup.contains(Markup.HOVER) ? BootstrapClass.TABLE_HOVER : null,
         sheetMarkup.contains(Markup.SMALL) ? BootstrapClass.TABLE_SM : null,
+        hasColumnPanel ? TobagoClass.HAS__COLUMN__PANEL : null,
         !autoLayout ? TobagoClass.TABLE_LAYOUT__FIXED : null);
 
     if (nonLazyUpdate) {

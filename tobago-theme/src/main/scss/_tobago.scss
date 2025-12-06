@@ -1793,6 +1793,28 @@ tobago-sheet {
     .table {
       margin-bottom: 0; //remove bootstrap styling; margins are set on tobago-sheet
 
+      &.tobago-has-column-panel.table-striped > tbody {
+        > tr:nth-child(4n+1) > * {
+          --#{$prefix}table-color-type: var(--#{$prefix}table-striped-color);
+          --#{$prefix}table-bg-type: var(--#{$prefix}table-striped-bg);
+        }
+
+        > tr:nth-child(4n+2) > * {
+          --#{$prefix}table-color-type: var(--#{$prefix}table-striped-color);
+          --#{$prefix}table-bg-type: var(--#{$prefix}table-striped-bg);
+        }
+
+        > tr:nth-child(4n+3) > * {
+          --#{$prefix}table-color-type: initial;
+          --#{$prefix}table-bg-type: initial;
+        }
+
+        > tr:nth-child(4n+4) > * {
+          --#{$prefix}table-color-type: initial;
+          --#{$prefix}table-bg-type: initial;
+        }
+      }
+
       .tobago-column-panel {
       }
 

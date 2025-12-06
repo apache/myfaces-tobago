@@ -13949,6 +13949,22 @@ tobago-sheet .tobago-body {
 tobago-sheet .tobago-body .table {
   margin-bottom: 0;
 }
+tobago-sheet .tobago-body .table.tobago-has-column-panel.table-striped > tbody > tr:nth-child(4n+1) > * {
+  --bs-table-color-type: var(--bs-table-striped-color);
+  --bs-table-bg-type: var(--bs-table-striped-bg);
+}
+tobago-sheet .tobago-body .table.tobago-has-column-panel.table-striped > tbody > tr:nth-child(4n+2) > * {
+  --bs-table-color-type: var(--bs-table-striped-color);
+  --bs-table-bg-type: var(--bs-table-striped-bg);
+}
+tobago-sheet .tobago-body .table.tobago-has-column-panel.table-striped > tbody > tr:nth-child(4n+3) > * {
+  --bs-table-color-type: initial;
+  --bs-table-bg-type: initial;
+}
+tobago-sheet .tobago-body .table.tobago-has-column-panel.table-striped > tbody > tr:nth-child(4n+4) > * {
+  --bs-table-color-type: initial;
+  --bs-table-bg-type: initial;
+}
 tobago-sheet .tobago-body .table td {
   overflow: hidden;
 }

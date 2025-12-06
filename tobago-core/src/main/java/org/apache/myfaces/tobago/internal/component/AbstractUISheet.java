@@ -102,6 +102,7 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   private transient Grid headerGrid;
   private final transient SearchOnce abstractUIColumnSelectorSearch = new SearchOnce();
+  private final transient SearchOnce abstractUIColumnPanelSearch = new SearchOnce();
 
   @Override
   public void encodeAll(FacesContext facesContext) throws IOException {
@@ -930,6 +931,10 @@ public abstract class AbstractUISheet extends AbstractUIData
 
   public AbstractUIColumnSelector getColumnSelector() {
     return abstractUIColumnSelectorSearch.findChild(this, AbstractUIColumnSelector.class);
+  }
+
+  public AbstractUIColumnPanel getColumnPanel() {
+    return abstractUIColumnPanelSearch.findChild(this, AbstractUIColumnPanel.class);
   }
 
   @Override
