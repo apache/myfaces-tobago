@@ -18,34 +18,6 @@
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 import {elementByIdFn, querySelectorFn} from "/script/tobago-test.js";
 
-it("SelectOneList: no-entries hint after leaving", function (done) {
-  const rootComponent = elementByIdFn("page:mainForm:selectOneList");
-  const selectField = elementByIdFn("page:mainForm:selectOneList::selectField");
-  const filterInput = elementByIdFn("page:mainForm:selectOneList::filter");
-  const dropdownMenu = querySelectorFn(".tobago-dropdown-menu[name='page:mainForm:selectOneList']");
-  const noEntriesFooter = querySelectorFn(".tobago-dropdown-menu[name='page:mainForm:selectOneList'] .tobago-no-entries");
-
-  const test = new JasmineTestTool(done);
-  test.do(() => expect(dropdownMenu().classList).not.toContain("show"));
-  test.do(() => expect(noEntriesFooter().classList).toContain("d-none"));
-
-  test.event("focus", filterInput, () => rootComponent().classList.contains("tobago-focus"));
-  test.event("click", selectField, () => dropdownMenu().classList.contains("show"));
-  test.do(() => expect(dropdownMenu().classList).toContain("show"));
-  test.do(() => expect(noEntriesFooter().classList).toContain("d-none"));
-
-  test.event("blur", filterInput, () => !rootComponent().classList.contains("tobago-focus"));
-  test.do(() => expect(dropdownMenu().classList).not.toContain("show"));
-  test.do(() => expect(noEntriesFooter().classList).toContain("d-none"));
-
-  test.event("focus", filterInput, () => rootComponent().classList.contains("tobago-focus"));
-  test.event("click", selectField, () => dropdownMenu().classList.contains("show"));
-  test.do(() => expect(dropdownMenu().classList).toContain("show"));
-  test.do(() => expect(noEntriesFooter().classList).toContain("d-none"));
-
-  test.start();
-});
-
 it("SelectManyList: no-entries hint after leaving", function (done) {
   const rootComponent = elementByIdFn("page:mainForm:selectManyList");
   const selectField = elementByIdFn("page:mainForm:selectManyList::selectField");

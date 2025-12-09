@@ -21,24 +21,8 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="jakarta.faces.facelets">
-
   <tc:selectOneList id="selectOneList">
-    <tc:selectItem itemValue="1" itemLabel="Entry One"/>
-    <tc:selectItem itemValue="2" itemLabel="Entry Two (disabled)" itemDisabled="true"/>
+    <tc:selectItem itemValue="Entry One"/>
+    <tc:selectItem itemValue="Entry Two"/>
   </tc:selectOneList>
-
-  <tc:selectManyList id="selectManyList">
-    <tc:selectItem itemValue="1" itemLabel="Entry One"/>
-    <tc:selectItem itemValue="2" itemLabel="Entry Two (disabled)" itemDisabled="true"/>
-  </tc:selectManyList>
-
-  <tc:selectOneList id="selectOneListExpanded" expanded="true">
-    <tc:selectItem itemValue="1" itemLabel="Entry One"/>
-    <tc:selectItem itemValue="2" itemLabel="Entry Two (disabled)" itemDisabled="true"/>
-  </tc:selectOneList>
-
-  <tc:selectManyList id="selectManyListExpanded" expanded="true">
-    <tc:selectItem itemValue="1" itemLabel="Entry One"/>
-    <tc:selectItem itemValue="2" itemLabel="Entry Two (disabled)" itemDisabled="true"/>
-  </tc:selectManyList>
 </ui:composition>
