@@ -17,9 +17,9 @@
  * under the License.
  */
 
-import {defineConfig, devices} from "@playwright/test";
+import {devices, PlaywrightTestConfig} from "@playwright/test";
 
-export default defineConfig({
+const defaultConfig: PlaywrightTestConfig = {
   testDir: "./src/test/typescript",
   outputDir: "./target/test-results",
   reporter: [["html", {outputFolder: "./target/playwright-report"}]],
@@ -44,18 +44,8 @@ export default defineConfig({
     {
       name: "Jetty - Safari",
       use: {baseURL: "http://localhost:8080", ...devices["Desktop Safari"]}
-    },
-    {
-      name: "Open Liberty - Chromium",
-      use: {baseURL: "http://localhost:8081", ...devices["Desktop Chrome"]}
-    },
-    {
-      name: "Tomcat - Chromium",
-      use: {baseURL: "http://localhost:8082", ...devices["Desktop Chrome"]}
-    },
-    {
-      name: "TomEE - Chromium",
-      use: {baseURL: "http://localhost:8083", ...devices["Desktop Chrome"]}
     }
   ]
-});
+};
+
+export default defaultConfig;

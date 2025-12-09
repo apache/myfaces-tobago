@@ -13,7 +13,7 @@
   },
   "homepage": "https://myfaces.apache.org/tobago/",
   "scripts": {
-    "build": "npm-run-all --parallel ts css fa jasmine test",
+    "build": "npm-run-all --parallel ts css fa jasmine",
     "css": "npm-run-all css-compile css-prefix css-minify",
     "css-lint": "echo 'Not implemented yet!'",
     "css-compile": "sass --style expanded --source-map --embed-sources --no-error-css --load-path=./ src/main/scss/demo.scss:src/main/webapp/css/demo.css",
@@ -33,7 +33,10 @@
     "rollup": "rollup --config",
     "update-check": "npx npm-check-updates",
     "update-execute": "npx npm-check-updates -u",
-    "test": "echo 'Skipping'"
+    "test": "npx playwright test",
+    "test:chrome": "npx playwright test --project='Jetty - Google Chrome'",
+    "test:firefox": "npx playwright test --project='Jetty - Firefox'",
+    "test:all-servers": "npx playwright test --config=playwright.servers.config.ts"
   },
   "dependencies": {
     "font-awesome": "4.7.0",
