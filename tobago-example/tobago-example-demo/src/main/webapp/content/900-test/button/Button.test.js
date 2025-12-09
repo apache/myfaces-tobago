@@ -20,30 +20,24 @@ import {elementByIdFn, querySelectorFn} from "/script/tobago-test.js";
 
 it("Standard Action Button", function (done) {
   const commandFn = elementByIdFn("page:mainForm:standardButtonAction");
-  const destinationSectionFn = elementByIdFn("page:actionSection");
+  const destinationSectionFn = elementByIdFn("page:mainForm:actionSection");
+  testStandardCommands(done, commandFn, destinationSectionFn);
+});
+
+it("Standard Outcome Button", function (done) {
+  const commandFn = elementByIdFn("page:mainForm:standardButtonOutcome");
+  const destinationSectionFn = elementByIdFn("page:mainForm:outcomeSection");
   testStandardCommands(done, commandFn, destinationSectionFn);
 });
 
 it("Standard Link Button", function (done) {
   const commandFn = elementByIdFn("page:mainForm:standardButtonLink");
-  const destinationSectionFn = elementByIdFn("page:linkSection");
-  testStandardCommands(done, commandFn, destinationSectionFn);
-});
-
-it("Standard Action Link", function (done) {
-  const commandFn = elementByIdFn("page:mainForm:standardLinkAction");
-  const destinationSectionFn = elementByIdFn("page:actionSection");
-  testStandardCommands(done, commandFn, destinationSectionFn);
-});
-
-it("Standard Link Link", function (done) {
-  const commandFn = elementByIdFn("page:mainForm:standardLinkLink");
-  const destinationSectionFn = elementByIdFn("page:linkSection");
+  const destinationSectionFn = elementByIdFn("page:mainForm:linkSection");
   testStandardCommands(done, commandFn, destinationSectionFn);
 });
 
 function testStandardCommands(done, commandFn, destinationSectionFn) {
-  const backFn = elementByIdFn("page:back");
+  const backFn = elementByIdFn("page:mainForm:back");
 
   const test = new JasmineTestTool(done);
   test.event("click", commandFn, () => destinationSectionFn() !== null);
@@ -54,60 +48,33 @@ function testStandardCommands(done, commandFn, destinationSectionFn) {
 }
 
 it("Target Action Button", function (done) {
-  const actionFn = elementByIdFn("page:mainForm:targetButtonAction");
-  const linkFn = elementByIdFn("page:mainForm:targetButtonLink");
+  const button = elementByIdFn("page:mainForm:targetButtonAction");
   const expectedValue = "accessed by action";
+  testTargetCommands(done, button, expectedValue);
+});
 
-  const test = new JasmineTestTool(done);
-  test.setup(() => getTargetFrameInput() !== null && getTargetFrameInput().value !== expectedValue,
-      null, "click", linkFn);
-  test.event("click", actionFn,
-      () => getTargetFrameInput() !== null && getTargetFrameInput().value === expectedValue);
-  test.do(() => expect(getTargetFrameInput().value).toBe(expectedValue));
-  test.start();
+it("Target Outcome Button", function (done) {
+  const button = elementByIdFn("page:mainForm:targetButtonOutcome");
+  const expectedValue = "accessed by outcome";
+  testTargetCommands(done, button, expectedValue);
 });
 
 it("Target Link Button", function (done) {
-  const actionFn = elementByIdFn("page:mainForm:targetButtonAction");
-  const linkFn = elementByIdFn("page:mainForm:targetButtonLink");
+  const button = elementByIdFn("page:mainForm:targetButtonLink");
   const expectedValue = "accessed by link";
+  testTargetCommands(done, button, expectedValue);
+});
+
+function testTargetCommands(done, button, expectedValue) {
+  const resetButton = elementByIdFn("page:mainForm:reset");
 
   const test = new JasmineTestTool(done);
-  test.setup(() => getTargetFrameInput() !== null && getTargetFrameInput().value !== expectedValue,
-      null, "click", actionFn);
-  test.event("click", linkFn,
+  test.setup(() => getTargetFrameInput() === null, null, "click", resetButton);
+  test.event("click", button,
       () => getTargetFrameInput() !== null && getTargetFrameInput().value === expectedValue);
   test.do(() => expect(getTargetFrameInput().value).toBe(expectedValue));
   test.start();
-});
-
-it("Target Action Link", function (done) {
-  const actionFn = elementByIdFn("page:mainForm:targetLinkAction");
-  const linkFn = elementByIdFn("page:mainForm:targetLinkLink");
-  const expectedValue = "accessed by action";
-
-  const test = new JasmineTestTool(done);
-  test.setup(() => getTargetFrameInput() !== null && getTargetFrameInput().value !== expectedValue,
-      null, "click", linkFn);
-  test.event("click", actionFn,
-      () => getTargetFrameInput() !== null && getTargetFrameInput().value === expectedValue);
-  test.do(() => expect(getTargetFrameInput().value).toBe(expectedValue));
-  test.start();
-});
-
-it("Target Link Link", function (done) {
-  const actionFn = elementByIdFn("page:mainForm:targetLinkAction");
-  const linkFn = elementByIdFn("page:mainForm:targetLinkLink");
-  const expectedValue = "accessed by link";
-
-  const test = new JasmineTestTool(done);
-  test.setup(() => getTargetFrameInput() !== null && getTargetFrameInput().value !== expectedValue,
-      null, "click", actionFn);
-  test.event("click", linkFn,
-      () => getTargetFrameInput() !== null && getTargetFrameInput().value === expectedValue);
-  test.do(() => expect(getTargetFrameInput().value).toBe(expectedValue));
-  test.start();
-});
+}
 
 function getTargetFrameInput() {
   return elementByIdFn("page:mainForm:targetFrame")().contentWindow

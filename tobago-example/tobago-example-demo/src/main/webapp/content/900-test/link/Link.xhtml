@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -18,8 +17,57 @@
 
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="jakarta.faces.core"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="jakarta.faces.facelets">
+
+  <tc:section label="Standard">
+    <tc:links>
+      <tc:link id="standardLinkAction" label="Action" action="#{linkController.action}"/>
+      <tc:link id="standardLinkOutcome" label="Outcome" outcome="/content/900-test/link/x-outcome.xhtml"/>
+      <tc:link id="standardLinkLink" label="Link" link="x-link.xhtml"/>
+    </tc:links>
+  </tc:section>
+
+  <tc:section label="Confirmation">
+    <tc:links>
+      <tc:link id="confirmationLinkAction" label="Action" action="#{linkController.action}"
+               confirmation="Are you sure? (attribute)"/>
+      <tc:link id="confirmationLinkOutcome" label="Outcome" outcome="/content/900-test/link/x-outcome.xhtml"
+               confirmation="Are you sure? (attribute)"/>
+      <tc:link id="confirmationLinkLink" label="Link" link="x-link.xhtml"
+               confirmation="Are you sure? (attribute)"/>
+    </tc:links>
+    <tc:links>
+      <tc:link id="confirmationFacetLinkAction" label="Action" action="#{linkController.action}">
+        <f:facet name="confirmation">Are you sure? (facet)</f:facet>
+      </tc:link>
+      <tc:link id="confirmationFacetLinkOutcome" label="Outcome" outcome="/content/900-test/link/x-outcome.xhtml">
+        <f:facet name="confirmation">Are you sure? (facet)</f:facet>
+      </tc:link>
+      <tc:link id="confirmationFacetLinkLink" label="Link" link="x-link.xhtml">
+        <f:facet name="confirmation">Are you sure? (facet)</f:facet>
+      </tc:link>
+    </tc:links>
+  </tc:section>
+
+  <tc:section label="Target">
+    <tc:links>
+      <tc:link id="targetLinkAction" label="Action" action="#{linkController.targetAction}"
+               target="targetFrame"/>
+      <tc:link id="targetLinkOutcome" label="Outcome" outcome="/content/900-test/link/x-targetOutcome.xhtml"
+               target="targetFrame"/>
+      <tc:link id="targetLinkLink" label="Link" link="x-targetLink.xhtml"
+               target="targetFrame"/>
+    </tc:links>
+    <tc:button id="reset" label="Reset"/>
+    <tc:box label="iframe">
+      <tc:object id="targetFrame" name="targetFrame">
+        <tc:style width="100%" height="150px"/>
+      </tc:object>
+    </tc:box>
+  </tc:section>
+
   <tc:link id="aLink" label="a.link" link="https://www.apache.org/">
     <tc:style width="200px"/>
   </tc:link>

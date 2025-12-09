@@ -15,13 +15,13 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/plain.xhtml"
+<ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="jakarta.faces.facelets">
 
-  <tc:section id="actionSection" label="Action">
-    <p>This page should be accessed by an link/button with <code>action</code> attribute.</p>
-    <tc:button id="back" label="Back" outcome="/content/900-test/4000-button-link/Button_Link.xhtml"/>
+  <tc:section id="outcomeSection" label="Outcome">
+    <p>This page should be accessed by a link with <code>outcome</code> attribute.</p>
+    <tc:button id="back" label="Back" outcome="/content/900-test/link/Link.xhtml"/>
   </tc:section>
 </ui:composition>
