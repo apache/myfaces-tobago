@@ -15,8 +15,71 @@
  * limitations under the License.
  */
 
-import {elementByIdFn, querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
+import {elementByIdFn, querySelectorFn} from "/script/tobago-test.js";
+
+it("Standard Action Link", function (done) {
+  const commandFn = elementByIdFn("page:mainForm:standardLinkAction");
+  const destinationSectionFn = elementByIdFn("page:mainForm:actionSection");
+  testStandardCommands(done, commandFn, destinationSectionFn);
+});
+
+it("Standard Outcome Link", function (done) {
+  const commandFn = elementByIdFn("page:mainForm:standardLinkOutcome");
+  const destinationSectionFn = elementByIdFn("page:mainForm:outcomeSection");
+  testStandardCommands(done, commandFn, destinationSectionFn);
+});
+
+it("Standard Link Link", function (done) {
+  const commandFn = elementByIdFn("page:mainForm:standardLinkLink");
+  const destinationSectionFn = elementByIdFn("page:mainForm:linkSection");
+  testStandardCommands(done, commandFn, destinationSectionFn);
+});
+
+function testStandardCommands(done, commandFn, destinationSectionFn) {
+  const backFn = elementByIdFn("page:mainForm:back");
+
+  const test = new JasmineTestTool(done);
+  test.event("click", commandFn, () => destinationSectionFn() !== null);
+  test.do(() => expect(destinationSectionFn()).not.toBeNull());
+  test.event("click", backFn, () => commandFn() !== null);
+  test.do(() => expect(commandFn()).not.toBeNull());
+  test.start();
+}
+
+it("Target Action Link", function (done) {
+  const link = elementByIdFn("page:mainForm:targetLinkAction");
+  const expectedValue = "accessed by action";
+  testTargetCommands(done, link, expectedValue);
+});
+
+it("Target Outcome Link", function (done) {
+  const link = elementByIdFn("page:mainForm:targetLinkOutcome");
+  const expectedValue = "accessed by outcome";
+  testTargetCommands(done, link, expectedValue);
+});
+
+it("Target Link Link", function (done) {
+  const link = elementByIdFn("page:mainForm:targetLinkLink");
+  const expectedValue = "accessed by link";
+  testTargetCommands(done, link, expectedValue);
+});
+
+function testTargetCommands(done, link, expectedValue) {
+  const resetButton = elementByIdFn("page:mainForm:reset");
+
+  const test = new JasmineTestTool(done);
+  test.setup(() => getTargetFrameInput() === null, null, "click", resetButton);
+  test.event("click", link,
+      () => getTargetFrameInput() !== null && getTargetFrameInput().value === expectedValue);
+  test.do(() => expect(getTargetFrameInput().value).toBe(expectedValue));
+  test.start();
+}
+
+function getTargetFrameInput() {
+  return elementByIdFn("page:mainForm:targetFrame")().contentWindow
+      .document.getElementById("page:textInput::field");
+}
 
 it("compare a.link and button.link", function (done) {
   const aLinkText = querySelectorFn("#page\\:mainForm\\:aLink span");
