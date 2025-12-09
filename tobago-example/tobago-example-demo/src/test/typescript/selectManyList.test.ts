@@ -18,12 +18,11 @@
  */
 
 import {expect, test} from "@playwright/test";
-import {goto} from "./base/Functions";
 
 test.describe("900-test/2100-selectManyList/deselect/deselect.xhtml", () => {
 
   test.beforeEach(async ({page}, testInfo) => {
-    await goto(test, page, testInfo, "/content/900-test/selectManyList/deselect/deselect.xhtml");
+    await page.goto("/content/900-test/selectManyList/deselect/deselect.xhtml");
   });
 
   test("tc:selectManyList: deselect", async ({page}) => {

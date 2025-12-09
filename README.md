@@ -147,6 +147,31 @@ docker compose up
 Browse to the local URL http://localhost:8080/
 The different server can be accessed by increasing the port number by 1.
 
+### Integration tests
+
+Currently, not all integration tests are migrated to Playwright. So there are Jasmine and Playwright tests.
+
+#### Jasmine
+
+```shell
+cd tobago-example/tobago-example-demo
+mvn clean verify -Pdocker -Pintegration-tests
+```
+
+#### Playwright
+
+Start servers as described in [Docker compose](#Docker-compose).
+
+```shell
+cd tobago-example/tobago-example-demo
+npm run test
+```
+
+* test with different browsers `npm run test`
+* test with Firefox`npm run test:firefox`
+* test with Google Chrome `npm run test:chrome`
+* test with different browsers on different servers `npm run test:all-servers`
+
 # Issue Tracking
 
 If you find any issues regarding MyFaces Tobago you can use

@@ -19,12 +19,11 @@
 
 import {expect, test} from "@playwright/test";
 import {Table} from "./base/bootstrap-variables";
-import {goto} from "./base/Functions";
 
 test.describe("sheet/columnNode/ColumnNode.xhtml", () => {
 
   test.beforeEach(async ({page}, testInfo) => {
-    await goto(test, page, testInfo, "/content/900-test/sheet/columnNode/ColumnNode.xhtml");
+    await page.goto("/content/900-test/sheet/columnNode/ColumnNode.xhtml");
   });
 
   test("Open the 'World' node to see 'Carib' and 'Africa'", async ({page}) => {
@@ -124,7 +123,7 @@ test.describe("sheet/columnNode/ColumnNode.xhtml", () => {
 test.describe("sheet/columnPanel/ColumnPanel.xhtml", () => {
 
   test.beforeEach(async ({page}, testInfo) => {
-    await goto(test, page, testInfo, "content/900-test/sheet/columnPanel/ColumnPanel.xhtml");
+    await page.goto("content/900-test/sheet/columnPanel/ColumnPanel.xhtml");
   });
 
   test("Markup 'striped'", async ({page}) => {

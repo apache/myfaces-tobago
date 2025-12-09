@@ -17,19 +17,26 @@
  * under the License.
  */
 
-import {Page, TestInfo, TestType} from "@playwright/test";
+import {devices, PlaywrightTestConfig} from "@playwright/test";
+import defaultConfig from "./playwright.config";
 
-export async function goto(test: TestType<any, any>, page: Page, testInfo: TestInfo, url: string): Promise<void> {
-  const baseURL = testInfo.project.use.baseURL;
-
-  try {
-    const response = await fetch(baseURL);
-    if (response.ok) {
-      await page.goto(url);
-    } else {
-      test.skip(true, baseURL + " not available; " + response.status + " - " + response.statusText);
+const serversConfig: PlaywrightTestConfig = {
+  ...defaultConfig,
+  projects: [
+    ...defaultConfig.projects,
+    {
+      name: "Open Liberty - Chromium",
+      use: {baseURL: "http://localhost:8081", ...devices["Desktop Chrome"]}
+    },
+    {
+      name: "Tomcat - Chromium",
+      use: {baseURL: "http://localhost:8082", ...devices["Desktop Chrome"]}
+    },
+    {
+      name: "TomEE - Chromium",
+      use: {baseURL: "http://localhost:8083", ...devices["Desktop Chrome"]}
     }
-  } catch {
-    test.skip(true, baseURL + " not available");
-  }
-}
+  ]
+};
+
+export default serversConfig;
