@@ -17,25 +17,9 @@
 
 import {querySelectorFn} from "/script/tobago-test.js";
 
-it("SelectOneList expanded=false: colors of list entries", function () {
-  const entry1 = querySelectorFn("[id='page:mainForm:selectOneList'] tr[data-tobago-value='1'] td[value='1']");
-  const entry2 = querySelectorFn("[id='page:mainForm:selectOneList'] tr[data-tobago-value='2'] td[value='2']");
-
-  expect(getComputedStyle(entry1()).backgroundColor).toBe("rgb(255, 255, 255)")
-  expect(getComputedStyle(entry2()).backgroundColor).toBe("rgb(233, 236, 239)")
-});
-
 it("SelectManyList expanded=false: colors of list entries", function () {
   const entry1 = querySelectorFn("[id='page:mainForm:selectManyList'] tr[data-tobago-value='1'] td[value='1']");
   const entry2 = querySelectorFn("[id='page:mainForm:selectManyList'] tr[data-tobago-value='2'] td[value='2']");
-
-  expect(getComputedStyle(entry1()).backgroundColor).toBe("rgb(255, 255, 255)")
-  expect(getComputedStyle(entry2()).backgroundColor).toBe("rgb(233, 236, 239)")
-});
-
-it("SelectOneList expanded=true: colors of list entries", function () {
-  const entry1 = querySelectorFn("[id='page:mainForm:selectOneListExpanded'] tr[data-tobago-value='1'] td[value='1']");
-  const entry2 = querySelectorFn("[id='page:mainForm:selectOneListExpanded'] tr[data-tobago-value='2'] td[value='2']");
 
   expect(getComputedStyle(entry1()).backgroundColor).toBe("rgb(255, 255, 255)")
   expect(getComputedStyle(entry2()).backgroundColor).toBe("rgb(233, 236, 239)")

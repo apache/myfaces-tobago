@@ -37,25 +37,6 @@
     <tc:out id="blurCounter" label="blur" value="#{selectListServerFilterController.blurCounter}" labelLayout="top"/>
   </tc:panel>
 
-  <tc:selectOneList id="selectOneList" label="selectOneList"
-                    value="#{selectListServerFilterController.selectedSolarObject}"
-                    footer="#{selectListServerFilterController.footerTextOne}">
-    <tc:selectItemsFiltered id="selectItemsFilteredOne" value="#{selectListServerFilterController.solarObjectsOne}"
-                            var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"
-                            query="#{selectListServerFilterController.queryOne}"
-                            minimumCharacters="#{selectListServerFilterController.minChar}">
-    </tc:selectItemsFiltered>
-    <f:ajax render="statistics outputSelectOneList" listener="#{selectListServerFilterController.changeAjaxListener}"/>
-    <f:ajax event="click" render="statistics" listener="#{selectListServerFilterController.clickAjaxListener}"/>
-    <f:ajax event="dblclick" render="statistics" listener="#{selectListServerFilterController.dblclickAjaxListener}"/>
-    <f:ajax event="focus" render="statistics" listener="#{selectListServerFilterController.focusAjaxListener}"/>
-    <f:ajax event="blur" render="statistics" listener="#{selectListServerFilterController.blurAjaxListener}"/>
-  </tc:selectOneList>
-  <tc:out id="outputSelectOneList" label="Selected"
-          value="#{selectListServerFilterController.selectedSolarObjectString}"/>
-
-  <tc:separator/>
-
   <tc:out id="outputSelectManyList" label="Selected"
           value="#{selectListServerFilterController.selectedSolarObjectsString}"/>
   <tc:selectManyList id="selectManyList" label="selectManyList"
