@@ -13294,7 +13294,7 @@ tobago-stars {
 .tobago-stars .tobago-stars-container .tobago-stars-unselected:before {
   content: "\f586 \f586 \f586 \f586 \f586";
 }
-.tobago-stars .tobago-stars-container input[type=range]:disabled ~ .tobago-stars-unselected {
+.tobago-stars .tobago-stars-container input:disabled ~ .tobago-stars-unselected {
   filter: grayscale(1);
 }
 .tobago-stars .tobago-stars-container .tobago-stars-preselected {
