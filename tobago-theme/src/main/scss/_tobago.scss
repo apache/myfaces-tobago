@@ -1485,7 +1485,7 @@ tobago-stars {
       }
     }
 
-    input[type="range"]:disabled ~ .tobago-stars-unselected {
+    input:disabled ~ .tobago-stars-unselected {
       filter: grayscale(1);
     }
 
