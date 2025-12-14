@@ -934,17 +934,7 @@ tobago-in {
   }
 }
 
-/* label ----------------------------------------------------------- */
-
-tobago-links {
-  .nav .nav-item .nav-link {
-    padding: var(--#{$prefix}nav-link-padding-y) var(--#{$prefix}nav-link-padding-x);
-  }
-}
-
-/* link ----------------------------------------------------------- */
-
-.tobago-link {
+@mixin tobagoLink() {
   @include imageTextSpacing();
   @include markupHideToggleIcon();
   white-space: nowrap;
@@ -960,26 +950,25 @@ tobago-links {
   }
 }
 
-a.tobago-link.dropdown-item {
-  img, span {
-    display: inline-block; /* fix for IE11 - :active selector doesn't work for nested elements */
-    pointer-events: none;
+a.tobago-link {
+  @include tobagoLink();
+
+  &.dropdown-item {
+    img, span {
+      display: inline-block; /* fix for IE11 - :active selector doesn't work for nested elements */
+      pointer-events: none;
+    }
   }
 }
 
 button.tobago-link {
+  @include tobagoLink();
+
+  font-size: inherit;
+  font-weight: inherit;
   text-align: left;
-}
 
-h1, h2, h3, h4, h5, h6 {
-  button.tobago-link {
-    font-size: inherit;
-    font-weight: inherit;
-  }
-}
-
-button {
-  &.tobago-link.btn {
+  &.btn {
     @include buttonLinkDisabledCursor();
 
     padding: 0;
@@ -997,12 +986,20 @@ button {
     }
   }
 
-  &.tobago-link.dropdown-item {
+  &.dropdown-item {
     @include buttonLinkDisabledCursor();
   }
+}
 
+button {
   &.nav-link { /* bootstrap don't know button.nav-link*/
     padding: .55em var(--#{$prefix}nav-link-padding-x) .45em;
+  }
+}
+
+tobago-links {
+  .nav .nav-item .nav-link {
+    padding: var(--#{$prefix}nav-link-padding-y) var(--#{$prefix}nav-link-padding-x);
   }
 }
 
