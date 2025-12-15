@@ -68,18 +68,44 @@
     </tc:box>
   </tc:section>
 
-  <tc:link id="aLink" label="a.link" link="https://www.apache.org/">
-    <tc:style width="200px"/>
-  </tc:link>
-  <br/>
-  <tc:link id="buttonLink" label="button.link">
-    <tc:style width="200px"/>
-  </tc:link>
+  <tc:section id="aVsButton" label="a.tobago-link vs button.tobago-link">
+    <tc:link id="aLink" label="a.link" link="https://www.apache.org/"/>
+    <tc:link id="buttonLink" label="button.link"/>
+    <tc:links>
+      <tc:link id="linksALink" label="a.link" link="https://www.apache.org/"/>
+      <tc:link id="linksButtonLink" label="button.link"/>
+    </tc:links>
 
-  <tc:link id="dropdownRepeat" label="Dropdown with ui:repeat" omit="true">
-    <tc:style customClass="icon-button"/>
-    <ui:repeat var="river" value="#{forEachController.rivers}">
-      <tc:link id="#{river.name}" label="#{river.name}" omit="true"/>
-    </ui:repeat>
-  </tc:link>
+    <tc:bar markup="light">
+      <tc:style customClass="bg-warning"/>
+      <f:facet name="brand">
+        <tc:link label="BRAND" outcome="/content/000-intro/03-intro/Intro.xhtml"/>
+      </f:facet>
+      <tc:link id="barALink" label="a.link" link="https://www.apache.org/"/>
+      <tc:link id="barButtonLink" label="button.link"/>
+      <tc:links>
+        <tc:link id="barLinksALink" label="a.link" link="https://www.apache.org/"/>
+        <tc:link id="barLinksButtonLink" label="button.link"/>
+      </tc:links>
+    </tc:bar>
+
+    <tc:section label="offsetLeft">
+      <tc:link id="aLink200px" label="a.link" link="https://www.apache.org/">
+        <tc:style width="200px"/>
+      </tc:link>
+      <br/>
+      <tc:link id="buttonLink200px" label="button.link">
+        <tc:style width="200px"/>
+      </tc:link>
+    </tc:section>
+  </tc:section>
+
+  <tc:section label="Dropdown - ui:repeat">
+    <tc:link id="dropdownRepeat" label="Dropdown with ui:repeat" omit="true">
+      <tc:style customClass="icon-button"/>
+      <ui:repeat var="river" value="#{forEachController.rivers}">
+        <tc:link id="#{river.name}" label="#{river.name}" omit="true"/>
+      </ui:repeat>
+    </tc:link>
+  </tc:section>
 </ui:composition>
