@@ -82,8 +82,8 @@ function getTargetFrameInput() {
 }
 
 it("compare a.link and button.link", function (done) {
-  const aLinkText = querySelectorFn("#page\\:mainForm\\:aLink span");
-  const buttonLinkText = querySelectorFn("#page\\:mainForm\\:buttonLink span");
+  const aLinkText = querySelectorFn("#page\\:mainForm\\:aLink200px span");
+  const buttonLinkText = querySelectorFn("#page\\:mainForm\\:buttonLink200px span");
 
   const test = new JasmineTestTool(done);
   test.do(() => expect(aLinkText().offsetLeft).toBe(buttonLinkText().offsetLeft));

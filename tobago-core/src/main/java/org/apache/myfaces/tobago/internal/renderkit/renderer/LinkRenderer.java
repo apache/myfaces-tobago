@@ -19,14 +19,13 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import jakarta.faces.context.FacesContext;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUILink;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-
-import jakarta.faces.context.FacesContext;
 
 public class LinkRenderer<T extends AbstractUILink> extends CommandRendererBase<T> {
 
@@ -40,11 +39,12 @@ public class LinkRenderer<T extends AbstractUILink> extends CommandRendererBase<
     final boolean disabled = command.isDisabled();
     final boolean anchor = (command.getLink() != null || command.getOutcome() != null) && !disabled;
     final boolean dropdownSubmenu = isInside(facesContext, HtmlElements.COMMAND);
+    final boolean insideTobagoLinks = isInside(facesContext, HtmlElements.TOBAGO_LINKS);
     final Markup markup = command.getMarkup() != null ? command.getMarkup() : Markup.NULL;
 
     return new CssItem[]{
-        !anchor && !dropdownSubmenu ? BootstrapClass.BTN : null,
-        !anchor && !dropdownSubmenu ? BootstrapClass.BTN_LINK : null,
+        !anchor && !dropdownSubmenu & !insideTobagoLinks ? BootstrapClass.BTN : null,
+        !anchor && !dropdownSubmenu & !insideTobagoLinks ? BootstrapClass.BTN_LINK : null,
         BootstrapClass.textColor(markup),
         BootstrapClass.fontStyle(markup)
     };

@@ -943,6 +943,10 @@ tobago-in {
     white-space: normal
   }
 
+  &.tobago-auto-spacing {
+    margin-bottom: unset;
+  }
+
   &.nav-link {
     &:focus, &:hover {
       text-decoration: none;
@@ -967,6 +971,17 @@ button.tobago-link {
   font-size: inherit;
   font-weight: inherit;
   text-align: left;
+  border-radius: 0;
+
+  &:not(.nav-link):focus-visible {
+    outline-style: auto;
+    outline-width: 1px;
+  }
+
+  &.nav-link:focus-visible {
+    outline: 0;
+    box-shadow: $nav-link-focus-box-shadow;
+  }
 
   &.btn {
     @include buttonLinkDisabledCursor();
@@ -988,12 +1003,6 @@ button.tobago-link {
 
   &.dropdown-item {
     @include buttonLinkDisabledCursor();
-  }
-}
-
-button {
-  &.nav-link { /* bootstrap don't know button.nav-link*/
-    padding: .55em var(--#{$prefix}nav-link-padding-x) .45em;
   }
 }
 
