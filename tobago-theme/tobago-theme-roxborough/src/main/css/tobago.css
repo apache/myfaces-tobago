@@ -12604,45 +12604,67 @@ tobago-in tobago-suggest {
   background-color: #d68200;
 }
 
-/* label ----------------------------------------------------------- */
-tobago-links .nav .nav-item .nav-link {
-  padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
-}
-
-/* link ----------------------------------------------------------- */
-.tobago-link > img + span {
+a.tobago-link > img + span {
   margin-left: 0.4em;
 }
-.tobago-link > i + span {
+a.tobago-link > i + span {
   margin-left: 0.4em;
 }
-.tobago-link.tobago-hideToggleIcon:after {
+a.tobago-link.tobago-hideToggleIcon:after {
   content: none;
 }
-.tobago-link {
+a.tobago-link {
   white-space: nowrap;
 }
-.tobago-link span {
+a.tobago-link span {
   white-space: normal;
 }
-.tobago-link.nav-link:focus, .tobago-link.nav-link:hover {
+a.tobago-link.tobago-auto-spacing {
+  margin-bottom: unset;
+}
+a.tobago-link.nav-link:focus, a.tobago-link.nav-link:hover {
   text-decoration: none;
 }
-
 a.tobago-link.dropdown-item img, a.tobago-link.dropdown-item span {
   display: inline-block; /* fix for IE11 - :active selector doesn't work for nested elements */
   pointer-events: none;
 }
 
-button.tobago-link {
-  text-align: left;
+button.tobago-link > img + span {
+  margin-left: 0.4em;
 }
-
-h1 button.tobago-link, .h1 button.tobago-link, h2 button.tobago-link, .h2 button.tobago-link, h3 button.tobago-link, .h3 button.tobago-link, h4 button.tobago-link, .h4 button.tobago-link, h5 button.tobago-link, .h5 button.tobago-link, h6 button.tobago-link, .h6 button.tobago-link {
+button.tobago-link > i + span {
+  margin-left: 0.4em;
+}
+button.tobago-link.tobago-hideToggleIcon:after {
+  content: none;
+}
+button.tobago-link {
+  white-space: nowrap;
+}
+button.tobago-link span {
+  white-space: normal;
+}
+button.tobago-link.tobago-auto-spacing {
+  margin-bottom: unset;
+}
+button.tobago-link.nav-link:focus, button.tobago-link.nav-link:hover {
+  text-decoration: none;
+}
+button.tobago-link {
   font-size: inherit;
   font-weight: inherit;
+  text-align: left;
+  border-radius: 0;
 }
-
+button.tobago-link:not(.nav-link):focus-visible {
+  outline-style: auto;
+  outline-width: 1px;
+}
+button.tobago-link.nav-link:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(214, 130, 0, 0.25);
+}
 button.tobago-link.btn:disabled {
   pointer-events: auto;
 }
@@ -12668,8 +12690,9 @@ button.tobago-link.dropdown-item:disabled {
 button.tobago-link.dropdown-item:disabled:hover {
   cursor: not-allowed;
 }
-button.nav-link { /* bootstrap don't know button.nav-link*/
-  padding: 0.55em var(--bs-nav-link-padding-x) 0.45em;
+
+tobago-links .nav .nav-item .nav-link {
+  padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
 }
 
 .tobago-messages-container .error-feedback {
