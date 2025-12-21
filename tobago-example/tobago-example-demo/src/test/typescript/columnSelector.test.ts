@@ -19,10 +19,10 @@
 
 import {expect, test} from "@playwright/test";
 
-test.describe("sheet/columnSelector/ajax/ajax.xhtml", () => {
+test.describe("sheet/columnSelector/immediate/immediate.xhtml", () => {
 
   test.beforeEach(async ({page}, testInfo) => {
-    await page.goto("/content/900-test/sheet/columnSelector/ajax/ajax.xhtml");
+    await page.goto("/content/900-test/sheet/columnSelector/immediate/immediate.xhtml");
   });
 
   test("immediate=true, ajax=enabled", async ({page}) => {
