@@ -37,9 +37,9 @@ public enum Outcome {
   TEST_BUTTONLINK_XTARGETACTION(
       "/content/900-test/4000-button-link/x-targetAction.xhtml"),
   TEST_ATTRIBUTE(
-      "/content/900-test/9000-attribute/Attribute.xhtml?faces-redirect=true"),
+      "/content/900-test/misc/attribute/Attribute.xhtml?faces-redirect=true"),
   TEST_JAVA_AJAX_EXECUTE(
-      "/content/900-test/50000-java/20-ajax-execute/Ajax_Execute.xhtml?faces-redirect=true"),
+      "/content/900-test/misc/ajax/execute/Execute.xhtml?faces-redirect=true"),
 
   TEST("content/900-test");
 
