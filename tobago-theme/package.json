@@ -72,7 +72,7 @@
     "@trevoreyre/autocomplete-js": "3.0.3",
     "bootstrap": "5.3.8",
     "bootstrap-icons": "1.13.1",
-    "jsf.js_next_gen": "4.0.4-beta.8",
+    "jsf.js_next_gen": "4.0.4-beta.9",
     "lit-html": "3.3.1"
   },
   "devDependencies": {
