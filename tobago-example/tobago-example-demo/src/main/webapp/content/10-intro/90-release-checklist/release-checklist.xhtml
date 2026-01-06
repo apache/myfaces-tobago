@@ -30,7 +30,7 @@
     <tc:section label="Step by Step">
 
       Checklist of tasks to perform for each release. For general information about Apache releases you may also consult
-      <tc:link label="Publishing Maven Releases" link="http://infra.apache.org/maven-releases.html"
+      <tc:link label="Publishing Maven Releases" link="https://infra.apache.org/publishing-maven-artifacts.html"
                image="fa-external-link"/>.
 
       <tc:section label="Preparation">
@@ -136,6 +136,23 @@ $ mvn clean install -Pall-modules &amp;&amp; mvn checkstyle:check apache-rat:che
 # for Tobago 4.2.0 and higher
 $ mvn clean install &amp;&amp; mvn checkstyle:check apache-rat:check dependency-check:check
 </code></pre>
+          </li>
+
+          <li>
+            For Tobago 4.x please ensure the themes are rebuilt with no differences to the source code.
+            The generated code will be comitted, but there are any differences, this should be checked.
+            To rebuild the a theme use
+            <pre><code
+              class="language-bash">$ mvn clean install -Prebuild-theme</code></pre>
+            in all theme modules or use the script
+            <pre><code
+              class="language-bash">$ rebuild-theme.sh</code></pre>
+            For the rebuild there is a dependeny to Python 3.11 (not higher). On macOS you may install an
+            oder version and set it in the local shell:
+            <pre><code
+              class="language-bash">$ brew install python@3.11
+$ export PYTHON=/opt/homebrew/opt/python@3.11/bin/python3.11</code></pre>
+
           </li>
 
           <li>Check version info in this file manually:

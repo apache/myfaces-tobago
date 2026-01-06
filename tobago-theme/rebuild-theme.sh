@@ -15,6 +15,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# helper script for faster rebuilding the themes, because it runs in parallel
+
 set -e
 
 START=$(date +%s)
