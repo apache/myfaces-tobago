@@ -1,5 +1,5 @@
 Apache Tobago
-Copyright 2005-2025 The Apache Software Foundation
+Copyright 2005-2026 The Apache Software Foundation
 
 Based on source code originally developed by
 Atanion GmbH (http://www.atanion.com/)
