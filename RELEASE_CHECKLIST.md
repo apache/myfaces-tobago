@@ -20,7 +20,7 @@
 # Release Checklist
 
 Checklist of tasks to perform for each release. For general information about Apache releases you may also consult
-[Publishing Maven Releases](http://infra.apache.org/maven-releases.html).
+[Publishing Maven Releases](https://infra.apache.org/publishing-maven-artifacts.html).
 
 ## Preparation
 
