@@ -12824,9 +12824,6 @@ a.tobago-link {
 a.tobago-link span {
   white-space: normal;
 }
-a.tobago-link.tobago-auto-spacing {
-  margin-bottom: unset;
-}
 a.tobago-link.nav-link:focus, a.tobago-link.nav-link:hover {
   text-decoration: none;
 }
@@ -12849,9 +12846,6 @@ button.tobago-link {
 }
 button.tobago-link span {
   white-space: normal;
-}
-button.tobago-link.tobago-auto-spacing {
-  margin-bottom: unset;
 }
 button.tobago-link.nav-link:focus, button.tobago-link.nav-link:hover {
   text-decoration: none;
