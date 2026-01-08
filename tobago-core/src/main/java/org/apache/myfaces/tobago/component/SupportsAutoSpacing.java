@@ -39,6 +39,7 @@ public interface SupportsAutoSpacing {
       final Map<Object, Object> attributes = facesContext.getAttributes();
       return attributes.get(HtmlElements.TOBAGO_HEADER) == null
           && attributes.get(HtmlElements.TOBAGO_FOOTER) == null
+          && attributes.get(HtmlElements.TOBAGO_BAR) == null
           && attributes.get(HtmlElements.TOBAGO_SHEET) == null
           && attributes.get(HtmlElements.TOBAGO_TREE) == null
           && attributes.get(HtmlElements.TOBAGO_LINKS) == null
