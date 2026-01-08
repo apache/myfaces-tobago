@@ -42,7 +42,7 @@ test.describe("link/Link.xhtml", () => {
     const color = Root.linkColor;
     const fontSize = "16px";
     const height = tagName === "BUTTON" ? "24px" : "auto"; //button-element cannot be "display: inline"
-    const margin = "0px";
+    const margin = "0px 0px 16px";
     const outlineWidth = "0px";
     const padding = "0px";
     const textDecoration = Root.linkDecoration;
