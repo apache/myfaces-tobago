@@ -31,6 +31,7 @@ public interface HasAutoSpacing {
    * - bar
    * - sheet
    * - tree
+   * - popover
    * - link group
    * - button group
    * - before facet
