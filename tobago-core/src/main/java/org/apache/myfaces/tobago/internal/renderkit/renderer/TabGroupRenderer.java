@@ -259,10 +259,13 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
           }
           if (tab.isDisabled()) {
             writer.writeClassAttribute(BootstrapClass.NAV_LINK, BootstrapClass.DISABLED);
+            writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
           } else if (selectedIndex == index) {
             writer.writeClassAttribute(BootstrapClass.NAV_LINK, BootstrapClass.ACTIVE);
+            writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
           } else {
             writer.writeClassAttribute(BootstrapClass.NAV_LINK);
+            writer.writeAttribute(HtmlAttributes.TABINDEX, 0);
           }
           if (!disabled && switchType == SwitchType.client) {
             writer.writeAttribute(
