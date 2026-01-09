@@ -11849,12 +11849,6 @@ tobago-box > .card-body {
   padding: 0;
 }
 
-.tobago-button:disabled {
-  pointer-events: auto;
-}
-.tobago-button:disabled:hover {
-  cursor: not-allowed;
-}
 .tobago-button > img + span {
   margin-left: 0.4em;
 }
@@ -11890,24 +11884,6 @@ tobago-box > .card-body {
 }
 .tobago-button.badge.btn-dark {
   --bs-badge-color: #fff;
-}
-
-/* button -------------------------------------------------------------- */
-/* XXX for what is this needed?
-a.tobago-button {
-  &.btn-primary:focus {
-    color: $btn-primary-color;
-  }
-  &.btn-secondary:focus {
-    color: $btn-secondary-color;
-  }
-}
-*/
-button.tobago-button:disabled {
-  cursor: not-allowed;
-}
-button.tobago-button:disabled img, button.tobago-button:disabled span {
-  pointer-events: none;
 }
 
 tobago-buttons > .tobago-button {
@@ -12353,12 +12329,6 @@ button.tobago-link.nav-link:focus-visible {
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(24, 87, 34, 0.25);
 }
-button.tobago-link.btn:disabled {
-  pointer-events: auto;
-}
-button.tobago-link.btn:disabled:hover {
-  cursor: not-allowed;
-}
 button.tobago-link.btn {
   padding: 0;
   border: 0;
@@ -12366,17 +12336,6 @@ button.tobago-link.btn {
 }
 button.tobago-link.btn:focus {
   box-shadow: none;
-}
-button.tobago-link.btn:disabled {
-  /* bootstrap reduce opacity for disabled buttons.
-  This results in a different text color for greyed out button.tobago-link */
-  opacity: 1;
-}
-button.tobago-link.dropdown-item:disabled {
-  pointer-events: auto;
-}
-button.tobago-link.dropdown-item:disabled:hover {
-  cursor: not-allowed;
 }
 
 tobago-links .nav .nav-item .nav-link {
