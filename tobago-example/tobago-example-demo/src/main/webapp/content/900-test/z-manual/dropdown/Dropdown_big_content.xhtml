@@ -21,6 +21,8 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="jakarta.faces.facelets">
 
+  <p>Test scrolling with big content.</p>
+
   <tc:selectOneList value="#{selectOneListController.selectedPlanet}" localMenu="true">
     <tc:selectItems value="#{sheetController.solarList}"
                     var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
