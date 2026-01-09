@@ -104,16 +104,6 @@ $icon-sort-numbers: (
   }
 }
 
-@mixin buttonLinkDisabledCursor() {
-  &:disabled {
-    pointer-events: auto;
-
-    &:hover {
-      cursor: not-allowed;
-    }
-  }
-}
-
 @mixin dropdownMenuPositioning() {
   overflow: auto;
   overscroll-behavior: none;
@@ -551,7 +541,6 @@ tobago-box {
 }
 
 .tobago-button {
-  @include buttonLinkDisabledCursor();
   @include imageTextSpacing();
   @include badgeBtn();
   @include markupHideToggleIcon();
@@ -565,27 +554,7 @@ tobago-box {
   }
 }
 
-/* button -------------------------------------------------------------- */
-
-/* XXX for what is this needed?
-a.tobago-button {
-  &.btn-primary:focus {
-    color: $btn-primary-color;
-  }
-  &.btn-secondary:focus {
-    color: $btn-secondary-color;
-  }
-}
-*/
-
 button.tobago-button {
-  &:disabled {
-    cursor: not-allowed;
-
-    img, span {
-      pointer-events: none;
-    }
-  }
 }
 
 tobago-buttons {
@@ -980,8 +949,6 @@ button.tobago-link {
   }
 
   &.btn {
-    @include buttonLinkDisabledCursor();
-
     padding: 0;
     border: 0;
     vertical-align: baseline;
@@ -995,10 +962,6 @@ button.tobago-link {
       This results in a different text color for greyed out button.tobago-link */
       opacity: 1;
     }
-  }
-
-  &.dropdown-item {
-    @include buttonLinkDisabledCursor();
   }
 }
 
