@@ -956,12 +956,6 @@ button.tobago-link {
     &:focus {
       box-shadow: none;
     }
-
-    &:disabled {
-      /* bootstrap reduce opacity for disabled buttons.
-      This results in a different text color for greyed out button.tobago-link */
-      opacity: 1;
-    }
   }
 }
 
