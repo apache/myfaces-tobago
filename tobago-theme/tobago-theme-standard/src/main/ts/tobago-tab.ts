@@ -60,6 +60,12 @@ export class Tab extends HTMLElement {
     if (!navLink.classList.contains(Css.DISABLED)) {
       navLink.addEventListener("click", this.select.bind(this));
     }
+    navLink.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        navLink.click();
+      }
+    });
 
     if (this.classList.contains(Css.TOBAGO_BAR)) {
       this.addEventListener("mouseenter", () => this.classList.add(Css.TOBAGO_HOVER));
@@ -100,7 +106,9 @@ export class Tab extends HTMLElement {
     switch (tabGroup.switchType) {
       case "client":
         old.navLink.classList.remove(Css.ACTIVE);
+        old.navLink.tabIndex = 0;
         this.navLink.classList.add(Css.ACTIVE);
+        this.navLink.tabIndex = -1;
         old.content.classList.remove(Css.ACTIVE);
         this.content.classList.add(Css.ACTIVE);
         break;

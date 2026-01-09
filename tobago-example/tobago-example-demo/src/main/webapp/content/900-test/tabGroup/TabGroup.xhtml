@@ -19,6 +19,26 @@
 
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="jakarta.faces.facelets">
 
+  <tc:button id="focusMe" label="Focus me" omit="true"/>
+
+  <tc:tabGroup id="tabGroup">
+    <tc:tab id="tab1" label="One">
+      First tab.
+    </tc:tab>
+    <tc:tab id="tab2" label="Two">
+      Second tab.
+    </tc:tab>
+    <tc:tab id="tab3" label="Three" rendered="false">
+      not rendered
+    </tc:tab>
+    <tc:tab id="tab4" label="Four" disabled="true">
+      disabled
+    </tc:tab>
+    <tc:tab id="tab5" label="Five">
+      Fifth tab.
+    </tc:tab>
+  </tc:tabGroup>
 </ui:composition>

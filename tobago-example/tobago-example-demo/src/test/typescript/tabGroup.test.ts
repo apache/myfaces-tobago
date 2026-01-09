@@ -21,6 +21,70 @@ import {expect, Locator, test} from "@playwright/test";
 import {Color} from "./base/browser-styles";
 import {Card, Nav, Root} from "./base/bootstrap-variables";
 
+test.describe("tabGroup/TabGroup.xhtml", () => {
+
+  test.beforeEach(async ({page}, testInfo) => {
+    await page.goto("/content/900-test/tabGroup/TabGroup.xhtml");
+  });
+
+  test("Using tab group by keyboard", async ({page}) => {
+    const focusMe = page.locator("button[id='page:mainForm:focusMe']");
+    const tabGroup = page.locator("tobago-tab-group[id='page:mainForm:tabGroup']");
+    const tabGroupIndex = tabGroup.locator("input[id='page:mainForm:tabGroup::index']");
+    const tab1NavLink = tabGroup.locator("tobago-tab[id='page:mainForm:tab1'] .nav-link");
+    const tab2NavLink = tabGroup.locator("tobago-tab[id='page:mainForm:tab2'] .nav-link");
+    const tab5NavLink = tabGroup.locator("tobago-tab[id='page:mainForm:tab5'] .nav-link");
+    const tab1Pane = tabGroup.locator(".tab-pane[id='page:mainForm:tab1::content']");
+    const tab2Pane = tabGroup.locator(".tab-pane[id='page:mainForm:tab2::content']");
+    const tab5Pane = tabGroup.locator(".tab-pane[id='page:mainForm:tab5::content']");
+
+    await expect(tabGroupIndex).toHaveValue("0");
+    await expect(tab1NavLink).toContainClass("active");
+    await expect(tab2NavLink).not.toContainClass("active");
+    await expect(tab5NavLink).not.toContainClass("active");
+    await expect(tab1Pane).toContainClass("active");
+    await expect(tab2Pane).not.toContainClass("active");
+    await expect(tab5Pane).not.toContainClass("active");
+
+    await focusMe.focus();
+    await expect(focusMe).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(tab2NavLink).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(tab5NavLink).toBeFocused();
+    await page.keyboard.down("Shift");
+    await page.keyboard.press("Tab");
+    await page.keyboard.up("Shift");
+    await expect(tab2NavLink).toBeFocused();
+
+    await page.keyboard.press("Enter");
+    await expect(tabGroupIndex).toHaveValue("1");
+    await expect(tab1NavLink).not.toContainClass("active");
+    await expect(tab2NavLink).toContainClass("active");
+    await expect(tab5NavLink).not.toContainClass("active");
+    await expect(tab1Pane).not.toContainClass("active");
+    await expect(tab2Pane).toContainClass("active");
+    await expect(tab5Pane).not.toContainClass("active");
+
+    await expect(tab2NavLink).toBeFocused();
+    await page.keyboard.down("Shift");
+    await page.keyboard.press("Tab");
+    await page.keyboard.up("Shift");
+    await expect(tab1NavLink).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(tab5NavLink).toBeFocused();
+
+    await page.keyboard.press("Space");
+    await expect(tabGroupIndex).toHaveValue("4");
+    await expect(tab1NavLink).not.toContainClass("active");
+    await expect(tab2NavLink).not.toContainClass("active");
+    await expect(tab5NavLink).toContainClass("active");
+    await expect(tab1Pane).not.toContainClass("active");
+    await expect(tab2Pane).not.toContainClass("active");
+    await expect(tab5Pane).toContainClass("active");
+  });
+});
+
 test.describe("tabGroup/style/Style.xhtml", () => {
 
   test.beforeEach(async ({page}, testInfo) => {
