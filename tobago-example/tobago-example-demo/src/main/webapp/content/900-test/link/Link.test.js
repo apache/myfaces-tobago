@@ -101,3 +101,57 @@ it("Dropdown menu must have three entries", function (done) {
   test.do(() => expect(dropdown().querySelectorAll(".dropdown-item")[2].textContent).toBe("Yangtze"));
   test.start();
 });
+
+it("Test h1", function (done) {
+  let alinkFn = querySelectorFn("#page\\:mainForm\\:link1");
+  let buttonlinkFn = querySelectorFn("#page\\:mainForm\\:actionLink1");
+  testFont(done, alinkFn, buttonlinkFn);
+});
+
+it("Test h2", function (done) {
+  let alinkFn = querySelectorFn("#page\\:mainForm\\:link2");
+  let buttonlinkFn = querySelectorFn("#page\\:mainForm\\:actionLink2");
+  testFont(done, alinkFn, buttonlinkFn);
+});
+
+it("Test h3", function (done) {
+  let alinkFn = querySelectorFn("#page\\:mainForm\\:link3");
+  let buttonlinkFn = querySelectorFn("#page\\:mainForm\\:actionLink3");
+  testFont(done, alinkFn, buttonlinkFn);
+});
+
+it("Test h4", function (done) {
+  let alinkFn = querySelectorFn("#page\\:mainForm\\:link4");
+  let buttonlinkFn = querySelectorFn("#page\\:mainForm\\:actionLink4");
+  testFont(done, alinkFn, buttonlinkFn);
+});
+
+it("Test h5", function (done) {
+  let alinkFn = querySelectorFn("#page\\:mainForm\\:link5");
+  let buttonlinkFn = querySelectorFn("#page\\:mainForm\\:actionLink5");
+  testFont(done, alinkFn, buttonlinkFn);
+});
+
+it("Test h6", function (done) {
+  let alinkFn = querySelectorFn("#page\\:mainForm\\:link6");
+  let buttonlinkFn = querySelectorFn("#page\\:mainForm\\:actionLink6");
+  testFont(done, alinkFn, buttonlinkFn);
+});
+
+it("Test no heading", function (done) {
+  let alinkFn = querySelectorFn("#page\\:mainForm\\:link0");
+  let buttonlinkFn = querySelectorFn("#page\\:mainForm\\:actionLink0");
+  testFont(done, alinkFn, buttonlinkFn);
+});
+
+function testFont(done, alinkFn, buttonlinkFn) {
+  let test = new JasmineTestTool(done);
+  const alinkComputedStyle = getComputedStyle(alinkFn());
+  const buttonlinkFnComputedStyle = getComputedStyle(buttonlinkFn());
+  test.do(() => expect(alinkComputedStyle.color).toBe(buttonlinkFnComputedStyle.color));
+  test.do(() => expect(alinkComputedStyle.fontFamily).toBe(buttonlinkFnComputedStyle.fontFamily));
+  test.do(() => expect(alinkComputedStyle.fontSize).toBe(buttonlinkFnComputedStyle.fontSize));
+  test.do(() => expect(alinkComputedStyle.fontWeight).toBe(buttonlinkFnComputedStyle.fontWeight));
+  test.do(() => expect(alinkComputedStyle.textDecoration).toBe(buttonlinkFnComputedStyle.textDecoration));
+  test.start();
+}
