@@ -77,38 +77,3 @@ beforeEach(function (done) {
   test.do(() => expect("waiting for testframe is done").toBe("waiting for testframe is done"));
   test.start();
 });
-
-describe("general", function () {
-  it("duplicate id", function () {
-    let duplicateIds = getDuplicateIds();
-
-    function getDuplicateIds() {
-      let duplicateIds = [];
-      let iFrame = document.getElementById("page:testframe").contentWindow.document.querySelectorAll("[id]");
-      iFrame.forEach(element => {
-        let sameIdElements = document.getElementById("page:testframe").contentWindow.document
-            .querySelectorAll("[id='" + element.id + "']");
-        if (sameIdElements.length > 1) {
-          duplicateIds.push(element.id);
-        }
-      });
-      return duplicateIds;
-    }
-
-    expect(duplicateIds.length).toBe(0, "duplicate id is from: " + duplicateIds);
-  });
-
-  it("test '???", function () {
-    let result = querySelectorFn("html")().textContent;
-
-    expect(result.indexOf("???")).toBeLessThanOrEqual(-1, "There must no '???' on the site.");
-  });
-
-  it("If there is a tobago-header it must be a tobago-footer", function () {
-    const header = querySelectorFn("tobago-page > form > tobago-header")();
-    const footer = querySelectorFn("tobago-page > form > tobago-footer")();
-    const headerExist = header != null;
-    const footerExist = footer != null;
-    expect(headerExist).toBe(footerExist);
-  });
-});

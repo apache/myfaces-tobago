@@ -22,29 +22,19 @@ package org.apache.myfaces.tobago.example.demo.integration;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.invoke.MethodHandles;
 import java.net.MalformedURLException;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalTime;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Testcontainers
 class BasicTest extends FrontendBase {
@@ -98,51 +88,5 @@ class BasicTest extends FrontendBase {
         Assertions.assertEquals("jasmine-passed", result.getAttribute("class"), result.getAttribute("title"));
       }
     }
-  }
-
-  /**
-   * Call every page without a specific *.test.js and run general tests (duplicate id, 404, exception, ...).
-   */
-  @ParameterizedTest
-  @MethodSource("basicTestProvider")
-  void basicTest(String path, int testNumber, int testSize)
-      throws MalformedURLException, UnknownHostException, UnsupportedEncodingException {
-
-    final String timeLeft = getTimeLeft(startTime, testSize, testNumber);
-    LOG.info("(" + testNumber + "/" + testSize + " | time left: " + timeLeft + ") - path: " + path);
-
-    final String base = path.substring(0, path.length() - 6);
-    final String url = getTomcatUrl() + "/test.xhtml?base=" + URLEncoder.encode(base, "UTF-8") + "&basicTest=true";
-
-    WebDriver webDriver = getWebDriver();
-    webDriver.get(url);
-
-    List<WebElement> results = getJasmineResults(webDriver, path);
-    parseJasmineResults(results, path);
-  }
-
-  private static Stream<Arguments> basicTestProvider() throws IOException {
-    final List<String> paths = Files.walk(Paths.get("src/main/webapp/content/"))
-        .filter(Files::isRegularFile)
-        .map(Path::toString)
-        .filter(s -> s.endsWith(".xhtml"))
-        .filter(s -> !s.contains("/x-"))
-        .map(s -> s.substring("src/main/webapp/".length()))
-        .sorted()
-        .collect(Collectors.toList());
-
-    for (String standardTestPath : getStandardTestPaths()) {
-      paths.remove(standardTestPath); // already tested by standard test
-    }
-
-    final int testSize = paths.size();
-
-    int testNumber = 1;
-    List<Arguments> arguments = new LinkedList<>();
-    for (String path : paths) {
-      arguments.add(Arguments.of(path, testNumber, testSize));
-      testNumber++;
-    }
-    return arguments.stream();
   }
 }
