@@ -64,4 +64,14 @@
   <tc:out id="selectedCount" label="Selected count"
           value="#{columnSelectorAjaxController.sheetState.selectedRows.size()}"/>
   <tc:button id="submit" label="Submit"/>
+
+  <tc:separator/>
+  <tc:button id="saveSelectedRowsAjax" label="Save selected rows (Ajax)" immediate="true"
+             action="#{columnSelectorAjaxController.saveSelectedRows()}">
+    <f:ajax execute="sheet" render="sheet selectedCount selectedCountByAction"/>
+  </tc:button>
+  <tc:button id="saveSelectedRowsSubmit" label="Save selected rows (Submit)" immediate="true"
+             action="#{columnSelectorAjaxController.saveSelectedRows()}"/>
+  <tc:out id="selectedCountByAction" label="Selected count by action"
+          value="#{columnSelectorAjaxController.savedSelectedRows}"/>
 </ui:composition>
