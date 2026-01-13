@@ -155,4 +155,50 @@ test.describe("sheet/columnSelector/immediate/immediate.xhtml", () => {
     await expect(selectedCount).toHaveText("0");
     await expect(alert).toBeVisible();
   });
+
+  test("Save selected rows (Ajax)", async ({page}) => {
+    const alert = page.locator("tobago-messages[id='page:messages'] .alert");
+    const reset = page.locator(".tobago-button[id='page:mainForm:resetImmediateTrueAjaxDisabled']");
+    const sheet = page.locator("tobago-sheet[id='page:mainForm:sheet']");
+    const row0Checkbox = sheet.locator("input[name='page:mainForm:sheet_data_row_selector_0']");
+    const row1Checkbox = sheet.locator("input[name='page:mainForm:sheet_data_row_selector_1']");
+    const row2Checkbox = sheet.locator("input[name='page:mainForm:sheet_data_row_selector_2']");
+    const savedSelectedCount = page.locator("tobago-out[id='page:mainForm:selectedCountByAction'] span.form-control-plaintext");
+    const saveSelectedRowsButton = page.locator(".tobago-button[id='page:mainForm:saveSelectedRowsAjax']");
+
+    await reset.click();
+    await expect(sheet).toBeVisible();
+    await expect(savedSelectedCount).toHaveText("0");
+    await expect(alert).not.toBeVisible();
+
+    await row0Checkbox.click();
+    await row1Checkbox.click();
+    await row2Checkbox.click();
+    await saveSelectedRowsButton.click();
+
+    await expect(savedSelectedCount).toHaveText("3");
+    await expect(alert).not.toBeVisible();
+  });
+
+  test("Save selected rows (Submit)", async ({page}) => {
+    const alert = page.locator("tobago-messages[id='page:messages'] .alert");
+    const reset = page.locator(".tobago-button[id='page:mainForm:resetImmediateTrueAjaxDisabled']");
+    const sheet = page.locator("tobago-sheet[id='page:mainForm:sheet']");
+    const row0Checkbox = sheet.locator("input[name='page:mainForm:sheet_data_row_selector_0']");
+    const row2Checkbox = sheet.locator("input[name='page:mainForm:sheet_data_row_selector_2']");
+    const savedSelectedCount = page.locator("tobago-out[id='page:mainForm:selectedCountByAction'] span.form-control-plaintext");
+    const saveSelectedRowsButton = page.locator(".tobago-button[id='page:mainForm:saveSelectedRowsSubmit']");
+
+    await reset.click();
+    await expect(sheet).toBeVisible();
+    await expect(savedSelectedCount).toHaveText("0");
+    await expect(alert).not.toBeVisible();
+
+    await row0Checkbox.click();
+    await row2Checkbox.click();
+    await saveSelectedRowsButton.click();
+
+    await expect(savedSelectedCount).toHaveText("2");
+    await expect(alert).not.toBeVisible();
+  });
 });

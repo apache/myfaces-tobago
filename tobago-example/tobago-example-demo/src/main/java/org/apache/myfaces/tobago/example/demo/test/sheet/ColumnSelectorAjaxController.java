@@ -48,6 +48,7 @@ public class ColumnSelectorAjaxController implements Serializable {
   private SheetState sheetState = new SheetState(0);
   private boolean columnSelectorImmediate = false;
   private boolean columnSelectorAjaxDisabled = false;
+  private int savedSelectedRows = 0;
 
   @PostConstruct
   private void init() {
@@ -90,5 +91,13 @@ public class ColumnSelectorAjaxController implements Serializable {
 
   public void setColumnSelectorAjaxDisabled(boolean columnSelectorAjaxDisabled) {
     this.columnSelectorAjaxDisabled = columnSelectorAjaxDisabled;
+  }
+
+  public void saveSelectedRows() {
+    savedSelectedRows = sheetState.getSelectedRows().size();
+  }
+
+  public int getSavedSelectedRows() {
+    return savedSelectedRows;
   }
 }
