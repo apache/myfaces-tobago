@@ -81,4 +81,8 @@ public interface PageTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute()
   void setFocusId(String focusId);
+
+  @TagAttribute
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  void setIncludeViewParams(String includeViewParams);
 }
