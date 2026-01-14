@@ -66,6 +66,8 @@ export class Tab extends HTMLElement {
         navLink.click();
       }
     });
+    navLink.addEventListener("focus", () => this.classList.add(Css.TOBAGO_FOCUS));
+    navLink.addEventListener("blur", () => this.classList.remove(Css.TOBAGO_FOCUS));
 
     if (this.classList.contains(Css.TOBAGO_BAR)) {
       this.addEventListener("mouseenter", () => this.classList.add(Css.TOBAGO_HOVER));
