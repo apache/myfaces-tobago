@@ -32,6 +32,7 @@ import java.lang.invoke.MethodHandles;
  */
 public enum TobagoClass implements CssItem {
 
+  ACTIVE("tobago-active"),
   ASCENDING("tobago-ascending"),
   AUTO__SPACING("tobago-auto-spacing"),
   BAR("tobago-bar"),

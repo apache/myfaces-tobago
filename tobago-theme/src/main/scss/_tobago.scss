@@ -1872,6 +1872,9 @@ tobago-tab-group {
       cursor: not-allowed;
     }
 
+    &.tobago-active {
+    }
+
     &.tobago-bar {
       display: flex;
 

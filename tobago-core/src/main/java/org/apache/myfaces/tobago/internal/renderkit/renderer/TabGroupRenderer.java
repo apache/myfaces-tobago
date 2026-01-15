@@ -19,6 +19,16 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import jakarta.el.ValueExpression;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UINamingContainer;
+import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ComponentSystemEventListener;
+import jakarta.faces.event.ListenerFor;
+import jakarta.faces.event.PostAddToViewEvent;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.Facets;
@@ -48,17 +58,6 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import jakarta.el.ValueExpression;
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UINamingContainer;
-import jakarta.faces.component.behavior.AjaxBehavior;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.ComponentSystemEvent;
-import jakarta.faces.event.ComponentSystemEventListener;
-import jakarta.faces.event.ListenerFor;
-import jakarta.faces.event.PostAddToViewEvent;
 
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
@@ -228,6 +227,7 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
           final LabelWithAccessKey label = new LabelWithAccessKey(tab);
           final UIComponent labelFacet = ComponentUtils.getFacet(tab, Facets.label);
           final UIComponent barFacet = ComponentUtils.getFacet(tab, Facets.bar);
+          final boolean active = selectedIndex == index;
           final boolean disabled = tab.isDisabled();
           final String tabId = tab.getClientId(facesContext);
           Markup markup = tab.getMarkup() != null ? tab.getMarkup() : Markup.NULL;
@@ -243,6 +243,7 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
           writer.writeClassAttribute(
               BootstrapClass.NAV_ITEM,
               barFacet != null ? TobagoClass.BAR : null,
+              active ? TobagoClass.ACTIVE : null,
               disabled ? BootstrapClass.DISABLED : null,
               tab.getCustomClass());
           writer.writeAttribute(HtmlAttributes.FOR, tabGroupClientId, true);
@@ -260,7 +261,7 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
           if (tab.isDisabled()) {
             writer.writeClassAttribute(BootstrapClass.NAV_LINK, BootstrapClass.DISABLED);
             writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
-          } else if (selectedIndex == index) {
+          } else if (active) {
             writer.writeClassAttribute(BootstrapClass.NAV_LINK, BootstrapClass.ACTIVE);
             writer.writeAttribute(HtmlAttributes.TABINDEX, -1);
           } else {
