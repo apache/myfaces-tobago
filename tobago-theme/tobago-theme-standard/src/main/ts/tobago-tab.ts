@@ -69,19 +69,17 @@ export class Tab extends HTMLElement {
     navLink.addEventListener("focus", () => this.classList.add(Css.TOBAGO_FOCUS));
     navLink.addEventListener("blur", () => this.classList.remove(Css.TOBAGO_FOCUS));
 
-    if (this.classList.contains(Css.TOBAGO_BAR)) {
-      this.addEventListener("mouseenter", () => this.classList.add(Css.TOBAGO_HOVER));
-      this.addEventListener("mouseleave", () => this.classList.remove(Css.TOBAGO_HOVER));
+    this.addEventListener("mouseenter", () => this.classList.add(Css.TOBAGO_HOVER));
+    this.addEventListener("mouseleave", () => this.classList.remove(Css.TOBAGO_HOVER));
 
-      const mutationObserver = new MutationObserver((mutations, observer) => {
-        if (this.navLink.classList.contains(Css.ACTIVE)) {
-          this.classList.add(Css.TOBAGO_ACTIVE);
-        } else {
-          this.classList.remove(Css.TOBAGO_ACTIVE);
-        }
-      });
-      mutationObserver.observe(this.navLink, {attributes: true, attributeFilter: ["class"]});
-    }
+    const mutationObserver = new MutationObserver((mutations, observer) => {
+      if (this.navLink.classList.contains(Css.ACTIVE)) {
+        this.classList.add(Css.TOBAGO_ACTIVE);
+      } else {
+        this.classList.remove(Css.TOBAGO_ACTIVE);
+      }
+    });
+    mutationObserver.observe(this.navLink, {attributes: true, attributeFilter: ["class"]});
   }
 
   get index(): number {
