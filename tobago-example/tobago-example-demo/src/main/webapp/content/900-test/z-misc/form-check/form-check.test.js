@@ -15,8 +15,7 @@
  * limitations under the License.
  */
 
-import {elementByIdFn} from "/script/tobago-test.js";
-import {querySelectorFn} from "../../../script/tobago-test";
+import {elementByIdFn, querySelectorFn} from "/script/tobago-test.js";
 
 it("Required fields", function () {
   testFormChecks(
