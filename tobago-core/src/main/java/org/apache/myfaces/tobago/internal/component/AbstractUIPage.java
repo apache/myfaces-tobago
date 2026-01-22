@@ -133,6 +133,8 @@ public abstract class AbstractUIPage extends AbstractUIFormBase implements Clien
 
   public abstract String getFocusId();
 
+  public abstract boolean isIncludeViewParams();
+
   private static class FindCommandVisitor implements VisitCallback {
     private UIComponent command;
 
