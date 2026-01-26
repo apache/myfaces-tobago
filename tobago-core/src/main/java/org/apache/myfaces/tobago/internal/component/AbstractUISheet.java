@@ -554,10 +554,6 @@ public abstract class AbstractUISheet extends AbstractUIData
       getSheetState(getFacesContext()).updateSortState(((SortActionEvent) facesEvent).getColumn().getId());
       sort(getFacesContext(), (SortActionEvent) facesEvent);
     } else if (facesEvent instanceof SheetRowSelectionChangeEvent sheetRowSelectionChangeEvent) {
-      final SheetState sheetState = getSheetState(sheetRowSelectionChangeEvent.getFacesContext());
-      if (sheetState != null) {
-        sheetState.setSelectedRows(sheetRowSelectionChangeEvent.getNewSelectedRows());
-      }
       if (getClientId().equals(sheetRowSelectionChangeEvent.getSourceId())) {
         final ActionListener defaultActionListener = getFacesContext().getApplication().getActionListener();
         if (defaultActionListener != null) {

@@ -168,6 +168,9 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> im
         final String sourceId = requestParameterMap.get(ClientBehaviorContext.BEHAVIOR_SOURCE_PARAM_NAME);
         List<Integer> oldSelectedRows = component.getSheetState(facesContext).getSelectedRows();
         if (!selectedRows.equals(oldSelectedRows)) {
+          if (state != null) {
+            state.setSelectedRows(selectedRows);
+          }
           component.queueEvent(new SheetRowSelectionChangeEvent(component, sourceId, oldSelectedRows, selectedRows));
         }
       } else {
