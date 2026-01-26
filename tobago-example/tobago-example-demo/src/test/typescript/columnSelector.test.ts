@@ -541,3 +541,187 @@ test.describe("sheet/columnSelector/immediate/immediate.xhtml", () => {
     await expect(alert).not.toBeVisible();
   });
 });
+
+test.describe("sheet/columnSelector/immediate/immediate_compositeComponent.xhtml", () => {
+
+  test.beforeEach(async ({page}, testInfo) => {
+    await page.goto("/content/900-test/sheet/columnSelector/immediate/immediate_compositeComponent.xhtml");
+  });
+
+  test("immediate=true, ajax=enabled", async ({page}) => {
+    const alert = page.locator("tobago-messages[id='page:messages'] .alert");
+    const reset = page.locator(".tobago-button[id='page:mainForm:compComp:resetImmediateTrueAjaxEnabled']");
+    const sheet = page.locator("tobago-sheet[id='page:mainForm:compComp:sheet']");
+    const toggleAll = sheet.locator("th[id='page:mainForm:compComp:sheet:colSelect'] input");
+    const row0Checkbox = sheet.locator("input[name='page:mainForm:compComp:sheet_data_row_selector_0']");
+    const row4Orbit = sheet.locator("tr[row-index='4'] td:nth-child(3) tobago-out");
+    const selectedCount = page.locator("tobago-out[id='page:mainForm:compComp:selectedCount'] span.form-control-plaintext");
+
+    await reset.click();
+
+    await expect(sheet).toBeVisible();
+    await expect(selectedCount).toHaveText("0");
+    await expect(alert).not.toBeVisible();
+
+    await row0Checkbox.click();
+    await expect(selectedCount).toHaveText("1");
+    await expect(alert).not.toBeVisible();
+
+    await row4Orbit.click();
+    await expect(selectedCount).toHaveText("2");
+    await expect(alert).not.toBeVisible();
+
+    await toggleAll.click();
+    await expect(selectedCount).toHaveText("5");
+    await expect(alert).not.toBeVisible();
+
+    await toggleAll.click();
+    await expect(selectedCount).toHaveText("0");
+    await expect(alert).not.toBeVisible();
+  });
+
+  test("immediate=true, ajax=disabled", async ({page}) => {
+    const alert = page.locator("tobago-messages[id='page:messages'] .alert");
+    const reset = page.locator(".tobago-button[id='page:mainForm:compComp:resetImmediateTrueAjaxDisabled']");
+    const sheet = page.locator("tobago-sheet[id='page:mainForm:compComp:sheet']");
+    const toggleAll = sheet.locator("th[id='page:mainForm:compComp:sheet:colSelect'] input");
+    const row0Checkbox = sheet.locator("input[name='page:mainForm:compComp:sheet_data_row_selector_0']");
+    const row4Orbit = sheet.locator("tr[row-index='4'] td:nth-child(3) tobago-out");
+    const selectedCount = page.locator("tobago-out[id='page:mainForm:compComp:selectedCount'] span.form-control-plaintext");
+    const submit = page.locator("button[id='page:mainForm:compComp:submit']");
+
+    await reset.click();
+    await expect(sheet).toBeVisible();
+    await expect(selectedCount).toHaveText("0");
+    await expect(alert).not.toBeVisible();
+
+    await row0Checkbox.click();
+    await expect(selectedCount).toHaveText("0");
+    await submit.click();
+    await expect(selectedCount).toHaveText("1");
+    await expect(alert).toBeVisible();
+
+    await row4Orbit.click();
+    await expect(selectedCount).toHaveText("1");
+    await submit.click();
+    await expect(selectedCount).toHaveText("2");
+    await expect(alert).toBeVisible();
+
+    await toggleAll.click();
+    await expect(selectedCount).toHaveText("2");
+    await submit.click();
+    await expect(selectedCount).toHaveText("5");
+    await expect(alert).toBeVisible();
+
+    await toggleAll.click();
+    await expect(selectedCount).toHaveText("5");
+    await submit.click();
+    await expect(selectedCount).toHaveText("0");
+    await expect(alert).toBeVisible();
+  });
+
+  test("immediate=false, ajax=enabled", async ({page}) => {
+    const alert = page.locator("tobago-messages[id='page:messages'] .alert");
+    const reset = page.locator(".tobago-button[id='page:mainForm:compComp:resetImmediateFalseAjaxEnabled']");
+    const sheet = page.locator("tobago-sheet[id='page:mainForm:compComp:sheet']");
+    const toggleAll = sheet.locator("th[id='page:mainForm:compComp:sheet:colSelect'] input");
+    const row0Checkbox = sheet.locator("input[name='page:mainForm:compComp:sheet_data_row_selector_0']");
+    const row4Orbit = sheet.locator("tr[row-index='4'] td:nth-child(3) tobago-out");
+    const selectedCount = page.locator("tobago-out[id='page:mainForm:compComp:selectedCount'] span.form-control-plaintext");
+
+    await reset.click();
+
+    await expect(sheet).toBeVisible();
+    await expect(selectedCount).toHaveText("0");
+    await expect(alert).not.toBeVisible();
+
+    await row0Checkbox.click();
+    await expect(selectedCount).toHaveText("0");
+    await expect(alert).toBeVisible();
+
+    await row4Orbit.click();
+    await expect(selectedCount).toHaveText("0");
+    await expect(alert).toBeVisible();
+
+    await toggleAll.click();
+    await expect(selectedCount).toHaveText("0");
+    await expect(alert).toBeVisible();
+  });
+
+  test("immediate=false, ajax=disabled", async ({page}) => {
+    const alert = page.locator("tobago-messages[id='page:messages'] .alert");
+    const reset = page.locator(".tobago-button[id='page:mainForm:compComp:resetImmediateFalseAjaxDisabled']");
+    const sheet = page.locator("tobago-sheet[id='page:mainForm:compComp:sheet']");
+    const toggleAll = sheet.locator("th[id='page:mainForm:compComp:sheet:colSelect'] input");
+    const row0Checkbox = sheet.locator("input[name='page:mainForm:compComp:sheet_data_row_selector_0']");
+    const row4Orbit = sheet.locator("tr[row-index='4'] td:nth-child(3) tobago-out");
+    const selectedCount = page.locator("tobago-out[id='page:mainForm:compComp:selectedCount'] span.form-control-plaintext");
+    const submit = page.locator("button[id='page:mainForm:compComp:submit']");
+
+    await reset.click();
+    await expect(sheet).toBeVisible();
+    await expect(selectedCount).toHaveText("0");
+    await expect(alert).not.toBeVisible();
+
+    await row0Checkbox.click();
+    await submit.click();
+    await expect(selectedCount).toHaveText("0");
+    await expect(alert).toBeVisible();
+
+    await row4Orbit.click();
+    await submit.click();
+    await expect(selectedCount).toHaveText("0");
+    await expect(alert).toBeVisible();
+
+    await toggleAll.click();
+    await submit.click();
+    await expect(selectedCount).toHaveText("0");
+    await expect(alert).toBeVisible();
+  });
+
+  test("Save selected rows (Ajax)", async ({page}) => {
+    const alert = page.locator("tobago-messages[id='page:messages'] .alert");
+    const reset = page.locator(".tobago-button[id='page:mainForm:compComp:resetImmediateTrueAjaxDisabled']");
+    const sheet = page.locator("tobago-sheet[id='page:mainForm:compComp:sheet']");
+    const row0Checkbox = sheet.locator("input[name='page:mainForm:compComp:sheet_data_row_selector_0']");
+    const row1Checkbox = sheet.locator("input[name='page:mainForm:compComp:sheet_data_row_selector_1']");
+    const row2Checkbox = sheet.locator("input[name='page:mainForm:compComp:sheet_data_row_selector_2']");
+    const savedSelectedCount = page.locator("tobago-out[id='page:mainForm:compComp:selectedCountByAction'] span.form-control-plaintext");
+    const saveSelectedRowsButton = page.locator(".tobago-button[id='page:mainForm:compComp:saveSelectedRowsAjax']");
+
+    await reset.click();
+    await expect(sheet).toBeVisible();
+    await expect(savedSelectedCount).toHaveText("0");
+    await expect(alert).not.toBeVisible();
+
+    await row0Checkbox.click();
+    await row1Checkbox.click();
+    await row2Checkbox.click();
+    await saveSelectedRowsButton.click();
+
+    await expect(savedSelectedCount).toHaveText("3");
+    await expect(alert).not.toBeVisible();
+  });
+
+  test("Save selected rows (Submit)", async ({page}) => {
+    const alert = page.locator("tobago-messages[id='page:messages'] .alert");
+    const reset = page.locator(".tobago-button[id='page:mainForm:compComp:resetImmediateTrueAjaxDisabled']");
+    const sheet = page.locator("tobago-sheet[id='page:mainForm:compComp:sheet']");
+    const row0Checkbox = sheet.locator("input[name='page:mainForm:compComp:sheet_data_row_selector_0']");
+    const row2Checkbox = sheet.locator("input[name='page:mainForm:compComp:sheet_data_row_selector_2']");
+    const savedSelectedCount = page.locator("tobago-out[id='page:mainForm:compComp:selectedCountByAction'] span.form-control-plaintext");
+    const saveSelectedRowsButton = page.locator(".tobago-button[id='page:mainForm:compComp:saveSelectedRowsSubmit']");
+
+    await reset.click();
+    await expect(sheet).toBeVisible();
+    await expect(savedSelectedCount).toHaveText("0");
+    await expect(alert).not.toBeVisible();
+
+    await row0Checkbox.click();
+    await row2Checkbox.click();
+    await saveSelectedRowsButton.click();
+
+    await expect(savedSelectedCount).toHaveText("2");
+    await expect(alert).not.toBeVisible();
+  });
+});

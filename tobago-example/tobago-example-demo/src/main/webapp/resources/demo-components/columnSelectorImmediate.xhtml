@@ -1,0 +1,68 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:cc="jakarta.faces.composite"
+      xmlns:f="jakarta.faces.core"
+      xmlns:tc="http://myfaces.apache.org/tobago/component">
+<cc:interface>
+  <cc:attribute name="columnSelectorAjaxController"/>
+</cc:interface>
+<cc:implementation>
+  <tc:button id="resetImmediateTrueAjaxEnabled" label="Reset immediate=true ajax=enabled" immediate="true"
+             action="#{cc.attrs.columnSelectorAjaxController.reset(true, false)}"/>
+  <tc:button id="resetImmediateTrueAjaxDisabled" label="Reset immediate=true ajax=disabled" immediate="true"
+             action="#{cc.attrs.columnSelectorAjaxController.reset(true, true)}"/>
+  <tc:button id="resetImmediateFalseAjaxEnabled" label="Reset immediate=false ajax=enabled" immediate="true"
+             action="#{cc.attrs.columnSelectorAjaxController.reset(false, false)}"/>
+  <tc:button id="resetImmediateFalseAjaxDisabled" label="Reset immediate=false ajax=disabled" immediate="true"
+             action="#{cc.attrs.columnSelectorAjaxController.reset(false, true)}"/>
+
+  <tc:out label="immediate" value="#{cc.attrs.columnSelectorAjaxController.columnSelectorImmediate}"/>
+  <tc:out label="f:ajax"
+          value="#{cc.attrs.columnSelectorAjaxController.columnSelectorAjaxDisabled ? 'disabled' : 'enabled'}"/>
+
+  <tc:sheet id="sheet" value="#{cc.attrs.columnSelectorAjaxController.solarList}" var="object"
+            rows="5"
+            state="#{cc.attrs.columnSelectorAjaxController.sheetState}" selectable="multi">
+    <tc:columnSelector id="colSelect" immediate="#{cc.attrs.columnSelectorAjaxController.columnSelectorImmediate}">
+      <f:ajax render="sheet ::selectedCount ::::messages"
+              disabled="#{cc.attrs.columnSelectorAjaxController.columnSelectorAjaxDisabled}"/>
+    </tc:columnSelector>
+    <tc:column label="Name">
+      <tc:in value="#{object.name}" autoSpacing="false"/>
+    </tc:column>
+    <tc:column label="Orbit">
+      <tc:out value="#{object.orbit}" autoSpacing="false"/>
+    </tc:column>
+    <tc:column label="Period (Days)">
+      <tc:out value="#{object.period}" autoSpacing="false"/>
+    </tc:column>
+    <tc:column label="Discoverer">
+      <tc:out value="#{object.discoverer}" autoSpacing="false"/>
+    </tc:column>
+    <tc:column label="Required">
+      <tc:in required="true">
+        <tc:event event="click" stopPropagation="true" omit="true"/>
+      </tc:in>
+    </tc:column>
+  </tc:sheet>
+  <cc:renderFacet name="buttons"/>
+</cc:implementation>
+</html>
