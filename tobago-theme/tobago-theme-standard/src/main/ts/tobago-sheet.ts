@@ -124,9 +124,6 @@ export class Sheet extends HTMLElement {
 
     // add selection listeners ------------------------------------------------------------------------------------ //
     this.rowElements.forEach((row) => this.initSelectionListener(row));
-    if (this.columnSelector && this.columnSelector.headerElement.type === "checkbox") {
-      this.columnSelector.headerElement.addEventListener("click", this.initSelectAllCheckbox.bind(this));
-    }
     this.addEventListener(ClientBehaviors.ROW_SELECTION_CHANGE, this.syncSelected.bind(this));
     this.syncSelected(null); //TOBAGO-2254
 
@@ -600,7 +597,7 @@ Type: ${data.type}`);
   private initSelectionListener(row: HTMLTableRowElement): void {
     let clickElement: HTMLTableRowElement | HTMLTableCellElement;
 
-    if (this.columnSelector && this.columnSelector.disabled) {
+    if (this.columnSelector && this.columnSelector.headerElement.disabled) {
       return;
     } else if (this.columnSelector && this.columnSelector.rowElement(row)
         && this.columnSelector.rowElement(row).disabled) {
@@ -708,45 +705,6 @@ Type: ${data.type}`);
     }
   }
 
-  private initSelectAllCheckbox(event: MouseEvent): void {
-    const selected = this.selected;
-
-    if (this.lazy || this.rows === 0) {
-      if (selected.size === this.rowCount) {
-        selected.clear();
-      } else {
-        for (let i = 0; i < this.rowCount; i++) {
-          selected.add(i);
-        }
-      }
-    } else {
-      const rowIndexes: number[] = [];
-      const tableRows = this.rowElements;
-      tableRows.forEach((rowElement) => {
-        if (rowElement.hasAttribute("row-index")) {
-          if (!this.columnSelector.rowElement(rowElement).disabled) {
-            rowIndexes.push(Number(rowElement.getAttribute("row-index")));
-          }
-        }
-      });
-      let everyRowAlreadySelected = true;
-      rowIndexes.forEach((rowIndex, index, array) => {
-        if (!selected.has(rowIndex)) {
-          everyRowAlreadySelected = false;
-          selected.add(rowIndex);
-        }
-      });
-
-      if (everyRowAlreadySelected) {
-        rowIndexes.forEach((rowIndex, index, array) => {
-          selected.delete(rowIndex);
-        });
-      }
-    }
-
-    this.selected = selected;
-  }
-
   private syncSelected(event: CustomEvent) {
     const selected = event ? event.detail.selection : this.selected;
 
@@ -771,24 +729,7 @@ Type: ${data.type}`);
       }
     });
 
-    if (this.columnSelector && this.columnSelector.headerElement.type === "checkbox") {
-      if (this.lazy || this.rows === 0) {
-        this.columnSelector.headerElement.checked = selected.size === this.rowCount;
-      } else {
-        let everyRowSelected = true;
-        for (let i = this.first; i < this.first + this.rows; i++) {
-          if (!selected.has(i)) {
-            const factor = tableRows.length > this.rows ? 2 : 1; // columnPanel
-            const element = tableRows.item((i - this.first) * factor);
-            const inputElement = this.columnSelector.rowElement(element);
-            if (inputElement == null || !inputElement.disabled) {
-              everyRowSelected = false;
-            }
-          }
-        }
-        this.columnSelector.headerElement.checked = everyRowSelected;
-      }
-    }
+    this.columnSelector?.syncHeaderElementCheckedState();
   }
 
   /*

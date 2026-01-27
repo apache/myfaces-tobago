@@ -191,4 +191,38 @@ public class ColumnSelectorController implements Serializable {
   public void setColumnPanelRendered(boolean columnPanelRendered) {
     this.columnPanelRendered = columnPanelRendered;
   }
+
+  public void unselectAllRows() {
+    sheetState.setFirst(0);
+    sheetState.resetSelected();
+  }
+
+  public void selectAllRows() {
+    sheetState.setFirst(0);
+    List<Integer> selectedRows = sheetState.getSelectedRows();
+    selectedRows.clear();
+
+    for (int i = 0; i < solarList.size(); i++) {
+      selectedRows.add(i);
+    }
+    sheetState.setSelectedRows(selectedRows);
+  }
+
+  public void selectAllEnabledRows() {
+    sheetState.setFirst(0);
+    List<Integer> selectedRows = sheetState.getSelectedRows();
+    selectedRows.clear();
+    selectedRows.add(2); //Venus
+    selectedRows.add(4); //Mars
+    sheetState.setSelectedRows(selectedRows);
+  }
+
+  public void selectAllDisabledRows() {
+    sheetState.setFirst(0);
+    selectAllRows();
+    List<Integer> selectedRows = sheetState.getSelectedRows();
+    selectedRows.remove(4); //Mars
+    selectedRows.remove(2); //Venus
+    sheetState.setSelectedRows(selectedRows);
+  }
 }

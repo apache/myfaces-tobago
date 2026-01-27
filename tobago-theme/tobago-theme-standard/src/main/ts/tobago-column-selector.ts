@@ -25,6 +25,79 @@ export class ColumnSelector {
 
   constructor(sheet: Sheet) {
     this.sheet = sheet;
+
+    if (this.headerElement.type === "checkbox") {
+      this.headerElement.addEventListener("click", this.initSelectAllCheckbox.bind(this));
+      this.syncHeaderElementDisabledState();
+    }
+  }
+
+  private initSelectAllCheckbox(event: MouseEvent): void {
+    const selected = this.sheet.selected;
+
+    if (this.sheet.lazy || this.sheet.rows === 0) {
+      if (selected.size === this.sheet.rowCount) {
+        selected.clear();
+      } else {
+        for (let i = 0; i < this.sheet.rowCount; i++) {
+          selected.add(i);
+        }
+      }
+    } else {
+      const rowIndexes: number[] = [];
+      this.sheet.rowElements.forEach((rowElement) => {
+        if (rowElement.hasAttribute("row-index")) {
+          if (!this.rowElement(rowElement).disabled) {
+            rowIndexes.push(Number(rowElement.getAttribute("row-index")));
+          }
+        }
+      });
+      let everyRowAlreadySelected = true;
+      rowIndexes.forEach((rowIndex, index, array) => {
+        if (!selected.has(rowIndex)) {
+          everyRowAlreadySelected = false;
+          selected.add(rowIndex);
+        }
+      });
+
+      if (everyRowAlreadySelected) {
+        rowIndexes.forEach((rowIndex, index, array) => {
+          selected.delete(rowIndex);
+        });
+      }
+    }
+
+    this.sheet.selected = selected;
+  }
+
+  public syncHeaderElementDisabledState(): void {
+    if (this.headerElement.type === "checkbox") {
+      if (this.sheet.lazy) {
+        this.headerElement.disabled = false;
+      } else {
+        this.headerElement.disabled = this.getRowElements(true, null).length === 0;
+      }
+    }
+  }
+
+  public syncHeaderElementCheckedState(givenSelected?: Set<number>): void {
+    if (this.headerElement.type === "checkbox") {
+      const selected = givenSelected ? givenSelected : this.sheet.selected;
+
+      if (this.sheet.lazy || this.sheet.rows === 0) {
+        this.headerElement.checked = selected.size === this.sheet.rowCount;
+      } else {
+        const numOfEnabledRowElements = this.getRowElements(true, null).length;
+
+        if (numOfEnabledRowElements === 0) {
+          const numOfDisabledCheckedRowElements = this.getRowElements(false, true).length;
+          this.headerElement.checked = numOfDisabledCheckedRowElements === this.sheet.rows;
+        } else {
+          const numOfEnabledCheckedRowElements = this.getRowElements(true, true).length;
+          this.headerElement.checked = numOfEnabledCheckedRowElements === numOfEnabledRowElements;
+        }
+      }
+    }
   }
 
   public get headerElement(): HTMLInputElement {
@@ -35,13 +108,15 @@ export class ColumnSelector {
     return Selectable[this.headerElement.dataset.tobagoSelectionMode];
   }
 
-  public rowElement(element: HTMLTableRowElement): HTMLInputElement {
-    return element.querySelector("td:first-child > input.tobago-selected");
+  private getRowElements(enabled: boolean, checked?: boolean): NodeListOf<HTMLInputElement> {
+    return this.sheet.tableBody.querySelectorAll(
+        "tr[row-index] td.tobago-column-selector input.tobago-selected"
+        + (enabled ? ":not(:disabled)" : ":disabled")
+        + (checked ? ":checked" : checked === false ? ":not(:checked)" : "")
+    );
   }
 
-  public get disabled(): boolean {
-    const rowElement = this.sheet
-        .querySelector<HTMLInputElement>("tr[row-index] input[name^='" + this.sheet.id + "_data_row_selector']");
-    return rowElement && rowElement.disabled;
+  public rowElement(element: HTMLTableRowElement): HTMLInputElement {
+    return element.querySelector("td.tobago-column-selector > input.tobago-selected");
   }
 }

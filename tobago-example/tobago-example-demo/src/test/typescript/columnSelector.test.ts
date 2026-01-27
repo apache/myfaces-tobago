@@ -19,6 +19,345 @@
 
 import {expect, test} from "@playwright/test";
 
+test.describe("sheet/columnSelector/check-all/check-all.xhtml", () => {
+
+  test.beforeEach(async ({page}, testInfo) => {
+    await page.goto("/content/900-test/sheet/columnSelector/check-all/check-all.xhtml");
+  });
+
+  test("All rows unselected", async ({page}) => {
+    const initButton = page.locator("button[id='page:mainForm:unselectAll']");
+    const selectAllCheckbox = page.locator("input[name='page:mainForm:sheet::columnSelector']");
+    const checkbox0 = page.locator("input[name='page:mainForm:sheet_data_row_selector_0']");
+    const checkbox1 = page.locator("input[name='page:mainForm:sheet_data_row_selector_1']");
+    const checkbox2 = page.locator("input[name='page:mainForm:sheet_data_row_selector_2']");
+    const checkbox3 = page.locator("input[name='page:mainForm:sheet_data_row_selector_3']");
+    const checkbox4 = page.locator("input[name='page:mainForm:sheet_data_row_selector_4']");
+    const checkbox5 = page.locator("input[name='page:mainForm:sheet_data_row_selector_5']");
+    const checkbox6 = page.locator("input[name='page:mainForm:sheet_data_row_selector_6']");
+    const checkbox7 = page.locator("input[name='page:mainForm:sheet_data_row_selector_7']");
+    const checkbox8 = page.locator("input[name='page:mainForm:sheet_data_row_selector_8']");
+    const checkbox9 = page.locator("input[name='page:mainForm:sheet_data_row_selector_9']");
+    const page1Button = page.locator("tobago-paginator-list .page-item:nth-child(1) button");
+    const page2Button = page.locator("tobago-paginator-list .page-item:nth-child(2) button");
+
+    await initButton.click();
+    await expect(selectAllCheckbox).toBeEnabled();
+    await expect(checkbox0).toBeDisabled();
+    await expect(checkbox1).toBeDisabled();
+    await expect(checkbox2).toBeEnabled();
+    await expect(checkbox3).toBeDisabled();
+    await expect(checkbox4).toBeEnabled();
+    await expect(selectAllCheckbox).not.toBeChecked();
+    await expect(checkbox0).not.toBeChecked();
+    await expect(checkbox1).not.toBeChecked();
+    await expect(checkbox2).not.toBeChecked();
+    await expect(checkbox3).not.toBeChecked();
+    await expect(checkbox4).not.toBeChecked();
+
+    await selectAllCheckbox.click();
+    await expect(selectAllCheckbox).toBeChecked();
+    await expect(checkbox0).not.toBeChecked();
+    await expect(checkbox1).not.toBeChecked();
+    await expect(checkbox2).toBeChecked();
+    await expect(checkbox3).not.toBeChecked();
+    await expect(checkbox4).toBeChecked();
+
+    await checkbox2.click();
+    await expect(selectAllCheckbox).not.toBeChecked();
+    await expect(checkbox0).not.toBeChecked();
+    await expect(checkbox1).not.toBeChecked();
+    await expect(checkbox2).not.toBeChecked();
+    await expect(checkbox3).not.toBeChecked();
+    await expect(checkbox4).toBeChecked();
+
+    await checkbox2.click();
+    await expect(selectAllCheckbox).toBeChecked();
+    await expect(checkbox0).not.toBeChecked();
+    await expect(checkbox1).not.toBeChecked();
+    await expect(checkbox2).toBeChecked();
+    await expect(checkbox3).not.toBeChecked();
+    await expect(checkbox4).toBeChecked();
+
+    await page2Button.click();
+    await expect(selectAllCheckbox).toBeDisabled();
+    await expect(checkbox5).toBeDisabled();
+    await expect(checkbox6).toBeDisabled();
+    await expect(checkbox7).toBeDisabled();
+    await expect(checkbox8).toBeDisabled();
+    await expect(checkbox9).toBeDisabled();
+    await expect(selectAllCheckbox).not.toBeChecked();
+    await expect(checkbox5).not.toBeChecked();
+    await expect(checkbox6).not.toBeChecked();
+    await expect(checkbox7).not.toBeChecked();
+    await expect(checkbox8).not.toBeChecked();
+    await expect(checkbox9).not.toBeChecked();
+
+    await page1Button.click();
+    await expect(selectAllCheckbox).toBeEnabled();
+    await expect(checkbox0).toBeDisabled();
+    await expect(checkbox1).toBeDisabled();
+    await expect(checkbox2).toBeEnabled();
+    await expect(checkbox3).toBeDisabled();
+    await expect(checkbox4).toBeEnabled();
+    await expect(selectAllCheckbox).toBeChecked();
+    await expect(checkbox0).not.toBeChecked();
+    await expect(checkbox1).not.toBeChecked();
+    await expect(checkbox2).toBeChecked();
+    await expect(checkbox3).not.toBeChecked();
+    await expect(checkbox4).toBeChecked();
+  });
+
+  test("All rows selected", async ({page}) => {
+    const initButton = page.locator("button[id='page:mainForm:selectAll']");
+    const selectAllCheckbox = page.locator("input[name='page:mainForm:sheet::columnSelector']");
+    const checkbox0 = page.locator("input[name='page:mainForm:sheet_data_row_selector_0']");
+    const checkbox1 = page.locator("input[name='page:mainForm:sheet_data_row_selector_1']");
+    const checkbox2 = page.locator("input[name='page:mainForm:sheet_data_row_selector_2']");
+    const checkbox3 = page.locator("input[name='page:mainForm:sheet_data_row_selector_3']");
+    const checkbox4 = page.locator("input[name='page:mainForm:sheet_data_row_selector_4']");
+    const checkbox5 = page.locator("input[name='page:mainForm:sheet_data_row_selector_5']");
+    const checkbox6 = page.locator("input[name='page:mainForm:sheet_data_row_selector_6']");
+    const checkbox7 = page.locator("input[name='page:mainForm:sheet_data_row_selector_7']");
+    const checkbox8 = page.locator("input[name='page:mainForm:sheet_data_row_selector_8']");
+    const checkbox9 = page.locator("input[name='page:mainForm:sheet_data_row_selector_9']");
+    const page1Button = page.locator("tobago-paginator-list .page-item:nth-child(1) button");
+    const page2Button = page.locator("tobago-paginator-list .page-item:nth-child(2) button");
+
+    await initButton.click();
+    await expect(selectAllCheckbox).toBeEnabled();
+    await expect(checkbox0).toBeDisabled();
+    await expect(checkbox1).toBeDisabled();
+    await expect(checkbox2).toBeEnabled();
+    await expect(checkbox3).toBeDisabled();
+    await expect(checkbox4).toBeEnabled();
+    await expect(selectAllCheckbox).toBeChecked();
+    await expect(checkbox0).toBeChecked();
+    await expect(checkbox1).toBeChecked();
+    await expect(checkbox2).toBeChecked();
+    await expect(checkbox3).toBeChecked();
+    await expect(checkbox4).toBeChecked();
+
+    await selectAllCheckbox.click();
+    await expect(selectAllCheckbox).not.toBeChecked();
+    await expect(checkbox0).toBeChecked();
+    await expect(checkbox1).toBeChecked();
+    await expect(checkbox2).not.toBeChecked();
+    await expect(checkbox3).toBeChecked();
+    await expect(checkbox4).not.toBeChecked();
+
+    await checkbox2.click();
+    await expect(selectAllCheckbox).not.toBeChecked();
+    await expect(checkbox0).toBeChecked();
+    await expect(checkbox1).toBeChecked();
+    await expect(checkbox2).toBeChecked();
+    await expect(checkbox3).toBeChecked();
+    await expect(checkbox4).not.toBeChecked();
+
+    await checkbox4.click();
+    await expect(selectAllCheckbox).toBeChecked();
+    await expect(checkbox0).toBeChecked();
+    await expect(checkbox1).toBeChecked();
+    await expect(checkbox2).toBeChecked();
+    await expect(checkbox3).toBeChecked();
+    await expect(checkbox4).toBeChecked();
+
+    await page2Button.click();
+    await expect(selectAllCheckbox).toBeDisabled();
+    await expect(checkbox5).toBeDisabled();
+    await expect(checkbox6).toBeDisabled();
+    await expect(checkbox7).toBeDisabled();
+    await expect(checkbox8).toBeDisabled();
+    await expect(checkbox9).toBeDisabled();
+    await expect(selectAllCheckbox).toBeChecked();
+    await expect(checkbox5).toBeChecked();
+    await expect(checkbox6).toBeChecked();
+    await expect(checkbox7).toBeChecked();
+    await expect(checkbox8).toBeChecked();
+    await expect(checkbox9).toBeChecked();
+
+    await page1Button.click();
+    await expect(selectAllCheckbox).toBeEnabled();
+    await expect(checkbox0).toBeDisabled();
+    await expect(checkbox1).toBeDisabled();
+    await expect(checkbox2).toBeEnabled();
+    await expect(checkbox3).toBeDisabled();
+    await expect(checkbox4).toBeEnabled();
+    await expect(selectAllCheckbox).toBeChecked();
+    await expect(checkbox0).toBeChecked();
+    await expect(checkbox1).toBeChecked();
+    await expect(checkbox2).toBeChecked();
+    await expect(checkbox3).toBeChecked();
+    await expect(checkbox4).toBeChecked();
+  });
+
+  test("Only enabled rows selected", async ({page}) => {
+    const initButton = page.locator("button[id='page:mainForm:selectAllEnabled']");
+    const selectAllCheckbox = page.locator("input[name='page:mainForm:sheet::columnSelector']");
+    const checkbox0 = page.locator("input[name='page:mainForm:sheet_data_row_selector_0']");
+    const checkbox1 = page.locator("input[name='page:mainForm:sheet_data_row_selector_1']");
+    const checkbox2 = page.locator("input[name='page:mainForm:sheet_data_row_selector_2']");
+    const checkbox3 = page.locator("input[name='page:mainForm:sheet_data_row_selector_3']");
+    const checkbox4 = page.locator("input[name='page:mainForm:sheet_data_row_selector_4']");
+    const checkbox5 = page.locator("input[name='page:mainForm:sheet_data_row_selector_5']");
+    const checkbox6 = page.locator("input[name='page:mainForm:sheet_data_row_selector_6']");
+    const checkbox7 = page.locator("input[name='page:mainForm:sheet_data_row_selector_7']");
+    const checkbox8 = page.locator("input[name='page:mainForm:sheet_data_row_selector_8']");
+    const checkbox9 = page.locator("input[name='page:mainForm:sheet_data_row_selector_9']");
+    const page1Button = page.locator("tobago-paginator-list .page-item:nth-child(1) button");
+    const page2Button = page.locator("tobago-paginator-list .page-item:nth-child(2) button");
+
+    await initButton.click();
+    await expect(selectAllCheckbox).toBeEnabled();
+    await expect(checkbox0).toBeDisabled();
+    await expect(checkbox1).toBeDisabled();
+    await expect(checkbox2).toBeEnabled();
+    await expect(checkbox3).toBeDisabled();
+    await expect(checkbox4).toBeEnabled();
+    await expect(selectAllCheckbox).toBeChecked();
+    await expect(checkbox0).not.toBeChecked();
+    await expect(checkbox1).not.toBeChecked();
+    await expect(checkbox2).toBeChecked();
+    await expect(checkbox3).not.toBeChecked();
+    await expect(checkbox4).toBeChecked();
+
+    await selectAllCheckbox.click();
+    await expect(selectAllCheckbox).not.toBeChecked();
+    await expect(checkbox0).not.toBeChecked();
+    await expect(checkbox1).not.toBeChecked();
+    await expect(checkbox2).not.toBeChecked();
+    await expect(checkbox3).not.toBeChecked();
+    await expect(checkbox4).not.toBeChecked();
+
+    await checkbox2.click();
+    await expect(selectAllCheckbox).not.toBeChecked();
+    await expect(checkbox0).not.toBeChecked();
+    await expect(checkbox1).not.toBeChecked();
+    await expect(checkbox2).toBeChecked();
+    await expect(checkbox3).not.toBeChecked();
+    await expect(checkbox4).not.toBeChecked();
+
+    await checkbox4.click();
+    await expect(selectAllCheckbox).toBeChecked();
+    await expect(checkbox0).not.toBeChecked();
+    await expect(checkbox1).not.toBeChecked();
+    await expect(checkbox2).toBeChecked();
+    await expect(checkbox3).not.toBeChecked();
+    await expect(checkbox4).toBeChecked();
+
+    await page2Button.click();
+    await expect(selectAllCheckbox).toBeDisabled();
+    await expect(checkbox5).toBeDisabled();
+    await expect(checkbox6).toBeDisabled();
+    await expect(checkbox7).toBeDisabled();
+    await expect(checkbox8).toBeDisabled();
+    await expect(checkbox9).toBeDisabled();
+    await expect(selectAllCheckbox).not.toBeChecked();
+    await expect(checkbox5).not.toBeChecked();
+    await expect(checkbox6).not.toBeChecked();
+    await expect(checkbox7).not.toBeChecked();
+    await expect(checkbox8).not.toBeChecked();
+    await expect(checkbox9).not.toBeChecked();
+
+    await page1Button.click();
+    await expect(selectAllCheckbox).toBeEnabled();
+    await expect(checkbox0).toBeDisabled();
+    await expect(checkbox1).toBeDisabled();
+    await expect(checkbox2).toBeEnabled();
+    await expect(checkbox3).toBeDisabled();
+    await expect(checkbox4).toBeEnabled();
+    await expect(selectAllCheckbox).toBeChecked();
+    await expect(checkbox0).not.toBeChecked();
+    await expect(checkbox1).not.toBeChecked();
+    await expect(checkbox2).toBeChecked();
+    await expect(checkbox3).not.toBeChecked();
+    await expect(checkbox4).toBeChecked();
+  });
+
+  test("Only disabled rows selected", async ({page}) => {
+    const initButton = page.locator("button[id='page:mainForm:selectAllDisabled']");
+    const selectAllCheckbox = page.locator("input[name='page:mainForm:sheet::columnSelector']");
+    const checkbox0 = page.locator("input[name='page:mainForm:sheet_data_row_selector_0']");
+    const checkbox1 = page.locator("input[name='page:mainForm:sheet_data_row_selector_1']");
+    const checkbox2 = page.locator("input[name='page:mainForm:sheet_data_row_selector_2']");
+    const checkbox3 = page.locator("input[name='page:mainForm:sheet_data_row_selector_3']");
+    const checkbox4 = page.locator("input[name='page:mainForm:sheet_data_row_selector_4']");
+    const checkbox5 = page.locator("input[name='page:mainForm:sheet_data_row_selector_5']");
+    const checkbox6 = page.locator("input[name='page:mainForm:sheet_data_row_selector_6']");
+    const checkbox7 = page.locator("input[name='page:mainForm:sheet_data_row_selector_7']");
+    const checkbox8 = page.locator("input[name='page:mainForm:sheet_data_row_selector_8']");
+    const checkbox9 = page.locator("input[name='page:mainForm:sheet_data_row_selector_9']");
+    const page1Button = page.locator("tobago-paginator-list .page-item:nth-child(1) button");
+    const page2Button = page.locator("tobago-paginator-list .page-item:nth-child(2) button");
+
+    await initButton.click();
+    await expect(selectAllCheckbox).toBeEnabled();
+    await expect(checkbox0).toBeDisabled();
+    await expect(checkbox1).toBeDisabled();
+    await expect(checkbox2).toBeEnabled();
+    await expect(checkbox3).toBeDisabled();
+    await expect(checkbox4).toBeEnabled();
+    await expect(selectAllCheckbox).not.toBeChecked();
+    await expect(checkbox0).toBeChecked();
+    await expect(checkbox1).toBeChecked();
+    await expect(checkbox2).not.toBeChecked();
+    await expect(checkbox3).toBeChecked();
+    await expect(checkbox4).not.toBeChecked();
+
+    await selectAllCheckbox.click();
+    await expect(selectAllCheckbox).toBeChecked();
+    await expect(checkbox0).toBeChecked();
+    await expect(checkbox1).toBeChecked();
+    await expect(checkbox2).toBeChecked();
+    await expect(checkbox3).toBeChecked();
+    await expect(checkbox4).toBeChecked();
+
+    await checkbox2.click();
+    await expect(selectAllCheckbox).not.toBeChecked();
+    await expect(checkbox0).toBeChecked();
+    await expect(checkbox1).toBeChecked();
+    await expect(checkbox2).not.toBeChecked();
+    await expect(checkbox3).toBeChecked();
+    await expect(checkbox4).toBeChecked();
+
+    await checkbox2.click();
+    await expect(selectAllCheckbox).toBeChecked();
+    await expect(checkbox0).toBeChecked();
+    await expect(checkbox1).toBeChecked();
+    await expect(checkbox2).toBeChecked();
+    await expect(checkbox3).toBeChecked();
+    await expect(checkbox4).toBeChecked();
+
+    await page2Button.click();
+    await expect(selectAllCheckbox).toBeDisabled();
+    await expect(checkbox5).toBeDisabled();
+    await expect(checkbox6).toBeDisabled();
+    await expect(checkbox7).toBeDisabled();
+    await expect(checkbox8).toBeDisabled();
+    await expect(checkbox9).toBeDisabled();
+    await expect(selectAllCheckbox).toBeChecked();
+    await expect(checkbox5).toBeChecked();
+    await expect(checkbox6).toBeChecked();
+    await expect(checkbox7).toBeChecked();
+    await expect(checkbox8).toBeChecked();
+    await expect(checkbox9).toBeChecked();
+
+    await page1Button.click();
+    await expect(selectAllCheckbox).toBeEnabled();
+    await expect(checkbox0).toBeDisabled();
+    await expect(checkbox1).toBeDisabled();
+    await expect(checkbox2).toBeEnabled();
+    await expect(checkbox3).toBeDisabled();
+    await expect(checkbox4).toBeEnabled();
+    await expect(selectAllCheckbox).toBeChecked();
+    await expect(checkbox0).toBeChecked();
+    await expect(checkbox1).toBeChecked();
+    await expect(checkbox2).toBeChecked();
+    await expect(checkbox3).toBeChecked();
+    await expect(checkbox4).toBeChecked();
+  });
+});
+
 test.describe("sheet/columnSelector/immediate/immediate.xhtml", () => {
 
   test.beforeEach(async ({page}, testInfo) => {

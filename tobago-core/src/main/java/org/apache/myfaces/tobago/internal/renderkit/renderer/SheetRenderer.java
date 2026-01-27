@@ -952,7 +952,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> im
                     ResourceUtils.getString(facesContext, "sheet.selectAll"), true);
                 writer.writeAttribute(Arias.LABEL,
                     ResourceUtils.getString(facesContext, "sheet.selectAll"), true);
-                writer.writeAttribute(HtmlAttributes.DISABLED, selector.isDisabled());
               } else {
                 writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
               }
