@@ -59,6 +59,20 @@ it("Required fields", function () {
       querySelectorFn("input[name='page:mainForm:sheetSingle_data_row_selector_2']"),
       querySelectorFn("input[name='page:mainForm:sheetSingle_data_row_selector_3']"),
   );
+
+  testFormChecks(
+      querySelectorFn("input[name='page:mainForm:autoWidthColSelHeadEnabledUnchecked::columnSelector']"),
+      querySelectorFn("input[name='page:mainForm:autoWidthColSelHeadEnabledChecked::columnSelector']"),
+      querySelectorFn("input[name='page:mainForm:autoWidthColSelHeadDisabledUnchecked::columnSelector']"),
+      querySelectorFn("input[name='page:mainForm:autoWidthColSelHeadDisabledChecked::columnSelector']"),
+  );
+
+  testFormChecks(
+      querySelectorFn("input[name='page:mainForm:customWidthColSelHeadEnabledUnchecked::columnSelector']"),
+      querySelectorFn("input[name='page:mainForm:customWidthColSelHeadEnabledChecked::columnSelector']"),
+      querySelectorFn("input[name='page:mainForm:customWidthColSelHeadDisabledUnchecked::columnSelector']"),
+      querySelectorFn("input[name='page:mainForm:customWidthColSelHeadDisabledChecked::columnSelector']"),
+  );
 });
 
 function testFormChecks(uncheckedEnabled, checkedEnabled, uncheckedDisabled, checkedDisabled) {

@@ -52,6 +52,7 @@ $icon-sort-numbers: (
   --tobago-page-padding-top: 1rem;
   --tobago-header-margin-bottom: var(--tobago-page-padding-top);
   --tobago-flex-layout-spacing: 0.5rem;
+  --tobago-form-check-disabled-bg: #{rgba($border-color, 0.5)};
 }
 
 /* utilities ----------------------------------------------------- */
@@ -122,7 +123,7 @@ $icon-sort-numbers: (
 
 @mixin formCheckInput() {
   .form-check-input:not(:checked):disabled {
-    background-color: rgba($border-color, 0.5);
+    background-color: var(--tobago-form-check-disabled-bg);
   }
 }
 
@@ -1654,6 +1655,10 @@ tobago-sheet {
   }
 
   .tobago-row-filler {
+  }
+
+  thead tr th.tobago-column-selector {
+    @include formCheckInput();
   }
 
   header {

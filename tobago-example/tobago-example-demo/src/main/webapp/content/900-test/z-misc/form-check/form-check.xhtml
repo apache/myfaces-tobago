@@ -65,45 +65,128 @@
     </tc:selectManyCheckbox>
   </tc:section>
 
-  <tc:section label="tc:sheet">
-    <tc:sheet id="sheetMulti" value="#{checkboxController.solarList}" var="object" rows="4"
-              selectable="multi" state="#{checkboxController.sheetState}">
-      <tc:columnSelector disabled="#{object.name == 'Venus' || object.name == 'Earth'}"/>
-      <tc:column label="Name">
-        <tc:in value="#{object.name}" labelLayout="skip"/>
-      </tc:column>
-      <tc:column label="Orbit">
-        <tc:out value="#{object.orbit}" labelLayout="skip"/>
-      </tc:column>
-      <tc:column label="Period (Days)">
-        <tc:out value="#{object.period}" labelLayout="skip"/>
-      </tc:column>
-      <tc:column label="Discoverer">
-        <tc:out value="#{object.discoverer}" labelLayout="skip"/>
-      </tc:column>
-      <tc:column label="Year">
-        <tc:out value="#{object.discoverYear}" labelLayout="skip"/>
-      </tc:column>
-    </tc:sheet>
+  <tc:section label="tc:columnSelector">
+    <tc:section label="checkbox rows">
+      <tc:sheet id="sheetMulti" value="#{checkboxController.solarList}" var="object" rows="4"
+                selectable="multi" state="#{checkboxController.sheetState}">
+        <tc:columnSelector disabled="#{object.name == 'Venus' || object.name == 'Earth'}"/>
+        <tc:column label="Name">
+          <tc:in value="#{object.name}" labelLayout="skip"/>
+        </tc:column>
+        <tc:column label="Orbit">
+          <tc:out value="#{object.orbit}" labelLayout="skip"/>
+        </tc:column>
+        <tc:column label="Period (Days)">
+          <tc:out value="#{object.period}" labelLayout="skip"/>
+        </tc:column>
+        <tc:column label="Discoverer">
+          <tc:out value="#{object.discoverer}" labelLayout="skip"/>
+        </tc:column>
+        <tc:column label="Year">
+          <tc:out value="#{object.discoverYear}" labelLayout="skip"/>
+        </tc:column>
+      </tc:sheet>
+    </tc:section>
+    <tc:section label="radio button rows">
+      <tc:sheet id="sheetSingle" value="#{checkboxController.solarList}" var="object" rows="4"
+                selectable="single" state="#{checkboxController.sheetState}">
+        <tc:columnSelector disabled="#{object.name == 'Venus' || object.name == 'Earth'}"/>
+        <tc:column label="Name">
+          <tc:in value="#{object.name}" labelLayout="skip"/>
+        </tc:column>
+        <tc:column label="Orbit">
+          <tc:out value="#{object.orbit}" labelLayout="skip"/>
+        </tc:column>
+        <tc:column label="Period (Days)">
+          <tc:out value="#{object.period}" labelLayout="skip"/>
+        </tc:column>
+        <tc:column label="Discoverer">
+          <tc:out value="#{object.discoverer}" labelLayout="skip"/>
+        </tc:column>
+        <tc:column label="Year">
+          <tc:out value="#{object.discoverYear}" labelLayout="skip"/>
+        </tc:column>
+      </tc:sheet>
+    </tc:section>
 
-    <tc:sheet id="sheetSingle" value="#{checkboxController.solarList}" var="object" rows="4"
-              selectable="single" state="#{checkboxController.sheetState}">
-      <tc:columnSelector disabled="#{object.name == 'Venus' || object.name == 'Earth'}"/>
-      <tc:column label="Name">
-        <tc:in value="#{object.name}" labelLayout="skip"/>
-      </tc:column>
-      <tc:column label="Orbit">
-        <tc:out value="#{object.orbit}" labelLayout="skip"/>
-      </tc:column>
-      <tc:column label="Period (Days)">
-        <tc:out value="#{object.period}" labelLayout="skip"/>
-      </tc:column>
-      <tc:column label="Discoverer">
-        <tc:out value="#{object.discoverer}" labelLayout="skip"/>
-      </tc:column>
-      <tc:column label="Year">
-        <tc:out value="#{object.discoverYear}" labelLayout="skip"/>
-      </tc:column>
-    </tc:sheet>
+    <tc:section label="checkbox header">
+      <tc:section label="Auto column width">
+        <tc:sheet id="autoWidthColSelHeadEnabledUnchecked" value="#{checkboxController.solarList}" var="object"
+                  rows="1"
+                  selectable="multi" state="#{checkboxController.sheetState}"
+                  first="0">
+          <tc:columnSelector/>
+          <tc:column label="Name">
+            <tc:in value="#{object.name}" labelLayout="skip"/>
+          </tc:column>
+        </tc:sheet>
+        <tc:sheet id="autoWidthColSelHeadEnabledChecked" value="#{checkboxController.solarList}" var="object"
+                  rows="1"
+                  selectable="multi" state="#{checkboxController.sheetState}"
+                  first="1">
+          <tc:columnSelector/>
+          <tc:column label="Name">
+            <tc:in value="#{object.name}" labelLayout="skip"/>
+          </tc:column>
+        </tc:sheet>
+        <tc:sheet id="autoWidthColSelHeadDisabledUnchecked" value="#{checkboxController.solarList}" var="object"
+                  rows="1"
+                  selectable="multi" state="#{checkboxController.sheetState}"
+                  first="0">
+          <tc:columnSelector disabled="true"/>
+          <tc:column label="Name">
+            <tc:in value="#{object.name}" labelLayout="skip"/>
+          </tc:column>
+        </tc:sheet>
+        <tc:sheet id="autoWidthColSelHeadDisabledChecked" value="#{checkboxController.solarList}" var="object"
+                  rows="1"
+                  selectable="multi" state="#{checkboxController.sheetState}"
+                  first="1">
+          <tc:columnSelector disabled="true"/>
+          <tc:column label="Name">
+            <tc:in value="#{object.name}" labelLayout="skip"/>
+          </tc:column>
+        </tc:sheet>
+      </tc:section>
+
+      <tc:section label="Custom column width">
+        <tc:sheet id="customWidthColSelHeadEnabledUnchecked" value="#{checkboxController.solarList}" var="object"
+                  rows="1" columns="1fr"
+                  selectable="multi" state="#{checkboxController.sheetState}"
+                  first="0">
+          <tc:columnSelector/>
+          <tc:column label="Name">
+            <tc:in value="#{object.name}" labelLayout="skip"/>
+          </tc:column>
+        </tc:sheet>
+        <tc:sheet id="customWidthColSelHeadEnabledChecked" value="#{checkboxController.solarList}" var="object"
+                  rows="1" columns="1fr"
+                  selectable="multi" state="#{checkboxController.sheetState}"
+                  first="1">
+          <tc:columnSelector/>
+          <tc:column label="Name">
+            <tc:in value="#{object.name}" labelLayout="skip"/>
+          </tc:column>
+        </tc:sheet>
+        <tc:sheet id="customWidthColSelHeadDisabledUnchecked" value="#{checkboxController.solarList}" var="object"
+                  rows="1" columns="1fr"
+                  selectable="multi" state="#{checkboxController.sheetState}"
+                  first="0">
+          <tc:columnSelector disabled="true"/>
+          <tc:column label="Name">
+            <tc:in value="#{object.name}" labelLayout="skip"/>
+          </tc:column>
+        </tc:sheet>
+        <tc:sheet id="customWidthColSelHeadDisabledChecked" value="#{checkboxController.solarList}" var="object"
+                  rows="1" columns="1fr"
+                  selectable="multi" state="#{checkboxController.sheetState}"
+                  first="1">
+          <tc:columnSelector disabled="true"/>
+          <tc:column label="Name">
+            <tc:in value="#{object.name}" labelLayout="skip"/>
+          </tc:column>
+        </tc:sheet>
+      </tc:section>
+    </tc:section>
   </tc:section>
 </ui:composition>
