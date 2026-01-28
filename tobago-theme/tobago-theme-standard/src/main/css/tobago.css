@@ -12020,6 +12020,7 @@ textarea.form-control-lg {
   --tobago-page-padding-top: 1rem;
   --tobago-header-margin-bottom: var(--tobago-page-padding-top);
   --tobago-flex-layout-spacing: 0.5rem;
+  --tobago-form-check-disabled-bg: rgba(222, 226, 230, 0.5);
 }
 
 /* utilities ----------------------------------------------------- */
@@ -13274,7 +13275,7 @@ tobago-select-boolean-checkbox .form-check-label img {
   padding-right: 0.3em;
 }
 tobago-select-boolean-checkbox .form-check-input:not(:checked):disabled {
-  background-color: rgba(222, 226, 230, 0.5);
+  background-color: var(--tobago-form-check-disabled-bg);
 }
 
 /* selectBooleanToggle ---------------------------------------------------- */
@@ -13288,7 +13289,7 @@ tobago-select-boolean-toggle .form-check-label img {
   padding-right: 0.3em;
 }
 tobago-select-boolean-toggle .form-check-input:not(:checked):disabled {
-  background-color: rgba(222, 226, 230, 0.5);
+  background-color: var(--tobago-form-check-disabled-bg);
 }
 
 tobago-select-one-choice {
@@ -13493,7 +13494,7 @@ tobago-select-one-radio label + .form-check-inline {
   display: block;
 }
 tobago-select-one-radio .form-check-input:not(:checked):disabled {
-  background-color: rgba(222, 226, 230, 0.5);
+  background-color: var(--tobago-form-check-disabled-bg);
 }
 tobago-select-one-radio.tobago-label-container .form-check-inline {
   padding-top: calc(0.375rem + var(--bs-border-width));
@@ -13707,7 +13708,7 @@ tobago-select-many-checkbox label + .form-check-inline {
   display: block;
 }
 tobago-select-many-checkbox .form-check-input:not(:checked):disabled {
-  background-color: rgba(222, 226, 230, 0.5);
+  background-color: var(--tobago-form-check-disabled-bg);
 }
 tobago-select-many-checkbox.tobago-label-container .form-check-inline {
   padding-top: calc(0.375rem + var(--bs-border-width));
@@ -13765,6 +13766,9 @@ tobago-sheet {
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
+}
+tobago-sheet thead tr th.tobago-column-selector .form-check-input:not(:checked):disabled {
+  background-color: var(--tobago-form-check-disabled-bg);
 }
 tobago-sheet header {
   display: flex;
@@ -13968,7 +13972,7 @@ tobago-sheet .tobago-body .table td.tobago-column-selector {
   vertical-align: middle;
 }
 tobago-sheet .tobago-body .table td.tobago-column-selector .form-check-input:not(:checked):disabled {
-  background-color: rgba(222, 226, 230, 0.5);
+  background-color: var(--tobago-form-check-disabled-bg);
 }
 tobago-sheet .tobago-body .table td > tobago-out {
   display: block;
