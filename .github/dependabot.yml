@@ -26,6 +26,7 @@ updates:
       include: "scope"
     schedule:
       interval: "daily"
+    open-pull-requests-limit: 20
     ignore:
       # since 3.3.0 maven-source-plugin must not be configured twice; try upgrade if using myfaces-master-pom version 20
       - dependency-name: "org.apache.maven.plugins:maven-source-plugin"
