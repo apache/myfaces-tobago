@@ -23,7 +23,7 @@
     xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-5.1.xsd"
     version="5.1">
 
-  <name>tobago-example-blank</name>
+  <name>tobago-example-spring-boot</name>
 
   <ordering>
     <after>
@@ -37,7 +37,7 @@
   </ordering>
 
   <theme-config>
-    <default-theme>scarborough</default-theme>
+    <default-theme>standard</default-theme>
   </theme-config>
 
 </tobago-config>

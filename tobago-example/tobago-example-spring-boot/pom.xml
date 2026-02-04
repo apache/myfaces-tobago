@@ -15,7 +15,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
@@ -27,32 +28,16 @@
   <name>Tobago Example Spring Boot</name>
   <description>A minimal Tobago application with spring boot</description>
 
+  <properties>
+    <joinfaces.version>5.5.7</joinfaces.version>
+    <joinfaces-plugin.version>5.1.12</joinfaces-plugin.version>
+    <spring-boot.version>3.5.10</spring-boot.version>
+    <spring.version>6.2.12</spring.version>
+  </properties>
+
   <build>
     <finalName>tobago-example-spring-boot</finalName>
-
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.joinfaces</groupId>
-          <artifactId>joinfaces-maven-plugin</artifactId>
-          <version>${joinfaces-plugin.version}</version>
-          <executions>
-            <execution>
-              <goals>
-                <goal>classpath-scan</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-
     <plugins>
-      <plugin>
-        <groupId>org.joinfaces</groupId>
-        <artifactId>joinfaces-maven-plugin</artifactId>
-        <version>${joinfaces-plugin.version}</version>
-      </plugin>
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
@@ -69,111 +54,63 @@
       <classifier>export</classifier>
     </dependency>
     <dependency>
-      <groupId>jakarta.servlet.jsp.jstl</groupId>
-      <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+      <groupId>org.joinfaces</groupId>
+      <artifactId>tobago-spring-boot-starter</artifactId>
+      <version>${joinfaces.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.joinfaces</groupId>
+          <artifactId>mojarra-spring-boot-starter</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-core</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>tobago-theme-standard</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
-
     <dependency>
       <groupId>org.joinfaces</groupId>
-      <artifactId>joinfaces-autoconfigure</artifactId>
+      <artifactId>myfaces-spring-boot-starter</artifactId>
       <version>${joinfaces.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot</artifactId>
+      <artifactId>spring-boot-starter-web</artifactId>
       <version>${spring-boot.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-core</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-web</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.yaml</groupId>
-      <artifactId>snakeyaml</artifactId>
-      <version>2.5</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat.embed</groupId>
-      <artifactId>tomcat-embed-core</artifactId>
-      <version>${tomcat.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat.embed</groupId>
-      <artifactId>tomcat-embed-el</artifactId>
-      <version>${tomcat.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat.embed</groupId>
-      <artifactId>tomcat-embed-websocket</artifactId>
-      <version>${tomcat.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat.embed</groupId>
-      <artifactId>tomcat-embed-jasper</artifactId>
-      <version>${tomcat.version}</version>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+      <version>${spring-boot.version}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-core</artifactId>
-      <version>${jackson.version}</version>
+      <artifactId>jackson-annotations</artifactId>
+      <version>2.21</version>
     </dependency>
-    <!--<dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>${jackson.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.datatype</groupId>
-      <artifactId>jackson-datatype-jdk8</artifactId>
-      <version>${jackson.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.datatype</groupId>
-      <artifactId>jackson-datatype-jsr310</artifactId>
-      <version>${jackson.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.module</groupId>
-      <artifactId>jackson-module-parameter-names</artifactId>
-      <version>${jackson.version}</version>
-    </dependency>-->
-    <dependency> <!-- add JAXB to run the demo with Java 11 and higher; todo: do we still need this? -->
-      <groupId>jakarta.xml.bind</groupId>
-      <artifactId>jakarta.xml.bind-api</artifactId>
-      <version>4.0.5</version>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>jul-to-slf4j</artifactId>
-      <version>${slf4j.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>log4j-over-slf4j</artifactId>
-      <version>${slf4j.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>ch.qos.reload4j</groupId>
-      <artifactId>reload4j</artifactId>
-      <version>1.2.26</version>
+
+    <dependency> <!-- remove this if dependency check does not fail -->
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>2.25.3</version>
     </dependency>
   </dependencies>
+
+  <profiles>
+    <profile>
+      <id>spring-boot-4</id>
+      <properties>
+        <joinfaces.version>6.0.2</joinfaces.version>
+        <joinfaces-plugin.version>5.1.12</joinfaces-plugin.version>
+        <spring-boot.version>4.0.2</spring-boot.version>
+        <spring.version>7.0.4</spring.version>
+      </properties>
+    </profile>
+  </profiles>
 
   <scm>
     <tag>tobago-6.9.0</tag>

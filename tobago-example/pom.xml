@@ -33,7 +33,7 @@
   <modules>
     <module>tobago-example-blank</module>
     <module>tobago-example-demo</module>
-    <module>tobago-example-quarkus</module>
+<!--    <module>tobago-example-quarkus</module>-->
     <module>tobago-example-spring-boot</module>
   </modules>
 

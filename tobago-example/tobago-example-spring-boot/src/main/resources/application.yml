@@ -18,7 +18,7 @@
 
 
 joinfaces:
-  jsf:
+  faces:
     project-stage: development
 
 server:
