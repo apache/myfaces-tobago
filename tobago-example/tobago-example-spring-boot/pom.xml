@@ -156,7 +156,7 @@
     <dependency> <!-- add JAXB to run the demo with Java 11 and higher; todo: do we still need this? -->
       <groupId>jakarta.xml.bind</groupId>
       <artifactId>jakarta.xml.bind-api</artifactId>
-      <version>4.0.4</version>
+      <version>4.0.5</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
