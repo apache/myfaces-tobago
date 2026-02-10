@@ -20,10 +20,12 @@ import {Css} from "./tobago-css";
 import {DropdownMenu, DropdownMenuAlignment} from "./tobago-dropdown-menu";
 import {Key} from "./tobago-key";
 import {ClientBehaviors} from "./tobago-client-behaviors";
+import {Spinner} from "./tobago-spinner";
 
 export class Suggest {
   private tobagoIn: HTMLElement;
   private dropdownMenu: DropdownMenu;
+  private spinner: Spinner;
   private timeout: number;
 
   constructor(tobagoIn: HTMLElement) {
@@ -36,10 +38,11 @@ export class Suggest {
       return;
     }
     this.tobagoSuggest.insertAdjacentHTML("beforebegin", `<div class="${Css.SPINNER}"/>`);
+    this.spinner = new Spinner(this.tobagoIn, this.inputField, this.inputField, this.spinnerDiv);
+
     this.tobagoSuggest.insertAdjacentHTML("beforebegin", `<div class="${Css.TOBAGO_DROPDOWN_MENU_ANCHOR}"}">
     <ul id="${this.tobagoSuggest.id + "::dropdownMenu"}" class="${Css.TOBAGO_DROPDOWN_MENU}"
     name="${this.tobagoSuggest.id}" role="listbox"/></div>`);
-
     this.dropdownMenu = new DropdownMenu(this.dropdownMenuElement, this.inputField, this.tobagoIn, this.localMenu,
         DropdownMenuAlignment.centerFullWidth);
 
@@ -161,7 +164,7 @@ export class Suggest {
 
     if (input.length >= this.minChars) {
       this.hiddenInput.value = input.toLowerCase();
-      this.showSpinner();
+      this.spinner.show();
 
       if (this.update) {
         this.timeout = window.setTimeout(() => {
@@ -194,27 +197,6 @@ export class Suggest {
     }
   }
 
-  private showSpinner(): void {
-    const rect = this.inputField.getBoundingClientRect();
-    const cStyle = getComputedStyle(this.inputField);
-    const top = window.scrollY + rect.top;
-    const right = window.scrollX + rect.right;
-    const bottom = window.scrollY + rect.bottom;
-    const innerBorderTop = top + parseFloat(cStyle.borderTopWidth) + parseFloat(cStyle.paddingTop);
-    const innerBorderRight = right - parseFloat(cStyle.borderRight) - parseFloat(cStyle.paddingRight);
-    const innerBorderBottom = bottom - parseFloat(cStyle.borderBottom) - parseFloat(cStyle.paddingBottom);
-    const size = innerBorderBottom - innerBorderTop;
-    this.spinner.style.width = size + "px";
-    this.spinner.style.height = size + "px";
-    this.spinner.style.top = innerBorderTop + "px";
-    this.spinner.style.left = (innerBorderRight - size) + "px";
-    this.spinner.classList.add(Css.TOBAGO_SHOW);
-  }
-
-  private hideSpinner(): void {
-    this.spinner.classList.remove(Css.TOBAGO_SHOW);
-  }
-
   private ajaxEvent(event: EventData): void {
     if (event.status === "success") {
       this.renderResults(this.items);
@@ -237,7 +219,7 @@ export class Suggest {
         dropdownItems.push(li);
       }
       this.dropdownMenuElement.replaceChildren(...dropdownItems);
-      this.hideSpinner();
+      this.spinner.hide();
       this.dropdownMenu.show();
 
       if (this.maxItems > 0) {
@@ -254,7 +236,7 @@ export class Suggest {
         }
       }
     } else {
-      this.hideSpinner();
+      this.spinner.hide();
       this.dropdownMenu.hide();
     }
   }
@@ -280,7 +262,7 @@ export class Suggest {
     return root.getElementById(this.tobagoSuggest.getAttribute("for")) as HTMLInputElement;
   }
 
-  private get spinner(): HTMLDivElement {
+  private get spinnerDiv(): HTMLDivElement {
     return this.tobagoIn.querySelector<HTMLDivElement>(`.${Css.SPINNER}`);
   }
 
