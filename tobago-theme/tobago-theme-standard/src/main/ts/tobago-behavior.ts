@@ -45,10 +45,9 @@ class Behavior extends HTMLElement {
         if (eventElement) {
           eventElement.addEventListener(this.event, this.eventListener);
         } else {
-          // if the clientId doesn't exists in DOM, it's probably the id of tobago-behavior custom element
+          // if the clientId doesn't exist in DOM, it's probably the id of tobago-behavior custom element
           this.parentElement.addEventListener(this.event, this.eventListener);
-          // todo: not sure if this warning can be removed;
-          console.warn("Can't find an element for the event. Use parentElement instead.", this);
+          console.debug("Can't find an element for the event. Use parentElement instead.", this);
         }
       }
     }
