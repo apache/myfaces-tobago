@@ -189,8 +189,8 @@ public class SortingUtils {
       if (child instanceof UISelectMany
           || child instanceof UISelectOne
           || child instanceof UISelectBoolean
-          || (child instanceof AbstractUICommand && child.getChildren().isEmpty())
-          || (child instanceof UIInput && RendererTypes.HIDDEN.equals(child.getRendererType()))) {
+          || child instanceof AbstractUICommand && child.getChildren().isEmpty()
+          || child instanceof UIInput && RendererTypes.HIDDEN.equals(child.getRendererType())) {
         continue;
         // look for a better component if any
       }

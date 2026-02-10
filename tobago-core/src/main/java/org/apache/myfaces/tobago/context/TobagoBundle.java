@@ -111,7 +111,7 @@ public class TobagoBundle extends ResourceBundle {
           throws IllegalAccessException, InstantiationException,
           IOException {
 
-        if ((baseName == null) || (locale == null) || (format == null) || (loader == null)) {
+        if (baseName == null || locale == null || format == null || loader == null) {
           throw new NullPointerException();
         }
         ResourceBundle bundle = null;

@@ -898,7 +898,7 @@ public final class ComponentUtils {
   private static void addLayoutChildren(final UIComponent component, final List<UIComponent> result) {
     for (final UIComponent child : component.getChildren()) {
       if (child instanceof Visual && !((Visual) child).isPlain()
-          || (UIComponent.isCompositeComponent(child) && !child.isRendered())) {
+          || UIComponent.isCompositeComponent(child) && !child.isRendered()) {
         result.add(child);
       } else {
         // Child seems to be transparent for layout, like UIForm with "plain" set.

@@ -187,7 +187,7 @@ public class EventBehavior extends ClientBehaviorBase {
   }
 
   public boolean isImmediateSet() {
-    return (getStateHelper().get(ATTR_IMMEDIATE) != null) || (getValueExpression(ATTR_IMMEDIATE) != null);
+    return getStateHelper().get(ATTR_IMMEDIATE) != null || getValueExpression(ATTR_IMMEDIATE) != null;
   }
 
   public String getFor() {

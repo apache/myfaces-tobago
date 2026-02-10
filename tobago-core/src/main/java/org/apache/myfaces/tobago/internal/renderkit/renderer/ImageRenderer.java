@@ -49,8 +49,8 @@ public class ImageRenderer extends RendererBase {
     final String value = image.getUrl();
     final boolean fontAwesome = StringUtils.startsWith(value, "fa-");
     final boolean disabled = image.isDisabled()
-        || (image.getParent() instanceof AbstractUICommandBase
-        && ((AbstractUICommandBase) image.getParent()).isDisabled());
+        || image.getParent() instanceof AbstractUICommandBase
+        && ((AbstractUICommandBase) image.getParent()).isDisabled();
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, image);
     final Markup markup = image.getMarkup();
     if (fontAwesome) {
