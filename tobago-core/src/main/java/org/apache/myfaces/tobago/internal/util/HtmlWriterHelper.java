@@ -99,7 +99,7 @@ public final class HtmlWriterHelper extends WriterHelper {
 
         // Tilde or less...
         if (ch < CHARS_TO_ESCAPE.length) {
-          if (isAttribute && ch == '&' && (i + 1 < end) && text[i + 1] == '{') {
+          if (isAttribute && ch == '&' && i + 1 < end && text[i + 1] == '{') {
             // HTML 4.0, section B.7.1: ampersands followed by
             // an open brace don't get escaped
             buffer.addToBuffer('&');

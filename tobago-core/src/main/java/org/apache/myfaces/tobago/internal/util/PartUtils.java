@@ -168,18 +168,18 @@ public final class PartUtils {
      */
     private String getToken(final boolean quoted) {
       // Trim leading white spaces
-      while ((i1 < i2) && (Character.isWhitespace(chars[i1]))) {
+      while (i1 < i2 && Character.isWhitespace(chars[i1])) {
         i1++;
       }
       // Trim trailing white spaces
-      while ((i2 > i1) && (Character.isWhitespace(chars[i2 - 1]))) {
+      while (i2 > i1 && Character.isWhitespace(chars[i2 - 1])) {
         i2--;
       }
       // Strip away quotation marks if necessary
       if (quoted
-          && ((i2 - i1) >= 2)
-          && (chars[i1] == '"')
-          && (chars[i2 - 1] == '"')) {
+          && i2 - i1 >= 2
+          && chars[i1] == '"'
+          && chars[i2 - 1] == '"') {
         i1++;
         i2--;
       }
@@ -338,16 +338,16 @@ public final class PartUtils {
             '=', separator
         });
         paramValue = null;
-        if (hasChar() && (charArray[pos] == '=')) {
+        if (hasChar() && charArray[pos] == '=') {
           pos++; // skip '='
           paramValue = parseQuotedToken(new char[]{
               separator
           });
         }
-        if (hasChar() && (charArray[pos] == separator)) {
+        if (hasChar() && charArray[pos] == separator) {
           pos++; // skip separator
         }
-        if ((paramName != null) && (paramName.length() > 0)) {
+        if (paramName != null && paramName.length() > 0) {
           if (this.lowerCaseNames) {
             paramName = paramName.toLowerCase(Locale.ENGLISH);
           }

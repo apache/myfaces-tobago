@@ -109,7 +109,7 @@ public abstract class AbstractUICommandBase extends UICommand
     final TobagoConfig tobagoConfig = TobagoConfig.getInstance(facesContext);
     final Boolean disabled = (Boolean) getStateHelper().eval(AbstractUICommand.PropertyKeys.disabled);
     return disabled != null && disabled
-        || (tobagoConfig.getSecurityAnnotation() == SecurityAnnotation.disable && !isAllowed());
+        || tobagoConfig.getSecurityAnnotation() == SecurityAnnotation.disable && !isAllowed();
   }
 
   private boolean isAllowed() {

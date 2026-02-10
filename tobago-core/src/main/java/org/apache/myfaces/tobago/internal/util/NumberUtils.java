@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.internal.util;
 
 public class NumberUtils {
   public static boolean isDigits(final String str) {
-    if ((str == null) || (str.length() == 0)) {
+    if (str == null || str.isEmpty()) {
       return false;
     }
     for (int i = 0; i < str.length(); i++) {

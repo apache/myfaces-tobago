@@ -602,7 +602,7 @@ public abstract class SelectManyRendererBase extends MessageLayoutRendererBase {
             return hasNext();
           } else {
 
-            if ((facesContext.isProjectStage(ProjectStage.Production) && LOG.isDebugEnabled())
+            if (facesContext.isProjectStage(ProjectStage.Production) && LOG.isDebugEnabled()
                 || LOG.isWarnEnabled()) {
               final ValueExpression expression = currentUISelectItems.getValueExpression("value");
               final Object[] objects = {

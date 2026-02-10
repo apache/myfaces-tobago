@@ -53,7 +53,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <required.maven.version>3.8.1</required.maven.version>
     <maven-pmd-plugin.version>3.28.0</maven-pmd-plugin.version>
-    <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
+    <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
     <junit-jupiter.version>6.0.2</junit-jupiter.version>
     <exec.version>3.6.3</exec.version>
     <checkstyle-rules.version>25</checkstyle-rules.version>
@@ -380,6 +380,15 @@
             <groupId>org.apache.myfaces.buildtools</groupId>
             <artifactId>checkstyle-rules</artifactId>
             <version>${checkstyle-rules.version}</version>
+            <!--
+            Attention: If here is a SNAPSHOT version, the maven-release-plugin will not find and forbid the release.
+            See: https://issues.apache.org/jira/browse/MRELEASE-378
+            -->
+          </dependency>
+          <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>12.1.2</version>
           </dependency>
         </dependencies>
       </plugin>

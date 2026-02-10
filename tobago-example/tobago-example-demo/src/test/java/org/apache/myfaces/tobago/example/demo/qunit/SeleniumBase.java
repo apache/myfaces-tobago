@@ -179,7 +179,7 @@ abstract class SeleniumBase {
   void setupWebDriver(final Browser browser, final String serverUrl, final String path, final boolean accessTest)
       throws MalformedURLException, UnsupportedEncodingException {
     if (Browser.chrome.equals(browser)
-        && (chromeDriver == null) || ((RemoteWebDriver) chromeDriver).getSessionId() == null) {
+        && chromeDriver == null || ((RemoteWebDriver) chromeDriver).getSessionId() == null) {
       chromeDriver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), new ChromeOptions());
     }
 
