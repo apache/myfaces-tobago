@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="jakarta.faces.facelets">
+
+  <tc:in id="in" required="true" requiredMessage="required message for in"/>
+  <tc:date id="date" required="true" requiredMessage="required message for date"/>
+  <tc:file id="file" required="true" requiredMessage="required message for file"/>
+  <tc:selectBooleanCheckbox id="selectBooleanCheckbox" required="true"
+                            requiredMessage="required message for selectBooleanCheckbox"/>
+  <tc:selectBooleanToggle id="selectBooleanToggle" required="true"
+                          requiredMessage="required message for selectBooleanToggle"/>
+  <tc:selectOneChoice id="selectOneChoice" required="true" requiredMessage="required message for selectOneChoice">
+    <tc:selectItem noSelectionOption="true"/>
+    <tc:selectItem itemValue="one"/>
+    <tc:selectItem itemValue="two"/>
+  </tc:selectOneChoice>
+  <tc:selectOneList id="selectOneList" required="true" requiredMessage="required message for selectOneList">
+    <tc:selectItem itemValue="one"/>
+    <tc:selectItem itemValue="two"/>
+  </tc:selectOneList>
+  <tc:selectOneListbox id="selectOneListbox" size="2" required="true"
+                       requiredMessage="required message for selectOneListbox">
+    <tc:selectItem itemValue="one"/>
+    <tc:selectItem itemValue="two"/>
+  </tc:selectOneListbox>
+  <tc:selectOneRadio id="selectOneRadio" required="true" requiredMessage="required message for selectOneRadio">
+    <tc:selectItem itemValue="one"/>
+    <tc:selectItem itemValue="two"/>
+  </tc:selectOneRadio>
+  <tc:selectManyCheckbox id="selectManyCheckbox" required="true"
+                         requiredMessage="required message for selectManyCheckbox">
+    <tc:selectItem itemValue="one"/>
+    <tc:selectItem itemValue="two"/>
+  </tc:selectManyCheckbox>
+  <tc:selectManyList id="selectManyList" required="true" requiredMessage="required message for selectManyList">
+    <tc:selectItem itemValue="one"/>
+    <tc:selectItem itemValue="two"/>
+  </tc:selectManyList>
+  <tc:selectManyListbox id="selectManyListbox" size="2" required="true"
+                        requiredMessage="required message for selectManyListbox">
+    <tc:selectItem itemValue="one"/>
+    <tc:selectItem itemValue="two"/>
+  </tc:selectManyListbox>
+  <tc:selectManyShuttle id="selectManyShuttle" size="2" required="true"
+                        requiredMessage="required message for selectManyShuttle">
+    <tc:selectItem itemValue="one"/>
+    <tc:selectItem itemValue="two"/>
+  </tc:selectManyShuttle>
+  <tc:stars id="stars" required="true" requiredMessage="required message for stars"/>
+  <tc:textarea id="textarea" required="true" requiredMessage="required message for textarea"/>
+
+  <tc:button id="submit" label="Submit"/>
+</ui:composition>
