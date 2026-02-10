@@ -233,11 +233,16 @@ public final class RenderUtils {
 
     if (outcome != null) {
       final ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
-      url = viewHandler.getBookmarkableURL(
-          facesContext,
-          outcome,
-          Collections.emptyMap(),
-          true);
+      try {
+        url = viewHandler.getBookmarkableURL(
+            facesContext,
+            outcome,
+            Collections.emptyMap(),
+            true);
+      } catch (Exception e) {
+        LOG.error("Can't create a url from outcome='{}', exception: {}", outcome, e.getMessage());
+        url = viewHandler.getActionURL(facesContext, outcome);
+      }
     } else if (link != null) {
       if (StringUtils.isUrl(link)) { // external link
         url = link;
