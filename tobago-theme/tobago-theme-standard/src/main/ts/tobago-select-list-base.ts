@@ -19,12 +19,14 @@ import {Css} from "./tobago-css";
 import {TobagoFilterRegistry} from "./tobago-filter-registry";
 import {Key} from "./tobago-key";
 import {DropdownMenu, DropdownMenuAlignment} from "./tobago-dropdown-menu";
+import {Spinner} from "./tobago-spinner";
 
 export abstract class SelectListBase extends HTMLElement {
 
   private static readonly SUFFIX_FILTER_UPDATE: string = "::filter-update";
 
   protected dropdownMenu: DropdownMenu;
+  private spinner: Spinner;
   private timeout: number;
   private filterUpdateLoader: HTMLElement;
   protected lastSuccessfulSearchQuery: string;
@@ -46,6 +48,7 @@ export abstract class SelectListBase extends HTMLElement {
     }
     if (this.serverSideFiltering) {
       this.insertAdjacentHTML("beforeend", `<div class="${Css.SPINNER}"/>`);
+      this.spinner = new Spinner(this, this.selectField, this.filterInput, this.spinnerDiv);
     }
     this.tbody.addEventListener("click", this.tbodyClickEvent.bind(this));
 
@@ -248,26 +251,12 @@ Type: ${data.type}`);
   }
 
   private showSpinner(): void {
-    const rect = this.selectField.getBoundingClientRect();
-    const cStyle = getComputedStyle(this.selectField);
-    const top = window.scrollY + rect.top;
-    const right = window.scrollX + rect.right;
-    const bottom = window.scrollY + rect.bottom;
-    const innerBorderTop = top + parseFloat(cStyle.borderTopWidth) + parseFloat(cStyle.paddingTop);
-    const innerBorderRight = right - parseFloat(cStyle.borderRight) - parseFloat(cStyle.paddingRight);
-    const innerBorderBottom = bottom - parseFloat(cStyle.borderBottom) - parseFloat(cStyle.paddingBottom);
-    const size = innerBorderBottom - innerBorderTop;
-    this.spinner.style.width = size + "px";
-    this.spinner.style.height = size + "px";
-    this.spinner.style.top = innerBorderTop + "px";
-    this.spinner.style.left = (innerBorderRight - size) + "px";
-    this.spinner.classList.add(Css.TOBAGO_SHOW);
-
-    this.filterInput.style.marginRight = size + "px";
+    this.filterInput.style.marginRight = this.spinner.size + "px";
+    this.spinner.show();
   }
 
   private hideSpinner(): void {
-    this.spinner.classList.remove(Css.TOBAGO_SHOW);
+    this.spinner.hide();
     this.filterInput.style.marginRight = null;
   }
 
@@ -458,7 +447,7 @@ Type: ${data.type}`);
     return minChars ? parseInt(minChars) : 0;
   }
 
-  private get spinner(): HTMLDivElement {
+  private get spinnerDiv(): HTMLDivElement {
     return this.querySelector<HTMLDivElement>(`.${Css.SPINNER}`);
   }
 }

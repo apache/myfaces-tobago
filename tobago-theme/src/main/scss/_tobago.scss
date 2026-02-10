@@ -392,6 +392,8 @@ $icon-sort-numbers: (
   .spinner {
     display: none;
     position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 
     &.tobago-show {
       display: block;
@@ -823,9 +825,15 @@ tobago-image {
 
 tobago-in {
   display: block;
+  position: relative;
+  //anchor-scope: all;
 
   &.tobago-readonly {
     //added because of TobagoClassUnitTest
+  }
+
+  input.form-control {
+    //anchor-name: --tobago-in-field;
   }
 
   .input-group {
@@ -1510,6 +1518,8 @@ tobago-select-one-list {
   @include selectListOptions();
   @include spinner();
 
+  position: relative;
+
   .tobago-select-field {
     span {
       white-space: nowrap;
@@ -1541,6 +1551,8 @@ tobago-select-many-list {
   @include selectListBase();
   @include selectListOptions();
   @include spinner();
+
+  position: relative;
 
   &.tobago-focus[filter] .tobago-select-field {
     flex-wrap: wrap;

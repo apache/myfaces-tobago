@@ -19,50 +19,19 @@
 
 import {expect, test} from "@playwright/test";
 
-test.describe("900-test/2100-selectManyList/deselect/deselect.xhtml", () => {
+test.describe("900-test/in/suggest/spinner/Spinner.xhtml", () => {
 
   test.beforeEach(async ({page}, testInfo) => {
-    await page.goto("/content/900-test/selectManyList/deselect/deselect.xhtml");
-  });
-
-  test("tc:selectManyList: deselect", async ({page}) => {
-    const reset = page.locator("button[id='page:mainForm:reset']");
-    await reset.click();
-
-    const selectManyList = page.locator("tobago-select-many-list[id='page:mainForm:selectManyList']");
-    const venus = selectManyList.locator(".btn-group[data-tobago-value='Venus']");
-    const earth = selectManyList.locator(".btn-group[data-tobago-value='Earth']");
-    const jupiter = selectManyList.locator(".btn-group[data-tobago-value='Jupiter']");
-    await expect(venus).toBeVisible();
-    await expect(earth).toBeVisible();
-    await expect(jupiter).toBeVisible();
-
-    await venus.locator(".tobago-button").click();
-    await expect(venus).not.toBeVisible();
-    await expect(earth).toBeVisible();
-    await expect(jupiter).toBeVisible();
-
-    await jupiter.locator(".tobago-button").click();
-    await expect(venus).not.toBeVisible();
-    await expect(earth).toBeVisible();
-    await expect(jupiter).not.toBeVisible();
-  });
-});
-
-test.describe("900-test/selectManyList/server-side-filtering/spinner/Spinner.xhtml", () => {
-
-  test.beforeEach(async ({page}, testInfo) => {
-    await page.goto("/content/900-test/selectManyList/server-side-filtering/spinner/Spinner.xhtml");
+    await page.goto("/content/900-test/in/suggest/spinner/Spinner.xhtml");
   });
 
   test("Spinner position: standard", async ({page}) => {
-    const input = page.locator("tobago-select-many-list[id='page:mainForm:standardSelectManyList']");
-    const field = input.locator(".tobago-select-field");
-    const filter = input.locator("input[id='page:mainForm:standardSelectManyList::filter']");
+    const input = page.locator("tobago-in[id='page:mainForm:standardInput']");
+    const field = input.locator("input[type='text']");
     const spinner = input.locator(".spinner");
 
-    await filter.fill("show spinner");
-    await expect(filter).toBeVisible();
+    await field.fill("show spinner");
+    await expect(spinner).toBeVisible();
 
     const fieldBox = await field.boundingBox();
     const spinnerBox = await spinner.boundingBox();
@@ -73,13 +42,12 @@ test.describe("900-test/selectManyList/server-side-filtering/spinner/Spinner.xht
   });
 
   test("Spinner position: input group", async ({page}) => {
-    const input = page.locator("tobago-select-many-list[id='page:mainForm:groupSelectManyList']");
-    const field = input.locator(".tobago-select-field");
-    const filter = input.locator("input[id='page:mainForm:groupSelectManyList::filter']");
+    const input = page.locator("tobago-in[id='page:mainForm:groupInput']");
+    const field = input.locator("input[type='text']");
     const spinner = input.locator(".spinner");
 
-    await filter.fill("show spinner");
-    await expect(filter).toBeVisible();
+    await field.fill("show spinner");
+    await expect(spinner).toBeVisible();
 
     const fieldBox = await field.boundingBox();
     const spinnerBox = await spinner.boundingBox();
@@ -93,9 +61,8 @@ test.describe("900-test/selectManyList/server-side-filtering/spinner/Spinner.xht
     const button = page.locator("button[id='page:mainForm:openPopupButton']");
     const popup = page.locator("[id='page:mainForm:popup']");
     const collapse = page.locator("input[id='page:mainForm:popup::collapse']");
-    const input = page.locator("tobago-select-many-list[id='page:mainForm:popup:popupSelectManyList']");
-    const field = input.locator(".tobago-select-field");
-    const filter = input.locator("input[id='page:mainForm:popup:popupSelectManyList::filter']");
+    const input = page.locator("tobago-in[id='page:mainForm:popup:popupInput']");
+    const field = input.locator("input[type='text']");
     const spinner = input.locator(".spinner");
 
     await button.click();
@@ -103,7 +70,7 @@ test.describe("900-test/selectManyList/server-side-filtering/spinner/Spinner.xht
     await expect(collapse).toHaveValue("false");
     await expect(field).toBeVisible();
 
-    await filter.fill("show spinner");
+    await field.fill("show spinner");
     await expect(spinner).toBeVisible();
 
     const fieldBox = await field.boundingBox();
