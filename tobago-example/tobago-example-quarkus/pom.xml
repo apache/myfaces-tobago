@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-example</artifactId>
-    <version>6.9.1</version>
+    <version>6.9.2-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-example-quarkus</artifactId>
   <packaging>jar</packaging>
@@ -132,6 +132,6 @@
   </build>
 
   <scm>
-    <tag>tobago-6.9.1</tag>
+    <tag>tobago-6.9.0</tag>
   </scm>
 </project>
