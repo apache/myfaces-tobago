@@ -98,7 +98,7 @@ public class ApiController implements Serializable {
       }
     }
     LOG.error("No current release found!");
-    return Release.v6_9_0.getVersion(); // should not happen
+    return Release.v6_9_1.getVersion(); // should not happen
   }
 
   public String getJiraUrl(final String version) {
