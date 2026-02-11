@@ -131,6 +131,7 @@
   </welcome-file-list>
 
   <session-config>
+    <session-timeout>5</session-timeout>
     <!-- for WebSphere you need to comment out this block, because WebSphere want to set it himself -->
     <cookie-config>
       <http-only>true</http-only>
