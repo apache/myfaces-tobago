@@ -108,4 +108,51 @@ public class ButtonsRendererUnitTest extends RendererTestBase {
     Assertions.assertEquals(loadHtml("renderer/buttons/badgeWarning-inside-buttons.html"), formattedResult());
   }
 
+  /**
+   * <tc:buttons id="splitButtonsPrimary">
+   * <tc:button id="main" label="Primary" markup="primary"/>
+   * <tc:button id="split" markup="primary" omit="true">
+   * <tc:link id="entry1" label="Entry 1"/>
+   * <tc:link id="entry2" label="Entry 2"/>
+   * <tc:link id="entry3" label="Entry 3"/>
+   * </tc:button>
+   * </tc:buttons>
+   */
+  @Test
+  public void primarySplitButton() throws IOException {
+    final UIButtons buttons = (UIButtons) ComponentUtils.createComponent(
+        facesContext, Tags.buttons.componentType(), RendererTypes.Buttons, "splitButtonsPrimary");
+
+    final UIButton mainButton = (UIButton) ComponentUtils.createComponent(
+        facesContext, Tags.button.componentType(), RendererTypes.Button, "main");
+    mainButton.setLabel("Primary");
+    mainButton.setMarkup(Markup.PRIMARY);
+
+    final UIButton splitButton = (UIButton) ComponentUtils.createComponent(
+        facesContext, Tags.button.componentType(), RendererTypes.Button, "split");
+    splitButton.setMarkup(Markup.PRIMARY);
+    splitButton.setOmit(true);
+
+    final UILink entry1 = (UILink) ComponentUtils.createComponent(
+        facesContext, Tags.link.componentType(), RendererTypes.Link, "entry1");
+    entry1.setLabel("Entry 1");
+
+    final UILink entry2 = (UILink) ComponentUtils.createComponent(
+        facesContext, Tags.link.componentType(), RendererTypes.Link, "entry2");
+    entry2.setLabel("Entry 2");
+
+    final UILink entry3 = (UILink) ComponentUtils.createComponent(
+        facesContext, Tags.link.componentType(), RendererTypes.Link, "entry3");
+    entry3.setLabel("Entry 3");
+
+    splitButton.getChildren().add(entry1);
+    splitButton.getChildren().add(entry2);
+    splitButton.getChildren().add(entry3);
+    buttons.getChildren().add(mainButton);
+    buttons.getChildren().add(splitButton);
+
+    buttons.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/buttons/primary-split-button.html"), formattedResult());
+  }
 }
