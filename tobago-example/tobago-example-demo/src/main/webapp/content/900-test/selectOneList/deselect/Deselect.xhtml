@@ -28,6 +28,7 @@
                     expanded="#{deselectController.expanded}">
     <tc:selectItems value="#{deselectController.planets}"
                     var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+    <f:ajax event="click" render="timestamp"/>
   </tc:selectOneList>
   <tc:out id="output" label="Planet" value="#{deselectController.selectedPlanet}"/>
   <tc:button id="submit" label="Submit"/>
