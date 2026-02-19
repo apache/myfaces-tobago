@@ -26,13 +26,13 @@
 </cc:interface>
 <cc:implementation>
   <tc:button id="resetImmediateTrueAjaxEnabled" label="Reset immediate=true ajax=enabled" immediate="true"
-             action="#{cc.attrs.columnSelectorAjaxController.reset(true, false)}"/>
+             action="#{cc.attrs.columnSelectorAjaxController.reset(true, false, true)}"/>
   <tc:button id="resetImmediateTrueAjaxDisabled" label="Reset immediate=true ajax=disabled" immediate="true"
-             action="#{cc.attrs.columnSelectorAjaxController.reset(true, true)}"/>
+             action="#{cc.attrs.columnSelectorAjaxController.reset(true, true, true)}"/>
   <tc:button id="resetImmediateFalseAjaxEnabled" label="Reset immediate=false ajax=enabled" immediate="true"
-             action="#{cc.attrs.columnSelectorAjaxController.reset(false, false)}"/>
+             action="#{cc.attrs.columnSelectorAjaxController.reset(false, false, true)}"/>
   <tc:button id="resetImmediateFalseAjaxDisabled" label="Reset immediate=false ajax=disabled" immediate="true"
-             action="#{cc.attrs.columnSelectorAjaxController.reset(false, true)}"/>
+             action="#{cc.attrs.columnSelectorAjaxController.reset(false, true, true)}"/>
 
   <tc:out label="immediate" value="#{cc.attrs.columnSelectorAjaxController.columnSelectorImmediate}"/>
   <tc:out label="f:ajax"

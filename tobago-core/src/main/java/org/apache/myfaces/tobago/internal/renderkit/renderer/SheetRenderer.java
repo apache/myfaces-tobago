@@ -173,9 +173,8 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> im
           }
           component.queueEvent(new SheetRowSelectionChangeEvent(component, sourceId, oldSelectedRows, selectedRows));
         }
-      } else {
-        ComponentUtils.setAttribute(component, Attributes.selectedListString, selectedRows);
       }
+      ComponentUtils.setAttribute(component, Attributes.selectedListString, selectedRows);
     }
 
     if (component.isLazy()) {
