@@ -364,7 +364,7 @@ test.describe("sheet/columnSelector/immediate/immediate.xhtml", () => {
     await page.goto("/content/900-test/sheet/columnSelector/immediate/immediate.xhtml");
   });
 
-  test("immediate=true, ajax=enabled", async ({page}) => {
+  test("immediate=true, ajax=enabled, input=required", async ({page}) => {
     const alert = page.locator("tobago-messages[id='page:messages'] .alert");
     const reset = page.locator(".tobago-button[id='page:mainForm:resetImmediateTrueAjaxEnabled']");
     const sheet = page.locator("tobago-sheet[id='page:mainForm:sheet']");
@@ -396,7 +396,7 @@ test.describe("sheet/columnSelector/immediate/immediate.xhtml", () => {
     await expect(alert).not.toBeVisible();
   });
 
-  test("immediate=true, ajax=disabled", async ({page}) => {
+  test("immediate=true, ajax=disabled, input=required", async ({page}) => {
     const alert = page.locator("tobago-messages[id='page:messages'] .alert");
     const reset = page.locator(".tobago-button[id='page:mainForm:resetImmediateTrueAjaxDisabled']");
     const sheet = page.locator("tobago-sheet[id='page:mainForm:sheet']");
@@ -436,7 +436,7 @@ test.describe("sheet/columnSelector/immediate/immediate.xhtml", () => {
     await expect(alert).toBeVisible();
   });
 
-  test("immediate=false, ajax=enabled", async ({page}) => {
+  test("immediate=false, ajax=enabled, input=required", async ({page}) => {
     const alert = page.locator("tobago-messages[id='page:messages'] .alert");
     const reset = page.locator(".tobago-button[id='page:mainForm:resetImmediateFalseAjaxEnabled']");
     const sheet = page.locator("tobago-sheet[id='page:mainForm:sheet']");
@@ -464,7 +464,7 @@ test.describe("sheet/columnSelector/immediate/immediate.xhtml", () => {
     await expect(alert).toBeVisible();
   });
 
-  test("immediate=false, ajax=disabled", async ({page}) => {
+  test("immediate=false, ajax=disabled, input=required", async ({page}) => {
     const alert = page.locator("tobago-messages[id='page:messages'] .alert");
     const reset = page.locator(".tobago-button[id='page:mainForm:resetImmediateFalseAjaxDisabled']");
     const sheet = page.locator("tobago-sheet[id='page:mainForm:sheet']");
@@ -493,6 +493,40 @@ test.describe("sheet/columnSelector/immediate/immediate.xhtml", () => {
     await submit.click();
     await expect(selectedCount).toHaveText("0");
     await expect(alert).toBeVisible();
+  });
+
+  test("immediate=true, ajax=disabled, input=optional", async ({page}) => {
+    const reset = page.locator(".tobago-button[id='page:mainForm:resetImmediateTrueAjaxDisabledInputOptional']");
+    const sheet = page.locator("tobago-sheet[id='page:mainForm:sheet']");
+    const toggleAll = sheet.locator("th[id='page:mainForm:sheet:colSelect'] input");
+    const row0Checkbox = sheet.locator("input[name='page:mainForm:sheet_data_row_selector_0']");
+    const row4Orbit = sheet.locator("tr[row-index='4'] td:nth-child(3) tobago-out");
+    const selectedCount = page.locator("tobago-out[id='page:mainForm:selectedCount'] span.form-control-plaintext");
+    const submit = page.locator("button[id='page:mainForm:submit']");
+
+    await reset.click();
+    await expect(sheet).toBeVisible();
+    await expect(selectedCount).toHaveText("0");
+
+    await row0Checkbox.click();
+    await expect(selectedCount).toHaveText("0");
+    await submit.click();
+    await expect(selectedCount).toHaveText("1");
+
+    await row4Orbit.click();
+    await expect(selectedCount).toHaveText("1");
+    await submit.click();
+    await expect(selectedCount).toHaveText("2");
+
+    await toggleAll.click();
+    await expect(selectedCount).toHaveText("2");
+    await submit.click();
+    await expect(selectedCount).toHaveText("5");
+
+    await toggleAll.click();
+    await expect(selectedCount).toHaveText("5");
+    await submit.click();
+    await expect(selectedCount).toHaveText("0");
   });
 
   test("Save selected rows (Ajax)", async ({page}) => {

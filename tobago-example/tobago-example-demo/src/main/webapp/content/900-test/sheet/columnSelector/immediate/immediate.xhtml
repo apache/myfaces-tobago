@@ -25,17 +25,21 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="jakarta.faces.facelets">
 
-  <tc:button id="resetImmediateTrueAjaxEnabled" label="Reset immediate=true ajax=enabled" immediate="true"
-             action="#{columnSelectorAjaxController.reset(true, false)}"/>
-  <tc:button id="resetImmediateTrueAjaxDisabled" label="Reset immediate=true ajax=disabled" immediate="true"
-             action="#{columnSelectorAjaxController.reset(true, true)}"/>
-  <tc:button id="resetImmediateFalseAjaxEnabled" label="Reset immediate=false ajax=enabled" immediate="true"
-             action="#{columnSelectorAjaxController.reset(false, false)}"/>
-  <tc:button id="resetImmediateFalseAjaxDisabled" label="Reset immediate=false ajax=disabled" immediate="true"
-             action="#{columnSelectorAjaxController.reset(false, true)}"/>
+  <tc:button id="resetImmediateTrueAjaxEnabled" label="Reset immediate=true ajax=enabled input=required"
+             immediate="true" action="#{columnSelectorAjaxController.reset(true, false, true)}"/>
+  <tc:button id="resetImmediateTrueAjaxDisabled" label="Reset immediate=true ajax=disabled input=required"
+             immediate="true" action="#{columnSelectorAjaxController.reset(true, true, true)}"/>
+  <tc:button id="resetImmediateFalseAjaxEnabled" label="Reset immediate=false ajax=enabled input=required"
+             immediate="true" action="#{columnSelectorAjaxController.reset(false, false, true)}"/>
+  <tc:button id="resetImmediateFalseAjaxDisabled" label="Reset immediate=false ajax=disabled input=required"
+             immediate="true" action="#{columnSelectorAjaxController.reset(false, true, true)}"/>
+  <tc:button id="resetImmediateTrueAjaxDisabledInputOptional"
+             label="Reset immediate=true ajax=disabled input=optional"
+             immediate="true" action="#{columnSelectorAjaxController.reset(true, true, false)}"/>
 
   <tc:out label="immediate" value="#{columnSelectorAjaxController.columnSelectorImmediate}"/>
   <tc:out label="f:ajax" value="#{columnSelectorAjaxController.columnSelectorAjaxDisabled ? 'disabled' : 'enabled'}"/>
+  <tc:out label="input" value="#{columnSelectorAjaxController.inRequired ? 'required' : 'optional'}"/>
 
   <tc:sheet id="sheet" value="#{columnSelectorAjaxController.solarList}" var="object" rows="5"
             state="#{columnSelectorAjaxController.sheetState}" selectable="multi">
@@ -56,7 +60,7 @@
       <tc:out value="#{object.discoverer}" autoSpacing="false"/>
     </tc:column>
     <tc:column label="Required">
-      <tc:in required="true">
+      <tc:in required="#{columnSelectorAjaxController.inRequired}">
         <tc:event event="click" stopPropagation="true" omit="true"/>
       </tc:in>
     </tc:column>
