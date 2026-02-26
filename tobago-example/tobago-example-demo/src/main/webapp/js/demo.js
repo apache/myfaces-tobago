@@ -160,15 +160,14 @@
             input.insertAdjacentElement("beforebegin", quick);
             quick.addEventListener("blur", (event => {
                 const quick = event.currentTarget;
-                let value = quick.value;
+                const value = quick.value;
                 let day, month, year;
                 if (value.length == 4) {
                     day = Number.parseInt(value.substring(0, 2));
                     month = Number.parseInt(value.substring(2, 4));
                     year = new Date().getFullYear();
                 }
-                if (value.length == 6) ;
-                let string = `${year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day}`;
+                const string = `${year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day}`;
                 console.info("date ->", string);
                 const input = document.getElementById(quick.getAttribute("targetId"));
                 input.value = string;
@@ -273,7 +272,7 @@
         }
     }
     document.addEventListener("DOMContentLoaded", function (event) {
-        let element = document.documentElement; // XXX fixme
+        const element = document.documentElement; // XXX fixme
         // XXX init areas after Faces AJAX update not implemented yet!
         DemoInspect.initInspect(element); //TODO fix inspection
     });
@@ -539,7 +538,7 @@
         }
     }
     document.addEventListener("DOMContentLoaded", function (event) {
-        let element = document.documentElement; // XXX fixme
+        const element = document.documentElement; // XXX fixme
         // XXX init areas after Faces AJAX update not implemented yet!
         DemoTest.initTestLinks(element);
         DemoTest.initTestFrame(element);

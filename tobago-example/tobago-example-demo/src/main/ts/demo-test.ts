@@ -40,7 +40,7 @@ class DemoTest {
 }
 
 document.addEventListener("DOMContentLoaded", function (event: Event): void {
-  let element = document.documentElement; // XXX fixme
+  const element = document.documentElement; // XXX fixme
 // XXX init areas after Faces AJAX update not implemented yet!
   DemoTest.initTestLinks(element);
   DemoTest.initTestFrame(element);

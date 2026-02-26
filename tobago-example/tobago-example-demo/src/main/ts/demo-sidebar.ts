@@ -73,14 +73,14 @@ export class Sidebar extends HTMLElement {
       if (child.tagName === "TOBAGO-SECTION") {
         const sectionNode: SectionNode = {
           id: child.id,
-          title: this.getSectionTitle(<HTMLElement>child),
+          title: this.getSectionTitle(child as HTMLElement),
           level: parent ? parent.level + 1 : 0,
           children: []
         };
         parent.children.push(sectionNode);
-        this.buildSectionTree(<HTMLElement>child, sectionNode);
+        this.buildSectionTree(child as HTMLElement, sectionNode);
       } else {
-        this.buildSectionTree(<HTMLElement>child, parent);
+        this.buildSectionTree(child as HTMLElement, parent);
       }
     }
   }
