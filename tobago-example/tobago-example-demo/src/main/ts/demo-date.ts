@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function (event: Event): void {
 
     quick.addEventListener("blur", (event => {
       const quick = event.currentTarget as HTMLInputElement;
-      let value = quick.value;
+      const value = quick.value;
       let day, month, year;
 
       if (value.length == 4) {
@@ -54,10 +54,8 @@ document.addEventListener("DOMContentLoaded", function (event: Event): void {
         month = Number.parseInt(value.substring(2, 4));
         year = new Date().getFullYear();
       }
-      if (value.length == 6) {
-      }
 
-      let string = `${year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day}`;
+      const string = `${year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day}`;
       console.info("date ->", string);
       const input = document.getElementById(quick.getAttribute("targetId")) as HTMLInputElement;
       input.value = string;

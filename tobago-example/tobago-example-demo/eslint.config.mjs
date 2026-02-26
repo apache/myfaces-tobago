@@ -16,43 +16,16 @@
  */
 
 import {defineConfig} from "eslint/config";
-import eslint from "@eslint/js";
-import tseslint from "typescript-eslint";
-import tsParser from "@typescript-eslint/parser";
-import stylistic from '@stylistic/eslint-plugin'
+import tobagoThemeConfig from "../../tobago-theme/eslint.config.mjs";
 
 export default defineConfig([
+  ...tobagoThemeConfig,
   {
-    ignores: [
-      "**/tobago-polyfill.ts"
-    ]
-  },
-  eslint.configs.recommended,
-  tseslint.configs.recommended,
-  tseslint.configs.stylistic,
-  {
-    plugins: {
-      '@stylistic': stylistic,
-    },
     languageOptions: {
-      parser: tsParser,
-      ecmaVersion: 2018,
-      sourceType: "module",
       parserOptions: {
         project: "./tsconfig.json",
+        tsconfigRootDir: import.meta.dirname,
       },
     },
-    rules: {
-      "@stylistic/semi": "error",
-      "@typescript-eslint/no-explicit-any": "off",
-      "@typescript-eslint/no-unsafe-function-type": "off",
-      "@typescript-eslint/no-unused-expressions": "off",
-      "@typescript-eslint/no-unused-vars": "off",
-      "max-len": ["error", {code: 120,}],
-      "no-fallthrough": "off",
-      "no-irregular-whitespace": "off",
-      "no-multiple-empty-lines": "error",
-      "no-useless-assignment": "off"
-    }
   },
 ]);
