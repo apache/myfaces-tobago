@@ -179,7 +179,11 @@ public class SelectOneRadioRenderer<T extends AbstractUISelectOneRadio> extends 
 
         final String label = item.getLabel();
         if (label != null) {
-          writer.writeText(label);
+          if (item.isEscape()) {
+            writer.writeText(label);
+          } else {
+            writer.write(label);
+          }
         }
 
         writer.endElement(HtmlElements.LABEL);
