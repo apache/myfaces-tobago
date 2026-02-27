@@ -12698,6 +12698,7 @@ tobago-image > img {
 
 tobago-in {
   display: block;
+  position: relative;
 }
 tobago-in .input-group > tobago-dropdown {
   /* fix corner styling, because tobago-dropdown use a surrounding container inside an input group */
@@ -12724,6 +12725,8 @@ tobago-in .input-group tobago-select-one-choice.form-select > .form-select {
 tobago-in .spinner {
   display: none;
   position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 tobago-in .spinner.tobago-show {
   display: block;
@@ -13701,6 +13704,8 @@ tobago-select-one-list .tobago-options .table tfoot tr.tobago-custom-footer td:e
 tobago-select-one-list .spinner {
   display: none;
   position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 tobago-select-one-list .spinner.tobago-show {
   display: block;
@@ -13717,6 +13722,9 @@ tobago-select-one-list .spinner:after {
   z-index: 5;
   transform: translateY(-50%);
   animation: rotate 1s linear infinite;
+}
+tobago-select-one-list {
+  position: relative;
 }
 tobago-select-one-list .tobago-select-field span {
   white-space: nowrap;
@@ -13906,6 +13914,8 @@ tobago-select-many-list .tobago-options .table tfoot tr.tobago-custom-footer td:
 tobago-select-many-list .spinner {
   display: none;
   position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 tobago-select-many-list .spinner.tobago-show {
   display: block;
@@ -13922,6 +13932,9 @@ tobago-select-many-list .spinner:after {
   z-index: 5;
   transform: translateY(-50%);
   animation: rotate 1s linear infinite;
+}
+tobago-select-many-list {
+  position: relative;
 }
 tobago-select-many-list.tobago-focus[filter] .tobago-select-field {
   flex-wrap: wrap;
