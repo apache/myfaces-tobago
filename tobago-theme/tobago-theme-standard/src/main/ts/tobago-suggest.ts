@@ -215,6 +215,7 @@ export class Suggest {
         button.classList.add(Css.DROPDOWN_ITEM);
         button.textContent = items[i];
         button.addEventListener("click", this.selectDropdownItem.bind(this));
+        button.addEventListener("blur", this.blurEvent.bind(this));
         li.appendChild(button);
         dropdownItems.push(li);
       }
