@@ -136,6 +136,7 @@ public enum Attributes {
   id,
   immediate,
   image,
+  includeViewParams,
   inline,
   itemDescription,
   itemDisabled,
