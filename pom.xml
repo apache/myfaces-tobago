@@ -61,7 +61,7 @@
     <jsf.target>2.0</jsf.target>
     <required.maven.version>3.8.1</required.maven.version>
     <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
-    <checkstyle.version>12.3.0</checkstyle.version>
+    <checkstyle.version>13.3.0</checkstyle.version>
     <checkstyle-rules.version>25</checkstyle-rules.version>
     <tobago.basedir>${project.basedir}</tobago.basedir>
   </properties>
@@ -446,8 +446,8 @@
                   </unCheckedPlugins>
                 </requirePluginVersions>
                 <requireJavaVersion>
-                  <message>Tobago must be built with Java 17 or higher!</message>
-                  <version>[17,)</version>
+                  <message>Tobago must be built with Java 21 or higher!</message>
+                  <version>[21,)</version>
                 </requireJavaVersion>
               </rules>
             </configuration>
