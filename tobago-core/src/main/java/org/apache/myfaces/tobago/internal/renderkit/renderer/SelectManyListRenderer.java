@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.internal.util.ArrayUtils;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
+import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Arias;
 import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
@@ -307,6 +308,12 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
     }
     writer.startElement(HtmlElements.TR);
     writer.writeAttribute(DataAttributes.VALUE, formattedValue, true);
+    if (item instanceof org.apache.myfaces.tobago.model.SelectItem tobagoSelectItem) {
+      String icon = tobagoSelectItem.getImage();
+      if (Icons.matches(icon)) {
+        writer.writeAttribute(DataAttributes.ICON, icon, true);
+      }
+    }
     writer.writeClassAttribute(
         TobagoClass.SELECT__ITEM,
         contains ? BootstrapClass.TABLE_PRIMARY : null,
@@ -318,6 +325,14 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
     writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
     if (group) {
       writer.startElement(HtmlElements.SPAN);
+    }
+    if (item instanceof org.apache.myfaces.tobago.model.SelectItem tobagoSelectItem) {
+      String image = tobagoSelectItem.getImage();
+      if (image != null && Icons.matches(image)) {
+        writer.startElement(HtmlElements.I);
+        writer.writeClassAttribute(Icons.custom(image));
+        writer.endElement(HtmlElements.I);
+      }
     }
     final String label = item.getLabel();
     if (label != null) {
