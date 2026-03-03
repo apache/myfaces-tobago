@@ -94,7 +94,8 @@ class SelectManyList extends SelectListBase {
       span.role = "group";
       span.dataset.tobagoValue = itemValue;
       this.badges.insertAdjacentElement("beforeend", span);
-      render(this.getBadgeTemplate(option.innerText, option.disabled || this.hiddenSelect.disabled, tabIndex), span);
+      render(this.getBadgeTemplate(option.innerText, option.dataset.tobagoIcon,
+          option.disabled || this.hiddenSelect.disabled, tabIndex), span);
 
       row?.classList.add(Css.TABLE_PRIMARY); // highlight list row
     } else {
@@ -113,12 +114,17 @@ class SelectManyList extends SelectListBase {
       this.filterInput.disabled = this.badgeCloseButtons.length > 0;
     }
   }
+  private iconTemplate(icon: string): HTMLTemplateResult {
+    return icon ? html`<i class='${icon}'></i> `: null;
+  }
 
-  private getBadgeTemplate(text: string, disabled: boolean, tabIndex: number): HTMLTemplateResult {
-    console.debug("creating span: ", text, disabled, tabIndex);
+  private getBadgeTemplate(text: string, icon: string, disabled: boolean, tabIndex: number): HTMLTemplateResult {
+    console.debug("creating span: ", text, icon, disabled, tabIndex);
     return disabled
-        ? html`<tobago-badge class="badge text-bg-primary btn disabled">${text}</tobago-badge>`
-        : html`<tobago-badge class="badge text-bg-primary btn">${text}</tobago-badge>
+        ? html`<tobago-badge class="badge text-bg-primary btn disabled">
+          ${this.iconTemplate(icon)}${text}</tobago-badge>`
+        : html`<tobago-badge class="badge text-bg-primary btn">
+          ${this.iconTemplate(icon)}${text}</tobago-badge>
   <button type='button'
       class='tobago-button btn btn-secondary badge' aria-label='deselect ${text}'
       ${tabIndex > 0 ? " tabindex='" + String(tabIndex) + "'" : ""}
