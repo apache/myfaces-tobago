@@ -59,6 +59,7 @@ export class Suggest {
     this.inputField.addEventListener("keydown", this.keydownEvent.bind(this));
     this.dropdownMenuElement.addEventListener("keydown", this.keydownEvent.bind(this));
 
+    this.inputField.addEventListener("focus", this.focusEvent.bind(this));
     this.inputField.addEventListener("blur", this.blurEvent.bind(this));
     this.dropdownMenuElement.addEventListener("blur", this.blurEvent.bind(this));
   }
@@ -68,6 +69,15 @@ export class Suggest {
    */
   public disconnect(): void {
     this.dropdownMenu.disconnect();
+  }
+
+  private focusEvent(event: UIEvent): void {
+    const inputElement: HTMLInputElement = event.currentTarget as HTMLInputElement;
+    const input = inputElement.value;
+
+    if (this.minChars === 0 && input.length === 0) {
+      this.inputEvent(event); //open dropdown on click for minChars=0 suggests
+    }
   }
 
   private blurEvent(event: FocusEvent): void {
@@ -156,7 +166,7 @@ export class Suggest {
     }
   }
 
-  private inputEvent(event: InputEvent): void {
+  private inputEvent(event: UIEvent): void {
     window.clearTimeout(this.timeout);
 
     const inputElement: HTMLInputElement = event.currentTarget as HTMLInputElement;
