@@ -30,6 +30,9 @@ import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
 import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.component.AbstractUIEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUIReload;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyList;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneList;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneRadio;
 import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
 import org.apache.myfaces.tobago.internal.renderkit.Collapse;
 import org.apache.myfaces.tobago.internal.renderkit.Command;
@@ -41,8 +44,10 @@ import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.internal.util.StyleRenderUtils;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
+import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -487,15 +492,22 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
         if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
           final String image = ((org.apache.myfaces.tobago.model.SelectItem) item).getImage();
           if (image != null) {
-            final AbstractUIStyle style = (AbstractUIStyle) facesContext.getApplication()
-                .createComponent(facesContext, Tags.style.componentType(), RendererTypes.Style.name());
-            style.setTransient(true);
-            style.setBackgroundImage(image);
-            style.setSelector(
-                StyleRenderUtils.encodeIdSelector(component.getClientId(facesContext))
-                    + " option[value=" + formattedValue + "]");
-            // XXX This works not in common browsers...
-            component.getChildren().add(style);
+            if (component instanceof AbstractUISelectOneRadio) {
+              final AbstractUIStyle style = (AbstractUIStyle) facesContext.getApplication()
+                  .createComponent(facesContext, Tags.style.componentType(), RendererTypes.Style.name());
+              style.setTransient(true);
+              style.setBackgroundImage(image);
+              style.setSelector(
+                  StyleRenderUtils.encodeIdSelector(component.getClientId(facesContext))
+                      + " option[value=" + formattedValue + "]");
+              // XXX This works not in common browsers...
+              component.getChildren().add(style);
+            } else if (component instanceof AbstractUISelectManyList
+                || component instanceof AbstractUISelectOneList) {
+              if (Icons.matches(image)) {
+                writer.writeAttribute(DataAttributes.ICON, image, true);
+              }
+            }
           }
         }
         Markup markup = item instanceof Visual ? ((Visual) item).getMarkup() : Markup.NULL;

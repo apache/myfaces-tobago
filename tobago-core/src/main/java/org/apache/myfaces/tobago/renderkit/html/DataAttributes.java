@@ -98,6 +98,10 @@ public enum DataAttributes implements MarkupLanguageAttributes {
   INDEX("data-index"),
 
   /**
+   * Defines an icon.
+   */
+  ICON("data-tobago-icon"),
+  /**
    * Defines a maximum value.
    */
   LAYOUT("data-tobago-layout"),

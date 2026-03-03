@@ -343,7 +343,11 @@ $icon-sort-numbers: (
 
       tbody tr {
         cursor: pointer;
-
+        td {
+          i {
+            margin-right: 0.25rem;
+          }
+        }
         &.tobago-disabled {
           --#{$prefix}table-bg: #{$form-select-disabled-bg};
           color: $form-select-disabled-color;
@@ -1521,6 +1525,9 @@ tobago-select-one-list {
   position: relative;
 
   .tobago-select-field {
+    i {
+      margin-right: 0.25rem;
+    }
     span {
       white-space: nowrap;
       overflow: hidden;
