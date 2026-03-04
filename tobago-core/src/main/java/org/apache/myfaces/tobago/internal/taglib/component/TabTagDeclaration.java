@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
+import jakarta.faces.component.UIPanel;
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
@@ -27,14 +28,13 @@ import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAccessKey;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasIcon;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
-
-import jakarta.faces.component.UIPanel;
 
 /**
  * Renders a tab within a tab group.
@@ -56,5 +56,5 @@ import jakarta.faces.component.UIPanel;
             isDefault = true)
     })
 public interface TabTagDeclaration
-    extends HasIdBindingAndRendered, IsVisual, HasLabel, HasAccessKey, HasTip, IsDisabled, HasImage {
+    extends HasIdBindingAndRendered, IsVisual, HasLabel, HasAccessKey, HasTip, IsDisabled, HasIcon, HasImage {
 }

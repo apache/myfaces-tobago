@@ -34,6 +34,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasActionListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConfirmation;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasFragment;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasIcon;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
@@ -133,5 +134,5 @@ import jakarta.faces.component.UICommand;
 public interface LinkTagDeclaration
     extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand, HasConfirmation,
     HasLink, HasOutcome, HasFragment, IsTransition, HasTarget, IsDisabledBySecurity,
-    IsOmit, HasImage, HasTabIndex, IsVisual, HasLabel, HasAccessKey, HasTip, HasAutoSpacing {
+    IsOmit, HasIcon, HasImage, HasTabIndex, IsVisual, HasLabel, HasAccessKey, HasTip, HasAutoSpacing {
 }

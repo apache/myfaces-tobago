@@ -72,6 +72,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
     final String clientId = component.getClientId(facesContext);
     final boolean disabled = component.isDisabled();
     final LabelWithAccessKey label = new LabelWithAccessKey(component);
+    final String icon = component.getIcon();
     final String image = component.getImage();
     final UIComponent labelFacet = ComponentUtils.getFacet(component, Facets.label);
     final UIComponent popoverFacet = ComponentUtils.getFacet(component, Facets.popover);
@@ -157,7 +158,11 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
       insideEnd(facesContext, Facets.popover);
     }
 
-    HtmlRendererUtils.encodeIconOrImage(writer, image);
+    if (icon != null) {
+      HtmlRendererUtils.encodeIcon(writer, icon);
+    } else {
+      HtmlRendererUtils.encodeIconOrImage(writer, image);
+    }
 
     if (labelFacet != null) {
       insideBegin(facesContext, Facets.label);

@@ -94,6 +94,18 @@ public class LinkRendererUnitTest extends RendererTestBase {
   }
 
   @Test
+  public void linkWithIcon() throws IOException {
+    final UILink c = (UILink) ComponentUtils.createComponent(
+        facesContext, Tags.link.componentType(), RendererTypes.Link, "id");
+    c.setLabel("label");
+    c.setIcon("icon-name");
+    c.setLink("https://www.apache.org/");
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/link/linkWithIcon.html"), formattedResult());
+  }
+
+  @Test
   public void linkWithImage() throws IOException {
     final UILink c = (UILink) ComponentUtils.createComponent(
         facesContext, Tags.link.componentType(), RendererTypes.Link, "id");

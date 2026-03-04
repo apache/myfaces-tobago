@@ -17,23 +17,16 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.internal.taglib.declaration;
 
-import jakarta.faces.component.NamingContainer;
-import jakarta.faces.component.behavior.ClientBehaviorHolder;
-import org.apache.myfaces.tobago.component.SupportsAccessKey;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/**
- * {@link org.apache.myfaces.tobago.internal.taglib.component.TabTagDeclaration}
- */
-public abstract class AbstractUITab
-    extends AbstractUIPanelBase implements ClientBehaviorHolder, SupportsAccessKey, NamingContainer {
-
-  public abstract String getLabel();
-
-  public abstract String getIcon();
-
-  public abstract String getImage();
-
-  public abstract boolean isDisabled();
+public interface HasIcon {
+  /**
+   * CSS class to render an icon.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  void setIcon(String icon);
 }
