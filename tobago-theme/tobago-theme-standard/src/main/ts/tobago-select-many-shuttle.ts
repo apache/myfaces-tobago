@@ -64,6 +64,22 @@ class SelectManyShuttle extends HTMLElement {
     if (!this.removeAllButton.disabled) {
       this.removeAllButton.addEventListener("click", this.removeAllItems.bind(this));
     }
+
+    if (!this.topButton.disabled) {
+      this.topButton.addEventListener("click", this.top.bind(this));
+    }
+
+    if (!this.upButton.disabled) {
+      this.upButton.addEventListener("click", this.up.bind(this));
+    }
+
+    if (!this.downButton.disabled) {
+      this.downButton.addEventListener("click", this.down.bind(this));
+    }
+
+    if (!this.bottomButton.disabled) {
+      this.bottomButton.addEventListener("click", this.bottom.bind(this));
+    }
   }
 
   private addAllItems(event: MouseEvent): void {
@@ -80,6 +96,108 @@ class SelectManyShuttle extends HTMLElement {
 
   private removeAllItems(event: MouseEvent): void {
     this.removeItems(this.selectedSelect.querySelectorAll("option:not(:disabled)"));
+  }
+
+  private top(event: MouseEvent): void {
+
+    const select = this.selectedSelect as HTMLSelectElement;
+    if (!select) {
+      return;
+    }
+
+    const selected: HTMLOptionElement[] = [];
+    const unselected: HTMLOptionElement[] = [];
+
+    for (let i = 0; i < select.options.length; i++) {
+      const option = select.options.item(i)!;
+      if (option.selected) {
+        selected.push(option);
+      } else {
+        unselected.push(option);
+      }
+    }
+
+    if (selected.length === 0 || unselected.length === 0) {
+      return;
+    }
+
+    for (const opt of selected) {
+      select.appendChild(opt);
+    }
+    for (const opt of unselected) {
+      select.appendChild(opt);
+    }
+  }
+
+  private up(event: MouseEvent): void {
+
+    const select = this.selectedSelect as HTMLSelectElement;
+    if (!select) {
+      return;
+    }
+
+    const options = select.options;
+
+    for (let i = 1; i < options.length; i++) {
+      const previous = options.item(i - 1)!;
+      const current = options.item(i);
+
+      if (current.selected && !previous.selected) {
+        select.insertBefore(current, previous);
+        i++;
+      }
+    }
+  }
+
+  private down(event: MouseEvent): void {
+
+    const select = this.selectedSelect as HTMLSelectElement;
+    if (!select) {
+      return;
+    }
+
+    const options = select.options;
+
+    for (let i = 0; i < options.length - 1; i++) {
+      const current = options.item(i);
+      const next = options.item(i + 1)!;
+
+      if (current.selected && !next.selected) {
+        select.insertBefore(next, current);
+        i++;
+      }
+    }
+  }
+
+  private bottom(event: MouseEvent): void {
+
+    const select = this.selectedSelect as HTMLSelectElement;
+      if (!select) {
+      return;
+    }
+
+    const selected: HTMLOptionElement[] = [];
+    const unselected: HTMLOptionElement[] = [];
+
+    for (let i = 0; i < select.options.length; i++) {
+      const option = select.options.item(i)!;
+      if (option.selected) {
+        selected.push(option);
+      } else {
+        unselected.push(option);
+      }
+    }
+
+    if (selected.length === 0 || unselected.length === 0) {
+      return;
+    }
+
+    for (const opt of unselected) {
+      select.appendChild(opt);
+    }
+    for (const opt of selected) {
+      select.appendChild(opt);
+    }
   }
 
   private addItems(options: NodeListOf<HTMLOptionElement>): void {
@@ -145,6 +263,23 @@ class SelectManyShuttle extends HTMLElement {
   get removeAllButton(): HTMLButtonElement {
     return this.querySelector(".btn-group-vertical button:nth-child(4)");
   }
+
+  get topButton(): HTMLButtonElement {
+    return this.querySelector("[data-tobago-action=top]");
+  }
+
+  get upButton(): HTMLButtonElement {
+    return this.querySelector("[data-tobago-action=up]");
+  }
+
+  get downButton(): HTMLButtonElement {
+    return this.querySelector("[data-tobago-action=down]");
+  }
+
+  get bottomButton(): HTMLButtonElement {
+    return this.querySelector("[data-tobago-action=bottom]");
+  }
+
 }
 
 document.addEventListener("tobago.init", function (event: Event): void {
