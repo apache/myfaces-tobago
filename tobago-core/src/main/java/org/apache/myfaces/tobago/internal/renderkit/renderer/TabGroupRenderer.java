@@ -284,9 +284,14 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
           }
 
           boolean labelEmpty = true;
+          final String icon = tab.getIcon();
           final String image = tab.getImage();
-          if (image != null) {
-            HtmlRendererUtils.encodeIconOrImage(writer, image);
+          if (icon != null || image != null) {
+            if (icon != null) {
+              HtmlRendererUtils.encodeIcon(writer, icon);
+            } else {
+              HtmlRendererUtils.encodeIconOrImage(writer, image);
+            }
             labelEmpty = false;
           }
           if (label.getLabel() != null) {

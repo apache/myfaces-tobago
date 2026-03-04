@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -17,23 +15,9 @@
  * limitations under the License.
 -->
 
-<ui:composition template="/main.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:ui="jakarta.faces.facelets"
-                xmlns:f="jakarta.faces.core">
-
-  <tc:section label="Action in a sheet">
-
-    <tc:sheet id="sheet" value="#{sheetController.solarList}" var="object" markup="small">
-      <tc:column label="Name">
-        <tc:out value="#{object.name}" id="name" labelLayout="skip"/>
-      </tc:column>
-      <tc:column label="Action">
-        <tc:link action="#{sheetActionController.deleteAction(object)}"
-                 icon="bi-trash" id="action" labelLayout="skip"/>
-      </tc:column>
-    </tc:sheet>
-
-  </tc:section>
-</ui:composition>
+<tobago-section id='id' class='tobago-auto-spacing' data-tobago-level='1'>
+<div class='tobago-header'>
+<h1>
+<i class='icon-name'></i>
+<span>label</span></h1></div>
+<div class='tobago-section-content'></div></tobago-section>

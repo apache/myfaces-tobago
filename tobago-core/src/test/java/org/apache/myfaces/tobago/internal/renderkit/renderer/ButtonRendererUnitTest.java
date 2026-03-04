@@ -48,6 +48,18 @@ public class ButtonRendererUnitTest extends RendererTestBase {
     final UIButton b = (UIButton) ComponentUtils.createComponent(
         facesContext, Tags.button.componentType(), RendererTypes.Button, "id");
     b.setLabel("button");
+    b.setIcon("bi-code");
+
+    b.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/button/iconBi.html"), formattedResult());
+  }
+
+  @Test
+  public void imageBi() throws IOException {
+    final UIButton b = (UIButton) ComponentUtils.createComponent(
+        facesContext, Tags.button.componentType(), RendererTypes.Button, "id");
+    b.setLabel("button");
     b.setImage("bi-code");
 
     b.encodeAll(facesContext);
@@ -56,7 +68,7 @@ public class ButtonRendererUnitTest extends RendererTestBase {
   }
 
   @Test
-  public void iconBiJpg() throws IOException {
+  public void imageBiJpg() throws IOException {
     final UIButton b = (UIButton) ComponentUtils.createComponent(
         facesContext, Tags.button.componentType(), RendererTypes.Button, "id");
     b.setLabel("button");
@@ -72,6 +84,18 @@ public class ButtonRendererUnitTest extends RendererTestBase {
     final UIButton b = (UIButton) ComponentUtils.createComponent(
         facesContext, Tags.button.componentType(), RendererTypes.Button, "id");
     b.setLabel("button");
+    b.setIcon("fa fa-code");
+
+    b.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/button/iconFa.html"), formattedResult());
+  }
+
+  @Test
+  public void imageFa() throws IOException {
+    final UIButton b = (UIButton) ComponentUtils.createComponent(
+        facesContext, Tags.button.componentType(), RendererTypes.Button, "id");
+    b.setLabel("button");
     b.setImage("fa-code");
 
     b.encodeAll(facesContext);
@@ -80,7 +104,7 @@ public class ButtonRendererUnitTest extends RendererTestBase {
   }
 
   @Test
-  public void iconFx() throws IOException {
+  public void imageFx() throws IOException {
     final UIButton b = (UIButton) ComponentUtils.createComponent(
         facesContext, Tags.button.componentType(), RendererTypes.Button, "id");
     b.setLabel("button");
@@ -93,6 +117,18 @@ public class ButtonRendererUnitTest extends RendererTestBase {
 
   @Test
   public void iconFar() throws IOException {
+    final UIButton b = (UIButton) ComponentUtils.createComponent(
+        facesContext, Tags.button.componentType(), RendererTypes.Button, "id");
+    b.setLabel("button");
+    b.setIcon("far fa-code");
+
+    b.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/button/iconFar.html"), formattedResult());
+  }
+
+  @Test
+  public void imageFar() throws IOException {
     final UIButton b = (UIButton) ComponentUtils.createComponent(
         facesContext, Tags.button.componentType(), RendererTypes.Button, "id");
     b.setLabel("button");

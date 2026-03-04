@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasIcon;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
@@ -88,5 +89,5 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
         )
     })
 public interface BadgeTagDeclaration
-    extends HasIdBindingAndRendered, HasTip, IsVisual, HasConverter, HasValue, HasImage {
+    extends HasIdBindingAndRendered, HasTip, IsVisual, HasConverter, HasValue, HasIcon, HasImage {
 }

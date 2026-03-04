@@ -27,7 +27,7 @@
       <tc:bar>
         <!-- with form -->
         <tc:form>
-          <tc:link label="With Form" image="fa-language" omit="true">
+          <tc:link label="With Form" icon="fa fa-language" omit="true">
             <ui:repeat id="repeatLocale" value="#{repeatController.allLocales}" var="locale">
               <tc:link id="linkLocale"
                        image="#{repeatController.locale == locale ? 'fa-check' : ''}"
@@ -42,7 +42,7 @@
         <tc:out value="    "/>
 
         <!-- without form -->
-        <tc:link label="Without Form" image="fa-language" omit="true">
+        <tc:link label="Without Form" icon="fa fa-language" omit="true">
           <ui:repeat id="repeatLocaleTwo" value="#{repeatController.allLocales}" var="locale">
             <tc:link id="linkLocaleTow"
                      image="#{repeatController.locale == locale ? 'fa-check' : ''}"

@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCollapsedMode;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasIcon;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
@@ -56,7 +57,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
     })
 
 public interface SectionTagDeclaration
-    extends HasIdBindingAndRendered, HasLabel, IsVisual, HasImage, IsCollapsed, HasCollapsedMode, HasTip,
+    extends HasIdBindingAndRendered, HasLabel, IsVisual, HasIcon, HasImage, IsCollapsed, HasCollapsedMode, HasTip,
     HasAutoSpacing {
 
   /**

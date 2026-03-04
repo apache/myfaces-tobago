@@ -135,6 +135,7 @@ public enum Attributes {
   iconSize,
   id,
   immediate,
+  icon,
   image,
   inline,
   itemDescription,

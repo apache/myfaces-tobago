@@ -19,12 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.SupportFieldId;
-import org.apache.myfaces.tobago.component.SupportsAccessKey;
-import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
-import org.apache.myfaces.tobago.component.Visual;
-import org.apache.myfaces.tobago.util.ComponentUtils;
-
 import jakarta.faces.component.UICommand;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIInput;
@@ -33,6 +27,11 @@ import jakarta.faces.component.visit.VisitCallback;
 import jakarta.faces.component.visit.VisitContext;
 import jakarta.faces.component.visit.VisitResult;
 import jakarta.faces.context.FacesContext;
+import org.apache.myfaces.tobago.component.SupportFieldId;
+import org.apache.myfaces.tobago.component.SupportsAccessKey;
+import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
+import org.apache.myfaces.tobago.component.Visual;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 /**
  * Base class for commands.
@@ -57,7 +56,9 @@ public abstract class AbstractUICommand extends AbstractUICommandBase
     return parentOfCommands;
   }
 
-  public abstract java.lang.String getImage();
+  public abstract String getIcon();
+
+  public abstract String getImage();
 
   @Override
   public abstract String getLabel();
@@ -70,6 +71,7 @@ public abstract class AbstractUICommand extends AbstractUICommandBase
       return getClientId(facesContext);
     }
   }
+
   private static class ParentOfCommandVisitor implements VisitCallback {
     private boolean parentOfCommands = false;
     private final FacesContext facesContext;
@@ -85,17 +87,18 @@ public abstract class AbstractUICommand extends AbstractUICommandBase
       if (!target.getClientId(facesContext).equals(clientId)
           && (target instanceof Visual && !((Visual) target).isPlain()
           || ComponentUtils.isStandardHtmlRendererType(target))) {
-         if (!(target instanceof AbstractUIEvent)
-             && (target instanceof UICommand || target instanceof UIInput)) {
-           parentOfCommands = true;
-           return VisitResult.COMPLETE;
-         } else {
-           return VisitResult.ACCEPT;
-         }
+        if (!(target instanceof AbstractUIEvent)
+            && (target instanceof UICommand || target instanceof UIInput)) {
+          parentOfCommands = true;
+          return VisitResult.COMPLETE;
+        } else {
+          return VisitResult.ACCEPT;
+        }
       } else {
         return VisitResult.ACCEPT;
       }
     }
+
     public boolean isParentOfCommands() {
       return parentOfCommands;
     }
