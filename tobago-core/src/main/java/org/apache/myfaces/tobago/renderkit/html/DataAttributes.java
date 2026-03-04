@@ -100,7 +100,7 @@ public enum DataAttributes implements MarkupLanguageAttributes {
   /**
    * Defines an icon.
    */
-  ICON( "data-tobago-icon"),
+  ICON("data-tobago-icon"),
   /**
    * Defines a maximum value.
    */
