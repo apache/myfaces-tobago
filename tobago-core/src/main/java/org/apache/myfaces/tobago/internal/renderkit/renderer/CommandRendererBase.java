@@ -158,11 +158,8 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
       insideEnd(facesContext, Facets.popover);
     }
 
-    if (icon != null) {
-      HtmlRendererUtils.encodeIcon(writer, icon);
-    } else {
-      HtmlRendererUtils.encodeIconOrImage(writer, image);
-    }
+    HtmlRendererUtils.encodeIcon(writer, icon);
+    HtmlRendererUtils.encodeIconOrImage(writer, image);
 
     if (labelFacet != null) {
       insideBegin(facesContext, Facets.label);
