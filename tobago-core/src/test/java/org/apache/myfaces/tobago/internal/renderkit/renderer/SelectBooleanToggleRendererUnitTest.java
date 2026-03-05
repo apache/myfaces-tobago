@@ -53,4 +53,30 @@ public class SelectBooleanToggleRendererUnitTest extends RendererTestBase {
     Assertions.assertEquals(loadHtml("renderer/selectBooleanToggle/selectBooleanToggleItemLabel.html"),
         formattedResult());
   }
+
+  @Test
+  public void itemIcon() throws IOException {
+    final UISelectBooleanToggle c = (UISelectBooleanToggle) ComponentUtils.createComponent(
+        facesContext, Tags.selectBooleanToggle.componentType(), RendererTypes.SelectBooleanToggle, "id");
+    c.setItemLabel("label");
+    c.setItemIcon("icon-name");
+
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/selectBooleanToggle/selectBooleanToggleItemLabel_icon.html"),
+        formattedResult());
+  }
+
+  @Test
+  public void itemImage() throws IOException {
+    final UISelectBooleanToggle c = (UISelectBooleanToggle) ComponentUtils.createComponent(
+        facesContext, Tags.selectBooleanToggle.componentType(), RendererTypes.SelectBooleanToggle, "id");
+    c.setItemLabel("label");
+    c.setItemImage("url");
+
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/selectBooleanToggle/selectBooleanToggleItemLabel_image.html"),
+        formattedResult());
+  }
 }

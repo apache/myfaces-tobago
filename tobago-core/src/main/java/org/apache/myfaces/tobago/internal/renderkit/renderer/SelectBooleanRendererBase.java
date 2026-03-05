@@ -80,6 +80,7 @@ public abstract class SelectBooleanRendererBase<T extends AbstractUISelectBoolea
     final boolean disabled = component.isDisabled();
     final LabelWithAccessKey label = new LabelWithAccessKey(component, true);
     final String itemLabel = component.getItemLabel();
+    final String itemIcon = component.getItemIcon();
     final String itemImage = component.getItemImage();
     final Markup markup = component.getMarkup();
     final boolean insideCommand = isInside(facesContext, HtmlElements.COMMAND);
@@ -122,12 +123,8 @@ public abstract class SelectBooleanRendererBase<T extends AbstractUISelectBoolea
       AccessKeyLogger.addAccessKey(facesContext, label.getAccessKey(), clientId);
     }
     writer.writeAttribute(HtmlAttributes.FOR, fieldId, false);
-    if (itemImage != null) {
-      writer.startElement(HtmlElements.IMG);
-      writer.writeAttribute(HtmlAttributes.SRC, itemImage, true);
-      writer.writeAttribute(HtmlAttributes.ALT, "", false);
-      writer.endElement(HtmlElements.IMG);
-    }
+    HtmlRendererUtils.encodeIcon(writer, itemIcon);
+    HtmlRendererUtils.encodeImage(writer, itemImage);
     if (itemLabel != null && component.getLabel() == null && component.getAccessKey() != null) {
       if (itemLabel.contains(Character.toString(component.getAccessKey()))) {
         HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
