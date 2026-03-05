@@ -130,9 +130,12 @@ public class SelectManyCheckboxRenderer<T extends AbstractUISelectManyCheckbox> 
 
         final String label = item.getLabel();
         if (label != null) {
-          writer.writeText(label);
+          if (item.isEscape()) {
+            writer.writeText(label);
+          } else {
+            writer.write(label);
+          }
         }
-
         writer.endElement(HtmlElements.LABEL);
         writer.endElement(HtmlElements.DIV);
       }

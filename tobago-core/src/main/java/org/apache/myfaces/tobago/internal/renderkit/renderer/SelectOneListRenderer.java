@@ -241,7 +241,11 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
         writer.startElement(HtmlElements.TD);
         final String label = item.getLabel();
         if (label != null) {
-          writer.writeText(label);
+          if (item.isEscape()) {
+            writer.writeText(label);
+          } else {
+            writer.write(label);
+          }
         }
         writer.endElement(HtmlElements.TD);
         writer.endElement(HtmlElements.TR);

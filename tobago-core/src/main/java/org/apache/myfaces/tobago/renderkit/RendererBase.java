@@ -511,7 +511,11 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
 
         final String label = item.getLabel();
         if (label != null) {
-          writer.writeText(label);
+          if (item.isEscape()) {
+            writer.writeText(label);
+          } else {
+            writer.write(label);
+          }
         }
         writer.endElement(HtmlElements.OPTION);
       }

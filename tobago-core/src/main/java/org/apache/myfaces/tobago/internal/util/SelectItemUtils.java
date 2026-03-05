@@ -143,7 +143,7 @@ public class SelectItemUtils {
           String label = uiSelectItem.getItemLabel();
           final String description = uiSelectItem.getItemDescription();
           final boolean disabled = uiSelectItem.isItemDisabled();
-//          boolean escape = uiSelectItem.isItemEscaped();
+          boolean escape = uiSelectItem.isItemEscaped();
           boolean noSelectionOption = uiSelectItem.isNoSelectionOption();
           if (label == null && itemValue != null) {
             label = itemValue.toString();
@@ -157,7 +157,7 @@ public class SelectItemUtils {
             markup = tobagoSelectItem.getMarkup();
           }
           item = new org.apache.myfaces.tobago.model.SelectItem(itemValue, label, description, disabled,
-              true, noSelectionOption, image, markup);
+              escape, noSelectionOption, image, markup);
         } else if (!(item instanceof SelectItem)) {
           final ValueExpression expression = uiSelectItem.getValueExpression("value");
           throw new IllegalArgumentException("ValueExpression '"
