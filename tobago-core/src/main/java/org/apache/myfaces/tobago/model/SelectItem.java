@@ -30,6 +30,7 @@ public class SelectItem extends jakarta.faces.model.SelectItem implements Visual
   @Serial
   private static final long serialVersionUID = 2582455665060354639L;
 
+  private String icon;
   private String image;
   private Markup markup = Markup.NULL;
   private CustomClass customClass;
@@ -54,14 +55,30 @@ public class SelectItem extends jakarta.faces.model.SelectItem implements Visual
     this(value, label, tip, false, image);
   }
 
+  public SelectItem(final Object value, final String label, final String tip, final String icon, final String image) {
+    this(value, label, tip, false, icon, image);
+  }
+
   public SelectItem(
       final Object value, final String label, final String tip, final String image, final Markup markup) {
     this(value, label, tip, false, image, markup);
   }
 
   public SelectItem(
+      final Object value, final String label, final String tip, final String icon, final String image,
+      final Markup markup) {
+    this(value, label, tip, false, icon, image, markup);
+  }
+
+  public SelectItem(
       final Object value, final String label, final String tip, final boolean disabled, final String image) {
     this(value, label, tip, disabled, image, Markup.NULL);
+  }
+
+  public SelectItem(
+      final Object value, final String label, final String tip, final boolean disabled,
+      final String icon, final String image) {
+    this(value, label, tip, disabled, icon, image, Markup.NULL);
   }
 
   public SelectItem(
@@ -73,9 +90,27 @@ public class SelectItem extends jakarta.faces.model.SelectItem implements Visual
   }
 
   public SelectItem(
+      final Object value, final String label, final String tip, final boolean disabled,
+      final String icon, final String image, final Markup markup) {
+    super(value, label, tip, disabled);
+    this.icon = icon;
+    this.image = image;
+    this.markup = markup;
+  }
+
+  public SelectItem(
       final Object value, final String label, final String tip, final boolean disabled, final boolean escape,
       final boolean noSelectionOption, final String image, final Markup markup) {
     super(value, label, tip, disabled, escape, noSelectionOption);
+    this.image = image;
+    this.markup = markup;
+  }
+
+  public SelectItem(
+      final Object value, final String label, final String tip, final boolean disabled, final boolean escape,
+      final boolean noSelectionOption, final String icon, final String image, final Markup markup) {
+    super(value, label, tip, disabled, escape, noSelectionOption);
+    this.icon = icon;
     this.image = image;
     this.markup = markup;
   }
@@ -92,6 +127,14 @@ public class SelectItem extends jakarta.faces.model.SelectItem implements Visual
    */
   public void setTip(final String tip) {
     setDescription(tip);
+  }
+
+  public String getIcon() {
+    return icon;
+  }
+
+  public void setIcon(String icon) {
+    this.icon = icon;
   }
 
   public String getImage() {

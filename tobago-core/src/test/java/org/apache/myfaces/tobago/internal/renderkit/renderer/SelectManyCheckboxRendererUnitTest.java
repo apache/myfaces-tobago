@@ -53,6 +53,28 @@ public class SelectManyCheckboxRendererUnitTest extends RendererTestBase {
   }
 
   @Test
+  public void itemIconAndImage() throws IOException {
+    final UISelectManyCheckbox c = (UISelectManyCheckbox) ComponentUtils.createComponent(
+        facesContext, Tags.selectManyCheckbox.componentType(), RendererTypes.SelectManyCheckbox, "id");
+
+    final UISelectItem i1 = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "i1");
+    i1.setItemLabel("Entry One");
+    i1.setItemIcon("icon-name");
+    c.getChildren().add(i1);
+    final UISelectItem i2 = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "i2");
+    i2.setItemLabel("Entry Two");
+    i2.setItemImage("url");
+    c.getChildren().add(i2);
+
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/selectManyCheckbox/selectManyCheckboxItemLabel_iconImage.html"),
+        formattedResult());
+  }
+
+  @Test
   public void messageFatal() throws IOException {
     final UISelectManyCheckbox c = (UISelectManyCheckbox) ComponentUtils.createComponent(
         facesContext, Tags.selectManyCheckbox.componentType(), RendererTypes.SelectManyCheckbox, "id");

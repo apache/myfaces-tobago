@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasId;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasItemIcon;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasItemImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasItemLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
@@ -41,7 +42,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
     uiComponent = "org.apache.myfaces.tobago.component.UISelectItem",
     uiComponentFacesClass = "jakarta.faces.component.UISelectItem",
     allowedChildComponents = "NONE")
-public interface SelectItemTagDeclaration extends HasBinding, HasId, IsVisual, HasItemLabel, HasItemImage, HasTip {
+public interface SelectItemTagDeclaration extends HasBinding, HasId, IsVisual, HasItemLabel, HasItemIcon, HasItemImage,
+    HasTip {
 
   /**
    * Description of an item, might be rendered as a tool tip.

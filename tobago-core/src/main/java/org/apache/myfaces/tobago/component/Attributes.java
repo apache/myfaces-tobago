@@ -141,6 +141,7 @@ public enum Attributes {
   itemDescription,
   itemDisabled,
   itemLabel,
+  itemIcon,
   itemImage,
   itemValue,
   justify,

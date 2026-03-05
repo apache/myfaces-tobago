@@ -56,6 +56,32 @@ public class SelectBooleanCheckboxRendererUnitTest extends RendererTestBase {
   }
 
   @Test
+  public void itemIcon() throws IOException {
+    final UISelectBooleanCheckbox c = (UISelectBooleanCheckbox) ComponentUtils.createComponent(
+        facesContext, Tags.selectBooleanCheckbox.componentType(), RendererTypes.SelectBooleanCheckbox, "id");
+    c.setItemLabel("label");
+    c.setItemIcon("icon-name");
+
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/selectBooleanCheckbox/selectBooleanCheckboxItemLabel_icon.html"),
+        formattedResult());
+  }
+
+  @Test
+  public void itemImage() throws IOException {
+    final UISelectBooleanCheckbox c = (UISelectBooleanCheckbox) ComponentUtils.createComponent(
+        facesContext, Tags.selectBooleanCheckbox.componentType(), RendererTypes.SelectBooleanCheckbox, "id");
+    c.setItemLabel("label");
+    c.setItemImage("url");
+
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/selectBooleanCheckbox/selectBooleanCheckboxItemLabel_image.html"),
+        formattedResult());
+  }
+
+  @Test
   public void messageFatal() throws IOException {
     final UISelectBooleanCheckbox c = (UISelectBooleanCheckbox) ComponentUtils.createComponent(
         facesContext, Tags.selectBooleanCheckbox.componentType(), RendererTypes.SelectBooleanCheckbox, "id");

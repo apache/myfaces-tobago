@@ -47,6 +47,15 @@ public class CurrencyController implements Serializable {
     return currencyItems;
   }
 
+  public String getIconValue(String currencyCode) {
+    return switch (currencyCode) {
+      case "EUR" -> "bi bi-currency-euro";
+      case "JPY" -> "bi bi-currency-yen";
+      case "USD" -> "bi bi-currency-dollar";
+      default -> "";
+    };
+  }
+
   public String getRadioValue() {
     return radioValue;
   }

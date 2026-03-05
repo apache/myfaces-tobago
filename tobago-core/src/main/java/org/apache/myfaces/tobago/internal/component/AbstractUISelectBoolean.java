@@ -93,6 +93,7 @@ public abstract class AbstractUISelectBoolean extends UISelectBoolean
 
   public abstract void setItemLabel(String itemLabel);
 
+  public abstract String getItemIcon();
   public abstract String getItemImage();
 
   @Override

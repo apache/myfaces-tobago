@@ -102,6 +102,15 @@ public final class HtmlRendererUtils {
     }
   }
 
+  public static void encodeImage(final TobagoResponseWriter writer, final String image) throws IOException {
+    if (image != null && !image.isEmpty()) {
+      writer.startElement(HtmlElements.IMG);
+      writer.writeAttribute(HtmlAttributes.SRC, image, true);
+      writer.writeAttribute(HtmlAttributes.ALT, "", false);
+      writer.endElement(HtmlElements.IMG);
+    }
+  }
+
   public static String getTitleFromTipAndMessages(final FacesContext facesContext, final UIComponent component) {
     final String messages = ComponentUtils.getFacesMessageAsString(facesContext, component);
     return HtmlRendererUtils.addTip(messages, ComponentUtils.getAttribute(component, Attributes.tip));
