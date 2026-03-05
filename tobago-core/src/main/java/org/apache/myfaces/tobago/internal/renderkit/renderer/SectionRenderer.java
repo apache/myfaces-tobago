@@ -87,11 +87,8 @@ public class SectionRenderer<T extends AbstractUISection> extends CollapsiblePan
 
     final String icon = component.getIcon();
     final String image = component.getImage();
-    if (icon != null) {
-      HtmlRendererUtils.encodeIcon(writer, icon);
-    } else {
-      HtmlRendererUtils.encodeIconOrImage(writer, image);
-    }
+    HtmlRendererUtils.encodeIcon(writer, icon);
+    HtmlRendererUtils.encodeIconOrImage(writer, image);
 
     final UIComponent labelFacet = ComponentUtils.getFacet(component, Facets.label);
     final String labelString = component.getLabel();
