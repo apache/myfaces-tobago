@@ -30,7 +30,6 @@ import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneList;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
-import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.Arias;
 import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
@@ -316,12 +315,8 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
       writer.startElement(HtmlElements.SPAN);
     }
     if (item instanceof org.apache.myfaces.tobago.model.SelectItem tobagoSelectItem) {
-      String image = tobagoSelectItem.getImage();
-      if (image != null && Icons.matches(image)) {
-        writer.startElement(HtmlElements.I);
-        writer.writeClassAttribute(Icons.custom(image));
-        writer.endElement(HtmlElements.I);
-      }
+      String icon = tobagoSelectItem.getIcon();
+      HtmlRendererUtils.encodeIcon(writer, icon);
     }
     final String label = item.getLabel();
     if (label != null) {
