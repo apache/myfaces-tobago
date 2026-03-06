@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.util;
 
-import jakarta.faces.FacesException;
 import jakarta.faces.FacesWrapper;
 import jakarta.faces.component.StateHolder;
 import jakarta.faces.context.FacesContext;
@@ -27,8 +26,6 @@ import jakarta.servlet.http.Part;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Collection;
 
 public class HttpPartWrapper implements Part, FacesWrapper<Part>, StateHolder {
@@ -87,21 +84,7 @@ public class HttpPartWrapper implements Part, FacesWrapper<Part>, StateHolder {
   }
 
   public String getSubmittedFileName() {
-    final Part wrapped = getWrapped();
-    try {
-      final Method m = wrapped.getClass().getMethod("getSubmittedFileName");
-      return (String) m.invoke(wrapped);
-    } catch (final NoSuchMethodException ex) {
-      throw new FacesException(ex);
-    } catch (final SecurityException ex) {
-      throw new FacesException(ex);
-    } catch (final IllegalAccessException ex) {
-      throw new FacesException(ex);
-    } catch (final IllegalArgumentException ex) {
-      throw new FacesException(ex);
-    } catch (final InvocationTargetException ex) {
-      throw new FacesException(ex);
-    }
+    return getWrapped().getSubmittedFileName();
   }
 
   @Override
