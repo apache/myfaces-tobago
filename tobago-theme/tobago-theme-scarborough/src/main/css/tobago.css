@@ -14700,6 +14700,10 @@ tobago-page .tobago-page-menuStore .tobago-options .table tbody tr {
   cursor: pointer;
 }
 
+tobago-page .tobago-page-menuStore .tobago-options .table tbody tr td i {
+  margin-right: .25rem;
+}
+
 tobago-page .tobago-page-menuStore .tobago-options .table tbody tr.tobago-disabled {
   --bs-table-bg: var(--bs-secondary-bg);
   color: rgba(var(--bs-body-color), .5);
@@ -15175,6 +15179,10 @@ tobago-select-one-list .tobago-options .table tbody tr {
   cursor: pointer;
 }
 
+tobago-select-one-list .tobago-options .table tbody tr td i {
+  margin-right: .25rem;
+}
+
 tobago-select-one-list .tobago-options .table tbody tr.tobago-disabled {
   --bs-table-bg: var(--bs-secondary-bg);
   color: rgba(var(--bs-body-color), .5);
@@ -15231,6 +15239,10 @@ tobago-select-one-list .spinner:after {
 
 tobago-select-one-list {
   position: relative;
+}
+
+tobago-select-one-list .tobago-select-field i {
+  margin-right: .25rem;
 }
 
 tobago-select-one-list .tobago-select-field span {
@@ -15420,6 +15432,10 @@ tobago-select-many-list .tobago-options .table.tobago-small {
 
 tobago-select-many-list .tobago-options .table tbody tr {
   cursor: pointer;
+}
+
+tobago-select-many-list .tobago-options .table tbody tr td i {
+  margin-right: .25rem;
 }
 
 tobago-select-many-list .tobago-options .table tbody tr.tobago-disabled {
