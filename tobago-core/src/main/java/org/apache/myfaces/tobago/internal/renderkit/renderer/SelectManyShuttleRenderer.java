@@ -19,9 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.model.SelectItem;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyShuttle;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
@@ -29,12 +26,16 @@ import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.List;
 
@@ -142,6 +143,58 @@ public class SelectManyShuttleRenderer<T extends AbstractUISelectManyShuttle> ex
     renderSelectItems(component, null, items, values, submittedValues, true, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
+    writer.endElement(HtmlElements.DIV);
+
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(TobagoClass.CONTROLS);
+    writer.startElement(HtmlElements.DIV);
+    writer.writeClassAttribute(BootstrapClass.BTN_GROUP_VERTICAL);
+
+    writer.startElement(HtmlElements.BUTTON);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
+    writer.writeClassAttribute(BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY);
+    writer.writeIdAttribute(component.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "top");
+    writer.writeAttribute(DataAttributes.ACTION, "top", false);
+    writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
+    writer.startElement(HtmlElements.I);
+    writer.writeClassAttribute(Icons.CHEVRON_DOUBLE_UP);
+    writer.endElement(HtmlElements.I);
+    writer.endElement(HtmlElements.BUTTON);
+
+    writer.startElement(HtmlElements.BUTTON);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
+    writer.writeClassAttribute(BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY);
+    writer.writeIdAttribute(component.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "up");
+    writer.writeAttribute(DataAttributes.ACTION, "up", false);
+    writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
+    writer.startElement(HtmlElements.I);
+    writer.writeClassAttribute(Icons.CHEVRON_UP);
+    writer.endElement(HtmlElements.I);
+    writer.endElement(HtmlElements.BUTTON);
+
+    writer.startElement(HtmlElements.BUTTON);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
+    writer.writeClassAttribute(BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY);
+    writer.writeIdAttribute(component.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "down");
+    writer.writeAttribute(DataAttributes.ACTION, "down", false);
+    writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
+    writer.startElement(HtmlElements.I);
+    writer.writeClassAttribute(Icons.CHEVRON_DOWN);
+    writer.endElement(HtmlElements.I);
+    writer.endElement(HtmlElements.BUTTON);
+
+    writer.startElement(HtmlElements.BUTTON);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlButtonTypes.BUTTON);
+    writer.writeClassAttribute(BootstrapClass.BTN, BootstrapClass.BTN_SECONDARY);
+    writer.writeIdAttribute(component.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "bottom");
+    writer.writeAttribute(DataAttributes.ACTION, "bottom", false);
+    writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
+    writer.startElement(HtmlElements.I);
+    writer.writeClassAttribute(Icons.CHEVRON_DOUBLE_DOWN);
+    writer.endElement(HtmlElements.I);
+    writer.endElement(HtmlElements.BUTTON);
+
+    writer.endElement(HtmlElements.DIV);
     writer.endElement(HtmlElements.DIV);
 
     writer.startElement(HtmlElements.SELECT);
