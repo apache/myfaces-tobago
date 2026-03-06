@@ -19,42 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit;
 
-import org.apache.myfaces.tobago.component.ClientBehaviors;
-import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.Tags;
-import org.apache.myfaces.tobago.component.Visual;
-import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.context.TobagoContext;
-import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
-import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
-import org.apache.myfaces.tobago.internal.component.AbstractUIEvent;
-import org.apache.myfaces.tobago.internal.component.AbstractUIReload;
-import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyList;
-import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneList;
-import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneRadio;
-import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
-import org.apache.myfaces.tobago.internal.renderkit.Collapse;
-import org.apache.myfaces.tobago.internal.renderkit.Command;
-import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
-import org.apache.myfaces.tobago.internal.renderkit.renderer.TobagoClientBehaviorRenderer;
-import org.apache.myfaces.tobago.internal.util.ArrayUtils;
-import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.internal.util.RenderUtils;
-import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.internal.util.StyleRenderUtils;
-import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
-import org.apache.myfaces.tobago.renderkit.css.Icons;
-import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
-import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
-import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
-import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import jakarta.el.ValueExpression;
 import jakarta.faces.component.EditableValueHolder;
 import jakarta.faces.component.UIComponent;
@@ -73,6 +37,38 @@ import jakarta.faces.model.SelectItem;
 import jakarta.faces.model.SelectItemGroup;
 import jakarta.faces.render.ClientBehaviorRenderer;
 import jakarta.faces.render.Renderer;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
+import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.component.Tags;
+import org.apache.myfaces.tobago.component.Visual;
+import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.context.TobagoContext;
+import org.apache.myfaces.tobago.internal.behavior.EventBehavior;
+import org.apache.myfaces.tobago.internal.component.AbstractUICommand;
+import org.apache.myfaces.tobago.internal.component.AbstractUIEvent;
+import org.apache.myfaces.tobago.internal.component.AbstractUIReload;
+import org.apache.myfaces.tobago.internal.component.AbstractUIStyle;
+import org.apache.myfaces.tobago.internal.renderkit.Collapse;
+import org.apache.myfaces.tobago.internal.renderkit.Command;
+import org.apache.myfaces.tobago.internal.renderkit.CommandMap;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.TobagoClientBehaviorRenderer;
+import org.apache.myfaces.tobago.internal.util.ArrayUtils;
+import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.internal.util.RenderUtils;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
+import org.apache.myfaces.tobago.internal.util.StyleRenderUtils;
+import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
+import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.Arrays;
@@ -490,24 +486,22 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
         writer.startElement(HtmlElements.OPTION);
         writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
         if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
+          final String icon = ((org.apache.myfaces.tobago.model.SelectItem) item).getIcon();
+          if (icon != null && !icon.isEmpty()) {
+            writer.writeAttribute(DataAttributes.ICON, icon, true);
+          }
+
           final String image = ((org.apache.myfaces.tobago.model.SelectItem) item).getImage();
           if (image != null) {
-            if (component instanceof AbstractUISelectOneRadio) {
-              final AbstractUIStyle style = (AbstractUIStyle) facesContext.getApplication()
-                  .createComponent(facesContext, Tags.style.componentType(), RendererTypes.Style.name());
-              style.setTransient(true);
-              style.setBackgroundImage(image);
-              style.setSelector(
-                  StyleRenderUtils.encodeIdSelector(component.getClientId(facesContext))
-                      + " option[value=" + formattedValue + "]");
-              // XXX This works not in common browsers...
-              component.getChildren().add(style);
-            } else if (component instanceof AbstractUISelectManyList
-                || component instanceof AbstractUISelectOneList) {
-              if (Icons.matches(image)) {
-                writer.writeAttribute(DataAttributes.ICON, image, true);
-              }
-            }
+            final AbstractUIStyle style = (AbstractUIStyle) facesContext.getApplication()
+                .createComponent(facesContext, Tags.style.componentType(), RendererTypes.Style.name());
+            style.setTransient(true);
+            style.setBackgroundImage(image);
+            style.setSelector(
+                StyleRenderUtils.encodeIdSelector(component.getClientId(facesContext))
+                    + " option[value=" + formattedValue + "]");
+            // XXX This works not in common browsers...
+            component.getChildren().add(style);
           }
         }
         Markup markup = item instanceof Visual ? ((Visual) item).getMarkup() : Markup.NULL;
