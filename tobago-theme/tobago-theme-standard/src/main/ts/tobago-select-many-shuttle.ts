@@ -144,7 +144,6 @@ class SelectManyShuttle extends HTMLElement {
 
       if (current.selected && !previous.selected) {
         select.insertBefore(current, previous);
-        i++;
       }
     }
   }
@@ -158,13 +157,12 @@ class SelectManyShuttle extends HTMLElement {
 
     const options = select.options;
 
-    for (let i = 0; i < options.length - 1; i++) {
+    for (let i = options.length - 2; i >= 0 ; i--) {
       const current = options.item(i);
       const next = options.item(i + 1)!;
 
       if (current.selected && !next.selected) {
         select.insertBefore(next, current);
-        i++;
       }
     }
   }
