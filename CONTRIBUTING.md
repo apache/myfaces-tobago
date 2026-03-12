@@ -1,16 +1,16 @@
-# (WIP) Contributing Info
+# Contributing Info
 
 ## Semantic Commit Messages
 
-Inspired by [Git Commit Msg][git-commit-msg], [Angular Commit Message Format][angular-commit-message-format] and [Conventional Commits][conventional-commits]
-
+Inspired by [Git Commit Msg][git-commit-msg], [Angular Commit Message Format][angular-commit-message-format]
+and [Conventional Commits][conventional-commits]
 
 ### <a name="commit-message-format"></a> Commit Message Format
 
 Each commit message consists of a **header**, a **body** and a **footer**. The header has a special
 format that includes a **type**, a **scope**, and a **subject**:
 
-```html
+```sh
 <type>(<scope>): <subject>
 <BLANK LINE>
 <body>
@@ -19,7 +19,7 @@ format that includes a **type**, a **scope**, and a **subject**:
 ```
 
 > Any line of the commit message cannot be longer 100 characters!<br/>
-This allows the message to be easier to read on GitHub as well as in various Git tools.
+> This allows the message to be easier to read on GitHub as well as in various Git tools.
 
 ##### Type
 
@@ -40,6 +40,7 @@ Must be one of the following:
 The scope could be anything that helps specify the scope (or feature) that is changing.
 
 Examples
+
 - fix(select):
 - docs(menu):
 
@@ -68,3 +69,10 @@ reference Jira issues that this commit **Issue: TOBAGO-XXXX**.
 [angular-commit-message-format]: https://github.com/angular/material/blob/master/.github/CONTRIBUTING.md#-commit-message-format
 
 [conventional-commits]: https://www.conventionalcommits.org/en/v1.0.0/
+
+## Principles
+
+* Use CSS classes to identify subcomponents when they represent a clear UI element that developers might reasonably want
+  to style or override.
+  > for example: ".tobago-addAll" to identify the add-all-button in tc:shuttle
+  > avoid: .tobago-paging-16 to identify the 16-button in the tc:sheet paging component
