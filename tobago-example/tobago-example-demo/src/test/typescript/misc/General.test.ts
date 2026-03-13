@@ -41,6 +41,7 @@ function getUrls(webappDir: string, contentDir: string): string[] {
 
 for (const url of getUrls(webappDir, contentDir)) {
   test.describe(`General tests for ${url}`, () => {
+    test.skip(() => test.info().project.name !== test.info().config.projects[0].name, "Run on the first defined project only.");
 
     test.beforeEach(async ({page}, testInfo) => {
       await page.goto(url);
