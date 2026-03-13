@@ -34,14 +34,6 @@ it("test CSS of the fields and labels of 'last1'", function () {
   JasmineUtils.checkGridCss(labelFn(), "4", "auto", "3", "auto");
 });
 
-it("test CSS of the fields and labels of 'last1'", function () {
-  let fieldFn = querySelectorFn("#page\\:mainForm\\:last1");
-  let labelFn = querySelectorFn("#page\\:mainForm\\:last1\\:\\:label");
-
-  JasmineUtils.checkGridCss(fieldFn(), "3", "auto", "3", "auto");
-  JasmineUtils.checkGridCss(labelFn(), "4", "auto", "3", "auto");
-});
-
 it("test CSS of the fields and labels of 'first2'", function () {
   let fieldFn = querySelectorFn("#page\\:mainForm\\:first2");
   let labelFn = querySelectorFn("#page\\:mainForm\\:first2\\:\\:label");

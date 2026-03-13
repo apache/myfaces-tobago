@@ -51,6 +51,7 @@ import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 abstract class FrontendBase {
@@ -114,7 +115,13 @@ abstract class FrontendBase {
         .pollingEvery(Duration.ofSeconds(1))
         .ignoring(NoSuchElementException.class);
     try {
-      fluentWait.until(driver -> driver.findElement(By.className("jasmine-overall-result")));
+      fluentWait.until(driver -> {
+        WebElement progress =
+            driver.findElement(By.className("jasmine_html-reporter")).findElement(By.tagName("progress"));
+        int value = Integer.parseInt(Objects.requireNonNull(progress.getAttribute("value")));
+        int max = Integer.parseInt(Objects.requireNonNull(progress.getAttribute("max")));
+        return value == max;
+      });
     } catch (TimeoutException e) {
       Assertions.fail(path + " timeout");
     }
@@ -124,7 +131,7 @@ abstract class FrontendBase {
       Assertions.fail(errorDetail);
     }
 
-    return webDriver.findElements(By.cssSelector(".jasmine-symbol-summary li"));
+    return webDriver.findElements(By.cssSelector(".jasmine-results li"));
   }
 
   private String getErrorDetail() throws MalformedURLException, UnknownHostException {
@@ -152,12 +159,7 @@ abstract class FrontendBase {
         fail = true;
       }
       stringBuilder.append(": ");
-      stringBuilder.append(result.getAttribute("title"));
-    }
-    if (fail) {
-      stringBuilder.append("\n");
-      stringBuilder.append("failures details:\n");
-      stringBuilder.append(getFailureDetails());
+      stringBuilder.append(result.findElement(By.tagName("a")).getAttribute("textContent"));
     }
     LOG.info(stringBuilder.toString());
 
@@ -165,11 +167,6 @@ abstract class FrontendBase {
       Assertions.assertEquals("jasmine-passed", result.getAttribute("class"),
           path + " " + result.getAttribute("title"));
     }
-  }
-
-  private String getFailureDetails() throws MalformedURLException, UnknownHostException {
-    WebElement failures = getWebDriver().findElement(By.cssSelector(".jasmine-failures"));
-    return failures.getText();
   }
 
   String getTimeLeft(final LocalTime startTime, final int testSize, final int testNo) {

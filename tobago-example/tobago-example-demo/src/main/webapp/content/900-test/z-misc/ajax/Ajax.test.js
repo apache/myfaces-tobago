@@ -18,7 +18,7 @@
 import {elementByIdFn, querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
-it("no layout manager", function (done) {
+it("Submit -> Reset", function (done) {
   const input = elementByIdFn("page:mainForm:form:input::field");
   const output = querySelectorFn("#page\\:mainForm\\:form\\:output .form-control-plaintext")
   const submit = elementByIdFn("page:mainForm:form:submit");
@@ -41,7 +41,7 @@ it("no layout manager", function (done) {
   test.start();
 });
 
-it("no layout manager", function (done) {
+it("Ajax page reload", function (done) {
   const html = querySelectorAllFn("html")
   const body = querySelectorFn("body")
   const ajaxButton = elementByIdFn("page:mainForm:ajaxPageReload");
