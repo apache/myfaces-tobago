@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.example.demo.integration;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
@@ -61,7 +62,7 @@ class BasicTest extends FrontendBase {
     List<WebElement> results = getJasmineResults(webDriver, path);
     Assertions.assertTrue(results.size() > 0, "no results detected");
     for (WebElement result : results) {
-      if ("has no exception".equals(result.getAttribute("title"))) {
+      if ("has no exception".equals(result.findElement(By.tagName("a")).getAttribute("textContent"))) {
         Assertions.assertEquals("jasmine-failed", result.getAttribute("class"), result.getAttribute("title"));
       } else {
         Assertions.assertEquals("jasmine-passed", result.getAttribute("class"), result.getAttribute("title"));
@@ -82,7 +83,7 @@ class BasicTest extends FrontendBase {
     List<WebElement> results = getJasmineResults(webDriver, path);
     Assertions.assertTrue(results.size() > 0, "no results detected");
     for (WebElement result : results) {
-      if ("has no 404".equals(result.getAttribute("title"))) {
+      if ("has no 404".equals(result.findElement(By.tagName("a")).getAttribute("textContent"))) {
         Assertions.assertEquals("jasmine-failed", result.getAttribute("class"), result.getAttribute("title"));
       } else {
         Assertions.assertEquals("jasmine-passed", result.getAttribute("class"), result.getAttribute("title"));

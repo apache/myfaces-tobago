@@ -64,7 +64,7 @@ it("SelectManyList: avoid 'no valid selection' error", function (done) {
   test.do(() => filterInput().value = "y");
   test.event("input", filterInput, () => tobagoSelectItems().length > 0);
   test.event("click", lysitheaSelectItem, () => badges().length > 0);
-  test.do(() => expect(firstBadge().textContent).toBe("Lysithea"));
+  test.do(() => expect(firstBadge().textContent.trim()).toBe("Lysithea"));
   test.event("click", reset, () => badges().length === 0);
   test.do(() => expect(popover()).toBeNull());
   test.start();
