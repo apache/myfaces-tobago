@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 
-import {MenuStore} from "./tobago-menu-store";
 import {Css} from "./tobago-css";
 import {Key} from "./tobago-key";
 import {DropdownItem} from "./tobago-dropdown-item";
@@ -23,6 +22,7 @@ import {DropdownItemFactory} from "./tobago-dropdown-item-factory";
 import {DropdownMenu, DropdownMenuAlignment} from "./tobago-dropdown-menu";
 import {ClientBehaviors} from "./tobago-client-behaviors";
 import {EventListenerStore} from "./util/EventListenerStore";
+import {FocusableElement, tabbable} from "tabbable";
 
 class Dropdown extends HTMLElement {
   private listeners: EventListenerStore = new EventListenerStore();
@@ -38,70 +38,90 @@ class Dropdown extends HTMLElement {
           this.dropdownMenuElement.classList.contains(Css.DROPDOWN_MENU_END)
               ? DropdownMenuAlignment.end : DropdownMenuAlignment.start);
       this.listeners.add(document, "click", this.globalClickEvent.bind(this));
-      this.listeners.add(this, "keydown", this.keydownEvent.bind(this));
-      this.listeners.add(this.dropdownMenuElement, "keydown", this.keydownEvent.bind(this));
-      this.listeners.add(this.toggle, "keydown", this.tabHandling.bind(this));
-      this.getAllDropdownItems(this.dropdownItems).forEach((dropdownItem) => {
-        this.listeners.add(dropdownItem.element, "focus", this.focusEvent.bind(this));
-        if (dropdownItem.children) {
-          this.listeners.add(dropdownItem.element, "mouseenter", this.mouseenterEvent.bind(this));
-        }
-      });
-      this.listeners.add(this, ClientBehaviors.DROPDOWN_HIDDEN, this.dropdownHidden.bind(this));
+      this.listeners.add(this.toggle, "keydown", this.toggleButtonKeydownEvent.bind(this));
+      this.listeners.add(this.dropdownMenuElement, "keydown", this.dropdownMenuKeydownEvent.bind(this));
+
+      if (!this.hasPanelFacet()) {
+        this.getAllDropdownItems(this.dropdownItems).forEach((dropdownItem) => {
+          this.listeners.add(dropdownItem.element, "focus", this.focusEvent.bind(this));
+          if (dropdownItem.children) {
+            this.listeners.add(dropdownItem.element, "mouseenter", this.mouseenterEvent.bind(this));
+          }
+        });
+
+        this.listeners.add(this, ClientBehaviors.DROPDOWN_HIDDEN, this.dropdownHidden.bind(this));
+      }
     }
   }
 
   disconnectedCallback(): void {
     this.listeners.disconnect();
-    MenuStore.get().querySelector(`:scope > .${Css.TOBAGO_DROPDOWN_MENU}[name='${this.id}']`)?.remove();
-  }
-
-  get toggle(): HTMLButtonElement {
-    return this.querySelector(".dropdown-toggle");
-  }
-
-  get expanded(): boolean {
-    return this.toggle.ariaExpanded === "true";
-  }
-
-  get dropdownItems(): DropdownItem[] {
-    return DropdownItemFactory.create(this.dropdownMenuElement);
-  }
-
-  get dropdownMenuElement(): HTMLDivElement {
-    const root = this.getRootNode() as ShadowRoot | Document;
-    return root.querySelector(`.${Css.TOBAGO_DROPDOWN_MENU}[name='${this.id}']`);
+    this.dropdownMenu?.disconnect();
   }
 
   private globalClickEvent(event: MouseEvent): void {
     if (!this.toggle.disabled) {
-      const element = (event.target as Element);
-      if (this.isPartOfDropdown(event.target as Element)) {
-        if (element.getAttribute("for") !== null || element.tagName === "INPUT") {
-          /* do nothing if for-label, because click event triggers a second time on input element
-          do nothing if input element, because dropdown menu should stay open */
-        } else if (element.querySelector<HTMLInputElement>(":scope.dropdown-item > input") !== null) {
-          element.querySelector<HTMLInputElement>(":scope.dropdown-item > input")?.click();
-        } else if (this.getSubMenuToggle(element as HTMLElement) !== null) {
-          const subMenuToggle = this.getSubMenuToggle(element as HTMLElement);
-          subMenuToggle.click();
-        } else if (this.expanded) {
-          this.dropdownMenu.hide();
-        } else {
-          this.dropdownMenu.show();
+      const element = (event.target as HTMLElement);
+      if (element.isConnected) { /* ignore all clicks on elements which are not connected to the DOM (e.g. remove badge
+                                   button from SelectManyList component */
+        const isToggleButton = this.isPartOfRootToggleButton(element);
+
+        if (isToggleButton) {
+          this.toggle.focus(); //Workaround for Safari
         }
-      } else {
-        this.dropdownMenu.hide();
+
+        if (this.isPartOfDropdown(element)) {
+          if (this.autoClose === "outside") {
+            if (this.expanded) {
+              if (isToggleButton) {
+                this.dropdownMenu.hide();
+              }
+            } else {
+              this.dropdownMenu.show();
+            }
+          } else {
+            if (element.getAttribute("for") !== null || element.tagName === "INPUT") {
+              /* do nothing if for-label, because click event triggers a second time on input element
+              do nothing if input element, because dropdown menu should stay open */
+            } else if (element.querySelector<HTMLInputElement>(":scope.dropdown-item > input") !== null) {
+              element.querySelector<HTMLInputElement>(":scope.dropdown-item > input")?.click();
+            } else if (this.getSubMenuToggle(element as HTMLElement) !== null) {
+              const subMenuToggle = this.getSubMenuToggle(element as HTMLElement);
+              subMenuToggle.click();
+            } else if (this.expanded) {
+              this.dropdownMenu.hide();
+            } else {
+              this.dropdownMenu.show();
+            }
+          }
+        } else {
+          this.dropdownMenu.hide();
+        }
       }
     }
   }
 
-  private isPartOfDropdown(element: Element): boolean {
+  private isPartOfDropdown(element: HTMLElement): boolean {
     if (element) {
-      if (this.id === element.id || this.id === element.getAttribute("name")) {
+      const tobagoFor = element.dataset.tobagoFor;
+      if (tobagoFor) {
+        return this.isPartOfDropdown(document.getElementById(tobagoFor));
+      } else if (this.id === element.id) {
         return true;
       } else {
         return element.parentElement ? this.isPartOfDropdown(element.parentElement) : false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  private isPartOfRootToggleButton(element: HTMLElement): boolean {
+    if (element) {
+      if (this.toggle.id === element.id) {
+        return true;
+      } else {
+        return element.parentElement ? this.isPartOfRootToggleButton(element.parentElement) : false;
       }
     } else {
       return false;
@@ -119,42 +139,139 @@ class Dropdown extends HTMLElement {
     }
   }
 
-  private keydownEvent(event: KeyboardEvent): void {
+  private toggleButtonKeydownEvent(event: KeyboardEvent): void {
     switch (event.key) {
       case Key.ARROW_DOWN:
-        event.preventDefault(); //prevent click event if radio button is selected
-        this.dropdownMenu.show();
-        this.getNextDropdownItem()?.focus();
+        if (this.hasPanelFacet()) {
+          if (!this.expanded) {
+            event.preventDefault(); //prevent scrolling the dropdown menu
+            this.dropdownMenu.show();
+            this.firstFocusableElement.focus();
+          }
+        } else {
+          event.preventDefault(); //prevent click event if radio button is selected
+          this.dropdownMenu.show();
+          this.getNextDropdownItem()?.focus();
+        }
         break;
       case Key.ARROW_UP:
-        event.preventDefault(); //prevent click event if radio button is selected
-        this.dropdownMenu.show();
-        this.getPreviousDropdownItem()?.focus();
-        break;
-      case Key.ARROW_RIGHT:
-        event.preventDefault(); //prevent click event if radio button is selected
-        this.getSubmenuDropdownItem()?.focus();
-        break;
-      case Key.ARROW_LEFT:
-        event.preventDefault(); //prevent click event if radio button is selected
-        this.getParentDropdownItem()?.focus();
+        if (this.hasPanelFacet()) {
+          if (!this.expanded) {
+            event.preventDefault(); //prevent scrolling the dropdown menu
+            this.dropdownMenu.show();
+            this.lastFocusableElement.focus();
+          }
+        } else {
+          event.preventDefault(); //prevent click event if radio button is selected
+          this.dropdownMenu.show();
+          this.getPreviousDropdownItem()?.focus();
+        }
         break;
       case Key.ESCAPE:
         this.dropdownMenu.hide();
+        break;
+      case Key.TAB:
+        if (this.expanded) {
+          event.preventDefault();
+          if (this.hasPanelFacet()) {
+            const focusableElements: FocusableElement[] = tabbable(this.dropdownMenuElement);
+            const firstFocusableElement = focusableElements[0];
+            const lastFocusableElement = focusableElements[focusableElements.length - 1];
+            if (event.shiftKey) {
+              lastFocusableElement.focus();
+            } else {
+              firstFocusableElement.focus();
+            }
+          } else {
+            if (event.shiftKey) {
+              this.getPreviousDropdownItem()?.focus();
+            } else {
+              this.getNextDropdownItem()?.focus();
+            }
+          }
+        }
         break;
       default:
         break;
     }
   }
 
-  private tabHandling(event: KeyboardEvent): void {
-    if (event.key === Key.TAB) {
-      if (event.shiftKey) {
+  private dropdownMenuKeydownEvent(event: KeyboardEvent): void {
+    switch (event.key) {
+      case Key.ARROW_DOWN:
+        if (this.hasPanelFacet()) {
+          if (!this.expanded) {
+            event.preventDefault(); //prevent scrolling the dropdown menu
+            this.dropdownMenu.show();
+            this.firstFocusableElement.focus();
+          }
+        } else {
+          event.preventDefault(); //prevent click event if radio button is selected
+          this.dropdownMenu.show();
+          this.getNextDropdownItem()?.focus();
+        }
+        break;
+      case Key.ARROW_UP:
+        if (this.hasPanelFacet()) {
+          if (!this.expanded) {
+            event.preventDefault(); //prevent scrolling the dropdown menu
+            this.dropdownMenu.show();
+            this.lastFocusableElement.focus();
+          }
+        } else {
+          event.preventDefault(); //prevent click event if radio button is selected
+          this.dropdownMenu.show();
+          this.getPreviousDropdownItem()?.focus();
+        }
+        break;
+      case Key.ARROW_RIGHT:
+        if (!this.hasPanelFacet()) {
+          event.preventDefault(); //prevent click event if radio button is selected
+          this.getSubmenuDropdownItem()?.focus();
+        }
+        break;
+      case Key.ARROW_LEFT:
+        if (!this.hasPanelFacet()) {
+          event.preventDefault(); //prevent click event if radio button is selected
+          this.getParentDropdownItem()?.focus();
+        }
+        break;
+      case Key.ESCAPE:
+        this.toggle.focus();
         this.dropdownMenu.hide();
-      } else if (this.dropdownMenuElement.classList.contains(Css.SHOW)) {
-        event.preventDefault(); //avoid selecting second element
-        this.getNextDropdownItem()?.focus();
-      }
+        break;
+      case Key.TAB:
+        if (this.hasPanelFacet()) {
+          const focusableElements: FocusableElement[] = tabbable(this.dropdownMenuElement);
+          const firstFocusableElement = focusableElements[0];
+          const lastFocusableElement = focusableElements[focusableElements.length - 1];
+          if (event.shiftKey) {
+            if (document.activeElement === firstFocusableElement
+                || (document.activeElement === this.toggle && this.expanded)
+            ) {
+              event.preventDefault();
+              lastFocusableElement.focus();
+            }
+          } else {
+            if (document.activeElement === lastFocusableElement
+                || (document.activeElement === this.toggle && this.expanded)) {
+              event.preventDefault();
+              firstFocusableElement.focus();
+            }
+          }
+        } else {
+          if (this.expanded) {
+            event.preventDefault();
+            if (event.shiftKey) {
+              this.getPreviousDropdownItem()?.focus();
+            } else {
+              this.getNextDropdownItem()?.focus();
+            }
+          }
+        }
+        break;
+      default:
+        break;
     }
   }
 
@@ -284,6 +401,46 @@ class Dropdown extends HTMLElement {
    */
   private insideNavbar(): boolean {
     return Boolean(this.closest(".navbar"));
+  }
+
+  /**
+   * If the tobago-dropdown has a panel-facet, the menu does contain a *form* not *dropdown-items*.
+   * The dropdown menu should stay open if a component inside the *form* is clicked.
+   * @private
+   */
+  private hasPanelFacet(): boolean {
+    return this.dropdownMenuElement.querySelector(":scope > .tobago-panel-facet") !== null;
+  }
+
+  get toggle(): HTMLButtonElement {
+    return this.querySelector(".dropdown-toggle");
+  }
+
+  get expanded(): boolean {
+    return this.toggle.ariaExpanded === "true";
+  }
+
+  get autoClose(): string {
+    return this.getAttribute("data-tobago-auto-close");
+  }
+
+  get dropdownItems(): DropdownItem[] {
+    return DropdownItemFactory.create(this.dropdownMenuElement);
+  }
+
+  get dropdownMenuElement(): HTMLDivElement {
+    const root = this.getRootNode() as ShadowRoot | Document;
+    return root.querySelector(`.${Css.TOBAGO_DROPDOWN_MENU}[name='${this.id}']`);
+  }
+
+  get firstFocusableElement(): HTMLElement | SVGElement {
+    const focusableElements: FocusableElement[] = tabbable(this.dropdownMenuElement);
+    return focusableElements.length > 0 ? focusableElements[0] : null;
+  }
+
+  get lastFocusableElement(): HTMLElement | SVGElement {
+    const focusableElements: FocusableElement[] = tabbable(this.dropdownMenuElement);
+    return focusableElements.length > 0 ? focusableElements[focusableElements.length - 1] : null;
   }
 }
 

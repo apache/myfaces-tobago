@@ -44,7 +44,7 @@ export class Suggest {
 
     this.tobagoSuggest.insertAdjacentHTML("beforebegin", `<div class="${Css.TOBAGO_DROPDOWN_MENU_ANCHOR}">
     <ul id="${this.tobagoSuggest.id + "::dropdownMenu"}" class="${Css.TOBAGO_DROPDOWN_MENU}"
-    name="${this.tobagoSuggest.id}" role="listbox"/></div>`);
+    name="${this.tobagoSuggest.id}" data-tobago-for="${this.tobagoSuggest.id}" role="listbox"/></div>`);
     this.dropdownMenu = new DropdownMenu(this.dropdownMenuElement, this.inputField, this.tobagoIn, this.localMenu,
         DropdownMenuAlignment.centerFullWidth);
 
@@ -70,7 +70,11 @@ export class Suggest {
    * Call this in the disconnectedCallback() method.
    */
   public disconnect(): void {
+    this.spinnerDiv.remove();
+    delete this.spinner;
+    this.dropdownMenuAnchor.remove();
     this.dropdownMenu.disconnect();
+    delete this.dropdownMenu;
     this.listeners.disconnect();
   }
 
@@ -123,8 +127,11 @@ export class Suggest {
         break;
       }
       case Key.ESCAPE:
-        this.dropdownMenu.hide();
         this.inputField.focus();
+        if (this.dropdownMenuElement && this.dropdownMenu.visible) {
+          this.dropdownMenu?.hide();
+          event.stopPropagation(); //prevent closing a parent dropdown form menu
+        }
         break;
       default:
         break;
@@ -284,6 +291,10 @@ export class Suggest {
 
   private get spinnerDiv(): HTMLDivElement {
     return this.tobagoIn.querySelector<HTMLDivElement>(`.${Css.SPINNER}`);
+  }
+
+  private get dropdownMenuAnchor(): HTMLDivElement {
+    return this.tobagoIn.querySelector<HTMLDivElement>(`.${Css.TOBAGO_DROPDOWN_MENU_ANCHOR}`);
   }
 
   private get tobagoSuggest(): HTMLElement {

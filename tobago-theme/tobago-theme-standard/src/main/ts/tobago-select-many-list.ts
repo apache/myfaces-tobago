@@ -18,6 +18,7 @@
 import {SelectListBase} from "./tobago-select-list-base";
 import {Css} from "./tobago-css";
 import {html, HTMLTemplateResult, render} from "lit-html";
+import {Key} from "./tobago-key";
 
 class SelectManyList extends SelectListBase {
   constructor() {
@@ -35,18 +36,16 @@ class SelectManyList extends SelectListBase {
 
   protected globalClickEvent(event: MouseEvent): void {
     if (!this.disabled) {
-      if (this.isDeleted(event.target as Element)) {
+      const element: HTMLElement = event.target as HTMLElement;
+      if (!element.isConnected) {
         // do nothing, this is probably a removed badge
-      } else if (this.isPartOfSelectField(event.target as Element)
-          || this.isPartOfTobagoOptions(event.target as Element)) {
-
+      } else if (this.isPartOfSelectField(element) || this.isPartOfTobagoOptions(element)) {
         if (!this.filterInput.disabled) {
           this.filterInput.focus();
         } else if (this.badgeCloseButtons.length > 0) {
           this.badgeCloseButtons[0].focus();
         }
         this.dropdownMenu?.show();
-
       } else {
         this.leaveComponent();
       }
@@ -59,6 +58,21 @@ class SelectManyList extends SelectListBase {
       this.filterInput.focus();
     } else if (this.badgeCloseButtons.length > 0) {
       this.badgeCloseButtons[0].focus();
+    }
+  }
+
+  keydownEventBase(event: KeyboardEvent) {
+    if (event.key === Key.ESCAPE && this.dropdownMenuElement && this.dropdownMenu.visible) {
+      this.dropdownMenu.hide();
+      event.stopPropagation(); //prevent closing a parent dropdown form menu
+      this.removePreselection();
+      if (!this.filterInput.disabled) {
+        this.filterInput.focus();
+      } else if (this.badgeCloseButtons.length > 0) {
+        this.badgeCloseButtons[0].focus();
+      }
+    } else {
+      super.keydownEventBase(event);
     }
   }
 
@@ -85,24 +99,25 @@ class SelectManyList extends SelectListBase {
 
   private sync(option: HTMLOptionElement) {
     const itemValue = option.value;
+    const badge = this.selectField.querySelector(`[data-tobago-value="${itemValue}"]`);
     const row: HTMLTableRowElement = this.tbody.querySelector(`[data-tobago-value="${itemValue}"]`);
     if (option.selected) {
-      // create badge
-      const tabIndex: number = this.filterInput.tabIndex;
-      const span = document.createElement("span");
-      span.className = "btn-group";
-      span.role = "group";
-      span.dataset.tobagoValue = itemValue;
-      this.badges.insertAdjacentElement("beforeend", span);
-      render(this.getBadgeTemplate(option.innerText, option.dataset.tobagoIcon,
-          option.disabled || this.hiddenSelect.disabled, tabIndex), span);
+
+      if (!badge) {
+        // create badge
+        const tabIndex: number = this.filterInput.tabIndex;
+        const span = document.createElement("span");
+        span.className = "btn-group";
+        span.role = "group";
+        span.dataset.tobagoValue = itemValue;
+        this.badges.insertAdjacentElement("beforeend", span);
+        render(this.getBadgeTemplate(option.innerText, option.dataset.tobagoIcon,
+            option.disabled || this.hiddenSelect.disabled, tabIndex), span);
+      }
 
       row?.classList.add(Css.TABLE_PRIMARY); // highlight list row
     } else {
-      // remove badge
-      const badge = this.selectField.querySelector(`[data-tobago-value="${itemValue}"]`);
-      badge.remove();
-
+      badge?.remove();
       row?.classList.remove(Css.TABLE_PRIMARY); // remove highlight list row
     }
 
@@ -114,8 +129,9 @@ class SelectManyList extends SelectListBase {
       this.filterInput.disabled = this.badgeCloseButtons.length > 0;
     }
   }
+
   private iconTemplate(icon: string): HTMLTemplateResult {
-    return icon ? html`<i class='${icon}'></i> `: null;
+    return icon ? html`<i class='${icon}'></i> ` : null;
   }
 
   private getBadgeTemplate(text: string, icon: string, disabled: boolean, tabIndex: number): HTMLTemplateResult {
@@ -199,10 +215,6 @@ class SelectManyList extends SelectListBase {
       this.dropdownMenu?.hide();
       this.focused = false; //dispatch blur event; should be called after doFilter("")
     }
-  }
-
-  private isDeleted(element: Element): boolean {
-    return element.closest("html") === null;
   }
 
   get badges(): HTMLDivElement {

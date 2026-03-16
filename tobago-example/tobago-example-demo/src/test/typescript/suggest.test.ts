@@ -146,6 +146,158 @@ test.describe("900-test/in/suggest/Suggest.xhtml", () => {
   });
 });
 
+test.describe("900-test/in/suggest/dropdown-form/Dropdown_form.xhtml", () => {
+
+  test.beforeEach(async ({page}, testInfo) => {
+    await page.goto("/content/900-test/in/suggest/dropdown-form/Dropdown_form.xhtml");
+  });
+
+  test("Open from dropdown, Tab to suggest, open suggest list, Escape, Escape", async ({page}) => {
+    const toggleButton = page.locator("button[id='page:mainForm:dropdownForm::command']");
+    const beforeComp = page.locator("[id='page:mainForm:innerBeforeComp::field']");
+    const inputField = page.locator("input[id='page:mainForm:suggestInput::field']");
+    const suggestDropdownMenu = page.locator(".tobago-dropdown-menu[name='page:mainForm:suggest']");
+    const firstSuggest = suggestDropdownMenu.locator("li[data-result-index='0']");
+
+    await expect(inputField).not.toBeVisible();
+    await toggleButton.click();
+    await expect(inputField).toBeVisible();
+    await page.keyboard.press("Tab");
+    await expect(beforeComp).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(inputField).toBeFocused();
+    await page.keyboard.press("S");
+    await expect(firstSuggest).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(firstSuggest).not.toBeVisible();
+    await expect(inputField).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(firstSuggest).not.toBeVisible();
+    await expect(inputField).not.toBeVisible();
+    await expect(toggleButton).toBeFocused();
+  });
+
+  test("Open from dropdown, Tab to suggest, 'ma', ArrowDowns/Tabs, Enter, Tab to beforeComp", async ({page}) => {
+    const toggleButton = page.locator("button[id='page:mainForm:dropdownForm::command']");
+    const beforeComp = page.locator("[id='page:mainForm:innerBeforeComp::field']");
+    const inputField = page.locator("input[id='page:mainForm:suggestInput::field']");
+    const suggestDropdownMenu = page.locator(".tobago-dropdown-menu[name='page:mainForm:suggest']");
+    const mars = suggestDropdownMenu.locator("li[data-result-index='0']");
+    const amalthea = suggestDropdownMenu.locator("li[data-result-index='1']");
+    const himalia = suggestDropdownMenu.locator("li[data-result-index='2']");
+    const mimas = suggestDropdownMenu.locator("li[data-result-index='3']");
+    const afterComp = page.locator("[id='page:mainForm:innerAfterComp::field']");
+
+    await expect(inputField).not.toBeVisible();
+    await toggleButton.click();
+    await expect(inputField).toBeVisible();
+    await page.keyboard.press("Tab");
+    await expect(beforeComp).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(inputField).toBeFocused();
+    await page.keyboard.press("m");
+    await page.keyboard.press("a");
+    await expect(mars).toBeVisible();
+    await expect(amalthea).toBeVisible();
+    await expect(himalia).toBeVisible();
+    await expect(mimas).toBeVisible();
+    await page.keyboard.press("ArrowDown");
+    await expect(mars.locator("button")).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(amalthea.locator("button")).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(himalia.locator("button")).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(mimas.locator("button")).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(mars.locator("button")).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(amalthea.locator("button")).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(himalia.locator("button")).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(mimas.locator("button")).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(mars.locator("button")).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(mars).not.toBeVisible();
+    await expect(amalthea).not.toBeVisible();
+    await expect(himalia).not.toBeVisible();
+    await expect(mimas).not.toBeVisible();
+    await expect(inputField).toHaveValue("Mars");
+    await page.keyboard.press("Tab");
+    await expect(afterComp).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(beforeComp).toBeFocused();
+  });
+
+  test("Open from dropdown, Tab to suggest, 'ma', ArrowUps/shift-Tabs, Enter, Tab to beforeComp", async ({page}) => {
+    const toggleButton = page.locator("button[id='page:mainForm:dropdownForm::command']");
+    const beforeComp = page.locator("[id='page:mainForm:innerBeforeComp::field']");
+    const inputField = page.locator("input[id='page:mainForm:suggestInput::field']");
+    const suggestDropdownMenu = page.locator(".tobago-dropdown-menu[name='page:mainForm:suggest']");
+    const mars = suggestDropdownMenu.locator("li[data-result-index='0']");
+    const amalthea = suggestDropdownMenu.locator("li[data-result-index='1']");
+    const himalia = suggestDropdownMenu.locator("li[data-result-index='2']");
+    const mimas = suggestDropdownMenu.locator("li[data-result-index='3']");
+    const afterComp = page.locator("[id='page:mainForm:innerAfterComp::field']");
+
+    await expect(inputField).not.toBeVisible();
+    await toggleButton.click();
+    await expect(inputField).toBeVisible();
+    await page.keyboard.press("Tab");
+    await expect(beforeComp).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(inputField).toBeFocused();
+    await page.keyboard.press("m");
+    await page.keyboard.press("a");
+    await expect(mars).toBeVisible();
+    await expect(amalthea).toBeVisible();
+    await expect(himalia).toBeVisible();
+    await expect(mimas).toBeVisible();
+    await page.keyboard.press("ArrowUp");
+    await expect(mimas.locator("button")).toBeFocused();
+    await page.keyboard.press("ArrowUp");
+    await expect(himalia.locator("button")).toBeFocused();
+    await page.keyboard.press("ArrowUp");
+    await expect(amalthea.locator("button")).toBeFocused();
+    await page.keyboard.press("ArrowUp");
+    await expect(mars.locator("button")).toBeFocused();
+    await page.keyboard.press("ArrowUp");
+    await expect(mimas.locator("button")).toBeFocused();
+    await page.keyboard.down("Shift");
+    await page.keyboard.press("Tab");
+    await page.keyboard.up("Shift");
+    await expect(himalia.locator("button")).toBeFocused();
+    await page.keyboard.down("Shift");
+    await page.keyboard.press("Tab");
+    await page.keyboard.up("Shift");
+    await expect(amalthea.locator("button")).toBeFocused();
+    await page.keyboard.down("Shift");
+    await page.keyboard.press("Tab");
+    await page.keyboard.up("Shift");
+    await expect(mars.locator("button")).toBeFocused();
+    await page.keyboard.down("Shift");
+    await page.keyboard.press("Tab");
+    await page.keyboard.up("Shift");
+    await expect(mimas.locator("button")).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(mars).not.toBeVisible();
+    await expect(amalthea).not.toBeVisible();
+    await expect(himalia).not.toBeVisible();
+    await expect(mimas).not.toBeVisible();
+    await expect(inputField).toHaveValue("Mimas");
+    await page.keyboard.down("Shift");
+    await page.keyboard.press("Tab");
+    await page.keyboard.up("Shift");
+    await expect(beforeComp).toBeFocused();
+    await page.keyboard.down("Shift");
+    await page.keyboard.press("Tab");
+    await page.keyboard.up("Shift");
+    await expect(afterComp).toBeFocused();
+  });
+});
+
 test.describe("900-test/in/suggest/spinner/Spinner.xhtml", () => {
 
   test.beforeEach(async ({page}, testInfo) => {

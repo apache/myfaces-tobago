@@ -41,7 +41,7 @@ class SelectOneList extends SelectListBase {
           this.filterInput.focus();
         }
         this.dropdownMenu?.show();
-      } else if (this.isPartOfTobagoOptions(event.target as Element)) {
+      } else if (this.isPartOfTobagoOptions(event.target as HTMLElement)) {
         if (!this.filterInput.disabled) {
           this.filterInput.focus();
         }

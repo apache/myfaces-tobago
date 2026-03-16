@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import {elementByIdFn, innerHeight, querySelectorFn, scrollTo} from "/script/tobago-test.js";
+import {activeElementFn, elementByIdFn, innerHeight, querySelectorFn, scrollTo} from "/script/tobago-test.js";
 import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
 
 it("Button dropdown on the right", function (done) {
@@ -82,6 +82,7 @@ it("default - button dropdown: upper half", function (done) {
   test.do(() => scrollTo(rect(button()).x, rect(button()).y - parseStyle(tobagoHeader(), "height")));
   test.waitMs(1000);
   test.do(() => expect(dropdownMenu().classList).not.toContain("show"));
+  test.event("focus", button, () => activeElementFn() === button());
   test.event("click", button, () => dropdownMenu().classList.contains("show"));
   test.do(() => expect(dropdownMenu().classList).toContain("show"));
   test.do(() => expect(rect(dropdownMenu()).left).toBeCloseTo(rect(button()).left, 1));
@@ -116,6 +117,7 @@ it("default - button dropdown in tc:in after-facet: upper half", function (done)
   test.do(() => scrollTo(rect(button()).x, rect(button()).y - parseStyle(tobagoHeader(), "height")));
   test.waitMs(1000);
   test.do(() => expect(dropdownMenu().classList).not.toContain("show"));
+  test.event("focus", button, () => activeElementFn() === button());
   test.event("click", button, () => dropdownMenu().classList.contains("show"));
   test.do(() => expect(dropdownMenu().classList).toContain("show"));
   test.do(() => expect(rect(dropdownMenu()).right).toBeCloseTo(rect(button()).right, 1));
@@ -189,6 +191,7 @@ it("transformX0 - button dropdown: upper half", function (done) {
   test.do(() => scrollTo(rect(button()).x, rect(button()).y - parseStyle(tobagoHeader(), "height")));
   test.waitMs(1000);
   test.do(() => expect(dropdownMenu().classList).not.toContain("show"));
+  test.event("focus", button, () => activeElementFn() === button());
   test.event("click", button, () => dropdownMenu().classList.contains("show"));
   test.do(() => expect(dropdownMenu().classList).toContain("show"));
   test.do(() => expect(rect(dropdownMenu()).left).toBeCloseTo(rect(button()).left, 1));
@@ -223,6 +226,7 @@ it("transformX0 - button dropdown in tc:in after-facet: upper half", function (d
   test.do(() => scrollTo(rect(button()).x, rect(button()).y - parseStyle(tobagoHeader(), "height")));
   test.waitMs(1000);
   test.do(() => expect(dropdownMenu().classList).not.toContain("show"));
+  test.event("focus", button, () => activeElementFn() === button());
   test.event("click", button, () => dropdownMenu().classList.contains("show"));
   test.do(() => expect(dropdownMenu().classList).toContain("show"));
   test.do(() => expect(rect(dropdownMenu()).right).toBeCloseTo(rect(button()).right, 1));
