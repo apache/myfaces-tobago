@@ -82,10 +82,13 @@ export abstract class SelectListBase extends HTMLElement {
    */
   protected abstract labelClickEvent(event: MouseEvent): void;
 
-  private keydownEventBase(event: KeyboardEvent) {
+  protected keydownEventBase(event: KeyboardEvent) {
     switch (event.key) {
       case Key.ESCAPE:
-        this.dropdownMenu?.hide();
+        if (this.dropdownMenuElement && this.dropdownMenu.visible) {
+          this.dropdownMenu?.hide();
+          event.stopPropagation(); //prevent closing a parent dropdown form menu
+        }
         this.removePreselection();
         this.filterInput.focus({preventScroll: true});
         break;
@@ -110,8 +113,17 @@ export abstract class SelectListBase extends HTMLElement {
         }
         break;
       case Key.TAB:
-        this.removePreselection();
-        this.filterInput.focus({preventScroll: true});
+        if (this.dropdownMenuElement && this.dropdownMenu.visible) {
+          event.preventDefault();
+          if (event.shiftKey) {
+            this.preselectPreviousRow();
+          } else {
+            this.preselectNextRow();
+          }
+        } else {
+          this.removePreselection();
+          this.filterInput.focus({preventScroll: true});
+        }
         break;
       default:
         this.filterInput.focus({preventScroll: true});
@@ -171,10 +183,8 @@ export abstract class SelectListBase extends HTMLElement {
             onevent: this.lazyResponse.bind(this),
             onerror: this.lazyError.bind(this)
           });
-    } else {
+    } else if (this.filter) {
       const filterFunction = TobagoFilterRegistry.get(this.filter);
-      // XXX todo: if filterFunction not found?
-
       if (filterFunction != null) {
         this.rows.forEach(row => {
           const itemValue = row.cells.item(0).textContent;

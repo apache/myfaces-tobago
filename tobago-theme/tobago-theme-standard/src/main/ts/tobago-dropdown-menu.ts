@@ -59,18 +59,20 @@ export class DropdownMenu {
 
   private scrollEventListenerEvent(event: Event): void {
     const target = event.target as HTMLElement;
-    if (!this.insideDropdownMenuElement(target)) {
+    if (!this.isPartOfDropdown(target)) {
       this.hide();
     }
   }
 
-  private insideDropdownMenuElement(element: HTMLElement): boolean {
-    if (element && element.classList) {
-      if (element.classList.contains(Css.TOBAGO_DROPDOWN_MENU)
-          && element.getAttribute("name") === this.dropdownMenuElementId) {
+  private isPartOfDropdown(element: HTMLElement): boolean {
+    if (element) {
+      const tobagoFor = element.dataset?.tobagoFor;
+      if (tobagoFor) {
+        return this.isPartOfDropdown(document.getElementById(tobagoFor));
+      } else if (this.dropdownMenuElementId === element.id) {
         return true;
       } else {
-        return this.insideDropdownMenuElement(element.parentElement);
+        return element.parentElement ? this.isPartOfDropdown(element.parentElement) : false;
       }
     } else {
       return false;

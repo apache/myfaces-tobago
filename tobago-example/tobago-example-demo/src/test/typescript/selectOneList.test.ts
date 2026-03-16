@@ -19,6 +19,82 @@
 
 import {expect, test} from "@playwright/test";
 
+test.describe("900-test/selectOneList/dropdown-form/Dropdown_form.xhtml", () => {
+
+  test.beforeEach(async ({page}, testInfo) => {
+    await page.goto("/content/900-test/selectOneList/dropdown-form/Dropdown_form.xhtml");
+  });
+
+  test("Open form dropdown, ArrowDown to open selectOneList dropdown, Escape, Tab to next element", async ({page}) => {
+    const toggleButton = page.locator("button[id='page:mainForm:dropdownForm::command']");
+    const beforeComp = page.locator("[id='page:mainForm:innerBeforeComp::field']");
+    const selectOneList = page.locator("tobago-select-one-list[id='page:mainForm:selectOneList']");
+    const readonlyFilter = selectOneList.locator("input[id='page:mainForm:selectOneList::filter']");
+    const selectOneListMenu = page.locator(".tobago-dropdown-menu[data-tobago-for='page:mainForm:selectOneList']");
+    const mercuryRow = selectOneListMenu.locator("td[value='Mercury']");
+    const afterComp = page.locator("[id='page:mainForm:innerAfterComp::field']");
+
+    await expect(selectOneList).not.toBeVisible();
+    await toggleButton.click();
+    await expect(selectOneList).toBeVisible();
+    await page.keyboard.press("Tab");
+    await expect(beforeComp).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(readonlyFilter).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(mercuryRow).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(mercuryRow).not.toBeVisible();
+    await expect(readonlyFilter).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(afterComp).toBeFocused();
+  });
+
+  test("Open from dropdown, click selectOneList, remove Venus by list, Escape, Escape", async ({page}) => {
+    const toggleButton = page.locator("button[id='page:mainForm:dropdownForm::command']");
+    const selectOneList = page.locator("tobago-select-one-list[id='page:mainForm:selectOneList']");
+    const selectField = page.locator("div[id='page:mainForm:selectOneList::selectField']");
+    const readonlyFilter = selectOneList.locator("input[id='page:mainForm:selectOneList::filter']");
+    const selectOneListMenu = page.locator(".tobago-dropdown-menu[data-tobago-for='page:mainForm:selectOneList']");
+    const mercuryRow = selectOneListMenu.locator("td[value='Mercury']");
+
+    await expect(selectOneList).not.toBeVisible();
+    await toggleButton.click();
+    await expect(selectOneList).toBeVisible();
+    await selectField.click();
+    await expect(mercuryRow).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(mercuryRow).not.toBeVisible();
+    await expect(selectOneList).toBeVisible();
+    await expect(readonlyFilter).toBeFocused();
+    await page.keyboard.press("Escape");
+    await expect(selectOneList).not.toBeVisible();
+    await expect(toggleButton).toBeFocused();
+  });
+
+  test("Open form dropdown, Tab to selectOneList, Escape, Enter -> focus must not be set", async ({page}) => {
+    const toggleButton = page.locator("button[id='page:mainForm:dropdownForm::command']");
+    const beforeComp = page.locator("[id='page:mainForm:innerBeforeComp::field']");
+    const selectOneList = page.locator("tobago-select-one-list[id='page:mainForm:selectOneList']");
+    const readonlyFilter = selectOneList.locator("input[id='page:mainForm:selectOneList::filter']");
+
+    await expect(selectOneList).not.toBeVisible();
+    await toggleButton.click();
+    await expect(selectOneList).toBeVisible();
+    await page.keyboard.press("Tab");
+    await expect(beforeComp).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(readonlyFilter).toBeFocused();
+    await expect(selectOneList).toContainClass("tobago-focus");
+    await page.keyboard.press("Escape");
+    await expect(selectOneList).not.toBeVisible();
+    await expect(toggleButton).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(selectOneList).toBeVisible();
+    await expect(selectOneList).not.toContainClass("tobago-focus");
+  });
+});
+
 test.describe("900-test/selectOneList/server-side-filtering/spinner/Spinner.xhtml", () => {
 
   test.beforeEach(async ({page}, testInfo) => {

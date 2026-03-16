@@ -193,19 +193,26 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
     final boolean isInsideInputAfter = isInside(facesContext, HtmlElements.TOBAGO_IN)
         && isInside(facesContext, Facets.after);
     final boolean disabled = component.isDisabled();
+    final UIComponent panelFacet = component.getFacet(Facets.PANEL);
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    if (parentOfCommands) {
+    if (panelFacet != null) {
+      writer.startElement(HtmlElements.DIV);
+      encodeDropdownMenuAttributes(facesContext, component, writer, isInsideInputAfter, disabled);
 
       writer.startElement(HtmlElements.DIV);
-      writer.writeClassAttribute(
-          TobagoClass.DROPDOWN__MENU,
-          isInsideInputAfter ? BootstrapClass.DROPDOWN_MENU_END : null,
-          disabled ? TobagoClass.DISABLED : null);
-      writer.writeAttribute(Arias.LABELLEDBY, component.getFieldId(facesContext), false);
-      writer.writeAttribute(HtmlAttributes.NAME, component.getClientId(facesContext), false);
-      writer.writeAttribute(DataAttributes.FOR, clientId, false);
+      writer.writeClassAttribute(TobagoClass.PANEL__FACET);
+      insideBegin(facesContext, Facets.panel);
+      panelFacet.encodeAll(facesContext);
+      insideEnd(facesContext, Facets.panel);
+      writer.endElement(HtmlElements.DIV);
+
+      writer.endElement(HtmlElements.DIV);
+    } else if (parentOfCommands) {
+
+      writer.startElement(HtmlElements.DIV);
+      encodeDropdownMenuAttributes(facesContext, component, writer, isInsideInputAfter, disabled);
 
       RenderChildrenCommands visitor =
           new RenderChildrenCommands(facesContext, writer, component.getClientId(facesContext));
@@ -229,6 +236,20 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
     }
   }
 
+  private void encodeDropdownMenuAttributes(
+      final FacesContext facesContext, final T component,
+      final TobagoResponseWriter writer, final boolean isInsideInputAfter, final boolean disabled) throws IOException {
+    final String clientId = component.getClientId(facesContext);
+
+    writer.writeClassAttribute(
+        TobagoClass.DROPDOWN__MENU,
+        isInsideInputAfter ? BootstrapClass.DROPDOWN_MENU_END : null,
+        disabled ? TobagoClass.DISABLED : null);
+    writer.writeAttribute(Arias.LABELLEDBY, component.getFieldId(facesContext), false);
+    writer.writeAttribute(HtmlAttributes.NAME, clientId, false);
+    writer.writeAttribute(DataAttributes.FOR, clientId, false);
+  }
+
   @Override
   public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     encodeEndOuter(facesContext, component);
@@ -238,6 +259,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
 
     final String clientId = command.getClientId(facesContext);
     final boolean parentOfCommands = command.isParentOfCommands();
+    final UIComponent panelFacet = command.getFacet(Facets.PANEL);
     final boolean dropdownSubmenu = isInside(facesContext, HtmlElements.COMMAND);
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
@@ -248,6 +270,11 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
       writer.writeClassAttribute(
           dropdownSubmenu ? TobagoClass.DROPDOWN__SUBMENU : BootstrapClass.DROPDOWN,
           getOuterCssItems(facesContext, command));
+
+      if (panelFacet != null) {
+        writer.writeAttribute(DataAttributes.AUTO_CLOSE, "outside", false);
+      }
+
     }
   }
 

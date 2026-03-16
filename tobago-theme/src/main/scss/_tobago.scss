@@ -89,6 +89,10 @@ $icon-sort-numbers: (
   > .tobago-dropdown-menu {
     @include tobagoDropdownMenuValues();
 
+    .tobago-panel-facet {
+      padding: var(--#{$prefix}dropdown-item-padding-y) var(--#{$prefix}dropdown-item-padding-x);
+    }
+
     .form-check {
       /* move form-check components to the right, so checkbox/radio buttons are inside dropdown-menu */
       $paddingLeftCheckboxRadio: (divide($dropdown-item-padding-x, 1rem) + $form-check-padding-start);
@@ -343,11 +347,13 @@ $icon-sort-numbers: (
 
       tbody tr {
         cursor: pointer;
+
         td {
           i {
             margin-right: 0.25rem;
           }
         }
+
         &.tobago-disabled {
           --#{$prefix}table-bg: #{$form-select-disabled-bg};
           color: $form-select-disabled-color;
@@ -1528,6 +1534,7 @@ tobago-select-one-list {
     i {
       margin-right: 0.25rem;
     }
+
     span {
       white-space: nowrap;
       overflow: hidden;

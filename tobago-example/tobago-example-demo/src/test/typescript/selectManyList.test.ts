@@ -49,6 +49,152 @@ test.describe("900-test/2100-selectManyList/deselect/deselect.xhtml", () => {
   });
 });
 
+test.describe("900-test/selectManyList/dropdown-form/Dropdown_form.xhtml", () => {
+
+  test.beforeEach(async ({page}, testInfo) => {
+    await page.goto("/content/900-test/selectManyList/dropdown-form/Dropdown_form.xhtml");
+  });
+
+  test("Open form dropdown, close and reopen", async ({page}) => {
+    const toggleButton = page.locator("button[id='page:mainForm:dropdownForm::command']");
+    const selectManyList = page.locator("tobago-select-many-list[id='page:mainForm:selectManyList']");
+    const badges = selectManyList.locator(".tobago-badges .btn-group");
+
+    await expect(selectManyList).not.toBeVisible();
+    await toggleButton.click();
+    await expect(selectManyList).toBeVisible();
+    await expect(badges).toHaveCount(3);
+    await toggleButton.click();
+    await expect(selectManyList).not.toBeVisible();
+    await toggleButton.click();
+    await expect(selectManyList).toBeVisible();
+    await expect(badges).toHaveCount(3);
+    await expect(badges.nth(0)).toHaveAttribute("data-tobago-value", "Venus");
+    await expect(badges.nth(1)).toHaveAttribute("data-tobago-value", "Earth");
+    await expect(badges.nth(2)).toHaveAttribute("data-tobago-value", "Jupiter");
+  });
+
+  test("Open form dropdown, ArrowDown to open selectManyList dropdown, Escape, Tab to next element", async ({page}) => {
+    const toggleButton = page.locator("button[id='page:mainForm:dropdownForm::command']");
+    const beforeComp = page.locator("[id='page:mainForm:innerBeforeComp::field']");
+    const selectManyList = page.locator("tobago-select-many-list[id='page:mainForm:selectManyList']");
+    const deselectVenus = selectManyList.locator(".tobago-badges .tobago-button[aria-label='deselect Venus']");
+    const deselectEarth = selectManyList.locator(".tobago-badges .tobago-button[aria-label='deselect Earth']");
+    const deselectJupiter = selectManyList.locator(".tobago-badges .tobago-button[aria-label='deselect Jupiter']");
+    const selectManyListMenu = page.locator(".tobago-dropdown-menu[data-tobago-for='page:mainForm:selectManyList']");
+    const mercuryRow = selectManyListMenu.locator("td[value='Mercury']");
+    const afterComp = page.locator("[id='page:mainForm:innerAfterComp::field']");
+
+    await expect(selectManyList).not.toBeVisible();
+    await toggleButton.click();
+    await expect(selectManyList).toBeVisible();
+    await page.keyboard.press("Tab");
+    await expect(beforeComp).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(deselectVenus).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(mercuryRow).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(mercuryRow).not.toBeVisible();
+    await expect(deselectVenus).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(deselectEarth).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(deselectJupiter).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(afterComp).toBeFocused();
+  });
+
+  test("Open from dropdown, focus selectManyList, ArrowDown, remove Venus by list, Escape, Escape", async ({page}) => {
+    const toggleButton = page.locator("button[id='page:mainForm:dropdownForm::command']");
+    const beforeComp = page.locator("[id='page:mainForm:innerBeforeComp::field']");
+    const selectManyList = page.locator("tobago-select-many-list[id='page:mainForm:selectManyList']");
+    const badges = selectManyList.locator(".tobago-badges .btn-group");
+    const deselectVenus = selectManyList.locator(".tobago-badges .tobago-button[aria-label='deselect Venus']");
+    const deselectEarth = selectManyList.locator(".tobago-badges .tobago-button[aria-label='deselect Earth']");
+    const selectManyListMenu = page.locator(".tobago-dropdown-menu[data-tobago-for='page:mainForm:selectManyList']");
+    const mercuryRow = selectManyListMenu.locator("td[value='Mercury']");
+    const venusRow = selectManyListMenu.locator("td[value='Venus']");
+
+    await expect(selectManyList).not.toBeVisible();
+    await toggleButton.click();
+    await expect(selectManyList).toBeVisible();
+    await page.keyboard.press("Tab");
+    await expect(beforeComp).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(deselectVenus).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(mercuryRow).toBeVisible();
+    await expect(badges).toHaveCount(3);
+    await expect(badges.nth(0)).toHaveAttribute("data-tobago-value", "Venus");
+    await expect(badges.nth(1)).toHaveAttribute("data-tobago-value", "Earth");
+    await expect(badges.nth(2)).toHaveAttribute("data-tobago-value", "Jupiter");
+    await venusRow.click();
+    await expect(badges).toHaveCount(2);
+    await expect(badges.nth(0)).toHaveAttribute("data-tobago-value", "Earth");
+    await expect(badges.nth(1)).toHaveAttribute("data-tobago-value", "Jupiter");
+    await page.keyboard.press("Escape");
+    await expect(mercuryRow).not.toBeVisible();
+    await expect(selectManyList).toBeVisible();
+    await expect(deselectEarth).toBeFocused();
+    await page.keyboard.press("Escape");
+    await expect(selectManyList).not.toBeVisible();
+    await expect(toggleButton).toBeFocused();
+  });
+
+  test("Open form dropdown, Tab to selectOneList, Escape, Enter -> focus must not be set", async ({page}) => {
+    const toggleButton = page.locator("button[id='page:mainForm:dropdownForm::command']");
+    const beforeComp = page.locator("[id='page:mainForm:innerBeforeComp::field']");
+    const selectManyList = page.locator("tobago-select-many-list[id='page:mainForm:selectManyList']");
+    const deselectVenus = selectManyList.locator(".tobago-badges .tobago-button[aria-label='deselect Venus']");
+    const selectManyListMenu = page.locator(".tobago-dropdown-menu[data-tobago-for='page:mainForm:selectManyList']");
+
+    await expect(selectManyList).not.toBeVisible();
+    await toggleButton.click();
+    await expect(selectManyList).toBeVisible();
+    await page.keyboard.press("Tab");
+    await expect(beforeComp).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(deselectVenus).toBeFocused();
+    await expect(selectManyList).toContainClass("tobago-focus");
+    await page.keyboard.press("Escape");
+    await expect(selectManyList).not.toBeVisible();
+    await expect(toggleButton).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(selectManyList).toBeVisible();
+    await expect(selectManyList).not.toContainClass("tobago-focus");
+  });
+
+  test("open from dropdown, remove Venus by badge, Tab to next element", async ({page}) => {
+    const toggleButton = page.locator("button[id='page:mainForm:dropdownForm::command']");
+    const beforeComp = page.locator("[id='page:mainForm:innerBeforeComp::field']");
+    const selectManyList = page.locator("tobago-select-many-list[id='page:mainForm:selectManyList']");
+    const badges = selectManyList.locator(".tobago-badges .btn-group");
+    const deselectVenus = selectManyList.locator(".tobago-badges .tobago-button[aria-label='deselect Venus']");
+    const deselectEarth = selectManyList.locator(".tobago-badges .tobago-button[aria-label='deselect Earth']");
+    const deselectJupiter = selectManyList.locator(".tobago-badges .tobago-button[aria-label='deselect Jupiter']");
+    const selectManyListMenu = page.locator(".tobago-dropdown-menu[data-tobago-for='page:mainForm:selectManyList']");
+    const mercuryRow = selectManyListMenu.locator("td[value='Mercury']");
+    const afterComp = page.locator("[id='page:mainForm:innerAfterComp::field']");
+
+    await expect(selectManyList).not.toBeVisible();
+    await toggleButton.click();
+    await expect(selectManyList).toBeVisible();
+    await expect(badges).toHaveCount(3);
+    await expect(badges.nth(0)).toHaveAttribute("data-tobago-value", "Venus");
+    await expect(badges.nth(1)).toHaveAttribute("data-tobago-value", "Earth");
+    await expect(badges.nth(2)).toHaveAttribute("data-tobago-value", "Jupiter");
+    await deselectVenus.click();
+    await expect(badges).toHaveCount(2);
+    await expect(badges.nth(0)).toHaveAttribute("data-tobago-value", "Earth");
+    await expect(badges.nth(1)).toHaveAttribute("data-tobago-value", "Jupiter");
+    await page.keyboard.press("Tab");
+    await expect(deselectJupiter).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(afterComp).toBeFocused();
+  });
+});
+
 test.describe("900-test/selectManyList/server-side-filtering/spinner/Spinner.xhtml", () => {
 
   test.beforeEach(async ({page}, testInfo) => {
