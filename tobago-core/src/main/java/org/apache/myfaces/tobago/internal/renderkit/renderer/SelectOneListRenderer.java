@@ -223,6 +223,7 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
         TobagoClass.OPTIONS,
         expanded ? BootstrapClass.LIST_GROUP_ITEM : TobagoClass.DROPDOWN__MENU);
     writer.writeNameAttribute(clientId);
+    writer.writeAttribute(DataAttributes.FOR, clientId, false);
 
     writer.startElement(HtmlElements.TABLE);
     writer.writeClassAttribute(BootstrapClass.TABLE, BootstrapClass.TABLE_HOVER,

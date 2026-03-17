@@ -188,6 +188,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
 
   @Override
   public void encodeChildrenInternal(final FacesContext facesContext, final T component) throws IOException {
+    final String clientId = component.getClientId(facesContext);
     final boolean parentOfCommands = component.isParentOfCommands();
     final boolean isInsideInputAfter = isInside(facesContext, HtmlElements.TOBAGO_IN)
         && isInside(facesContext, Facets.after);
@@ -204,6 +205,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
           disabled ? TobagoClass.DISABLED : null);
       writer.writeAttribute(Arias.LABELLEDBY, component.getFieldId(facesContext), false);
       writer.writeAttribute(HtmlAttributes.NAME, component.getClientId(facesContext), false);
+      writer.writeAttribute(DataAttributes.FOR, clientId, false);
 
       RenderChildrenCommands visitor =
           new RenderChildrenCommands(facesContext, writer, component.getClientId(facesContext));
