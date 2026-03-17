@@ -105,6 +105,11 @@ class SelectManyShuttle extends HTMLElement {
       return;
     }
 
+    // const select = this.selectedSelect as HTMLSelectElement;
+    // select.querySelectorAll("option:checked").forEach(option => {
+    //   this.syncedInsertBefore(select, hidden, option, )
+    // });
+
     const selected: HTMLOptionElement[] = [];
     const unselected: HTMLOptionElement[] = [];
 
@@ -127,44 +132,41 @@ class SelectManyShuttle extends HTMLElement {
     for (const opt of unselected) {
       select.appendChild(opt);
     }
+    this.syncValue();
   }
 
   private up(event: MouseEvent): void {
 
     const select = this.selectedSelect as HTMLSelectElement;
-    if (!select) {
-      return;
-    }
-
     const options = select.options;
+    const hidden = this.hiddenSelect as HTMLSelectElement;
 
     for (let i = 1; i < options.length; i++) {
       const previous = options.item(i - 1)!;
       const current = options.item(i);
 
       if (current.selected && !previous.selected) {
-        select.insertBefore(current, previous);
+        this.syncedInsertBefore(select, hidden, current, previous);
       }
     }
+    this.syncValue();
   }
 
   private down(event: MouseEvent): void {
 
     const select = this.selectedSelect as HTMLSelectElement;
-    if (!select) {
-      return;
-    }
-
     const options = select.options;
+    const hidden = this.hiddenSelect as HTMLSelectElement;
 
     for (let i = options.length - 2; i >= 0 ; i--) {
       const current = options.item(i);
       const next = options.item(i + 1)!;
 
       if (current.selected && !next.selected) {
-        select.insertBefore(next, current);
+        this.syncedInsertBefore(select, hidden, next, current);
       }
     }
+    this.syncValue();
   }
 
   private bottom(event: MouseEvent): void {
@@ -196,27 +198,44 @@ class SelectManyShuttle extends HTMLElement {
     for (const opt of selected) {
       select.appendChild(opt);
     }
+    this.syncValue();
+  }
+
+  private syncedInsertBefore(
+      parent: HTMLSelectElement, hidden: HTMLSelectElement, a: HTMLOptionElement, b: HTMLOptionElement) {
+    parent.insertBefore(a, b);
+    const hiddenA = hidden.querySelector(`option[value='${a.value}']`);
+    const hiddenB = hidden.querySelector(`option[value='${b.value}']`);
+    hidden.insertBefore(hiddenA, hiddenB);
   }
 
   private addItems(options: NodeListOf<HTMLOptionElement>): void {
+    const hiddenSelect = this.hiddenSelect;
     for (const option of options) {
       this.selectedSelect.add(option);
-      this.changeHiddenOption(option, true);
+      this.changeHiddenOption(hiddenSelect, option, true);
     }
     this.fireChangeEvent(options, null);
   }
 
   private removeItems(options: NodeListOf<HTMLOptionElement>): void {
+    const hiddenSelect = this.hiddenSelect;
     for (const option of options) {
       this.unselectedSelect.add(option);
-      this.changeHiddenOption(option, false);
+      this.changeHiddenOption(hiddenSelect, option, false);
     }
     this.fireChangeEvent(null, options);
   }
 
-  private changeHiddenOption(option: HTMLOptionElement, select: boolean): void {
-    const hiddenOption: HTMLOptionElement = this.hiddenSelect.querySelector(`option[value='${option.value}']`);
-    hiddenOption.selected = select;
+  private changeHiddenOption(hiddenSelect: HTMLSelectElement, option: HTMLOptionElement, selected: boolean) {
+    const hiddenOption: HTMLOptionElement = hiddenSelect.querySelector(`option[value='${option.value}']`);
+    const firstUnselectedHiddenOption: HTMLOptionElement = hiddenSelect.querySelector("option:not(:checked)");
+    hiddenSelect.insertBefore(hiddenOption, firstUnselectedHiddenOption);
+    hiddenOption.selected = selected;
+  }
+
+  private syncValue(): void {
+    console.warn("not implemented yet");
   }
 
   private fireChangeEvent(added: NodeListOf<HTMLOptionElement>, removed: NodeListOf<HTMLOptionElement>): void {
@@ -243,7 +262,7 @@ class SelectManyShuttle extends HTMLElement {
   }
 
   get hiddenSelect(): HTMLSelectElement {
-    return this.querySelector("select.d-none");
+    return this.querySelector(".tobago-value");
   }
 
   get addAllButton(): HTMLButtonElement {

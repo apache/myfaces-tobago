@@ -127,7 +127,8 @@ public enum TobagoClass implements CssItem {
   TOGGLE("tobago-toggle"),
   TOOLTIP("tobago-tooltip"),
   UNSELECTED("tobago-unselected"),
-  UNSELECTED__CONTAINER("tobago-unselected-container");
+  UNSELECTED__CONTAINER("tobago-unselected-container"),
+  VALUE("tobago-value");
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 

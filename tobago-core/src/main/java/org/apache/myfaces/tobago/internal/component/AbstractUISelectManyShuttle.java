@@ -33,4 +33,6 @@ public abstract class AbstractUISelectManyShuttle extends AbstractUISelectManyBa
   }
 
   public abstract Integer getSize();
+
+  public abstract boolean isSortable();
 }
