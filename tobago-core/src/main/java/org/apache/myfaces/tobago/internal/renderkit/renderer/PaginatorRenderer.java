@@ -59,7 +59,7 @@ public abstract class PaginatorRenderer<T extends AbstractUIPaginator> extends R
     }
     if (clientId.equals(sourceId)) {
       final String value = requestParameterMap.get(clientId);
-      if (value != null) {
+      if (value != null && !value.isEmpty()) {
         final AbstractUISheet sheet = paginator.getPageable();
         if (sheet != null) {
           final JsonUtils.SheetActionRecord sheetActionRecord = JsonUtils.decodeSheetAction(value);
