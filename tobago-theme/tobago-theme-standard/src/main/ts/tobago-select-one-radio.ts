@@ -17,8 +17,10 @@
 
 import {Focus} from "./tobago-focus";
 import {Key} from "./tobago-key";
+import {EventListenerStore} from "./util/EventListenerStore";
 
 class SelectOneRadio extends HTMLElement {
+  private listeners: EventListenerStore = new EventListenerStore();
   private oldCheckedId = "";
 
   constructor() {
@@ -28,10 +30,14 @@ class SelectOneRadio extends HTMLElement {
   connectedCallback(): void {
     this.saveSelection();
     for (const radio of this.radioGroup) {
-      radio.addEventListener("focus", Focus.setLastFocusId);
-      radio.addEventListener("click", this.clickSelection.bind(this));
-      radio.addEventListener("keydown", this.keySelection.bind(this));
+      this.listeners.add(radio, "focus", Focus.setLastFocusId);
+      this.listeners.add(radio, "click", this.clickSelection.bind(this));
+      this.listeners.add(radio, "keydown", this.keySelection.bind(this));
     }
+  }
+
+  disconnectedCallback(): void {
+    this.listeners.disconnect();
   }
 
   private clickSelection(event: MouseEvent): void {

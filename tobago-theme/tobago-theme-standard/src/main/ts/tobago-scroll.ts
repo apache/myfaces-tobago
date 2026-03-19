@@ -15,7 +15,10 @@
  * limitations under the License.
  */
 
+import {EventListenerStore} from "./util/EventListenerStore";
+
 class TobagoScroll extends HTMLElement {
+  private listeners: EventListenerStore = new EventListenerStore();
 
   constructor() {
     super();
@@ -31,7 +34,11 @@ class TobagoScroll extends HTMLElement {
       console.warn("Syntax error for scroll position: ", text);
     }
 
-    this.parentElement.addEventListener("scroll", this.storeScrollPosition.bind(this));
+    this.listeners.add(this.parentElement, "scroll", this.storeScrollPosition.bind(this));
+  }
+
+  disconnectedCallback(): void {
+    this.listeners.disconnect();
   }
 
   storeScrollPosition(event: Event): void {

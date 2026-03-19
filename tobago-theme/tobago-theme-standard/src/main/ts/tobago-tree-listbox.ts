@@ -16,8 +16,10 @@
  */
 
 import {Css} from "./tobago-css";
+import {EventListenerStore} from "./util/EventListenerStore";
 
 class TreeListbox extends HTMLElement {
+  private listeners: EventListenerStore = new EventListenerStore();
 
   constructor() {
     super();
@@ -28,9 +30,13 @@ class TreeListbox extends HTMLElement {
 
     for (const listbox of this.listboxes) {
       if (!listbox.disabled) {
-        listbox.addEventListener("change", this.select.bind(this));
+        this.listeners.add(listbox, "change", this.select.bind(this));
       }
     }
+  }
+
+  disconnectedCallback(): void {
+    this.listeners.disconnect();
   }
 
   private select(event: Event): void {

@@ -18,8 +18,10 @@
 import {Sheet} from "./tobago-sheet";
 import {Tree} from "./tobago-tree";
 import {Css} from "./tobago-css";
+import {EventListenerStore} from "./util/EventListenerStore";
 
 export class TreeNode extends HTMLElement {
+  private listeners: EventListenerStore = new EventListenerStore();
 
   constructor() {
     super();
@@ -27,8 +29,12 @@ export class TreeNode extends HTMLElement {
 
   connectedCallback(): void {
     if (this.expandable && this.toggles !== null) {
-      this.toggles.forEach(element => element.addEventListener("click", this.toggleNode.bind(this)));
+      this.toggles.forEach(element => this.listeners.add(element, "click", this.toggleNode.bind(this)));
     }
+  }
+
+  disconnectedCallback(): void {
+    this.listeners.disconnect();
   }
 
   private toggleNode(event: MouseEvent): void {

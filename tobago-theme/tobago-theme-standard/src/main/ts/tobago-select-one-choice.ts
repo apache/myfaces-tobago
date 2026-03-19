@@ -16,14 +16,21 @@
  */
 
 import {Focus} from "./tobago-focus";
+import {EventListenerStore} from "./util/EventListenerStore";
 
 class SelectOneChoice extends HTMLElement {
+  private listeners: EventListenerStore = new EventListenerStore();
+
   constructor() {
     super();
   }
 
   connectedCallback(): void {
-    this.field.addEventListener("focus", Focus.setLastFocusId);
+    this.listeners.add(this.field, "focus", Focus.setLastFocusId);
+  }
+
+  disconnectedCallback(): void {
+    this.listeners.disconnect();
   }
 
   get field(): HTMLInputElement {

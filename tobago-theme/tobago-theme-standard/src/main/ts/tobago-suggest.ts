@@ -21,8 +21,10 @@ import {DropdownMenu, DropdownMenuAlignment} from "./tobago-dropdown-menu";
 import {Key} from "./tobago-key";
 import {ClientBehaviors} from "./tobago-client-behaviors";
 import {Spinner} from "./tobago-spinner";
+import {EventListenerStore} from "./util/EventListenerStore";
 
 export class Suggest {
+  private listeners: EventListenerStore = new EventListenerStore();
   private tobagoIn: HTMLElement;
   private dropdownMenu: DropdownMenu;
   private spinner: Spinner;
@@ -54,14 +56,14 @@ export class Suggest {
     this.inputField.ariaHasPopup = "listbox";
     this.inputField.setAttribute("aria-owns", this.dropdownMenuElement.id);
 
-    this.tobagoIn.addEventListener(ClientBehaviors.DROPDOWN_HIDDEN, this.deleteResults.bind(this));
-    this.inputField.addEventListener("input", this.inputEvent.bind(this));
-    this.inputField.addEventListener("keydown", this.keydownEvent.bind(this));
-    this.dropdownMenuElement.addEventListener("keydown", this.keydownEvent.bind(this));
+    this.listeners.add(this.tobagoIn, ClientBehaviors.DROPDOWN_HIDDEN, this.deleteResults.bind(this));
+    this.listeners.add(this.inputField, "input", this.inputEvent.bind(this));
+    this.listeners.add(this.inputField, "keydown", this.keydownEvent.bind(this));
+    this.listeners.add(this.dropdownMenuElement, "keydown", this.keydownEvent.bind(this));
 
-    this.inputField.addEventListener("focus", this.focusEvent.bind(this));
-    this.inputField.addEventListener("blur", this.blurEvent.bind(this));
-    this.dropdownMenuElement.addEventListener("blur", this.blurEvent.bind(this));
+    this.listeners.add(this.inputField, "focus", this.focusEvent.bind(this));
+    this.listeners.add(this.inputField, "blur", this.blurEvent.bind(this));
+    this.listeners.add(this.dropdownMenuElement, "blur", this.blurEvent.bind(this));
   }
 
   /**
@@ -69,6 +71,7 @@ export class Suggest {
    */
   public disconnect(): void {
     this.dropdownMenu.disconnect();
+    this.listeners.disconnect();
   }
 
   private focusEvent(event: UIEvent): void {
@@ -224,8 +227,8 @@ export class Suggest {
         button.type = "button";
         button.classList.add(Css.DROPDOWN_ITEM);
         button.textContent = items[i];
-        button.addEventListener("click", this.selectDropdownItem.bind(this));
-        button.addEventListener("blur", this.blurEvent.bind(this));
+        this.listeners.add(button, "click", this.selectDropdownItem.bind(this));
+        this.listeners.add(button, "blur", this.blurEvent.bind(this));
         li.appendChild(button);
         dropdownItems.push(li);
       }

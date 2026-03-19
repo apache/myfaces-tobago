@@ -17,8 +17,10 @@
 
 import {Focus} from "./tobago-focus";
 import {Suggest} from "./tobago-suggest";
+import {EventListenerStore} from "./util/EventListenerStore";
 
 export class In extends HTMLElement {
+  private listeners: EventListenerStore = new EventListenerStore();
   private suggest: Suggest;
 
   constructor() {
@@ -26,7 +28,7 @@ export class In extends HTMLElement {
   }
 
   connectedCallback(): void {
-    this.input.addEventListener("focus", Focus.setLastFocusId);
+    this.listeners.add(this.input, "focus", Focus.setLastFocusId);
     if (this.querySelector("tobago-suggest")) {
       this.suggest = new Suggest(this);
       this.suggest.init();
@@ -35,6 +37,7 @@ export class In extends HTMLElement {
 
   disconnectedCallback(): void {
     this.suggest?.disconnect();
+    this.listeners.disconnect();
   }
 
   get input(): HTMLInputElement {

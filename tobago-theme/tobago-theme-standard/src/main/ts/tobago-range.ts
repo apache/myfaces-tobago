@@ -16,9 +16,10 @@
  */
 
 import {Css} from "./tobago-css";
+import {EventListenerStore} from "./util/EventListenerStore";
 
 class TobagoRange extends HTMLElement {
-
+  private listeners: EventListenerStore = new EventListenerStore();
   private timer: ReturnType<typeof setTimeout>;
 
   constructor() {
@@ -26,8 +27,8 @@ class TobagoRange extends HTMLElement {
   }
 
   connectedCallback(): void {
-    this.range.addEventListener("input", this.updateTooltip.bind(this));
-    this.range.addEventListener("focus", this.updateTooltip.bind(this));
+    this.listeners.add(this.range, "input", this.updateTooltip.bind(this));
+    this.listeners.add(this.range, "focus", this.updateTooltip.bind(this));
   }
 
   private get range(): HTMLInputElement {

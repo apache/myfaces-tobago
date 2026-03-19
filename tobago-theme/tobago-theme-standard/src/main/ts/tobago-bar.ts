@@ -16,18 +16,24 @@
  */
 
 import {Css} from "./tobago-css";
+import {EventListenerStore} from "./util/EventListenerStore";
 
 class Bar extends HTMLElement {
+  private listeners: EventListenerStore = new EventListenerStore();
   private timeout: number;
   private expanded: boolean;
 
   constructor() {
     super();
-    this.toggleButton.addEventListener("click", this.toggleCollapse.bind(this));
   }
 
   connectedCallback(): void {
     this.expanded = this.toggleButton.ariaExpanded === "true";
+    this.listeners.add(this.toggleButton, "click", this.toggleCollapse.bind(this));
+  }
+
+  disconnectedCallback(): void {
+    this.listeners.disconnect();
   }
 
   private toggleCollapse(event: MouseEvent): void {

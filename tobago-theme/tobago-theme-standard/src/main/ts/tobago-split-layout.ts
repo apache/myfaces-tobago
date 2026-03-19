@@ -17,14 +17,17 @@
 
 import {Page} from "./tobago-page";
 import {Css} from "./tobago-css";
+import {EventListenerStore} from "./util/EventListenerStore";
 
 class SplitLayout extends HTMLElement {
-
+  private listeners: EventListenerStore = new EventListenerStore();
   private offset: number;
 
   constructor() {
     super();
+  }
 
+  connectedCallback(): void {
     let first = true;
     let justAdded = false;
     for (const child of this.children) {
@@ -44,9 +47,13 @@ class SplitLayout extends HTMLElement {
           this.orientation === "horizontal" ? "tobago-splitLayout-horizontal" : "tobago-splitLayout-vertical"
       );
       justAdded = true;
-      splitter.addEventListener("mousedown", this.start.bind(this));
+      this.listeners.add(splitter, "mousedown", this.start.bind(this));
       child.parentElement.insertBefore(splitter, child);
     }
+  }
+
+  disconnectedCallback(): void {
+    this.listeners.disconnect();
   }
 
   /**
@@ -79,8 +86,8 @@ class SplitLayout extends HTMLElement {
     this.offset = this.orientation === "horizontal"
         ? event.pageX - previous.offsetWidth : event.pageY - previous.offsetHeight;
     const mousedown = SplitLayoutMousedown.save(event, splitter);
-    document.addEventListener("mousemove", this.move.bind(this));
-    document.addEventListener("mouseup", this.stop.bind(this));
+    this.listeners.add(document, "mousemove", this.move.bind(this));
+    this.listeners.add(document, "mouseup", this.stop.bind(this));
     const previousArea = mousedown.previous;
     if (this.orientation === "horizontal") {
       previousArea.style.width = `${previousArea.offsetWidth}px`;

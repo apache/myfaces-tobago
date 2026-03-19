@@ -16,24 +16,30 @@
  */
 
 import {Focus} from "./tobago-focus";
+import {EventListenerStore} from "./util/EventListenerStore";
 
 export class SelectBooleanCheckbox extends HTMLElement {
+  private listeners: EventListenerStore = new EventListenerStore();
 
   constructor() {
     super();
   }
 
   connectedCallback(): void {
-    this.field.addEventListener("focus", Focus.setLastFocusId);
+    this.listeners.add(this.field, "focus", Focus.setLastFocusId);
 
     if (this.field.readOnly) {
-      this.field.addEventListener("click", preventClick);
+      this.listeners.add(this.field, "click", preventClick);
     }
 
     function preventClick(event: MouseEvent): void {
       // in the "readonly" case, prevent the default, which is changing the "checked" state
       event.preventDefault();
     }
+  }
+
+  disconnectedCallback(): void {
+    this.listeners.disconnect();
   }
 
   get field(): HTMLInputElement {

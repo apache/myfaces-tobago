@@ -22,10 +22,11 @@ import {DropdownItem} from "./tobago-dropdown-item";
 import {DropdownItemFactory} from "./tobago-dropdown-item-factory";
 import {DropdownMenu, DropdownMenuAlignment} from "./tobago-dropdown-menu";
 import {ClientBehaviors} from "./tobago-client-behaviors";
+import {EventListenerStore} from "./util/EventListenerStore";
 
 class Dropdown extends HTMLElement {
+  private listeners: EventListenerStore = new EventListenerStore();
   private dropdownMenu: DropdownMenu;
-  private globalClickEventListener: EventListenerOrEventListenerObject;
 
   constructor() {
     super();
@@ -36,23 +37,22 @@ class Dropdown extends HTMLElement {
       this.dropdownMenu = new DropdownMenu(this.dropdownMenuElement, this.toggle, this, this.insideNavbar(),
           this.dropdownMenuElement.classList.contains(Css.DROPDOWN_MENU_END)
               ? DropdownMenuAlignment.end : DropdownMenuAlignment.start);
-      this.globalClickEventListener = this.globalClickEvent.bind(this) as EventListenerOrEventListenerObject;
-      document.addEventListener("click", this.globalClickEventListener);
-      this.addEventListener("keydown", this.keydownEvent.bind(this));
-      this.dropdownMenuElement.addEventListener("keydown", this.keydownEvent.bind(this));
-      this.toggle.addEventListener("keydown", this.tabHandling.bind(this));
+      this.listeners.add(document, "click", this.globalClickEvent.bind(this));
+      this.listeners.add(this, "keydown", this.keydownEvent.bind(this));
+      this.listeners.add(this.dropdownMenuElement, "keydown", this.keydownEvent.bind(this));
+      this.listeners.add(this.toggle, "keydown", this.tabHandling.bind(this));
       this.getAllDropdownItems(this.dropdownItems).forEach((dropdownItem) => {
-        dropdownItem.element.addEventListener("focus", this.focusEvent.bind(this));
+        this.listeners.add(dropdownItem.element, "focus", this.focusEvent.bind(this));
         if (dropdownItem.children) {
-          dropdownItem.element.addEventListener("mouseenter", this.mouseenterEvent.bind(this));
+          this.listeners.add(dropdownItem.element, "mouseenter", this.mouseenterEvent.bind(this));
         }
       });
-      this.addEventListener(ClientBehaviors.DROPDOWN_HIDDEN, this.dropdownHidden.bind(this));
+      this.listeners.add(this, ClientBehaviors.DROPDOWN_HIDDEN, this.dropdownHidden.bind(this));
     }
   }
 
   disconnectedCallback(): void {
-    document.removeEventListener("click", this.globalClickEventListener);
+    this.listeners.disconnect();
     MenuStore.get().querySelector(`:scope > .${Css.TOBAGO_DROPDOWN_MENU}[name='${this.id}']`)?.remove();
   }
 

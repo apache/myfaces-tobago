@@ -16,9 +16,10 @@
  */
 
 import {Focus} from "./tobago-focus";
+import {EventListenerStore} from "./util/EventListenerStore";
 
 export class SelectOneListbox extends HTMLElement {
-
+  private listeners: EventListenerStore = new EventListenerStore();
   private oldselectedIndex: number;
 
   constructor() {
@@ -27,8 +28,12 @@ export class SelectOneListbox extends HTMLElement {
 
   connectedCallback(): void {
     this.saveSelection();
-    this.field.addEventListener("click", this.clickSelection.bind(this));
-    this.field.addEventListener("focus", Focus.setLastFocusId);
+    this.listeners.add(this.field, "click", this.clickSelection.bind(this));
+    this.listeners.add(this.field, "focus", Focus.setLastFocusId);
+  }
+
+  disconnectedCallback(): void {
+    this.listeners.disconnect();
   }
 
   private clickSelection(event: MouseEvent): void {
