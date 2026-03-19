@@ -19,9 +19,10 @@ import {Overlay} from "./tobago-overlay";
 import {OverlayType} from "./tobago-overlay-type";
 import {Key} from "./tobago-key";
 import {PageStatic} from "./tobago-page-static";
+import {EventListenerStore} from "./util/EventListenerStore";
 
 export class Page extends HTMLElement {
-
+  private listeners: EventListenerStore = new EventListenerStore();
   submitActive = false;
 
   /**
@@ -45,14 +46,10 @@ export class Page extends HTMLElement {
   }
 
   connectedCallback(): void {
-
     this.registerAjaxListener();
-
-    this.form.addEventListener("submit", this.beforeSubmit.bind(this));
-
-    window.addEventListener("unload", this.beforeUnload.bind(this));
-
-    window.addEventListener("keydown", (event: KeyboardEvent): boolean => {
+    this.listeners.add(this.form, "submit", this.beforeSubmit.bind(this));
+    this.listeners.add(window, "unload", this.beforeUnload.bind(this));
+    this.listeners.add(window, "keydown", (event: KeyboardEvent): boolean => {
       if (event.key === Key.ENTER) {
         const target = event.target as HTMLElement;
         if (target.tagName === "A" || target.tagName === "BUTTON") {
@@ -76,6 +73,10 @@ export class Page extends HTMLElement {
         document.querySelector("[data-tobago-default]");
       }
     });
+  }
+
+  disconnectedCallback(): void {
+    this.listeners.disconnect();
   }
 
   beforeSubmit(event: Event, decoupled = false): void {

@@ -16,14 +16,21 @@
  */
 
 import {Focus} from "./tobago-focus";
+import {EventListenerStore} from "./util/EventListenerStore";
 
 class Textarea extends HTMLElement {
+  private listeners: EventListenerStore = new EventListenerStore();
+
   constructor() {
     super();
   }
 
   connectedCallback(): void {
-    this.textarea.addEventListener("focus", Focus.setLastFocusId);
+    this.listeners.add(this.textarea, "focus", Focus.setLastFocusId);
+  }
+
+  disconnectedCallback(): void {
+    this.listeners.disconnect();
   }
 
   get textarea(): HTMLInputElement {

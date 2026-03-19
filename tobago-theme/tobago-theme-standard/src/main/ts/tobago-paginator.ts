@@ -19,53 +19,25 @@ import {Key} from "./tobago-key";
 import {Overlay} from "./tobago-overlay";
 import {OverlayType} from "./tobago-overlay-type";
 import {Page} from "./tobago-page";
+import {EventListenerStore} from "./util/EventListenerStore";
 
 export class TobagoPaginator extends HTMLElement {
+  private listeners: EventListenerStore = new EventListenerStore();
 
   constructor() {
     super();
   }
 
-  get text(): HTMLElement {
-    return this.querySelector("span.page-link");
-  }
-
-  get output(): HTMLElement {
-    return this.querySelector(".page-link span");
-  }
-
-  get input(): HTMLInputElement {
-    return this.querySelector("input");
-  }
-
-  get sheet(): HTMLElement {
-    const sheet: HTMLElement = this.closest("tobago-sheet");
-    if (sheet != null) {
-      return sheet;
-    } else {
-      window.alert("todo: implement find, wenn this is not a child");
-      return document.querySelector("tobago-sheet");
-    }
-  }
-
-  get buttons(): NodeListOf<Element> {
-    return this.querySelectorAll("li.page-item:not(.disabled)>button");
-  }
-
-  get action(): HTMLInputElement {
-    return this.querySelector("input[type=hidden]");
-  }
-
   connectedCallback(): void {
     const text = this.text;
     if (text) {
-      text.addEventListener("click", this.clickOnPaging.bind(this));
+      this.listeners.add(text, "click", this.clickOnPaging.bind(this));
     }
 
     const input = this.input;
     if (input) {
-      input.addEventListener("blur", this.blurPaging.bind(this));
-      input.addEventListener("keydown", function (event: KeyboardEvent): void {
+      this.listeners.add(input, "blur", this.blurPaging.bind(this));
+      this.listeners.add(input, "keydown", function (event: KeyboardEvent): void {
         if (event.key === Key.ENTER) {
           event.stopPropagation();
           event.preventDefault();
@@ -76,8 +48,12 @@ export class TobagoPaginator extends HTMLElement {
 
     const buttons = this.buttons;
     if (buttons) {
-      buttons.forEach(item => item.addEventListener("click", this.clickOnButton.bind(this)));
+      buttons.forEach(item => this.listeners.add(item, "click", this.clickOnButton.bind(this)));
     }
+  }
+
+  disconnectedCallback(): void {
+    this.listeners.disconnect();
   }
 
   clickOnPaging(event: MouseEvent): void {
@@ -131,5 +107,35 @@ export class TobagoPaginator extends HTMLElement {
           execute: sheet.id,
           render: sheet.id
         });
+  }
+
+  get text(): HTMLElement {
+    return this.querySelector("span.page-link");
+  }
+
+  get output(): HTMLElement {
+    return this.querySelector(".page-link span");
+  }
+
+  get input(): HTMLInputElement {
+    return this.querySelector("input");
+  }
+
+  get sheet(): HTMLElement {
+    const sheet: HTMLElement = this.closest("tobago-sheet");
+    if (sheet != null) {
+      return sheet;
+    } else {
+      window.alert("todo: implement find, wenn this is not a child");
+      return document.querySelector("tobago-sheet");
+    }
+  }
+
+  get buttons(): NodeListOf<HTMLButtonElement> {
+    return this.querySelectorAll("li.page-item:not(.disabled)>button");
+  }
+
+  get action(): HTMLInputElement {
+    return this.querySelector("input[type=hidden]");
   }
 }

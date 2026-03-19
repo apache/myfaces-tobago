@@ -16,29 +16,24 @@
  */
 
 import {Css} from "./tobago-css";
+import {EventListenerStore} from "./util/EventListenerStore";
 
 class Footer extends HTMLElement {
-
-  private lastMaxFooterHeight: number;
+  private listeners: EventListenerStore = new EventListenerStore();
 
   constructor() {
     super();
   }
 
-  get fixed(): boolean {
-    return this.classList.contains(Css.FIXED_BOTTOM);
-  }
-
-  get height(): number {
-    const style: CSSStyleDeclaration = getComputedStyle(this);
-    return this.offsetHeight + Number.parseInt(style.marginTop) + Number.parseInt(style.marginBottom);
-  }
-
   connectedCallback(): void {
     if (this.fixed) {
       this.adjustMargin();
-      window.addEventListener("resize", this.adjustMargin.bind(this));
+      this.listeners.add(window, "resize", this.adjustMargin.bind(this));
     }
+  }
+
+  disconnectedCallback(): void {
+    this.listeners.disconnect();
   }
 
   private adjustMargin(event?: Event): void {
@@ -58,6 +53,15 @@ class Footer extends HTMLElement {
       }
     }
     return true;
+  }
+
+  get fixed(): boolean {
+    return this.classList.contains(Css.FIXED_BOTTOM);
+  }
+
+  get height(): number {
+    const style: CSSStyleDeclaration = getComputedStyle(this);
+    return this.offsetHeight + Number.parseInt(style.marginTop) + Number.parseInt(style.marginBottom);
   }
 }
 

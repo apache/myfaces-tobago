@@ -18,6 +18,7 @@
 import {Offcanvas as BootstrapOffcanvas} from "bootstrap";
 import {BehaviorMode} from "./tobago-behavior-mode";
 import {Collapse} from "./tobago-collapse";
+import {EventListenerStore} from "./util/EventListenerStore";
 
 const BootstrapOffcanvasEvent = {
   HIDE: "hide.bs.offcanvas",
@@ -28,6 +29,7 @@ const BootstrapOffcanvasEvent = {
 };
 
 export class Offcanvas extends HTMLElement {
+  private listeners: EventListenerStore = new EventListenerStore();
   private offcanvas: BootstrapOffcanvas;
 
   constructor() {
@@ -41,7 +43,7 @@ export class Offcanvas extends HTMLElement {
       this.clientBehaviorShow();
     }
 
-    this.addEventListener(BootstrapOffcanvasEvent.HIDDEN, () => {
+    this.listeners.add(this, BootstrapOffcanvasEvent.HIDDEN, () => {
       /**
        * Make sure collapsed=true is set when the offcanvas is closed by clicking on the background or pressing ESC.
        */
@@ -53,6 +55,7 @@ export class Offcanvas extends HTMLElement {
 
   disconnectedCallback(): void {
     this.clientBehaviorHide();
+    this.listeners.disconnect();
   }
 
   clientBehaviorShow(behaviorMode?: BehaviorMode): void { //this method must not named 'show' (TOBAGO-2148)

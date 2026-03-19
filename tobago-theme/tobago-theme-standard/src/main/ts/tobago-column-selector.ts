@@ -19,17 +19,23 @@
 
 import {Sheet} from "./tobago-sheet";
 import {Selectable} from "./tobago-selectable";
+import {EventListenerStore} from "./util/EventListenerStore";
 
 export class ColumnSelector {
+  private listeners: EventListenerStore = new EventListenerStore();
   private sheet: Sheet;
 
   constructor(sheet: Sheet) {
     this.sheet = sheet;
 
     if (this.headerElement.type === "checkbox") {
-      this.headerElement.addEventListener("click", this.initSelectAllCheckbox.bind(this));
+      this.listeners.add(this.headerElement, "click", this.initSelectAllCheckbox.bind(this));
       this.syncHeaderElementDisabledState();
     }
+  }
+
+  disconnect(): void {
+    this.listeners.disconnect();
   }
 
   private initSelectAllCheckbox(event: MouseEvent): void {

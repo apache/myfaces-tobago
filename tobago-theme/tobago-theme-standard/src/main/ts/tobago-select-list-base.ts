@@ -20,11 +20,13 @@ import {TobagoFilterRegistry} from "./tobago-filter-registry";
 import {Key} from "./tobago-key";
 import {DropdownMenu, DropdownMenuAlignment} from "./tobago-dropdown-menu";
 import {Spinner} from "./tobago-spinner";
+import {EventListenerStore} from "./util/EventListenerStore";
 
 export abstract class SelectListBase extends HTMLElement {
 
   private static readonly SUFFIX_FILTER_UPDATE: string = "::filter-update";
 
+  protected listeners: EventListenerStore = new EventListenerStore();
   protected dropdownMenu: DropdownMenu;
   private spinner: Spinner;
   private timeout: number;
@@ -36,21 +38,21 @@ export abstract class SelectListBase extends HTMLElement {
       this.dropdownMenu = new DropdownMenu(this.dropdownMenuElement, this.selectField, this, this.localMenu,
           DropdownMenuAlignment.centerFullWidth);
     }
-    document.addEventListener("click", this.globalClickEvent.bind(this));
-    this.hiddenSelect.addEventListener("click", this.labelClickEvent.bind(this));
-    this.selectField.addEventListener("keydown", this.keydownEventBase.bind(this));
-    this.filterInput.addEventListener("focus", this.focusEvent.bind(this));
-    this.filterInput.addEventListener("blur", this.blurEvent.bind(this));
-    this.options.addEventListener("keydown", this.keydownEventBase.bind(this));
-    this.rows.forEach(row => row.addEventListener("blur", this.blurEvent.bind(this)));
+    this.listeners.add(document, "click", this.globalClickEvent.bind(this));
+    this.listeners.add(this.hiddenSelect, "click", this.labelClickEvent.bind(this));
+    this.listeners.add(this.selectField, "keydown", this.keydownEventBase.bind(this));
+    this.listeners.add(this.filterInput, "focus", this.focusEvent.bind(this));
+    this.listeners.add(this.filterInput, "blur", this.blurEvent.bind(this));
+    this.listeners.add(this.options, "keydown", this.keydownEventBase.bind(this));
+    this.rows.forEach(row => this.listeners.add(row, "blur", this.blurEvent.bind(this)));
     if (this.filter || this.serverSideFiltering) {
-      this.filterInput.addEventListener("input", this.filterInputEvent.bind(this));
+      this.listeners.add(this.filterInput, "input", this.filterInputEvent.bind(this));
     }
     if (this.serverSideFiltering) {
       this.insertAdjacentHTML("beforeend", `<div class="${Css.SPINNER}"/>`);
       this.spinner = new Spinner(this, this.selectField, this.filterInput, this.spinnerDiv);
     }
-    this.tbody.addEventListener("click", this.tbodyClickEvent.bind(this));
+    this.listeners.add(this.tbody, "click", this.tbodyClickEvent.bind(this));
 
     // handle autofocus; trigger focus event
     if (document.activeElement.id === this.filterInput.id) {
@@ -58,14 +60,15 @@ export abstract class SelectListBase extends HTMLElement {
     }
 
     // redirect click events for ajax behavior
-    this.selectField.addEventListener("click", () => this.hiddenSelect.dispatchEvent(new Event("click")));
-    this.options.addEventListener("click", () => this.hiddenSelect.dispatchEvent(new Event("click")));
-    this.selectField.addEventListener("dblclick", () => this.hiddenSelect.dispatchEvent(new Event("dblclick")));
-    this.options.addEventListener("dblclick", () => this.hiddenSelect.dispatchEvent(new Event("dblclick")));
+    this.listeners.add(this.selectField, "click", () => this.hiddenSelect.dispatchEvent(new Event("click")));
+    this.listeners.add(this.options, "click", () => this.hiddenSelect.dispatchEvent(new Event("click")));
+    this.listeners.add(this.selectField, "dblclick", () => this.hiddenSelect.dispatchEvent(new Event("dblclick")));
+    this.listeners.add(this.options, "dblclick", () => this.hiddenSelect.dispatchEvent(new Event("dblclick")));
   }
 
   disconnectedCallback(): void {
     this.dropdownMenu?.disconnect();
+    this.listeners.disconnect();
   }
 
   protected abstract globalClickEvent(event: MouseEvent): void;
@@ -227,14 +230,15 @@ export abstract class SelectListBase extends HTMLElement {
         }
       }
 
-      this.hiddenSelect.addEventListener("click", this.labelClickEvent.bind(this));
-      this.options.addEventListener("keydown", this.keydownEventBase.bind(this));
-      this.rows.forEach(row => row.addEventListener("blur", this.blurEvent.bind(this)));
-      this.tbody.addEventListener("click", this.tbodyClickEvent.bind(this));
+      this.listeners.cleanup();
+      this.listeners.add(this.hiddenSelect, "click", this.labelClickEvent.bind(this));
+      this.listeners.add(this.options, "keydown", this.keydownEventBase.bind(this));
+      this.rows.forEach(row => this.listeners.add(row, "blur", this.blurEvent.bind(this)));
+      this.listeners.add(this.tbody, "click", this.tbodyClickEvent.bind(this));
 
       // redirect click events for ajax behavior
-      this.options.addEventListener("click", () => this.hiddenSelect.dispatchEvent(new Event("click")));
-      this.options.addEventListener("dblclick", () => this.hiddenSelect.dispatchEvent(new Event("dblclick")));
+      this.listeners.add(this.options, "click", () => this.hiddenSelect.dispatchEvent(new Event("click")));
+      this.listeners.add(this.options, "dblclick", () => this.hiddenSelect.dispatchEvent(new Event("dblclick")));
 
       this.hideSpinner();
     }

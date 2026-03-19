@@ -18,41 +18,13 @@
 import {Overlay} from "./tobago-overlay";
 import {OverlayType} from "./tobago-overlay-type";
 import {Css} from "./tobago-css";
+import {EventListenerStore} from "./util/EventListenerStore";
 
 export class File extends HTMLElement {
+  private listeners: EventListenerStore = new EventListenerStore();
 
   constructor() {
     super();
-  }
-
-  get input(): HTMLInputElement {
-    return this.querySelector("input[type=file]");
-  }
-
-  get div(): HTMLInputElement {
-    return this.querySelector("div.input-group");
-  }
-
-  get progress(): HTMLInputElement {
-    return this.querySelector("tobago-progress");
-  }
-
-  get dropZone(): HTMLElement {
-    const id = this.getAttribute("drop-zone");
-    const rootNode = this.getRootNode() as ShadowRoot | Document;
-    const element = rootNode.getElementById(id);
-    const dropZone = element ? element : this;
-    dropZone.classList.add(Css.TOBAGO_DROP_ZONE);
-    return dropZone;
-  }
-
-  get maxSize(): number {
-    const number = Number.parseInt(this.getAttribute("max-size"));
-    return Number.isNaN(number) ? 0 : number;
-  }
-
-  get maxSizeMessage(): string {
-    return this.getAttribute("max-size-message");
   }
 
   static isTypeFile(event: DragEvent): boolean {
@@ -72,21 +44,25 @@ export class File extends HTMLElement {
     // initialize drag&drop EventListener
     const dropZone = this.dropZone;
     if (dropZone) {
-      dropZone.addEventListener("dragover", this.dragover.bind(this));
-      dropZone.addEventListener("dragleave", this.dragleave.bind(this));
-      dropZone.addEventListener("drop", this.drop.bind(this));
+      this.listeners.add(dropZone, "dragover", this.dragover.bind(this));
+      this.listeners.add(dropZone, "dragleave", this.dragleave.bind(this));
+      this.listeners.add(dropZone, "drop", this.drop.bind(this));
     }
 
     const maxSize = this.maxSize;
     if (maxSize > 0) {
-      this.input.addEventListener("change", this.checkFileSize.bind(this));
+      this.listeners.add(this.input, "change", this.checkFileSize.bind(this));
     }
+  }
+
+  disconnectedCallback(): void {
+    this.listeners.disconnect();
   }
 
   startProgress(loaded: number, total: number) {
     this.div.classList.add("d-none");
     this.progress.classList.remove("d-none");
-    const bar:HTMLElement = this.progress.querySelector(".progress-bar");
+    const bar: HTMLElement = this.progress.querySelector(".progress-bar");
     bar.ariaValueMin = "0";
     bar.ariaValueMax = "100";
     this.updateProgress(loaded, total);
@@ -94,7 +70,7 @@ export class File extends HTMLElement {
 
   updateProgress(loaded: number, total: number) {
     // todo: use API of tobago-progress, when implemented
-    const bar:HTMLElement = this.progress.querySelector(".progress-bar");
+    const bar: HTMLElement = this.progress.querySelector(".progress-bar");
     const percent = loaded / total * 100;
     bar.style.width = percent + "%";
     bar.ariaValueNow = String(Math.round(percent));
@@ -169,6 +145,36 @@ export class File extends HTMLElement {
         event.stopPropagation();
       }
     }
+  }
+
+  get input(): HTMLInputElement {
+    return this.querySelector("input[type=file]");
+  }
+
+  get div(): HTMLInputElement {
+    return this.querySelector("div.input-group");
+  }
+
+  get progress(): HTMLInputElement {
+    return this.querySelector("tobago-progress");
+  }
+
+  get dropZone(): HTMLElement {
+    const id = this.getAttribute("drop-zone");
+    const rootNode = this.getRootNode() as ShadowRoot | Document;
+    const element = rootNode.getElementById(id);
+    const dropZone = element ? element : this;
+    dropZone.classList.add(Css.TOBAGO_DROP_ZONE);
+    return dropZone;
+  }
+
+  get maxSize(): number {
+    const number = Number.parseInt(this.getAttribute("max-size"));
+    return Number.isNaN(number) ? 0 : number;
+  }
+
+  get maxSizeMessage(): string {
+    return this.getAttribute("max-size-message");
   }
 }
 

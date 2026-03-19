@@ -18,6 +18,7 @@
 import {Modal} from "bootstrap";
 import {BehaviorMode} from "./tobago-behavior-mode";
 import {Collapse} from "./tobago-collapse";
+import {EventListenerStore} from "./util/EventListenerStore";
 
 const BootstrapPopupEvent = {
   HIDE: "hide.bs.modal",
@@ -28,7 +29,7 @@ const BootstrapPopupEvent = {
 };
 
 export class Popup extends HTMLElement {
-
+  private listeners: EventListenerStore = new EventListenerStore();
   modal: Modal;
 
   constructor() {
@@ -42,7 +43,7 @@ export class Popup extends HTMLElement {
       this.clientBehaviorShow();
     }
 
-    this.addEventListener(BootstrapPopupEvent.HIDDEN, () => {
+    this.listeners.add(this, BootstrapPopupEvent.HIDDEN, () => {
       /**
        * Make sure that collapsed=true is set when the popup is closed by clicking on the background or pressing ESC.
        */
@@ -56,6 +57,7 @@ export class Popup extends HTMLElement {
     this.clientBehaviorHide();
     // dispose seems to make trouble here: Scrolling is out or order after this call.
     // this.modal.dispose();
+    this.listeners.disconnect();
   }
 
   clientBehaviorShow(behaviorMode?: BehaviorMode): void { //this method must not named 'show' (TOBAGO-2148)

@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+import {EventListenerStore} from "./util/EventListenerStore";
+
 class InputSupport {
 
   static readonly YEAR_MONTH = `${new Date().toISOString().substr(0, 7)}`;
@@ -68,6 +70,7 @@ class InputSupport {
 }
 
 class TobagoDate extends HTMLElement {
+  private listeners: EventListenerStore = new EventListenerStore();
 
   private static readonly SUPPORTS = {
     "date": new InputSupport("date"),
@@ -90,8 +93,12 @@ class TobagoDate extends HTMLElement {
     }
     const nowButton = this.nowButton;
     if (nowButton) {
-      nowButton.addEventListener("click", this.initNowButton.bind(this));
+      this.listeners.add(nowButton, "click", this.initNowButton.bind(this));
     }
+  }
+
+  disconnectedCallback(): void {
+    this.listeners.disconnect();
   }
 
   initNowButton(): void {

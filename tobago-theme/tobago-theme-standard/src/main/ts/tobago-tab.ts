@@ -17,6 +17,7 @@
 
 import {Css} from "./tobago-css";
 import {ClientBehaviors} from "./tobago-client-behaviors";
+import {EventListenerStore} from "./util/EventListenerStore";
 
 class TabGroup extends HTMLElement {
 
@@ -50,6 +51,7 @@ class TabGroup extends HTMLElement {
 }
 
 export class Tab extends HTMLElement {
+  private listeners: EventListenerStore = new EventListenerStore();
 
   constructor() {
     super();
@@ -58,19 +60,19 @@ export class Tab extends HTMLElement {
   connectedCallback(): void {
     const navLink = this.navLink;
     if (!navLink.classList.contains(Css.DISABLED)) {
-      navLink.addEventListener("click", this.select.bind(this));
+      this.listeners.add(navLink, "click", this.select.bind(this));
     }
-    navLink.addEventListener("keydown", (event) => {
+    this.listeners.add(navLink, "keydown", (event: KeyboardEvent) => {
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
         navLink.click();
       }
     });
-    navLink.addEventListener("focus", () => this.classList.add(Css.TOBAGO_FOCUS));
-    navLink.addEventListener("blur", () => this.classList.remove(Css.TOBAGO_FOCUS));
+    this.listeners.add(navLink, "focus", () => this.classList.add(Css.TOBAGO_FOCUS));
+    this.listeners.add(navLink, "blur", () => this.classList.remove(Css.TOBAGO_FOCUS));
 
-    this.addEventListener("mouseenter", () => this.classList.add(Css.TOBAGO_HOVER));
-    this.addEventListener("mouseleave", () => this.classList.remove(Css.TOBAGO_HOVER));
+    this.listeners.add(this, "mouseenter", () => this.classList.add(Css.TOBAGO_HOVER));
+    this.listeners.add(this, "mouseleave", () => this.classList.remove(Css.TOBAGO_HOVER));
 
     const mutationObserver = new MutationObserver((mutations, observer) => {
       if (this.navLink.classList.contains(Css.ACTIVE)) {
@@ -80,6 +82,10 @@ export class Tab extends HTMLElement {
       }
     });
     mutationObserver.observe(this.navLink, {attributes: true, attributeFilter: ["class"]});
+  }
+
+  disconnectedCallback(): void {
+    this.listeners.disconnect();
   }
 
   get index(): number {

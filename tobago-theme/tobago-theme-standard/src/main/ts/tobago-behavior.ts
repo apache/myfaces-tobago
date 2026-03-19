@@ -22,9 +22,10 @@ import {CollapseOperation} from "./tobago-collapse-operation";
 import {BehaviorMode} from "./tobago-behavior-mode";
 import {Overlay} from "./tobago-overlay";
 import {OverlayType} from "./tobago-overlay-type";
+import {EventListenerStore} from "./util/EventListenerStore";
 
 class Behavior extends HTMLElement {
-  private eventListener: EventListenerOrEventListenerObject;
+  private listeners: EventListenerStore = new EventListenerStore();
 
   constructor() {
     super();
@@ -36,17 +37,16 @@ class Behavior extends HTMLElement {
         this.callback();
         break;
       case "resize":
-        document.body.addEventListener(this.event, this.callback.bind(this));
+        this.listeners.add(document.body, this.event, this.callback.bind(this));
         break;
       default: {
         const eventElement = this.eventElement;
-        this.eventListener = this.callback.bind(this);
 
         if (eventElement) {
-          eventElement.addEventListener(this.event, this.eventListener);
+          this.listeners.add(eventElement, this.event, this.callback.bind(this));
         } else {
           // if the clientId doesn't exist in DOM, it's probably the id of tobago-behavior custom element
-          this.parentElement.addEventListener(this.event, this.eventListener);
+          this.listeners.add(this.parentElement, this.event, this.callback.bind(this));
           console.debug("Can't find an element for the event. Use parentElement instead.", this);
         }
       }
@@ -54,12 +54,7 @@ class Behavior extends HTMLElement {
   }
 
   disconnectedCallback(): void {
-    const eventElement = this.eventElement;
-    if (eventElement) {
-      eventElement.removeEventListener(this.event, this.eventListener);
-    } else {
-      this.parentElement?.removeEventListener(this.event, this.eventListener);
-    }
+    this.listeners.disconnect();
   }
 
   callback(event?: Event): void {
@@ -186,7 +181,7 @@ class Behavior extends HTMLElement {
         // nothing to do
 
     }
-  }
+  };
 
   /**
    * Submitting the page (= the form).

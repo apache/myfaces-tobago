@@ -20,6 +20,7 @@ import {Css} from "./tobago-css";
 import {ClientBehaviors} from "./tobago-client-behaviors";
 import {ColumnSelector} from "./tobago-column-selector";
 import {Selectable} from "./tobago-selectable";
+import {EventListenerStore} from "./util/EventListenerStore";
 
 interface MousemoveData {
   columnIndex: number;
@@ -47,6 +48,7 @@ export class Sheet extends HTMLElement {
   static readonly SCROLL_BAR_SIZE: number = Sheet.getScrollBarSize();
   private static readonly SUFFIX_LAZY_UPDATE: string = "::lazy-update";
 
+  private listeners: EventListenerStore = new EventListenerStore();
   private columnSelector: ColumnSelector;
 
   mousemoveData: MousemoveData;
@@ -99,12 +101,12 @@ export class Sheet extends HTMLElement {
     }
 
     // resize column: mouse events -------------------------------------------------------------------------------- //
-
-    for (const resizeElement of this.querySelectorAll(":scope > header > table > thead > tr > th > .tobago-resize")) {
-      resizeElement.addEventListener("click", function (): boolean {
+    for (const resizeElement of this
+        .querySelectorAll<HTMLElement>(":scope > header > table > thead > tr > th > .tobago-resize")) {
+      this.listeners.add(resizeElement, "click", function (): boolean {
         return false;
       });
-      resizeElement.addEventListener("mousedown", this.mousedown.bind(this));
+      this.listeners.add(resizeElement, "mousedown", this.mousedown.bind(this));
     }
 
     // scrolling -------------------------------------------------------------------------------------------------- //
@@ -120,11 +122,11 @@ export class Sheet extends HTMLElement {
     this.syncScrolling();
 
     // scroll events
-    sheetBody.addEventListener("scroll", this.scrollAction.bind(this));
+    this.listeners.add(sheetBody, "scroll", this.scrollAction.bind(this));
 
     // add selection listeners ------------------------------------------------------------------------------------ //
     this.rowElements.forEach((row) => this.initSelectionListener(row));
-    this.addEventListener(ClientBehaviors.ROW_SELECTION_CHANGE, this.syncSelected.bind(this));
+    this.listeners.add(this, ClientBehaviors.ROW_SELECTION_CHANGE, this.syncSelected.bind(this));
     this.syncSelected(null); //TOBAGO-2254
 
     // lazy load by scrolling ----------------------------------------------------------------- //
@@ -142,7 +144,7 @@ export class Sheet extends HTMLElement {
         tableBody.insertAdjacentHTML("beforeend", Sheet.getDummyRowTemplate(columns, i));
       }
 
-      this.body.addEventListener("scroll", this.activateLazyCheckInterval.bind(this));
+      this.listeners.add(this.body, "scroll", this.activateLazyCheckInterval.bind(this));
 
       const lazyScrollPosition = this.lazyScrollPosition;
       const firstVisibleRow = this.getRowElement(lazyScrollPosition[0]);
@@ -153,29 +155,11 @@ export class Sheet extends HTMLElement {
 
       this.lazyCheck();
     }
+  }
 
-    // init paging by pages ---------------------------------------------------------------------------------------- //
-
-    /*
-        for (const pagingText of this.querySelectorAll(".tobago-paging")) {
-
-          console.warn("register ************** click on paging");
-          pagingText.addEventListener("click", this.clickOnPaging.bind(this));
-
-          const pagingInput = pagingText.querySelector("input");
-          console.warn("register ************** blur on paging");
-          pagingInput.addEventListener("blur", this.blurPaging.bind(this));
-
-          console.warn("register ************** keydown on paging");
-          pagingInput.addEventListener("keydown", function (event: KeyboardEvent): void {
-            if (event.key === Key.ENTER) {
-              event.stopPropagation();
-              event.preventDefault();
-              event.currentTarget.dispatchEvent(new Event("blur"));
-            }
-          });
-        }
-    */
+  disconnectedCallback(): void {
+    this.columnSelector?.disconnect();
+    this.listeners.disconnect();
   }
 
   // -------------------------------------------------------------------------------------- //
@@ -407,6 +391,7 @@ export class Sheet extends HTMLElement {
               }
             }
 
+            this.listeners.cleanup();
             this.initSelectionListener(newRow);
           }
 
@@ -608,23 +593,23 @@ Type: ${data.type}`);
         && [Selectable.single, Selectable.singleOrNone, Selectable.multi].includes(this.columnSelector.selectable)
         && !row.classList.contains(Css.TOBAGO_COLUMN_PANEL)) {
       clickElement = row.querySelector("td:first-child");
-      clickElement.addEventListener("click", (event) => event.stopPropagation()); //TOBAGO-2276
+      this.listeners.add(clickElement, "click", (event) => event.stopPropagation()); //TOBAGO-2276
     } else if (this.columnSelector && this.columnSelector.selectable === Selectable.none) {
       const rowElement = this.columnSelector.rowElement(row);
       if (rowElement) {
-        rowElement.addEventListener("click", (event) => event.preventDefault());
+        this.listeners.add(rowElement, "click", (event) => event.preventDefault());
       }
     }
 
     if (clickElement) {
-      clickElement.addEventListener("mousedown", (event: MouseEvent) => {
+      this.listeners.add(clickElement, "mousedown", (event: MouseEvent) => {
         this.mousedownOnRowData = {
           x: event.clientX,
           y: event.clientY
         };
       });
 
-      clickElement.addEventListener("click", (event: MouseEvent) => {
+      this.listeners.add(clickElement, "click", (event: MouseEvent) => {
         const target = (event.target as HTMLElement);
         if (target.closest("tobago-dropdown") || target.closest(".tobago-toggle")) {
           /*
@@ -731,49 +716,6 @@ Type: ${data.type}`);
 
     this.columnSelector?.syncHeaderElementCheckedState();
   }
-
-  /*
-    clickOnPaging(event: MouseEvent): void {
-      const element = event.currentTarget as HTMLElement;
-
-      console.warn("execute  ************** click on paging");
-      const output: HTMLElement = element.querySelector("span");
-      output.style.display = "none";
-
-      const input: HTMLInputElement = element.querySelector("input");
-      input.style.display = "initial";
-      input.focus();
-      input.select();
-    }
-  */
-
-  /*
-    blurPaging(event: FocusEvent): void {
-      console.warn("execute  ************** blur on paging");
-      const input = event.currentTarget as HTMLInputElement;
-      const output: HTMLElement = input.parentElement.querySelector("span");
-      const number = Number.parseInt(input.value); // sanitizing
-      if (number > 0 && number.toString() !== output.innerHTML) {
-        console.debug("Reloading sheet '%s' old value='%s' new value='%s'", this.id, output.innerHTML, number);
-        output.innerHTML = number.toString();
-        faces.ajax.request(
-            input.id,
-            null,
-            {
-              params: {
-                "jakarta.faces.behavior.event": "reload"
-              },
-              execute: this.id,
-              render: this.id
-            });
-      } else {
-        console.info("no update needed");
-        input.value = output.innerHTML;
-        input.style.display = "none";
-        output.style.display = "initial";
-      }
-    }
-  */
 
   syncScrolling(): void {
     // sync scrolling of body to header

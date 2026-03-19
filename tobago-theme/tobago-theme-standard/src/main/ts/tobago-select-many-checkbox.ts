@@ -16,8 +16,10 @@
  */
 
 import {Focus} from "./tobago-focus";
+import {EventListenerStore} from "./util/EventListenerStore";
 
 class SelectManyCheckbox extends HTMLElement {
+  private listeners: EventListenerStore = new EventListenerStore();
 
   constructor() {
     super();
@@ -25,15 +27,19 @@ class SelectManyCheckbox extends HTMLElement {
 
   connectedCallback(): void {
     for (const input of this.inputs) {
-      input.addEventListener("focus", Focus.setLastFocusId);
+      this.listeners.add(input, "focus", Focus.setLastFocusId);
 
       if (input.readOnly) {
-        input.addEventListener("click", (event: MouseEvent) => {
+        this.listeners.add(input, "click", (event: MouseEvent) => {
           // in the "readonly" case, prevent the default, which is changing the "checked" state
           event.preventDefault();
         });
       }
     }
+  }
+
+  disconnectedCallback(): void {
+    this.listeners.disconnect();
   }
 
   get inputs(): NodeListOf<HTMLInputElement> {

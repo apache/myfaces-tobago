@@ -26,9 +26,9 @@ class SelectOneList extends SelectListBase {
 
   connectedCallback(): void {
     super.connectedCallback();
-    this.selectField.addEventListener("keydown", this.keydownEvent.bind(this));
+    this.listeners.add(this.selectField, "keydown", this.keydownEvent.bind(this));
     if (this.filter || this.serverSideFiltering) {
-      this.filterInput.addEventListener("input", this.clearSpan.bind(this));
+      this.listeners.add(this.filterInput, "input", this.clearSpan.bind(this));
     }
 
     this.sync();

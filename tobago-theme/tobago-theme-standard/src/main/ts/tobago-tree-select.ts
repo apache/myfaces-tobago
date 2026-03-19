@@ -18,8 +18,10 @@
 import {Selectable} from "./tobago-selectable";
 import {Tree} from "./tobago-tree";
 import {TreeNode} from "./tobago-tree-node";
+import {EventListenerStore} from "./util/EventListenerStore";
 
 export class TreeSelect extends HTMLElement {
+  private listeners: EventListenerStore = new EventListenerStore();
 
   constructor() {
     super();
@@ -27,8 +29,12 @@ export class TreeSelect extends HTMLElement {
 
   connectedCallback(): void {
     if (this.input) {
-      this.input.addEventListener("change", this.select.bind(this));
+      this.listeners.add(this.input, "change", this.select.bind(this));
     }
+  }
+
+  disconnectedCallback(): void {
+    this.listeners.disconnect();
   }
 
   select(event: Event): void {
