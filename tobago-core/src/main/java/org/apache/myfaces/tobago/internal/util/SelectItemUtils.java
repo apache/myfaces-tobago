@@ -19,19 +19,18 @@
 
 package org.apache.myfaces.tobago.internal.util;
 
-import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.Visual;
-import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import jakarta.el.ValueExpression;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UISelectItem;
 import jakarta.faces.component.UISelectItems;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.model.SelectItem;
+import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.Visual;
+import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Array;
@@ -148,16 +147,16 @@ public class SelectItemUtils {
           if (label == null && itemValue != null) {
             label = itemValue.toString();
           }
+          String icon = null;
           String image = null;
           Markup markup = null;
-          if (uiSelectItem instanceof org.apache.myfaces.tobago.component.UISelectItem) {
-            final org.apache.myfaces.tobago.component.UISelectItem tobagoSelectItem
-                = (org.apache.myfaces.tobago.component.UISelectItem) uiSelectItem;
+          if (uiSelectItem instanceof org.apache.myfaces.tobago.component.UISelectItem tobagoSelectItem) {
+            icon = tobagoSelectItem.getItemIcon();
             image = tobagoSelectItem.getItemImage();
             markup = tobagoSelectItem.getMarkup();
           }
           item = new org.apache.myfaces.tobago.model.SelectItem(itemValue, label, description, disabled,
-              escape, noSelectionOption, image, markup);
+              escape, noSelectionOption, icon, image, markup);
         } else if (!(item instanceof SelectItem)) {
           final ValueExpression expression = uiSelectItem.getValueExpression("value");
           throw new IllegalArgumentException("ValueExpression '"
@@ -255,6 +254,7 @@ public class SelectItemUtils {
           }
           final boolean itemDisabled
               = ComponentUtils.getBooleanAttribute(currentUISelectItems, Attributes.itemDisabled, false);
+          final String itemIcon = ComponentUtils.getStringAttribute(currentUISelectItems, Attributes.itemIcon);
           final String itemImage = ComponentUtils.getStringAttribute(currentUISelectItems, Attributes.itemImage);
           final Markup markup;
           if (currentUISelectItems instanceof Visual) {
@@ -267,7 +267,7 @@ public class SelectItemUtils {
 // TBD ?
 //        Object noSelectionValue = attributeMap.get(NO_SELECTION_VALUE_PROP);
           item = new org.apache.myfaces.tobago.model.SelectItem(
-              itemValue, itemLabel, (String) itemDescription, itemDisabled, itemImage, markup);
+              itemValue, itemLabel, (String) itemDescription, itemDisabled, itemIcon, itemImage, markup);
 
           // remove the value with the key from var from the request map, if previously written
           if (wroteRequestMapVarValue) {

@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-example</artifactId>
-    <version>6.9.2-SNAPSHOT</version>
+    <version>6.10.0-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-example-spring-boot</artifactId>
   <packaging>jar</packaging>
@@ -29,22 +29,8 @@
   <description>A minimal Tobago application with spring boot</description>
 
   <properties>
-    <joinfaces.version>5.5.7</joinfaces.version>
-    <joinfaces-plugin.version>5.1.12</joinfaces-plugin.version>
-    <spring-boot.version>3.5.10</spring-boot.version>
-    <spring.version>6.2.12</spring.version>
+    <spring-boot.version>4.0.2</spring-boot.version>
   </properties>
-
-  <build>
-    <finalName>tobago-example-spring-boot</finalName>
-    <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>${spring-boot.version}</version>
-      </plugin>
-    </plugins>
-  </build>
 
   <dependencies>
     <dependency>
@@ -54,53 +40,82 @@
       <classifier>export</classifier>
     </dependency>
     <dependency>
-      <groupId>org.joinfaces</groupId>
-      <artifactId>tobago-spring-boot-starter</artifactId>
-      <version>${joinfaces.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.joinfaces</groupId>
-          <artifactId>mojarra-spring-boot-starter</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.myfaces.tobago</groupId>
-          <artifactId>tobago-core</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.myfaces.tobago</groupId>
-          <artifactId>tobago-theme-standard</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.joinfaces</groupId>
-      <artifactId>myfaces-spring-boot-starter</artifactId>
-      <version>${joinfaces.version}</version>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot</artifactId>
+      <version>${spring-boot.version}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
+      <artifactId>spring-boot-autoconfigure</artifactId>
       <version>${spring-boot.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-validation</artifactId>
-      <version>${spring-boot.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-annotations</artifactId>
-      <version>2.21</version>
-    </dependency>
-
-    <dependency> <!-- remove this if dependency check does not fail -->
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-api</artifactId>
-      <version>2.25.3</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 
   <profiles>
+    <profile>
+      <id>spring-boot-3</id>
+      <properties>
+        <joinfaces.version>5.5.7</joinfaces.version>
+        <joinfaces-plugin.version>5.1.12</joinfaces-plugin.version>
+        <spring-boot.version>3.5.10</spring-boot.version>
+        <spring.version>6.2.12</spring.version>
+      </properties>
+      <build>
+        <finalName>tobago-example-spring-boot</finalName>
+        <plugins>
+          <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>${spring-boot.version}</version>
+          </plugin>
+        </plugins>
+      </build>
+
+      <dependencies>
+        <dependency>
+          <groupId>org.joinfaces</groupId>
+          <artifactId>tobago-spring-boot-starter</artifactId>
+          <version>${joinfaces.version}</version>
+          <exclusions>
+            <exclusion>
+              <groupId>org.joinfaces</groupId>
+              <artifactId>mojarra-spring-boot-starter</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>org.apache.myfaces.tobago</groupId>
+              <artifactId>tobago-core</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>org.apache.myfaces.tobago</groupId>
+              <artifactId>tobago-theme-standard</artifactId>
+            </exclusion>
+          </exclusions>
+        </dependency>
+        <dependency>
+          <groupId>org.joinfaces</groupId>
+          <artifactId>myfaces-spring-boot-starter</artifactId>
+          <version>${joinfaces.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-web</artifactId>
+          <version>${spring-boot.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-validation</artifactId>
+          <version>${spring-boot.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-annotations</artifactId>
+          <version>2.21</version>
+        </dependency>
+      </dependencies>
+    </profile>
+
     <profile>
       <id>spring-boot-4</id>
       <properties>
@@ -109,6 +124,58 @@
         <spring-boot.version>4.0.2</spring-boot.version>
         <spring.version>7.0.4</spring.version>
       </properties>
+      <build>
+        <finalName>tobago-example-spring-boot</finalName>
+        <plugins>
+          <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>${spring-boot.version}</version>
+          </plugin>
+        </plugins>
+      </build>
+
+      <dependencies>
+        <dependency>
+          <groupId>org.joinfaces</groupId>
+          <artifactId>tobago-spring-boot-starter</artifactId>
+          <version>${joinfaces.version}</version>
+          <exclusions>
+            <exclusion>
+              <groupId>org.joinfaces</groupId>
+              <artifactId>mojarra-spring-boot-starter</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>org.apache.myfaces.tobago</groupId>
+              <artifactId>tobago-core</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>org.apache.myfaces.tobago</groupId>
+              <artifactId>tobago-theme-standard</artifactId>
+            </exclusion>
+          </exclusions>
+        </dependency>
+        <dependency>
+          <groupId>org.joinfaces</groupId>
+          <artifactId>myfaces-spring-boot-starter</artifactId>
+          <version>${joinfaces.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-web</artifactId>
+          <version>${spring-boot.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-validation</artifactId>
+          <version>${spring-boot.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-annotations</artifactId>
+          <version>2.21</version>
+        </dependency>
+      </dependencies>
     </profile>
   </profiles>
 

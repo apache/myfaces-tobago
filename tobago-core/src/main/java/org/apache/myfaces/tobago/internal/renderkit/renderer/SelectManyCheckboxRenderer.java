@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.SelectItem;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyCheckbox;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectReference;
@@ -32,9 +34,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.model.SelectItem;
 
 import java.io.IOException;
 
@@ -116,16 +115,11 @@ public class SelectManyCheckboxRenderer<T extends AbstractUISelectManyCheckbox> 
         writer.writeClassAttribute(BootstrapClass.FORM_CHECK_LABEL);
         writer.writeAttribute(HtmlAttributes.FOR, itemId, false);
 
-        if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
-          final org.apache.myfaces.tobago.model.SelectItem tobagoItem =
-              (org.apache.myfaces.tobago.model.SelectItem) item;
+        if (item instanceof org.apache.myfaces.tobago.model.SelectItem tobagoItem) {
+          final String icon = tobagoItem.getIcon();
           final String image = tobagoItem.getImage();
-          if (image != null) {
-            writer.startElement(HtmlElements.IMG);
-            writer.writeAttribute(HtmlAttributes.SRC, image, true);
-            writer.writeAttribute(HtmlAttributes.ALT, "", false);
-            writer.endElement(HtmlElements.IMG);
-          }
+          HtmlRendererUtils.encodeIcon(writer, icon);
+          HtmlRendererUtils.encodeImage(writer, image);
         }
 
         final String label = item.getLabel();

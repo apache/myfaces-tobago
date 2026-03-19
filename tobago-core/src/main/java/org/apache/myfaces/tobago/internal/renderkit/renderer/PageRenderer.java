@@ -131,7 +131,7 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
     final ViewHandler viewHandler = application.getViewHandler();
     final UIViewRoot viewRoot = facesContext.getViewRoot();
     final String viewId = viewRoot.getViewId();
-    final String formAction = externalContext.encodeActionURL(viewHandler.getActionURL(facesContext, viewId));
+    final String formAction = getActionUrl(facesContext, viewId, component);
     final PartialViewContext partialViewContext = facesContext.getPartialViewContext();
 
     final String contentType = writer.getContentTypeWithCharSet();
@@ -252,6 +252,17 @@ public class PageRenderer<T extends AbstractUIPage> extends RendererBase<T> {
       final UIComponent hidden = component.getFacet("backButtonDetector");
       hidden.encodeAll(facesContext);
     }
+  }
+
+  private String getActionUrl(final FacesContext facesContext, final String viewId, final T component) {
+    final ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
+    final String actionUrl;
+    if (component.isIncludeViewParams()) {
+      actionUrl = viewHandler.getBookmarkableURL(facesContext, viewId, Map.of(), true);
+    } else {
+      actionUrl = viewHandler.getActionURL(facesContext, viewId);
+    }
+    return facesContext.getExternalContext().encodeActionURL(actionUrl);
   }
 
   private void encodeHead(

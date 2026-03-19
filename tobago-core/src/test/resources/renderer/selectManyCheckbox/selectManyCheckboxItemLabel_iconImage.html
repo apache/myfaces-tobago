@@ -1,4 +1,4 @@
-/*
+<!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -13,19 +13,13 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+-->
 
-'use strict'
-
-module.exports = (ctx) => ({
-  map: {
-    inline: false,
-    annotation: true,
-    sourcesContent: true
-  },
-  plugins: {
-    autoprefixer: {
-      cascade: false
-    }
-  }
-})
+<tobago-select-many-checkbox id='id' class='tobago-auto-spacing'>
+<div>
+<div class='form-check'>
+<input class='form-check-input' type='checkbox' name='id' id='id::0' value=''>
+<label class='form-check-label' for='id::0'><i class='icon-name'></i>Entry One</label></div>
+<div class='form-check'>
+<input class='form-check-input' type='checkbox' name='id' id='id::1' value=''>
+<label class='form-check-label' for='id::1'><img src='url' alt=''>Entry Two</label></div></div></tobago-select-many-checkbox>

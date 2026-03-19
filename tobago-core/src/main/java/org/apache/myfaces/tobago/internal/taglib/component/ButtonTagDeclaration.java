@@ -34,6 +34,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasActionListener;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConfirmation;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasFragment;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasIcon;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
@@ -176,6 +177,6 @@ import jakarta.faces.component.UICommand;
 public interface ButtonTagDeclaration
     extends HasIdBindingAndRendered, HasAction, HasActionListener, IsImmediateCommand, HasConfirmation,
     HasLink, HasOutcome, HasFragment, IsTransition, HasTarget, IsDisabledBySecurity,
-    IsOmit, IsVisual, HasLabel, HasAccessKey, HasTip, HasImage,
+    IsOmit, IsVisual, HasLabel, HasAccessKey, HasTip, HasIcon, HasImage,
     IsDefaultCommand, HasTabIndex, HasAutoSpacing {
 }

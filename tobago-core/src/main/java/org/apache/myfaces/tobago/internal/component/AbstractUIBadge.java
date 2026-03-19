@@ -25,6 +25,8 @@ import jakarta.faces.component.UIOutput;
 
 public abstract class AbstractUIBadge extends UIOutput implements Visual {
 
+  public abstract String getIcon();
+
   public abstract String getImage();
 
   public abstract String getTip();

@@ -72,6 +72,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
     final String clientId = component.getClientId(facesContext);
     final boolean disabled = component.isDisabled();
     final LabelWithAccessKey label = new LabelWithAccessKey(component);
+    final String icon = component.getIcon();
     final String image = component.getImage();
     final UIComponent labelFacet = ComponentUtils.getFacet(component, Facets.label);
     final UIComponent popoverFacet = ComponentUtils.getFacet(component, Facets.popover);
@@ -157,6 +158,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
       insideEnd(facesContext, Facets.popover);
     }
 
+    HtmlRendererUtils.encodeIcon(writer, icon);
     HtmlRendererUtils.encodeIconOrImage(writer, image);
 
     if (labelFacet != null) {
@@ -186,6 +188,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
 
   @Override
   public void encodeChildrenInternal(final FacesContext facesContext, final T component) throws IOException {
+    final String clientId = component.getClientId(facesContext);
     final boolean parentOfCommands = component.isParentOfCommands();
     final boolean isInsideInputAfter = isInside(facesContext, HtmlElements.TOBAGO_IN)
         && isInside(facesContext, Facets.after);
@@ -202,6 +205,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
           disabled ? TobagoClass.DISABLED : null);
       writer.writeAttribute(Arias.LABELLEDBY, component.getFieldId(facesContext), false);
       writer.writeAttribute(HtmlAttributes.NAME, component.getClientId(facesContext), false);
+      writer.writeAttribute(DataAttributes.FOR, clientId, false);
 
       RenderChildrenCommands visitor =
           new RenderChildrenCommands(facesContext, writer, component.getClientId(facesContext));

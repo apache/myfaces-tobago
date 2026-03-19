@@ -227,6 +227,7 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
         TobagoClass.OPTIONS,
         expanded ? BootstrapClass.LIST_GROUP_ITEM : TobagoClass.DROPDOWN__MENU);
     writer.writeNameAttribute(clientId);
+    writer.writeAttribute(DataAttributes.FOR, clientId, false);
 
     writer.startElement(HtmlElements.TABLE);
     writer.writeClassAttribute(BootstrapClass.TABLE, BootstrapClass.TABLE_HOVER,
@@ -311,6 +312,12 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
     }
     writer.startElement(HtmlElements.TR);
     writer.writeAttribute(DataAttributes.VALUE, formattedValue, true);
+    if (item instanceof org.apache.myfaces.tobago.model.SelectItem tobagoSelectItem) {
+      String icon = tobagoSelectItem.getIcon();
+      if (icon != null && !icon.isEmpty()) {
+        writer.writeAttribute(DataAttributes.ICON, icon, true);
+      }
+    }
     writer.writeClassAttribute(
         TobagoClass.SELECT__ITEM,
         contains ? BootstrapClass.TABLE_PRIMARY : null,
@@ -322,6 +329,12 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
     writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
     if (group) {
       writer.startElement(HtmlElements.SPAN);
+    }
+    if (item instanceof org.apache.myfaces.tobago.model.SelectItem tobagoSelectItem) {
+      String icon = tobagoSelectItem.getIcon();
+      if (icon != null && !icon.isEmpty()) {
+        HtmlRendererUtils.encodeIcon(writer, icon);
+      }
     }
     final String label = item.getLabel();
     if (label != null) {

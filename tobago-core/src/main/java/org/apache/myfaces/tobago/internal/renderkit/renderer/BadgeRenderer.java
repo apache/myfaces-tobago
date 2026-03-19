@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import jakarta.faces.context.FacesContext;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIBadge;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
@@ -28,8 +29,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import jakarta.faces.context.FacesContext;
-
 import java.io.IOException;
 
 public class BadgeRenderer<T extends AbstractUIBadge> extends RendererBase<T> {
@@ -38,6 +37,7 @@ public class BadgeRenderer<T extends AbstractUIBadge> extends RendererBase<T> {
   public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final Markup markup = component.getMarkup() != null ? component.getMarkup() : Markup.NULL;
+    final String icon = component.getIcon();
     final String image = component.getImage();
     final String tip = component.getTip();
     final String value = getCurrentValue(facesContext, component);
@@ -54,6 +54,7 @@ public class BadgeRenderer<T extends AbstractUIBadge> extends RendererBase<T> {
     if (tip != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     }
+    HtmlRendererUtils.encodeIcon(writer, icon);
     HtmlRendererUtils.encodeIconOrImage(writer, image);
     if (value != null) {
       writer.startElement(HtmlElements.SPAN);

@@ -122,7 +122,7 @@ Browse to the local URL http://localhost:8080/
 ```shell
 mvn clean install
 cd tobago-example/tobago-example-spring-boot
-mvn clean package spring-boot:run
+mvn clean package -Pspring-boot-3 spring-boot:run
 ```
 
 Browse to the local URL http://localhost:8080/

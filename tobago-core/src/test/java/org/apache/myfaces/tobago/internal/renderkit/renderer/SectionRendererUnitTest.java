@@ -21,8 +21,8 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
-import org.apache.myfaces.tobago.component.UISection;
 import org.apache.myfaces.tobago.component.UIOut;
+import org.apache.myfaces.tobago.component.UISection;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -64,4 +64,14 @@ public class SectionRendererUnitTest extends RendererTestBase {
     Assertions.assertEquals(loadHtml("renderer/section/simple.html"), formattedResult());
   }
 
+  @Test
+  public void sectionWithIcon() throws IOException {
+    final UISection c = (UISection) ComponentUtils.createComponent(
+        facesContext, Tags.section.componentType(), RendererTypes.Section, "id");
+    c.setLabel("label");
+    c.setIcon("icon-name");
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/section/section-icon.html"), formattedResult());
+  }
 }

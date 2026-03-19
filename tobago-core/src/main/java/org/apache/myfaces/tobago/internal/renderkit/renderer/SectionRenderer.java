@@ -85,7 +85,9 @@ public class SectionRenderer<T extends AbstractUISection> extends CollapsiblePan
     writer.writeClassAttribute(TobagoClass.HEADER);
     writer.startElement(tag);
 
+    final String icon = component.getIcon();
     final String image = component.getImage();
+    HtmlRendererUtils.encodeIcon(writer, icon);
     HtmlRendererUtils.encodeIconOrImage(writer, image);
 
     final UIComponent labelFacet = ComponentUtils.getFacet(component, Facets.label);

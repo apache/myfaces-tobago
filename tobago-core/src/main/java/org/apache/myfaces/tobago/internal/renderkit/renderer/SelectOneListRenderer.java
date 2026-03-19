@@ -186,7 +186,8 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     writer.writeAttribute(Arias.EXPANDED, Boolean.FALSE.toString(), false);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
-
+    writer.startElement(HtmlElements.I);
+    writer.endElement(HtmlElements.I);
     writer.startElement(HtmlElements.SPAN);
     writer.endElement(HtmlElements.SPAN);
 
@@ -222,6 +223,7 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
         TobagoClass.OPTIONS,
         expanded ? BootstrapClass.LIST_GROUP_ITEM : TobagoClass.DROPDOWN__MENU);
     writer.writeNameAttribute(clientId);
+    writer.writeAttribute(DataAttributes.FOR, clientId, false);
 
     writer.startElement(HtmlElements.TABLE);
     writer.writeClassAttribute(BootstrapClass.TABLE, BootstrapClass.TABLE_HOVER,
@@ -316,6 +318,10 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
     writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
     if (group) {
       writer.startElement(HtmlElements.SPAN);
+    }
+    if (item instanceof org.apache.myfaces.tobago.model.SelectItem tobagoSelectItem) {
+      String icon = tobagoSelectItem.getIcon();
+      HtmlRendererUtils.encodeIcon(writer, icon);
     }
     final String label = item.getLabel();
     if (label != null) {

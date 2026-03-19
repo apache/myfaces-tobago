@@ -19,6 +19,24 @@
 
 package org.apache.myfaces.tobago.renderkit;
 
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.EditableValueHolder;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.component.ValueHolder;
+import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.component.behavior.ClientBehavior;
+import jakarta.faces.component.behavior.ClientBehaviorBase;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.ConverterException;
+import jakarta.faces.model.SelectItem;
+import jakarta.faces.model.SelectItemGroup;
+import jakarta.faces.render.ClientBehaviorRenderer;
+import jakarta.faces.render.Renderer;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
@@ -43,6 +61,7 @@ import org.apache.myfaces.tobago.internal.util.StyleRenderUtils;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -50,24 +69,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jakarta.el.ValueExpression;
-import jakarta.faces.component.EditableValueHolder;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIInput;
-import jakarta.faces.component.ValueHolder;
-import jakarta.faces.component.behavior.AjaxBehavior;
-import jakarta.faces.component.behavior.ClientBehavior;
-import jakarta.faces.component.behavior.ClientBehaviorBase;
-import jakarta.faces.component.behavior.ClientBehaviorContext;
-import jakarta.faces.component.behavior.ClientBehaviorHolder;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.context.ResponseWriter;
-import jakarta.faces.convert.Converter;
-import jakarta.faces.convert.ConverterException;
-import jakarta.faces.model.SelectItem;
-import jakarta.faces.model.SelectItemGroup;
-import jakarta.faces.render.ClientBehaviorRenderer;
-import jakarta.faces.render.Renderer;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.Arrays;
@@ -485,6 +486,11 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
         writer.startElement(HtmlElements.OPTION);
         writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
         if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
+          final String icon = ((org.apache.myfaces.tobago.model.SelectItem) item).getIcon();
+          if (icon != null && !icon.isEmpty()) {
+            writer.writeAttribute(DataAttributes.ICON, icon, true);
+          }
+
           final String image = ((org.apache.myfaces.tobago.model.SelectItem) item).getImage();
           if (image != null) {
             final AbstractUIStyle style = (AbstractUIStyle) facesContext.getApplication()

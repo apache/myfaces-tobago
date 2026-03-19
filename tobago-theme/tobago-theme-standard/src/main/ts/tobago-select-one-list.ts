@@ -63,6 +63,7 @@ class SelectOneList extends SelectListBase {
     switch (event.key) {
       case Key.ESCAPE:
         this.spanText = this.selectedOption.textContent;
+        this.icon = this.selectedOption.dataset.tobagoIcon;
         break;
       case Key.BACKSPACE:
         if (this.filterInput.value.length === 0) {
@@ -74,6 +75,7 @@ class SelectOneList extends SelectListBase {
 
   private clearSpan(): void {
     this.spanText = null;
+    this.icon = null;
   }
 
   protected select(row: HTMLTableRowElement): void {
@@ -100,6 +102,7 @@ class SelectOneList extends SelectListBase {
 
   private sync() {
     this.spanText = this.selectedOption ? this.selectedOption.textContent : "";
+    this.icon = this.selectedOption ? this.selectedOption.dataset.tobagoIcon : null;
 
     this.rows?.forEach((row) => {
       if (row.dataset.tobagoValue === this.hiddenSelect.value) {
@@ -117,6 +120,7 @@ class SelectOneList extends SelectListBase {
         this.doFilter("");
       }
       this.spanText = this.selectedOption ? this.selectedOption.textContent : "";
+      this.icon = this.selectedOption ? this.selectedOption.dataset.tobagoIcon : null;
       this.dropdownMenu?.hide();
       this.focused = false; //dispatch blur event; should be called after doFilter("")
     }
@@ -130,6 +134,15 @@ class SelectOneList extends SelectListBase {
     const spanElement = this.selectField.querySelector("span");
     spanElement.textContent = text;
     spanElement.style.marginRight = text ? null : "0"; //null remove inline style, so the margin from the CSS is used
+  }
+
+  get icon(): string {
+    return this.selectField.querySelector("i").className;
+  }
+
+  set icon(icon: string) {
+    const iElement = this.selectField.querySelector("i");
+    iElement.className = icon ? icon : Css.D_NONE;
   }
 
   get selectedOption(): HTMLOptionElement {

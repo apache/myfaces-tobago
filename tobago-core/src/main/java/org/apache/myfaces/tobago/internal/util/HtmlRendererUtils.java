@@ -19,9 +19,16 @@
 
 package org.apache.myfaces.tobago.internal.util;
 
+import jakarta.el.ELContext;
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.SelectItem;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
@@ -31,13 +38,6 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import jakarta.el.ELContext;
-import jakarta.el.ValueExpression;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIInput;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.model.SelectItem;
 
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
@@ -74,6 +74,19 @@ public final class HtmlRendererUtils {
     }
   }
 
+  public static void encodeIcon(final TobagoResponseWriter writer, final String icon) throws IOException {
+    if (icon != null && !icon.isEmpty()) {
+      writer.startElement(HtmlElements.I);
+      writer.writeClassAttribute(new CssItem() {
+        @Override
+        public String getName() {
+          return icon;
+        }
+      });
+      writer.endElement(HtmlElements.I);
+    }
+  }
+
   public static void encodeIconOrImage(final TobagoResponseWriter writer, final String image) throws IOException {
     if (image != null && !image.isEmpty()) {
       if (Icons.matches(image)) {
@@ -86,6 +99,15 @@ public final class HtmlRendererUtils {
         writer.writeAttribute(HtmlAttributes.ALT, "", false);
         writer.endElement(HtmlElements.IMG);
       }
+    }
+  }
+
+  public static void encodeImage(final TobagoResponseWriter writer, final String image) throws IOException {
+    if (image != null && !image.isEmpty()) {
+      writer.startElement(HtmlElements.IMG);
+      writer.writeAttribute(HtmlAttributes.SRC, image, true);
+      writer.writeAttribute(HtmlAttributes.ALT, "", false);
+      writer.endElement(HtmlElements.IMG);
     }
   }
 
@@ -179,7 +201,7 @@ public final class HtmlRendererUtils {
       final String value;
       if (mapValue instanceof ValueExpression) {
         Object expressionValue = ((ValueExpression) mapValue).getValue(elContext);
-        value = expressionValue !=null ? expressionValue.toString() : null;
+        value = expressionValue != null ? expressionValue.toString() : null;
       } else {
         value = mapValue.toString();
       }

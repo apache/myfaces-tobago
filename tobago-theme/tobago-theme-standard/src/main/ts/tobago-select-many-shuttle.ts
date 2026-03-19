@@ -17,6 +17,13 @@
 
 import {Focus} from "./tobago-focus";
 
+interface SelectManyShuttleDetail {
+  added: string[];
+  removed: string[];
+  unselected: string[];
+  selected: string[];
+}
+
 class SelectManyShuttle extends HTMLElement {
 
   constructor() {
@@ -80,6 +87,7 @@ class SelectManyShuttle extends HTMLElement {
       this.selectedSelect.add(option);
       this.changeHiddenOption(option, true);
     }
+    this.fireChangeEvent(options, null);
   }
 
   private removeItems(options: NodeListOf<HTMLOptionElement>): void {
@@ -87,12 +95,27 @@ class SelectManyShuttle extends HTMLElement {
       this.unselectedSelect.add(option);
       this.changeHiddenOption(option, false);
     }
+    this.fireChangeEvent(null, options);
   }
 
   private changeHiddenOption(option: HTMLOptionElement, select: boolean): void {
     const hiddenOption: HTMLOptionElement = this.hiddenSelect.querySelector(`option[value='${option.value}']`);
     hiddenOption.selected = select;
-    this.dispatchEvent(new Event("change"));
+  }
+
+  private fireChangeEvent(added: NodeListOf<HTMLOptionElement>, removed: NodeListOf<HTMLOptionElement>): void {
+    this.dispatchEvent(new CustomEvent("change", {
+      detail: {
+        added: added ? Array.from(added).map((option: HTMLOptionElement) => option.value) : null,
+        removed: removed ? Array.from(removed).map((option: HTMLOptionElement) => option.value) : null,
+        unselected: Array.from(this.hiddenSelect.options)
+            .filter((option: HTMLOptionElement) => !option.selected)
+            .map((option: HTMLOptionElement) => option.value),
+        selected: Array.from(this.hiddenSelect.options)
+            .filter((option: HTMLOptionElement) => option.selected)
+            .map((option: HTMLOptionElement) => option.value)
+      }
+    }));
   }
 
   get unselectedSelect(): HTMLSelectElement {

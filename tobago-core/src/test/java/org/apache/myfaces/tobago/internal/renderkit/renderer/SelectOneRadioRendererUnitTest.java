@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
+import jakarta.faces.component.UIPanel;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UISelectItem;
@@ -28,14 +29,32 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import jakarta.faces.component.UIPanel;
-
 import java.io.IOException;
 
 public class SelectOneRadioRendererUnitTest extends RendererTestBase {
 
   @Test
   public void label() throws IOException {
+    final UISelectOneRadio c = (UISelectOneRadio) ComponentUtils.createComponent(
+        facesContext, Tags.selectOneRadio.componentType(), RendererTypes.SelectOneRadio, "id");
+    c.setLabel("label");
+
+    final UISelectItem i1 = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "i1");
+    i1.setItemLabel("Stratocaster");
+    c.getChildren().add(i1);
+    final UISelectItem i2 = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "i2");
+    i2.setItemLabel("Telecaster");
+    c.getChildren().add(i2);
+
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/selectOneRadio/selectOneRadioLabel.html"), formattedResult());
+  }
+
+  @Test
+  public void iconAndImage() throws IOException {
     final UISelectOneRadio c = (UISelectOneRadio) ComponentUtils.createComponent(
         facesContext, Tags.selectOneRadio.componentType(), RendererTypes.SelectOneRadio, "id");
     c.setLabel("label");

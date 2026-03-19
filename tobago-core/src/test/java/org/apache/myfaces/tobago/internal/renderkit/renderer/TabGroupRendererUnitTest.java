@@ -104,4 +104,36 @@ public class TabGroupRendererUnitTest extends RendererTestBase {
     Assertions.assertEquals(loadHtml("renderer/tabGroup/tabGroup-label.html"), formattedResult());
   }
 
+  @Test
+  public void withLabelIconAndImage() throws IOException {
+    final UITabGroup tg = (UITabGroup) ComponentUtils.createComponent(
+        facesContext, Tags.tabGroup.componentType(), RendererTypes.TabGroup, "id");
+
+    final UITab t1 = (UITab) ComponentUtils.createComponent(
+        facesContext, Tags.tab.componentType(), RendererTypes.Tab, "t1");
+    t1.setLabel("T1");
+    t1.setIcon("icon-t1");
+
+    final UITab t2 = (UITab) ComponentUtils.createComponent(
+        facesContext, Tags.tab.componentType(), RendererTypes.Tab, "t2");
+    t2.setLabel("T2");
+    t2.setImage("url-t2");
+
+    final UITab t3 = (UITab) ComponentUtils.createComponent(
+        facesContext, Tags.tab.componentType(), RendererTypes.Tab, "t3");
+    t3.setIcon("icon-t3");
+
+    final UITab t4 = (UITab) ComponentUtils.createComponent(
+        facesContext, Tags.tab.componentType(), RendererTypes.Tab, "t4");
+    t4.setImage("url-t4");
+
+    tg.getChildren().add(t1);
+    tg.getChildren().add(t2);
+    tg.getChildren().add(t3);
+    tg.getChildren().add(t4);
+
+    tg.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/tabGroup/tabGroup-label_icon_image.html"), formattedResult());
+  }
 }

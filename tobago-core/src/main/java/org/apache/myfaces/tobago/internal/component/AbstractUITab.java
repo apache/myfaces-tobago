@@ -19,10 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import org.apache.myfaces.tobago.component.SupportsAccessKey;
-
 import jakarta.faces.component.NamingContainer;
 import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import org.apache.myfaces.tobago.component.SupportsAccessKey;
 
 /**
  * {@link org.apache.myfaces.tobago.internal.taglib.component.TabTagDeclaration}
@@ -31,6 +30,8 @@ public abstract class AbstractUITab
     extends AbstractUIPanelBase implements ClientBehaviorHolder, SupportsAccessKey, NamingContainer {
 
   public abstract String getLabel();
+
+  public abstract String getIcon();
 
   public abstract String getImage();
 

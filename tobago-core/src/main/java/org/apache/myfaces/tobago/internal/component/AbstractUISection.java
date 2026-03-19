@@ -19,10 +19,9 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import jakarta.faces.context.FacesContext;
 import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-
-import jakarta.faces.context.FacesContext;
 
 import java.io.IOException;
 
@@ -36,6 +35,8 @@ public abstract class AbstractUISection extends AbstractUICollapsiblePanel imple
   public abstract Integer getLevel();
 
   public abstract void setLevel(Integer level);
+
+  public abstract String getIcon();
 
   public abstract String getImage();
 

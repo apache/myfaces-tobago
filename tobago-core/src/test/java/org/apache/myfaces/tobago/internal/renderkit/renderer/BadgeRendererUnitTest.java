@@ -51,4 +51,14 @@ public class BadgeRendererUnitTest extends RendererTestBase {
     Assertions.assertEquals(loadHtml("renderer/badge/badge-data-attribute.html"), formattedResult());
   }
 
+  @Test
+  public void badgeWithIcon() throws IOException {
+    final UIBadge c = (UIBadge) ComponentUtils.createComponent(
+        facesContext, Tags.badge.componentType(), RendererTypes.Badge, "id");
+    c.setValue("Text");
+    c.setIcon("icon-name");
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/badge/badge-icon.html"), formattedResult());
+  }
 }
