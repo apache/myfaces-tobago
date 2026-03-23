@@ -18,31 +18,34 @@
  */
 
 export class EventListenerStore {
-  private listeners: Map<Document | HTMLElement | Window, {
+  private listeners: Array<{
+    element: EventTarget;
     type: string;
     listener: EventListenerOrEventListenerObject;
-  }> = new Map();
+  }> = [];
 
-  add(element: Document | HTMLElement | Window, type: string, listener: EventListenerOrEventListenerObject): void {
+  add(element: EventTarget, type: string, listener: EventListenerOrEventListenerObject): void {
     element.addEventListener(type, listener);
-    this.listeners.set(element, {type, listener});
+    this.listeners.push({element, type, listener});
   }
 
   disconnect(): void {
-    this.listeners.forEach(({type, listener}, element) => {
-      element.removeEventListener(type, listener);
+    this.listeners.forEach((value) => {
+      value.element.removeEventListener(value.type, value.listener);
     });
-    this.listeners = new Map();
+    this.listeners = [];
   }
 
   /**
    * Clean up listeners of disconnected elements.
    */
   cleanup(): void {
-    for (const element of this.listeners.keys()) {
-      if ((element instanceof Document || element instanceof HTMLElement) && !element.isConnected) {
-        this.listeners.delete(element);
+    this.listeners = this.listeners.filter((value) => {
+      if (value.element instanceof Document || value.element instanceof HTMLElement) {
+        return value.element.isConnected;
+      } else {
+        return true;
       }
-    }
+    });
   }
 }
