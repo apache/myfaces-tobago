@@ -3237,19 +3237,19 @@ textarea.form-control-lg {
 }
 
 .form-floating > .form-control:focus ~ label, .form-floating > .form-control-plaintext ~ label, .form-floating > .form-select ~ label {
-  transform: scale(.85)translateY(-.5rem)translateX(.15rem);
+  transform: scale(.85) translateY(-.5rem) translateX(.15rem);
 }
 
 .form-floating > .form-control:not(:-ms-placeholder-shown) ~ label {
-  transform: scale(.85)translateY(-.5rem)translateX(.15rem);
+  transform: scale(.85) translateY(-.5rem) translateX(.15rem);
 }
 
 .form-floating > .form-control:not(:placeholder-shown) ~ label {
-  transform: scale(.85)translateY(-.5rem)translateX(.15rem);
+  transform: scale(.85) translateY(-.5rem) translateX(.15rem);
 }
 
 .form-floating > .form-control:-webkit-autofill ~ label {
-  transform: scale(.85)translateY(-.5rem)translateX(.15rem);
+  transform: scale(.85) translateY(-.5rem) translateX(.15rem);
 }
 
 .form-floating > textarea:focus ~ label:after {
@@ -14216,11 +14216,11 @@ tobago-in tobago-suggest {
 
 @keyframes rotate {
   0% {
-    transform: translateY(-50%)rotate(0);
+    transform: translateY(-50%) rotate(0);
   }
 
   to {
-    transform: translateY(-50%)rotate(359deg);
+    transform: translateY(-50%) rotate(359deg);
   }
 }
 
