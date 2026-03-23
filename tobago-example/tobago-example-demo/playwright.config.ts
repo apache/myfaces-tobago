@@ -22,6 +22,7 @@ import {devices, PlaywrightTestConfig} from "@playwright/test";
 const defaultConfig: PlaywrightTestConfig = {
   testDir: "./src/test/typescript",
   outputDir: "./target/test-results",
+  retries: 1,
   reporter: [["html", {outputFolder: "./target/playwright-report"}]],
   use: {video: "on"},
   projects: [
