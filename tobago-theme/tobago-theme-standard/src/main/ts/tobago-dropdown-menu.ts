@@ -34,8 +34,6 @@ export class DropdownMenu {
   private resizeEventListener: EventListenerOrEventListenerObject = this.resizeEventListenerEvent.bind(this);
   private scrollEventListener: EventListenerOrEventListenerObject = this.scrollEventListenerEvent.bind(this);
 
-  private popper;
-
   /**
    * @param dropdownMenuElement dropdown menu element
    * @param referenceElement the element which the dropdown menu is aligned for
@@ -53,10 +51,6 @@ export class DropdownMenu {
     this.parent = dropdownMenuElement.parentElement;
     this.localMenu = localMenu;
     this.alignment = alignment;
-
-    /*this.popper = createPopper(this.referenceElement, this.dropdownMenuElement, {
-      placement: this.dropdownMenuElement.classList.contains(Css.DROPDOWN_MENU_END) ? "bottom-end" : "bottom-start",
-    });*/
   }
 
   private resizeEventListenerEvent(event: Event): void {
