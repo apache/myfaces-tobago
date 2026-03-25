@@ -218,6 +218,8 @@ export class Suggest {
 
   private renderResults(items: string[]): void {
     if (items.length > 0) {
+      this.listeners.cleanup();
+
       const dropdownItems: HTMLLIElement[] = [];
       for (let i = 0; i < items.length; i++) {
         const li = document.createElement("li");
