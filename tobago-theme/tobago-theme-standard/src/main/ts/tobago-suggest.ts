@@ -42,7 +42,7 @@ export class Suggest {
     this.tobagoSuggest.insertAdjacentHTML("beforebegin", `<div class="${Css.SPINNER}"/>`);
     this.spinner = new Spinner(this.tobagoIn, this.inputField, this.inputField, this.spinnerDiv);
 
-    this.tobagoSuggest.insertAdjacentHTML("beforebegin", `<div class="${Css.TOBAGO_DROPDOWN_MENU_ANCHOR}"}">
+    this.tobagoSuggest.insertAdjacentHTML("beforebegin", `<div class="${Css.TOBAGO_DROPDOWN_MENU_ANCHOR}">
     <ul id="${this.tobagoSuggest.id + "::dropdownMenu"}" class="${Css.TOBAGO_DROPDOWN_MENU}"
     name="${this.tobagoSuggest.id}" role="listbox"/></div>`);
     this.dropdownMenu = new DropdownMenu(this.dropdownMenuElement, this.inputField, this.tobagoIn, this.localMenu,
@@ -85,8 +85,12 @@ export class Suggest {
 
   private blurEvent(event: FocusEvent): void {
     const element = (event.relatedTarget as Element);
-    if (!this.isPartOfSuggest(element)) {
-      this.dropdownMenu.hide();
+
+    if (element !== null) {
+      //relatedTarget is the new focused element; null indicate a mouseclick or an inactive browser window
+      if (!this.isPartOfSuggest(element)) {
+        this.dropdownMenu.hide();
+      }
     }
   }
 

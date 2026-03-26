@@ -19,6 +19,133 @@
 
 import {expect, test} from "@playwright/test";
 
+test.describe("900-test/in/suggest/Suggest.xhtml", () => {
+
+  test.beforeEach(async ({page}, testInfo) => {
+    await page.goto("/content/900-test/in/suggest/Suggest.xhtml");
+  });
+
+  test("Open suggest list, Escape", async ({page}) => {
+    const inputField = page.locator("input[id='page:mainForm:inputField::field']");
+    const suggestDropdownMenu = page.locator(".tobago-dropdown-menu[name='page:mainForm:suggest']");
+    const firstSuggest = suggestDropdownMenu.locator("li[data-result-index='0']");
+
+    await inputField.click();
+    await expect(inputField).toBeFocused();
+    await page.keyboard.press("S");
+    await expect(firstSuggest).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(firstSuggest).not.toBeVisible();
+  });
+
+  test("Open suggest list, click on 'Sun'", async ({page}) => {
+    const inputField = page.locator("input[id='page:mainForm:inputField::field']");
+    const suggestDropdownMenu = page.locator(".tobago-dropdown-menu[name='page:mainForm:suggest']");
+    const firstSuggest = suggestDropdownMenu.locator("li[data-result-index='0']");
+    const firstSuggestButton = firstSuggest.locator("button");
+
+    await inputField.click();
+    await expect(inputField).toBeFocused();
+    await page.keyboard.press("S");
+    await expect(firstSuggest).toBeVisible();
+    await firstSuggestButton.click();
+    await expect(firstSuggest).not.toBeVisible();
+    await expect(inputField).toHaveValue("Sun");
+  });
+
+  test("Open suggest list with 'ma', ArrowDowns/Tabs, Enter", async ({page}) => {
+    const inputField = page.locator("input[id='page:mainForm:inputField::field']");
+    const suggestDropdownMenu = page.locator(".tobago-dropdown-menu[name='page:mainForm:suggest']");
+    const mars = suggestDropdownMenu.locator("li[data-result-index='0']");
+    const amalthea = suggestDropdownMenu.locator("li[data-result-index='1']");
+    const himalia = suggestDropdownMenu.locator("li[data-result-index='2']");
+    const mimas = suggestDropdownMenu.locator("li[data-result-index='3']");
+
+    await inputField.click();
+    await expect(inputField).toBeFocused();
+    await page.keyboard.press("m");
+    await page.keyboard.press("a");
+    await expect(mars).toBeVisible();
+    await expect(amalthea).toBeVisible();
+    await expect(himalia).toBeVisible();
+    await expect(mimas).toBeVisible();
+    await page.keyboard.press("ArrowDown");
+    await expect(mars.locator("button")).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(amalthea.locator("button")).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(himalia.locator("button")).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(mimas.locator("button")).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(mars.locator("button")).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(amalthea.locator("button")).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(himalia.locator("button")).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(mimas.locator("button")).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(mars.locator("button")).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(mars).not.toBeVisible();
+    await expect(amalthea).not.toBeVisible();
+    await expect(himalia).not.toBeVisible();
+    await expect(mimas).not.toBeVisible();
+    await expect(inputField).toHaveValue("Mars");
+  });
+
+  test("Open suggest list with 'ma', ArrowUps/shift-Tabs, Enter", async ({page}) => {
+    const inputField = page.locator("input[id='page:mainForm:inputField::field']");
+    const suggestDropdownMenu = page.locator(".tobago-dropdown-menu[name='page:mainForm:suggest']");
+    const mars = suggestDropdownMenu.locator("li[data-result-index='0']");
+    const amalthea = suggestDropdownMenu.locator("li[data-result-index='1']");
+    const himalia = suggestDropdownMenu.locator("li[data-result-index='2']");
+    const mimas = suggestDropdownMenu.locator("li[data-result-index='3']");
+
+    await inputField.click();
+    await expect(inputField).toBeFocused();
+    await page.keyboard.press("m");
+    await page.keyboard.press("a");
+    await expect(mars).toBeVisible();
+    await expect(amalthea).toBeVisible();
+    await expect(himalia).toBeVisible();
+    await expect(mimas).toBeVisible();
+    await page.keyboard.press("ArrowUp");
+    await expect(mimas.locator("button")).toBeFocused();
+    await page.keyboard.press("ArrowUp");
+    await expect(himalia.locator("button")).toBeFocused();
+    await page.keyboard.press("ArrowUp");
+    await expect(amalthea.locator("button")).toBeFocused();
+    await page.keyboard.press("ArrowUp");
+    await expect(mars.locator("button")).toBeFocused();
+    await page.keyboard.press("ArrowUp");
+    await expect(mimas.locator("button")).toBeFocused();
+    await page.keyboard.down("Shift");
+    await page.keyboard.press("Tab");
+    await page.keyboard.up("Shift");
+    await expect(himalia.locator("button")).toBeFocused();
+    await page.keyboard.down("Shift");
+    await page.keyboard.press("Tab");
+    await page.keyboard.up("Shift");
+    await expect(amalthea.locator("button")).toBeFocused();
+    await page.keyboard.down("Shift");
+    await page.keyboard.press("Tab");
+    await page.keyboard.up("Shift");
+    await expect(mars.locator("button")).toBeFocused();
+    await page.keyboard.down("Shift");
+    await page.keyboard.press("Tab");
+    await page.keyboard.up("Shift");
+    await expect(mimas.locator("button")).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(mars).not.toBeVisible();
+    await expect(amalthea).not.toBeVisible();
+    await expect(himalia).not.toBeVisible();
+    await expect(mimas).not.toBeVisible();
+    await expect(inputField).toHaveValue("Mimas");
+  });
+});
+
 test.describe("900-test/in/suggest/spinner/Spinner.xhtml", () => {
 
   test.beforeEach(async ({page}, testInfo) => {
