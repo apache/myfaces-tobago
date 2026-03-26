@@ -19,5 +19,12 @@
 
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+  <tc:in id="inputField">
+    <tc:suggest id="suggest" totalCount="10" query="#{suggestController.query}">
+      <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
+    </tc:suggest>
+  </tc:in>
 </ui:composition>
