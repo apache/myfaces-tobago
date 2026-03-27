@@ -143,8 +143,8 @@ class Dropdown extends HTMLElement {
     switch (event.key) {
       case Key.ARROW_DOWN:
         if (this.hasPanelFacet()) {
+          event.preventDefault(); //prevent scrolling
           if (!this.expanded) {
-            event.preventDefault(); //prevent scrolling the dropdown menu
             this.dropdownMenu.show();
             this.firstFocusableElement.focus();
           }
@@ -156,8 +156,8 @@ class Dropdown extends HTMLElement {
         break;
       case Key.ARROW_UP:
         if (this.hasPanelFacet()) {
+          event.preventDefault(); //prevent scrolling
           if (!this.expanded) {
-            event.preventDefault(); //prevent scrolling the dropdown menu
             this.dropdownMenu.show();
             this.lastFocusableElement.focus();
           }
@@ -199,28 +199,14 @@ class Dropdown extends HTMLElement {
   private dropdownMenuKeydownEvent(event: KeyboardEvent): void {
     switch (event.key) {
       case Key.ARROW_DOWN:
-        if (this.hasPanelFacet()) {
-          if (!this.expanded) {
-            event.preventDefault(); //prevent scrolling the dropdown menu
-            this.dropdownMenu.show();
-            this.firstFocusableElement.focus();
-          }
-        } else {
+        if (!this.hasPanelFacet()) {
           event.preventDefault(); //prevent click event if radio button is selected
-          this.dropdownMenu.show();
           this.getNextDropdownItem()?.focus();
         }
         break;
       case Key.ARROW_UP:
-        if (this.hasPanelFacet()) {
-          if (!this.expanded) {
-            event.preventDefault(); //prevent scrolling the dropdown menu
-            this.dropdownMenu.show();
-            this.lastFocusableElement.focus();
-          }
-        } else {
+        if (!this.hasPanelFacet()) {
           event.preventDefault(); //prevent click event if radio button is selected
-          this.dropdownMenu.show();
           this.getPreviousDropdownItem()?.focus();
         }
         break;
@@ -237,6 +223,7 @@ class Dropdown extends HTMLElement {
         }
         break;
       case Key.ESCAPE:
+        event.stopPropagation(); //prevent closing a parent dropdown form menu
         this.toggle.focus();
         this.dropdownMenu.hide();
         break;
