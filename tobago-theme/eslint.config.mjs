@@ -18,7 +18,6 @@
 import {defineConfig} from "eslint/config";
 import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
-import tsParser from "@typescript-eslint/parser";
 import stylistic from '@stylistic/eslint-plugin'
 
 export default defineConfig([
@@ -35,7 +34,6 @@ export default defineConfig([
       '@stylistic': stylistic,
     },
     languageOptions: {
-      parser: tsParser,
       ecmaVersion: 2018,
       sourceType: "module",
       parserOptions: {
