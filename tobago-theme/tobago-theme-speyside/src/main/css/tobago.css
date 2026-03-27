@@ -13498,6 +13498,10 @@ tobago-dropdown > .tobago-dropdown-menu {
   overflow: auto;
 }
 
+tobago-dropdown > .tobago-dropdown-menu .tobago-panel-facet {
+  padding: var(--bs-dropdown-item-padding-y) var(--bs-dropdown-item-padding-x);
+}
+
 tobago-dropdown > .tobago-dropdown-menu .form-check {
   padding-left: 2.5em;
 }
@@ -14339,6 +14343,10 @@ tobago-page {
   padding-top: var(--tobago-page-padding-top);
   padding-bottom: 1rem;
   display: block;
+}
+
+tobago-page .tobago-page-menuStore > .tobago-dropdown-menu .tobago-panel-facet {
+  padding: var(--bs-dropdown-item-padding-y) var(--bs-dropdown-item-padding-x);
 }
 
 tobago-page .tobago-page-menuStore > .tobago-dropdown-menu .form-check {
