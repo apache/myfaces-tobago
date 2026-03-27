@@ -23,15 +23,15 @@
 
 WORK=test-scenarios-locally/$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
-${JAVA_HOME_17}/bin/java -version
-if [ $? != 0 ]; then
-  echo "Java 17 (LTS) not found!"
-  exit 1
-fi
-
 ${JAVA_HOME_21}/bin/java -version
 if [ $? != 0 ]; then
   echo "Java 21 (LTS) not found!"
+  exit 1
+fi
+
+${JAVA_HOME_25}/bin/java -version
+if [ $? != 0 ]; then
+  echo "Java 25 (LTS) not found!"
   exit 1
 fi
 
@@ -98,12 +98,12 @@ check() {
   fi
 
   case "$1" in
-  17)
-    export JAVA_HOME=${JAVA_HOME_17}
-    ;;
   21)
-      export JAVA_HOME=${JAVA_HOME_21}
-      ;;
+    export JAVA_HOME=${JAVA_HOME_21}
+    ;;
+  25)
+    export JAVA_HOME=${JAVA_HOME_25}
+    ;;
   *)
     echo "Unknown java version ${JAVA_VERSION}"
     exit 1
@@ -159,7 +159,7 @@ check() {
 
 # xxx -Pprod doesn't exist, but this is no problem
 for MODE in "dev" "prod" ; do
-  for JAVA_VERSION in 17 21; do
+  for JAVA_VERSION in 21 25; do
     check ${JAVA_VERSION} "mvn clean jetty:run -P${MODE} -Pjetty"                   "Jetty 11 with MyFaces 4.0"  "/"
     check ${JAVA_VERSION} "mvn clean jetty:run -P${MODE} -Pjetty -Djsf=mojarra-4.0" "Jetty 11 with Mojarra 4.0"  "/"
     check ${JAVA_VERSION} "mvn clean package cargo:run -P${MODE} -Ptomcat"          "Tomcat 10 with MyFaces 4.0" "/tobago-example-demo/"
