@@ -19,12 +19,12 @@
 
 package org.apache.myfaces.tobago.context;
 
+import jakarta.faces.application.ProjectStage;
+import jakarta.faces.context.FacesContext;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jakarta.faces.application.ProjectStage;
-import jakarta.faces.context.FacesContext;
 import java.io.Serial;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
@@ -54,12 +54,15 @@ public final class UserAgent implements Serializable {
   @Deprecated(since = "1.5.0", forRemoval = true)
   public static final UserAgent MSIE_5_5 = new UserAgent("msie", "5_5");
 
+  @Deprecated(since = "6.11.0", forRemoval = true)
   public static final UserAgent MSIE_6_0 = new UserAgent(
       "msie", "6_0", EnumSet.noneOf(Capability.class), CspHeader.NOT_SUPPORTED, CsproHeader.NOT_SUPPORTED);
 
+  @Deprecated(since = "6.11.0", forRemoval = true)
   public static final UserAgent MSIE_7_0 = new UserAgent(
       "msie", "7_0", EnumSet.noneOf(Capability.class), CspHeader.NOT_SUPPORTED, CsproHeader.NOT_SUPPORTED);
 
+  @Deprecated(since = "6.11.0", forRemoval = true)
   public static final UserAgent MSIE_7_0_COMPAT = new UserAgent(
       "msie", "7_0", EnumSet.of(Capability.IE_COMPATIBILITY_MODE), CspHeader.NOT_SUPPORTED, CsproHeader.NOT_SUPPORTED);
 
@@ -69,17 +72,21 @@ public final class UserAgent implements Serializable {
   @Deprecated(since = "1.5.0", forRemoval = true)
   public static final UserAgent MSIE_7_O = MSIE_7_0;
 
+  @Deprecated(since = "6.11.0", forRemoval = true)
   public static final UserAgent MSIE_8_0 = new UserAgent(
       "msie", "8_0", EnumSet.of(Capability.CONTENT_TYPE_XHTML), CspHeader.NOT_SUPPORTED, CsproHeader.NOT_SUPPORTED);
 
+  @Deprecated(since = "6.11.0", forRemoval = true)
   public static final UserAgent MSIE_9_0 = new UserAgent(
       "msie", "9_0", EnumSet.of(Capability.CONTENT_TYPE_XHTML), CspHeader.NOT_SUPPORTED, CsproHeader.NOT_SUPPORTED);
 
   // CSP is not fully supported, only sandboxing
+  @Deprecated(since = "6.11.0", forRemoval = true)
   public static final UserAgent MSIE_10_0 = new UserAgent(
       "msie", "10_0", EnumSet.of(Capability.CONTENT_TYPE_XHTML), CspHeader.X, CsproHeader.X);
 
   // CSP is not fully supported, only sandboxing
+  @Deprecated(since = "6.11.0", forRemoval = true)
   public static final UserAgent MSIE_11_0 = new UserAgent(
       "msie", "11_0", EnumSet.of(Capability.CONTENT_TYPE_XHTML), CspHeader.X, CsproHeader.X);
 
@@ -155,19 +162,25 @@ public final class UserAgent implements Serializable {
 
   /**
    * e.g. Firefox 2.0
+   * @deprecated no longer supported
    */
+  @Deprecated(since = "6.11.0", forRemoval = true)
   public static final UserAgent GECKO_1_8 = new UserAgent("gecko", "1_8", EnumSet.of(Capability.CONTENT_TYPE_XHTML),
       CspHeader.NOT_SUPPORTED, CsproHeader.NOT_SUPPORTED);
 
   /**
    * e.g. Firefox 3.0, 3.5, 3.6
+   * @deprecated no longer supported
    */
+  @Deprecated(since = "6.11.0", forRemoval = true)
   public static final UserAgent GECKO_1_9 = new UserAgent("gecko", "1_9", EnumSet.of(Capability.CONTENT_TYPE_XHTML),
       CspHeader.NOT_SUPPORTED, CsproHeader.NOT_SUPPORTED);
 
   /**
    * e.g. Firefox 4 to 22
+   * @deprecated no longer supported
    */
+  @Deprecated(since = "6.11.0", forRemoval = true)
   public static final UserAgent GECKO_2_0
       = new UserAgent("gecko", null,
       EnumSet.of(Capability.PLACEHOLDER, Capability.CONTENT_TYPE_XHTML), CspHeader.X, CsproHeader.X);
@@ -184,7 +197,7 @@ public final class UserAgent implements Serializable {
    */
   public static final UserAgent WEBKIT
       = new UserAgent("webkit", null,
-      EnumSet.of(Capability.PLACEHOLDER, Capability.CONTENT_TYPE_XHTML), CspHeader.WEBKIT, CsproHeader.WEBKIT);
+      EnumSet.of(Capability.PLACEHOLDER, Capability.CONTENT_TYPE_XHTML), CspHeader.STANDARD, CsproHeader.STANDARD);
 
   @Serial
   private static final long serialVersionUID = 2L;
@@ -362,7 +375,11 @@ public final class UserAgent implements Serializable {
   private enum CspHeader {
 
     NOT_SUPPORTED(new String[]{}),
+
+    @Deprecated(since = "6.11.0", forRemoval = true)
     X(new String[]{"Content-Security-Policy", "X-Content-Security-Policy"}),
+
+    @Deprecated(since = "6.11.0", forRemoval = true)
     WEBKIT(new String[]{"Content-Security-Policy", "X-WebKit-CSP"}),
     STANDARD(new String[]{"Content-Security-Policy"});
 
@@ -380,8 +397,13 @@ public final class UserAgent implements Serializable {
   private enum CsproHeader {
 
     NOT_SUPPORTED(new String[]{}),
+
+    @Deprecated(since = "6.11.0", forRemoval = true)
     X(new String[]{"Content-Security-Policy-Report-Only", "X-Content-Security-Policy-Report-Only"}),
+
+    @Deprecated(since = "6.11.0", forRemoval = true)
     WEBKIT(new String[]{"Content-Security-Policy-Report-Only", "X-WebKit-CSP-Report-Only"}),
+
     STANDARD(new String[]{"Content-Security-Policy-Report-Only"});
 
     private String[] names;

@@ -93,6 +93,10 @@ public class UserAgentUnitTest {
             "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.3pre) Gecko/20100328 Ubuntu/9.10 (karmic) "
                 + "Namoroka/3.6.3pre"),
 
+        Arguments.of("Firefox 149.0 - macOS Tahoe 26.4",
+            UserAgent.GECKO_23_0,
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:149.0) Gecko/20100101 Firefox/149.0"),
+
         Arguments.of("Firefox 23.0 - Mac OS X Mountain Lion",
             UserAgent.GECKO_23_0,
             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:23.0) Gecko/20100101 Firefox/23.0"),
