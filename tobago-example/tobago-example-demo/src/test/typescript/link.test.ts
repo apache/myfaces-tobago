@@ -43,7 +43,7 @@ test.describe("link/Link.xhtml", () => {
     const fontSize = "16px";
     const height = tagName === "BUTTON" ? "24px" : "auto"; //button-element cannot be "display: inline"
     const margin = "0px 0px 16px";
-    const outlineWidth = "0px";
+    const outlineWidth = isWebkit ? "3px" : "0px";
     const padding = "0px";
     const textDecoration = Root.linkDecoration;
     await testCSS(component, boxShadow, color, fontSize, height, margin, outlineWidth, padding, textDecoration);
@@ -55,12 +55,8 @@ test.describe("link/Link.xhtml", () => {
     const sectionTitle = component.page().locator("tobago-section[id='page:mainForm:aVsButton'] > .tobago-header");
     await sectionTitle.click();
     await component.focus();
-    if (isWebkit) {
-      const webkitOutlineWidth = tagName === "BUTTON" ? "3px" : "5px";
-      await testCSS(component, boxShadow, color, fontSize, height, margin, webkitOutlineWidth, padding, textDecoration);
-    } else {
-      await testCSS(component, boxShadow, color, fontSize, height, margin, "1px", padding, textDecoration);
-    }
+    const focusOutlineWidth = isWebkit ? (tagName === "BUTTON" ? "1px" : "5px") : "1px";
+    await testCSS(component, boxShadow, color, fontSize, height, margin, focusOutlineWidth, padding, textDecoration);
   }
 
   test("tc:link: nav-link - a.tobago-link vs button.tobago-link", async ({page, browserName}) => {
@@ -72,12 +68,14 @@ test.describe("link/Link.xhtml", () => {
   });
 
   async function testNavLink(component: Locator, browserName): Promise<void> {
+    const isWebkit: boolean = browserName === "webkit";
+
     const boxShadow = "none";
     const color = Root.linkColor;
     const fontSize = "16px";
     const height = "40px";
     const margin = "0px";
-    const outlineWidth = "0px";
+    const outlineWidth = isWebkit ? "3px" : "0px";
     const padding = "8px 16px";
     const textDecoration = "none";
     await testCSS(component, boxShadow, color, fontSize, height, margin, outlineWidth, padding, textDecoration);
@@ -90,8 +88,8 @@ test.describe("link/Link.xhtml", () => {
     await sectionTitle.click();
     await component.focus();
     const focusBoxShadow = "rgba(13, 110, 253, 0.25) 0px 0px 0px 4px";
-    await testCSS(component, focusBoxShadow, hoverColor, fontSize, height, margin, outlineWidth, padding,
-        textDecoration);
+    const focusOutlineWidth = "0px";
+    await testCSS(component, focusBoxShadow, hoverColor, fontSize, height, margin, focusOutlineWidth, padding, textDecoration);
   }
 
   test("tc:link: tc:bar plain link - a.tobago-link vs button.tobago-link", async ({page, browserName}) => {
@@ -111,7 +109,7 @@ test.describe("link/Link.xhtml", () => {
     const fontSize = "16px";
     const height = "24px";
     const margin = "0px";
-    const outlineWidth = "0px";
+    const outlineWidth = isWebkit ? "3px" : "0px";
     const padding = "0px";
     const textDecoration = Root.linkDecoration;
     await testCSS(component, boxShadow, color, fontSize, height, margin, outlineWidth, padding, textDecoration);
@@ -123,12 +121,8 @@ test.describe("link/Link.xhtml", () => {
     const sectionTitle = component.page().locator("tobago-section[id='page:mainForm:aVsButton'] > .tobago-header");
     await sectionTitle.click();
     await component.focus();
-    if (isWebkit) {
-      const webkitOutlineWidth = tagName === "BUTTON" ? "3px" : "5px";
-      await testCSS(component, boxShadow, color, fontSize, height, margin, webkitOutlineWidth, padding, textDecoration);
-    } else {
-      await testCSS(component, boxShadow, color, fontSize, height, margin, "1px", padding, textDecoration);
-    }
+    const focusOutlineWidth = isWebkit ? (tagName === "BUTTON" ? "1px" : "5px") : "1px";
+    await testCSS(component, boxShadow, color, fontSize, height, margin, focusOutlineWidth, padding, textDecoration);
   }
 
   test("tc:link: tc:bar nav-link - a.tobago-link vs button.tobago-link", async ({page, browserName}) => {
@@ -140,12 +134,14 @@ test.describe("link/Link.xhtml", () => {
   });
 
   async function testBarNavLink(component: Locator, browserName): Promise<void> {
+    const isWebkit: boolean = browserName === "webkit";
+
     const boxShadow = "none";
     const color = Navbar.color;
     const fontSize = "16px";
     const height = "40px";
     const margin = "0px";
-    const outlineWidth = "0px";
+    const outlineWidth = isWebkit ? "3px" : "0px";
     const padding = Navbar.navLinkPaddingX; //padding-y is: Navbar.paddingY
     const textDecoration = "none";
     await testCSS(component, boxShadow, color, fontSize, height, margin, outlineWidth, padding, textDecoration);
@@ -158,7 +154,8 @@ test.describe("link/Link.xhtml", () => {
     await sectionTitle.click();
     await component.focus();
     const focusBoxShadow = "rgba(13, 110, 253, 0.25) 0px 0px 0px 4px";
-    await testCSS(component, focusBoxShadow, hoverColor, fontSize, height, margin, outlineWidth, padding,
+    const focusOutlineWidth = "0px";
+    await testCSS(component, focusBoxShadow, hoverColor, fontSize, height, margin, focusOutlineWidth, padding,
         textDecoration);
   }
 
