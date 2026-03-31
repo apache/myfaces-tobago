@@ -105,6 +105,16 @@
       <artifactId>commons-compress</artifactId>
       <version>1.28.0</version>
     </dependency>
+    <!--
+    to avoid this error with dependency-check:
+    aircompressor-0.27.jar
+    (pkg:maven/io.airlift/aircompressor@0.27, cpe:2.3:a:airlift:aircompressor:0.27:*:*:*:*:*:*:*): CVE-2025-67721(6.3)
+    -->
+    <dependency>
+      <groupId>io.airlift</groupId>
+      <artifactId>aircompressor</artifactId>
+      <version>2.0.3</version>
+    </dependency>
   </dependencies>
 
   <dependencyManagement>
