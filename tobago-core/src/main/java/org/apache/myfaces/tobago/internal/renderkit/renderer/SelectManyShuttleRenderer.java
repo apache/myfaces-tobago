@@ -145,7 +145,7 @@ public class SelectManyShuttleRenderer<T extends AbstractUISelectManyShuttle> ex
     writer.endElement(HtmlElements.SELECT);
     writer.endElement(HtmlElements.DIV);
 
-    if (component.isSortable()) {
+    if (component.isOrderable()) {
       writer.startElement(HtmlElements.DIV);
       writer.writeClassAttribute(TobagoClass.CONTROLS);
       writer.startElement(HtmlElements.DIV);

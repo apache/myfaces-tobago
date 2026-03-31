@@ -24,20 +24,28 @@
                 xmlns:f="jakarta.faces.core">
 
   <tc:section label="Basics">
-    <tc:selectManyShuttle id="s1" label="Shuttle List" size="7">
-      <tc:selectItem itemLabel="Item1"/>
-      <tc:selectItem itemLabel="Item2"/>
-      <tc:selectItem itemLabel="Item3"/>
-      <tc:selectItem itemLabel="Item4"/>
-      <tc:selectItem itemLabel="Item5"/>
-      <tc:selectItem itemLabel="Item6"/>
-      <tc:selectItem itemLabel="Item7"/>
-      <tc:selectItem itemLabel="Item8"/>
-      <tc:selectItem itemLabel="Item9"/>
-      <tc:selectItem itemLabel="Item10"/>
-      <tc:selectItem itemLabel="Item11"/>
-      <tc:selectItem itemLabel="Item12"/>
+    <tc:selectManyShuttle id="s1" label="Shuttle List" size="7" value="#{selectManyShuttleController.strings}"
+                          sortable="true">
+      <tc:selectItem itemLabel="Item1" itemValue="1"/>
+      <tc:selectItem itemLabel="Item2" itemValue="2"/>
+      <tc:selectItem itemLabel="Item3" itemValue="3"/>
+      <tc:selectItem itemLabel="Item4" itemValue="4"/>
+      <tc:selectItem itemLabel="Item5" itemValue="5"/>
+      <tc:selectItem itemLabel="Item6" itemValue="6"/>
+      <tc:selectItem itemLabel="Item7" itemValue="7"/>
+      <tc:selectItem itemLabel="Item8" itemValue="8"/>
+      <tc:selectItem itemLabel="Item9" itemValue="9"/>
+      <tc:selectItem itemLabel="Item10" itemValue="10"/>
+      <tc:selectItem itemLabel="Item11" itemValue="11"/>
+      <tc:selectItem itemLabel="Item12" itemValue="12"/>
     </tc:selectManyShuttle>
+
+    <tc:button label="Submit"/>
+
+    <tc:section label="Value on Server">
+      <tc:out value="#{selectManyShuttleController.strings}"/>
+    </tc:section>
+
   </tc:section>
 
 </ui:composition>

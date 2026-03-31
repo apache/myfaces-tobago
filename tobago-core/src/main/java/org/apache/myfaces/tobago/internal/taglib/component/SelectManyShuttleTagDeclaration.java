@@ -113,9 +113,9 @@ public interface SelectManyShuttleTagDeclaration extends
   void setSelectedLabel(String label);
 
   /**
-   * Is the list of selected items sortable?
+   * Can the list of selected items be ordered?
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  void setSortable(String label);
+  void setOrderable(String label);
 }

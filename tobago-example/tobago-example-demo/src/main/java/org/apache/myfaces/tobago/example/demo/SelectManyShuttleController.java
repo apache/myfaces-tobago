@@ -41,6 +41,16 @@ public class SelectManyShuttleController implements Serializable {
   private String[] selectedStars = new String[0];
   private int countPageReload = 0;
 
+  private List<String> strings;
+
+  public List<String> getStrings() {
+    return strings;
+  }
+
+  public void setStrings(List<String> strings) {
+    this.strings = strings;
+  }
+
   @PostConstruct
   public void init() {
     planets = astroData.getSatellites("Sun");

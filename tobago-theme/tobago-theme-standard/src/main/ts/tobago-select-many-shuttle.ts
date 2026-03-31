@@ -24,7 +24,10 @@ interface SelectManyShuttleDetail {
   selected: string[];
 }
 
-class SelectManyShuttle extends HTMLElement {
+/**
+ * @customElement
+ */
+export class SelectManyShuttle extends HTMLElement {
 
   constructor() {
     super();
@@ -65,19 +68,19 @@ class SelectManyShuttle extends HTMLElement {
       this.removeAllButton.addEventListener("click", this.removeAllItems.bind(this));
     }
 
-    if (!this.topButton.disabled) {
+    if (this.topButton && !this.topButton.disabled) {
       this.topButton.addEventListener("click", this.top.bind(this));
     }
 
-    if (!this.upButton.disabled) {
+    if (this.upButton && !this.upButton.disabled) {
       this.upButton.addEventListener("click", this.up.bind(this));
     }
 
-    if (!this.downButton.disabled) {
+    if (this.downButton && !this.downButton.disabled) {
       this.downButton.addEventListener("click", this.down.bind(this));
     }
 
-    if (!this.bottomButton.disabled) {
+    if (this.bottomButton && !this.bottomButton.disabled) {
       this.bottomButton.addEventListener("click", this.bottom.bind(this));
     }
   }
