@@ -56,10 +56,11 @@ export class Suggest {
     this.inputField.ariaHasPopup = "listbox";
     this.inputField.setAttribute("aria-owns", this.dropdownMenuElement.id);
 
+    this.listeners.add(document, "click", this.globalClickEvent.bind(this));
     this.listeners.add(this.tobagoIn, ClientBehaviors.DROPDOWN_HIDDEN, this.deleteResults.bind(this));
     this.listeners.add(this.inputField, "input", this.inputEvent.bind(this));
-    this.listeners.add(this.inputField, "keydown", this.keydownEvent.bind(this));
-    this.listeners.add(this.dropdownMenuElement, "keydown", this.keydownEvent.bind(this));
+    this.listeners.add(this.inputField, "keydown", this.inputFieldKeydownEvent.bind(this));
+    this.listeners.add(this.dropdownMenuElement, "keydown", this.dropdownMenuKeydownEvent.bind(this));
 
     this.listeners.add(this.inputField, "focus", this.focusEvent.bind(this));
     this.listeners.add(this.inputField, "blur", this.blurEvent.bind(this));
@@ -78,18 +79,26 @@ export class Suggest {
     this.listeners.disconnect();
   }
 
-  private focusEvent(event: UIEvent): void {
+  protected globalClickEvent(event: MouseEvent): void {
+    if (!this.inputField.disabled) {
+      if (!this.isPartOfSuggest(event.relatedTarget as Element)) {
+        this.dropdownMenu.hide();
+      }
+    }
+  }
+
+  private focusEvent(event: FocusEvent): void {
     const inputElement: HTMLInputElement = event.currentTarget as HTMLInputElement;
     const input = inputElement.value;
 
-    if (this.minChars === 0 && input.length === 0) {
+    const lastFocusedElement = event.relatedTarget as Element;
+    if (this.minChars === 0 && input.length === 0 && !this.isPartOfSuggest(lastFocusedElement)) {
       this.inputEvent(event); //open dropdown on click for minChars=0 suggests
     }
   }
 
   private blurEvent(event: FocusEvent): void {
     const element = (event.relatedTarget as Element);
-
     if (element !== null) {
       //relatedTarget is the new focused element; null indicate a mouseclick or an inactive browser window
       if (!this.isPartOfSuggest(element)) {
@@ -108,6 +117,22 @@ export class Suggest {
     } else {
       return false;
     }
+  }
+
+  private inputFieldKeydownEvent(event: KeyboardEvent): void {
+    switch (event.key) {
+      case Key.ENTER:
+        this.processInputValue(this.inputField.value);
+        break;
+      default:
+        break;
+    }
+
+    this.keydownEvent(event);
+  }
+
+  private dropdownMenuKeydownEvent(event: KeyboardEvent): void {
+    this.keydownEvent(event);
   }
 
   private keydownEvent(event: KeyboardEvent): void {
@@ -181,13 +206,15 @@ export class Suggest {
   }
 
   private inputEvent(event: UIEvent): void {
+    const inputElement: HTMLInputElement = event.currentTarget as HTMLInputElement;
+    this.processInputValue(inputElement.value);
+  }
+
+  private processInputValue(inputValue: string) {
     window.clearTimeout(this.timeout);
 
-    const inputElement: HTMLInputElement = event.currentTarget as HTMLInputElement;
-    const input = inputElement.value;
-
-    if (input.length >= this.minChars) {
-      this.hiddenInput.value = input.toLowerCase();
+    if (inputValue.length >= this.minChars) {
+      this.hiddenInput.value = inputValue.toLowerCase();
       this.spinner.show();
 
       if (this.update) {
@@ -217,6 +244,7 @@ export class Suggest {
         }
       }
     } else {
+      this.spinner.hide();
       this.dropdownMenu.hide();
     }
   }
