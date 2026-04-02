@@ -403,4 +403,55 @@ test.describe("900-test/button/dropdown/Dropdown.xhtml", () => {
         await expect(entry2).not.toBeVisible();
         await expect(entry3).not.toBeVisible();
       });
+
+  test("panel-facet scrollbar", async ({page, browserName}) => {
+    const form400ToggleButton = page.locator("[id='page:mainForm:dropdownForm400width::command']");
+    const form400DropdownMenu = page.locator(".tobago-dropdown-menu[data-tobago-for='page:mainForm:dropdownForm400width']");
+    const loremIpsum400 = page.locator("[id='loremIpsum400']");
+    await test(form400ToggleButton, form400DropdownMenu, loremIpsum400, true);
+
+    const form1100ToggleButton = page.locator("[id='page:mainForm:dropdownForm1100width::command']");
+    const form1100DropdownMenu = page.locator(".tobago-dropdown-menu[data-tobago-for='page:mainForm:dropdownForm1100width']");
+    const loremIpsum1100 = page.locator("[id='loremIpsum1100']");
+    await test(form1100ToggleButton, form1100DropdownMenu, loremIpsum1100, true);
+
+    const form2000ToggleButton = page.locator("[id='page:mainForm:dropdownForm2000width::command']");
+    const form2000DropdownMenu = page.locator(".tobago-dropdown-menu[data-tobago-for='page:mainForm:dropdownForm2000width']");
+    const loremIpsum2000 = page.locator("[id='loremIpsum2000']");
+    await test(form2000ToggleButton, form2000DropdownMenu, loremIpsum2000, false);
+
+    async function test(toggleButton: Locator, dropdownMenu: Locator, loremIpsum: Locator, hasScrollbar: boolean): Promise<void> {
+      await expect(loremIpsum).not.toBeVisible();
+      await toggleButton.click();
+      await expect(loremIpsum).toBeVisible();
+      await expect(dropdownMenu.evaluate(el => el.scrollWidth <= el.clientWidth)).resolves.toBe(hasScrollbar);
+      await page.keyboard.press("Escape");
+      await expect(loremIpsum).not.toBeVisible();
+    }
+  });
+
+  test("fixed left=5px; right=6px", async ({page, browserName}) => {
+    const fixedLeft5ToggleButton = page.locator("[id='page:mainForm:fixedLeft5::command']");
+    const fixedLeft5DropdownMenu = page.locator(".tobago-dropdown-menu[data-tobago-for='page:mainForm:fixedLeft5']");
+    const fixedLeft5Entry = page.locator("[id='page:mainForm:fixedLeft5Entry']");
+    const fixedRight6ToggleButton = page.locator("[id='page:mainForm:fixedRight6::command']");
+    const fixedRight6DropdownMenu = page.locator(".tobago-dropdown-menu[data-tobago-for='page:mainForm:fixedRight6']");
+    const fixedRight6Entry = page.locator("[id='page:mainForm:fixedRight6Entry']");
+
+    await expect(fixedLeft5Entry).not.toBeVisible();
+    await fixedLeft5ToggleButton.click();
+    await expect(fixedLeft5Entry).toBeVisible();
+    await expect(fixedLeft5DropdownMenu).toHaveCSS("left", "-11px");
+    await expect(fixedLeft5DropdownMenu).toHaveCSS("max-width", "1259px");
+    await page.keyboard.press("Escape");
+    await expect(fixedLeft5Entry).not.toBeVisible();
+    await expect(fixedLeft5ToggleButton).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(fixedRight6ToggleButton).toBeFocused();
+    await expect(fixedRight6Entry).not.toBeVisible();
+    await page.keyboard.press("Enter");
+    await expect(fixedRight6Entry).toBeVisible();
+    await expect(fixedRight6DropdownMenu).toHaveCSS("right", "-10px");
+    await expect(fixedRight6DropdownMenu).toHaveCSS("max-width", "1258px");
+  });
 });
