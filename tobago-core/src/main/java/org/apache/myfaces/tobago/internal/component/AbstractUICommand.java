@@ -27,6 +27,7 @@ import jakarta.faces.component.visit.VisitCallback;
 import jakarta.faces.component.visit.VisitContext;
 import jakarta.faces.component.visit.VisitResult;
 import jakarta.faces.context.FacesContext;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.component.SupportsAccessKey;
 import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
@@ -65,7 +66,7 @@ public abstract class AbstractUICommand extends AbstractUICommandBase
 
   @Override
   public String getFieldId(final FacesContext facesContext) {
-    if (isParentOfCommands()) {
+    if (isParentOfCommands() || getFacet(Facets.PANEL) != null) {
       return getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "command";
     } else {
       return getClientId(facesContext);

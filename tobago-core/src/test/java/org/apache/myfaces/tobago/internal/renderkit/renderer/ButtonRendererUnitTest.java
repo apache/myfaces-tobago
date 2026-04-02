@@ -23,6 +23,8 @@ import jakarta.faces.component.behavior.AjaxBehavior;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UIButton;
+import org.apache.myfaces.tobago.component.UILink;
+import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -153,5 +155,84 @@ public class ButtonRendererUnitTest extends RendererTestBase {
     b.encodeAll(facesContext);
 
     Assertions.assertEquals(loadHtml("renderer/button/ajax.html"), formattedResult());
+  }
+
+  @Test
+  public void dropdown() throws IOException {
+    final UIButton b = (UIButton) ComponentUtils.createComponent(
+        facesContext, Tags.button.componentType(), RendererTypes.Button, "id");
+    b.setLabel("Dropdown");
+    b.setOmit(true);
+
+    final UILink entry0 = (UILink) ComponentUtils.createComponent(
+        facesContext, Tags.link.componentType(), RendererTypes.Link, "entry0");
+    entry0.setLabel("Entry 0");
+    entry0.setOmit(true);
+    final UILink entry1 = (UILink) ComponentUtils.createComponent(
+        facesContext, Tags.link.componentType(), RendererTypes.Link, "entry1");
+    entry1.setLabel("Entry 1");
+    entry1.setOmit(true);
+
+    b.getChildren().add(entry0);
+    b.getChildren().add(entry1);
+
+    b.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/button/dropdown.html"), formattedResult());
+  }
+
+  @Test
+  public void dropdownSubmenu() throws IOException {
+    final UIButton b = (UIButton) ComponentUtils.createComponent(
+        facesContext, Tags.button.componentType(), RendererTypes.Button, "id");
+    b.setLabel("Dropdown");
+    b.setOmit(true);
+
+    final UILink entry0 = (UILink) ComponentUtils.createComponent(
+        facesContext, Tags.link.componentType(), RendererTypes.Link, "entry0");
+    entry0.setLabel("Entry 0");
+    entry0.setOmit(true);
+
+    final UILink entry00 = (UILink) ComponentUtils.createComponent(
+        facesContext, Tags.link.componentType(), RendererTypes.Link, "entry00");
+    entry00.setLabel("Entry 0-0");
+    entry00.setOmit(true);
+    final UILink entry01 = (UILink) ComponentUtils.createComponent(
+        facesContext, Tags.link.componentType(), RendererTypes.Link, "entry01");
+    entry01.setLabel("Entry 0-1");
+    entry01.setOmit(true);
+
+    entry0.getChildren().add(entry00);
+    entry0.getChildren().add(entry01);
+
+    final UILink entry1 = (UILink) ComponentUtils.createComponent(
+        facesContext, Tags.link.componentType(), RendererTypes.Link, "entry1");
+    entry1.setLabel("Entry 1");
+    entry1.setOmit(true);
+
+    b.getChildren().add(entry0);
+    b.getChildren().add(entry1);
+
+    b.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/button/dropdown-submenu.html"), formattedResult());
+  }
+
+  @Test
+  public void panelFacet() throws IOException {
+    final UIButton b = (UIButton) ComponentUtils.createComponent(
+        facesContext, Tags.button.componentType(), RendererTypes.Button, "id");
+    b.setLabel("Panel-Facet");
+    b.setOmit(true);
+
+    final UIOut o = (UIOut) ComponentUtils.createComponent(
+        facesContext, Tags.out.componentType(), RendererTypes.Out, "out");
+    o.setValue("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut"
+        + " labore et dolore magna aliquyam erat, sed diam voluptua.");
+    b.getFacets().put("panel", o);
+
+    b.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/button/panel-facet.html"), formattedResult());
   }
 }
