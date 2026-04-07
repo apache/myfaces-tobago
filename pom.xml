@@ -52,7 +52,7 @@
     <checkstyle-rules.version>25</checkstyle-rules.version>
 
     <!-- Note: defined here in master pom, because of problems with enforcer plugin -->
-    <jetty.version>12.1.7</jetty.version>
+    <jetty.version>12.1.8</jetty.version>
     <tomcat.version>11.0.18</tomcat.version>
     <jackson.version>2.21.0</jackson.version>
   </properties>
@@ -664,7 +664,7 @@
         <plugin>
           <groupId>com.github.matinh.vdldoc</groupId>
           <artifactId>vdldoc-maven-plugin</artifactId>
-          <version>2.2</version>
+          <version>2.2.1</version>
         </plugin>
         <plugin>
           <groupId>org.apache.rat</groupId>

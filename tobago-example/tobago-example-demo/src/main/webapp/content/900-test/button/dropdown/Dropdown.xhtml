@@ -97,17 +97,17 @@
 
   <tc:button id="dropdownSubmenus" label="SubMenus" omit="true">
     <tc:link id="dropdownSubmenusPlay" icon="bi-play-circle" label="Play"/>
-    <tc:link label="Submenu" omit="true">
-      <tc:link label="1" omit="true">
-        <tc:link label="1-1"/>
-        <tc:link label="1-2"/>
-        <tc:link label="1-3"/>
+    <tc:link id="dropdownSubmenusSubmenu" label="Submenu" omit="true">
+      <tc:link id="entry1" label="1" omit="true">
+        <tc:link id="entry11" label="1-1"/>
+        <tc:link id="entry12" label="1-2"/>
+        <tc:link id="entry13" label="1-3"/>
       </tc:link>
-      <tc:link label="2"/>
-      <tc:link label="3" omit="true">
-        <tc:link label="3-1"/>
-        <tc:link label="3-2"/>
-        <tc:link label="3-3"/>
+      <tc:link id="entry2" label="2"/>
+      <tc:link id="entry3" label="3" omit="true">
+        <tc:link id="entry31" label="3-1"/>
+        <tc:link id="entry32" label="3-2"/>
+        <tc:link id="entry33" label="3-3"/>
       </tc:link>
     </tc:link>
     <tc:link id="dropdownSubmenusTrack" label="Track">
@@ -118,4 +118,44 @@
   </tc:button>
 
   <tc:in id="afterComp" label="Component after"/>
+
+  <tc:separator/>
+  <tc:flowLayout textAlign="right">
+    <tc:button id="dropdownForm400width" label="Form (400px)" omit="true">
+      <f:facet name="panel">
+        <tc:panel>
+          <tc:style width="400px"/>
+          <p id="loremIpsum400">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+        </tc:panel>
+      </f:facet>
+    </tc:button>
+  </tc:flowLayout>
+  <tc:button id="dropdownForm1100width" label="Form (1100px)" omit="true">
+    <f:facet name="panel">
+      <tc:panel>
+        <tc:style width="1100px"/>
+        <p id="loremIpsum1100">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+      </tc:panel>
+    </f:facet>
+  </tc:button>
+  <tc:button id="dropdownForm2000width" label="Form (2000px)" omit="true">
+    <f:facet name="panel">
+      <tc:panel>
+        <tc:style width="2000px"/>
+        <p id="loremIpsum2000">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+      </tc:panel>
+    </f:facet>
+  </tc:button>
+
+  <tc:separator/>
+
+  <tc:button id="fixedLeft5" label="fixedLeft5" omit="true">
+    <tc:style position="fixed" left="5px"/>
+    <tc:link id="fixedLeft5Entry" label="Link" omit="true"/>
+  </tc:button>
+  <tc:button id="fixedRight6" label="fixedRight6" omit="true">
+    <tc:style position="fixed" right="6px"/>
+    <tc:link id="fixedRight6Entry" label="Link" omit="true"/>
+  </tc:button>
+
 </ui:composition>

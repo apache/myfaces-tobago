@@ -80,6 +80,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
     final String target = component.getTarget();
     final boolean autoSpacing = component.getAutoSpacing(facesContext);
     final boolean parentOfCommands = component.isParentOfCommands();
+    final UIComponent panelFacet = component.getFacet(Facets.PANEL);
     final boolean dropdownSubmenu = isInside(facesContext, HtmlElements.COMMAND);
     final Markup markup = component.getMarkup() != null ? component.getMarkup() : Markup.NULL;
 
@@ -119,7 +120,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
 
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
-    if (parentOfCommands) {
+    if (parentOfCommands || panelFacet != null) {
       writer.writeAttribute(Arias.EXPANDED, Boolean.FALSE.toString(), false);
     }
     final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
@@ -130,7 +131,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
         getCssItems(facesContext, component),
         autoSpacing && !dropdownSubmenu ? TobagoClass.AUTO__SPACING : null,
         dropdownSubmenu ? BootstrapClass.DROPDOWN_ITEM : null,
-        parentOfCommands && !dropdownSubmenu ? BootstrapClass.DROPDOWN_TOGGLE : null,
+        (parentOfCommands && !dropdownSubmenu || panelFacet != null) ? BootstrapClass.DROPDOWN_TOGGLE : null,
         markup.contains(Markup.HIDE_TOGGLE_ICON) ? TobagoClass.HIDE_TOGGLE_ICON : null,
         label.getLabel() == null && image == null && labelFacet == null ? BootstrapClass.DROPDOWN_TOGGLE_SPLIT : null,
         component.getCustomClass(),
@@ -263,7 +264,7 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
     final boolean dropdownSubmenu = isInside(facesContext, HtmlElements.COMMAND);
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
-    if (parentOfCommands) {
+    if (parentOfCommands || panelFacet != null) {
       writer.startElement(HtmlElements.TOBAGO_DROPDOWN);
       writer.writeIdAttribute(clientId);
 
@@ -280,7 +281,11 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
 
   protected void encodeEndOuter(final FacesContext facesContext, final T command) throws IOException {
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
-    if (command.isParentOfCommands()) {
+
+    final boolean parentOfCommands = command.isParentOfCommands();
+    final UIComponent panelFacet = command.getFacet(Facets.PANEL);
+
+    if (parentOfCommands || panelFacet != null) {
       writer.endElement(HtmlElements.TOBAGO_DROPDOWN);
     }
   }

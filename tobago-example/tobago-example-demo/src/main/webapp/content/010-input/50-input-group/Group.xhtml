@@ -155,6 +155,7 @@
 
     <tc:section label="Choice">
       <tc:in id="value" placeholder="type an amount" value="#{groupController.value}">
+        <f:ajax event="keyup" listener="#{groupController.compute}" render="valueInEuro" execute="value"/>
         <f:convertNumber maxFractionDigits="2" minFractionDigits="2"/>
         <f:facet name="after">
           <tc:selectOneChoice id="currency" value="#{groupController.currency}">

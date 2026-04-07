@@ -83,6 +83,7 @@ export class DropdownItem {
 
   showSubMenu(): void {
     if (!this.disabled && this.dropdownMenu) {
+      this.element.ariaExpanded = "true";
       this.element.parentElement.classList.add(Css.TOBAGO_SHOW);
       this.updatePosition();
     }
@@ -91,6 +92,7 @@ export class DropdownItem {
   hideSubMenu(): void {
     if (this.dropdownMenu) {
       this.element.parentElement.classList.remove(Css.TOBAGO_SHOW);
+      this.element.ariaExpanded = "false";
     }
   }
 

@@ -19,15 +19,14 @@
 
 package org.apache.myfaces.tobago.internal.util;
 
+import jakarta.faces.context.FacesContext;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.context.UserAgent;
 import org.apache.myfaces.tobago.internal.config.ContentSecurityPolicy;
 import org.apache.myfaces.tobago.internal.context.Nonce;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import jakarta.faces.context.FacesContext;
-import jakarta.servlet.http.HttpServletResponse;
 
 import java.lang.invoke.MethodHandles;
 import java.util.Map;
@@ -49,6 +48,11 @@ public final class ResponseUtils {
 
   public static void ensureNoCacheHeader(final HttpServletResponse response) {
     response.setHeader("Cache-Control", "no-cache,no-store,max-age=0,must-revalidate");
+    pragmaHeader(response);
+  }
+
+  @Deprecated(since = "6.11.0", forRemoval = true)
+  public static void pragmaHeader(final HttpServletResponse response) {
     response.setHeader("Pragma", "no-cache");
     response.setDateHeader("Expires", 0);
     response.setDateHeader("max-age", 0);
@@ -123,6 +127,10 @@ public final class ResponseUtils {
     servletResponse.setHeader("X-Content-Type-Options", "nosniff");
   }
 
+  /**
+   * @deprecated Remove X-Frame-Options HTTP header, because it is covered by the CSP directive "frame-ancestors".
+   */
+  @Deprecated(since = "6.11.0", forRemoval = true)
   public static void ensureXFrameOptionsHeader(final FacesContext facesContext) {
     final Object response = facesContext.getExternalContext().getResponse();
     if (response instanceof HttpServletResponse) {

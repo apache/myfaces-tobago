@@ -17,14 +17,27 @@
 
 import {expect, test} from "@playwright/test";
 
-test.describe("000-intro/03-intro/Intro.xhtml", () => {
+test.describe("010-input/10-in/In.xhtml", () => {
 
   test.beforeEach(async ({page}) => {
-    await page.goto("/content/000-intro/03-intro/Intro.xhtml");
+    await page.goto("/content/010-input/10-in/In.xhtml");
   });
 
-  test("First section title is 'Intro'", async ({page}) => {
-    const titleOfFirstSectionHeader = page.locator("tobago-section h1");
-    await expect(titleOfFirstSectionHeader).toHaveText("Intro");
+  test("inputfield with label", async ({page}) => {
+    const labelFn = page.locator("[id='page:mainForm:iNormal'] > label");
+    const inputFieldFn = page.locator("[id='page:mainForm:iNormal::field']");
+
+    await expect(labelFn).toHaveText("Input");
+    await expect(inputFieldFn).toHaveValue("Some Text");
+    await inputFieldFn.fill("abc");
+    await expect(inputFieldFn).toHaveValue("abc");
+  });
+
+  test("ajax change event", async ({page}) => {
+    const inputFieldFn = page.locator("[id='page:mainForm:inputAjax::field']");
+    const outputFieldFn = page.locator("[id='page:mainForm:outputAjax'] .form-control-plaintext");
+
+    await inputFieldFn.fill("some input text");
+    await expect(outputFieldFn).toHaveText("some input text");
   });
 });

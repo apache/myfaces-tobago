@@ -17,6 +17,7 @@
 
 import {Css} from "./tobago-css";
 import {ClientBehaviors} from "./tobago-client-behaviors";
+import {DropdownMenuStatic} from "./dropdown/DropdownMenuStatic";
 
 export enum DropdownMenuAlignment {
   start,
@@ -136,21 +137,27 @@ export class DropdownMenu {
     const refElementRect = this.referenceElement.getBoundingClientRect();
 
     //calc horizontal positioning and max-width
-    this.calcHorizontalPositioningAndMaxWidth(refElementRect, this.alignment);
-    if (this.dropdownMenuElement.offsetWidth - 1 > parseInt(this.dropdownMenuElement.style.maxWidth)
-        && (window.innerWidth / 2) <= refElementRect.left + (refElementRect.right - refElementRect.left)) {
-      // Content of dropdown is too big and reference element is on the right side; do DropdownMenuAlignment.end
-      this.calcHorizontalPositioningAndMaxWidth(refElementRect, DropdownMenuAlignment.end);
-    }
-
-    //calc width
     switch (this.alignment) {
       case DropdownMenuAlignment.start:
-      case DropdownMenuAlignment.end:
-        this.dropdownMenuElement.style.width = null;
+        this.calcHorizontalPositioningAndMaxWidth(DropdownMenuAlignment.start, false, refElementRect);
+        if (!this.dropdownContentFit) {
+          this.calcHorizontalPositioningAndMaxWidth(DropdownMenuAlignment.end, false, refElementRect);
+          if (!this.dropdownContentFit) {
+            this.calcHorizontalPositioningAndMaxWidth(DropdownMenuAlignment.start, true, refElementRect);
+          }
+        }
         break;
       case DropdownMenuAlignment.centerFullWidth:
-        this.dropdownMenuElement.style.width = refElementRect.width + "px";
+        this.calcHorizontalPositioningAndMaxWidth(DropdownMenuAlignment.centerFullWidth, null, refElementRect);
+        break;
+      case DropdownMenuAlignment.end:
+        this.calcHorizontalPositioningAndMaxWidth(DropdownMenuAlignment.end, false, refElementRect);
+        if (!this.dropdownContentFit) {
+          this.calcHorizontalPositioningAndMaxWidth(DropdownMenuAlignment.start, false, refElementRect);
+          if (!this.dropdownContentFit) {
+            this.calcHorizontalPositioningAndMaxWidth(DropdownMenuAlignment.end, true, refElementRect);
+          }
+        }
         break;
     }
 
@@ -180,30 +187,23 @@ export class DropdownMenu {
     }
   }
 
-  private calcHorizontalPositioningAndMaxWidth(refElementRect: DOMRect, alignment: DropdownMenuAlignment): void {
-    const rightBorder = this.body.offsetWidth;
-    switch (alignment) {
-      case DropdownMenuAlignment.start:
-      case DropdownMenuAlignment.centerFullWidth:
-        this.dropdownMenuElement.style.left = "0px";
-        this.dropdownMenuElement.style.left = (refElementRect.left - this.dropdownRect.left) + "px";
-        this.dropdownMenuElement.style.right = null;
-        this.dropdownMenuElement.style.maxWidth = rightBorder - refElementRect.left
-            - parseFloat(getComputedStyle(this.dropdownMenuElement).marginRight) + "px";
-        break;
-      case DropdownMenuAlignment.end:
-        this.dropdownMenuElement.style.left = null;
-        this.dropdownMenuElement.style.right = "0px";
-        this.dropdownMenuElement.style.right = (this.dropdownRect.right - refElementRect.right) + "px";
-        this.dropdownMenuElement.style.maxWidth = refElementRect.right
-            - parseFloat(getComputedStyle(this.dropdownMenuElement).marginLeft) + "px";
-        break;
-    }
-  }
+  private calcHorizontalPositioningAndMaxWidth(alignment: DropdownMenuAlignment, extend: boolean,
+                                               refElementRect: DOMRect): void {
+    this.dropdownMenuElement.style.left = "0";
+    this.dropdownMenuElement.style.right = "0";
+    this.dropdownMenuElement.style.maxWidth = null;
+    const dropdownRect = this.dropdownRect;
 
-  private get body(): HTMLElement {
-    const root = document.getRootNode() as ShadowRoot | Document;
-    return root.querySelector("body");
+    const horizontalPositionAndSize: { left: number, right: number, maxWidth: number } = DropdownMenuStatic
+        .getHorizontalPositionAndSize(alignment, extend,
+            refElementRect.left, refElementRect.right, dropdownRect.left, dropdownRect.right);
+    const left = horizontalPositionAndSize.left;
+    const right = horizontalPositionAndSize.right;
+    const maxWidth = horizontalPositionAndSize.maxWidth;
+
+    this.dropdownMenuElement.style.left = left ? left + "px" : null;
+    this.dropdownMenuElement.style.right = right ? right + "px" : null;
+    this.dropdownMenuElement.style.maxWidth = maxWidth ? maxWidth + "px" : null;
   }
 
   private get stickyHeader(): HTMLElement {
@@ -223,6 +223,11 @@ export class DropdownMenu {
 
   private get dropdownRect(): DOMRect {
     return this.dropdownMenuElement.getBoundingClientRect();
+  }
+
+  private get dropdownContentFit(): boolean {
+    const element = this.dropdownMenuElement;
+    return element.scrollWidth <= element.clientWidth && element.offsetWidth <= parseFloat(element.style.maxWidth);
   }
 
   private get fixedFooter(): HTMLElement {
