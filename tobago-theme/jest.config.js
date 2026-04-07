@@ -17,7 +17,7 @@
 
 module.exports = {
   preset: "ts-jest",
-  testEnvironment: "node",
+  testEnvironment: "jsdom",
   rootDir: "tobago-theme-standard/",
   globals: {
     "window": {}
