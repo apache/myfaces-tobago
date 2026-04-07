@@ -38,3 +38,4 @@ ij_java_method_parameters_new_line_after_left_paren = true
 ij_java_doc_keep_empty_parameter_tag = false
 ij_java_doc_keep_empty_return_tag = false
 ij_java_doc_keep_empty_throws_tag = false
+ij_java_imports_layout = *,|,jakarta.**,javax.**,java.**,|,$*
