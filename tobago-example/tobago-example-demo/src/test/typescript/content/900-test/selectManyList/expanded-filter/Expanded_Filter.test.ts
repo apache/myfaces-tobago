@@ -15,17 +15,23 @@
  * limitations under the License.
  */
 
-import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
-import {elementByIdFn, querySelectorAllFn, querySelectorFn} from "/script/tobago-test.js";
+import {expect, test} from "@playwright/test";
 
-it("filter for 'asdf'; no-entries footer must be visible", function (done) {
-  const noEntriesFooter = querySelectorFn("#page\\:mainForm\\:selectManyList .tobago-no-entries");
-  const filterInput = elementByIdFn("page:mainForm:selectManyList::filter");
+test.describe("900-test/selectManyList/expanded-filter/Expanded_Filter.xhtml", () => {
 
-  const test = new JasmineTestTool(done);
-  test.do(() => expect(noEntriesFooter().classList).toContain("d-none"));
-  test.do(() => filterInput().value = 'asdf');
-  test.event("input", filterInput, () => !noEntriesFooter().classList.contains("d-none"));
-  test.do(() => expect(noEntriesFooter().classList).not.toContain("d-none"));
-  test.start();
+  test.beforeEach(async ({page}) => {
+    await page.goto("/content/900-test/selectManyList/expanded-filter/Expanded_Filter.xhtml");
+  });
+
+  test("filter for 'asdf'; no-entries footer must be visible", async ({page}) => {
+  const noEntriesFooter = page.locator("[id='page:mainForm:selectManyList'] .tobago-no-entries");
+  const filterInput = page.locator("[id='page:mainForm:selectManyList::filter']");
+
+
+  await expect(noEntriesFooter).toContainClass("d-none");
+  await filterInput.fill('asdf');
+  await filterInput.dispatchEvent("input");
+  await expect(noEntriesFooter).not.toContainClass("d-none");
+
+});
 });

@@ -15,18 +15,23 @@
  * limitations under the License.
  */
 
-import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
-import {elementByIdFn, querySelectorFn} from "/script/tobago-test.js";
+import {expect, test} from "@playwright/test";
 
-it("Spaces between buttons", function (done) {
-  const b1Spacing = elementByIdFn("page:mainForm:b1")().getBoundingClientRect();
-  const b2Spacing = elementByIdFn("page:mainForm:b2")().getBoundingClientRect();
-  const b4Spacing = elementByIdFn("page:mainForm:b4")().getBoundingClientRect();
-  const b5Spacing = elementByIdFn("page:mainForm:b5")().getBoundingClientRect();
+test.describe("900-test/selectOneList/expanded-filter/Expanded_Filter.xhtml", () => {
 
-  const test = new JasmineTestTool(done);
-  test.do(() => expect(b1Spacing.right < b2Spacing.left).toBeTrue());
-  test.do(() => expect(b2Spacing.right < b4Spacing.left).toBeTrue());
-  test.do(() => expect(b4Spacing.right < b5Spacing.left).toBeTrue());
-  test.start();
+  test.beforeEach(async ({page}) => {
+    await page.goto("/content/900-test/selectOneList/expanded-filter/Expanded_Filter.xhtml");
+  });
+
+  test("filter for 'asdf'; no-entries footer must be visible", async ({page}) => {
+  const noEntriesFooter = page.locator("[id='page:mainForm:selectOneList'] .tobago-no-entries");
+  const filterInput = page.locator("[id='page:mainForm:selectOneList::filter']");
+
+
+  await expect(noEntriesFooter).toContainClass("d-none");
+  await filterInput.fill('asdf');
+  await filterInput.dispatchEvent("input");
+  await expect(noEntriesFooter).not.toContainClass("d-none");
+
+});
 });
