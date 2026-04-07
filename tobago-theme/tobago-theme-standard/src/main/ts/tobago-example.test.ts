@@ -17,7 +17,15 @@
 
 import {Example} from "./tobago-example";
 
-test("pattern format: yyyy", () => {
+test("Example how to test a upper case function: yyyy", () => {
   const result = Example.toUpperCase("yyyy");
   expect(result).toBe("YYYY");
+});
+
+test("Example how to use HTMLElement with DOM in a test", () => {
+  const element: HTMLElement = document.createElement("div");
+  element.textContent = "Hallo";
+
+  expect(element.tagName).toBe("DIV");
+  expect(element.textContent).toBe("Hallo");
 });
