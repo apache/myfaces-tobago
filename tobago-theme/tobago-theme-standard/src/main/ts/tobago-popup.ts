@@ -19,6 +19,8 @@ import {Modal} from "bootstrap";
 import {BehaviorMode} from "./tobago-behavior-mode";
 import {Collapse} from "./tobago-collapse";
 import {EventListenerStore} from "./util/EventListenerStore";
+import {FocusableElement, tabbable} from "tabbable";
+import {Key} from "./tobago-key";
 
 const BootstrapPopupEvent = {
   HIDE: "hide.bs.modal",
@@ -37,12 +39,9 @@ export class Popup extends HTMLElement {
   }
 
   connectedCallback(): void {
-    const options = {};
-    this.modal = new Modal(this, options);
-    if (!this.collapsed) {
-      this.clientBehaviorShow();
-    }
-
+    this.modal = new Modal(this, {focus: false});
+    this.listeners.add(this, "keydown", this.keydownEvent.bind(this));
+    this.listeners.add(this, BootstrapPopupEvent.SHOWN, () => this.focus());
     this.listeners.add(this, BootstrapPopupEvent.HIDDEN, () => {
       /**
        * Make sure that collapsed=true is set when the popup is closed by clicking on the background or pressing ESC.
@@ -51,6 +50,10 @@ export class Popup extends HTMLElement {
         this.collapsed = true;
       }
     });
+
+    if (!this.collapsed) {
+      this.clientBehaviorShow();
+    }
   }
 
   disconnectedCallback(): void {
@@ -75,6 +78,34 @@ export class Popup extends HTMLElement {
       this.modal.hide();
     } else {
       // otherwise the update from server will hide the popup
+    }
+  }
+
+  private keydownEvent(event: KeyboardEvent): void {
+    switch (event.key) {
+      case Key.ESCAPE:
+        event.stopPropagation();
+        this.modal.hide();
+        break;
+      case Key.TAB: {
+        const focusableElements: FocusableElement[] = tabbable(this);
+        const firstFocusableElement = focusableElements[0];
+        const lastFocusableElement = focusableElements[focusableElements.length - 1];
+        if (event.shiftKey) {
+          if (document.activeElement === this || document.activeElement === firstFocusableElement) {
+            event.preventDefault();
+            lastFocusableElement.focus();
+          }
+        } else {
+          if (document.activeElement === this || document.activeElement === lastFocusableElement) {
+            event.preventDefault();
+            firstFocusableElement.focus();
+          }
+        }
+      }
+        break;
+      default:
+        break;
     }
   }
 

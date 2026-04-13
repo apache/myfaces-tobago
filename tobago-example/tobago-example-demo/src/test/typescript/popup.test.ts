@@ -203,3 +203,142 @@ test.describe("130-collapsible/10-collapsible-popup/Collapsible_Popup.xhtml", ()
     await expect(messages).toHaveCount(1);
   });
 });
+
+test.describe("900-test/popup/dropdown/Dropdown.xhtml", () => {
+
+  test.beforeEach(async ({page}, testInfo) => {
+    await page.goto("/content/900-test/popup/dropdown/Dropdown.xhtml");
+  });
+
+  test("Tabbing the popup", async ({page, browserName}) => {
+    const popupOpen = page.locator("[id='page:mainForm:popup-open']");
+    const popup = page.locator("[id='page:mainForm:popup']");
+    const popupModalDialog = popup.locator(".modal-dialog");
+    const popupX = page.locator("[id='page:mainForm:popup:popup-x']");
+    const suggestInputField = page.locator("[id='page:mainForm:popup:inSuggest::field']");
+    const suggestDropdownMenu = page.locator(".tobago-dropdown-menu[data-tobago-for='page:mainForm:popup:suggest']");
+    const mars = suggestDropdownMenu.locator("li[data-result-index='0']");
+    const amalthea = suggestDropdownMenu.locator("li[data-result-index='1']");
+    const himalia = suggestDropdownMenu.locator("li[data-result-index='2']");
+    const mimas = suggestDropdownMenu.locator("li[data-result-index='3']");
+    const selectOneList = page.locator("[id='page:mainForm:popup:selectOneList']");
+    const selectOneListMenu = page.locator(".tobago-dropdown-menu[data-tobago-for='page:mainForm:popup:selectOneList']");
+    const selectOneListMercuryRow = selectOneListMenu.locator("tr[data-tobago-value='Mercury']");
+    const selectOneListPlutoRow = selectOneListMenu.locator("tr[data-tobago-value='Pluto']");
+    const selectManyList = page.locator("[id='page:mainForm:popup:selectManyList']");
+    const selectManyListMenu = page.locator(".tobago-dropdown-menu[data-tobago-for='page:mainForm:popup:selectManyList']");
+    const selectManyListMercuryRow = selectManyListMenu.locator("tr[data-tobago-value='Mercury']");
+    const selectManyListPlutoRow = selectManyListMenu.locator("tr[data-tobago-value='Pluto']");
+    const musicPlayerButton = page.locator("[id='page:mainForm:popup:musicPlayerButton::command']");
+    const play = page.locator("[id='page:mainForm:popup:play']");
+    const track = page.locator("[id='page:mainForm:popup:track::command']");
+    const popupClose = page.locator("[id='page:mainForm:popup:popup-close']");
+
+    await expect(popup).not.toContainClass("show");
+    await popupOpen.click();
+    await expect(popupModalDialog).not.toHaveCSS("transform", "none"); //animation
+    await expect(popupModalDialog).toHaveCSS("transform", "none"); //animation done
+    await expect(popup).toContainClass("show");
+    await page.keyboard.press("Tab");
+    await expect(popupX).toBeFocused();
+
+    //suggest
+    await page.keyboard.press("Tab");
+    await expect(suggestInputField).toBeFocused();
+    await page.keyboard.press("m");
+    await page.keyboard.press("a");
+    await expect(mars).toBeVisible();
+    await expect(amalthea).toBeVisible();
+    await expect(himalia).toBeVisible();
+    await expect(mimas).toBeVisible();
+    await page.keyboard.press("Tab");
+    await expect(mars.locator("button")).toBeFocused();
+    await page.keyboard.down("Shift");
+    await page.keyboard.press("Tab");
+    await page.keyboard.up("Shift");
+    await expect(mimas.locator("button")).toBeFocused();
+    await page.keyboard.press("Escape");
+    await expect(mars).not.toBeVisible();
+    await expect(amalthea).not.toBeVisible();
+    await expect(himalia).not.toBeVisible();
+    await expect(mimas).not.toBeVisible();
+    await expect(popup).toContainClass("show");
+
+    //selectOneList
+    await expect(selectOneList).not.toContainClass("tobago-focus");
+    await page.keyboard.press("Tab");
+    await expect(selectOneList).toContainClass("tobago-focus");
+    await page.keyboard.press("Enter");
+    await expect(selectOneListMercuryRow).toBeVisible();
+    await expect(selectOneListMercuryRow).not.toContainClass("tobago-preselect");
+    await page.keyboard.press("Tab");
+    await expect(selectOneListMercuryRow).toContainClass("tobago-preselect");
+    await page.keyboard.down("Shift");
+    await page.keyboard.press("Tab");
+    await page.keyboard.up("Shift");
+    await expect(selectOneListMercuryRow).not.toContainClass("tobago-preselect");
+    await expect(selectOneListPlutoRow).toBeVisible();
+    await expect(selectOneListPlutoRow).toContainClass("tobago-preselect");
+    await page.keyboard.press("Escape");
+    await expect(selectOneListMercuryRow).not.toBeVisible();
+    await expect(selectOneListPlutoRow).not.toBeVisible();
+
+    //selectManyList
+    await expect(selectManyList).not.toContainClass("tobago-focus");
+    await page.keyboard.press("Tab");
+    await expect(selectManyList).toContainClass("tobago-focus");
+    await page.keyboard.press("Enter");
+    await expect(selectManyListMercuryRow).toBeVisible();
+    await expect(selectManyListMercuryRow).not.toContainClass("tobago-preselect");
+    await page.keyboard.press("Tab");
+    await expect(selectManyListMercuryRow).toContainClass("tobago-preselect");
+    await page.keyboard.down("Shift");
+    await page.keyboard.press("Tab");
+    await page.keyboard.up("Shift");
+    await expect(selectManyListMercuryRow).not.toContainClass("tobago-preselect");
+    await expect(selectManyListPlutoRow).toBeVisible();
+    await expect(selectManyListPlutoRow).toContainClass("tobago-preselect");
+    await page.keyboard.press("Escape");
+    await expect(selectManyListMercuryRow).not.toBeVisible();
+    await expect(selectManyListPlutoRow).not.toBeVisible();
+
+    //MusicPlayer dropdown menu
+    await expect(musicPlayerButton).not.toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(musicPlayerButton).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(play).toBeVisible();
+    await expect(play).not.toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(play).toBeFocused();
+    await page.keyboard.down("Shift");
+    await page.keyboard.press("Tab");
+    await page.keyboard.up("Shift");
+    await expect(track).toBeVisible();
+    await expect(track).toBeFocused();
+    await page.keyboard.press("Escape");
+    await expect(play).not.toBeVisible();
+    await expect(track).not.toBeVisible();
+
+    await page.keyboard.press("Tab");
+    await expect(popupClose).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(popupX).toBeFocused();
+    await page.keyboard.down("Shift");
+    await page.keyboard.press("Tab");
+    await page.keyboard.up("Shift");
+    await expect(popupClose).toBeFocused();
+
+    await expect(popup).toContainClass("show");
+    await page.keyboard.press("Escape");
+    await expect(popup).not.toContainClass("show");
+    await popupOpen.click();
+    await expect(popupModalDialog).not.toHaveCSS("transform", "none"); //animation
+    await expect(popupModalDialog).toHaveCSS("transform", "none"); //animation done
+    await expect(popup).toContainClass("show");
+    await page.keyboard.down("Shift");
+    await page.keyboard.press("Tab");
+    await page.keyboard.up("Shift");
+    await expect(popupClose).toBeFocused();
+  });
+});
