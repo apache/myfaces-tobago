@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="jakarta.faces.core"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="jakarta.faces.facelets">
+
+  <p>Components with dropdown menu inside a popup.</p>
+
+  <tc:button id="popup-open" label="Open popup">
+    <tc:operation name="show" for="popup"/>
+    <f:ajax execute="popup" render="popup"/>
+  </tc:button>
+
+  <tc:popup id="popup">
+    <f:facet name="label">Popup</f:facet>
+    <f:facet name="bar">
+      <tc:link id="popup-x" icon="bi-x-lg" immediate="true">
+        <tc:operation name="hide" for="popup"/>
+        <f:ajax execute="popup" render="popup"/>
+      </tc:link>
+    </f:facet>
+
+    <tc:in id="inSuggest" label="tc:suggest" labelLayout="top">
+      <tc:suggest id="suggest" totalCount="10" query="#{suggestController.query}">
+        <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
+      </tc:suggest>
+    </tc:in>
+
+    <tc:selectOneList id="selectOneList" label="tc:selectOneList" labelLayout="top">
+      <tc:selectItems value="#{selectOneListController.planets}" var="planet"
+                      itemLabel="#{planet.name}" itemValue="#{planet}"/>
+    </tc:selectOneList>
+
+    <tc:selectManyList id="selectManyList" label="tc:selectManyList" labelLayout="top">
+      <tc:selectItems value="#{selectManyListController.planets}" var="planet"
+                      itemLabel="#{planet.name}" itemValue="#{planet}"/>
+    </tc:selectManyList>
+
+    <tc:button id="musicPlayerButton" label="MusicPlayer" omit="true">
+      <tc:link id="play" icon="bi-play-circle" label="Play"/>
+      <tc:link icon="bi-pause-circle" label="Pause"/>
+      <tc:link icon="bi-stop-circle" label="Stop"/>
+      <tc:link id="track" label="Track">
+        <tc:link label="1"/>
+        <tc:link label="2"/>
+        <tc:link label="3"/>
+      </tc:link>
+    </tc:button>
+
+    <f:facet name="footer">
+      <tc:button id="popup-close" label="Close" immediate="true">
+        <tc:operation name="hide" for="popup"/>
+        <f:ajax execute="popup" render="popup"/>
+      </tc:button>
+    </f:facet>
+  </tc:popup>
+</ui:composition>
