@@ -133,27 +133,29 @@ export class Sheet extends HTMLElement {
     if (this.lazy) {
       // prepare the sheet with some auto-created (empty) rows
       const tableBody = this.tableBody;
-      const columns = tableBody.rows[0].cells.length;
+      if (tableBody.rows.length > 0) {
+        const columns = tableBody.rows[0].cells.length;
 
-      const firstRow: HTMLTableRowElement = tableBody.rows[0];
-      for (let i = 0; i < this.getRowIndex(firstRow); i++) {
-        firstRow.insertAdjacentHTML("beforebegin", Sheet.getDummyRowTemplate(columns, i));
+        const firstRow: HTMLTableRowElement = tableBody.rows[0];
+        for (let i = 0; i < this.getRowIndex(firstRow); i++) {
+          firstRow.insertAdjacentHTML("beforebegin", Sheet.getDummyRowTemplate(columns, i));
+        }
+        const lastRow: HTMLTableRowElement = tableBody.rows[tableBody.rows.length - 1];
+        for (let i = this.getRowIndex(lastRow) + 1; i < this.rowCount; i++) {
+          tableBody.insertAdjacentHTML("beforeend", Sheet.getDummyRowTemplate(columns, i));
+        }
+
+        this.listeners.add(this.body, "scroll", this.activateLazyCheckInterval.bind(this));
+
+        const lazyScrollPosition = this.lazyScrollPosition;
+        const firstVisibleRow = this.getRowElement(lazyScrollPosition[0]);
+        if (firstVisibleRow) {
+          this.body.scrollTop = firstVisibleRow.offsetTop + lazyScrollPosition[1];
+          //in Firefox setting "scrollTop" triggers scroll event -> lazyCheck()
+        }
+
+        this.lazyCheck();
       }
-      const lastRow: HTMLTableRowElement = tableBody.rows[tableBody.rows.length - 1];
-      for (let i = this.getRowIndex(lastRow) + 1; i < this.rowCount; i++) {
-        tableBody.insertAdjacentHTML("beforeend", Sheet.getDummyRowTemplate(columns, i));
-      }
-
-      this.listeners.add(this.body, "scroll", this.activateLazyCheckInterval.bind(this));
-
-      const lazyScrollPosition = this.lazyScrollPosition;
-      const firstVisibleRow = this.getRowElement(lazyScrollPosition[0]);
-      if (firstVisibleRow) {
-        this.body.scrollTop = firstVisibleRow.offsetTop + lazyScrollPosition[1];
-        //in Firefox setting "scrollTop" triggers scroll event -> lazyCheck()
-      }
-
-      this.lazyCheck();
     }
   }
 
