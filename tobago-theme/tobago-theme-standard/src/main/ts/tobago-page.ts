@@ -127,7 +127,7 @@ export class Page extends HTMLElement {
       if (overlay) {
         overlay.remove();
       } else {
-        console.warn("Didn't found overlay for id", id);
+        console.debug("Didn't found overlay for id", id);
       }
     }
   }
