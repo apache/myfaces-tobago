@@ -18,148 +18,154 @@
 -->
 
 <tc:header fixed="true"
-           xmlns:tc="http://myfaces.apache.org/tobago/component"
-           xmlns:f="jakarta.faces.core">
+           xmlns:f="jakarta.faces.core"
+           xmlns:tc="http://myfaces.apache.org/tobago/component">
 
   <!-- tbd: how to solve this? -->
 
-<!--
-  <tc:flexLayout columns="auto 1fr" alignItems="center">
+  <!--
+    <tc:flexLayout columns="auto 1fr" alignItems="center">
 
-    <tc:image value="image/feather-leaf.png"/>
+      <tc:image value="image/feather-leaf.png"/>
+  -->
+
+  <tc:bar id="bar" markup="togglerRight light large">
+    <tc:style customClass="bg-light box-shadow"/>
+    <f:facet name="brand">
+      <tc:button icon="bi bi-menu-app" omit="true">
+        <tc:style customClass="d-lg-none" marginRight="1em"/>
+        <tc:operation for="menuOffcanvas" name="show"/>
+      </tc:button>
+
+      <!-- label="Tobago Demo" contains a NO-BREAK SPACE character -->
+      <tc:image value="#{request.contextPath}/image/feather.svg">
+        <tc:style width="1.25rem" height="1.875rem" marginRight="0.5rem"/>
+      </tc:image>
+      <tc:link label="Tobago Demo" id="brand" link="#{request.contextPath}/"/>
+    </f:facet>
+
+    <tc:form id="header">
+      <tc:links id="commands">
+        <tc:link id="config" label="Configuration" omit="true">
+          <tc:link label="Theme" omit="true">
+            <tc:selectOneRadio value="#{themeController.theme}">
+              <tc:event action="#{themeController.submit}"/>
+              <tc:selectItems value="#{themeController.themeItems}"/>
+            </tc:selectOneRadio>
+          </tc:link>
+          <tc:link label="Locale" omit="true">
+            <tc:selectOneRadio value="#{localeController.locale}">
+              <tc:event action="#{localeController.submit}"/>
+              <tc:selectItems value="#{localeController.localeItems}"/>
+            </tc:selectOneRadio>
+          </tc:link>
+          <tc:link outcome="/login.xhtml" label="Login" rendered="#{request.userPrincipal == null}"/>
+          <tc:link action="#{loginController.logout}" label="Logout '#{request.userPrincipal.name}'"
+                   rendered="#{request.userPrincipal != null}"/>
+          <tc:link action="#{loginController.resetSession}" label="Reset Session"/>
+        </tc:link>
+
+        <tc:link label="Test" omit="true">
+          <tc:link id="runtest" label="Run test" outcome="/test.xhtml"
+                   immediate="true" disabled="#{!testController.hasTest()}">
+            <f:param name="base" value="#{testController.base}"/>
+          </tc:link>
+          <tc:link label="Run all tests" outcome="/testAll.xhtml" target="_blank"
+                   immediate="true" rendered="#{facesContext.isProjectStage('Development')}"/>
+          <tc:link label="Access all pages" outcome="/testAccessAllPages.xhtml" target="_blank"
+                   immediate="true" rendered="#{facesContext.isProjectStage('Development')}"/>
+          <tc:link label="Goto test section" action="#{navigationState.gotoTestSection}"
+                   immediate="true" rendered="#{!navigationState.showTestSection}"/>
+          <tc:link label="Deactivate test section" action="#{navigationState.deactivateTestSection}"
+                   immediate="true" rendered="#{navigationState.showTestSection}"/>
+        </tc:link>
+
+        <tc:link label="Menu" omit="true">
+
+          <!--            <demo-alert value="Demo Message">-->
+          <!-- XXX demo-alert not working -->
+          <tc:link label="Menu Item" omit="true" id="menu_item"/>
+          <!--            </demo-alert>-->
+          <tc:separator/>
+          <tc:link label="Sub Menu" omit="true">
+            <tc:link label="Sub 1" omit="true"/>
+            <tc:link label="Sub 2" omit="true"/>
+            <tc:link label="Sub 3" omit="true"/>
+            <tc:link action="doit" label="Sub 4" omit="true">
+              <tc:link label="Sub 4 1" omit="true"/>
+              <tc:link label="Sub 4 2" omit="true"/>
+              <tc:link label="Sub 4 3" omit="true"/>
+            </tc:link>
+            <tc:link label="Sub 5" omit="true">
+              <tc:link label="Sub 5 1" omit="true"/>
+              <tc:link label="Sub 5 2" omit="true"/>
+            </tc:link>
+          </tc:link>
+        </tc:link>
+
+        <tc:link label="Info" omit="true">
+          <tc:link label="Tobago Demo - #{serverInfo.version}" omit="true" disabled="true"/>
+          <!-- XXX demo-alert not working -->
+          <!--
+          <d emo-alert value="Demo Message">
+          <tc:link label="About" omit="true">
+            <tc:dataAttribute name="alert-text" value="Tobago Demo - #{serverInfo.version}"/>
+          </tc:link>
+          </d emo-alert>
 -->
-
-    <tc:bar id="bar" markup="togglerLeft, light, large">
-      <tc:style customClass="bg-light box-shadow"/>
-      <f:facet name="brand">
-        <!-- label="Tobago Demo" contains a NO-BREAK SPACE character -->
-        <tc:image value="#{request.contextPath}/image/feather.svg">
-          <tc:style width="1.25rem" height="1.875rem" marginRight="0.5rem"/>
-        </tc:image>
-        <tc:link label="Tobago Demo" id="brand" link="#{request.contextPath}/"/>
-      </f:facet>
-
-      <tc:form id="header">
-        <tc:links id="commands">
-          <tc:link id="config" label="Configuration" omit="true">
-            <tc:link label="Theme" omit="true">
-              <tc:selectOneRadio value="#{themeController.theme}">
-                <tc:event action="#{themeController.submit}"/>
-                <tc:selectItems value="#{themeController.themeItems}"/>
-              </tc:selectOneRadio>
-            </tc:link>
-            <tc:link label="Locale" omit="true">
-              <tc:selectOneRadio value="#{localeController.locale}">
-                <tc:event action="#{localeController.submit}"/>
-                <tc:selectItems value="#{localeController.localeItems}"/>
-              </tc:selectOneRadio>
-            </tc:link>
-            <tc:link outcome="/login.xhtml" label="Login" rendered="#{request.userPrincipal == null}"/>
-            <tc:link action="#{loginController.logout}" label="Logout '#{request.userPrincipal.name}'" rendered="#{request.userPrincipal != null}"/>
-            <tc:link action="#{loginController.resetSession}" label="Reset Session"/>
+          <tc:link omit="true" label="Client Info" id="headerInfo">
+            <tc:operation name="show" for=":::info"/>
           </tc:link>
+          <tc:link outcome="/content/000-intro/93-server-info/Server_Info.xhtml" immediate="true" label="Server Info"
+                   disabled="#{! serverInfo.enabled}"/>
+          <tc:link outcome="/content/000-intro/96-logging-info/Logging_Info.xhtml" immediate="true" label="Logging Info"
+                   disabled="#{! serverInfo.enabled}"/>
+          <tc:separator/>
+          <tc:link link="https://myfaces.apache.org/#/tobago" label="Tobago Project" icon="bi-box-arrow-up-right"/>
+          <tc:link link="https://tobago-demo.apache.org/" label="Demo Overview" icon="bi-box-arrow-up-right"/>
+        </tc:link>
 
-          <tc:link label="Test" omit="true">
-            <tc:link id="runtest" label="Run test" outcome="/test.xhtml"
-                     immediate="true" disabled="#{!testController.hasTest()}">
-              <f:param name="base" value="#{testController.base}"/>
-            </tc:link>
-            <tc:link label="Run all tests" outcome="/testAll.xhtml" target="_blank"
-                     immediate="true" rendered="#{facesContext.isProjectStage('Development')}"/>
-            <tc:link label="Access all pages" outcome="/testAccessAllPages.xhtml" target="_blank"
-                     immediate="true" rendered="#{facesContext.isProjectStage('Development')}"/>
-            <tc:link label="Goto test section" action="#{navigationState.gotoTestSection}"
-                     immediate="true" rendered="#{!navigationState.showTestSection}"/>
-            <tc:link label="Deactivate test section" action="#{navigationState.deactivateTestSection}"
-                     immediate="true" rendered="#{navigationState.showTestSection}"/>
-          </tc:link>
+      </tc:links>
 
-          <tc:link label="Menu" omit="true">
+    </tc:form>
 
-<!--            <demo-alert value="Demo Message">-->
-              <!-- XXX demo-alert not working -->
-              <tc:link label="Menu Item" omit="true" id="menu_item"/>
-<!--            </demo-alert>-->
-            <tc:separator/>
-            <tc:link label="Sub Menu" omit="true">
-              <tc:link label="Sub 1" omit="true"/>
-              <tc:link label="Sub 2" omit="true"/>
-              <tc:link label="Sub 3" omit="true"/>
-              <tc:link action="doit" label="Sub 4" omit="true">
-                <tc:link label="Sub 4 1" omit="true"/>
-                <tc:link label="Sub 4 2" omit="true"/>
-                <tc:link label="Sub 4 3" omit="true"/>
-              </tc:link>
-              <tc:link label="Sub 5" omit="true">
-                <tc:link label="Sub 5 1" omit="true"/>
-                <tc:link label="Sub 5 2" omit="true"/>
-              </tc:link>
-            </tc:link>
-          </tc:link>
+    <f:facet name="after">
+      <tc:flexLayout columns="auto auto">
+        <tc:form id="searchForm">
+          <tc:flexLayout columns="200px auto">
+            <tc:in placeholder="Search" required="true" value="#{navigationState.searchString}" labelLayout="none"
+                   label="Search" id="search">
+              <f:facet name="after">
+                <tc:button label="go" action="#{navigationState.search}" defaultCommand="true"/>
+              </f:facet>
+            </tc:in>
+          </tc:flexLayout>
+        </tc:form>
+        <tc:form id="navbtns">
+          <tc:flexLayout columns="auto auto">
+            <tc:buttons>
+              <tc:button immediate="true" id="previous"
+                         icon="bi-chevron-left"
+                         action="#{navigationState.gotoPrevious}"
+                         disabled="#{navigationState.first}"
+                         tip="Previous"/>
+              <tc:button immediate="true" id="next"
+                         icon="bi-chevron-right"
+                         action="#{navigationState.gotoNext}"
+                         disabled="#{navigationState.last}"
+                         tip="Next"/>
+            </tc:buttons>
+            <tc:button action="#{navigationState.toggleViewSource}"
+                       icon="bi-code-slash"
+                       immediate="true" tip="View Source"/>
+          </tc:flexLayout>
+        </tc:form>
+      </tc:flexLayout>
+    </f:facet>
+  </tc:bar>
 
-          <tc:link label="Info" omit="true">
-            <tc:link label="Tobago Demo - #{serverInfo.version}" omit="true" disabled="true"/>
-            <!-- XXX demo-alert not working -->
-            <!--
-            <d emo-alert value="Demo Message">
-            <tc:link label="About" omit="true">
-              <tc:dataAttribute name="alert-text" value="Tobago Demo - #{serverInfo.version}"/>
-            </tc:link>
-            </d emo-alert>
--->
-            <tc:link omit="true" label="Client Info" id="headerInfo">
-              <tc:operation name="show" for=":::info"/>
-            </tc:link>
-            <tc:link outcome="/content/000-intro/93-server-info/Server_Info.xhtml" immediate="true" label="Server Info"
-                     disabled="#{! serverInfo.enabled}"/>
-            <tc:link outcome="/content/000-intro/96-logging-info/Logging_Info.xhtml" immediate="true" label="Logging Info"
-                     disabled="#{! serverInfo.enabled}"/>
-            <tc:separator/>
-            <tc:link link="https://myfaces.apache.org/#/tobago" label="Tobago Project" icon="bi-box-arrow-up-right"/>
-            <tc:link link="https://tobago-demo.apache.org/" label="Demo Overview" icon="bi-box-arrow-up-right"/>
-          </tc:link>
-
-        </tc:links>
-
-      </tc:form>
-
-      <f:facet name="after">
-        <tc:flexLayout columns="auto auto">
-          <tc:form id="searchForm">
-            <tc:flexLayout columns="200px auto">
-              <tc:in placeholder="Search" required="true" value="#{navigationState.searchString}" labelLayout="none"
-              label="Search" id="search">
-                <f:facet name="after">
-                  <tc:button label="go" action="#{navigationState.search}" defaultCommand="true"/>
-                </f:facet>
-              </tc:in>
-            </tc:flexLayout>
-          </tc:form>
-          <tc:form id="navbtns">
-            <tc:flexLayout columns="auto auto">
-              <tc:buttons>
-                <tc:button immediate="true" id="previous"
-                           icon="bi-chevron-left"
-                           action="#{navigationState.gotoPrevious}"
-                           disabled="#{navigationState.first}"
-                           tip="Previous"/>
-                <tc:button immediate="true" id="next"
-                           icon="bi-chevron-right"
-                           action="#{navigationState.gotoNext}"
-                           disabled="#{navigationState.last}"
-                           tip="Next"/>
-              </tc:buttons>
-              <tc:button action="#{navigationState.toggleViewSource}"
-                         icon="bi-code-slash"
-                         immediate="true" tip="View Source"/>
-            </tc:flexLayout>
-          </tc:form>
-        </tc:flexLayout>
-      </f:facet>
-    </tc:bar>
-
-<!--
-  </tc:flexLayout>
--->
+  <!--
+    </tc:flexLayout>
+  -->
 
 </tc:header>

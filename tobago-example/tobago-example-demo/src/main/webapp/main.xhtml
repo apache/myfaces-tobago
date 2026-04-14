@@ -19,14 +19,13 @@
 
 <!-- main template for this demo application, you may also use plain.xhtml for test purpose -->
 
-<ui:composition
-        xmlns:f="jakarta.faces.core"
-        xmlns:tc="http://myfaces.apache.org/tobago/component"
-        xmlns:ui="jakarta.faces.facelets"
-        xmlns="http://www.w3.org/1999/xhtml">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="jakarta.faces.core"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="jakarta.faces.facelets">
   <f:view locale="#{localeController.locale}">
 
-<!-- XXX doesn't work, why? it does work, when uidefine with metatag is at the specific page -->
+    <!-- XXX doesn't work, why? it does work, when uidefine with metatag is at the specific page -->
     <!--
     <f:metadata>
       <f:importConstants type="org.apache.myfaces.tobago.renderkit.css.Icons" var="bi"/>
@@ -52,40 +51,37 @@
 
       <ui:include src="/menu.xhtml"/>
 
-      <tc:box label="Menu" id="small-view-menu" collapsed="true" collapsedMode="hidden">
-          <f:facet name="bar">
-            <tc:buttons>
-              <tc:button id="show-menu" icon="bi-arrow-bar-down" omit="true">
-                <tc:operation name="show" for="small-view-menu"/>
-              </tc:button>
-              <tc:button id="hide-menu" icon="bi-arrow-bar-up" omit="true">
-                <tc:operation name="hide" for="small-view-menu"/>
-              </tc:button>
-            </tc:buttons>
-          </f:facet>
-          <tc:style customClass="scrollableBox d-block d-lg-none navigation-box"/>
-          <tc:style overflowY="scroll" height="20rem" selector=".scrollableBox .card-body"/>
-          <tc:panel id="clientPanel" collapsedMode="hidden">
-            <ui:include src="/navigation.xhtml">
-              <ui:param name="navigationName" value="navigation-small"/>
-              <ui:param name="navigationId" value="nav-small"/>
-              <ui:param name="linkId" value="cmd-small"/>
-            </ui:include>
-          </tc:panel>
-      </tc:box>
+      <tc:offcanvas id="menuOffcanvas" collapsedMode="hidden">
+        <f:facet name="label">Navigation</f:facet>
+        <f:facet name="bar">
+          <tc:link icon="bi-x-lg" omit="true">
+            <tc:operation name="hide" for="menuOffcanvas"/>
+          </tc:link>
+        </f:facet>
+        <tc:panel>
+          <tc:style customClass="navigation"/>
+          <ui:include src="/navigation.xhtml">
+            <ui:param name="navigationName" value="navigation-small"/>
+            <ui:param name="navigationId" value="nav-small"/>
+            <ui:param name="linkId" value="cmd-small"/>
+          </ui:include>
+        </tc:panel>
+      </tc:offcanvas>
 
       <tc:panel>
         <tc:style customClass="#{navigationState.viewSource ? '' : 'container-lg'}"/>
 
-        <tc:segmentLayout  large="2seg 8seg 2seg">
+        <tc:flexLayout columns="215px 1fr 200px">
           <f:event type="preRenderView" listener="#{navigationState.sync}"/>
           <tc:panel>
-            <tc:style customClass="d-lg-block hide-navigation"/>
-            <ui:include src="/navigation.xhtml">
-              <ui:param name="navigationName" value="navigation"/>
-              <ui:param name="navigationId" value="nav"/>
-              <ui:param name="linkId" value="cmd"/>
-            </ui:include>
+            <tc:style customClass="d-none d-lg-block navigation navigation-expanded" flexShrink="0"/>
+            <demo-navigation>
+              <ui:include src="/navigation.xhtml">
+                <ui:param name="navigationName" value="navigation"/>
+                <ui:param name="navigationId" value="nav"/>
+                <ui:param name="linkId" value="cmd"/>
+              </ui:include>
+            </demo-navigation>
           </tc:panel>
 
           <tc:splitLayout columns="1fr">
@@ -108,16 +104,16 @@
             </tc:panel>
           </tc:splitLayout>
           <tc:panel>
-            <tc:style customClass="d-lg-block" display="none"/>
+            <tc:style customClass="d-lg-block" display="none" flexShrink="0"/>
             <demo-sidebar id="sidebar" tabindex="-1"/>
           </tc:panel>
-        </tc:segmentLayout>
+        </tc:flexLayout>
       </tc:panel>
 
       <tc:popup id="info" collapsedMode="hidden">
         <tc:box label="Client Information">
           <f:facet name="bar">
-<!--            <tc:button image="#{fa.CLOSE.name}">-->
+            <!--            <tc:button image="#{fa.CLOSE.name}">-->
             <tc:button icon="bi-x-lg">
               <tc:operation name="hide" for="info"/>
             </tc:button>
@@ -131,7 +127,7 @@
 
       <tc:footer fixed="true">
         © 2005-2026 Apache Software Foundation, Licensed under the <a
-              href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
+          href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
       </tc:footer>
 
     </tc:page>
