@@ -1,0 +1,70 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.navigation {
+  tobago-tree-node[data-tobago-level='0'] {
+    font-weight: bold;
+    margin-top: 1rem;
+    white-space: nowrap;
+
+    &[index='1'] {
+      margin-top: 0;
+    }
+  }
+
+  tobago-tree-node {
+    &[data-tobago-level='1'],
+    &[data-tobago-level='2'],
+    &[data-tobago-level='3'],
+    &[data-tobago-level='4'],
+    &[data-tobago-level='5'] {
+      a {
+        padding: 0.25rem;
+        color: var(--bs-secondary);
+        border-radius: var(--bs-border-radius);
+
+        &:hover {
+          background-color: rgba(var(--bs-secondary-rgb), 0.1);
+        }
+
+        &.active {
+          color: var(--bs-primary);
+          background-color: rgba(var(--bs-primary-rgb), 0.1);
+        }
+      }
+    }
+  }
+
+  tobago-tree-node {
+    &[data-tobago-level='2'],
+    &[data-tobago-level='3'],
+    &[data-tobago-level='4'],
+    &[data-tobago-level='5'] {
+      a {
+        font-size: small;
+      }
+    }
+  }
+}
+
+.navigation-expanded {
+  display: block;
+  position: sticky;
+  top: calc(56px + 1rem); //height of header is 56px
+  height: calc(100vh - 56px - 40px - 2rem); //height of footer is 40px
+  overflow-y: auto;
+}

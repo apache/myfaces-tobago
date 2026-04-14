@@ -15,60 +15,11 @@
  * limitations under the License.
  */
 
+@import "demo-navigation";
 @import "demo-sidebar";
 
 html {
   scroll-padding-top: 72px;
-}
-
-#page\:navigation\:nav, #page\:navigation-small\:nav-small {
-  tobago-tree-node[data-tobago-level='0'] {
-    font-weight: bold;
-    margin-top: 1rem;
-    white-space: nowrap;
-
-    &[index='1'] {
-      margin-top: 0;
-    }
-  }
-
-  tobago-tree-node {
-    &[data-tobago-level='1'],
-    &[data-tobago-level='2'],
-    &[data-tobago-level='3'],
-    &[data-tobago-level='4'],
-    &[data-tobago-level='5'] {
-      a {
-        padding: 0.25rem;
-        color: var(--bs-secondary);
-        border-radius: var(--bs-border-radius);
-
-        &:hover {
-          background-color: rgba(var(--bs-secondary-rgb), 0.1);
-        }
-
-        &.active {
-          color: var(--bs-primary);
-          background-color: rgba(var(--bs-primary-rgb), 0.1);
-        }
-      }
-    }
-  }
-
-  tobago-tree-node {
-    &[data-tobago-level='2'],
-    &[data-tobago-level='3'],
-    &[data-tobago-level='4'],
-    &[data-tobago-level='5'] {
-      a {
-        font-size: small;
-      }
-    }
-  }
-}
-
-.hide-navigation {
-  display: none;
 }
 
 .navigation-box {
