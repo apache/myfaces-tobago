@@ -451,11 +451,6 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> im
         facesContext, component, writer, sheetId, selectable, columnWidths, selectedRows, columns, autoLayout,
         expandedValue);
 
-    if (component.isPagingVisible()) {
-      writer.startElement(HtmlElements.FOOTER);
-      writer.endElement(HtmlElements.FOOTER);
-    }
-
     final UIComponent after = component.getFacet(Facets.AFTER);
     if (after != null) {
       after.encodeAll(facesContext);
