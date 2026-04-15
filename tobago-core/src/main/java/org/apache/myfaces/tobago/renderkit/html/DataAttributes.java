@@ -34,6 +34,7 @@ public enum DataAttributes implements MarkupLanguageAttributes {
   BS_TOGGLE("data-bs-toggle"),
   BS_TRIGGER("data-bs-trigger"),
 
+  CHILD_COUNT("data-tobago-child-count"),
   /**
    * Contains the closed tree icon or style.
    */
