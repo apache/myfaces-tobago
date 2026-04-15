@@ -20,6 +20,7 @@ import "./demo-date";
 import "./demo-highlight";
 import "./demo-inspect";
 import "./demo-login";
+import "./demo-navigation";
 import "./demo-sidebar";
 import "./demo-test";
 //# sourceMappingURL=demo-all.js.map
