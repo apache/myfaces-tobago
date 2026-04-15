@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUIPaginatorPanel;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
+import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -41,10 +41,8 @@ public class PaginatorPanelRenderer<T extends AbstractUIPaginatorPanel> extends 
     writer.startElement(HtmlElements.TOBAGO_PAGINATOR_PANEL);
     writer.writeIdAttribute(paginator.getClientId(facesContext));
     final int childCount = paginator.getChildCount();
-    writer.writeClassAttribute(
-        BootstrapClass.D_FLEX,
-        childCount > 1 ? BootstrapClass.JUSTIFY_CONTENT_BETWEEN : BootstrapClass.JUSTIFY_CONTENT_CENTER,
-        paginator.getCustomClass());
+    writer.writeClassAttribute(paginator.getCustomClass());
+    writer.writeAttribute(DataAttributes.CHILD_COUNT, childCount);
   }
 
   @Override
