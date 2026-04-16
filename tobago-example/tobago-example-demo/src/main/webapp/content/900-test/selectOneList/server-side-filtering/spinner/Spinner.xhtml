@@ -24,8 +24,8 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
   <tc:selectOneList id="standardSelectOneList"
-                     value="#{selectListServerFilterController.selectedSolarObjects}"
-                     footer="#{selectListServerFilterController.footerTextMany}">
+                    value="#{selectListServerFilterController.selectedSolarObjects}"
+                    footer="#{selectListServerFilterController.footerTextMany}">
     <tc:selectItemsFiltered value="#{selectListServerFilterController.solarObjectsMany}"
                             var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"
                             query="#{selectListServerFilterController.queryMany}"
@@ -34,10 +34,20 @@
   </tc:selectOneList>
 
   <tc:selectOneList id="groupSelectOneList"
-                     value="#{selectListServerFilterController.selectedSolarObjects}"
-                     footer="#{selectListServerFilterController.footerTextMany}">
+                    value="#{selectListServerFilterController.selectedSolarObjects}"
+                    footer="#{selectListServerFilterController.footerTextMany}">
     <f:facet name="before">before</f:facet>
     <f:facet name="after">after</f:facet>
+    <tc:selectItemsFiltered value="#{selectListServerFilterController.solarObjectsMany}"
+                            var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"
+                            query="#{selectListServerFilterController.queryMany}"
+                            delay="2000000">
+    </tc:selectItemsFiltered>
+  </tc:selectOneList>
+
+  <tc:selectOneList id="labelLayoutTopSelectOneList" label="labelLayout=top" labelLayout="top"
+                    value="#{selectListServerFilterController.selectedSolarObjects}"
+                    footer="#{selectListServerFilterController.footerTextMany}">
     <tc:selectItemsFiltered value="#{selectListServerFilterController.solarObjectsMany}"
                             var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"
                             query="#{selectListServerFilterController.queryMany}"
@@ -50,8 +60,8 @@
   </tc:button>
   <tc:popup id="popup">
     <tc:selectOneList id="popupSelectOneList"
-                       value="#{selectListServerFilterController.selectedSolarObjects}"
-                       footer="#{selectListServerFilterController.footerTextMany}">
+                      value="#{selectListServerFilterController.selectedSolarObjects}"
+                      footer="#{selectListServerFilterController.footerTextMany}">
       <tc:selectItemsFiltered value="#{selectListServerFilterController.solarObjectsMany}"
                               var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"
                               query="#{selectListServerFilterController.queryMany}"

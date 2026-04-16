@@ -37,6 +37,12 @@
     </tc:suggest>
   </tc:in>
 
+  <tc:in id="labelLayoutTopInput" label="labelLayout=top" labelLayout="top">
+    <tc:suggest query="#{suggestController.query}" delay="200000">
+      <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
+    </tc:suggest>
+  </tc:in>
+
   <tc:button id="openPopupButton" label="open popup">
     <tc:operation for="popup" name="show"/>
   </tc:button>

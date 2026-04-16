@@ -45,6 +45,16 @@
     </tc:selectItemsFiltered>
   </tc:selectManyList>
 
+  <tc:selectManyList id="labelLayoutTopSelectManyList" label="labelLayout=top" labelLayout="top"
+                     value="#{selectListServerFilterController.selectedSolarObjects}"
+                     footer="#{selectListServerFilterController.footerTextMany}">
+    <tc:selectItemsFiltered value="#{selectListServerFilterController.solarObjectsMany}"
+                            var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"
+                            query="#{selectListServerFilterController.queryMany}"
+                            delay="2000000">
+    </tc:selectItemsFiltered>
+  </tc:selectManyList>
+
   <tc:button id="openPopupButton" label="open popup">
     <tc:operation for="popup" name="show"/>
   </tc:button>

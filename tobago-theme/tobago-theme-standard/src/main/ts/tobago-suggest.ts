@@ -40,7 +40,7 @@ export class Suggest {
       return;
     }
     this.tobagoSuggest.insertAdjacentHTML("beforebegin", `<div class="${Css.SPINNER}"/>`);
-    this.spinner = new Spinner(this.tobagoIn, this.inputField, this.inputField, this.spinnerDiv);
+    this.spinner = new Spinner(this.inputField, this.spinnerDiv);
 
     this.tobagoSuggest.insertAdjacentHTML("beforebegin", `<div class="${Css.TOBAGO_DROPDOWN_MENU_ANCHOR}">
     <ul id="${this.tobagoSuggest.id + "::dropdownMenu"}" class="${Css.TOBAGO_DROPDOWN_MENU}"

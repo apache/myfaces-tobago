@@ -336,6 +336,22 @@ test.describe("900-test/in/suggest/spinner/Spinner.xhtml", () => {
     expect(fieldBox.y + fieldBox.height).toBeGreaterThanOrEqual(spinnerBox.y + spinnerBox.height);
   });
 
+  test("Spinner position: labelLayout=top", async ({page}) => {
+    const input = page.locator("tobago-in[id='page:mainForm:labelLayoutTopInput']");
+    const field = input.locator("input[type='text']");
+    const spinner = input.locator(".spinner");
+
+    await field.fill("show spinner");
+    await expect(spinner).toBeVisible();
+
+    const fieldBox = await field.boundingBox();
+    const spinnerBox = await spinner.boundingBox();
+    expect(fieldBox.x).toBeLessThanOrEqual(spinnerBox.x);
+    expect(fieldBox.x + fieldBox.width).toBeGreaterThanOrEqual(spinnerBox.x + spinnerBox.width);
+    expect(fieldBox.y).toBeLessThanOrEqual(spinnerBox.y);
+    expect(fieldBox.y + fieldBox.height).toBeGreaterThanOrEqual(spinnerBox.y + spinnerBox.height);
+  });
+
   test("Spinner position: popup", async ({page}) => {
     const button = page.locator("button[id='page:mainForm:openPopupButton']");
     const popup = page.locator("[id='page:mainForm:popup']");
