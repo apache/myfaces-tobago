@@ -14480,22 +14480,6 @@ tobago-page .tobago-page-toastStore .toast .tobago-auto-spacing {
   overflow-y: auto;
 }
 
-tobago-paginator-list, tobago-paginator-page, tobago-paginator-row {
-  margin-top: 1rem;
-  margin-bottom: 0;
-}
-
-tobago-paginator-list .page-link, tobago-paginator-page .page-link, tobago-paginator-row .page-link {
-  cursor: pointer;
-}
-
-tobago-paginator-list .page-link input, tobago-paginator-page .page-link input, tobago-paginator-row .page-link input {
-  text-align: center;
-  width: 3em;
-  margin: -4px 0;
-  display: none;
-}
-
 tobago-panel {
   display: block;
 }
@@ -15555,21 +15539,37 @@ tobago-sheet header th.tobago-behavior-container, tobago-sheet .tobago-body th.t
   display: none;
 }
 
-tobago-sheet footer {
+tobago-sheet tobago-paginator-panel {
   flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 1rem;
   display: flex;
 }
 
-tobago-sheet footer .pagination {
-  margin-top: 1rem;
-  margin-bottom: 0;
+tobago-sheet tobago-paginator-panel[data-tobago-child-count="1"] {
+  justify-content: center;
 }
 
-tobago-sheet footer .pagination .tobago-paging {
+tobago-sheet tobago-paginator-panel tobago-paginator-row .page-link {
   cursor: pointer;
 }
 
-tobago-sheet footer .pagination .tobago-paging input {
+tobago-sheet tobago-paginator-panel tobago-paginator-row .page-link input {
+  text-align: center;
+  width: 3em;
+  margin: -4px 0;
+  display: none;
+}
+
+tobago-sheet tobago-paginator-panel tobago-paginator-row > .page-item {
+  margin-bottom: 1rem;
+}
+
+tobago-sheet tobago-paginator-panel tobago-paginator-page .page-link {
+  cursor: pointer;
+}
+
+tobago-sheet tobago-paginator-panel tobago-paginator-page .page-link input {
   text-align: center;
   width: 3em;
   margin: -4px 0;
