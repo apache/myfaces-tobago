@@ -20,31 +20,37 @@
 import {Css} from "./tobago-css";
 
 export class Spinner {
-  private base: HTMLElement;
   private referenceElement: HTMLElement;
-  private inputField: HTMLElement;
   private spinner: HTMLElement;
 
   /**
    * Constructs an instance of the class with required DOM elements.
    *
-   * @param {HTMLElement} baseElement root element for the component
    * @param {HTMLElement} referenceElement for positioning
-   * @param {HTMLElement} inputField to measure the height
    * @param {HTMLElement} spinner DIV element which contains the spinner
    */
-  constructor(baseElement: HTMLElement, referenceElement: HTMLElement, inputField: HTMLElement, spinner: HTMLElement) {
-    this.base = baseElement;
+  constructor(referenceElement: HTMLElement, spinner: HTMLElement) {
     this.referenceElement = referenceElement;
-    this.inputField = inputField;
     this.spinner = spinner;
   }
 
   public show(): void {
-    this.spinner.style.right = (this.right + this.marginRight) + "px";
+    this.spinner.style.top = "0";
+    this.spinner.style.right = "0";
     this.spinner.style.width = this.size + "px";
     this.spinner.style.height = this.size + "px";
-    this.spinner.classList.add(Css.TOBAGO_SHOW);
+
+    this.spinner.classList.add(Css.TOBAGO_SHOW); //put spinner on position={0, 0} to get the real clientRect values
+
+    const spinnerRect = this.spinner.getBoundingClientRect();
+    const refRect = this.referenceElement.getBoundingClientRect();
+    const refStyle = getComputedStyle(this.referenceElement);
+    const refBorderWidth = parseFloat(refStyle.borderWidth);
+    const refPaddingTop = parseFloat(refStyle.paddingTop);
+    const refPaddingRight = parseFloat(refStyle.paddingRight);
+
+    this.spinner.style.top = (refRect.top - spinnerRect.top + refBorderWidth + refPaddingTop) + "px";
+    this.spinner.style.right = (spinnerRect.right - refRect.right + refBorderWidth + refPaddingRight) + "px";
   }
 
   public hide(): void {
@@ -52,18 +58,7 @@ export class Spinner {
   }
 
   public get size(): number {
-    const cStyle = getComputedStyle(this.inputField);
-    return this.inputField.clientHeight - parseFloat(cStyle.paddingTop) - parseFloat(cStyle.paddingBottom);
-  }
-
-  private get marginRight(): number {
     const cStyle = getComputedStyle(this.referenceElement);
-    return parseFloat(cStyle.borderWidth) + parseFloat(cStyle.paddingRight);
-  }
-
-  private get right(): number {
-    const baseBox = this.base.getBoundingClientRect();
-    const refBox = this.referenceElement.getBoundingClientRect();
-    return baseBox.right - refBox.right;
+    return this.referenceElement.clientHeight - parseFloat(cStyle.paddingTop) - parseFloat(cStyle.paddingBottom);
   }
 }

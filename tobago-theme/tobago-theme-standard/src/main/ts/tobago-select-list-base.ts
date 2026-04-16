@@ -50,7 +50,7 @@ export abstract class SelectListBase extends HTMLElement {
     }
     if (this.serverSideFiltering) {
       this.insertAdjacentHTML("beforeend", `<div class="${Css.SPINNER}"/>`);
-      this.spinner = new Spinner(this, this.selectField, this.filterInput, this.spinnerDiv);
+      this.spinner = new Spinner(this.selectField, this.spinnerDiv);
     }
     this.listeners.add(this.tbody, "click", this.tbodyClickEvent.bind(this));
 
