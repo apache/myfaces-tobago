@@ -1225,75 +1225,6 @@ tobago-page {
   }
 }
 
-/* paginator-panel ------------------------------------------------------------- */
-
-tobago-paginator-panel {
-}
-
-/* paginator-list ------------------------------------------------------------- */
-
-tobago-paginator-list {
-}
-
-/* paginator-number ------------------------------------------------------------- */
-
-tobago-paginator-page {
-}
-
-/* paginator-row ------------------------------------------------------------- */
-
-tobago-paginator-row {
-
-}
-
-tobago-paginator-list, tobago-paginator-page, tobago-paginator-row {
-  margin-top: 1rem;
-  margin-bottom: 0;
-
-  .page-link {
-    cursor: pointer;
-
-    input {
-      text-align: center;
-      display: none;
-      margin: -4px 0;
-      width: 3em;
-    }
-  }
-}
-
-/* paginator-list ------------------------------------------------------------- */
-
-tobago-paginator-list {
-}
-
-/* paginator-number ------------------------------------------------------------- */
-
-tobago-paginator-page {
-}
-
-/* paginator-row ------------------------------------------------------------- */
-
-tobago-paginator-row {
-
-}
-
-tobago-paginator-list, tobago-paginator-page, tobago-paginator-row {
-  margin-top: 1rem;
-  margin-bottom: 0;
-
-  .page-link {
-    cursor: pointer;
-
-    input {
-      text-align: center;
-      display: none;
-      margin: -4px 0;
-      width: 3em;
-    }
-  }
-}
-
 // todo: remove
 .tobago-panel {
 }
@@ -1841,8 +1772,43 @@ tobago-sheet {
     }
   }
 
-  footer {
-    .pagination {
+  tobago-paginator-panel {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 1rem;
+
+    &[data-tobago-child-count='1'] {
+      justify-content: center;
+    }
+
+    @mixin tobagoPaginatorInput() {
+      .page-link {
+        cursor: pointer;
+
+        input {
+          text-align: center;
+          display: none;
+          margin: -4px 0;
+          width: 3em;
+        }
+      }
+    }
+
+    tobago-paginator-row {
+      @include tobagoPaginatorInput();
+
+      > .page-item {
+        margin-bottom: 1rem;
+      }
+    }
+
+    tobago-paginator-list {
+    }
+
+    tobago-paginator-page {
+      @include tobagoPaginatorInput();
+
       .tobago-paging {
       }
     }
