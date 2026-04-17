@@ -872,6 +872,10 @@ tobago-in {
         }
       }
     }
+
+    ~ .spinner {
+      z-index: 5; //z-index must be equal to focused input field, because of https://github.com/twbs/bootstrap/blob/25aa8cc0b32f0d1a54be575347e6d84b70b1acd7/scss/forms/_input-group.scss#L25
+    }
   }
 
   @include spinner();
