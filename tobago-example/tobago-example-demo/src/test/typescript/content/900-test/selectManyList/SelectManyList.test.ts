@@ -162,4 +162,21 @@ test.describe("900-test/selectManyList/SelectManyList.xhtml", () => {
     await expect(plutoRowFn).toContainClass("d-none");
     await expect(noEntriesRowFn).not.toContainClass("d-none");
   });
+
+  test("Corner radius of select field must be '0px'", async ({page}) => {
+    const selectField = page.locator("[id='page:mainForm:inputGroup::selectField']");
+    const options = page.locator(".tobago-options[data-tobago-for='page:mainForm:inputGroup']");
+
+    await expect(selectField).toHaveCSS("border-top-left-radius", "0px");
+    await expect(selectField).toHaveCSS("border-bottom-left-radius", "0px");
+    await expect(selectField).toHaveCSS("border-top-right-radius", "0px");
+    await expect(selectField).toHaveCSS("border-bottom-right-radius", "0px");
+    await expect(options).not.toBeVisible();
+    await selectField.click();
+    await expect(options).toBeVisible();
+    await expect(selectField).toHaveCSS("border-top-left-radius", "0px");
+    await expect(selectField).toHaveCSS("border-bottom-left-radius", "0px");
+    await expect(selectField).toHaveCSS("border-top-right-radius", "0px");
+    await expect(selectField).toHaveCSS("border-bottom-right-radius", "0px");
+  });
 });
