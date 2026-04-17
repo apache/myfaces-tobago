@@ -19,10 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.model.SelectItem;
-import jakarta.faces.model.SelectItemGroup;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectItemsFiltered;
@@ -43,6 +39,10 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.SelectItem;
+import jakarta.faces.model.SelectItemGroup;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
@@ -184,7 +184,7 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
         !expanded && markup.contains(Markup.LARGE) ? BootstrapClass.FORM_SELECT_LG : null,
         !expanded && markup.contains(Markup.SMALL) ? BootstrapClass.FORM_SELECT_SM : null,
         TobagoClass.SELECT__FIELD,
-        expanded ? BootstrapClass.LIST_GROUP_ITEM : BootstrapClass.DROPDOWN_TOGGLE,
+        expanded ? BootstrapClass.LIST_GROUP_ITEM : null,
         expanded ? null : BootstrapClass.borderColor(ComponentUtils.getMaximumSeverity(component)),
         component.getCustomClass());
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);

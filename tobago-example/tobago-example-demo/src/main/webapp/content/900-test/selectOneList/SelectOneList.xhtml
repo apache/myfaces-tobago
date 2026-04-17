@@ -53,4 +53,13 @@
                       var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
     </tc:selectOneList>
   </tc:section>
+
+  <tc:section label="Input group">
+    <tc:selectOneList id="inputGroup" label="Input Group" value="#{selectOneListController.selectedPlanet}">
+      <f:facet name="before">before</f:facet>
+      <f:facet name="after">after</f:facet>
+      <tc:selectItems value="#{selectOneListController.planets}"
+                      var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+    </tc:selectOneList>
+  </tc:section>
 </ui:composition>
