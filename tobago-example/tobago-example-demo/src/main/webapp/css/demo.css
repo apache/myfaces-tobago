@@ -30,6 +30,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+.navigation {
+  margin-right: 2rem;
+}
 .navigation tobago-tree-node[data-tobago-level="0"] {
   font-weight: bold;
   margin-top: 1rem;
@@ -149,9 +152,8 @@ html {
   scroll-padding-top: 72px;
 }
 
-.navigation-box {
-  --bs-card-border-radius: 0;
-  border: none;
+.demo-sidebar-container {
+  margin-left: 1.5rem;
 }
 
 .box-shadow {
