@@ -14181,6 +14181,10 @@ tobago-in .input-group tobago-select-one-choice.form-select > .form-select {
   border: 0;
 }
 
+tobago-in .input-group ~ .spinner {
+  z-index: 5;
+}
+
 tobago-in .spinner {
   display: none;
   position: absolute;
