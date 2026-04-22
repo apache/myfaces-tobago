@@ -49,6 +49,7 @@ html {
 }
 
 demo-highlight {
+  display: grid; //force scrollbars if there is not enough space (smartphone)
   font-size: 75%;
 }
 
