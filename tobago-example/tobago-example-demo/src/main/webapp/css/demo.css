@@ -179,6 +179,7 @@ html {
 }
 
 demo-highlight {
+  display: grid;
   font-size: 75%;
 }
 
