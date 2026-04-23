@@ -13696,12 +13696,20 @@ tobago-badge > img + span, tobago-badge > i + span {
   margin-left: .4em;
 }
 
+tobago-badge {
+  display: inline-block;
+}
+
 tobago-badge.btn {
   cursor: initial;
 }
 
-tobago-badge {
+tobago-badge.badge, tobago-badge .badge {
   background-color: var(--bs-secondary);
+}
+
+tobago-badge .badge {
+  display: block;
 }
 
 tobago-bar.navbar-light .navbar-brand > .tobago-link {
