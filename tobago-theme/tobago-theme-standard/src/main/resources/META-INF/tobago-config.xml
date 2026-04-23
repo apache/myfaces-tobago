@@ -53,6 +53,11 @@
         </includes>
       </resources>
       <tags>
+        <tag name="badge">
+          <attribute name="labelLayout" default="flexLeft"/>
+          <attribute name="messagePosition" default="buttonRight"/>
+          <attribute name="helpPosition" default="buttonRight"/>
+        </tag>
         <tag name="date">
           <attribute name="labelLayout" default="flexLeft"/>
           <attribute name="messagePosition" default="buttonRight"/>

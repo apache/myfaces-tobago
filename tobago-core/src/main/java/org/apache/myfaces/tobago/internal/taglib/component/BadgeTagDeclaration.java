@@ -20,14 +20,19 @@
 package org.apache.myfaces.tobago.internal.taglib.component;
 
 import jakarta.faces.component.UIOutput;
+
 import org.apache.myfaces.tobago.apt.annotation.Markup;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasAutoSpacing;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasDecorationPosition;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIcon;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabelLayout;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
@@ -89,5 +94,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
         )
     })
 public interface BadgeTagDeclaration
-    extends HasIdBindingAndRendered, HasTip, IsVisual, HasConverter, HasValue, HasIcon, HasImage {
+    extends HasIdBindingAndRendered, HasTip, IsVisual, HasConverter, HasValue, HasIcon, HasImage, HasAutoSpacing,
+    HasLabel, HasLabelLayout, HasDecorationPosition {
 }

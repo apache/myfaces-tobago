@@ -476,12 +476,20 @@ tobago-badge {
   @include badgeBtn();
   @include imageTextSpacing();
 
+  display: inline-block;
+
   &.btn {
     cursor: initial; //revert cursor attribute on .btn class
   }
 
-  // to make badges visible, an default class .badge-secondary is problematic because of the !important modifier
-  background-color: var(--#{$prefix}secondary);
+  &.badge, .badge {
+    // to make badges visible, an default class .badge-secondary is problematic because of the !important modifier
+    background-color: var(--#{$prefix}secondary);
+  }
+
+  .badge {
+    display: block;
+  }
 }
 
 /* bar -------------------------------------------------------------- */

@@ -19,15 +19,44 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
+import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
+import org.apache.myfaces.tobago.component.SupportsDecorationPosition;
+import org.apache.myfaces.tobago.component.SupportsLabelLayout;
 import org.apache.myfaces.tobago.component.Visual;
 
 import jakarta.faces.component.UIOutput;
+import jakarta.faces.context.FacesContext;
 
-public abstract class AbstractUIBadge extends UIOutput implements Visual {
+public abstract class AbstractUIBadge extends UIOutput implements Visual, SupportsAutoSpacing, SupportsLabelLayout,
+    SupportsDecorationPosition {
+
+  private transient boolean nextToRenderIsLabel;
 
   public abstract String getIcon();
 
   public abstract String getImage();
 
   public abstract String getTip();
+
+  public abstract String getLabel();
+
+  public boolean hasLabel() {
+    final String label = getLabel();
+    return label != null && !label.isEmpty();
+  }
+
+  @Override
+  public boolean getAutoSpacing(final FacesContext facesContext) {
+    return hasLabel();
+  }
+
+  @Override
+  public boolean isNextToRenderIsLabel() {
+    return nextToRenderIsLabel;
+  }
+
+  @Override
+  public void setNextToRenderIsLabel(final boolean nextToRenderIsLabel) {
+    this.nextToRenderIsLabel = nextToRenderIsLabel;
+  }
 }
