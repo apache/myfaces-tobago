@@ -97,7 +97,7 @@ export class TobagoPaginator extends HTMLElement {
     sheet.insertAdjacentHTML("beforeend",
         Overlay.htmlText(sheet.id, OverlayType.ajax, Page.page(this).waitOverlayDelayAjax));
 
-    faces.ajax.request(
+    tobago.ajax.request(
         this.id,
         null,
         {

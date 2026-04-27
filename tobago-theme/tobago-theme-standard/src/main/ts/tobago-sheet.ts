@@ -207,7 +207,7 @@ export class Sheet extends HTMLElement {
       input.value = String(next.from + 1); //input.value rowIndex starts at 1 (not 0)
       console.debug(`reload sheet with action '${input.id}'`); // @DEV_ONLY
 
-      faces.ajax.request(
+      tobago.ajax.request(
           input.id,
           null,
           {

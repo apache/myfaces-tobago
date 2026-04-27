@@ -85,7 +85,7 @@ class SelectOneList extends SelectListBase {
     this.filterInput.value = null;
 
     if (this.serverSideFiltering) {
-      faces.ajax.request(
+      tobago.ajax.request(
           this.id,
           null,
           {

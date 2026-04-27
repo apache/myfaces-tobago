@@ -170,7 +170,7 @@ export abstract class SelectListBase extends HTMLElement {
   protected doFilter(searchString: string) {
     if (this.serverSideFiltering) {
       this.hiddenQueryInput.value = searchString;
-      faces.ajax.request(
+      tobago.ajax.request(
           this.id,
           null,
           {

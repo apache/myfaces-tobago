@@ -82,7 +82,7 @@ class SelectManyList extends SelectListBase {
     option.selected = !option.selected;
 
     if (this.serverSideFiltering) {
-      faces.ajax.request(
+      tobago.ajax.request(
           this.id,
           null,
           {
@@ -169,7 +169,7 @@ class SelectManyList extends SelectListBase {
     }
 
     if (this.serverSideFiltering) {
-      faces.ajax.request(
+      tobago.ajax.request(
           this.id,
           null,
           {

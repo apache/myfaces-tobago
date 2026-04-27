@@ -86,7 +86,7 @@ export class TreeNode extends HTMLElement {
   }
 
   private ajax(event: Event, parentId: string, render: boolean): void {
-    faces.ajax.request(
+    tobago.ajax.request(
         this.id,
         event,
         {
