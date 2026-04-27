@@ -24,6 +24,7 @@ export default defineConfig([
   {
     ignores: [
       "**/faces.d.ts",
+      "**/*.test.ts",
       "**/tobago-polyfill.ts"
     ]
   },
