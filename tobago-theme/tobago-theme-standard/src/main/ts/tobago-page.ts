@@ -157,7 +157,7 @@ export class Page extends HTMLElement {
   }
 
   get waitOverlayDelayFull(): number {
-    return parseInt(this.getAttribute("wait-overlay-delay-full")) || 1000;
+    return parseInt(this.getAttribute("wait-overlay-delay-full"));
   }
 
   set waitOverlayDelayFull(waitOverlayDelayFull: number) {
@@ -165,7 +165,7 @@ export class Page extends HTMLElement {
   }
 
   get waitOverlayDelayAjax(): number {
-    return parseInt(this.getAttribute("wait-overlay-delay-ajax")) || 1000;
+    return parseInt(this.getAttribute("wait-overlay-delay-ajax"));
   }
 
   set waitOverlayDelayAjax(waitOverlayDelayAjax: number) {
