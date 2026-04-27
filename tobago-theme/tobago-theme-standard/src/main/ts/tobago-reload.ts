@@ -44,7 +44,7 @@ class TobagoReload extends HTMLElement {
       // add new schedule
       const timeout = window.setTimeout(function (): void {
         console.debug("reloading #'%s'", componentId);
-        faces.ajax.request(
+        tobago.ajax.request(
             reloadId,
             null,
             {

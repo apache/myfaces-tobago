@@ -121,7 +121,7 @@ class Behavior extends HTMLElement {
             }
           }
         }
-        faces.ajax.request(
+        tobago.ajax.request(
             this.actionElement,
             event,
             {

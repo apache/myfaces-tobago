@@ -220,7 +220,7 @@ export class Suggest {
       if (this.update) {
         this.timeout = window.setTimeout(() => {
           const suggestId = this.tobagoSuggest.id;
-          faces.ajax.request(suggestId, null, {
+          tobago.ajax.request(suggestId, null, {
             params: {
               "jakarta.faces.behavior.event": "suggest"
             },

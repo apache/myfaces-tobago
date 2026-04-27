@@ -106,19 +106,19 @@ test.describe("900-test/selectManyList/server-side-filtering/Server_side_filteri
     await expect(blurCounter).toHaveText("0");
     await selectField.dblclick();
     await expect(changeCounter).toHaveText("0");
-    await expect(clickCounter).toHaveText("3");
+    await expect(clickCounter).toHaveText("2"); //increase by one instead of two, because Ajax queue blocks a second identical click event request
     await expect(dblclickCounter).toHaveText("1");
     await expect(focusCounter).toHaveText("1");
     await expect(blurCounter).toHaveText("0");
     await reset.focus();
     await expect(changeCounter).toHaveText("0");
-    await expect(clickCounter).toHaveText("3");
+    await expect(clickCounter).toHaveText("2");
     await expect(dblclickCounter).toHaveText("1");
     await expect(focusCounter).toHaveText("1");
     await expect(blurCounter).toHaveText("1");
     await filterInput.click();
     await expect(changeCounter).toHaveText("0");
-    await expect(clickCounter).toHaveText("4");
+    await expect(clickCounter).toHaveText("3");
     await expect(dblclickCounter).toHaveText("1");
     await expect(focusCounter).toHaveText("2");
     await expect(blurCounter).toHaveText("1");
@@ -128,19 +128,19 @@ test.describe("900-test/selectManyList/server-side-filtering/Server_side_filteri
     await expect(output).toHaveText("Thebe;");
     await expect(badges).not.toHaveCount(0);
     await expect(changeCounter).toHaveText("1");
-    await expect(clickCounter).toHaveText("5");
+    await expect(clickCounter).toHaveText("4");
     await expect(dblclickCounter).toHaveText("1");
     await expect(focusCounter).toHaveText("2");
     await expect(blurCounter).toHaveText("1");
     await selectField.dblclick();
     await expect(changeCounter).toHaveText("1");
-    await expect(clickCounter).toHaveText("7");
+    await expect(clickCounter).toHaveText("5");  //increase by one instead of two, because Ajax queue blocks a second identical click event request
     await expect(dblclickCounter).toHaveText("2");
     await expect(focusCounter).toHaveText("2");
     await expect(blurCounter).toHaveText("1");
     await reset.focus();
     await expect(changeCounter).toHaveText("1");
-    await expect(clickCounter).toHaveText("7");
+    await expect(clickCounter).toHaveText("5");
     await expect(dblclickCounter).toHaveText("2");
     await expect(focusCounter).toHaveText("2");
     await expect(blurCounter).toHaveText("2");

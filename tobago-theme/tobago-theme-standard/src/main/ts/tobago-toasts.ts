@@ -137,7 +137,7 @@ class Toasts extends HTMLElement {
       const states = this.states;
       states.get(id).state = StateEnum.showed;
       this.states = states;
-      faces.ajax.request(this.id, null, {
+      tobago.ajax.request(this.id, null, {
         params: {
           "jakarta.faces.behavior.event": "toastShown"
         },
@@ -153,7 +153,7 @@ class Toasts extends HTMLElement {
       const states = this.states;
       states.get(id).state = StateEnum.closed;
       this.states = states;
-      faces.ajax.request(this.id, null, {
+      tobago.ajax.request(this.id, null, {
         params: {
           "jakarta.faces.behavior.event": "toastHide"
         },
