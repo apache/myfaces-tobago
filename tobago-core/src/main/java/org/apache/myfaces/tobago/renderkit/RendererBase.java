@@ -19,24 +19,6 @@
 
 package org.apache.myfaces.tobago.renderkit;
 
-import jakarta.el.ValueExpression;
-import jakarta.faces.component.EditableValueHolder;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIInput;
-import jakarta.faces.component.ValueHolder;
-import jakarta.faces.component.behavior.AjaxBehavior;
-import jakarta.faces.component.behavior.ClientBehavior;
-import jakarta.faces.component.behavior.ClientBehaviorBase;
-import jakarta.faces.component.behavior.ClientBehaviorContext;
-import jakarta.faces.component.behavior.ClientBehaviorHolder;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.context.ResponseWriter;
-import jakarta.faces.convert.Converter;
-import jakarta.faces.convert.ConverterException;
-import jakarta.faces.model.SelectItem;
-import jakarta.faces.model.SelectItemGroup;
-import jakarta.faces.render.ClientBehaviorRenderer;
-import jakarta.faces.render.Renderer;
 import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
@@ -69,6 +51,24 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import jakarta.el.ValueExpression;
+import jakarta.faces.component.EditableValueHolder;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.component.ValueHolder;
+import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.component.behavior.ClientBehavior;
+import jakarta.faces.component.behavior.ClientBehaviorBase;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.ConverterException;
+import jakarta.faces.model.SelectItem;
+import jakarta.faces.model.SelectItemGroup;
+import jakarta.faces.render.ClientBehaviorRenderer;
+import jakarta.faces.render.Renderer;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.Arrays;
@@ -439,6 +439,17 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
       final Boolean onlySelected, final TobagoResponseWriter writer, final FacesContext facesContext)
       throws IOException {
 
+    renderSelectItemsAndGetOrder(
+        component, optionClass, items, values, submittedValues, onlySelected, writer, facesContext, null, 0);
+  }
+
+  protected int renderSelectItemsAndGetOrder(
+      final UIInput component, final TobagoClass optionClass,
+      final Iterable<SelectItem> items, final Object[] values, final String[] submittedValues,
+      final Boolean onlySelected, final TobagoResponseWriter writer, final FacesContext facesContext,
+      Integer[] orderList, int index)
+      throws IOException {
+
     if (LOG.isDebugEnabled()) {
       LOG.debug("component id = '{}'", component.getId());
       LOG.debug("values = '{}'", Arrays.toString(values));
@@ -452,8 +463,8 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
           writer.writeAttribute(HtmlAttributes.DISABLED, true);
         }
         final SelectItem[] selectItems = ((SelectItemGroup) item).getSelectItems();
-        renderSelectItems(component, optionClass, Arrays.asList(selectItems), values, submittedValues,
-            onlySelected, writer, facesContext);
+        index = renderSelectItemsAndGetOrder(component, optionClass, Arrays.asList(selectItems), values, submittedValues,
+            onlySelected, writer, facesContext, orderList, index);
         writer.endElement(HtmlElements.OPTGROUP);
       } else {
         Object itemValue = item.getValue();
@@ -462,23 +473,23 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
           itemValue = ComponentUtils.getConvertedValue(facesContext, component, (String) itemValue);
         }
         final String formattedValue = getFormattedValue(facesContext, (T) component, itemValue);
-        final boolean contains;
+        final int indexOfValues;
         if (submittedValues == null) {
-          contains = ArrayUtils.contains(values, itemValue);
+          indexOfValues = ArrayUtils.indexOf(values, itemValue);
         } else {
-          contains = ArrayUtils.contains(submittedValues, formattedValue);
+          indexOfValues = ArrayUtils.indexOf(submittedValues, formattedValue);
         }
-        if (item.isNoSelectionOption() && component.isRequired() && values != null && values.length > 0 && !contains) {
+        if (item.isNoSelectionOption() && component.isRequired() && values != null && values.length > 0 && indexOfValues == -1) {
           // skip the noSelectionOption if there is another value selected and required
           continue;
         }
         if (onlySelected != null) {
           if (onlySelected) {
-            if (!contains) {
+            if (indexOfValues == -1) { // not selected
               continue;
             }
           } else {
-            if (contains) {
+            if (indexOfValues >= 0) { // selected
               continue;
             }
           }
@@ -505,7 +516,7 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
           }
         }
         Markup markup = item instanceof Visual ? ((Visual) item).getMarkup() : Markup.NULL;
-        if (onlySelected == null && contains) {
+        if (onlySelected == null && indexOfValues >= 0) {
           writer.writeAttribute(HtmlAttributes.SELECTED, true);
           markup = Markup.SELECTED.add(markup);
         }
@@ -524,8 +535,16 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
           }
         }
         writer.endElement(HtmlElements.OPTION);
+        if (orderList != null && indexOfValues >= 0) {
+          orderList[indexOfValues] = index;
+        }
+        index++;
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("INDEX {} value {}", index, item.getValue());
+        }
       }
     }
+    return index;
   }
 
   protected String getFormattedValue(

@@ -19,9 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.model.SelectItem;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyShuttle;
 import org.apache.myfaces.tobago.internal.util.HtmlRendererUtils;
@@ -34,11 +31,20 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.SelectItem;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
+import java.util.Arrays;
 import java.util.List;
 
 public class SelectManyShuttleRenderer<T extends AbstractUISelectManyShuttle> extends SelectManyRendererBase<T> {
+
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Override
   public HtmlElements getComponentTag() {
@@ -66,6 +72,25 @@ public class SelectManyShuttleRenderer<T extends AbstractUISelectManyShuttle> ex
     final List<SelectItem> items = SelectItemUtils.getItemList(facesContext, component);
     final boolean readonly = component.isReadonly();
     final boolean disabled = !items.iterator().hasNext() || component.isDisabled() || readonly;
+    final Object[] values = component.getSelectedValues();
+    final String[] submittedValues = getSubmittedValues(component);
+    final int length = submittedValues != null ? submittedValues.length : values != null ? values.length : 0;
+    final Integer[] orderList = new Integer[length];
+
+    writer.startElement(HtmlElements.SELECT);
+    writer.writeClassAttribute(BootstrapClass.D_NONE);
+    final String hiddenClientId = clientId + ComponentUtils.SUB_SEPARATOR + "hidden";
+    writer.writeIdAttribute(hiddenClientId);
+    writer.writeNameAttribute(clientId);
+    writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
+    writer.writeAttribute(HtmlAttributes.REQUIRED, component.isRequired());
+    renderSelectItemsAndGetOrder(
+        component, null, items, values, submittedValues, null, writer, facesContext, orderList, 0);
+    writer.endElement(HtmlElements.SELECT);
+
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("orderList={}", Arrays.toString(orderList));
+    }
 
     writer.startElement(HtmlElements.DIV);
     writer.writeClassAttribute(TobagoClass.UNSELECTED__CONTAINER);
@@ -96,10 +121,6 @@ public class SelectManyShuttleRenderer<T extends AbstractUISelectManyShuttle> ex
 
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);
-
-    final Object[] values = component.getSelectedValues();
-    final String[] submittedValues = getSubmittedValues(component);
-    renderSelectItems(component, null, items, values, submittedValues, false, writer, facesContext);
 
     writer.endElement(HtmlElements.SELECT);
     writer.endElement(HtmlElements.DIV);
@@ -139,20 +160,8 @@ public class SelectManyShuttleRenderer<T extends AbstractUISelectManyShuttle> ex
         markup.contains(Markup.SMALL) ? BootstrapClass.FORM_SELECT_SM : null);
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
     writer.writeAttribute(HtmlAttributes.SIZE, size);
-    renderSelectItems(component, null, items, values, submittedValues, true, writer, facesContext);
-
     writer.endElement(HtmlElements.SELECT);
     writer.endElement(HtmlElements.DIV);
-
-    writer.startElement(HtmlElements.SELECT);
-    writer.writeClassAttribute(BootstrapClass.D_NONE);
-    final String hiddenClientId = clientId + ComponentUtils.SUB_SEPARATOR + "hidden";
-    writer.writeIdAttribute(hiddenClientId);
-    writer.writeNameAttribute(clientId);
-    writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
-    writer.writeAttribute(HtmlAttributes.REQUIRED, component.isRequired());
-    renderSelectItems(component, null, items, values, submittedValues, writer, facesContext);
-    writer.endElement(HtmlElements.SELECT);
   }
 
   @Override

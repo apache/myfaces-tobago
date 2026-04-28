@@ -31,6 +31,22 @@ class SelectManyShuttle extends HTMLElement {
   }
 
   connectedCallback(): void {
+
+    const options = this.hiddenSelect.options;
+    for (let i = 0; i < options.length; i++) {
+      const option: HTMLOptionElement = options[i];
+      const clone = option.cloneNode(true) as HTMLOptionElement;
+      clone.dataset.tobagoIndex = "" + i;
+      if (clone.selected) {
+        // console.info("adding selected: " + i);
+        this.selectedSelect.add(clone);
+        clone.selected = false; // unselect, because it's in the selected list
+      } else {
+        // console.info("adding unselected: " + i);
+        this.unselectedSelect.add(clone);
+      }
+    }
+
     /*
      * Event bubbling must be stopped, because a change event is dispatched if an option tag is clicked.
      * But the change event should only be executed if an entry is moved to/from the right side.
@@ -92,7 +108,21 @@ class SelectManyShuttle extends HTMLElement {
 
   private removeItems(options: NodeListOf<HTMLOptionElement>): void {
     for (const option of options) {
-      this.unselectedSelect.add(option);
+      const index = Number(option.dataset.tobagoIndex);
+      let nextOption: HTMLOptionElement = null;
+      for (const option of this.unselectedSelect.options) {
+        // console.info("checking: " + option.dataset.tobagoIndex + " > " + index);
+        if (Number(option.dataset.tobagoIndex) > index) {
+          nextOption = option;
+          break;
+        }
+      }
+      console.info("removing: " + index + " -> " + nextOption?.dataset.tobagoIndex + " (" + nextOption?.value + ")");
+      if (nextOption != null) {
+        this.unselectedSelect.add(option, nextOption);
+      } else {
+        this.unselectedSelect.appendChild(option);
+      }
       this.changeHiddenOption(option, false);
     }
     this.fireChangeEvent(null, options);

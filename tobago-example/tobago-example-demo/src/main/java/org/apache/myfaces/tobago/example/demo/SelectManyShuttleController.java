@@ -35,6 +35,7 @@ public class SelectManyShuttleController implements Serializable {
   @Inject
   private AstroData astroData;
 
+  private List<String> selectedItems;
   private List<SolarObject> planets;
   private SolarObject[] selectedPlanets = new SolarObject[0];
   private List<String> stars = Arrays.asList("Proxima Centauri", "Alpha Centauri", "Wolf 359", "Sirius");
@@ -44,6 +45,14 @@ public class SelectManyShuttleController implements Serializable {
   @PostConstruct
   public void init() {
     planets = astroData.getSatellites("Sun");
+  }
+
+  public List<String> getSelectedItems() {
+    return selectedItems;
+  }
+
+  public void setSelectedItems(List<String> selectedItems) {
+    this.selectedItems = selectedItems;
   }
 
   public List<SolarObject> getPlanets() {

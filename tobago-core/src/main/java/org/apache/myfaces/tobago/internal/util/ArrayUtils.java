@@ -19,6 +19,8 @@
 
 package org.apache.myfaces.tobago.internal.util;
 
+import java.util.Objects;
+
 public class ArrayUtils {
 
   public static final String[] EMPTY_STRING_ARRAY = new String[0];
@@ -28,7 +30,7 @@ public class ArrayUtils {
       return false;
     }
     for (final T element : list) {
-      if (element == value || element != null && element.equals(value)) {
+      if (Objects.equals(element, value)) {
         return true;
       }
     }
@@ -45,6 +47,34 @@ public class ArrayUtils {
       }
     }
     return false;
+  }
+
+  public static <T> int indexOf(final T[] list, final T value) {
+    if (list == null) {
+      return -1;
+    }
+    int i = 0;
+    for (final T element : list) {
+      if (Objects.equals(element, value)) {
+        return i;
+      }
+      i++;
+    }
+    return -1;
+  }
+
+  public static int indexOf(final int[] list, final int value) {
+    if (list == null) {
+      return -1;
+    }
+    int i = 0;
+    for (final int element : list) {
+      if (element == value) {
+        return i;
+      }
+      i++;
+    }
+    return -1;
   }
 
   public static boolean isEmpty(final String[] array) {
