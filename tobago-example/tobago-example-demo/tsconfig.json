@@ -8,7 +8,7 @@
     "sourceMap": true,
     "removeComments": false,
     "noEmitOnError": true,
-    "moduleResolution": "node",
+    "strict": false,
     "esModuleInterop": true
   },
   "include": [
