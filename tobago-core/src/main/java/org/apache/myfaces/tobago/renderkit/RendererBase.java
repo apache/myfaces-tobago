@@ -447,8 +447,9 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
       final UIInput component, final TobagoClass optionClass,
       final Iterable<SelectItem> items, final Object[] values, final String[] submittedValues,
       final Boolean onlySelected, final TobagoResponseWriter writer, final FacesContext facesContext,
-      Integer[] orderList, int index)
+      Integer[] orderList, int givenIndex)
       throws IOException {
+    int index = givenIndex; //TODO make this less ugly
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("component id = '{}'", component.getId());
@@ -463,8 +464,8 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
           writer.writeAttribute(HtmlAttributes.DISABLED, true);
         }
         final SelectItem[] selectItems = ((SelectItemGroup) item).getSelectItems();
-        index = renderSelectItemsAndGetOrder(component, optionClass, Arrays.asList(selectItems), values, submittedValues,
-            onlySelected, writer, facesContext, orderList, index);
+        index  = renderSelectItemsAndGetOrder(component, optionClass, Arrays.asList(selectItems), values,
+            submittedValues, onlySelected, writer, facesContext, orderList, index);
         writer.endElement(HtmlElements.OPTGROUP);
       } else {
         Object itemValue = item.getValue();
@@ -479,7 +480,8 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
         } else {
           indexOfValues = ArrayUtils.indexOf(submittedValues, formattedValue);
         }
-        if (item.isNoSelectionOption() && component.isRequired() && values != null && values.length > 0 && indexOfValues == -1) {
+        if (item.isNoSelectionOption() && component.isRequired() && values != null && values.length > 0
+            && indexOfValues == -1) {
           // skip the noSelectionOption if there is another value selected and required
           continue;
         }
