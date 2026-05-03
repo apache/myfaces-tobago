@@ -43,7 +43,7 @@ test.describe("link/Link.xhtml", () => {
     const fontSize = "16px";
     const height = tagName === "BUTTON" ? "24px" : "auto"; //button-element cannot be "display: inline"
     const margin = "0px 0px 16px";
-    const outlineWidth = isWebkit ? "3px" : "0px";
+    const outlineWidth = "3px";
     const padding = "0px";
     const textDecoration = Root.linkDecoration;
     await testCSS(component, boxShadow, color, fontSize, height, margin, outlineWidth, padding, textDecoration);
@@ -75,7 +75,7 @@ test.describe("link/Link.xhtml", () => {
     const fontSize = "16px";
     const height = "40px";
     const margin = "0px";
-    const outlineWidth = isWebkit ? "3px" : "0px";
+    const outlineWidth = "3px";
     const padding = "8px 16px";
     const textDecoration = "none";
     await testCSS(component, boxShadow, color, fontSize, height, margin, outlineWidth, padding, textDecoration);
@@ -109,7 +109,7 @@ test.describe("link/Link.xhtml", () => {
     const fontSize = "16px";
     const height = "24px";
     const margin = "0px";
-    const outlineWidth = isWebkit ? "3px" : "0px";
+    const outlineWidth = "3px";
     const padding = "0px";
     const textDecoration = Root.linkDecoration;
     await testCSS(component, boxShadow, color, fontSize, height, margin, outlineWidth, padding, textDecoration);
@@ -141,7 +141,7 @@ test.describe("link/Link.xhtml", () => {
     const fontSize = "16px";
     const height = "40px";
     const margin = "0px";
-    const outlineWidth = isWebkit ? "3px" : "0px";
+    const outlineWidth = "3px";
     const padding = Navbar.navLinkPaddingX; //padding-y is: Navbar.paddingY
     const textDecoration = "none";
     await testCSS(component, boxShadow, color, fontSize, height, margin, outlineWidth, padding, textDecoration);
