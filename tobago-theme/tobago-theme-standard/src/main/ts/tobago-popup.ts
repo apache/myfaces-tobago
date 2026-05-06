@@ -85,7 +85,9 @@ export class Popup extends HTMLElement {
     switch (event.key) {
       case Key.ESCAPE:
         event.stopPropagation();
-        this.modal.hide();
+        if (this.bsKeyboard) {
+          this.modal.hide();
+        }
         break;
       case Key.TAB: {
         const focusableElements: FocusableElement[] = tabbable(this);
@@ -107,6 +109,10 @@ export class Popup extends HTMLElement {
       default:
         break;
     }
+  }
+
+  get bsKeyboard(): boolean {
+    return this.dataset.bsKeyboard !== "false";
   }
 
   get collapsed(): boolean {
