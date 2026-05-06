@@ -153,7 +153,9 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
     writer.writeNameAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.REQUIRED, component.isRequired());
-    writer.writeClassAttribute(BootstrapClass.D_NONE);
+    writer.writeClassAttribute(
+        BootstrapClass.D_NONE,
+        BootstrapClass.validationColor(ComponentUtils.getMaximumSeverity(component)));
     writer.writeAttribute(HtmlAttributes.SIZE, 2);
 
     final String submittedValue = (String) component.getSubmittedValue();

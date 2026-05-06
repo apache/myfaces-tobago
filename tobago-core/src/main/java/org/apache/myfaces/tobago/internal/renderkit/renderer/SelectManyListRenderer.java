@@ -156,7 +156,9 @@ public class SelectManyListRenderer<T extends AbstractUISelectManyList> extends 
     writer.writeNameAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.REQUIRED, component.isRequired());
-    writer.writeClassAttribute(BootstrapClass.D_NONE);
+    writer.writeClassAttribute(
+        BootstrapClass.D_NONE,
+        BootstrapClass.validationColor(ComponentUtils.getMaximumSeverity(component)));
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
 
     final Object[] values = component.getSelectedValues();
