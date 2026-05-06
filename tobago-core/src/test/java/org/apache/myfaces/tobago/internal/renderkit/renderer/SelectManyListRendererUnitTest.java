@@ -57,4 +57,26 @@ public class SelectManyListRendererUnitTest extends RendererTestBase {
 
     Assertions.assertEquals(loadHtml("renderer/selectManyList/selectManyListAjax.html"), formattedResult());
   }
+
+  @Test
+  public void invalid() throws IOException {
+    final UISelectManyList c = (UISelectManyList) ComponentUtils.createComponent(
+        facesContext, Tags.selectManyList.componentType(), RendererTypes.SelectManyList, "id");
+    final UISelectItem i1 = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "i1");
+    i1.setItemLabel("Stratocaster");
+    i1.setItemValue("Stratocaster");
+    c.getChildren().add(i1);
+    final UISelectItem i2 = (UISelectItem) ComponentUtils.createComponent(
+        facesContext, Tags.selectItem.componentType(), null, "i2");
+    i2.setItemLabel("Telecaster");
+    i2.setItemValue("Telecaster");
+    c.getChildren().add(i2);
+
+    c.setValid(false);
+
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/selectManyList/selectManyList_invalid.html"), formattedResult());
+  }
 }
