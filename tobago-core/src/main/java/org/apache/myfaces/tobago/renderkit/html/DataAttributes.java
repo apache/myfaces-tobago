@@ -136,6 +136,8 @@ public enum DataAttributes implements MarkupLanguageAttributes {
 
   OPTIONS("data-tobago-options"),
 
+  ORDER("data-tobago-order"),
+
   PARTIAL_IDS("data-tobago-partial-ids"),
 
   PARTIAL_ACTION("data-tobago-partial-action"),

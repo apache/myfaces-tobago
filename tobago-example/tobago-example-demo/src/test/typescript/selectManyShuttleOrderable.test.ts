@@ -19,10 +19,10 @@
 
 import {expect, test} from "@playwright/test";
 
-test.describe("900-test/selectManyShuttle/SelectManyShuttle.xhtml", () => {
+test.describe("900-test/selectManyShuttle/SelectManyShuttleOrderable.xhtml", () => {
 
   test.beforeEach(async ({page}, testInfo) => {
-    await page.goto("/content/900-test/selectManyShuttle/SelectManyShuttle.xhtml");
+    await page.goto("/content/900-test/selectManyShuttle/SelectManyShuttleOrderable.xhtml");
   });
 
   test("JavaScript 'change' event", async ({page}) => {
@@ -34,6 +34,10 @@ test.describe("900-test/selectManyShuttle/SelectManyShuttle.xhtml", () => {
     const add = shuttle.locator("button[id='page:mainForm:shuttle::add']");
     const remove = shuttle.locator("button[id='page:mainForm:shuttle::remove']");
     const removeAll = shuttle.locator("button[id='page:mainForm:shuttle::removeAll']");
+    const top = shuttle.locator("button[id='page:mainForm:shuttle::top']");
+    const up = shuttle.locator("button[id='page:mainForm:shuttle::up']");
+    const down = shuttle.locator("button[id='page:mainForm:shuttle::down']");
+    const bottom = shuttle.locator("button[id='page:mainForm:shuttle::bottom']");
 
     const eventPromise = () => page.evaluate(() => {
       return new Promise(resolve => {
@@ -45,37 +49,20 @@ test.describe("900-test/selectManyShuttle/SelectManyShuttle.xhtml", () => {
     }) as Promise<any>;
 
     let promise = eventPromise();
-    await unselect.selectOption("Item5");
-    await add.click();
+    await addAll.click();
     let detail = await promise;
-    expect(detail.added).toEqual(["Item5"]);
+    expect(detail.added).toEqual(["Item1", "Item2", "Item3", "Item4", "Item5", "Item6", "Item7", "Item8", "Item9"]);
     expect(detail.removed).toBeNull();
-    expect(detail.unselected).toEqual(["Item1", "Item2", "Item3", "Item4", "Item6", "Item7", "Item8", "Item9"]);
-    expect(detail.selected).toEqual(["Item5"]);
+    expect(detail.unselected).toEqual([]);
+    expect(detail.selected).toEqual(["Item1", "Item2", "Item3", "Item4", "Item5", "Item6", "Item7", "Item8", "Item9"]);
 
     promise = eventPromise();
-    await addAll.click();
+    await top.click();
     detail = await promise;
-    expect(detail.added).toEqual(["Item1", "Item2", "Item3", "Item4", "Item6", "Item7", "Item8", "Item9"]);
+    expect(detail.added).toEqual([]);
     expect(detail.removed).toBeNull();
     expect(detail.unselected).toEqual([]);
     expect(detail.selected).toEqual(["Item5", "Item1", "Item2", "Item3", "Item4", "Item6", "Item7", "Item8", "Item9"]);
 
-    promise = eventPromise();
-    await select.selectOption("Item8");
-    await remove.click();
-    detail = await promise;
-    expect(detail.added).toBeNull();
-    expect(detail.removed).toEqual(["Item8"]);
-    expect(detail.unselected).toEqual(["Item8"]);
-    expect(detail.selected).toEqual(["Item5", "Item1", "Item2", "Item3", "Item4", "Item6", "Item7", "Item9"]);
-
-    promise = eventPromise();
-    await removeAll.click();
-    detail = await promise;
-    expect(detail.added).toBeNull();
-    expect(detail.removed).toEqual(["Item5", "Item1", "Item2", "Item3", "Item4", "Item6", "Item7", "Item9"]);
-    expect(detail.unselected).toEqual(["Item1", "Item2", "Item3", "Item4", "Item5", "Item6", "Item7", "Item8", "Item9"]);
-    expect(detail.selected).toEqual([]);
   });
 });

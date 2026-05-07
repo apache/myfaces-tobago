@@ -17,22 +17,33 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.example.demo.test;
 
-/**
- * {@link org.apache.myfaces.tobago.internal.taglib.component.SelectManyShuttleTagDeclaration}
- */
-public abstract class AbstractUISelectManyShuttle extends AbstractUISelectManyBase {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-  public abstract String getSelectedLabel();
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
+import java.util.List;
 
-  public abstract String getUnselectedLabel();
+@SessionScoped
+@Named
+public class SelectManyShuttleOrderableController implements Serializable {
 
-  public boolean hasLabel() {
-    return getSelectedLabel() != null || getUnselectedLabel() != null;
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
+  private List<String> selected;
+
+  public List<String> getSelected() {
+    return selected;
   }
 
-  public abstract Integer getSize();
+  public void setSelected(List<String> selected) {
+    LOG.debug("setSelected: {}", selected);
+    this.selected = selected;
+  }
 
-  public abstract boolean isOrderable();
+
 }

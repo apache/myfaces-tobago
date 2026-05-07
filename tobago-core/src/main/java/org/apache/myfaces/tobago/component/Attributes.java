@@ -310,6 +310,7 @@ public enum Attributes {
   @Deprecated(since = "3.0.0", forRemoval = true)
   onchange,
   open,
+  orderable,
   orderBy,
   orientation,
   outcome,

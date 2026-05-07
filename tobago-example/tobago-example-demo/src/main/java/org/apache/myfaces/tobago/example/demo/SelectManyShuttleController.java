@@ -19,12 +19,16 @@
 
 package org.apache.myfaces.tobago.example.demo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,27 +36,21 @@ import java.util.List;
 @Named
 public class SelectManyShuttleController implements Serializable {
 
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
   @Inject
   private AstroData astroData;
 
-  private List<String> selectedItems;
   private List<SolarObject> planets;
   private SolarObject[] selectedPlanets = new SolarObject[0];
-  private List<String> stars = Arrays.asList("Proxima Centauri", "Alpha Centauri", "Wolf 359", "Sirius");
+  private final List<String> stars = Arrays.asList("Proxima Centauri", "Alpha Centauri", "Wolf 359", "Sirius");
   private String[] selectedStars = new String[0];
+  private SolarObject[] orderedItems = new SolarObject[0];
   private int countPageReload = 0;
 
   @PostConstruct
   public void init() {
     planets = astroData.getSatellites("Sun");
-  }
-
-  public List<String> getSelectedItems() {
-    return selectedItems;
-  }
-
-  public void setSelectedItems(List<String> selectedItems) {
-    this.selectedItems = selectedItems;
   }
 
   public List<SolarObject> getPlanets() {
@@ -85,6 +83,19 @@ public class SelectManyShuttleController implements Serializable {
 
   public String getSelectedStarsAsString() {
     return Arrays.toString(selectedStars);
+  }
+
+  public SolarObject[] getOrderedItems() {
+    return orderedItems;
+  }
+
+  public void setOrderedItems(SolarObject[] orderedItems) {
+    LOG.info(orderedItems.length + " items selected: " + Arrays.toString(orderedItems));
+    this.orderedItems = orderedItems;
+  }
+
+  public String getFavoriteAsString() {
+    return Arrays.toString(orderedItems);
   }
 
   public int getCountPageReload() {

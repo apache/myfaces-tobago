@@ -32,10 +32,14 @@ import java.util.regex.Pattern;
 public enum Icons implements CssItem {
 
   ARROW_DOWN,
+  CHEVRON_DOUBLE_DOWN,
   CHEVRON_DOUBLE_LEFT,
   CHEVRON_DOUBLE_RIGHT,
+  CHEVRON_DOUBLE_UP,
+  CHEVRON_DOWN,
   CHEVRON_LEFT,
   CHEVRON_RIGHT,
+  CHEVRON_UP,
   CARET_LEFT,
   CALENDAR3,
   CLOCK,

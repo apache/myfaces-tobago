@@ -132,7 +132,8 @@
       <tc:selectItems value="#{selectManyShuttleController.planets}"
                       var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
     </tc:selectManyShuttle>
-    <tc:out id="submitExampleOutput" label="Selected Planets" value="#{selectManyShuttleController.selectedPlanetsAsString}"/>
+    <tc:out id="submitExampleOutput" label="Selected Planets"
+            value="#{selectManyShuttleController.selectedPlanetsAsString}"/>
     <tc:button id="submitButton" label="Submit"/>
   </tc:section>
 
@@ -142,11 +143,23 @@
       <code class="language-markup">&lt;tc:selectManyShuttle .../></code> contain
       <code class="language-markup">&lt;f:ajax render="outputStars"/></code>. Every time, the value in the shuttle list
       change, the output field is rerendered.</p>
-    <tc:selectManyShuttle id="ajaxExample" label="Stars" labelLayout="top" value="#{selectManyShuttleController.selectedStars}">
+    <tc:selectManyShuttle id="ajaxExample" label="Stars" labelLayout="top"
+                          value="#{selectManyShuttleController.selectedStars}">
       <tc:selectItems value="#{selectManyShuttleController.stars}"/>
       <f:ajax render="outputStars"/>
     </tc:selectManyShuttle>
     <tc:out id="outputStars" label="Selected Stars" value="#{selectManyShuttleController.selectedStarsAsString}"/>
+  </tc:section>
+
+  <tc:section label="Orderable Selection">
+    <p>... todo ...</p>
+    <tc:selectManyShuttle id="favoriteExample" orderable="true"
+                          value="#{selectManyShuttleController.orderedItems}">
+      <tc:selectItems value="#{selectManyShuttleController.planets}"
+                      var="p" itemLabel="#{p.name}" itemValue="#{p}"/>
+    </tc:selectManyShuttle>
+    <tc:out id="favoriteOutput" label="Favorite Planets" value="#{selectManyShuttleController.favoriteAsString}"/>
+    <tc:button label="Submit"/>
   </tc:section>
 
 </ui:composition>

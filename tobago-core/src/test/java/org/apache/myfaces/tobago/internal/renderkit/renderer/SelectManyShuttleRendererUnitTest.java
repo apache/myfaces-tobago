@@ -134,6 +134,23 @@ public class SelectManyShuttleRendererUnitTest extends RendererTestBase {
     Assertions.assertEquals(loadHtml("renderer/selectManyShuttle/selected.html"), formattedResult());
   }
 
+  @Test
+  public void orderable() throws IOException {
+    final UISelectManyShuttle c = (UISelectManyShuttle) ComponentUtils.createComponent(
+        facesContext, Tags.selectManyShuttle.componentType(), RendererTypes.SelectManyShuttle, "id");
+
+    addSelectItem("i1", "Value 1", "1", c);
+    addSelectItem("i2", "Value 2", "2", c);
+    addSelectItem("i3", "Value 3", "3", c);
+    addSelectItem("i4", "Value 4", "4", c);
+    addSelectItem("i5", "Value 5", "5", c);
+    addSelectItem("i6", "Value 6", "6", c);
+
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/selectManyShuttle/orderable.html"), formattedResult());
+  }
+
   private void addSelectItem(String id, String itemLabel, String itemValue, UISelectManyShuttle shuttle) {
     final UISelectItem selectItem = (UISelectItem) ComponentUtils.createComponent(
         facesContext, Tags.selectItem.componentType(), null, id);

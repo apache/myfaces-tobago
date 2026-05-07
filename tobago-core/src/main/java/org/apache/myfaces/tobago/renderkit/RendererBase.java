@@ -447,9 +447,9 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
       final UIInput component, final TobagoClass optionClass,
       final Iterable<SelectItem> items, final Object[] values, final String[] submittedValues,
       final Boolean onlySelected, final TobagoResponseWriter writer, final FacesContext facesContext,
-      Integer[] orderList, int givenIndex)
+      final Integer[] orderList, final int startIndex)
       throws IOException {
-    int index = givenIndex; //TODO make this less ugly
+    int index = startIndex;
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("component id = '{}'", component.getId());
@@ -464,7 +464,7 @@ public abstract class RendererBase<T extends UIComponent> extends Renderer {
           writer.writeAttribute(HtmlAttributes.DISABLED, true);
         }
         final SelectItem[] selectItems = ((SelectItemGroup) item).getSelectItems();
-        index  = renderSelectItemsAndGetOrder(component, optionClass, Arrays.asList(selectItems), values,
+        index = renderSelectItemsAndGetOrder(component, optionClass, Arrays.asList(selectItems), values,
             submittedValues, onlySelected, writer, facesContext, orderList, index);
         writer.endElement(HtmlElements.OPTGROUP);
       } else {

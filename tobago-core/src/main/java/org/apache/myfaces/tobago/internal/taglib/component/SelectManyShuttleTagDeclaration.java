@@ -92,23 +92,30 @@ public interface SelectManyShuttleTagDeclaration extends
     HasAutoSpacing, HasDecorationPosition {
 
   /**
-   * The value of the multi select.
+   * The value of the multi-select.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = {"java.lang.Object[]", "java.util.List"})
   void setValue(String value);
 
   /**
-   * A localized user presentable label for the left select box.
+   * A localized user-presentable label for the left select box.
    */
   @TagAttribute
   @UIComponentTagAttribute()
   void setUnselectedLabel(String label);
 
   /**
-   * A localized user presentable label for the right select box.
+   * A localized user-presentable label for the right select box.
    */
   @TagAttribute
   @UIComponentTagAttribute()
   void setSelectedLabel(String label);
+
+  /**
+   * Can the list of selected items be ordered?
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  void setOrderable(String orderable);
 }
