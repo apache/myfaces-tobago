@@ -26,6 +26,7 @@ import jakarta.faces.component.visit.VisitCallback;
 import jakarta.faces.component.visit.VisitContext;
 import jakarta.faces.component.visit.VisitResult;
 import jakarta.faces.context.FacesContext;
+
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.Visual;
@@ -133,7 +134,8 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
         dropdownSubmenu ? BootstrapClass.DROPDOWN_ITEM : null,
         (parentOfCommands && !dropdownSubmenu || panelFacet != null) ? BootstrapClass.DROPDOWN_TOGGLE : null,
         markup.contains(Markup.HIDE_TOGGLE_ICON) ? TobagoClass.HIDE_TOGGLE_ICON : null,
-        label.getLabel() == null && image == null && labelFacet == null ? BootstrapClass.DROPDOWN_TOGGLE_SPLIT : null,
+        label.getLabel() == null && icon == null && image == null && labelFacet == null
+            ? BootstrapClass.DROPDOWN_TOGGLE_SPLIT : null,
         component.getCustomClass(),
         isInside(facesContext, HtmlElements.TOBAGO_LINKS) && !dropdownSubmenu ? BootstrapClass.NAV_LINK : null);
 

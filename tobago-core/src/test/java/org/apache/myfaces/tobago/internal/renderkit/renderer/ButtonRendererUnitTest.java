@@ -142,6 +142,28 @@ public class ButtonRendererUnitTest extends RendererTestBase {
   }
 
   @Test
+  public void onlyIcon() throws IOException {
+    final UIButton b = (UIButton) ComponentUtils.createComponent(
+        facesContext, Tags.button.componentType(), RendererTypes.Button, "id");
+    b.setIcon("far fa-code");
+
+    b.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/button/onlyIcon.html"), formattedResult());
+  }
+
+  @Test
+  public void onlyImage() throws IOException {
+    final UIButton b = (UIButton) ComponentUtils.createComponent(
+        facesContext, Tags.button.componentType(), RendererTypes.Button, "id");
+    b.setImage("url.jpg");
+
+    b.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/button/onlyImage.html"), formattedResult());
+  }
+
+  @Test
   public void ajax() throws IOException {
     final AjaxBehavior behavior =
         (AjaxBehavior) facesContext.getApplication().createBehavior(AjaxBehavior.BEHAVIOR_ID);
