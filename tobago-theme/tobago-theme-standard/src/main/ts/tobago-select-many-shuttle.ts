@@ -46,7 +46,7 @@ class SelectManyShuttle extends HTMLElement {
     }
 
     for (let i = 0; i < options.length; i++) {
-      const option: HTMLOptionElement = options[i];
+      const option: HTMLOptionElement = options.item(i);
       const clone = option.cloneNode(true) as HTMLOptionElement;
       if (clone.selected) {
         clone.selected = false; // unselect, because it's in the selected list
