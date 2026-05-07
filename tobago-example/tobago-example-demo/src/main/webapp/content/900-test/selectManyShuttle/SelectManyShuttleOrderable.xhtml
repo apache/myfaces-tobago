@@ -21,7 +21,7 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="jakarta.faces.facelets">
-  <tc:selectManyShuttle id="shuttle" value="#{selectManyShuttleOrderableController}">
+  <tc:selectManyShuttle id="shuttle" orderable="true" value="#{selectManyShuttleOrderableController.selected}">
     <tc:selectItem itemValue="Item1"/>
     <tc:selectItem itemValue="Item2"/>
     <tc:selectItem itemValue="Item3"/>
@@ -32,4 +32,9 @@
     <tc:selectItem itemValue="Item8"/>
     <tc:selectItem itemValue="Item9"/>
   </tc:selectManyShuttle>
+
+  <tc:button label="Submit"/>
+
+  <tc:out label="on-server:" value="#{selectManyShuttleOrderableController.selected}"/>
+
 </ui:composition>

@@ -18,7 +18,7 @@
 <tobago-select-many-shuttle id='id' class='tobago-auto-spacing'>
 <div class='tobago-messages-container tobago-button-right' data-tobago-faces-message='a test'>
 <div class='tobago-body' title='a test'>
-<select class='d-none' id='id::hidden' name='id' multiple='multiple'>
+<select class='d-none tobago-value' id='id::hidden' name='id' multiple='multiple'>
 <option value=''>Value 1</option>
 <option value=''>Value 2</option></select>
 <div class='tobago-unselected-container'>
@@ -30,6 +30,6 @@
 <button type='button' class='btn btn-secondary' id='id::remove'><i class='bi-chevron-left'></i></button>
 <button type='button' class='btn btn-secondary' id='id::removeAll'><i class='bi-chevron-double-left'></i></button></div></div>
 <div class='tobago-selected-container'>
-<select id='id::selected' class='tobago-selected is-error form-select' multiple='multiple' size='2'></select></div></div>
+<select id='id::selected' data-tobago-order='[]' class='tobago-selected is-error form-select' multiple='multiple' size='2'></select></div></div>
 <tobago-popover label='Error' value='a test'>
 <a tabindex='0' role='button' class='btn btn-danger'><i class='bi-exclamation-lg'></i></a></tobago-popover></div></tobago-select-many-shuttle>
