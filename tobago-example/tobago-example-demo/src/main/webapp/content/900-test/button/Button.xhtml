@@ -30,25 +30,32 @@
   </tc:section>
 
   <tc:section label="Confirmation">
-    <tc:buttons>
-      <tc:button id="confirmationButtonAction" label="Action" action="#{buttonController.action}"
-                 confirmation="Are you sure? (attribute)"/>
-      <tc:button id="confirmationButtonOutcome" label="Outcome" outcome="/content/900-test/button/x-outcome.xhtml"
-                 confirmation="Are you sure? (attribute)"/>
-      <tc:button id="confirmationButtonLink" label="Link" link="x-link.xhtml"
-                 confirmation="Are you sure? (attribute)"/>
-    </tc:buttons>
-    <tc:buttons>
-      <tc:button id="confirmationFacetButtonAction" label="Action" action="#{buttonController.action}">
-        <f:facet name="confirmation">Are you sure? (facet)</f:facet>
-      </tc:button>
-      <tc:button id="confirmationFacetButtonOutcome" label="Outcome" outcome="/content/900-test/button/x-outcome.xhtml">
-        <f:facet name="confirmation">Are you sure? (facet)</f:facet>
-      </tc:button>
-      <tc:button id="confirmationFacetButtonLink" label="Link" link="x-link.xhtml">
-        <f:facet name="confirmation">Are you sure? (facet)</f:facet>
-      </tc:button>
-    </tc:buttons>
+    <tc:segmentLayout medium="6seg">
+      <tc:section label="via attribute">
+        <tc:buttons>
+          <tc:button id="confirmationButtonAction" label="Action" action="#{buttonController.action}"
+                     confirmation="Are you sure? (attribute)"/>
+          <tc:button id="confirmationButtonOutcome" label="Outcome" outcome="/content/900-test/button/x-outcome.xhtml"
+                     confirmation="Are you sure? (attribute)"/>
+          <tc:button id="confirmationButtonLink" label="Link" link="x-link.xhtml"
+                     confirmation="Are you sure? (attribute)"/>
+        </tc:buttons>
+      </tc:section>
+      <tc:section label="via facet">
+        <tc:buttons>
+          <tc:button id="confirmationFacetButtonAction" label="Action" action="#{buttonController.action}">
+            <f:facet name="confirmation"><tc:out value="Are you sure? (facet)"/></f:facet>
+          </tc:button>
+          <tc:button id="confirmationFacetButtonOutcome" label="Outcome"
+                     outcome="/content/900-test/button/x-outcome.xhtml">
+            <f:facet name="confirmation"><tc:out value="Are you sure? (facet)"/></f:facet>
+          </tc:button>
+          <tc:button id="confirmationFacetButtonLink" label="Link" link="x-link.xhtml">
+            <f:facet name="confirmation"><tc:out value="Are you sure? (facet)"/></f:facet>
+          </tc:button>
+        </tc:buttons>
+      </tc:section>
+    </tc:segmentLayout>
   </tc:section>
 
   <tc:section label="Target">
@@ -71,8 +78,8 @@
   <tc:section label="Dropdown menu with tc:style">
     <tc:button id="dropdownWithStyle" label="200px Button" omit="true">
       <tc:style width="200px" selector="#page\:mainForm\:dropdownWithStyle\:\:command"/>
-      <tc:link label="1" omit="true"/>
-      <tc:link label="1" omit="true"/>
+      <tc:link id="dropdownWithStyleEntry1" label="1" omit="true"/>
+      <tc:link id="dropdownWithStyleEntry2" label="1" omit="true"/>
     </tc:button>
   </tc:section>
 </ui:composition>
