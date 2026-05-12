@@ -610,6 +610,7 @@ Type: ${data.type}`);
           y: event.clientY
         };
       });
+      this.listeners.add(clickElement, "mouseup", () => delete this.mousedownOnRowData);
 
       this.listeners.add(clickElement, "click", (event: MouseEvent) => {
         const target = (event.target as HTMLElement);
