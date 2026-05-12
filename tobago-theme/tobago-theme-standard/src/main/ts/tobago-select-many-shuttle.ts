@@ -17,11 +17,18 @@
 
 import {Focus} from "./tobago-focus";
 
-interface SelectManyShuttleDetail {
+export interface SelectManyShuttleDetail {
+  type: SelectManyShuttleDetailType;
   added: string[];
   removed: string[];
   unselected: string[];
   selected: string[];
+}
+
+export enum SelectManyShuttleDetailType {
+  Add = "add",
+  Remove = "remove",
+  Reorder = "reorder"
 }
 
 class SelectManyShuttle extends HTMLElement {
@@ -126,7 +133,6 @@ class SelectManyShuttle extends HTMLElement {
   private top(event: MouseEvent): void {
 
     const select = this.selectedSelect as HTMLSelectElement;
-    const options = select.options;
     const hidden = this.hiddenSelect as HTMLSelectElement;
 
     const firstUnselected: HTMLOptionElement = select.querySelector("option:not(:checked)");
@@ -137,6 +143,8 @@ class SelectManyShuttle extends HTMLElement {
     Array.from(select.querySelectorAll("option:checked")).forEach((current: HTMLOptionElement) => {
       this.syncedInsertBefore(select, hidden, current, firstUnselected);
     });
+
+    this.fireChangeEvent(SelectManyShuttleDetailType.Reorder, null, null);
   }
 
   private up(event: MouseEvent): void {
@@ -153,6 +161,8 @@ class SelectManyShuttle extends HTMLElement {
         this.syncedInsertBefore(select, hidden, current, previous);
       }
     }
+
+    this.fireChangeEvent(SelectManyShuttleDetailType.Reorder, null, null);
   }
 
   private down(event: MouseEvent): void {
@@ -169,12 +179,13 @@ class SelectManyShuttle extends HTMLElement {
         this.syncedInsertBefore(select, hidden, next, current);
       }
     }
+
+    this.fireChangeEvent(SelectManyShuttleDetailType.Reorder, null, null);
   }
 
   private bottom(event: MouseEvent): void {
 
     const select = this.selectedSelect as HTMLSelectElement;
-    const options = select.options;
     const hidden = this.hiddenSelect as HTMLSelectElement;
 
     const allUnselected: NodeListOf<HTMLOptionElement> = select.querySelectorAll("option:not(:checked)");
@@ -186,6 +197,8 @@ class SelectManyShuttle extends HTMLElement {
     Array.from(select.querySelectorAll("option:checked")).reverse().forEach((current: HTMLOptionElement) => {
       this.syncedInsertAfter(select, hidden, current, lastUnselected);
     });
+
+    this.fireChangeEvent(SelectManyShuttleDetailType.Reorder, null, null);
   }
 
   private syncedInsertBefore(
@@ -210,7 +223,7 @@ class SelectManyShuttle extends HTMLElement {
       this.selectedSelect.add(option);
       this.changeHiddenOption(hiddenSelect, option, true);
     }
-    this.fireChangeEvent(options, null);
+    this.fireChangeEvent(SelectManyShuttleDetailType.Add, options, null);
   }
 
   private removeItems(options: NodeListOf<HTMLOptionElement>): void {
@@ -231,7 +244,7 @@ class SelectManyShuttle extends HTMLElement {
       }
       this.changeHiddenOption(hiddenSelect, option, false);
     }
-    this.fireChangeEvent(null, options);
+    this.fireChangeEvent(SelectManyShuttleDetailType.Remove, null, options);
   }
 
   private changeHiddenOption(hiddenSelect: HTMLSelectElement, option: HTMLOptionElement, selected: boolean) {
@@ -251,9 +264,13 @@ class SelectManyShuttle extends HTMLElement {
     hiddenOption.selected = selected;
   }
 
-  private fireChangeEvent(added: NodeListOf<HTMLOptionElement>, removed: NodeListOf<HTMLOptionElement>): void {
+  private fireChangeEvent(
+      type: SelectManyShuttleDetailType,
+      added: NodeListOf<HTMLOptionElement>,
+      removed: NodeListOf<HTMLOptionElement>): void {
     this.dispatchEvent(new CustomEvent("change", {
       detail: {
+        type: type,
         added: added ? Array.from(added).map((option: HTMLOptionElement) => option.value) : null,
         removed: removed ? Array.from(removed).map((option: HTMLOptionElement) => option.value) : null,
         unselected: Array.from(this.hiddenSelect.options)
@@ -262,7 +279,7 @@ class SelectManyShuttle extends HTMLElement {
         selected: Array.from(this.hiddenSelect.options)
             .filter((option: HTMLOptionElement) => option.selected)
             .map((option: HTMLOptionElement) => option.value)
-      }
+      } as SelectManyShuttleDetail
     }));
   }
 

@@ -18,6 +18,7 @@
  */
 
 import {expect, test} from "@playwright/test";
+import {SelectManyShuttleDetail} from "../../../../../tobago-theme/tobago-theme-standard/src/main/ts/tobago-select-many-shuttle";
 
 test.describe("900-test/selectManyShuttle/SelectManyShuttle.xhtml", () => {
 
@@ -47,7 +48,8 @@ test.describe("900-test/selectManyShuttle/SelectManyShuttle.xhtml", () => {
     let promise = eventPromise();
     await unselect.selectOption("Item5");
     await add.click();
-    let detail = await promise;
+    let detail: SelectManyShuttleDetail = await promise;
+    expect(detail.type).toEqual(/*SelectManyShuttleDetailType.Add*/"add");
     expect(detail.added).toEqual(["Item5"]);
     expect(detail.removed).toBeNull();
     expect(detail.unselected).toEqual(["Item1", "Item2", "Item3", "Item4", "Item6", "Item7", "Item8", "Item9"]);
@@ -56,6 +58,7 @@ test.describe("900-test/selectManyShuttle/SelectManyShuttle.xhtml", () => {
     promise = eventPromise();
     await addAll.click();
     detail = await promise;
+    expect(detail.type).toEqual(/*SelectManyShuttleDetailType.Add*/"add");
     expect(detail.added).toEqual(["Item1", "Item2", "Item3", "Item4", "Item6", "Item7", "Item8", "Item9"]);
     expect(detail.removed).toBeNull();
     expect(detail.unselected).toEqual([]);
@@ -65,6 +68,7 @@ test.describe("900-test/selectManyShuttle/SelectManyShuttle.xhtml", () => {
     await select.selectOption("Item8");
     await remove.click();
     detail = await promise;
+    expect(detail.type).toEqual(/*SelectManyShuttleDetailType.Remove*/"remove");
     expect(detail.added).toBeNull();
     expect(detail.removed).toEqual(["Item8"]);
     expect(detail.unselected).toEqual(["Item8"]);
@@ -73,6 +77,7 @@ test.describe("900-test/selectManyShuttle/SelectManyShuttle.xhtml", () => {
     promise = eventPromise();
     await removeAll.click();
     detail = await promise;
+    expect(detail.type).toEqual(/*SelectManyShuttleDetailType.Remove*/"remove");
     expect(detail.added).toBeNull();
     expect(detail.removed).toEqual(["Item5", "Item1", "Item2", "Item3", "Item4", "Item6", "Item7", "Item9"]);
     expect(detail.unselected).toEqual(["Item1", "Item2", "Item3", "Item4", "Item5", "Item6", "Item7", "Item8", "Item9"]);
