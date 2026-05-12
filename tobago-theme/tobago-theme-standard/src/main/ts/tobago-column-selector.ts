@@ -19,7 +19,7 @@
 
 import {Sheet} from "./tobago-sheet";
 import {Selectable} from "./tobago-selectable";
-import {EventListenerStore} from "./util/EventListenerStore";
+import {EventListenerStore} from "./tobago-event-listener-store";
 
 export class ColumnSelector {
   private listeners: EventListenerStore = new EventListenerStore();

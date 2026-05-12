@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import {DropdownMenuAlignment} from "../tobago-dropdown-menu";
+import {DropdownMenuAlignment} from "./tobago-dropdown-menu";
 
 export class DropdownMenuStatic {
 

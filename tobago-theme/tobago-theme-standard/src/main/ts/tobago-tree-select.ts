@@ -18,7 +18,7 @@
 import {Selectable} from "./tobago-selectable";
 import {Tree} from "./tobago-tree";
 import {TreeNode} from "./tobago-tree-node";
-import {EventListenerStore} from "./util/EventListenerStore";
+import {EventListenerStore} from "./tobago-event-listener-store";
 
 export class TreeSelect extends HTMLElement {
   private listeners: EventListenerStore = new EventListenerStore();

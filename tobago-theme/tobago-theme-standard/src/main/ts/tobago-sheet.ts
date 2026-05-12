@@ -20,7 +20,7 @@ import {Css} from "./tobago-css";
 import {ClientBehaviors} from "./tobago-client-behaviors";
 import {ColumnSelector} from "./tobago-column-selector";
 import {Selectable} from "./tobago-selectable";
-import {EventListenerStore} from "./util/EventListenerStore";
+import {EventListenerStore} from "./tobago-event-listener-store";
 
 interface MousemoveData {
   columnIndex: number;

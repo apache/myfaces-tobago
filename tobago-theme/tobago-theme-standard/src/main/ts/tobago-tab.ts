@@ -17,7 +17,7 @@
 
 import {Css} from "./tobago-css";
 import {ClientBehaviors} from "./tobago-client-behaviors";
-import {EventListenerStore} from "./util/EventListenerStore";
+import {EventListenerStore} from "./tobago-event-listener-store";
 
 class TabGroup extends HTMLElement {
 
