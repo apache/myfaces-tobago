@@ -132,8 +132,8 @@ public class TobagoExceptionHandler extends ExceptionHandlerWrapper {
               LOG.warn("Handling 404 exception.");
             } else {
               message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                  "An unknown error has occurred!" + " xxx",
-                  "An unknown error has occurred!" + " xxx");
+                  "An unknown error has occurred!",
+                  "An unknown error has occurred!");
               facesContext.getExternalContext().setResponseStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
               LOG.warn("Handling 500 exception.", cause);
             }
