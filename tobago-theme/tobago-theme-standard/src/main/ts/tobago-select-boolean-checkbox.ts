@@ -16,7 +16,7 @@
  */
 
 import {Focus} from "./tobago-focus";
-import {EventListenerStore} from "./util/EventListenerStore";
+import {EventListenerStore} from "./tobago-event-listener-store";
 
 export class SelectBooleanCheckbox extends HTMLElement {
   private listeners: EventListenerStore = new EventListenerStore();

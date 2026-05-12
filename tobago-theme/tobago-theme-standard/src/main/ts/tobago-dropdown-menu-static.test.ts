@@ -17,8 +17,8 @@
  * under the License.
  */
 
-import {DropdownMenuStatic} from "./DropdownMenuStatic";
-import {DropdownMenuAlignment} from "../tobago-dropdown-menu";
+import {DropdownMenuStatic} from "./tobago-dropdown-menu-static";
+import {DropdownMenuAlignment} from "./tobago-dropdown-menu";
 
 test("getHorizontalPositionAndSize", () => {
   //reference element placed in the default content area of the page

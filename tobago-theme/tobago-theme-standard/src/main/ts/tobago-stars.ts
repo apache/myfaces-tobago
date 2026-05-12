@@ -16,7 +16,7 @@
  */
 
 import {Css} from "./tobago-css";
-import {EventListenerStore} from "./util/EventListenerStore";
+import {EventListenerStore} from "./tobago-event-listener-store";
 
 class Stars extends HTMLElement {
   private listeners: EventListenerStore = new EventListenerStore();

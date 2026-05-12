@@ -18,7 +18,7 @@
 import {Modal} from "bootstrap";
 import {BehaviorMode} from "./tobago-behavior-mode";
 import {Collapse} from "./tobago-collapse";
-import {EventListenerStore} from "./util/EventListenerStore";
+import {EventListenerStore} from "./tobago-event-listener-store";
 import {FocusableElement, tabbable} from "tabbable";
 import {Key} from "./tobago-key";
 

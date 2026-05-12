@@ -22,7 +22,7 @@ import {CollapseOperation} from "./tobago-collapse-operation";
 import {BehaviorMode} from "./tobago-behavior-mode";
 import {Overlay} from "./tobago-overlay";
 import {OverlayType} from "./tobago-overlay-type";
-import {EventListenerStore} from "./util/EventListenerStore";
+import {EventListenerStore} from "./tobago-event-listener-store";
 
 class Behavior extends HTMLElement {
   private listeners: EventListenerStore = new EventListenerStore();

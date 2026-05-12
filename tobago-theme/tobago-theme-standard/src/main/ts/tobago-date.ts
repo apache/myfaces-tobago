@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import {EventListenerStore} from "./util/EventListenerStore";
+import {EventListenerStore} from "./tobago-event-listener-store";
 
 class InputSupport {
 

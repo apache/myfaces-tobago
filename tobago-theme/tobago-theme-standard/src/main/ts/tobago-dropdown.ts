@@ -21,7 +21,7 @@ import {DropdownItem} from "./tobago-dropdown-item";
 import {DropdownItemFactory} from "./tobago-dropdown-item-factory";
 import {DropdownMenu, DropdownMenuAlignment} from "./tobago-dropdown-menu";
 import {ClientBehaviors} from "./tobago-client-behaviors";
-import {EventListenerStore} from "./util/EventListenerStore";
+import {EventListenerStore} from "./tobago-event-listener-store";
 import {FocusableElement, tabbable} from "tabbable";
 
 class Dropdown extends HTMLElement {

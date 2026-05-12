@@ -19,7 +19,7 @@ import {Overlay} from "./tobago-overlay";
 import {OverlayType} from "./tobago-overlay-type";
 import {Key} from "./tobago-key";
 import {PageStatic} from "./tobago-page-static";
-import {EventListenerStore} from "./util/EventListenerStore";
+import {EventListenerStore} from "./tobago-event-listener-store";
 
 export class Page extends HTMLElement {
   private listeners: EventListenerStore = new EventListenerStore();

@@ -18,11 +18,11 @@
  */
 
 export class EventListenerStore {
-  private listeners: Array<{
+  private listeners: {
     element: EventTarget;
     type: string;
     listener: EventListenerOrEventListenerObject;
-  }> = [];
+  }[] = [];
 
   add(element: EventTarget, type: string, listener: EventListenerOrEventListenerObject): void {
     element.addEventListener(type, listener);

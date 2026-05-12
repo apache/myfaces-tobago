@@ -18,7 +18,7 @@
 import {Offcanvas as BootstrapOffcanvas} from "bootstrap";
 import {BehaviorMode} from "./tobago-behavior-mode";
 import {Collapse} from "./tobago-collapse";
-import {EventListenerStore} from "./util/EventListenerStore";
+import {EventListenerStore} from "./tobago-event-listener-store";
 
 const BootstrapOffcanvasEvent = {
   HIDE: "hide.bs.offcanvas",

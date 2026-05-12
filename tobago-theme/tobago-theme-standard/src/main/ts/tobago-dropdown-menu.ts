@@ -17,7 +17,7 @@
 
 import {Css} from "./tobago-css";
 import {ClientBehaviors} from "./tobago-client-behaviors";
-import {DropdownMenuStatic} from "./dropdown/DropdownMenuStatic";
+import {DropdownMenuStatic} from "./tobago-dropdown-menu-static";
 
 export enum DropdownMenuAlignment {
   start,

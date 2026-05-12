@@ -20,7 +20,7 @@ import {TobagoFilterRegistry} from "./tobago-filter-registry";
 import {Key} from "./tobago-key";
 import {DropdownMenu, DropdownMenuAlignment} from "./tobago-dropdown-menu";
 import {Spinner} from "./tobago-spinner";
-import {EventListenerStore} from "./util/EventListenerStore";
+import {EventListenerStore} from "./tobago-event-listener-store";
 
 export abstract class SelectListBase extends HTMLElement {
 

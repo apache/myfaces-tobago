@@ -21,7 +21,7 @@ import {DropdownMenu, DropdownMenuAlignment} from "./tobago-dropdown-menu";
 import {Key} from "./tobago-key";
 import {ClientBehaviors} from "./tobago-client-behaviors";
 import {Spinner} from "./tobago-spinner";
-import {EventListenerStore} from "./util/EventListenerStore";
+import {EventListenerStore} from "./tobago-event-listener-store";
 
 export class Suggest {
   private listeners: EventListenerStore = new EventListenerStore();
