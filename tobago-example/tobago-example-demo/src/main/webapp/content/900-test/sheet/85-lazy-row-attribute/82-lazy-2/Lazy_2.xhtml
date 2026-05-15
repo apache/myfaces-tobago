@@ -26,12 +26,11 @@
     Use default value of "lazyRows" attribute.</p>
 
   <tc:button id="submit" label="submit"/>
-  <tc:button id="ajax" label="Ajax">
-    <f:ajax execute="sheet" render="sheet timestamp"/>
+  <tc:button id="ajax" label="Ajax" action="#{sheetController.increaseActionCount}">
+    <f:ajax execute="sheet" render="sheet parameter"/>
   </tc:button>
   <tc:button id="reset" label="Reset" action="#{sheetController.lazyTwoState.reset()}"/>
   <tc:panel id="parameter">
-    <tc:out id="timestamp" label="Timestamp" value="#{eventController.currentTimestamp}"/>
     <tc:out id="selectedRows" label="Selected" value="#{sheetController.lazyTwoState.selectedRows}"/>
     <tc:out id="actionCount" label="Action count" value="#{sheetController.actionCount}"/>
     <tc:out id="actionListenerCount" label="ActionListener count" value="#{sheetController.actionListenerCount}"/>
