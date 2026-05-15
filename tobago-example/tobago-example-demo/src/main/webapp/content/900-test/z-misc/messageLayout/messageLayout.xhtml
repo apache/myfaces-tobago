@@ -24,183 +24,185 @@
   <ui:param name="title" value="messages"/>
   <tc:button id="submit" label="Submit"/>
 
-  <tc:section label="Fatal">
-    <tc:segmentLayout medium="4seg">
-      <tc:in id="fatalIn" validator="#{severityController.addFatal}"/>
-      <tc:date id="fatalDate" validator="#{severityController.addFatal}"/>
-      <tc:textarea id="fatalTextarea" validator="#{severityController.addFatal}"/>
-    </tc:segmentLayout>
-    <tc:segmentLayout medium="3seg">
-      <tc:selectBooleanCheckbox id="fatalCheckbox" validator="#{severityController.addFatal}"/>
-      <tc:selectBooleanToggle id="fatalToggle" validator="#{severityController.addFatal}"/>
-      <tc:selectManyCheckbox id="fatalCheckboxes" validator="#{severityController.addFatal}">
-        <tc:selectItem itemValue="Entry One"/>
-        <tc:selectItem itemValue="Entry Two"/>
-      </tc:selectManyCheckbox>
-      <tc:selectOneRadio id="fatalRadio" validator="#{severityController.addFatal}" value="Entry One">
-        <tc:selectItem itemValue="Entry One"/>
-        <tc:selectItem itemValue="Entry Two"/>
-      </tc:selectOneRadio>
-    </tc:segmentLayout>
-    <tc:segmentLayout medium="4seg">
-      <tc:selectOneChoice id="fatalDropdown" validator="#{severityController.addFatal}">
-        <tc:selectItem itemValue="Entry One"/>
-        <tc:selectItem itemValue="Entry Two"/>
-      </tc:selectOneChoice>
-      <tc:selectOneListbox id="fatalOneListbox" validator="#{severityController.addFatal}" value="Entry One">
-        <tc:selectItem itemValue="Entry One"/>
-        <tc:selectItem itemValue="Entry Two"/>
-      </tc:selectOneListbox>
-      <tc:selectManyListbox id="fatalManyListbox" validator="#{severityController.addFatal}">
-        <tc:selectItem itemValue="Entry One"/>
-        <tc:selectItem itemValue="Entry Two"/>
-      </tc:selectManyListbox>
-    </tc:segmentLayout>
-    <tc:segmentLayout medium="6seg">
-      <tc:file id="fatalFile" validator="#{severityController.addFatal}" required="true"/>
-      <tc:selectManyShuttle id="fatalShuttle" validator="#{severityController.addFatal}">
-        <tc:selectItem itemValue="Entry One"/>
-        <tc:selectItem itemValue="Entry Two"/>
-      </tc:selectManyShuttle>
-    </tc:segmentLayout>
-    <tc:segmentLayout medium="6seg">
-      <tc:range id="fatalRange" validator="#{severityController.addFatal}"/>
-      <tc:stars id="fatalStars" validator="#{severityController.addFatal}"/>
-    </tc:segmentLayout>
-  </tc:section>
+  <tc:tabGroup switchType="reloadPage" immediate="true">
+    <tc:tab id="tabFatal" label="Fatal">
+      <tc:segmentLayout medium="4seg">
+        <tc:in id="fatalIn" validator="#{severityController.addFatal}"/>
+        <tc:date id="fatalDate" validator="#{severityController.addFatal}"/>
+        <tc:textarea id="fatalTextarea" validator="#{severityController.addFatal}"/>
+      </tc:segmentLayout>
+      <tc:segmentLayout medium="3seg">
+        <tc:selectBooleanCheckbox id="fatalCheckbox" validator="#{severityController.addFatal}"/>
+        <tc:selectBooleanToggle id="fatalToggle" validator="#{severityController.addFatal}"/>
+        <tc:selectManyCheckbox id="fatalCheckboxes" validator="#{severityController.addFatal}">
+          <tc:selectItem itemValue="Entry One"/>
+          <tc:selectItem itemValue="Entry Two"/>
+        </tc:selectManyCheckbox>
+        <tc:selectOneRadio id="fatalRadio" validator="#{severityController.addFatal}" value="Entry One">
+          <tc:selectItem itemValue="Entry One"/>
+          <tc:selectItem itemValue="Entry Two"/>
+        </tc:selectOneRadio>
+      </tc:segmentLayout>
+      <tc:segmentLayout medium="4seg">
+        <tc:selectOneChoice id="fatalDropdown" validator="#{severityController.addFatal}">
+          <tc:selectItem itemValue="Entry One"/>
+          <tc:selectItem itemValue="Entry Two"/>
+        </tc:selectOneChoice>
+        <tc:selectOneListbox id="fatalOneListbox" validator="#{severityController.addFatal}" value="Entry One">
+          <tc:selectItem itemValue="Entry One"/>
+          <tc:selectItem itemValue="Entry Two"/>
+        </tc:selectOneListbox>
+        <tc:selectManyListbox id="fatalManyListbox" validator="#{severityController.addFatal}">
+          <tc:selectItem itemValue="Entry One"/>
+          <tc:selectItem itemValue="Entry Two"/>
+        </tc:selectManyListbox>
+      </tc:segmentLayout>
+      <tc:segmentLayout medium="6seg">
+        <tc:file id="fatalFile" validator="#{severityController.addFatal}" required="true"/>
+        <tc:selectManyShuttle id="fatalShuttle" validator="#{severityController.addFatal}">
+          <tc:selectItem itemValue="Entry One"/>
+          <tc:selectItem itemValue="Entry Two"/>
+        </tc:selectManyShuttle>
+      </tc:segmentLayout>
+      <tc:segmentLayout medium="6seg">
+        <tc:range id="fatalRange" validator="#{severityController.addFatal}"/>
+        <tc:stars id="fatalStars" validator="#{severityController.addFatal}"/>
+      </tc:segmentLayout>
+    </tc:tab>
 
-  <tc:section label="Error">
-    <tc:segmentLayout medium="4seg">
-      <tc:in id="errorIn" validator="#{severityController.addError}"/>
-      <tc:date id="errorDate" validator="#{severityController.addError}"/>
-      <tc:textarea id="errorTextarea" validator="#{severityController.addError}"/>
-    </tc:segmentLayout>
-    <tc:segmentLayout medium="3seg">
-      <tc:selectBooleanCheckbox id="errorCheckbox" validator="#{severityController.addError}"/>
-      <tc:selectBooleanToggle id="errorToggle" validator="#{severityController.addError}"/>
-      <tc:selectManyCheckbox id="errorCheckboxes" validator="#{severityController.addError}">
-        <tc:selectItem itemValue="Entry One"/>
-        <tc:selectItem itemValue="Entry Two"/>
-      </tc:selectManyCheckbox>
-      <tc:selectOneRadio id="errorRadio" validator="#{severityController.addError}" value="Entry One">
-        <tc:selectItem itemValue="Entry One"/>
-        <tc:selectItem itemValue="Entry Two"/>
-      </tc:selectOneRadio>
-    </tc:segmentLayout>
-    <tc:segmentLayout medium="4seg">
-      <tc:selectOneChoice id="errorDropdown" validator="#{severityController.addError}">
-        <tc:selectItem itemValue="Entry One"/>
-        <tc:selectItem itemValue="Entry Two"/>
-      </tc:selectOneChoice>
-      <tc:selectOneListbox id="errorOneListbox" validator="#{severityController.addError}" value="Entry One">
-        <tc:selectItem itemValue="Entry One"/>
-        <tc:selectItem itemValue="Entry Two"/>
-      </tc:selectOneListbox>
-      <tc:selectManyListbox id="errorManyListbox" validator="#{severityController.addError}">
-        <tc:selectItem itemValue="Entry One"/>
-        <tc:selectItem itemValue="Entry Two"/>
-      </tc:selectManyListbox>
-    </tc:segmentLayout>
-    <tc:segmentLayout medium="6seg">
-      <tc:file id="errorFile" validator="#{severityController.addError}" required="true"/>
-      <tc:selectManyShuttle id="errorShuttle" validator="#{severityController.addError}">
-        <tc:selectItem itemValue="Entry One"/>
-        <tc:selectItem itemValue="Entry Two"/>
-      </tc:selectManyShuttle>
-    </tc:segmentLayout>
-    <tc:segmentLayout medium="6seg">
-      <tc:range id="errorRange" validator="#{severityController.addError}"/>
-      <tc:stars id="errorStars" validator="#{severityController.addError}"/>
-    </tc:segmentLayout>
-  </tc:section>
+    <tc:tab id="tabError" label="Error">
+      <tc:segmentLayout medium="4seg">
+        <tc:in id="errorIn" validator="#{severityController.addError}"/>
+        <tc:date id="errorDate" validator="#{severityController.addError}"/>
+        <tc:textarea id="errorTextarea" validator="#{severityController.addError}"/>
+      </tc:segmentLayout>
+      <tc:segmentLayout medium="3seg">
+        <tc:selectBooleanCheckbox id="errorCheckbox" validator="#{severityController.addError}"/>
+        <tc:selectBooleanToggle id="errorToggle" validator="#{severityController.addError}"/>
+        <tc:selectManyCheckbox id="errorCheckboxes" validator="#{severityController.addError}">
+          <tc:selectItem itemValue="Entry One"/>
+          <tc:selectItem itemValue="Entry Two"/>
+        </tc:selectManyCheckbox>
+        <tc:selectOneRadio id="errorRadio" validator="#{severityController.addError}" value="Entry One">
+          <tc:selectItem itemValue="Entry One"/>
+          <tc:selectItem itemValue="Entry Two"/>
+        </tc:selectOneRadio>
+      </tc:segmentLayout>
+      <tc:segmentLayout medium="4seg">
+        <tc:selectOneChoice id="errorDropdown" validator="#{severityController.addError}">
+          <tc:selectItem itemValue="Entry One"/>
+          <tc:selectItem itemValue="Entry Two"/>
+        </tc:selectOneChoice>
+        <tc:selectOneListbox id="errorOneListbox" validator="#{severityController.addError}" value="Entry One">
+          <tc:selectItem itemValue="Entry One"/>
+          <tc:selectItem itemValue="Entry Two"/>
+        </tc:selectOneListbox>
+        <tc:selectManyListbox id="errorManyListbox" validator="#{severityController.addError}">
+          <tc:selectItem itemValue="Entry One"/>
+          <tc:selectItem itemValue="Entry Two"/>
+        </tc:selectManyListbox>
+      </tc:segmentLayout>
+      <tc:segmentLayout medium="6seg">
+        <tc:file id="errorFile" validator="#{severityController.addError}" required="true"/>
+        <tc:selectManyShuttle id="errorShuttle" validator="#{severityController.addError}">
+          <tc:selectItem itemValue="Entry One"/>
+          <tc:selectItem itemValue="Entry Two"/>
+        </tc:selectManyShuttle>
+      </tc:segmentLayout>
+      <tc:segmentLayout medium="6seg">
+        <tc:range id="errorRange" validator="#{severityController.addError}"/>
+        <tc:stars id="errorStars" validator="#{severityController.addError}"/>
+      </tc:segmentLayout>
+    </tc:tab>
 
-  <tc:section label="Warning">
-    <tc:segmentLayout medium="4seg">
-      <tc:in id="warnIn" validator="#{severityController.addWarn}"/>
-      <tc:date id="warnDate" validator="#{severityController.addWarn}"/>
-      <tc:textarea id="warnTextarea" validator="#{severityController.addWarn}"/>
-    </tc:segmentLayout>
-    <tc:segmentLayout medium="3seg">
-      <tc:selectBooleanCheckbox id="warnCheckbox" validator="#{severityController.addWarn}"/>
-      <tc:selectBooleanToggle id="warnToggle" validator="#{severityController.addWarn}"/>
-      <tc:selectManyCheckbox id="warnCheckboxes" validator="#{severityController.addWarn}">
-        <tc:selectItem itemValue="Entry One"/>
-        <tc:selectItem itemValue="Entry Two"/>
-      </tc:selectManyCheckbox>
-      <tc:selectOneRadio id="warnRadio" validator="#{severityController.addWarn}" value="Entry One">
-        <tc:selectItem itemValue="Entry One"/>
-        <tc:selectItem itemValue="Entry Two"/>
-      </tc:selectOneRadio>
-    </tc:segmentLayout>
-    <tc:segmentLayout medium="4seg">
-      <tc:selectOneChoice id="warnDropdown" validator="#{severityController.addWarn}">
-        <tc:selectItem itemValue="Entry One"/>
-        <tc:selectItem itemValue="Entry Two"/>
-      </tc:selectOneChoice>
-      <tc:selectOneListbox id="warnOneListbox" validator="#{severityController.addWarn}" value="Entry One">
-        <tc:selectItem itemValue="Entry One"/>
-        <tc:selectItem itemValue="Entry Two"/>
-      </tc:selectOneListbox>
-      <tc:selectManyListbox id="warnManyListbox" validator="#{severityController.addWarn}">
-        <tc:selectItem itemValue="Entry One"/>
-        <tc:selectItem itemValue="Entry Two"/>
-      </tc:selectManyListbox>
-    </tc:segmentLayout>
-    <tc:segmentLayout medium="6seg">
-      <tc:file id="warnFile" validator="#{severityController.addWarn}" required="true"/>
-      <tc:selectManyShuttle id="warnShuttle" validator="#{severityController.addWarn}">
-        <tc:selectItem itemValue="Entry One"/>
-        <tc:selectItem itemValue="Entry Two"/>
-      </tc:selectManyShuttle>
-    </tc:segmentLayout>
-    <tc:segmentLayout medium="6seg">
-      <tc:range id="warnRange" validator="#{severityController.addWarn}"/>
-      <tc:stars id="warnStars" validator="#{severityController.addWarn}"/>
-    </tc:segmentLayout>
-  </tc:section>
+    <tc:tab id="tabWarning" label="Warning">
+      <tc:segmentLayout medium="4seg">
+        <tc:in id="warnIn" validator="#{severityController.addWarn}"/>
+        <tc:date id="warnDate" validator="#{severityController.addWarn}"/>
+        <tc:textarea id="warnTextarea" validator="#{severityController.addWarn}"/>
+      </tc:segmentLayout>
+      <tc:segmentLayout medium="3seg">
+        <tc:selectBooleanCheckbox id="warnCheckbox" validator="#{severityController.addWarn}"/>
+        <tc:selectBooleanToggle id="warnToggle" validator="#{severityController.addWarn}"/>
+        <tc:selectManyCheckbox id="warnCheckboxes" validator="#{severityController.addWarn}">
+          <tc:selectItem itemValue="Entry One"/>
+          <tc:selectItem itemValue="Entry Two"/>
+        </tc:selectManyCheckbox>
+        <tc:selectOneRadio id="warnRadio" validator="#{severityController.addWarn}" value="Entry One">
+          <tc:selectItem itemValue="Entry One"/>
+          <tc:selectItem itemValue="Entry Two"/>
+        </tc:selectOneRadio>
+      </tc:segmentLayout>
+      <tc:segmentLayout medium="4seg">
+        <tc:selectOneChoice id="warnDropdown" validator="#{severityController.addWarn}">
+          <tc:selectItem itemValue="Entry One"/>
+          <tc:selectItem itemValue="Entry Two"/>
+        </tc:selectOneChoice>
+        <tc:selectOneListbox id="warnOneListbox" validator="#{severityController.addWarn}" value="Entry One">
+          <tc:selectItem itemValue="Entry One"/>
+          <tc:selectItem itemValue="Entry Two"/>
+        </tc:selectOneListbox>
+        <tc:selectManyListbox id="warnManyListbox" validator="#{severityController.addWarn}">
+          <tc:selectItem itemValue="Entry One"/>
+          <tc:selectItem itemValue="Entry Two"/>
+        </tc:selectManyListbox>
+      </tc:segmentLayout>
+      <tc:segmentLayout medium="6seg">
+        <tc:file id="warnFile" validator="#{severityController.addWarn}" required="true"/>
+        <tc:selectManyShuttle id="warnShuttle" validator="#{severityController.addWarn}">
+          <tc:selectItem itemValue="Entry One"/>
+          <tc:selectItem itemValue="Entry Two"/>
+        </tc:selectManyShuttle>
+      </tc:segmentLayout>
+      <tc:segmentLayout medium="6seg">
+        <tc:range id="warnRange" validator="#{severityController.addWarn}"/>
+        <tc:stars id="warnStars" validator="#{severityController.addWarn}"/>
+      </tc:segmentLayout>
+    </tc:tab>
 
-  <tc:section label="Info">
-    <tc:segmentLayout medium="4seg">
-      <tc:in id="infoIn" validator="#{severityController.addInfo}"/>
-      <tc:date id="infoDate" validator="#{severityController.addInfo}"/>
-      <tc:textarea id="infoTextarea" validator="#{severityController.addInfo}"/>
-    </tc:segmentLayout>
-    <tc:segmentLayout medium="3seg">
-      <tc:selectBooleanCheckbox id="infoCheckbox" validator="#{severityController.addInfo}"/>
-      <tc:selectBooleanToggle id="infoToggle" validator="#{severityController.addInfo}"/>
-      <tc:selectManyCheckbox id="infoCheckboxes" validator="#{severityController.addInfo}">
-        <tc:selectItem itemValue="Entry One"/>
-        <tc:selectItem itemValue="Entry Two"/>
-      </tc:selectManyCheckbox>
-      <tc:selectOneRadio id="infoRadio" validator="#{severityController.addInfo}" value="Entry One">
-        <tc:selectItem itemValue="Entry One"/>
-        <tc:selectItem itemValue="Entry Two"/>
-      </tc:selectOneRadio>
-    </tc:segmentLayout>
-    <tc:segmentLayout medium="4seg">
-      <tc:selectOneChoice id="infoDropdown" validator="#{severityController.addInfo}">
-        <tc:selectItem itemValue="Entry One"/>
-        <tc:selectItem itemValue="Entry Two"/>
-      </tc:selectOneChoice>
-      <tc:selectOneListbox id="infoOneListbox" validator="#{severityController.addInfo}" value="Entry One">
-        <tc:selectItem itemValue="Entry One"/>
-        <tc:selectItem itemValue="Entry Two"/>
-      </tc:selectOneListbox>
-      <tc:selectManyListbox id="infoManyListbox" validator="#{severityController.addInfo}">
-        <tc:selectItem itemValue="Entry One"/>
-        <tc:selectItem itemValue="Entry Two"/>
-      </tc:selectManyListbox>
-    </tc:segmentLayout>
-    <tc:segmentLayout medium="6seg">
-      <tc:file id="infoFile" validator="#{severityController.addInfo}" required="true"/>
-      <tc:selectManyShuttle id="infoShuttle" validator="#{severityController.addInfo}">
-        <tc:selectItem itemValue="Entry One"/>
-        <tc:selectItem itemValue="Entry Two"/>
-      </tc:selectManyShuttle>
-    </tc:segmentLayout>
-    <tc:segmentLayout medium="6seg">
-      <tc:range id="infoRange" validator="#{severityController.addInfo}"/>
-      <tc:stars id="infoStars" validator="#{severityController.addInfo}"/>
-    </tc:segmentLayout>
-  </tc:section>
+    <tc:tab id="tabInfo" label="Info">
+      <tc:segmentLayout medium="4seg">
+        <tc:in id="infoIn" validator="#{severityController.addInfo}"/>
+        <tc:date id="infoDate" validator="#{severityController.addInfo}"/>
+        <tc:textarea id="infoTextarea" validator="#{severityController.addInfo}"/>
+      </tc:segmentLayout>
+      <tc:segmentLayout medium="3seg">
+        <tc:selectBooleanCheckbox id="infoCheckbox" validator="#{severityController.addInfo}"/>
+        <tc:selectBooleanToggle id="infoToggle" validator="#{severityController.addInfo}"/>
+        <tc:selectManyCheckbox id="infoCheckboxes" validator="#{severityController.addInfo}">
+          <tc:selectItem itemValue="Entry One"/>
+          <tc:selectItem itemValue="Entry Two"/>
+        </tc:selectManyCheckbox>
+        <tc:selectOneRadio id="infoRadio" validator="#{severityController.addInfo}" value="Entry One">
+          <tc:selectItem itemValue="Entry One"/>
+          <tc:selectItem itemValue="Entry Two"/>
+        </tc:selectOneRadio>
+      </tc:segmentLayout>
+      <tc:segmentLayout medium="4seg">
+        <tc:selectOneChoice id="infoDropdown" validator="#{severityController.addInfo}">
+          <tc:selectItem itemValue="Entry One"/>
+          <tc:selectItem itemValue="Entry Two"/>
+        </tc:selectOneChoice>
+        <tc:selectOneListbox id="infoOneListbox" validator="#{severityController.addInfo}" value="Entry One">
+          <tc:selectItem itemValue="Entry One"/>
+          <tc:selectItem itemValue="Entry Two"/>
+        </tc:selectOneListbox>
+        <tc:selectManyListbox id="infoManyListbox" validator="#{severityController.addInfo}">
+          <tc:selectItem itemValue="Entry One"/>
+          <tc:selectItem itemValue="Entry Two"/>
+        </tc:selectManyListbox>
+      </tc:segmentLayout>
+      <tc:segmentLayout medium="6seg">
+        <tc:file id="infoFile" validator="#{severityController.addInfo}" required="true"/>
+        <tc:selectManyShuttle id="infoShuttle" validator="#{severityController.addInfo}">
+          <tc:selectItem itemValue="Entry One"/>
+          <tc:selectItem itemValue="Entry Two"/>
+        </tc:selectManyShuttle>
+      </tc:segmentLayout>
+      <tc:segmentLayout medium="6seg">
+        <tc:range id="infoRange" validator="#{severityController.addInfo}"/>
+        <tc:stars id="infoStars" validator="#{severityController.addInfo}"/>
+      </tc:segmentLayout>
+    </tc:tab>
+  </tc:tabGroup>
 </ui:composition>
