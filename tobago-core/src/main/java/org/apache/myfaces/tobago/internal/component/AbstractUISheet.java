@@ -298,7 +298,7 @@ public abstract class AbstractUISheet extends AbstractUIData
    * @return Is panging needed to display all rows? If the number of rows is unknown this method returns true.
    */
   public boolean needMoreThanOnePage() {
-    if (isRowsUnlimited()) {
+    if (isRowsUnlimited() || isLazy()) {
       return false;
     } else if (!hasRowCount()) {
       return true;
