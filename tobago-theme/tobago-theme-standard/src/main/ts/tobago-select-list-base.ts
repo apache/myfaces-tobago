@@ -201,7 +201,7 @@ export abstract class SelectListBase extends HTMLElement {
     }
   }
 
-  private lazyResponse(event: EventData): void {
+  private lazyResponse(event: faces.AjaxEvent): void {
     const updates: NodeListOf<Element> = event.responseXML?.querySelectorAll("update");
     if (updates && event.status === "complete") {
       for (const update of updates) {
@@ -254,7 +254,7 @@ export abstract class SelectListBase extends HTMLElement {
     }
   }
 
-  private lazyError(data: ErrorData): void {
+  private lazyError(data: faces.AjaxError): void {
     console.error(`Select[One|Many]List filter loading error:
 Error Name: ${data.errorName}
 Error errorMessage: ${data.errorMessage}

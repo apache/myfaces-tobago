@@ -249,7 +249,7 @@ export class Suggest {
     }
   }
 
-  private ajaxEvent(event: EventData): void {
+  private ajaxEvent(event: faces.AjaxEvent): void {
     if (event.status === "success") {
       this.renderResults(this.items);
     }

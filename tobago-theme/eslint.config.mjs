@@ -23,6 +23,7 @@ import stylistic from '@stylistic/eslint-plugin'
 export default defineConfig([
   {
     ignores: [
+      "**/faces.d.ts",
       "**/tobago-polyfill.ts"
     ]
   },
