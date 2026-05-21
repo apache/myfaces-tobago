@@ -100,7 +100,7 @@ export class Page extends HTMLElement {
     faces.ajax.addOnEvent(this.facesResponse.bind(this));
   }
 
-  facesResponse(event: EventData): void {
+  facesResponse(event: faces.AjaxEvent): void {
     console.debug("[tobago-faces] Faces event status: '%s'", event.status);
     if (event.status === "success" && event.responseXML) {
       event.responseXML.querySelectorAll("update").forEach(this.facesResponseSuccess.bind(this));

@@ -11,13 +11,8 @@
     "removeComments": false,
     "strict": false,
     "types": [
-      "jest"
+      "jest",
+      "jsf.js_next_gen"
     ]
-  },
-  "include": [
-    "tobago-theme-standard/src/main/ts/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  }
 }

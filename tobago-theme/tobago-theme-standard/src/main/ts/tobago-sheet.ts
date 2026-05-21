@@ -344,7 +344,7 @@ export class Sheet extends HTMLElement {
     }
   }
 
-  lazyResponse(event: EventData): void {
+  lazyResponse(event: faces.AjaxEvent): void {
     const updates: NodeListOf<Element> = event.responseXML?.querySelectorAll("update");
     if (updates && event.status === "complete") {
       for (const update of updates) {
@@ -412,7 +412,7 @@ export class Sheet extends HTMLElement {
     }
   }
 
-  lazyError(data: ErrorData): void {
+  lazyError(data: faces.AjaxError): void {
     console.error(`Sheet lazy loading error:
 Error Name: ${data.errorName}
 Error errorMessage: ${data.errorMessage}

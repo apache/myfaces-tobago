@@ -132,7 +132,7 @@ class Behavior extends HTMLElement {
               render: this.render,
               resetValues: this.resetValues,
               delay: this.delay,
-              onevent: (event: EventData) => {
+              onevent: (event: faces.AjaxEvent) => {
                 // console.debug(`Status: ${event.status} - Type: ${event.type}`);
               },
               myfaces: {
