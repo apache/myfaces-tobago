@@ -93,20 +93,16 @@ export class TobagoPaginator extends HTMLElement {
 
   private overlayAndAjaxReload() {
     const sheet = this.sheet;
-
-    sheet.insertAdjacentHTML("beforeend",
-        Overlay.htmlText(sheet.id, OverlayType.ajax, Page.page(this).waitOverlayDelayAjax));
-
     tobago.ajax.request(
         this.id,
         null,
-        {
+        Overlay.getEnhancedRequestOptions({
           params: {
             "javax.faces.behavior.event": "reload"
           },
           execute: sheet.id,
           render: sheet.id
-        });
+        }));
   }
 
   get text(): HTMLElement {

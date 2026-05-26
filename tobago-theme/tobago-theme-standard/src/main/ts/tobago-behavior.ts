@@ -101,30 +101,10 @@ class Behavior extends HTMLElement {
 
     switch (this.mode) {
       case BehaviorMode.ajax:
-        if (this.render) {
-          // prepare overlay for all by AJAX reloaded elements
-          const partialIds = this.render.split(" ");
-          for (const partialId of partialIds) {
-            const partialElement = document.getElementById(partialId);
-            if (partialElement) {
-              let id: string;
-              if (partialElement.tagName === "TOBAGO-POPUP") {
-                // popup needs no overlay, it has no area to show
-                id = partialElement.querySelector(".modal-dialog").id;
-              } else {
-                id = partialElement.id;
-              }
-              partialElement.insertAdjacentHTML("beforeend",
-                  Overlay.htmlText(id, OverlayType.ajax, Page.page(this).waitOverlayDelayAjax));
-            } else {
-              console.warn("No element found by id='%s' for overlay!", partialId);
-            }
-          }
-        }
         tobago.ajax.request(
             this.actionElement,
             event,
-            {
+            Overlay.getEnhancedRequestOptions({
               params: {
                 "jakarta.faces.behavior.event": this.event
               },
@@ -172,7 +152,7 @@ class Behavior extends HTMLElement {
                   }
                 }
               }
-            });
+            }));
         break;
       case BehaviorMode.full:
         setTimeout(this.submit.bind(this), this.delay);
