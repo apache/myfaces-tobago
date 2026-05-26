@@ -111,11 +111,6 @@ export class Page extends HTMLElement {
 
   facesResponseSuccess(update: Element): void {
     const id = update.id;
-    let rootNode = this.getRootNode() as ShadowRoot | Document;
-    // XXX in case of "this" is tobago-page (e.g. ajax exception handling) rootNode is not set correctly???
-    if (!rootNode.getElementById) {
-      rootNode = document;
-    }
     console.debug("[tobago-faces] Update after faces.ajax success: %s", id);
   }
 
@@ -123,12 +118,6 @@ export class Page extends HTMLElement {
     const id = update.id;
     if (!FacesParameter.isInternalFacesId(id)) {
       console.debug("[tobago-faces] Update after faces.ajax complete: #", id);
-      const overlay = this.querySelector(`tobago-overlay[for='${id}']`);
-      if (overlay) {
-        overlay.remove();
-      } else {
-        console.debug("Didn't found overlay for id", id);
-      }
     }
   }
 

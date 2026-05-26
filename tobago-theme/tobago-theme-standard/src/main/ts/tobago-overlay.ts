@@ -23,14 +23,73 @@ import {Page} from "./tobago-page";
 import {OverlayType} from "./tobago-overlay-type";
 import {Css} from "./tobago-css";
 
-// XXX issue: if a ajax call is scheduled on the same element, the animation arrow will stacking and not desapearing.
-// XXX issue: "error" is not implemented correctly
-// see http://localhost:8080/demo-5-snapshot/content/140-partial/Partial_Ajax.xhtml to use this feature
-// XXX todo: check full page transitions
-
 export class Overlay extends HTMLElement {
+
+  /**
+   * Enhance or create faces.ajax.RequestOptions to use an overlay for the Ajax request.
+   */
+  static getEnhancedRequestOptions(options: faces.ajax.RequestOptions = {}): faces.ajax.RequestOptions {
+    const renderIds = new Set<string>();
+    if (options.render) {
+      for (const id of options.render.split(" ")) {
+        renderIds.add(id);
+      }
+    }
+
+    const currentOnEvent = options.onevent;
+    options.onevent = (data: faces.AjaxEvent) => {
+      if (currentOnEvent) {
+        currentOnEvent(data);
+      }
+
+      if (data.status === "begin") {
+        for (const renderId of renderIds) {
+          Overlay.createOverlay(renderId, OverlayType.ajax);
+        }
+      } else if (data.status === "success") {
+        for (const renderId of renderIds) {
+          Overlay.removeOverlay(renderId);
+        }
+      }
+    };
+    const currentOnError = options.onerror;
+    options.onerror = (data: faces.AjaxError) => {
+      if (currentOnError) {
+        currentOnError(data);
+      }
+
+      for (const renderId of renderIds) {
+        Overlay.createOverlay(renderId, OverlayType.error);
+      }
+    };
+    return options;
+  }
+
+  static createOverlay(id: string, type: OverlayType, delay: number = Page
+      .page(document.querySelector("tobago-page")).waitOverlayDelayAjax): void {
+    const element = document.getElementById(id);
+
+    const currentOverlay = element.querySelector(":scope > tobago-overlay");
+    const currentOverlayType: OverlayType = currentOverlay?.getAttribute("type") as OverlayType;
+
+    if (currentOverlay === null) {
+      element.insertAdjacentHTML("beforeend", Overlay.htmlText(id, type,
+          delay ? delay : Page.page(document.querySelector("tobago-page")).waitOverlayDelayAjax));
+    } else if (currentOverlayType !== type) {
+      currentOverlay?.remove();
+      element.insertAdjacentHTML("beforeend", Overlay.htmlText(id, type, 0));
+    }
+  }
+
+  static removeOverlay(id: string): void {
+    const element = document.getElementById(id);
+    const currentOverlay = element?.querySelector(":scope > tobago-overlay");
+    currentOverlay?.remove();
+  }
+
   static htmlText(id: string, type: OverlayType, delay: number): string {
-    return `<tobago-overlay type='${type}' for='${id}' delay='${delay}' class='modal-backdrop fade'></tobago-overlay>`;
+    return `<tobago-overlay type='${type}' for='${id}' delay='${delay}' class='fade${type === OverlayType.error
+        ? " text-danger" : ""}'/>`;
   }
 
   private timeout;
@@ -40,24 +99,21 @@ export class Overlay extends HTMLElement {
   }
 
   connectedCallback(): void {
+    const resizeObserver = new ResizeObserver(() => this.updatePosition());
+    resizeObserver.observe(this.forElement);
     this.timeout = setTimeout(this.render.bind(this), this.delay);
   }
 
   disconnectedCallback() {
     clearTimeout(this.timeout);
-    const forElement = document.getElementById(this.for);
-    if (forElement) {
-      forElement.classList.remove(Css.POSITION_RELATIVE);
-    }
     this.showScrollbar();
   }
 
   render(): void {
-    this.classList.add(Css.SHOW);
     let icon;
     switch (this.type) {
       case OverlayType.error:
-        icon = "<i class='bi-flash fs-1'></i>";
+        icon = "<i class='bi-exclamation-octagon fs-1'></i>";
         break;
       case OverlayType.dropZone:
         icon = "<i class='bi-upload fs-1'></i>";
@@ -65,22 +121,37 @@ export class Overlay extends HTMLElement {
       case OverlayType.submit:
         this.hideScrollbar();
       case OverlayType.ajax:
-        icon = "<span class='spinner-border'></span>";
+        icon = "<span class='spinner-border text-primary'></span>";
         break;
       default:
         icon = "";
     }
 
     this.insertAdjacentHTML("afterbegin", icon);
+    this.updatePosition();
+    this.classList.add(Css.SHOW);
+  }
 
-    const forElement = document.getElementById(this.for);
-    if (forElement) {
-      forElement.classList.add(Css.POSITION_RELATIVE);
-      this.style.position = "absolute";
-      const boundingClientRect = forElement.getBoundingClientRect();
-      this.style.width = `${boundingClientRect.width}px`;
-      this.style.height = `${boundingClientRect.height}px`;
-    }
+  private updatePosition(): void {
+    this.style.top = "0px";
+    this.style.left = "0px";
+
+    const target = this.forElement.tagName === "TOBAGO-POPUP"
+        ? this.forElement.querySelector(".modal-dialog .modal-content")
+        : this.forElement;
+
+    const forRect = target.getBoundingClientRect();
+    const forStyle = getComputedStyle(target);
+    const thisRect = this.getBoundingClientRect();
+
+    this.style.top = (forRect.top - thisRect.top) + "px";
+    this.style.left = (forRect.left - thisRect.left) + "px";
+    this.style.width = forRect.width + "px";
+    this.style.height = forRect.height + "px";
+    this.style.borderTopLeftRadius = forStyle.borderTopLeftRadius;
+    this.style.borderTopRightRadius = forStyle.borderTopRightRadius;
+    this.style.borderBottomLeftRadius = forStyle.borderBottomLeftRadius;
+    this.style.borderBottomRightRadius = forStyle.borderBottomRightRadius;
   }
 
   private hideScrollbar() {
@@ -95,6 +166,10 @@ export class Overlay extends HTMLElement {
 
   get scrollbarWidth(): number {
     return window.innerWidth - document.documentElement.clientWidth;
+  }
+
+  get forElement(): HTMLElement {
+    return document.getElementById(this.for);
   }
 
   get for(): string {

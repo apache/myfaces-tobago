@@ -1149,18 +1149,16 @@ span.tobago-out:empty:before {
 }
 
 tobago-overlay {
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background-color .15s linear; //similar to .fade from Bootstrap
+  overflow: hidden;
+  z-index: 5; //set to "5", because this is the highest fixed value in Bootstrap
 
-  &.modal-backdrop {
-    --#{$prefix}backdrop-zindex: #{$zindex-sticky - 1}; //less than the bootstrap navbar
-    --#{$prefix}backdrop-bg: rgba(#{red($gray-400)}, #{green($gray-400)}, #{blue($gray-400)}, #{$modal-backdrop-opacity});
-    --#{$prefix}backdrop-opacity: 1;
-
-    &:not(.show) {
-      display: none;
-    }
+  &.show {
+    background-color: rgb(var(--#{$prefix}body-bg-rgb), 90%);
   }
 }
 
