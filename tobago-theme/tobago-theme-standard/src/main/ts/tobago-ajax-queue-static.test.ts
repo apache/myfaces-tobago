@@ -21,6 +21,7 @@ import {QueueItem} from "./tobago-ajax-queue";
 test("Press button 1, 2, 3, 2, 1; than the queue is processed", () => {
   const queue: QueueItem[] = [];
 
+  document.querySelector("body").replaceChildren(); //fresh body
   document.querySelector("body").insertAdjacentHTML("afterbegin", `
 <BUTTON id="b1"/>
 <BUTTON id="b2"/>
@@ -152,6 +153,7 @@ test("Press button 1, 2, 3, 2, 1; than the queue is processed", () => {
 });
 
 test("getExecuteValues()", () => {
+  document.querySelector("body").replaceChildren(); //fresh body
   document.querySelector("body").insertAdjacentHTML("afterbegin", `
 <tobago-in id="page:mainForm:tcIn" class="tobago-auto-spacing">
   <input type="text" name="page:mainForm:tcIn" id="page:mainForm:tcIn::field" value="tc:in" class="form-control">
@@ -262,6 +264,7 @@ test("Input field: type 'h', 'i', delete 'i'", () => {
   let expectQueue: QueueItem[] = [];
   const dummyFunction = () => console.log("dummy function");
 
+  document.querySelector("body").replaceChildren(); //fresh body
   document.querySelector("body").insertAdjacentHTML("afterbegin", `
 <tobago-in id="page:mainForm:inputAjax" class="tobago-label-container tobago-auto-spacing">
   <label for="page:mainForm:inputAjax::field" class="col-form-label">Input</label>
@@ -327,6 +330,7 @@ test("Input field: type 'h', 'i', delete 'i'", () => {
 test("SelectManyList server side filtering; click, search for 'hea', click 'Rhea'", () => {
   const queue: QueueItem[] = [];
 
+  document.querySelector("body").replaceChildren(); //fresh body
   document.querySelector("body").insertAdjacentHTML("afterbegin", `
 <tobago-select-many-list id="page:mainForm:selectManyList" class="tobago-label-container tobago-auto-spacing tobago-focus">
   <label for="page:mainForm:selectManyList::field" class="col-form-label">selectManyList</label>
@@ -598,6 +602,7 @@ test("Dblclick on a button with f:ajax for click and dblclick", () => {
   const queue: QueueItem[] = [];
   let expectQueue: QueueItem[] = [];
 
+  document.querySelector("body").replaceChildren(); //fresh body
   document.querySelector("body").insertAdjacentHTML("afterbegin", `
 <BUTTON id="button">
   <tobago-behavior event="click" client-id="button" execute="button"></tobago-behavior>
@@ -629,5 +634,106 @@ test("Dblclick on a button with f:ajax for click and dblclick", () => {
     func: dblclickFunction,
     inProgress: false
   });
+  expect(queue).toEqual(expectQueue);
+});
+
+test("Ignore and remove unconnected queue item", () => {
+  const queue: QueueItem[] = [];
+
+  document.querySelector("body").replaceChildren(); //fresh body
+  const domWrapperElement = `
+<tobago-panel id="wrapper">
+  <button type="button" id="button">
+    <tobago-behavior event="focus" client-id="button" execute="button" render="wrapper"></tobago-behavior>
+    <tobago-behavior event="click" client-id="button" execute="button" render="wrapper"></tobago-behavior>
+    <tobago-behavior event="dblclick" client-id="button" execute="button" render="wrapper"></tobago-behavior>
+    <span>multiple ajax</span>
+  </button>
+</tobago-panel>
+`;
+  document.querySelector("body").insertAdjacentHTML("afterbegin", domWrapperElement);
+
+  const button = document.getElementById("button");
+  const focusFunction = () => console.log("faces.ajax.request focus event");
+  const clickFunction = () => console.log("faces.ajax.request click event");
+  const dblclickFunction = () => console.log("faces.ajax.request dblclick event");
+
+  //click 4 times on the button (fast).
+  AjaxQueueStatic.request(queue, button, new Event("focus"), {render: "wrapper"}, focusFunction);
+  const renderIds = new Set<string>();
+  renderIds.add("wrapper");
+  let expectQueue: QueueItem[] = [];
+  expectQueue.push({
+    element: button,
+    event: new Event("focus"),
+    executeValues: [],
+    renderIds: renderIds,
+    func: focusFunction,
+    inProgress: true
+  });
+  expect(queue).toEqual(expectQueue);
+
+  AjaxQueueStatic.request(queue, button, new Event("click"), {render: "wrapper"}, clickFunction);
+  expectQueue.push({
+    element: button,
+    event: new Event("click"),
+    executeValues: [],
+    renderIds: renderIds,
+    func: clickFunction,
+    inProgress: false
+  });
+  expect(queue).toEqual(expectQueue);
+
+  AjaxQueueStatic.request(queue, button, new Event("dblclick"), {render: "wrapper"}, dblclickFunction);
+  expectQueue.push({
+    element: button,
+    event: new Event("dblclick"),
+    executeValues: [],
+    renderIds: renderIds,
+    func: dblclickFunction,
+    inProgress: false
+  });
+  expect(queue).toEqual(expectQueue);
+
+  AjaxQueueStatic.request(queue, button, new Event("click"), {render: "wrapper"}, clickFunction);
+  expectQueue = [];
+  expectQueue.push({
+    element: button,
+    event: new Event("focus"),
+    executeValues: [],
+    renderIds: renderIds,
+    func: focusFunction,
+    inProgress: true
+  });
+  expectQueue.push({
+    element: button,
+    event: new Event("dblclick"),
+    executeValues: [],
+    renderIds: renderIds,
+    func: dblclickFunction,
+    inProgress: false
+  });
+  expectQueue.push({
+    element: button,
+    event: new Event("click"),
+    executeValues: [],
+    renderIds: renderIds,
+    func: clickFunction,
+    inProgress: false
+  });
+  expect(queue).toEqual(expectQueue);
+
+  AjaxQueueStatic.ajaxEventListener(queue, button, "event", "begin");
+  expect(queue).toEqual(expectQueue);
+
+  AjaxQueueStatic.ajaxEventListener(queue, button, "event", "complete");
+  expect(queue).toEqual(expectQueue);
+
+  // After the focus Ajax request is done, the elements in the queue are no longer connected to the DOM.
+  document.querySelector("#wrapper").remove();
+  document.querySelector("body").insertAdjacentHTML("afterbegin", domWrapperElement);
+  AjaxQueueStatic.ajaxEventListener(queue, button, "event", "success");
+
+  expectQueue = [];
   expect(queue).toEqual(expectQueue);
 });

@@ -124,9 +124,15 @@ export class AjaxQueueStatic {
   }
 
   static processQueue(queue: QueueItem[]): void {
-    if (queue.length > 0 && !queue[0].inProgress) {
-      queue[0].inProgress = true;
-      queue[0].func();
+    if (queue.length > 0) {
+      const item0 = queue[0];
+      if (!item0.element.isConnected) {
+        queue.shift();
+        this.processQueue(queue);
+      } else if (!item0.inProgress) {
+        queue[0].inProgress = true;
+        queue[0].func();
+      }
     }
   }
 
