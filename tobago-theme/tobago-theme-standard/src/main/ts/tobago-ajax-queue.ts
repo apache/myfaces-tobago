@@ -34,6 +34,7 @@ export interface QueueItem {
  * - A new request is ignored if the exact same request (based on element/event.type/executeValues/renderIds) is
  *   currently in progress.
  * - A new request replaces a queued request (based on element/event.type) and is moved to the end of the queue.
+ * - A queued request will be removed if the element is not connected to the DOM.
  */
 export class AjaxQueue {
   private queue: QueueItem[] = [];
