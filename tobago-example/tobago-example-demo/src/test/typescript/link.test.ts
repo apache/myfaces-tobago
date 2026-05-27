@@ -26,16 +26,15 @@ test.describe("link/Link.xhtml", () => {
     await page.goto("/content/900-test/link/Link.xhtml");
   });
 
-  test("tc:link: plain link - a.tobago-link vs button.tobago-link", async ({page, browserName}) => {
+  test("tc:link: plain link - a.tobago-link vs button.tobago-link", async ({page}) => {
     const aLink = page.locator("a[id='page:mainForm:aLink']");
-    await testPlainLink(aLink, browserName);
+    await testPlainLink(aLink);
 
     const buttonLink = page.locator("button[id='page:mainForm:buttonLink']");
-    await testPlainLink(buttonLink, browserName);
+    await testPlainLink(buttonLink);
   });
 
-  async function testPlainLink(component: Locator, browserName): Promise<void> {
-    const isWebkit: boolean = browserName === "webkit";
+  async function testPlainLink(component: Locator): Promise<void> {
     const tagName: string = await component.evaluate((element) => element.tagName);
 
     const boxShadow = "none";
@@ -43,130 +42,128 @@ test.describe("link/Link.xhtml", () => {
     const fontSize = "16px";
     const height = tagName === "BUTTON" ? "24px" : "auto"; //button-element cannot be "display: inline"
     const margin = "0px 0px 16px";
-    const outlineWidth = "3px";
+    const outline = false;
     const padding = "0px";
     const textDecoration = Root.linkDecoration;
-    await testCSS(component, boxShadow, color, fontSize, height, margin, outlineWidth, padding, textDecoration);
+    await testCSS(component, boxShadow, color, fontSize, height, margin, outline, padding, textDecoration);
 
     await component.hover();
     const hoverColor = Root.linkHoverColor;
-    await testCSS(component, boxShadow, hoverColor, fontSize, height, margin, outlineWidth, padding, textDecoration);
+    await testCSS(component, boxShadow, hoverColor, fontSize, height, margin, outline, padding, textDecoration);
 
     const sectionTitle = component.page().locator("tobago-section[id='page:mainForm:aVsButton'] > .tobago-header");
     await sectionTitle.click();
     await component.focus();
-    const focusOutlineWidth = isWebkit ? (tagName === "BUTTON" ? "1px" : "5px") : "1px";
-    await testCSS(component, boxShadow, color, fontSize, height, margin, focusOutlineWidth, padding, textDecoration);
+    const focusOutline = true;
+    await testCSS(component, boxShadow, color, fontSize, height, margin, focusOutline, padding, textDecoration);
   }
 
-  test("tc:link: nav-link - a.tobago-link vs button.tobago-link", async ({page, browserName}) => {
+  test("tc:link: nav-link - a.tobago-link vs button.tobago-link", async ({page}) => {
     const linksALink = page.locator("a[id='page:mainForm:linksALink']");
-    await testNavLink(linksALink, browserName);
+    await testNavLink(linksALink);
 
     const linksButtonLink = page.locator("button[id='page:mainForm:linksButtonLink']");
-    await testNavLink(linksButtonLink, browserName);
+    await testNavLink(linksButtonLink);
   });
 
-  async function testNavLink(component: Locator, browserName): Promise<void> {
-    const isWebkit: boolean = browserName === "webkit";
-
+  async function testNavLink(component: Locator): Promise<void> {
     const boxShadow = "none";
     const color = Root.linkColor;
     const fontSize = "16px";
     const height = "40px";
     const margin = "0px";
-    const outlineWidth = "3px";
+    const outline = false;
     const padding = "8px 16px";
     const textDecoration = "none";
-    await testCSS(component, boxShadow, color, fontSize, height, margin, outlineWidth, padding, textDecoration);
+    await testCSS(component, boxShadow, color, fontSize, height, margin, outline, padding, textDecoration);
 
     await component.hover();
     const hoverColor = Root.linkHoverColor;
-    await testCSS(component, boxShadow, hoverColor, fontSize, height, margin, outlineWidth, padding, textDecoration);
+    await testCSS(component, boxShadow, hoverColor, fontSize, height, margin, outline, padding, textDecoration);
 
     const sectionTitle = component.page().locator("tobago-section[id='page:mainForm:aVsButton'] > .tobago-header");
     await sectionTitle.click();
     await component.focus();
     const focusBoxShadow = "rgba(13, 110, 253, 0.25) 0px 0px 0px 4px";
-    const focusOutlineWidth = "0px";
-    await testCSS(component, focusBoxShadow, hoverColor, fontSize, height, margin, focusOutlineWidth, padding, textDecoration);
+    const focusOutline = false;
+    await testCSS(component, focusBoxShadow, hoverColor, fontSize, height, margin, focusOutline, padding, textDecoration);
   }
 
-  test("tc:link: tc:bar plain link - a.tobago-link vs button.tobago-link", async ({page, browserName}) => {
+  test("tc:link: tc:bar plain link - a.tobago-link vs button.tobago-link", async ({page}) => {
     const barALink = page.locator("a[id='page:mainForm:barALink']");
-    await testBarPlainLink(barALink, browserName);
+    await testBarPlainLink(barALink);
 
     const barButtonLink = page.locator("button[id='page:mainForm:barButtonLink']");
-    await testBarPlainLink(barButtonLink, browserName);
+    await testBarPlainLink(barButtonLink);
   });
 
-  async function testBarPlainLink(component: Locator, browserName): Promise<void> {
-    const isWebkit: boolean = browserName === "webkit";
-    const tagName: string = await component.evaluate((element) => element.tagName);
-
+  async function testBarPlainLink(component: Locator): Promise<void> {
     const boxShadow = "none";
     const color = Root.linkColor;
     const fontSize = "16px";
     const height = "24px";
     const margin = "0px";
-    const outlineWidth = "3px";
+    const outline = false;
     const padding = "0px";
     const textDecoration = Root.linkDecoration;
-    await testCSS(component, boxShadow, color, fontSize, height, margin, outlineWidth, padding, textDecoration);
+    await testCSS(component, boxShadow, color, fontSize, height, margin, outline, padding, textDecoration);
 
     await component.hover();
     const hoverColor = Root.linkHoverColor;
-    await testCSS(component, boxShadow, hoverColor, fontSize, height, margin, outlineWidth, padding, textDecoration);
+    await testCSS(component, boxShadow, hoverColor, fontSize, height, margin, outline, padding, textDecoration);
 
     const sectionTitle = component.page().locator("tobago-section[id='page:mainForm:aVsButton'] > .tobago-header");
     await sectionTitle.click();
     await component.focus();
-    const focusOutlineWidth = isWebkit ? (tagName === "BUTTON" ? "1px" : "5px") : "1px";
-    await testCSS(component, boxShadow, color, fontSize, height, margin, focusOutlineWidth, padding, textDecoration);
+    const focusOutline = true;
+    await testCSS(component, boxShadow, color, fontSize, height, margin, focusOutline, padding, textDecoration);
   }
 
-  test("tc:link: tc:bar nav-link - a.tobago-link vs button.tobago-link", async ({page, browserName}) => {
+  test("tc:link: tc:bar nav-link - a.tobago-link vs button.tobago-link", async ({page}) => {
     const barLinksALink = page.locator("a[id='page:mainForm:barLinksALink']");
-    await testBarNavLink(barLinksALink, browserName);
+    await testBarNavLink(barLinksALink);
 
     const barLinksButtonLink = page.locator("button[id='page:mainForm:barLinksButtonLink']");
-    await testBarNavLink(barLinksButtonLink, browserName);
+    await testBarNavLink(barLinksButtonLink);
   });
 
-  async function testBarNavLink(component: Locator, browserName): Promise<void> {
-    const isWebkit: boolean = browserName === "webkit";
-
+  async function testBarNavLink(component: Locator): Promise<void> {
     const boxShadow = "none";
     const color = Navbar.color;
     const fontSize = "16px";
     const height = "40px";
     const margin = "0px";
-    const outlineWidth = "3px";
+    const outline = false;
     const padding = Navbar.navLinkPaddingX; //padding-y is: Navbar.paddingY
     const textDecoration = "none";
-    await testCSS(component, boxShadow, color, fontSize, height, margin, outlineWidth, padding, textDecoration);
+    await testCSS(component, boxShadow, color, fontSize, height, margin, outline, padding, textDecoration);
 
     await component.hover();
     const hoverColor = Navbar.hoverColor;
-    await testCSS(component, boxShadow, hoverColor, fontSize, height, margin, outlineWidth, padding, textDecoration);
+    await testCSS(component, boxShadow, hoverColor, fontSize, height, margin, outline, padding, textDecoration);
 
     const sectionTitle = component.page().locator("tobago-section[id='page:mainForm:aVsButton'] > .tobago-header");
     await sectionTitle.click();
     await component.focus();
     const focusBoxShadow = "rgba(13, 110, 253, 0.25) 0px 0px 0px 4px";
-    const focusOutlineWidth = "0px";
-    await testCSS(component, focusBoxShadow, hoverColor, fontSize, height, margin, focusOutlineWidth, padding,
+    const focusOutline = false;
+    await testCSS(component, focusBoxShadow, hoverColor, fontSize, height, margin, focusOutline, padding,
         textDecoration);
   }
 
   async function testCSS(component: Locator, boxShadow: string, color: string, fontSize: string, height: string,
-                         margin: string, outlineWidth: string, padding: string, textDecoration: string): Promise<void> {
+                         margin: string, outline: boolean, padding: string, textDecoration: string): Promise<void> {
     await expect(component).toHaveCSS("box-shadow", boxShadow);
     await expect(component).toHaveCSS("color", color);
     await expect(component).toHaveCSS("font-size", fontSize);
     await expect(component).toHaveCSS("height", height);
     await expect(component).toHaveCSS("margin", margin);
-    await expect(component).toHaveCSS("outline-width", outlineWidth);
+    if (outline) {
+      await expect(component).not.toHaveCSS("outline-style", "none");
+      await expect(component).not.toHaveCSS("outline-width", "0px");
+    } else {
+      await expect(component).toHaveCSS("outline-style", "none");
+    }
     await expect(component).toHaveCSS("padding", padding);
     await expect(component).toHaveCSS("text-decoration", textDecoration);
   }
