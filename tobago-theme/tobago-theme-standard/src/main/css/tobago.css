@@ -14634,19 +14634,17 @@ span.tobago-out:empty:before {
 }
 
 tobago-overlay {
+  z-index: 5;
   justify-content: center;
   align-items: center;
+  transition: background-color .15s linear;
   display: flex;
+  position: absolute;
+  overflow: hidden;
 }
 
-tobago-overlay.modal-backdrop {
-  --bs-backdrop-zindex: 1019;
-  --bs-backdrop-bg: rgba(206, 212, 218, .5);
-  --bs-backdrop-opacity: 1;
-}
-
-tobago-overlay.modal-backdrop:not(.show) {
-  display: none;
+tobago-overlay.show {
+  background-color: rgb(var(--bs-body-bg-rgb), 90%);
 }
 
 tobago-page {
@@ -15852,6 +15850,7 @@ tobago-sheet header th.tobago-behavior-container, tobago-sheet .tobago-body th.t
 tobago-sheet tobago-paginator-panel {
   flex-wrap: wrap;
   justify-content: space-between;
+  gap: 1rem;
   margin-top: 1rem;
   display: flex;
 }
@@ -15871,8 +15870,8 @@ tobago-sheet tobago-paginator-panel tobago-paginator-row .page-link input {
   display: none;
 }
 
-tobago-sheet tobago-paginator-panel tobago-paginator-row > .page-item {
-  margin-bottom: 1rem;
+tobago-sheet tobago-paginator-panel tobago-paginator-list .pagination {
+  margin-bottom: 0;
 }
 
 tobago-sheet tobago-paginator-panel tobago-paginator-page .page-link {
@@ -15884,6 +15883,10 @@ tobago-sheet tobago-paginator-panel tobago-paginator-page .page-link input {
   width: 3em;
   margin: -4px 0;
   display: none;
+}
+
+tobago-sheet tobago-paginator-panel tobago-paginator-page .pagination {
+  margin-bottom: 0;
 }
 
 .tobago-tableLayout-fixed {
