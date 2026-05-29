@@ -130,8 +130,8 @@ export class AjaxQueueStatic {
         queue.shift();
         this.processQueue(queue);
       } else if (!item0.inProgress) {
-        queue[0].inProgress = true;
-        queue[0].func();
+        item0.inProgress = true;
+        item0.func();
       }
     }
   }
