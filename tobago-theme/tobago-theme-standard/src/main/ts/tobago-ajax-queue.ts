@@ -36,23 +36,30 @@ export interface QueueItem {
  * - A new request replaces a queued request (based on element/event.type) and is moved to the end of the queue.
  * - A queued request will be removed if the element is not connected to the DOM.
  */
-export class AjaxQueue {
+class AjaxQueue {
   private queue: QueueItem[] = [];
 
-  constructor() {
-    faces.ajax.addOnEvent((data: faces.AjaxEvent) => this.ajaxEventListener(data.source, data.type, data.status));
-    faces.ajax.addOnError((data: faces.AjaxError) => this.ajaxEventListener(data.source, data.type, data.status));
+  request(elementOrId: Element | string, event?: Event, options: faces.ajax.RequestOptions = {}): void {
+    const element = elementOrId instanceof Element ? elementOrId : document.getElementById(elementOrId);
+
+    const currentOnEvent = options.onevent;
+    options.onevent = (data: faces.AjaxEvent) => {
+      currentOnEvent(data);
+      this.ajaxEventListener(data.source, data.type, data.status);
+    };
+    const currentOnError = options.onerror;
+    options.onerror = (data: faces.AjaxError) => {
+      currentOnError(data);
+      this.ajaxEventListener(data.source, data.type, data.status);
+    };
+
+    AjaxQueueStatic.request(this.queue, element, event, options, () => faces.ajax.request(element, event, options));
   }
 
   private ajaxEventListener(source: Element,
                             type: "event" | "error",
                             status: faces.AjaxEventStatus | faces.AjaxErrorStatus | "clientError" | "timeout"): void {
     AjaxQueueStatic.ajaxEventListener(this.queue, source, type, status);
-  }
-
-  request(elementOrId: Element | string, event?: Event, options?: faces.ajax.RequestOptions): void {
-    const element = elementOrId instanceof Element ? elementOrId : document.getElementById(elementOrId);
-    AjaxQueueStatic.request(this.queue, element, event, options, () => faces.ajax.request(element, event, options));
   }
 }
 
