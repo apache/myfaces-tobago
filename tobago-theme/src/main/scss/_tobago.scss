@@ -1789,6 +1789,7 @@ tobago-sheet {
     flex-wrap: wrap;
     justify-content: space-between;
     margin-top: 1rem;
+    gap: 1rem;
 
     &[data-tobago-child-count='1'] {
       justify-content: center;
@@ -1809,17 +1810,20 @@ tobago-sheet {
 
     tobago-paginator-row {
       @include tobagoPaginatorInput();
-
-      > .page-item {
-        margin-bottom: 1rem;
-      }
     }
 
     tobago-paginator-list {
+      .pagination {
+        margin-bottom: 0;
+      }
     }
 
     tobago-paginator-page {
       @include tobagoPaginatorInput();
+
+      .pagination {
+        margin-bottom: 0;
+      }
 
       .tobago-paging {
       }
