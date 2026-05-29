@@ -44,12 +44,16 @@ class AjaxQueue {
 
     const currentOnEvent = options.onevent;
     options.onevent = (data: faces.AjaxEvent) => {
-      currentOnEvent(data);
+      if (currentOnEvent) {
+        currentOnEvent(data);
+      }
       this.ajaxEventListener(data.source, data.type, data.status);
     };
     const currentOnError = options.onerror;
     options.onerror = (data: faces.AjaxError) => {
-      currentOnError(data);
+      if (currentOnError) {
+        currentOnError(data);
+      }
       this.ajaxEventListener(data.source, data.type, data.status);
     };
 
