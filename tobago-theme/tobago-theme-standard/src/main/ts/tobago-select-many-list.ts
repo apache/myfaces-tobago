@@ -65,7 +65,7 @@ class SelectManyList extends SelectListBase {
     if (event.key === Key.ESCAPE && this.dropdownMenuElement && this.dropdownMenu.visible) {
       this.dropdownMenu.hide();
       event.stopPropagation(); //prevent closing a parent dropdown form menu
-      this.removePreselection();
+      this.optionsControls.removePreselection();
       if (!this.filterInput.disabled) {
         this.filterInput.focus();
       } else if (this.badgeCloseButtons.length > 0) {
@@ -100,7 +100,7 @@ class SelectManyList extends SelectListBase {
   private sync(option: HTMLOptionElement) {
     const itemValue = option.value;
     const badge = this.selectField.querySelector(`[data-tobago-value="${itemValue}"]`);
-    const row: HTMLTableRowElement = this.tbody.querySelector(`[data-tobago-value="${itemValue}"]`);
+    const row: HTMLTableRowElement = this.optionsControls.tbody.querySelector(`[data-tobago-value="${itemValue}"]`);
     if (option.selected) {
 
       if (!badge) {

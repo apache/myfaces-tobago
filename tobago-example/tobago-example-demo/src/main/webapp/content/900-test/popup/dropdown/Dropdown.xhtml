@@ -45,6 +45,12 @@
       </tc:suggest>
     </tc:in>
 
+    <tc:in id="inSuggestLocalMenu" label="tc:suggest localMenu" labelLayout="top">
+      <tc:suggest id="suggestLocalMenu" totalCount="10" query="#{suggestController.query}" localMenu="true">
+        <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
+      </tc:suggest>
+    </tc:in>
+
     <tc:selectOneList id="selectOneList" label="tc:selectOneList" labelLayout="top">
       <tc:selectItems value="#{selectOneListController.planets}" var="planet"
                       itemLabel="#{planet.name}" itemValue="#{planet}"/>

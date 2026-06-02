@@ -21,6 +21,7 @@ import {Key} from "./tobago-key";
 import {DropdownMenu, DropdownMenuAlignment} from "./tobago-dropdown-menu";
 import {Spinner} from "./tobago-spinner";
 import {EventListenerStore} from "./tobago-event-listener-store";
+import {OptionsControls} from "./tobago-options-controls";
 
 export abstract class SelectListBase extends HTMLElement {
 
@@ -29,11 +30,13 @@ export abstract class SelectListBase extends HTMLElement {
   protected listeners: EventListenerStore = new EventListenerStore();
   protected dropdownMenu: DropdownMenu;
   private spinner: Spinner;
+  protected optionsControls: OptionsControls;
   private timeout: number;
   private filterUpdateLoader: HTMLElement;
   protected lastSuccessfulSearchQuery: string;
 
   connectedCallback(): void {
+    this.optionsControls = new OptionsControls(this.options, this.select.bind(this));
     if (this.dropdownMenuElement) {
       this.dropdownMenu = new DropdownMenu(this.dropdownMenuElement, this.selectField, this, this.localMenu,
           DropdownMenuAlignment.centerFullWidth);
@@ -44,7 +47,8 @@ export abstract class SelectListBase extends HTMLElement {
     this.listeners.add(this.filterInput, "focus", this.focusEvent.bind(this));
     this.listeners.add(this.filterInput, "blur", this.blurEvent.bind(this));
     this.listeners.add(this.options, "keydown", this.keydownEventBase.bind(this));
-    this.rows.forEach(row => this.listeners.add(row, "blur", this.blurEvent.bind(this)));
+    this.optionsControls.rows.forEach(row => this.optionsControls
+        .listeners.add(row, "blur", this.blurEvent.bind(this)));
     if (this.filter || this.serverSideFiltering) {
       this.listeners.add(this.filterInput, "input", this.filterInputEvent.bind(this));
     }
@@ -52,7 +56,6 @@ export abstract class SelectListBase extends HTMLElement {
       this.insertAdjacentHTML("beforeend", `<div class="${Css.SPINNER}"/>`);
       this.spinner = new Spinner(this.selectField, this.spinnerDiv);
     }
-    this.listeners.add(this.tbody, "click", this.tbodyClickEvent.bind(this));
 
     // handle autofocus; trigger focus event
     if (document.activeElement.id === this.filterInput.id) {
@@ -67,6 +70,7 @@ export abstract class SelectListBase extends HTMLElement {
   }
 
   disconnectedCallback(): void {
+    this.optionsControls.disconnect();
     this.dropdownMenu?.disconnect();
     this.listeners.disconnect();
   }
@@ -89,25 +93,24 @@ export abstract class SelectListBase extends HTMLElement {
           this.dropdownMenu?.hide();
           event.stopPropagation(); //prevent closing a parent dropdown form menu
         }
-        this.removePreselection();
+        this.optionsControls.removePreselection();
         this.filterInput.focus({preventScroll: true});
         break;
       case Key.ARROW_DOWN:
         event.preventDefault();
         this.dropdownMenu?.show();
-        this.preselectNextRow();
+        this.optionsControls.preselectNextRow();
         break;
       case Key.ARROW_UP:
         event.preventDefault();
         this.dropdownMenu?.show();
-        this.preselectPreviousRow();
+        this.optionsControls.preselectPreviousRow();
         break;
       case Key.ENTER:
       case Key.SPACE:
-        if (this.preselectedRow) {
+        if (this.optionsControls.preselectedRow) {
           event.preventDefault();
-          const row = this.tbody.querySelector<HTMLTableRowElement>("." + Css.TOBAGO_PRESELECT);
-          this.select(row);
+          this.select(this.optionsControls.preselectedRow);
         } else if (document.activeElement.id === this.filterInput.id) {
           this.dropdownMenu?.show();
         }
@@ -116,12 +119,12 @@ export abstract class SelectListBase extends HTMLElement {
         if (this.dropdownMenuElement && this.dropdownMenu.visible) {
           event.preventDefault();
           if (event.shiftKey) {
-            this.preselectPreviousRow();
+            this.optionsControls.preselectPreviousRow();
           } else {
-            this.preselectNextRow();
+            this.optionsControls.preselectNextRow();
           }
         } else {
-          this.removePreselection();
+          this.optionsControls.removePreselection();
           this.filterInput.focus({preventScroll: true});
         }
         break;
@@ -140,7 +143,7 @@ export abstract class SelectListBase extends HTMLElement {
     if (event.relatedTarget !== null) {
       //relatedTarget is the new focused element; null indicate a mouseclick or an inactive browser window
       if (!this.isPartOfSelectField(event.relatedTarget as Element)
-          && !this.isPartOfTobagoOptions(event.relatedTarget as Element)) {
+          && !this.isPartOfTobagoOptions(event.relatedTarget as HTMLElement)) {
         this.leaveComponent();
       }
     }
@@ -185,19 +188,8 @@ export abstract class SelectListBase extends HTMLElement {
           });
     } else if (this.filter) {
       const filterFunction = TobagoFilterRegistry.get(this.filter);
-      if (filterFunction != null) {
-        this.rows.forEach(row => {
-          const itemValue = row.cells.item(0).textContent;
-          if (filterFunction(itemValue, searchString)) {
-            row.classList.remove(Css.D_NONE);
-          } else {
-            row.classList.add(Css.D_NONE);
-            row.classList.remove(Css.TOBAGO_PRESELECT);
-          }
-        });
-      }
-
-      this.showNoEntriesHint = this.visibleRows.length === 0;
+      this.optionsControls.filter(filterFunction, searchString);
+      this.showNoEntriesHint = this.optionsControls.visibleRows.length === 0;
     }
   }
 
@@ -236,6 +228,9 @@ export abstract class SelectListBase extends HTMLElement {
             oldBehavior.remove();
           });
 
+          this.optionsControls.disconnect();
+          this.optionsControls = new OptionsControls(this.options, this.select.bind(this));
+
           this.filterUpdateLoader.remove();
         }
       }
@@ -243,8 +238,8 @@ export abstract class SelectListBase extends HTMLElement {
       this.listeners.cleanup();
       this.listeners.add(this.hiddenSelect, "click", this.labelClickEvent.bind(this));
       this.listeners.add(this.options, "keydown", this.keydownEventBase.bind(this));
-      this.rows.forEach(row => this.listeners.add(row, "blur", this.blurEvent.bind(this)));
-      this.listeners.add(this.tbody, "click", this.tbodyClickEvent.bind(this));
+      this.optionsControls.rows.forEach(row => this.optionsControls
+          .listeners.add(row, "blur", this.blurEvent.bind(this)));
 
       // redirect click events for ajax behavior
       this.listeners.add(this.options, "click", () => this.hiddenSelect.dispatchEvent(new Event("click")));
@@ -274,65 +269,9 @@ Type: ${data.type}`);
     this.filterInput.style.marginRight = null;
   }
 
-  private tbodyClickEvent(event: MouseEvent): void {
-    const target = event.target as HTMLElement;
-    const row = target.closest("tr");
-    this.select(row);
-  }
-
   protected abstract leaveComponent(): void;
 
   protected abstract select(row: HTMLTableRowElement): void;
-
-  protected preselectNextRow(): void {
-    const rows = this.enabledRows;
-    const index = this.preselectIndex(rows);
-    if (index >= 0) {
-      if (index + 1 < rows.length) {
-        rows.item(index).classList.remove(Css.TOBAGO_PRESELECT);
-        this.preselect(rows.item(index + 1));
-      } else {
-        rows.item(rows.length - 1).classList.remove(Css.TOBAGO_PRESELECT);
-        this.preselect(rows.item(0));
-      }
-    } else if (rows.length > 0) {
-      this.preselect(rows.item(0));
-    }
-  }
-
-  protected preselectPreviousRow(): void {
-    const rows = this.enabledRows;
-    const index = this.preselectIndex(rows);
-    if (index >= 0) {
-      if ((index - 1) >= 0) {
-        rows.item(index).classList.remove(Css.TOBAGO_PRESELECT);
-        this.preselect(rows.item(index - 1));
-      } else {
-        rows.item(0).classList.remove(Css.TOBAGO_PRESELECT);
-        this.preselect(rows.item(rows.length - 1));
-      }
-    } else if (rows.length > 0) {
-      this.preselect(rows.item(rows.length - 1));
-    }
-  }
-
-  private preselectIndex(rows: NodeListOf<HTMLTableRowElement>): number {
-    for (let i = 0; i < rows.length; i++) {
-      if (rows.item(i).classList.contains(Css.TOBAGO_PRESELECT)) {
-        return i;
-      }
-    }
-    return -1;
-  }
-
-  private preselect(row: HTMLTableRowElement): void {
-    row.classList.add(Css.TOBAGO_PRESELECT);
-    row.focus();
-  }
-
-  protected removePreselection(): void {
-    this.preselectedRow?.classList.remove(Css.TOBAGO_PRESELECT);
-  }
 
   protected isPartOfSelectField(element: Element): boolean {
     if (element) {
@@ -346,7 +285,7 @@ Type: ${data.type}`);
     }
   }
 
-  protected isPartOfTobagoOptions(element: Element): boolean {
+  protected isPartOfTobagoOptions(element: HTMLElement): boolean {
     if (element) {
       if (element.classList.contains(Css.TOBAGO_OPTIONS)
           && this.id === element.dataset.tobagoFor) {
@@ -407,10 +346,6 @@ Type: ${data.type}`);
     return root.querySelector(`.tobago-options[data-tobago-for='${this.id}'] table`);
   }
 
-  get tbody(): HTMLElement {
-    return this.options.querySelector("tbody");
-  }
-
   get noEntriesHint(): HTMLTableRowElement {
     return this.options.querySelector("." + Css.TOBAGO_NO_ENTRIES);
   }
@@ -421,22 +356,6 @@ Type: ${data.type}`);
     } else {
       this.noEntriesHint.classList.add(Css.D_NONE);
     }
-  }
-
-  get rows(): NodeListOf<HTMLTableRowElement> {
-    return this.tbody.querySelectorAll<HTMLTableRowElement>("tr");
-  }
-
-  get visibleRows(): NodeListOf<HTMLTableRowElement> {
-    return this.tbody.querySelectorAll<HTMLTableRowElement>("tr:not(." + Css.D_NONE + ")");
-  }
-
-  get enabledRows(): NodeListOf<HTMLTableRowElement> {
-    return this.tbody.querySelectorAll<HTMLTableRowElement>("tr:not(." + Css.D_NONE + "):not(." + Css.DISABLED + ")");
-  }
-
-  get preselectedRow(): HTMLTableRowElement {
-    return this.tbody.querySelector<HTMLTableRowElement>("." + Css.TOBAGO_PRESELECT);
   }
 
   get localMenu(): boolean {

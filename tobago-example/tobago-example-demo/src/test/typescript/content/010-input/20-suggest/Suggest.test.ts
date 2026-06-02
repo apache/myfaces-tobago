@@ -25,7 +25,7 @@ test.describe("010-input/20-suggest/Suggest.xhtml", () => {
 
   test("Basics: 'M'", async ({page}) => {
     const inputField = page.locator("[id='page:mainForm:inBasic::field']");
-    const resultList = page.locator("[id='" + (await inputField.getAttribute("aria-owns")) + "'] .dropdown-item");
+    const resultList = page.locator(".tobago-options[id='" + (await inputField.getAttribute("aria-owns")) + "'] .tobago-select-item:not(.d-none)");
     const entry0 = resultList.nth(0);
     const spinner = page.locator("tobago-in[id='page:mainForm:inBasic'] .spinner");
 
@@ -53,7 +53,7 @@ test.describe("010-input/20-suggest/Suggest.xhtml", () => {
 
   test("Basics: 'Ma'", async ({page}) => {
     const inputField = page.locator("[id='page:mainForm:inBasic::field']");
-    const resultList = page.locator("[id='" + (await inputField.getAttribute("aria-owns")) + "'] .dropdown-item");
+    const resultList = page.locator(".tobago-options[id='" + (await inputField.getAttribute("aria-owns")) + "'] .tobago-select-item:not(.d-none)");
     const entry0 = resultList.nth(0);
     const spinner = page.locator("tobago-in[id='page:mainForm:inBasic'] .spinner");
 
@@ -75,7 +75,7 @@ test.describe("010-input/20-suggest/Suggest.xhtml", () => {
 
   test("Basics: 'Mar'", async ({page}) => {
     const inputField = page.locator("[id='page:mainForm:inBasic::field']");
-    const resultList = page.locator("[id='" + (await inputField.getAttribute("aria-owns")) + "'] .dropdown-item");
+    const resultList = page.locator(".tobago-options[id='" + (await inputField.getAttribute("aria-owns")) + "'] .tobago-select-item:not(.d-none)");
     const entry0 = resultList.nth(0);
     const spinner = page.locator("tobago-in[id='page:mainForm:inBasic'] .spinner");
 
@@ -94,7 +94,7 @@ test.describe("010-input/20-suggest/Suggest.xhtml", () => {
 
   test("Basics: 'Mars'", async ({page}) => {
     const inputField = page.locator("[id='page:mainForm:inBasic::field']");
-    const resultList = page.locator("[id='" + (await inputField.getAttribute("aria-owns")) + "'] .dropdown-item");
+    const resultList = page.locator(".tobago-options[id='" + (await inputField.getAttribute("aria-owns")) + "'] .tobago-select-item:not(.d-none)");
     const entry0 = resultList.nth(0);
     const spinner = page.locator("tobago-in[id='page:mainForm:inBasic'] .spinner");
 
@@ -113,8 +113,8 @@ test.describe("010-input/20-suggest/Suggest.xhtml", () => {
 
   test("Basics: Add 'eus' and click first entry.", async ({page}) => {
     const inputField = page.locator("[id='page:mainForm:inBasic::field']");
-    const resultList = page.locator("[id='" + (await inputField.getAttribute("aria-owns")) + "'] .dropdown-item");
-    const entry0 = page.locator("[id='" + (await inputField.getAttribute("aria-owns")) + "'] [data-result-index='0'] > .dropdown-item");
+    const resultList = page.locator(".tobago-options[id='" + (await inputField.getAttribute("aria-owns")) + "'] .tobago-select-item:not(.d-none)");
+    const entry0 = resultList.nth(0);
     const spinner = page.locator("tobago-in[id='page:mainForm:inBasic'] .spinner");
 
     await inputField.fill(" ");
@@ -133,7 +133,7 @@ test.describe("010-input/20-suggest/Suggest.xhtml", () => {
 
   test("Basics: Type 'Mars' and delete all characters", async ({page}) => {
     const inputField = page.locator("[id='page:mainForm:inBasic::field']");
-    const resultList = page.locator("[id='" + (await inputField.getAttribute("aria-owns")) + "'] .dropdown-item");
+    const resultList = page.locator(".tobago-options[id='" + (await inputField.getAttribute("aria-owns")) + "'] .tobago-select-item:not(.d-none)");
     const entry0 = resultList.nth(0);
     const spinner = page.locator("tobago-in[id='page:mainForm:inBasic'] .spinner");
 
@@ -156,7 +156,7 @@ test.describe("010-input/20-suggest/Suggest.xhtml", () => {
 
   test("Basics: Type 'M', Escape, Enter", async ({page}) => {
     const inputField = page.locator("[id='page:mainForm:inBasic::field']");
-    const resultList = page.locator("[id='" + (await inputField.getAttribute("aria-owns")) + "'] .dropdown-item");
+    const resultList = page.locator(".tobago-options[id='" + (await inputField.getAttribute("aria-owns")) + "'] .tobago-select-item:not(.d-none)");
     const entry0 = resultList.nth(0);
     const spinner = page.locator("tobago-in[id='page:mainForm:inBasic'] .spinner");
 
@@ -178,7 +178,7 @@ test.describe("010-input/20-suggest/Suggest.xhtml", () => {
 
   test("Minimum Characters: 'C'", async ({page}) => {
     const inputField = page.locator("[id='page:mainForm:minimumCharacters::field']");
-    const resultList = page.locator("[id='" + (await inputField.getAttribute("aria-owns")) + "'] .dropdown-item");
+    const resultList = page.locator(".tobago-options[id='" + (await inputField.getAttribute("aria-owns")) + "'] .tobago-select-item:not(.d-none)");
     const entry0 = resultList.nth(0);
     const spinner = page.locator("tobago-in[id='page:mainForm:minimumCharacters'] .spinner");
 
@@ -194,7 +194,7 @@ test.describe("010-input/20-suggest/Suggest.xhtml", () => {
 
   test("Minimum Characters: 'Ca'", async ({page}) => {
     const inputField = page.locator("[id='page:mainForm:minimumCharacters::field']");
-    const resultList = page.locator("[id='" + (await inputField.getAttribute("aria-owns")) + "'] .dropdown-item");
+    const resultList = page.locator(".tobago-options[id='" + (await inputField.getAttribute("aria-owns")) + "'] .tobago-select-item:not(.d-none)");
     const entry0 = resultList.nth(0);
     const spinner = page.locator("tobago-in[id='page:mainForm:minimumCharacters'] .spinner");
 
@@ -221,7 +221,7 @@ test.describe("010-input/20-suggest/Suggest.xhtml", () => {
 
   test("Minimum Characters: Zero", async ({page}) => {
     const inputField = page.locator("[id='page:mainForm:minimumCharacters0::field']");
-    const resultList = page.locator("[id='" + (await inputField.getAttribute("aria-owns")) + "'] .dropdown-item");
+    const resultList = page.locator(".tobago-options[id='" + (await inputField.getAttribute("aria-owns")) + "'] .tobago-select-item:not(.d-none)");
     const entry0 = resultList.nth(0);
     const spinner = page.locator("tobago-in[id='page:mainForm:minimumCharacters'] .spinner");
 
@@ -251,7 +251,7 @@ test.describe("010-input/20-suggest/Suggest.xhtml", () => {
 
   test("Client side: 'Ju'", async ({page}) => {
     const inputField = page.locator("[id='page:mainForm:inClient::field']");
-    const resultList = page.locator("[id='" + (await inputField.getAttribute("aria-owns")) + "'] .dropdown-item");
+    const resultList = page.locator(".tobago-options[id='" + (await inputField.getAttribute("aria-owns")) + "'] .tobago-select-item:not(.d-none)");
     const entry0 = resultList.nth(0);
     const spinner = page.locator("tobago-in[id='page:mainForm:inClient'] .spinner");
 
@@ -266,13 +266,13 @@ test.describe("010-input/20-suggest/Suggest.xhtml", () => {
     await expect(resultList.nth(0)).toHaveText("Jupiter");
     await expect(resultList.nth(1)).toHaveText("Juliet");
     await page.mouse.click(0, 0);
-    await expect(resultList).toHaveCount(0);
+    await expect(entry0).not.toBeVisible();
     await expect(spinner).not.toBeVisible();
   });
 
   test("Client side - Filter All: ' '", async ({page}) => {
     const inputField = page.locator("[id='page:mainForm:inClientFilterAll::field']");
-    const resultList = page.locator("[id='" + (await inputField.getAttribute("aria-owns")) + "'] .dropdown-item");
+    const resultList = page.locator(".tobago-options[id='" + (await inputField.getAttribute("aria-owns")) + "'] .tobago-select-item:not(.d-none)");
     const entry0 = resultList.nth(0);
     const spinner = page.locator("tobago-in[id='page:mainForm:inClientFilterAll'] .spinner");
 
@@ -372,13 +372,13 @@ test.describe("010-input/20-suggest/Suggest.xhtml", () => {
     await expect(resultList.nth(86)).toHaveText("Nereid");
     await expect(resultList.nth(87)).toHaveText("Charon");
     await page.keyboard.press("Escape");
-    await expect(resultList).toHaveCount(0);
+    await expect(entry0).not.toBeVisible();
     await expect(spinner).not.toBeVisible();
   });
 
   test("Client side - Filter Prefix: 'me'", async ({page}) => {
     const inputField = page.locator("[id='page:mainForm:inClientFilterPrefix::field']");
-    const resultList = page.locator("[id='" + (await inputField.getAttribute("aria-owns")) + "'] .dropdown-item");
+    const resultList = page.locator(".tobago-options[id='" + (await inputField.getAttribute("aria-owns")) + "'] .tobago-select-item:not(.d-none)");
     const entry0 = resultList.nth(0);
     const spinner = page.locator("tobago-in[id='page:mainForm:inClientFilterPrefix'] .spinner");
 
@@ -394,13 +394,13 @@ test.describe("010-input/20-suggest/Suggest.xhtml", () => {
     await expect(resultList.nth(1)).toHaveText("Metis");
     await expect(resultList.nth(2)).toHaveText("Megaclite");
     await page.mouse.click(0, 0);
-    await expect(resultList).toHaveCount(0);
+    await expect(entry0).not.toBeVisible();
     await expect(spinner).not.toBeVisible();
   });
 
   test("Client side - Filter Contains: 'me'", async ({page}) => {
     const inputField = page.locator("[id='page:mainForm:inClientFilterContains::field']");
-    const resultList = page.locator("[id='" + (await inputField.getAttribute("aria-owns")) + "'] .dropdown-item");
+    const resultList = page.locator(".tobago-options[id='" + (await inputField.getAttribute("aria-owns")) + "'] .tobago-select-item:not(.d-none)");
     const entry0 = resultList.nth(0);
     const spinner = page.locator("tobago-in[id='page:mainForm:inClientFilterContains'] .spinner");
 
@@ -421,7 +421,7 @@ test.describe("010-input/20-suggest/Suggest.xhtml", () => {
     await expect(resultList.nth(6)).toHaveText("Prometheus");
     await expect(resultList.nth(7)).toHaveText("Epimetheus");
     await page.keyboard.press("Escape");
-    await expect(resultList).toHaveCount(0);
+    await expect(entry0).not.toBeVisible();
     await expect(spinner).not.toBeVisible();
   });
 });
