@@ -56,6 +56,6 @@
     "rollup": "^4.60.3",
     "sass": "^1.99.0",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.59.3"
+    "typescript-eslint": "^8.60.1"
   }
 }
