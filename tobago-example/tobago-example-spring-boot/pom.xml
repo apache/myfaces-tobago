@@ -110,7 +110,7 @@
         <dependency>
           <groupId>com.fasterxml.jackson.core</groupId>
           <artifactId>jackson-annotations</artifactId>
-          <version>2.21</version>
+          <version>2.22</version>
         </dependency>
       </dependencies>
     </profile>
@@ -172,7 +172,7 @@
         <dependency>
           <groupId>com.fasterxml.jackson.core</groupId>
           <artifactId>jackson-annotations</artifactId>
-          <version>2.21</version>
+          <version>2.22</version>
         </dependency>
       </dependencies>
     </profile>
