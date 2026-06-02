@@ -323,7 +323,7 @@ $icon-sort-numbers: (
   }
 }
 
-@mixin selectListOptions() {
+@mixin tobagoOptions() {
   .tobago-options {
     &.tobago-dropdown-menu {
       @include tobagoDropdownMenuValues();
@@ -422,12 +422,6 @@ $icon-sort-numbers: (
       transform: translateY(-50%);
       animation: rotate 1s linear infinite
     }
-  }
-}
-
-@mixin suggestDropdownMenu() {
-  > .tobago-dropdown-menu {
-    @include tobagoDropdownMenuValues();
   }
 }
 
@@ -889,7 +883,7 @@ tobago-in {
   @include spinner();
 
   .tobago-dropdown-menu-anchor {
-    @include suggestDropdownMenu();
+    @include tobagoOptions();
   }
 
   tobago-suggest {
@@ -1171,8 +1165,7 @@ tobago-page {
 
   .tobago-page-menuStore {
     @include buttonDropdownMenu();
-    @include selectListOptions();
-    @include suggestDropdownMenu();
+    @include tobagoOptions();
 
     position: fixed;
     top: 0;
@@ -1466,7 +1459,7 @@ tobago-select-one-choice {
 
 tobago-select-one-list {
   @include selectListBase();
-  @include selectListOptions();
+  @include tobagoOptions();
   @include spinner();
 
   position: relative;
@@ -1504,7 +1497,7 @@ tobago-select-one-radio {
 
 tobago-select-many-list {
   @include selectListBase();
-  @include selectListOptions();
+  @include tobagoOptions();
   @include spinner();
 
   position: relative;

@@ -66,6 +66,7 @@ export enum Css {
   TOBAGO_PLACEHOLDER = "tobago-placeholder",
   TOBAGO_PRESELECT = "tobago-preselect",
   TOBAGO_ROW_FILLER = "tobago-row-filler",
+  TOBAGO_SELECT_ITEM = "tobago-select-item",
   TOBAGO_SELECTED = "tobago-selected",
   TOBAGO_SHOW = "tobago-show",
   TOBAGO_SPLITLAYOUT_HORIZONTAL = "tobago-splitLayout-horizontal",

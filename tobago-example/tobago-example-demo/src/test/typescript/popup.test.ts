@@ -217,10 +217,14 @@ test.describe("900-test/popup/dropdown/Dropdown.xhtml", () => {
     const popupX = page.locator("[id='page:mainForm:popup:popup-x']");
     const suggestInputField = page.locator("[id='page:mainForm:popup:inSuggest::field']");
     const suggestDropdownMenu = page.locator(".tobago-dropdown-menu[data-tobago-for='page:mainForm:popup:suggest']");
-    const mars = suggestDropdownMenu.locator("li[data-result-index='0']");
-    const amalthea = suggestDropdownMenu.locator("li[data-result-index='1']");
-    const himalia = suggestDropdownMenu.locator("li[data-result-index='2']");
-    const mimas = suggestDropdownMenu.locator("li[data-result-index='3']");
+    const mars = suggestDropdownMenu.locator("tr[data-tobago-value='Mars']");
+    const amalthea = suggestDropdownMenu.locator("tr[data-tobago-value='Amalthea']");
+    const himalia = suggestDropdownMenu.locator("tr[data-tobago-value='Himalia']");
+    const mimas = suggestDropdownMenu.locator("tr[data-tobago-value='Mimas']");
+    const suggestLocalMenuInputField = page.locator("[id='page:mainForm:popup:inSuggestLocalMenu::field']");
+    const suggestLocalMenuDropdownMenu = page.locator(".tobago-dropdown-menu[data-tobago-for='page:mainForm:popup:suggestLocalMenu']");
+    const thebe = suggestLocalMenuDropdownMenu.locator("tr[data-tobago-value='Thebe']");
+    const phoebe = suggestLocalMenuDropdownMenu.locator("tr[data-tobago-value='Phoebe']");
     const selectOneList = page.locator("[id='page:mainForm:popup:selectOneList']");
     const selectOneListMenu = page.locator(".tobago-dropdown-menu[data-tobago-for='page:mainForm:popup:selectOneList']");
     const selectOneListMercuryRow = selectOneListMenu.locator("tr[data-tobago-value='Mercury']");
@@ -252,16 +256,30 @@ test.describe("900-test/popup/dropdown/Dropdown.xhtml", () => {
     await expect(himalia).toBeVisible();
     await expect(mimas).toBeVisible();
     await page.keyboard.press("Tab");
-    await expect(mars.locator("button")).toBeFocused();
+    await expect(mars).toBeFocused();
     await page.keyboard.down("Shift");
     await page.keyboard.press("Tab");
     await page.keyboard.up("Shift");
-    await expect(mimas.locator("button")).toBeFocused();
+    await expect(mimas).toBeFocused();
     await page.keyboard.press("Escape");
     await expect(mars).not.toBeVisible();
     await expect(amalthea).not.toBeVisible();
     await expect(himalia).not.toBeVisible();
     await expect(mimas).not.toBeVisible();
+    await expect(popup).toContainClass("show");
+
+    //suggest localMenu
+    await page.keyboard.press("Tab");
+    await expect(suggestLocalMenuInputField).toBeFocused();
+    await page.keyboard.press("e");
+    await page.keyboard.press("b");
+    await page.keyboard.press("e");
+    await expect(suggestLocalMenuDropdownMenu).toContainClass("show");
+    await expect(thebe).toBeVisible();
+    await expect(phoebe).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(thebe).not.toBeVisible();
+    await expect(phoebe).not.toBeVisible();
     await expect(popup).toContainClass("show");
 
     //selectOneList
@@ -340,5 +358,40 @@ test.describe("900-test/popup/dropdown/Dropdown.xhtml", () => {
     await page.keyboard.press("Tab");
     await page.keyboard.up("Shift");
     await expect(popupClose).toBeFocused();
+  });
+
+  test("tc:suggest localMenu=true", async ({page, browserName}) => {
+    const popupOpen = page.locator("[id='page:mainForm:popup-open']");
+    const popup = page.locator("[id='page:mainForm:popup']");
+    const popupModalDialog = popup.locator(".modal-dialog");
+    const popupX = page.locator("[id='page:mainForm:popup:popup-x']");
+    const suggestLocalMenuInputField = page.locator("[id='page:mainForm:popup:inSuggestLocalMenu::field']");
+    const suggestLocalMenuDropdownMenu = page.locator(".tobago-dropdown-menu[data-tobago-for='page:mainForm:popup:suggestLocalMenu']");
+    const thebe = suggestLocalMenuDropdownMenu.locator("tr[data-tobago-value='Thebe']");
+    const phoebe = suggestLocalMenuDropdownMenu.locator("tr[data-tobago-value='Phoebe']");
+
+    await expect(popup).not.toContainClass("show");
+    await popupOpen.click();
+    await expect(popupModalDialog).not.toHaveCSS("transform", "none"); //animation
+    await expect(popupModalDialog).toHaveCSS("transform", "none"); //animation done
+    await expect(popup).toContainClass("show");
+    await page.keyboard.press("Tab");
+    await expect(popupX).toBeFocused();
+
+    //suggest localMenu
+    await suggestLocalMenuInputField.click();
+    await expect(suggestLocalMenuInputField).toBeFocused();
+    await page.keyboard.press("e");
+    await page.keyboard.press("b");
+    await page.keyboard.press("e");
+    await expect(suggestLocalMenuDropdownMenu).toContainClass("show");
+    await expect(thebe).toBeVisible();
+    await expect(phoebe).toBeVisible();
+    await thebe.click();
+    await expect(suggestLocalMenuDropdownMenu).not.toContainClass("show");
+    await expect(thebe).not.toBeVisible();
+    await expect(phoebe).not.toBeVisible();
+    await expect(suggestLocalMenuInputField).toHaveValue("Thebe");
+    await expect(popup).toContainClass("show");
   });
 });

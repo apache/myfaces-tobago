@@ -22,12 +22,14 @@ import {Key} from "./tobago-key";
 import {ClientBehaviors} from "./tobago-client-behaviors";
 import {Spinner} from "./tobago-spinner";
 import {EventListenerStore} from "./tobago-event-listener-store";
+import {OptionsControls} from "./tobago-options-controls";
 
 export class Suggest {
   private listeners: EventListenerStore = new EventListenerStore();
   private tobagoIn: HTMLElement;
   private dropdownMenu: DropdownMenu;
   private spinner: Spinner;
+  private optionsControls: OptionsControls;
   private timeout: number;
 
   constructor(tobagoIn: HTMLElement) {
@@ -42,9 +44,19 @@ export class Suggest {
     this.tobagoSuggest.insertAdjacentHTML("beforebegin", `<div class="${Css.SPINNER}"/>`);
     this.spinner = new Spinner(this.inputField, this.spinnerDiv);
 
+    /* eslint-disable max-len */
     this.tobagoSuggest.insertAdjacentHTML("beforebegin", `<div class="${Css.TOBAGO_DROPDOWN_MENU_ANCHOR}">
-    <ul id="${this.tobagoSuggest.id + "::dropdownMenu"}" class="${Css.TOBAGO_DROPDOWN_MENU}"
-    name="${this.tobagoSuggest.id}" data-tobago-for="${this.tobagoSuggest.id}" role="listbox"/></div>`);
+  <div id="${this.tobagoSuggest.id + "::dropdownMenu"}" class="tobago-options ${Css.TOBAGO_DROPDOWN_MENU}" data-tobago-for="${this.tobagoSuggest.id}">
+    <table class="table table-hover table-sm">
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+</div>
+`);
+    /* eslint-enable max-len */
+    this.optionsControls = new OptionsControls(this.optionsElement, this.select.bind(this));
+
     this.dropdownMenu = new DropdownMenu(this.dropdownMenuElement, this.inputField, this.tobagoIn, this.localMenu,
         DropdownMenuAlignment.centerFullWidth);
 
@@ -59,12 +71,15 @@ export class Suggest {
     this.listeners.add(document, "click", this.globalClickEvent.bind(this));
     this.listeners.add(this.tobagoIn, ClientBehaviors.DROPDOWN_HIDDEN, this.deleteResults.bind(this));
     this.listeners.add(this.inputField, "input", this.inputEvent.bind(this));
-    this.listeners.add(this.inputField, "keydown", this.inputFieldKeydownEvent.bind(this));
-    this.listeners.add(this.dropdownMenuElement, "keydown", this.dropdownMenuKeydownEvent.bind(this));
-
+    this.listeners.add(this.inputField, "keydown", this.keydownEvent.bind(this));
+    this.listeners.add(this.dropdownMenuElement, "keydown", this.keydownEvent.bind(this));
     this.listeners.add(this.inputField, "focus", this.focusEvent.bind(this));
     this.listeners.add(this.inputField, "blur", this.blurEvent.bind(this));
     this.listeners.add(this.dropdownMenuElement, "blur", this.blurEvent.bind(this));
+
+    if (!this.update) { //client side filtering
+      this.optionsControls.renderRows(this.items);
+    }
   }
 
   /**
@@ -74,6 +89,8 @@ export class Suggest {
     this.spinnerDiv.remove();
     delete this.spinner;
     this.dropdownMenuAnchor.remove();
+    this.optionsControls.disconnect();
+    delete this.optionsControls;
     this.dropdownMenu.disconnect();
     delete this.dropdownMenu;
     this.listeners.disconnect();
@@ -119,38 +136,43 @@ export class Suggest {
     }
   }
 
-  private inputFieldKeydownEvent(event: KeyboardEvent): void {
-    switch (event.key) {
-      case Key.ENTER:
-        this.processInputValue(this.inputField.value);
-        break;
-      default:
-        break;
-    }
-
-    this.keydownEvent(event);
-  }
-
-  private dropdownMenuKeydownEvent(event: KeyboardEvent): void {
-    this.keydownEvent(event);
+  private select(row: HTMLTableRowElement): void {
+    this.inputField.value = row.cells.item(0).textContent;
+    this.dropdownMenu.hide();
+    this.inputField.focus();
   }
 
   private keydownEvent(event: KeyboardEvent): void {
     switch (event.key) {
       case Key.ARROW_DOWN:
-        this.focusNextDropdownItem(event);
+        event.preventDefault();
+        this.optionsControls.preselectNextRow();
         break;
       case Key.ARROW_UP:
-        this.focusPreviousDropdownItem(event);
+        event.preventDefault();
+        this.optionsControls.preselectPreviousRow();
         break;
       case Key.TAB: {
+        if (this.dropdownMenu.visible) {
+          event.preventDefault();
+        }
         if (event.shiftKey) {
-          this.focusPreviousDropdownItem(event);
+          this.optionsControls.preselectPreviousRow();
         } else {
-          this.focusNextDropdownItem(event);
+          this.optionsControls.preselectNextRow();
         }
         break;
       }
+      case Key.ENTER:
+        if (!this.dropdownMenu.visible) {
+          this.processInputValue(this.inputField.value);
+        }
+      case Key.SPACE:
+        if (this.optionsControls.preselectedRow) {
+          event.preventDefault();
+          this.select(this.optionsControls.preselectedRow);
+        }
+        break;
       case Key.ESCAPE:
         this.inputField.focus();
         if (this.dropdownMenuElement && this.dropdownMenu.visible) {
@@ -163,61 +185,19 @@ export class Suggest {
     }
   }
 
-  private focusNextDropdownItem(event: KeyboardEvent): void {
-    if (this.dropdownMenu.visible) {
-      event.preventDefault(); //prevent scrolling if dropdown menu has a scrollbar
-      if (this.inputField === this.activeElement) {
-        this.dropdownItems.item(0).focus();
-      } else {
-        for (let i = 0; i < this.dropdownItems.length; i++) {
-          if (this.dropdownItems.item(i) === this.activeElement) {
-            const nextItemIndex = ++i;
-            if (nextItemIndex >= this.dropdownItems.length) {
-              this.dropdownItems.item(0).focus();
-            } else {
-              this.dropdownItems.item(nextItemIndex).focus();
-            }
-            break;
-          }
-        }
-      }
-    }
-  }
-
-  private focusPreviousDropdownItem(event: KeyboardEvent): void {
-    if (this.dropdownMenu.visible) {
-      event.preventDefault(); //prevent scrolling if dropdown menu has a scrollbar
-      if (this.inputField === this.activeElement) {
-        this.dropdownItems.item(this.dropdownItems.length - 1).focus();
-      } else {
-        for (let i = 0; i < this.dropdownItems.length; i++) {
-          if (this.dropdownItems.item(i) === this.activeElement) {
-            const previousItemIndex = --i;
-            if (previousItemIndex < 0) {
-              this.dropdownItems.item(this.dropdownItems.length - 1).focus();
-            } else {
-              this.dropdownItems.item(previousItemIndex).focus();
-            }
-            break;
-          }
-        }
-      }
-    }
-  }
-
   private inputEvent(event: UIEvent): void {
     const inputElement: HTMLInputElement = event.currentTarget as HTMLInputElement;
     this.processInputValue(inputElement.value);
   }
 
-  private processInputValue(inputValue: string) {
+  private processInputValue(inputValue: string): void {
     window.clearTimeout(this.timeout);
 
     if (inputValue.length >= this.minChars) {
       this.hiddenInput.value = inputValue.toLowerCase();
-      this.spinner.show();
 
       if (this.update) {
+        this.spinner.show();
         this.timeout = window.setTimeout(() => {
           const suggestId = this.tobagoSuggest.id;
           tobago.ajax.request(suggestId, null, {
@@ -232,15 +212,23 @@ export class Suggest {
       } else {
         switch (this.filter) {
           case SuggestFilter.all:
-            this.renderResults(this.items);
             break;
           case SuggestFilter.prefix:
-            this.renderResults(this.items.filter(item => item.toLowerCase().startsWith(this.hiddenInput.value)));
+            this.optionsControls
+                .filter((item: string, query: string) => item.toLowerCase().startsWith(query),
+                    this.hiddenInput.value);
             break;
           case SuggestFilter.contains:
           default:
-            this.renderResults(this.items.filter(item => item.toLowerCase().indexOf(this.hiddenInput.value) > -1));
+            this.optionsControls
+                .filter((item: string, query: string) => item.toLowerCase().indexOf(this.hiddenInput.value) > -1,
+                    this.hiddenInput.value);
             break;
+        }
+        if (this.optionsControls.visibleRows.length > 0) {
+          this.dropdownMenu.show();
+        } else {
+          this.dropdownMenu.hide();
         }
       }
     } else {
@@ -251,65 +239,21 @@ export class Suggest {
 
   private ajaxEvent(event: faces.AjaxEvent): void {
     if (event.status === "success") {
-      this.renderResults(this.items);
-    }
-  }
-
-  private renderResults(items: string[]): void {
-    if (items.length > 0) {
-      this.listeners.cleanup();
-
-      const dropdownItems: HTMLLIElement[] = [];
-      for (let i = 0; i < items.length; i++) {
-        const li = document.createElement("li");
-        li.setAttribute("data-result-index", i.toString());
-        li.setAttribute("role", "option");
-        const button = document.createElement("button");
-        button.type = "button";
-        button.classList.add(Css.DROPDOWN_ITEM);
-        button.textContent = items[i];
-        this.listeners.add(button, "click", this.selectDropdownItem.bind(this));
-        this.listeners.add(button, "blur", this.blurEvent.bind(this));
-        li.appendChild(button);
-        dropdownItems.push(li);
-      }
-      this.dropdownMenuElement.replaceChildren(...dropdownItems);
+      this.optionsControls.renderRows(this.items);
       this.spinner.hide();
-      this.dropdownMenu.show();
 
-      if (this.maxItems > 0) {
-        // do this after this.dropdownMenu.show(); to get the correct itemHeight
-        const itemHeight = this.dropdownMenuElement.querySelector("li").offsetHeight;
-        const dropdownMenuElementStyle = getComputedStyle(this.dropdownMenuElement);
-        const paddingTop = parseFloat(dropdownMenuElementStyle.paddingTop);
-        const paddingBottom = parseFloat(dropdownMenuElementStyle.paddingBottom);
-        const itemBasedMaxHeight = paddingTop + (this.maxItems * itemHeight) + paddingBottom;
-        const bodyBasedMaxHeight = parseFloat(this.dropdownMenuElement.style.maxHeight);
-
-        if (itemBasedMaxHeight < bodyBasedMaxHeight) {
-          this.dropdownMenuElement.style.maxHeight = itemBasedMaxHeight + "px";
-        }
+      if (this.items.length > 0) {
+        this.dropdownMenu.show();
+      } else {
+        this.dropdownMenu.hide();
       }
-    } else {
-      this.spinner.hide();
-      this.dropdownMenu.hide();
     }
   }
 
   private deleteResults(): void {
-    this.dropdownMenuElement.innerHTML = null;
-  }
-
-  private selectDropdownItem(event: MouseEvent): void {
-    const button: HTMLButtonElement = event.currentTarget as HTMLButtonElement;
-    this.inputField.value = button.textContent;
-    this.dropdownMenu.hide();
-    this.inputField.focus();
-  }
-
-  private get activeElement(): Element {
-    const root = this.tobagoIn.getRootNode() as ShadowRoot | Document;
-    return root.activeElement;
+    if (this.update) { //server side filtering
+      this.optionsControls.renderRows(null);
+    }
   }
 
   private get inputField(): HTMLInputElement {
@@ -323,6 +267,10 @@ export class Suggest {
 
   private get dropdownMenuAnchor(): HTMLDivElement {
     return this.tobagoIn.querySelector<HTMLDivElement>(`.${Css.TOBAGO_DROPDOWN_MENU_ANCHOR}`);
+  }
+
+  private get optionsElement(): HTMLDivElement {
+    return this.dropdownMenuAnchor.querySelector(".tobago-options");
   }
 
   private get tobagoSuggest(): HTMLElement {
@@ -365,12 +313,8 @@ export class Suggest {
     return this.tobagoSuggest.querySelector(":scope > input[type=hidden]");
   }
 
-  private get dropdownMenuElement(): HTMLUListElement {
+  private get dropdownMenuElement(): HTMLTableElement {
     const root = this.tobagoIn.getRootNode() as ShadowRoot | Document;
-    return root.getElementById(this.tobagoSuggest.id + "::dropdownMenu") as HTMLUListElement;
-  }
-
-  private get dropdownItems(): NodeListOf<HTMLButtonElement> {
-    return this.dropdownMenuElement.querySelectorAll<HTMLButtonElement>("li button.dropdown-item");
+    return root.querySelector(`.${Css.TOBAGO_DROPDOWN_MENU}[data-tobago-for="${this.tobagoSuggest.id}"]`);
   }
 }
