@@ -44,11 +44,11 @@ export class Overlay extends HTMLElement {
 
       if (data.status === "begin") {
         for (const renderId of renderIds) {
-          Overlay.createOverlay(renderId, OverlayType.ajax);
+          Overlay.render(renderId, OverlayType.ajax);
         }
       } else if (data.status === "success") {
         for (const renderId of renderIds) {
-          Overlay.removeOverlay(renderId);
+          Overlay.remove(renderId);
         }
       }
     };
@@ -59,13 +59,13 @@ export class Overlay extends HTMLElement {
       }
 
       for (const renderId of renderIds) {
-        Overlay.createOverlay(renderId, OverlayType.error);
+        Overlay.render(renderId, OverlayType.error);
       }
     };
     return options;
   }
 
-  static createOverlay(id: string, type: OverlayType, delay: number = Page
+  static render(id: string, type: OverlayType, delay: number = Page
       .page(document.querySelector("tobago-page")).waitOverlayDelayAjax): void {
     const element = document.getElementById(id);
 
@@ -81,7 +81,7 @@ export class Overlay extends HTMLElement {
     }
   }
 
-  static removeOverlay(id: string): void {
+  static remove(id: string): void {
     const element = document.getElementById(id);
     const currentOverlay = element?.querySelector(":scope > tobago-overlay");
     currentOverlay?.remove();
