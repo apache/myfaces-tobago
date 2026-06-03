@@ -1158,7 +1158,7 @@ tobago-overlay {
   z-index: 5; //set to "5", because this is the highest fixed value in Bootstrap
 
   &.show {
-    background-color: rgb(var(--#{$prefix}body-bg-rgb), 90%);
+    background-color: rgba(var(--#{$prefix}body-bg-rgb), 90%);
   }
 }
 
