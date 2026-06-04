@@ -14644,7 +14644,7 @@ tobago-overlay {
 }
 
 tobago-overlay.show {
-  background-color: rgb(var(--bs-body-bg-rgb), 90%);
+  background-color: rgba(var(--bs-body-bg-rgb), 90%);
 }
 
 tobago-page {
