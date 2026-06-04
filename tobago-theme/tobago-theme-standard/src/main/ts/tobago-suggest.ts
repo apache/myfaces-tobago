@@ -81,7 +81,7 @@ export class Suggest {
 
   protected globalClickEvent(event: MouseEvent): void {
     if (!this.inputField.disabled) {
-      if (!this.isPartOfSuggest(event.relatedTarget as Element)) {
+      if (!this.isPartOfSuggest(event.relatedTarget as HTMLElement)) {
         this.dropdownMenu.hide();
       }
     }
@@ -91,14 +91,14 @@ export class Suggest {
     const inputElement: HTMLInputElement = event.currentTarget as HTMLInputElement;
     const input = inputElement.value;
 
-    const lastFocusedElement = event.relatedTarget as Element;
+    const lastFocusedElement = event.relatedTarget as HTMLElement;
     if (this.minChars === 0 && input.length === 0 && !this.isPartOfSuggest(lastFocusedElement)) {
       this.inputEvent(event); //open dropdown on click for minChars=0 suggests
     }
   }
 
   private blurEvent(event: FocusEvent): void {
-    const element = (event.relatedTarget as Element);
+    const element = (event.relatedTarget as HTMLElement);
     if (element !== null) {
       //relatedTarget is the new focused element; null indicate a mouseclick or an inactive browser window
       if (!this.isPartOfSuggest(element)) {
@@ -107,9 +107,9 @@ export class Suggest {
     }
   }
 
-  private isPartOfSuggest(element: Element): boolean {
+  private isPartOfSuggest(element: HTMLElement): boolean {
     if (element) {
-      if (this.inputField.id === element.id || this.tobagoSuggest.id === element.getAttribute("name")) {
+      if (this.inputField.id === element.id || this.tobagoSuggest.id === element.dataset.tobagoFor) {
         return true;
       } else {
         return element.parentElement ? this.isPartOfSuggest(element.parentElement) : false;

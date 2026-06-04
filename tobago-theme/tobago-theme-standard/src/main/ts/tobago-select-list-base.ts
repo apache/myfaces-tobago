@@ -225,7 +225,7 @@ export abstract class SelectListBase extends HTMLElement {
 
           const oldOptions = this.options;
           const newOptions = this.filterUpdateLoader
-              .querySelector<HTMLElement>(`.tobago-options[name='${this.id}'] table`);
+              .querySelector<HTMLElement>(`.tobago-options[data-tobago-for='${this.id}'] table`);
           oldOptions.insertAdjacentElement("beforebegin", newOptions);
           oldOptions.remove();
 
@@ -349,7 +349,7 @@ Type: ${data.type}`);
   protected isPartOfTobagoOptions(element: Element): boolean {
     if (element) {
       if (element.classList.contains(Css.TOBAGO_OPTIONS)
-          && this.id === element.getAttribute("name")) {
+          && this.id === element.dataset.tobagoFor) {
         return true;
       } else {
         return element.parentElement ? this.isPartOfTobagoOptions(element.parentElement) : false;
@@ -399,12 +399,12 @@ Type: ${data.type}`);
 
   get dropdownMenuElement(): HTMLDivElement {
     const root = this.getRootNode() as ShadowRoot | Document;
-    return root.querySelector(`.${Css.TOBAGO_DROPDOWN_MENU}[name='${this.id}']`);
+    return root.querySelector(`.${Css.TOBAGO_DROPDOWN_MENU}[data-tobago-for='${this.id}']`);
   }
 
   get options(): HTMLElement {
     const root = this.getRootNode() as ShadowRoot | Document;
-    return root.querySelector(`.tobago-options[name='${this.id}'] table`);
+    return root.querySelector(`.tobago-options[data-tobago-for='${this.id}'] table`);
   }
 
   get tbody(): HTMLElement {

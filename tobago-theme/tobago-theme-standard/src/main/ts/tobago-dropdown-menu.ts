@@ -46,7 +46,7 @@ export class DropdownMenu {
    */
   constructor(dropdownMenuElement: HTMLElement, referenceElement: HTMLElement, eventElement: HTMLElement,
               localMenu: boolean, alignment: DropdownMenuAlignment) {
-    this.dropdownMenuElementId = dropdownMenuElement.getAttribute("name");
+    this.dropdownMenuElementId = dropdownMenuElement.dataset.tobagoFor;
     this.referenceElement = referenceElement;
     this.eventElement = eventElement;
     this.parent = dropdownMenuElement.parentElement;
@@ -218,7 +218,7 @@ export class DropdownMenu {
 
   private get dropdownMenuElement(): HTMLElement {
     const root = document.getRootNode() as ShadowRoot | Document;
-    return root.querySelector(`.${Css.TOBAGO_DROPDOWN_MENU}[name='${this.dropdownMenuElementId}']`);
+    return root.querySelector(`.${Css.TOBAGO_DROPDOWN_MENU}[data-tobago-for='${this.dropdownMenuElementId}']`);
   }
 
   private get dropdownRect(): DOMRect {

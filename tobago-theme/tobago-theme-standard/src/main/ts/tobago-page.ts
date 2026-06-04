@@ -60,8 +60,8 @@ export class Page extends HTMLElement {
             return true;
           }
         }
-        const name = target.getAttribute("name");
-        let id = name ? name : target.id;
+        const tobagoFor = target.dataset.tobagoFor;
+        let id = tobagoFor ? tobagoFor : target.id;
         while (id != null) {
           const command = document.querySelector(`[data-tobago-default='${id}']`);
           if (command) {

@@ -53,7 +53,7 @@ class Toasts extends HTMLElement {
   }
 
   get storeToasts(): NodeListOf<HTMLDivElement> {
-    return this.toastStore.querySelectorAll(".toast[name^='" + this.id + "::']");
+    return this.toastStore.querySelectorAll(".toast[data-tobago-for^='" + this.id + "::']");
   }
 
   get statesInput(): HTMLInputElement {
@@ -70,14 +70,15 @@ class Toasts extends HTMLElement {
 
   connectedCallback(): void {
     for (const storeToast of this.storeToasts) {
-      const localToast = this.querySelector<HTMLDivElement>(".toast[id='" + storeToast.getAttribute("name") + "']");
+      const localToast = this.querySelector<HTMLDivElement>(".toast[id='" + storeToast.dataset.tobagoFor + "']");
       if (!localToast) {
         this.removeToast(storeToast);
       }
     }
 
     for (const localToast of this.localToasts) {
-      const storeToast = this.toastStore.querySelector<HTMLDivElement>(".toast[name='" + localToast.id + "']");
+      const storeToast = this.toastStore
+          .querySelector<HTMLDivElement>(".toast[data-tobago-for='" + localToast.id + "']");
       if (storeToast) {
         this.updateToast(storeToast, localToast);
       } else {
@@ -114,7 +115,7 @@ class Toasts extends HTMLElement {
     this.addHiddenEventListeners(localToast);
 
     const toast = new Toast(localToast, {autohide: disposeDelay > 0, delay: Math.max(disposeDelay, 0)});
-    const id = localToast.getAttribute("name");
+    const id = localToast.dataset.tobagoFor;
     const stateData = this.states.get(id);
 
     if (stateData.state === StateEnum.created) {
@@ -132,7 +133,7 @@ class Toasts extends HTMLElement {
   }
 
   private addShowEventListeners(toast: HTMLDivElement) {
-    const id = toast.getAttribute("name");
+    const id = toast.dataset.tobagoFor;
     toast.addEventListener("show.bs.toast", () => {
       const states = this.states;
       states.get(id).state = StateEnum.showed;
@@ -148,7 +149,7 @@ class Toasts extends HTMLElement {
   }
 
   private addHideEventListeners(toast: HTMLDivElement) {
-    const id = toast.getAttribute("name");
+    const id = toast.dataset.tobagoFor;
     toast.addEventListener("hide.bs.toast", () => {
       const states = this.states;
       states.get(id).state = StateEnum.closed;

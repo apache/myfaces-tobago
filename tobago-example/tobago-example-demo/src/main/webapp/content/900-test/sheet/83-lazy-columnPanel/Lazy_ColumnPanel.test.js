@@ -78,7 +78,7 @@ function row(rowIndex) {
 }
 
 function rowColumnPanel(rowIndex) {
-  return querySelectorFn("tr[name='" + rowIndex + "'].tobago-column-panel")();
+  return querySelectorFn("tr[data-tobago-for='" + rowIndex + "'].tobago-column-panel")();
 }
 
 function focusRowIndex(rowIndex) {

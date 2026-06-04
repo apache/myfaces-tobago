@@ -381,8 +381,9 @@ export class Sheet extends HTMLElement {
                 previousElement.insertAdjacentElement("afterend", newRow);
               }
             } else if (newRow.classList.contains(Css.TOBAGO_COLUMN_PANEL)) {
-              const rowIndex = Number(newRow.getAttribute("name"));
-              const columnPanel = this.tableBody.querySelector(`tr[name='${rowIndex}'].${Css.TOBAGO_COLUMN_PANEL}`);
+              const rowIndex = Number(newRow.dataset.tobagoFor);
+              const columnPanel = this.tableBody
+                  .querySelector(`tr[data-tobago-for='${rowIndex}'].${Css.TOBAGO_COLUMN_PANEL}`);
               if (columnPanel) {
                 const previousElement = columnPanel.previousElementSibling;
                 columnPanel.remove();
@@ -657,7 +658,7 @@ Type: ${data.type}`);
 
         const selected = this.selected;
         const rowIndex = Number(row.classList.contains(Css.TOBAGO_COLUMN_PANEL)
-            ? row.getAttribute("name") : row.getAttribute("row-index"));
+            ? row.dataset.tobagoFor : row.getAttribute("row-index"));
 
         switch (selectMode) {
           case SelectMode.singleMode:
@@ -699,7 +700,7 @@ Type: ${data.type}`);
     const tableRows = this.rowElements;
     tableRows.forEach((rowElement) => {
       const isColumnPanel = rowElement.classList.contains(Css.TOBAGO_COLUMN_PANEL);
-      const rowIndex = Number(isColumnPanel ? rowElement.getAttribute("name") : rowElement.getAttribute("row-index"));
+      const rowIndex = Number(isColumnPanel ? rowElement.dataset.tobagoFor : rowElement.getAttribute("row-index"));
       const inputElement = !isColumnPanel ? this.columnSelector?.rowElement(rowElement) : null;
 
       if (selected.has(rowIndex)) {
@@ -736,7 +737,7 @@ Type: ${data.type}`);
     if (row.hasAttribute("row-index")) {
       return Number(row.getAttribute("row-index"));
     } else if (row.classList.contains(Css.TOBAGO_COLUMN_PANEL)) {
-      return Number(row.getAttribute("name"));
+      return Number(row.dataset.tobagoFor);
     }
     return null;
   }

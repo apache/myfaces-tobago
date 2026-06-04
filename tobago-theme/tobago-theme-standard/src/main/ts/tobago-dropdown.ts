@@ -417,7 +417,7 @@ class Dropdown extends HTMLElement {
 
   get dropdownMenuElement(): HTMLDivElement {
     const root = this.getRootNode() as ShadowRoot | Document;
-    return root.querySelector(`.${Css.TOBAGO_DROPDOWN_MENU}[name='${this.id}']`);
+    return root.querySelector(`.${Css.TOBAGO_DROPDOWN_MENU}[data-tobago-for='${this.id}']`);
   }
 
   get firstFocusableElement(): HTMLElement | SVGElement {
