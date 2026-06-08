@@ -201,9 +201,9 @@ export class DropdownMenu {
     const right = horizontalPositionAndSize.right;
     const maxWidth = horizontalPositionAndSize.maxWidth;
 
-    this.dropdownMenuElement.style.left = left ? left + "px" : null;
-    this.dropdownMenuElement.style.right = right ? right + "px" : null;
-    this.dropdownMenuElement.style.maxWidth = maxWidth ? maxWidth + "px" : null;
+    this.dropdownMenuElement.style.left = left !== null ? left + "px" : null;
+    this.dropdownMenuElement.style.right = right !== null ? right + "px" : null;
+    this.dropdownMenuElement.style.maxWidth = maxWidth !== null ? maxWidth + "px" : null;
   }
 
   private get stickyHeader(): HTMLElement {
