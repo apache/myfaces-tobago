@@ -38,6 +38,10 @@ public enum ClientBehaviors {
   reload("reload"), // tbd - may be called timeout?
   resize("resize"),
   suggest("suggest"),
+  dropdownHide("tobago.dropdown.hide"),
+  dropdownHidden("tobago.dropdown.hidden"),
+  dropdownShow("tobago.dropdown.show"),
+  dropdownShown("tobago.dropdown.shown"),
   @Deprecated(since = "6.11.1", forRemoval = true)
   rowSelectionChange("tobago.sheet.rowSelectionChange"),
   sheetRowSelectionChange("tobago.sheet.rowSelectionChange"),
@@ -81,6 +85,10 @@ public enum ClientBehaviors {
   public static final String RELOAD = "reload"; // tbd - may be called timeout?
   public static final String RESIZE = "resize";
   public static final String SUGGEST = "suggest"; // tbd
+  public static final String DROPDOWN_HIDE = "tobago.dropdown.hide";
+  public static final String DROPDOWN_HIDDEN = "tobago.dropdown.hidden";
+  public static final String DROPDOWN_SHOW = "tobago.dropdown.show";
+  public static final String DROPDOWN_SHOWN = "tobago.dropdown.shown";
   public static final String SHEET_ROW_SELECTION_CHANGE = "tobago.sheet.rowSelectionChange";
   @Deprecated(since = "6.11.1", forRemoval = true)
   public static final String ROW_SELECTION_CHANGE = SHEET_ROW_SELECTION_CHANGE;

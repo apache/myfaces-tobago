@@ -1,0 +1,67 @@
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="jakarta.faces.core"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="jakarta.faces.facelets">
+
+  <tc:panel id="counter">
+    <p>Counter</p>
+    <tc:flexLayout columns="auto">
+      <tc:out id="buttonCounter" label="button" value="#{testBehaviorController.button}" labelLayout="top"/>
+      <tc:out id="linkCounter" label="link" value="#{testBehaviorController.link}" labelLayout="top"/>
+      <tc:out id="suggestCounter" label="suggest" value="#{testBehaviorController.suggest}" labelLayout="top"/>
+      <tc:out id="selectOneListCounter" label="selectOneList" value="#{testBehaviorController.selectOneList}"
+              labelLayout="top"/>
+      <tc:out id="selectManyListCounter" label="selectManyList" value="#{testBehaviorController.selectManyList}"
+              labelLayout="top"/>
+    </tc:flexLayout>
+  </tc:panel>
+
+  <tc:button id="button" label="Dropdown menu" omit="true">
+    <f:ajax event="tobago.dropdown.hidden" render="counter" listener="#{testBehaviorController.increaseButton}"/>
+    <tc:link label="Entry" omit="true"/>
+  </tc:button>
+
+  <tc:link id="link" label="Dropdown menu" omit="true">
+    <f:ajax event="tobago.dropdown.hidden" render="counter" listener="#{testBehaviorController.increaseLink}"/>
+    <tc:link label="Entry" omit="true"/>
+  </tc:link>
+
+  <tc:in id="suggestInput" label="Suggest">
+    <tc:suggest id="suggest" query="#{suggestController.query}">
+      <f:ajax event="tobago.dropdown.hidden" render="counter" listener="#{testBehaviorController.increaseSuggest}"/>
+      <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
+    </tc:suggest>
+  </tc:in>
+
+  <tc:selectOneList id="selectOneList" value="#{selectOneListController.selectedPlanet}">
+    <f:ajax event="tobago.dropdown.hidden" render="counter" listener="#{testBehaviorController.increaseSelectOneList}"/>
+    <tc:selectItems value="#{selectOneListController.planets}" var="planet"
+                    itemLabel="#{planet.name}" itemValue="#{planet}"/>
+  </tc:selectOneList>
+
+  <tc:selectManyList id="selectManyList" value="#{selectManyListController.selectedPlanets}">
+    <f:ajax event="tobago.dropdown.hidden" render="counter"
+            listener="#{testBehaviorController.increaseSelectManyList}"/>
+    <tc:selectItems value="#{selectManyListController.planets}" var="planet"
+                    itemLabel="#{planet.name}" itemValue="#{planet}"/>
+  </tc:selectManyList>
+
+</ui:composition>

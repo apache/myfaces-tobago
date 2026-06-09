@@ -38,8 +38,8 @@ export abstract class SelectListBase extends HTMLElement {
   connectedCallback(): void {
     this.optionsControls = new OptionsControls(this.options, this.select.bind(this));
     if (this.dropdownMenuElement) {
-      this.dropdownMenu = new DropdownMenu(this.dropdownMenuElement, this.selectField, this, this.localMenu,
-          DropdownMenuAlignment.centerFullWidth);
+      this.dropdownMenu = new DropdownMenu(this.dropdownMenuElement, this.selectField, [this, this.hiddenSelect],
+          this.localMenu, DropdownMenuAlignment.centerFullWidth);
     }
     this.listeners.add(document, "click", this.globalClickEvent.bind(this));
     this.listeners.add(this.hiddenSelect, "click", this.labelClickEvent.bind(this));

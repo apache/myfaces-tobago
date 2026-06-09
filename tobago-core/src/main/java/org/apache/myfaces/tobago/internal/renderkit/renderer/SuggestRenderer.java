@@ -49,22 +49,29 @@ public class SuggestRenderer<T extends AbstractUISuggest> extends RendererBase<T
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+  private static final String BEHAVIOR_EVENT_KEY = "jakarta.faces.behavior.event";
+
   @Override
   public void decodeInternal(final FacesContext facesContext, final T component) {
     final String clientId = component.getClientId(facesContext);
     final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
     if (requestParameterMap.containsKey(clientId)) {
-      final String query = requestParameterMap.get(clientId);
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("suggest query='{}'", query);
+      if (requestParameterMap.containsKey(BEHAVIOR_EVENT_KEY)
+          && requestParameterMap.get(BEHAVIOR_EVENT_KEY).equals("suggest")) {
+        final String query = requestParameterMap.get(clientId);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("suggest query='{}'", query);
+        }
+        // XXX this is for the old way: for "suggestMethod"
+        final AbstractUIInput input = ComponentUtils.findAncestor(component, AbstractUIInput.class);
+        if (input != null) {
+          input.setSubmittedValue(query);
+        }
+        // this is the new way: for select items
+        component.setQuery(query);
+      } else {
+        decodeClientBehaviors(facesContext, component);
       }
-      // XXX this is for the old way: for "suggestMethod"
-      final AbstractUIInput input = ComponentUtils.findAncestor(component, AbstractUIInput.class);
-      if (input != null) {
-        input.setSubmittedValue(query);
-      }
-      // this is the new way: for select items
-      component.setQuery(query);
     }
   }
 
@@ -114,6 +121,8 @@ public class SuggestRenderer<T extends AbstractUISuggest> extends RendererBase<T
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     writer.writeAttribute(HtmlAttributes.NAME, clientId, false);
     writer.endElement(HtmlElements.INPUT);
+
+    encodeBehavior(writer, facesContext, component);
 
     writer.endElement(HtmlElements.TOBAGO_SUGGEST);
   }

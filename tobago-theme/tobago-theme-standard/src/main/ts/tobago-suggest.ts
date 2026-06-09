@@ -57,8 +57,8 @@ export class Suggest {
     /* eslint-enable max-len */
     this.optionsControls = new OptionsControls(this.optionsElement, this.select.bind(this));
 
-    this.dropdownMenu = new DropdownMenu(this.dropdownMenuElement, this.inputField, this.tobagoIn, this.localMenu,
-        DropdownMenuAlignment.centerFullWidth);
+    this.dropdownMenu = new DropdownMenu(this.dropdownMenuElement, this.inputField, [this.tobagoIn, this.tobagoSuggest],
+        this.localMenu, DropdownMenuAlignment.centerFullWidth);
 
     this.inputField.role = "combobox";
     this.inputField.autocomplete = "off";
@@ -239,6 +239,7 @@ export class Suggest {
 
   private ajaxEvent(event: faces.AjaxEvent): void {
     if (event.status === "success") {
+      this.dropdownMenu.updateEventElements([this.tobagoIn, this.tobagoSuggest]);
       this.optionsControls.renderRows(this.items);
       this.spinner.hide();
 

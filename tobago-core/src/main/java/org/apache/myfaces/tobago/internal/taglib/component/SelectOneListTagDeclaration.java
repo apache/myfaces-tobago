@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import jakarta.faces.component.UISelectMany;
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Markup;
@@ -57,6 +56,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequiredForSelect;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
+import jakarta.faces.component.UISelectMany;
+
 /**
  * Render a single selection option list.
  */
@@ -83,7 +84,16 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
         @Behavior(name = ClientBehaviors.CLICK),
         @Behavior(name = ClientBehaviors.DBLCLICK),
         @Behavior(name = ClientBehaviors.FOCUS),
-        @Behavior(name = ClientBehaviors.BLUR)},
+        @Behavior(name = ClientBehaviors.BLUR),
+        @Behavior(name = ClientBehaviors.DROPDOWN_HIDE, description = "Event is fired before a dropdown menu is hidden."
+            + " Behavior only applies if list is not expanded."),
+        @Behavior(name = ClientBehaviors.DROPDOWN_HIDDEN, description = "Event is fired after a dropdown menu is"
+            + " hidden. Behavior only applies if list is not expanded."),
+        @Behavior(name = ClientBehaviors.DROPDOWN_SHOW, description = "Event is fired before a dropdown menu is shown."
+            + " Behavior only applies if list is not expanded."),
+        @Behavior(name = ClientBehaviors.DROPDOWN_SHOWN, description = "Event is fired after a dropdown menu is shown."
+            + " Behavior only applies if list is not expanded.")
+    },
     markups = {
         @Markup(
             name = org.apache.myfaces.tobago.context.Markup.STRING_LARGE,
