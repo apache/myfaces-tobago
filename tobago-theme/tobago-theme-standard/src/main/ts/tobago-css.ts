@@ -30,6 +30,7 @@ export enum Css {
   DROPDOWN_ITEM = "dropdown-item",
   DROPDOWN_MENU = "dropdown-menu",
   DROPDOWN_MENU_END = "dropdown-menu-end",
+  DROPDOWN_TOGGLE = "dropdown-toggle",
   END_0 = "end-0",
   FADE = "fade",
   FIXED_BOTTOM = "fixed-bottom",

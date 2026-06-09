@@ -19,15 +19,18 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import jakarta.faces.component.UIInput;
+import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.ClientBehaviors;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLocalMenu;
 import org.apache.myfaces.tobago.model.SuggestFilter;
+
+import jakarta.faces.component.UIInput;
 
 /**
  * Renders a list of suggested texts for a given input field.
@@ -51,12 +54,18 @@ import org.apache.myfaces.tobago.model.SuggestFilter;
     allowedChildComponents = {
         "org.apache.myfaces.tobago.SelectItems",
         "org.apache.myfaces.tobago.SelectItem"
-    }/* todo ,
+    },
     behaviors = {
-        @Behavior(
-            name = ClientBehaviors.SUGGEST,
-            isDefault = true)
-    }*/)
+        @Behavior(name = ClientBehaviors.DROPDOWN_HIDE, description = "Event is fired before a dropdown menu is hidden."
+            + " Behavior only applies if the button toggles a dropdown menu."),
+        @Behavior(name = ClientBehaviors.DROPDOWN_HIDDEN, description = "Event is fired after a dropdown menu is"
+            + " hidden. Behavior only applies if the button toggles a dropdown menu.",
+            isDefault = true),
+        @Behavior(name = ClientBehaviors.DROPDOWN_SHOW, description = "Event is fired before a dropdown menu is shown."
+            + " Behavior only applies if the button toggles a dropdown menu."),
+        @Behavior(name = ClientBehaviors.DROPDOWN_SHOWN, description = "Event is fired after a dropdown menu is shown."
+            + " Behavior only applies if the button toggles a dropdown menu.")
+    })
 public interface SuggestTagDeclaration extends HasIdBindingAndRendered, HasLocalMenu {
 
   /**

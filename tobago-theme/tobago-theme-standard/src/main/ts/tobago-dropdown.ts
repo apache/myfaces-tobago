@@ -34,8 +34,8 @@ class Dropdown extends HTMLElement {
 
   connectedCallback(): void {
     if (!this.classList.contains(Css.TOBAGO_DROPDOWN_SUBMENU)) { // ignore submenus
-      this.dropdownMenu = new DropdownMenu(this.dropdownMenuElement, this.toggle, this, this.insideNavbar(),
-          this.dropdownMenuElement.classList.contains(Css.DROPDOWN_MENU_END)
+      this.dropdownMenu = new DropdownMenu(this.dropdownMenuElement, this.toggle, [this, this.toggle],
+          this.insideNavbar(), this.dropdownMenuElement.classList.contains(Css.DROPDOWN_MENU_END)
               ? DropdownMenuAlignment.end : DropdownMenuAlignment.start);
       this.listeners.add(document, "click", this.globalClickEvent.bind(this));
       this.listeners.add(this.toggle, "keydown", this.toggleButtonKeydownEvent.bind(this));

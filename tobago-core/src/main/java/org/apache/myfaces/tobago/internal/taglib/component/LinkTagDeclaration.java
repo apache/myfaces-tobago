@@ -70,16 +70,18 @@ import jakarta.faces.component.UICommand;
             description = "Contains a UIOutput instance with the confirmation message.",
             allowedChildComponents = "org.apache.myfaces.tobago.Out")},
     behaviors = {
-        @Behavior(
-            name = ClientBehaviors.CLICK,
-            description = "Behavior of a click event.",
-            isDefault = true),
-        @Behavior(
-            name = ClientBehaviors.DBLCLICK),
-        @Behavior(
-            name = ClientBehaviors.FOCUS),
-        @Behavior(
-            name = ClientBehaviors.BLUR)
+        @Behavior(name = ClientBehaviors.CLICK, description = "Behavior of a click event.", isDefault = true),
+        @Behavior(name = ClientBehaviors.DBLCLICK),
+        @Behavior(name = ClientBehaviors.FOCUS),
+        @Behavior(name = ClientBehaviors.BLUR),
+        @Behavior(name = ClientBehaviors.DROPDOWN_HIDE, description = "Event is fired before a dropdown menu is hidden."
+            + " Behavior only applies if the link toggles a dropdown menu."),
+        @Behavior(name = ClientBehaviors.DROPDOWN_HIDDEN, description = "Event is fired after a dropdown menu is"
+            + " hidden. Behavior only applies if the link toggles a dropdown menu."),
+        @Behavior(name = ClientBehaviors.DROPDOWN_SHOW, description = "Event is fired before a dropdown menu is shown."
+            + " Behavior only applies if the link toggles a dropdown menu."),
+        @Behavior(name = ClientBehaviors.DROPDOWN_SHOWN, description = "Event is fired after a dropdown menu is shown."
+            + " Behavior only applies if the link toggles a dropdown menu.")
     },
     markups = {
         @Markup(
