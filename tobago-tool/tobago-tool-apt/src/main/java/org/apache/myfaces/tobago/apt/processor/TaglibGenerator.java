@@ -20,6 +20,7 @@
 package org.apache.myfaces.tobago.apt.processor;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.ConverterTag;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Markup;
@@ -362,7 +363,7 @@ public class TaglibGenerator extends AbstractGenerator {
     description.append("</p>");
     final Facet[] facets = componentTag.facets();
     if (facets.length > 0) {
-      description.append("<p><b>Supported facets:</b></p>");
+      description.append("<hr/><p><b>Supported facets:</b></p>");
       description.append("<dl>");
       for (final Facet facet : facets) {
         description.append("<dt><b>");
@@ -374,9 +375,26 @@ public class TaglibGenerator extends AbstractGenerator {
       }
       description.append("</dl>");
     }
+    final Behavior[] behaviors = componentTag.behaviors();
+    if (behaviors.length > 0) {
+      description.append("<hr/><p><b>Supported behaviors:</b></p>");
+      description.append("<dl>");
+      for (final Behavior behavior : behaviors) {
+        description.append("<dt><b>");
+        description.append(behavior.name());
+        description.append("</b></dt>");
+        description.append("<dd>");
+        description.append(behavior.description());
+        if (behavior.isDefault()) {
+          description.append(" (default)");
+        }
+        description.append("</dd>");
+      }
+      description.append("</dl>");
+    }
     final Markup[] markups = componentTag.markups();
     if (markups.length > 0) {
-      description.append("<p><b>Supported markups:</b></p>");
+      description.append("<hr/><p><b>Supported markups:</b></p>");
       description.append("<dl>");
       for (final Markup markup : markups) {
         description.append("<dt><b>");
