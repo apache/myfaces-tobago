@@ -97,6 +97,7 @@ public enum CustomAttributes implements MarkupLanguageAttributes {
   SWITCH_TYPE("switch-type"),
   TIME_PATTERN("time-pattern"),
   TOTAL_COUNT("total-count"),
+  TRIGGER("trigger"),
   DECOUPLED("decoupled"),
   UPDATE("update");
 

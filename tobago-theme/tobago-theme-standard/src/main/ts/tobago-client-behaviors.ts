@@ -37,6 +37,10 @@ export enum ClientBehaviors {
   TOBAGO_DROPDOWN_HIDDEN = "tobago.dropdown.hidden",
   TOBAGO_DROPDOWN_SHOW = "tobago.dropdown.show",
   TOBAGO_DROPDOWN_SHOWN = "tobago.dropdown.shown",
+  TOBAGO_POPOVER_HIDE = "tobago.popover.hide",
+  TOBAGO_POPOVER_HIDDEN = "tobago.popover.hidden",
+  TOBAGO_POPOVER_SHOW = "tobago.popover.show",
+  TOBAGO_POPOVER_SHOWN = "tobago.popover.shown",
   TOBAGO_SHEET_ROW_SELECTION_CHANGE = "tobago.sheet.rowSelectionChange",
   TOBAGO_TAB_GROUP_TAB_CHANGE = "tobago.tabGroup.tabChange"
 }

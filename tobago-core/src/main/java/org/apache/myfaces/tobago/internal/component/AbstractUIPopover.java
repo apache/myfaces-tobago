@@ -19,9 +19,11 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import jakarta.faces.component.UIOutput;
 import org.apache.myfaces.tobago.component.Visual;
+import org.apache.myfaces.tobago.layout.PopoverTriggers;
 import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
+
+import jakarta.faces.component.UIOutput;
 
 public abstract class AbstractUIPopover extends UIOutput implements Visual {
 
@@ -30,4 +32,6 @@ public abstract class AbstractUIPopover extends UIOutput implements Visual {
   public abstract boolean isEscape();
 
   public abstract SanitizeMode getSanitize();
+
+  public abstract PopoverTriggers getTrigger();
 }

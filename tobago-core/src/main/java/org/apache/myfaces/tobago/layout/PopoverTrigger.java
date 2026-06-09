@@ -17,13 +17,17 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.component;
+package org.apache.myfaces.tobago.layout;
 
-import org.apache.myfaces.tobago.layout.PopoverTriggers;
+/**
+ * Values for the popover "trigger" attribute or for the "helpTrigger" attribute of any
+ * {@link org.apache.myfaces.tobago.component.SupportsHelp} component.
+ * The values "click", "focus", "hover" have only an effect if a popover button (or similar element) is visible.
+ */
+public enum PopoverTrigger {
+  click, focus, hover;
 
-public interface SupportsHelp {
-
-  String getHelp();
-
-  PopoverTriggers getHelpTrigger();
+  public static final String CLICK = "click";
+  public static final String FOCUS = "focus";
+  public static final String HOVER = "hover";
 }

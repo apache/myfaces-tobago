@@ -42,6 +42,10 @@ public enum ClientBehaviors {
   tobagoDropdownHidden("tobago.dropdown.hidden"),
   tobagoDropdownShow("tobago.dropdown.show"),
   tobagoDropdownShown("tobago.dropdown.shown"),
+  tobagoPopoverHide("tobago.popover.hide"),
+  tobagoPopoverHidden("tobago.popover.hidden"),
+  tobagoPopoverShow("tobago.popover.show"),
+  tobagoPopoverShown("tobago.popover.shown"),
   /**
    * @deprecated Please use {@link #tobagoSheetRowSelectionChange}
    */
@@ -95,6 +99,10 @@ public enum ClientBehaviors {
   public static final String TOBAGO_DROPDOWN_HIDDEN = "tobago.dropdown.hidden";
   public static final String TOBAGO_DROPDOWN_SHOW = "tobago.dropdown.show";
   public static final String TOBAGO_DROPDOWN_SHOWN = "tobago.dropdown.shown";
+  public static final String TOBAGO_POPOVER_HIDE = "tobago.popover.hide";
+  public static final String TOBAGO_POPOVER_HIDDEN = "tobago.popover.hidden";
+  public static final String TOBAGO_POPOVER_SHOW = "tobago.popover.show";
+  public static final String TOBAGO_POPOVER_SHOWN = "tobago.popover.shown";
   public static final String TOBAGO_SHEET_ROW_SELECTION_CHANGE = "tobago.sheet.rowSelectionChange";
   @Deprecated(since = "6.12.0", forRemoval = true)
   public static final String ROW_SELECTION_CHANGE = TOBAGO_SHEET_ROW_SELECTION_CHANGE;

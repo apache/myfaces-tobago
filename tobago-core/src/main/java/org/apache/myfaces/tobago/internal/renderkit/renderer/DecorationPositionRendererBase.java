@@ -19,9 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import jakarta.faces.application.FacesMessage;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.context.FacesContext;
 import org.apache.myfaces.tobago.component.DecorationPosition;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
@@ -34,6 +31,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectOneChoice;
 import org.apache.myfaces.tobago.internal.util.RenderUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
+import org.apache.myfaces.tobago.layout.PopoverTriggers;
 import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
@@ -47,6 +45,9 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.ResourceUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.List;
 
@@ -89,8 +90,7 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
 
       switch (helpPosition) {
         case buttonLeft:
-          final String title = ResourceUtils.getString(facesContext, "help.title");
-          encodePopover(writer, BootstrapClass.BTN_OUTLINE_INFO, Icons.QUESTION_LG, title, help, tabIndex);
+          encodeHelpPopover(facesContext, component, writer, help, tabIndex);
           break;
         case textTop:
           writer.startElement(HtmlElements.DIV);
@@ -115,8 +115,7 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
 
       switch (messagePosition) {
         case buttonLeft:
-          final CssItem buttonColor = BootstrapClass.buttonColor(severity);
-          encodePopover(writer, buttonColor, Icons.EXCLAMATION_LG, getTitle(facesContext, messages), message, tabIndex);
+          encodeFacesMessagePopover(facesContext, writer, severity, messages, tabIndex);
           break;
         case textTop:
           final CssItem feedback = BootstrapClass.feedbackColor(severity);
@@ -150,8 +149,7 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
     if (!StringUtils.isEmpty(message)) {
       switch (messagePosition) {
         case buttonRight:
-          final CssItem buttonColor = BootstrapClass.buttonColor(severity);
-          encodePopover(writer, buttonColor, Icons.EXCLAMATION_LG, getTitle(facesContext, messages), message, tabIndex);
+          encodeFacesMessagePopover(facesContext, writer, severity, messages, tabIndex);
           break;
         case tooltip:
           final CssItem tooltip = BootstrapClass.tooltipColor(severity);
@@ -174,13 +172,12 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
 
     final DecorationPosition helpPosition = supportsDecorationPosition != null
         ? supportsDecorationPosition.getHelpPosition() : DecorationPosition.none;
-    final String title = ResourceUtils.getString(facesContext, "help.title");
     final String help = component instanceof SupportsHelp ? ((SupportsHelp) component).getHelp() : null;
 
     if (!StringUtils.isEmpty(help)) {
       switch (helpPosition) {
         case buttonRight:
-          encodePopover(writer, BootstrapClass.BTN_OUTLINE_INFO, Icons.QUESTION_LG, title, help, tabIndex);
+          encodeHelpPopover(facesContext, component, writer, help, tabIndex);
           break;
         case tooltip:
           writer.startElement(HtmlElements.DIV);
@@ -285,12 +282,37 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
     return stringBuilder.toString();
   }
 
+  private void encodeFacesMessagePopover(
+      final FacesContext facesContext, final TobagoResponseWriter writer, final FacesMessage.Severity severity,
+      final List<FacesMessage> messages, final Integer tabIndex) throws IOException {
+
+    final CssItem buttonColor = BootstrapClass.buttonColor(severity);
+    final String title = getTitle(facesContext, messages);
+    final String message = getMessage(messages);
+    final PopoverTriggers trigger = PopoverTriggers.parse("focus");
+
+    encodePopover(writer, buttonColor, Icons.EXCLAMATION_LG, title, message, trigger, tabIndex);
+  }
+
+  private void encodeHelpPopover(
+      final FacesContext facesContext, final T component, final TobagoResponseWriter writer, final String helpText,
+      final Integer tabIndex)
+      throws IOException {
+
+    final String title = ResourceUtils.getString(facesContext, "help.title");
+    final PopoverTriggers trigger = component instanceof SupportsHelp
+        ? ((SupportsHelp) component).getHelpTrigger() : PopoverTriggers.parse("focus");
+
+    encodePopover(writer, BootstrapClass.BTN_OUTLINE_INFO, Icons.QUESTION_LG, title, helpText, trigger, tabIndex);
+  }
+
   private void encodePopover(
       final TobagoResponseWriter writer, final CssItem buttonColor, final Icons icon, final String title,
-      final String content, final Integer tabIndex) throws IOException {
+      final String content, final PopoverTriggers trigger, Integer tabIndex) throws IOException {
     writer.startElement(HtmlElements.TOBAGO_POPOVER);
     writer.writeAttribute(CustomAttributes.LABEL, title, true);
     writer.writeAttribute(HtmlAttributes.VALUE, content, true);
+    writer.writeAttribute(CustomAttributes.TRIGGER, trigger.toString(), false);
 
     writer.startElement(HtmlElements.A);
     writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex != null ? tabIndex : 0);

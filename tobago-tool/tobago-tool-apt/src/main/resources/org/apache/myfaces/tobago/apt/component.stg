@@ -406,6 +406,10 @@ OffcanvasPlacementProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
+PopoverTriggersProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
 LocalDateProperty(property) ::= <<
 <NormalProperty(property)>
 >>
