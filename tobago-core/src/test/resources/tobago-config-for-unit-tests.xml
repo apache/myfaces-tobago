@@ -33,26 +33,34 @@
           <attribute name="labelLayout" default="flexLeft"/>
           <attribute name="messagePosition" default="buttonRight"/>
           <attribute name="helpPosition" default="buttonRight"/>
+          <attribute name="helpTrigger" default="focus"/>
         </tag>
         <tag name="date">
           <attribute name="labelLayout" default="flexLeft"/>
           <attribute name="messagePosition" default="buttonRight"/>
           <attribute name="helpPosition" default="buttonRight"/>
+          <attribute name="helpTrigger" default="focus"/>
         </tag>
         <tag name="file">
           <attribute name="labelLayout" default="flexLeft"/>
           <attribute name="messagePosition" default="buttonRight"/>
           <attribute name="helpPosition" default="buttonRight"/>
+          <attribute name="helpTrigger" default="focus"/>
         </tag>
         <tag name="in">
           <attribute name="labelLayout" default="flexLeft"/>
           <attribute name="messagePosition" default="buttonRight"/>
           <attribute name="helpPosition" default="buttonRight"/>
+          <attribute name="helpTrigger" default="focus"/>
         </tag>
         <tag name="out">
           <attribute name="labelLayout" default="flexLeft"/>
           <attribute name="messagePosition" default="buttonRight"/>
           <attribute name="helpPosition" default="buttonRight"/>
+          <attribute name="helpTrigger" default="focus"/>
+        </tag>
+        <tag name="popover">
+          <attribute name="trigger" default="focus"/>
         </tag>
         <tag name="popup">
           <attribute name="modal" default="false"/>
@@ -61,66 +69,79 @@
           <attribute name="labelLayout" default="flexLeft"/>
           <attribute name="messagePosition" default="buttonRight"/>
           <attribute name="helpPosition" default="buttonRight"/>
+          <attribute name="helpTrigger" default="focus"/>
         </tag>
         <tag name="selectBooleanCheckbox">
           <attribute name="labelLayout" default="flexLeft"/>
           <attribute name="messagePosition" default="buttonRight"/>
           <attribute name="helpPosition" default="buttonRight"/>
+          <attribute name="helpTrigger" default="focus"/>
         </tag>
         <tag name="selectBooleanToggle">
           <attribute name="labelLayout" default="flexLeft"/>
           <attribute name="messagePosition" default="buttonRight"/>
           <attribute name="helpPosition" default="buttonRight"/>
+          <attribute name="helpTrigger" default="focus"/>
         </tag>
         <tag name="selectManyCheckbox">
           <attribute name="labelLayout" default="flexLeft"/>
           <attribute name="messagePosition" default="buttonRight"/>
           <attribute name="helpPosition" default="buttonRight"/>
+          <attribute name="helpTrigger" default="focus"/>
         </tag>
         <tag name="selectManyList">
           <attribute name="labelLayout" default="flexLeft"/>
           <attribute name="messagePosition" default="buttonRight"/>
           <attribute name="helpPosition" default="buttonRight"/>
+          <attribute name="helpTrigger" default="focus"/>
         </tag>
         <tag name="selectManyListbox">
           <attribute name="labelLayout" default="flexLeft"/>
           <attribute name="messagePosition" default="buttonRight"/>
           <attribute name="helpPosition" default="buttonRight"/>
+          <attribute name="helpTrigger" default="focus"/>
         </tag>
         <tag name="selectManyShuttle">
           <attribute name="labelLayout" default="flexLeft"/>
           <attribute name="messagePosition" default="buttonRight"/>
           <attribute name="helpPosition" default="buttonRight"/>
+          <attribute name="helpTrigger" default="focus"/>
         </tag>
         <tag name="selectOneChoice">
           <attribute name="labelLayout" default="flexLeft"/>
           <attribute name="messagePosition" default="buttonRight"/>
           <attribute name="helpPosition" default="buttonRight"/>
+          <attribute name="helpTrigger" default="focus"/>
         </tag>
         <tag name="selectOneList">
           <attribute name="labelLayout" default="flexLeft"/>
           <attribute name="messagePosition" default="buttonRight"/>
           <attribute name="helpPosition" default="buttonRight"/>
+          <attribute name="helpTrigger" default="focus"/>
         </tag>
         <tag name="selectOneListbox">
           <attribute name="labelLayout" default="flexLeft"/>
           <attribute name="messagePosition" default="buttonRight"/>
           <attribute name="helpPosition" default="buttonRight"/>
+          <attribute name="helpTrigger" default="focus"/>
         </tag>
         <tag name="selectOneRadio">
           <attribute name="labelLayout" default="flexLeft"/>
           <attribute name="messagePosition" default="buttonRight"/>
           <attribute name="helpPosition" default="buttonRight"/>
+          <attribute name="helpTrigger" default="focus"/>
         </tag>
         <tag name="stars">
           <attribute name="labelLayout" default="flexLeft"/>
           <attribute name="messagePosition" default="buttonRight"/>
           <attribute name="helpPosition" default="buttonRight"/>
+          <attribute name="helpTrigger" default="focus"/>
         </tag>
         <tag name="textarea">
           <attribute name="labelLayout" default="flexLeft"/>
           <attribute name="messagePosition" default="buttonRight"/>
           <attribute name="helpPosition" default="buttonRight"/>
+          <attribute name="helpTrigger" default="focus"/>
         </tag>
       </tags>
     </theme-definition>

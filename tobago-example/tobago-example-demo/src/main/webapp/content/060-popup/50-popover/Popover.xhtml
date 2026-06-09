@@ -44,6 +44,23 @@
     </tc:button>
   </tc:section>
 
+  <tc:section label="Trigger">
+    <p>By default, the popover is shown if the button if focused. Possible triggers are "click", "focus" and "hover" or
+      any combination of it. The default value can be configured in the tobago-config.xml.</p>
+
+    <tc:button label="'click' Popover" omit="true">
+      <f:facet name="popover">
+        <tc:popover label="Popover title" value="Popover content" trigger="click"/>
+      </f:facet>
+    </tc:button>
+
+    <tc:button label="'focus hover' Popover" omit="true">
+      <f:facet name="popover">
+        <tc:popover label="Popover title" value="Popover content" trigger="focus hover"/>
+      </f:facet>
+    </tc:button>
+  </tc:section>
+
   <tc:section label="Custom CSS class">
     <p>To assign a CSS class on the popover window use the <code
         class="language-markup">&lt;tc:style customClass="..."/></code> attribute.</p>

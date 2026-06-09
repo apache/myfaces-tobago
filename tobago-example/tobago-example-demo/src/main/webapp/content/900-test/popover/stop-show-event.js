@@ -17,13 +17,14 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.component;
-
-import org.apache.myfaces.tobago.layout.PopoverTriggers;
-
-public interface SupportsHelp {
-
-  String getHelp();
-
-  PopoverTriggers getHelpTrigger();
+function stopShowEvent(id) {
+  document.getElementById(id).addEventListener("tobago.popover.show", (event) => {
+    event.preventDefault();
+  });
 }
+
+document.addEventListener("DOMContentLoaded", function (event) {
+  stopShowEvent("page:mainForm:focusPopover");
+  stopShowEvent("page:mainForm:clickPopover");
+  stopShowEvent("page:mainForm:hoverPopover");
+});

@@ -52,6 +52,7 @@ import org.apache.myfaces.tobago.component.UIPaginatorPage;
 import org.apache.myfaces.tobago.component.UIPaginatorPanel;
 import org.apache.myfaces.tobago.component.UIPaginatorRow;
 import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.component.UIPopover;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.component.UIRange;
 import org.apache.myfaces.tobago.component.UISection;
@@ -104,6 +105,7 @@ import org.apache.myfaces.tobago.internal.renderkit.renderer.PaginatorPageRender
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PaginatorPanelRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PaginatorRowRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PanelRenderer;
+import org.apache.myfaces.tobago.internal.renderkit.renderer.PopoverRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.PopupRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.RangeRenderer;
 import org.apache.myfaces.tobago.internal.renderkit.renderer.SectionRenderer;
@@ -201,6 +203,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
     application.addComponent(Tags.paginatorPanel.componentType(), UIPaginatorPanel.class.getName());
     application.addComponent(Tags.paginatorRow.componentType(), UIPaginatorRow.class.getName());
     application.addComponent(Tags.panel.componentType(), UIPanel.class.getName());
+    application.addComponent(Tags.popover.componentType(), UIPopover.class.getName());
     application.addComponent(Tags.popup.componentType(), UIPopup.class.getName());
     application.addComponent(Tags.range.componentType(), UIRange.class.getName());
     application.addComponent(Tags.section.componentType(), UISection.class.getName());
@@ -265,6 +268,7 @@ public abstract class AbstractTobagoTestBase extends AbstractJsfTestCase {
         new PaginatorRowRenderer<UIPaginatorRow>());
     renderKit.addRenderer(UIPanel.COMPONENT_FAMILY, RendererTypes.PANEL, new PanelRenderer<UIPanel>());
     renderKit.addRenderer(UIPopup.COMPONENT_FAMILY, RendererTypes.POPUP, new PopupRenderer<UIPopup>());
+    renderKit.addRenderer(UIPopover.COMPONENT_FAMILY, RendererTypes.POPOVER, new PopoverRenderer<UIPopover>());
     renderKit.addRenderer(UIRange.COMPONENT_FAMILY, RendererTypes.RANGE, new RangeRenderer<UIRange>());
     renderKit.addRenderer(UISection.COMPONENT_FAMILY, RendererTypes.SECTION, new SectionRenderer<UISection>());
     renderKit.addRenderer(UISegmentLayout.COMPONENT_FAMILY, RendererTypes.SEGMENT_LAYOUT,

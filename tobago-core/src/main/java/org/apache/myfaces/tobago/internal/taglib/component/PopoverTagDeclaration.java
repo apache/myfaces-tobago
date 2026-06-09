@@ -19,9 +19,10 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import jakarta.faces.component.UIOutput;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasEscape;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
@@ -29,6 +30,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasSanitize;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
+
+import jakarta.faces.component.UIOutput;
 
 /**
  * Renders a popover.
@@ -47,4 +50,14 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 
 public interface PopoverTagDeclaration
     extends HasIdBindingAndRendered, IsVisual, HasValue, HasLabel, HasEscape, HasSanitize {
+
+  /**
+   * Defines how the popover is triggered. Possible values are any combination of "click", "focus" and "hover".
+   * Default value is "focus" (can be changed in tobago-config.xml).
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.PopoverTriggers",
+      defaultValue = "org.apache.myfaces.tobago.layout.PopoverTriggers.parse(org.apache.myfaces.tobago.context"
+          + ".TobagoContext.getInstance(getFacesContext()).getTheme().getTagAttributeDefault(TAG, \"trigger\"))")
+  void setTrigger(String trigger);
 }

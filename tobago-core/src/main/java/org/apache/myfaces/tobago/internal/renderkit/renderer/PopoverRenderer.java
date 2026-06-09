@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import jakarta.faces.context.FacesContext;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopover;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -30,6 +29,7 @@ import org.apache.myfaces.tobago.sanitizer.SanitizeMode;
 import org.apache.myfaces.tobago.sanitizer.Sanitizer;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
+import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 
 public class PopoverRenderer<T extends AbstractUIPopover> extends RendererBase<T> {
@@ -64,6 +64,7 @@ public class PopoverRenderer<T extends AbstractUIPopover> extends RendererBase<T
 
     writer.writeAttribute(CustomAttributes.ESCAPE, Boolean.toString(component.isEscape()), false);
     writer.writeAttribute(CustomAttributes.SANITIZE, component.getSanitize().name(), false);
+    writer.writeAttribute(CustomAttributes.TRIGGER, component.getTrigger().toString(), false);
   }
 
   @Override

@@ -95,7 +95,15 @@ import jakarta.faces.component.UICommand;
         @Behavior(name = ClientBehaviors.TOBAGO_DROPDOWN_SHOW, description = "Event is fired before a dropdown menu is"
             + " shown. Behavior only applies if the button toggles a dropdown menu."),
         @Behavior(name = ClientBehaviors.TOBAGO_DROPDOWN_SHOWN, description = "Event is fired after a dropdown menu is"
-            + " shown. Behavior only applies if the button toggles a dropdown menu.")
+            + " shown. Behavior only applies if the button toggles a dropdown menu."),
+        @Behavior(name = ClientBehaviors.TOBAGO_POPOVER_HIDE, description = "Event is fired before a popover is hidden."
+            + " Behavior only applies if a tc:popover is nested."),
+        @Behavior(name = ClientBehaviors.TOBAGO_POPOVER_HIDDEN, description = "Event is fired after a popover is"
+            + " hidden. Behavior only applies if a tc:popover is nested."),
+        @Behavior(name = ClientBehaviors.TOBAGO_POPOVER_SHOW, description = "Event is fired before a popover is shown."
+            + " Behavior only applies if a tc:popover is nested."),
+        @Behavior(name = ClientBehaviors.TOBAGO_POPOVER_SHOWN, description = "Event is fired after a popover is shown."
+            + " Behavior only applies if a tc:popover is nested.")
     },
     markups = {
         @Markup(

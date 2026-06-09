@@ -30,4 +30,14 @@ public interface HasHelp {
   @TagAttribute
   @UIComponentTagAttribute
   void setHelp(String help);
+
+  /**
+   * Defines how the help button is triggered. Possible values are any combination of "click", "focus" and "hover".
+   * Default value is "focus" (can be changed in tobago-config.xml).
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.PopoverTriggers",
+      defaultValue = "org.apache.myfaces.tobago.layout.PopoverTriggers.parse(org.apache.myfaces.tobago.context"
+          + ".TobagoContext.getInstance(getFacesContext()).getTheme().getTagAttributeDefault(TAG, \"helpTrigger\"))")
+  void setHelpTrigger(String trigger);
 }

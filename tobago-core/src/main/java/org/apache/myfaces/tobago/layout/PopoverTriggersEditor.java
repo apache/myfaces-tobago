@@ -17,13 +17,17 @@
  * under the License.
  */
 
-package org.apache.myfaces.tobago.component;
+package org.apache.myfaces.tobago.layout;
 
-import org.apache.myfaces.tobago.layout.PopoverTriggers;
+import java.beans.PropertyEditorSupport;
 
-public interface SupportsHelp {
+/**
+ * Converter for {@link PopoverTriggers}
+ */
+public class PopoverTriggersEditor extends PropertyEditorSupport {
 
-  String getHelp();
-
-  PopoverTriggers getHelpTrigger();
+  @Override
+  public void setAsText(final String text) throws IllegalArgumentException {
+    setValue(PopoverTriggers.parse(text));
+  }
 }

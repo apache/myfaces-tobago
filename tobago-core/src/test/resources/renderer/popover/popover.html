@@ -15,10 +15,5 @@
  * limitations under the License.
 -->
 
-<tobago-select-boolean-checkbox id='id' class='tobago-auto-spacing'>
-<div class='tobago-messages-container tobago-button-right' data-tobago-faces-message='This is a custom information'>
-<div class='form-check col-form-label' title='This is a custom information'>
-<input class='form-check-input is-info' type='checkbox' value='true' name='id' id='id::field' autofocus='autofocus'>
-<label class='form-check-label' for='id::field'></label></div>
-<tobago-popover label='Information' value='This is a custom information' trigger='focus'>
-<a tabindex='0' role='button' class='btn btn-info'><i class='bi-exclamation-lg'></i></a></tobago-popover></div></tobago-select-boolean-checkbox>
+<button type='button' id='buttonId' name='buttonId' class='tobago-button btn btn-secondary tobago-auto-spacing'><tobago-behavior event='click' client-id='buttonId' omit='omit'></tobago-behavior>
+<tobago-popover id='popoverId' label='Popover title' value='Popover content' escape='true' sanitize='auto' trigger='focus'></tobago-popover><span>Popover</span></button>

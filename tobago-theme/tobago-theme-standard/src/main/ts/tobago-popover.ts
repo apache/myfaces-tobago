@@ -15,14 +15,25 @@
  * limitations under the License.
  */
 
-import {Popover} from "bootstrap";
+import {Popover, Tooltip} from "bootstrap";
+import {ClientBehaviors} from "./tobago-client-behaviors";
+import {EventListenerStore} from "./tobago-event-listener-store";
+
+enum BootstrapPopoverEvent {
+  HIDE = "hide.bs.popover",
+  HIDDEN = "hidden.bs.popover",
+  SHOW = "show.bs.popover",
+  SHOWN = "shown.bs.popover"
+}
+
+type PopoverTrigger = NonNullable<Tooltip.Options["trigger"]>;
 
 enum SanitizeMode {
   auto, never
 }
 
 class TobagoPopover extends HTMLElement {
-
+  private listeners: EventListenerStore = new EventListenerStore();
   private instance: Popover;
 
   constructor() {
@@ -30,6 +41,11 @@ class TobagoPopover extends HTMLElement {
   }
 
   connectedCallback(): void {
+    this.initEventListener(BootstrapPopoverEvent.SHOW, ClientBehaviors.TOBAGO_POPOVER_SHOW, true);
+    this.initEventListener(BootstrapPopoverEvent.SHOWN, ClientBehaviors.TOBAGO_POPOVER_SHOWN, false);
+    this.initEventListener(BootstrapPopoverEvent.HIDE, ClientBehaviors.TOBAGO_POPOVER_HIDE, true);
+    this.initEventListener(BootstrapPopoverEvent.HIDDEN, ClientBehaviors.TOBAGO_POPOVER_HIDDEN, false);
+
     this.instance = new Popover(this.baseElement, {
       container: this.popoverStore,
       customClass: this.customClass,
@@ -37,7 +53,22 @@ class TobagoPopover extends HTMLElement {
       content: this.value,
       html: !this.escape,
       sanitize: this.sanitize === SanitizeMode.auto,
-      trigger: "focus"
+      trigger: this.trigger
+    });
+  }
+
+  disconnectedCallback(): void {
+    this.instance?.dispose();
+    this.listeners.disconnect();
+  }
+
+  private initEventListener(boostrapEvent: BootstrapPopoverEvent, tobagoEvent: ClientBehaviors,
+                            cancelable: boolean): void {
+
+    this.listeners.add(this.baseElement, boostrapEvent, (event) => {
+      if (!this.baseElement.dispatchEvent(new CustomEvent(tobagoEvent, {cancelable: cancelable}))) {
+        event.preventDefault();
+      }
     });
   }
 
@@ -74,6 +105,10 @@ class TobagoPopover extends HTMLElement {
 
   get sanitize(): SanitizeMode {
     return SanitizeMode[this.getAttribute("sanitize")];
+  }
+
+  get trigger(): PopoverTrigger {
+    return this.getAttribute("trigger") as PopoverTrigger;
   }
 }
 
