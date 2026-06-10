@@ -104,7 +104,7 @@ class SelectOneList extends SelectListBase {
     this.spanText = this.selectedOption ? this.selectedOption.textContent : "";
     this.icon = this.selectedOption ? this.selectedOption.dataset.tobagoIcon : null;
 
-    this.rows?.forEach((row) => {
+    this.optionsControls.rows?.forEach((row) => {
       if (row.dataset.tobagoValue === this.hiddenSelect.value) {
         row.classList.add(Css.TABLE_PRIMARY); // highlight list row
       } else {
