@@ -28,7 +28,7 @@ export enum DropdownMenuAlignment {
 export class DropdownMenu {
   private referenceElement: HTMLElement;
   private dropdownMenuElementId: string;
-  private eventElement: HTMLElement;
+  private eventElements: HTMLElement[];
   private parent: HTMLElement; //initial parent of the dropdown menu
   private localMenu: boolean;
   private alignment: DropdownMenuAlignment;
@@ -38,20 +38,28 @@ export class DropdownMenu {
   /**
    * @param dropdownMenuElement dropdown menu element
    * @param referenceElement the element which the dropdown menu is aligned for
-   * @param eventElement the element for which the show/shown/hide/hidden event is dispatched, usually the custom
-   * element
+   * @param eventElements element or list of elements for which the show/shown/hide/hidden event is dispatched
    * @param localMenu if true, do not use the menu store
    * @param alignment on the 'start' or 'end' of the reference element or in the center and the min-width is the same as
    * the reference element width
    */
-  constructor(dropdownMenuElement: HTMLElement, referenceElement: HTMLElement, eventElement: HTMLElement,
+  constructor(dropdownMenuElement: HTMLElement, referenceElement: HTMLElement,
+              eventElements: HTMLElement | HTMLElement[],
               localMenu: boolean, alignment: DropdownMenuAlignment) {
     this.dropdownMenuElementId = dropdownMenuElement.dataset.tobagoFor;
     this.referenceElement = referenceElement;
-    this.eventElement = eventElement;
+    this.eventElements = Array.isArray(eventElements) ? eventElements : [eventElements];
     this.parent = dropdownMenuElement.parentElement;
     this.localMenu = localMenu;
     this.alignment = alignment;
+  }
+
+  /**
+   * Update event elements after a DOM change (Ajax request).
+   * @param eventElements element or list of elements for which the show/shown/hide/hidden event is dispatched
+   */
+  public updateEventElements(eventElements: HTMLElement | HTMLElement[]) {
+    this.eventElements = Array.isArray(eventElements) ? eventElements : [eventElements];
   }
 
   private resizeEventListenerEvent(event: Event): void {
@@ -98,7 +106,7 @@ export class DropdownMenu {
 
   show(): void {
     if (this.dropdownMenuElement && !this.dropdownMenuElement.classList.contains(Css.SHOW)) {
-      this.eventElement.dispatchEvent(new CustomEvent(ClientBehaviors.DROPDOWN_SHOW));
+      this.dispatchEvent(ClientBehaviors.DROPDOWN_SHOW);
 
       window.addEventListener("resize", this.resizeEventListener);
       window.addEventListener("scroll", this.scrollEventListener, true);
@@ -111,13 +119,13 @@ export class DropdownMenu {
       this.dropdownMenuElement.classList.add(Css.SHOW);
       this.updatePosition();
 
-      this.eventElement.dispatchEvent(new CustomEvent(ClientBehaviors.DROPDOWN_SHOWN));
+      this.dispatchEvent(ClientBehaviors.DROPDOWN_SHOWN);
     }
   }
 
   hide(): void {
     if (this.dropdownMenuElement && this.dropdownMenuElement.classList.contains(Css.SHOW)) {
-      this.eventElement.dispatchEvent(new CustomEvent(ClientBehaviors.DROPDOWN_HIDE));
+      this.dispatchEvent(ClientBehaviors.DROPDOWN_HIDE);
 
       window.removeEventListener("resize", this.resizeEventListener);
       window.removeEventListener("scroll", this.scrollEventListener, true);
@@ -129,7 +137,13 @@ export class DropdownMenu {
         this.parent?.appendChild(this.dropdownMenuElement);
       }
 
-      this.eventElement.dispatchEvent(new CustomEvent(ClientBehaviors.DROPDOWN_HIDDEN));
+      this.dispatchEvent(ClientBehaviors.DROPDOWN_HIDDEN);
+    }
+  }
+
+  private dispatchEvent(eventName: ClientBehaviors) {
+    for (const eventElement of this.eventElements) {
+      eventElement.dispatchEvent(new CustomEvent(eventName));
     }
   }
 
