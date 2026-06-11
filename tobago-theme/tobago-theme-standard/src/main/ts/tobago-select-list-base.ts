@@ -178,7 +178,7 @@ export abstract class SelectListBase extends HTMLElement {
           null,
           {
             params: {
-              "javax.faces.behavior.event": "filter",
+              "jakarta.faces.behavior.event": "filter",
               selectListUpdate: this.id
             },
             execute: this.id,

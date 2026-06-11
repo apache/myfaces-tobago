@@ -98,7 +98,7 @@ export class TobagoPaginator extends HTMLElement {
         null,
         Overlay.getEnhancedRequestOptions({
           params: {
-            "javax.faces.behavior.event": "reload"
+            "jakarta.faces.behavior.event": "reload"
           },
           execute: sheet.id,
           render: sheet.id

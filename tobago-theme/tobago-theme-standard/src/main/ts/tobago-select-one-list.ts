@@ -90,7 +90,7 @@ class SelectOneList extends SelectListBase {
           null,
           {
             params: {
-              "javax.faces.behavior.event": "select",
+              "jakarta.faces.behavior.event": "select",
               selectListUpdate: this.id
             }
           });
