@@ -78,7 +78,7 @@ public class TabGroupRenderer<T extends AbstractUITabGroup> extends RendererBase
 
     final AbstractUITabGroup tabGroup = (AbstractUITabGroup) event.getComponent();
     final FacesContext facesContext = FacesContext.getCurrentInstance();
-    final ClientBehaviors tabChange = ClientBehaviors.tabChange;
+    final ClientBehaviors tabChange = ClientBehaviors.tabGroupTabChange;
     final boolean immediate = tabGroup.isImmediate();
     switch (tabGroup.getSwitchType()) {
       case none:
