@@ -21,8 +21,8 @@ import {Page} from "./tobago-page";
 import {CollapseOperation} from "./tobago-collapse-operation";
 import {BehaviorMode} from "./tobago-behavior-mode";
 import {Overlay} from "./tobago-overlay";
-import {OverlayType} from "./tobago-overlay-type";
 import {EventListenerStore} from "./tobago-event-listener-store";
+import {ClientBehaviors} from "./tobago-client-behaviors";
 
 class Behavior extends HTMLElement {
   private listeners: EventListenerStore = new EventListenerStore();
@@ -33,10 +33,10 @@ class Behavior extends HTMLElement {
 
   connectedCallback(): void {
     switch (this.event) {
-      case "load": // this is a special case, because the "load" is too late now.
+      case ClientBehaviors.LOAD: // this is a special case, because the "load" is too late now.
         this.callback();
         break;
-      case "resize":
+      case ClientBehaviors.RESIZE:
         this.listeners.add(document.body, this.event, this.callback.bind(this));
         break;
       default: {
