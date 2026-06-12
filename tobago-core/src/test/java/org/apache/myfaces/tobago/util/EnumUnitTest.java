@@ -43,15 +43,18 @@ public abstract class EnumUnitTest {
     Assertions.assertEquals(fields.length, 2 * values.length, "Is for every enum a string constant defined?");
 
     for (final Field field : fields) {
+      if (field.isAnnotationPresent(Deprecated.class)) {
+        continue;
+      }
+
       final Object object = field.get(null);
       final String fieldName = field.getName();
-      if (object instanceof String) {
+      if (object instanceof String value) {
         // case String constant
-        String value = (String) object;
         final String expected = constantCaseToEnum(fieldName);
-        int index = value.lastIndexOf('.');
-        if (index > 0) {
-          value = value.substring(index+1);
+        if (value.startsWith("tobago.")) {
+          value = value.substring("tobago.".length());
+          value = convertToCamelCase(value);
         }
         Assertions.assertEquals(expected, value);
         Assertions.assertNotNull(enumType.getField(value), "exists");
@@ -61,6 +64,17 @@ public abstract class EnumUnitTest {
       } else {
         Assertions.fail();
       }
+    }
+  }
+
+  private String convertToCamelCase(final String value) {
+    final int index = value.indexOf(".");
+    if (index >= 0) {
+      return convertToCamelCase(value.substring(0, index)
+          + Character.toUpperCase(value.charAt(index + 1))
+          + value.substring(index + 2));
+    } else {
+      return value;
     }
   }
 }

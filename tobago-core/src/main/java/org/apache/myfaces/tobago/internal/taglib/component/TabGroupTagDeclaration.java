@@ -52,7 +52,7 @@ import jakarta.faces.component.UIPanel;
     rendererType = RendererTypes.TAB_GROUP,
     allowedChildComponents = "org.apache.myfaces.tobago.Tab",
     behaviors = {
-        @Behavior(name = ClientBehaviors.TAB_CHANGE, isDefault = true),
+        @Behavior(name = ClientBehaviors.TAB_GROUP_TAB_CHANGE, isDefault = true),
         @Behavior(name = ClientBehaviors.CLICK)
     },
     markups = {
