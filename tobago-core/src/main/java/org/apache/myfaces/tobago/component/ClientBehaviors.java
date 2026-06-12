@@ -38,8 +38,12 @@ public enum ClientBehaviors {
   reload("reload"), // tbd - may be called timeout?
   resize("resize"),
   suggest("suggest"),
+  @Deprecated(since = "6.11.1", forRemoval = true)
   rowSelectionChange("tobago.sheet.rowSelectionChange"),
-  tabChange("tobago.tabGroup.tabChange");
+  sheetRowSelectionChange("tobago.sheet.rowSelectionChange"),
+  @Deprecated(since = "6.11.1", forRemoval = true)
+  tabChange("tobago.tabGroup.tabChange"),
+  tabGroupTabChange("tobago.tabGroup.tabChange");
 
   private final String jsEvent;
 
@@ -77,7 +81,11 @@ public enum ClientBehaviors {
   public static final String RELOAD = "reload"; // tbd - may be called timeout?
   public static final String RESIZE = "resize";
   public static final String SUGGEST = "suggest"; // tbd
-  public static final String ROW_SELECTION_CHANGE = "tobago.sheet.rowSelectionChange";
-  public static final String TAB_CHANGE = "tobago.tabGroup.tabChange";
+  public static final String SHEET_ROW_SELECTION_CHANGE = "tobago.sheet.rowSelectionChange";
+  @Deprecated(since = "6.11.1", forRemoval = true)
+  public static final String ROW_SELECTION_CHANGE = SHEET_ROW_SELECTION_CHANGE;
+  public static final String TAB_GROUP_TAB_CHANGE = "tobago.tabGroup.tabChange";
+  @Deprecated(since = "6.11.1", forRemoval = true)
+  public static final String TAB_CHANGE = TAB_GROUP_TAB_CHANGE;
 
 }
