@@ -42,10 +42,10 @@ public enum ClientBehaviors {
   dropdownHidden("tobago.dropdown.hidden"),
   dropdownShow("tobago.dropdown.show"),
   dropdownShown("tobago.dropdown.shown"),
-  @Deprecated(since = "6.11.1", forRemoval = true)
+  @Deprecated(since = "6.12.0", forRemoval = true)
   rowSelectionChange("tobago.sheet.rowSelectionChange"),
   sheetRowSelectionChange("tobago.sheet.rowSelectionChange"),
-  @Deprecated(since = "6.11.1", forRemoval = true)
+  @Deprecated(since = "6.12.0", forRemoval = true)
   tabChange("tobago.tabGroup.tabChange"),
   tabGroupTabChange("tobago.tabGroup.tabChange");
 
@@ -90,10 +90,10 @@ public enum ClientBehaviors {
   public static final String DROPDOWN_SHOW = "tobago.dropdown.show";
   public static final String DROPDOWN_SHOWN = "tobago.dropdown.shown";
   public static final String SHEET_ROW_SELECTION_CHANGE = "tobago.sheet.rowSelectionChange";
-  @Deprecated(since = "6.11.1", forRemoval = true)
+  @Deprecated(since = "6.12.0", forRemoval = true)
   public static final String ROW_SELECTION_CHANGE = SHEET_ROW_SELECTION_CHANGE;
   public static final String TAB_GROUP_TAB_CHANGE = "tobago.tabGroup.tabChange";
-  @Deprecated(since = "6.11.1", forRemoval = true)
+  @Deprecated(since = "6.12.0", forRemoval = true)
   public static final String TAB_CHANGE = TAB_GROUP_TAB_CHANGE;
 
 }
