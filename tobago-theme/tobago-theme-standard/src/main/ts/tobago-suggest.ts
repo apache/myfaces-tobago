@@ -239,15 +239,17 @@ export class Suggest {
 
   private ajaxEvent(event: faces.AjaxEvent): void {
     if (event.status === "success") {
-      this.dropdownMenu.updateEventElements([this.tobagoIn, this.tobagoSuggest]);
-      this.optionsControls.renderRows(this.items);
-      this.spinner.hide();
+      setTimeout(() => { //use setTimeout with 1 ms to give time to reregister listeners to the tobago-suggest element
+        this.dropdownMenu.updateEventElements([this.tobagoIn, this.tobagoSuggest]);
+        this.optionsControls.renderRows(this.items);
+        this.spinner.hide();
 
-      if (this.items.length > 0) {
-        this.dropdownMenu.show();
-      } else {
-        this.dropdownMenu.hide();
-      }
+        if (this.items.length > 0) {
+          this.dropdownMenu.show();
+        } else {
+          this.dropdownMenu.hide();
+        }
+      }, 1);
     }
   }
 

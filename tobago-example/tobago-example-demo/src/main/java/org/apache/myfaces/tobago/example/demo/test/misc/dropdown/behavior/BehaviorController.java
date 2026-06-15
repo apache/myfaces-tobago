@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.example.demo.test.misc.dropdown.behavior;
 
+import org.apache.myfaces.tobago.model.SelectItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,11 +35,28 @@ public class BehaviorController implements Serializable {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+  private final SelectItem[] cancelableEvents = new SelectItem[]{
+      new SelectItem("None"),
+      new SelectItem("tobago.dropdown.show"),
+      new SelectItem("tobago.dropdown.hide")};
+  private String cancelEvent = "None";
   private int button = 0;
   private int link = 0;
   private int suggest = 0;
   private int selectOneList = 0;
   private int selectManyList = 0;
+
+  public SelectItem[] getCancelableEvents() {
+    return cancelableEvents;
+  }
+
+  public String getCancelEvent() {
+    return cancelEvent;
+  }
+
+  public void setCancelEvent(String cancelEvent) {
+    this.cancelEvent = cancelEvent;
+  }
 
   public void reset() {
     suggest = 0;

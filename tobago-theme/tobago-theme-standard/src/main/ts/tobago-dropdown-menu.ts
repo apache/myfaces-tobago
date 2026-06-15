@@ -106,7 +106,9 @@ export class DropdownMenu {
 
   show(): void {
     if (this.dropdownMenuElement && !this.dropdownMenuElement.classList.contains(Css.SHOW)) {
-      this.dispatchEvent(ClientBehaviors.TOBAGO_DROPDOWN_SHOW);
+      if (!this.dispatchEvent(ClientBehaviors.TOBAGO_DROPDOWN_SHOW, true)) {
+        return;
+      }
 
       window.addEventListener("resize", this.resizeEventListener);
       window.addEventListener("scroll", this.scrollEventListener, true);
@@ -119,13 +121,15 @@ export class DropdownMenu {
       this.dropdownMenuElement.classList.add(Css.SHOW);
       this.updatePosition();
 
-      this.dispatchEvent(ClientBehaviors.TOBAGO_DROPDOWN_SHOWN);
+      this.dispatchEvent(ClientBehaviors.TOBAGO_DROPDOWN_SHOWN, false);
     }
   }
 
   hide(): void {
     if (this.dropdownMenuElement && this.dropdownMenuElement.classList.contains(Css.SHOW)) {
-      this.dispatchEvent(ClientBehaviors.TOBAGO_DROPDOWN_HIDE);
+      if (!this.dispatchEvent(ClientBehaviors.TOBAGO_DROPDOWN_HIDE, true)) {
+        return;
+      }
 
       window.removeEventListener("resize", this.resizeEventListener);
       window.removeEventListener("scroll", this.scrollEventListener, true);
@@ -137,14 +141,22 @@ export class DropdownMenu {
         this.parent?.appendChild(this.dropdownMenuElement);
       }
 
-      this.dispatchEvent(ClientBehaviors.TOBAGO_DROPDOWN_HIDDEN);
+      this.dispatchEvent(ClientBehaviors.TOBAGO_DROPDOWN_HIDDEN, false);
     }
   }
 
-  private dispatchEvent(eventName: ClientBehaviors) {
+  /**
+   * @return false if at least one of the event handlers which received event called Event.preventDefault().
+   *         Otherwise true.
+   */
+  private dispatchEvent(eventName: ClientBehaviors, cancelable: boolean): boolean {
+    let returnValue = true;
     for (const eventElement of this.eventElements) {
-      eventElement.dispatchEvent(new CustomEvent(eventName));
+      if (!eventElement.dispatchEvent(new CustomEvent(eventName, {cancelable: cancelable}))) {
+        returnValue = false;
+      }
     }
+    return returnValue;
   }
 
   private updatePosition(): void {
