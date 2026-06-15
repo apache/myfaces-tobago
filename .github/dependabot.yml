@@ -94,6 +94,16 @@ updates:
       - dependency-name: "org.apache.tomcat:tomcat-jasper-el"
         versions:
           - ">= 11.0.0"
+      # Stay on MyFaces 4.0.x which is Jakarta EE 10 (this includes myfaces-api/impl/test
+      - dependency-name: "org.apache.myfaces.core:myfaces-api"
+        versions:
+          - ">= 4.1.0"
+      - dependency-name: "org.apache.myfaces.core:myfaces-impl"
+        versions:
+          - ">= 4.1.0"
+      - dependency-name: "org.apache.myfaces.core:myfaces-test"
+        versions:
+          - ">= 4.1.0"
 
   - package-ecosystem: "maven"
     directory: "/"
