@@ -126,7 +126,7 @@ export class Sheet extends HTMLElement {
 
     // add selection listeners ------------------------------------------------------------------------------------ //
     this.rowElements.forEach((row) => this.initSelectionListener(row));
-    this.listeners.add(this, ClientBehaviors.ROW_SELECTION_CHANGE, this.syncSelected.bind(this));
+    this.listeners.add(this, ClientBehaviors.SHEET_ROW_SELECTION_CHANGE, this.syncSelected.bind(this));
     this.syncSelected(null); //TOBAGO-2254
 
     // lazy load by scrolling ----------------------------------------------------------------- //
@@ -827,7 +827,7 @@ Type: ${data.type}`);
     const fireSelectionChangeEvent = oldSelectedSet.size !== value.size
         || ![...oldSelectedSet].every((x) => value.has(x));
     if (fireSelectionChangeEvent) {
-      this.dispatchEvent(new CustomEvent(ClientBehaviors.ROW_SELECTION_CHANGE, {
+      this.dispatchEvent(new CustomEvent(ClientBehaviors.SHEET_ROW_SELECTION_CHANGE, {
         detail: {
           selection: value,
           rowsOnPage: this.rowsOnPage,
