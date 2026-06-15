@@ -131,6 +131,7 @@ the staging location).
       ```
       mvn clean package -Pgenerate-assembly
       ```
+      > Make sure to use the tagged version.
     * Copy from "myfaces-tobago/tobago-core/target/tlddoc" to "myfaces-homepage/tobago/doc/{tobago-version}/tld"
   * Updating "tobago.md" and "tobago-download.md".
     * myfaces-homepage/tobago.md
