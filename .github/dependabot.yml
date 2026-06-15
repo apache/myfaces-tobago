@@ -175,6 +175,13 @@ updates:
       - dependency-name: "com.google.javascript:closure-compiler"
         versions:
           - ">= v20250402" # requires Java 21
+      # Meecrowave 2.0.0 is Jakarta EE 10
+      - dependency-name: "org.apache.meecrowave:meecrowave-core"
+        versions:
+          - ">= 2.0.0"
+      - dependency-name: "org.apache.meecrowave:meecrowave-maven-plugin"
+        versions:
+          - ">= 2.0.0"
 
   - package-ecosystem: "maven"
     directory: "/"
