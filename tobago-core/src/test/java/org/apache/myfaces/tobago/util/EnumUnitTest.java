@@ -52,10 +52,7 @@ public abstract class EnumUnitTest {
       if (object instanceof String value) {
         // case String constant
         final String expected = constantCaseToEnum(fieldName);
-        if (value.startsWith("tobago.")) {
-          value = value.substring("tobago.".length());
-          value = convertToCamelCase(value);
-        }
+        value = convertToCamelCase(value);
         Assertions.assertEquals(expected, value);
         Assertions.assertNotNull(enumType.getField(value), "exists");
       } else if (object.getClass().isAssignableFrom(enumType)) {

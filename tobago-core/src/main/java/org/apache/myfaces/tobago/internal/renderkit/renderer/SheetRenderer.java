@@ -120,10 +120,10 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> im
     final AbstractUIColumnSelector columnSelector = sheet.getColumnSelector();
     if (columnSelector != null) {
       List<ClientBehavior> clientBehaviors =
-          columnSelector.getClientBehaviors().get(ClientBehaviors.SHEET_ROW_SELECTION_CHANGE);
+          columnSelector.getClientBehaviors().get(ClientBehaviors.TOBAGO_SHEET_ROW_SELECTION_CHANGE);
       if (clientBehaviors != null && !clientBehaviors.isEmpty()) {
         ClientBehavior clientBehavior = clientBehaviors.get(0);
-        sheet.addClientBehavior(ClientBehaviors.SHEET_ROW_SELECTION_CHANGE, clientBehavior);
+        sheet.addClientBehavior(ClientBehaviors.TOBAGO_SHEET_ROW_SELECTION_CHANGE, clientBehavior);
       }
     }
   }

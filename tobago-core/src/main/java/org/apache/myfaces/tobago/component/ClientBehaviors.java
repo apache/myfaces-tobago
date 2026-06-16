@@ -38,16 +38,22 @@ public enum ClientBehaviors {
   reload("reload"), // tbd - may be called timeout?
   resize("resize"),
   suggest("suggest"),
-  dropdownHide("tobago.dropdown.hide"),
-  dropdownHidden("tobago.dropdown.hidden"),
-  dropdownShow("tobago.dropdown.show"),
-  dropdownShown("tobago.dropdown.shown"),
+  tobagoDropdownHide("tobago.dropdown.hide"),
+  tobagoDropdownHidden("tobago.dropdown.hidden"),
+  tobagoDropdownShow("tobago.dropdown.show"),
+  tobagoDropdownShown("tobago.dropdown.shown"),
+  /**
+   * @deprecated Please use {@link #tobagoSheetRowSelectionChange}
+   */
   @Deprecated(since = "6.12.0", forRemoval = true)
   rowSelectionChange("tobago.sheet.rowSelectionChange"),
-  sheetRowSelectionChange("tobago.sheet.rowSelectionChange"),
+  tobagoSheetRowSelectionChange("tobago.sheet.rowSelectionChange"),
+  /**
+   * @deprecated Please use {@link #tobagoTabGroupTabChange}
+   */
   @Deprecated(since = "6.12.0", forRemoval = true)
   tabChange("tobago.tabGroup.tabChange"),
-  tabGroupTabChange("tobago.tabGroup.tabChange");
+  tobagoTabGroupTabChange("tobago.tabGroup.tabChange");
 
   private final String jsEvent;
 
@@ -85,15 +91,15 @@ public enum ClientBehaviors {
   public static final String RELOAD = "reload"; // tbd - may be called timeout?
   public static final String RESIZE = "resize";
   public static final String SUGGEST = "suggest"; // tbd
-  public static final String DROPDOWN_HIDE = "tobago.dropdown.hide";
-  public static final String DROPDOWN_HIDDEN = "tobago.dropdown.hidden";
-  public static final String DROPDOWN_SHOW = "tobago.dropdown.show";
-  public static final String DROPDOWN_SHOWN = "tobago.dropdown.shown";
-  public static final String SHEET_ROW_SELECTION_CHANGE = "tobago.sheet.rowSelectionChange";
+  public static final String TOBAGO_DROPDOWN_HIDE = "tobago.dropdown.hide";
+  public static final String TOBAGO_DROPDOWN_HIDDEN = "tobago.dropdown.hidden";
+  public static final String TOBAGO_DROPDOWN_SHOW = "tobago.dropdown.show";
+  public static final String TOBAGO_DROPDOWN_SHOWN = "tobago.dropdown.shown";
+  public static final String TOBAGO_SHEET_ROW_SELECTION_CHANGE = "tobago.sheet.rowSelectionChange";
   @Deprecated(since = "6.12.0", forRemoval = true)
-  public static final String ROW_SELECTION_CHANGE = SHEET_ROW_SELECTION_CHANGE;
-  public static final String TAB_GROUP_TAB_CHANGE = "tobago.tabGroup.tabChange";
+  public static final String ROW_SELECTION_CHANGE = TOBAGO_SHEET_ROW_SELECTION_CHANGE;
+  public static final String TOBAGO_TAB_GROUP_TAB_CHANGE = "tobago.tabGroup.tabChange";
   @Deprecated(since = "6.12.0", forRemoval = true)
-  public static final String TAB_CHANGE = TAB_GROUP_TAB_CHANGE;
+  public static final String TAB_CHANGE = TOBAGO_TAB_GROUP_TAB_CHANGE;
 
 }

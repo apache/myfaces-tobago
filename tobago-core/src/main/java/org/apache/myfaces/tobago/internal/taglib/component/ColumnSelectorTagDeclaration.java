@@ -47,7 +47,7 @@ import org.apache.myfaces.tobago.model.Selectable;
         "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
     behaviors = {
-        @Behavior(name = ClientBehaviors.SHEET_ROW_SELECTION_CHANGE, isDefault = true)
+        @Behavior(name = ClientBehaviors.TOBAGO_SHEET_ROW_SELECTION_CHANGE, isDefault = true)
     },
     allowedChildComponents = "NONE")
 public interface ColumnSelectorTagDeclaration

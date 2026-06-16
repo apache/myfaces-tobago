@@ -22,10 +22,6 @@ export enum ClientBehaviors {
   CLICK = "click",
   COMPLETE = "complete",
   DBLCLICK = "dblclick",
-  DROPDOWN_HIDE = "tobago.dropdown.hide",
-  DROPDOWN_HIDDEN = "tobago.dropdown.hidden",
-  DROPDOWN_SHOW = "tobago.dropdown.show",
-  DROPDOWN_SHOWN = "tobago.dropdown.shown",
   FOCUS = "focus",
   KEYDOWN = "keydown",
   KEYPRESS = "keypress",
@@ -37,6 +33,10 @@ export enum ClientBehaviors {
   RELOAD = "reload",
   RESIZE = "resize",
   SUGGEST = "suggest",
-  SHEET_ROW_SELECTION_CHANGE = "tobago.sheet.rowSelectionChange",
-  TAB_GROUP_TAB_CHANGE = "tobago.tabGroup.tabChange"
+  TOBAGO_DROPDOWN_HIDE = "tobago.dropdown.hide",
+  TOBAGO_DROPDOWN_HIDDEN = "tobago.dropdown.hidden",
+  TOBAGO_DROPDOWN_SHOW = "tobago.dropdown.show",
+  TOBAGO_DROPDOWN_SHOWN = "tobago.dropdown.shown",
+  TOBAGO_SHEET_ROW_SELECTION_CHANGE = "tobago.sheet.rowSelectionChange",
+  TOBAGO_TAB_GROUP_TAB_CHANGE = "tobago.tabGroup.tabChange"
 }
