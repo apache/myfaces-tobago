@@ -106,7 +106,7 @@ export class DropdownMenu {
 
   show(): void {
     if (this.dropdownMenuElement && !this.dropdownMenuElement.classList.contains(Css.SHOW)) {
-      this.dispatchEvent(ClientBehaviors.DROPDOWN_SHOW);
+      this.dispatchEvent(ClientBehaviors.TOBAGO_DROPDOWN_SHOW);
 
       window.addEventListener("resize", this.resizeEventListener);
       window.addEventListener("scroll", this.scrollEventListener, true);
@@ -119,13 +119,13 @@ export class DropdownMenu {
       this.dropdownMenuElement.classList.add(Css.SHOW);
       this.updatePosition();
 
-      this.dispatchEvent(ClientBehaviors.DROPDOWN_SHOWN);
+      this.dispatchEvent(ClientBehaviors.TOBAGO_DROPDOWN_SHOWN);
     }
   }
 
   hide(): void {
     if (this.dropdownMenuElement && this.dropdownMenuElement.classList.contains(Css.SHOW)) {
-      this.dispatchEvent(ClientBehaviors.DROPDOWN_HIDE);
+      this.dispatchEvent(ClientBehaviors.TOBAGO_DROPDOWN_HIDE);
 
       window.removeEventListener("resize", this.resizeEventListener);
       window.removeEventListener("scroll", this.scrollEventListener, true);
@@ -137,7 +137,7 @@ export class DropdownMenu {
         this.parent?.appendChild(this.dropdownMenuElement);
       }
 
-      this.dispatchEvent(ClientBehaviors.DROPDOWN_HIDDEN);
+      this.dispatchEvent(ClientBehaviors.TOBAGO_DROPDOWN_HIDDEN);
     }
   }
 

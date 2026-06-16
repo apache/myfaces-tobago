@@ -49,7 +49,7 @@ class Dropdown extends HTMLElement {
           }
         });
 
-        this.listeners.add(this, ClientBehaviors.DROPDOWN_HIDDEN, this.dropdownHidden.bind(this));
+        this.listeners.add(this, ClientBehaviors.TOBAGO_DROPDOWN_HIDDEN, this.dropdownHidden.bind(this));
       }
     }
   }

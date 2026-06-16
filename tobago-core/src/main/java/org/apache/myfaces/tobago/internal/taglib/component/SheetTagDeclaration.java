@@ -70,7 +70,7 @@ import org.apache.myfaces.tobago.model.Selectable;
         @Behavior(
             name = ClientBehaviors.RELOAD, // XXX replace by click
             isDefault = true),
-        @Behavior(name = ClientBehaviors.SHEET_ROW_SELECTION_CHANGE)
+        @Behavior(name = ClientBehaviors.TOBAGO_SHEET_ROW_SELECTION_CHANGE)
     },
     markups = {
         @Markup(

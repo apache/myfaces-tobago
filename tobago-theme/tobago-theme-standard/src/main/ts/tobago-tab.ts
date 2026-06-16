@@ -139,7 +139,7 @@ export class Tab extends HTMLElement {
   }
 
   private fireTabChangeEvent(tabGroup: TabGroup) {
-    tabGroup.dispatchEvent(new CustomEvent(ClientBehaviors.TAB_GROUP_TAB_CHANGE, {
+    tabGroup.dispatchEvent(new CustomEvent(ClientBehaviors.TOBAGO_TAB_GROUP_TAB_CHANGE, {
       detail: {
         index: this.index
       },

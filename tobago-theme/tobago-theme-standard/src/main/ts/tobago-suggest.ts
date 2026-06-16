@@ -69,7 +69,7 @@ export class Suggest {
     this.inputField.setAttribute("aria-owns", this.dropdownMenuElement.id);
 
     this.listeners.add(document, "click", this.globalClickEvent.bind(this));
-    this.listeners.add(this.tobagoIn, ClientBehaviors.DROPDOWN_HIDDEN, this.deleteResults.bind(this));
+    this.listeners.add(this.tobagoIn, ClientBehaviors.TOBAGO_DROPDOWN_HIDDEN, this.deleteResults.bind(this));
     this.listeners.add(this.inputField, "input", this.inputEvent.bind(this));
     this.listeners.add(this.inputField, "keydown", this.keydownEvent.bind(this));
     this.listeners.add(this.dropdownMenuElement, "keydown", this.keydownEvent.bind(this));
