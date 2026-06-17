@@ -82,22 +82,24 @@ export class AjaxQueueStatic {
 
     for (const id of ids) {
       const htmlElement = document.getElementById(id);
-      const inputs = htmlElement.querySelectorAll("input");
-      const options = htmlElement.querySelectorAll("option");
-      const textareas = htmlElement.querySelectorAll("textarea");
+      if (htmlElement) {
+        const inputs = htmlElement.querySelectorAll("input");
+        const options = htmlElement.querySelectorAll("option");
+        const textareas = htmlElement.querySelectorAll("textarea");
 
-      for (const input of inputs) {
-        if (input.type === "checkbox" || input.type === "radio") {
-          payload.push(String(input.checked));
-        } else {
-          payload.push(input.value);
+        for (const input of inputs) {
+          if (input.type === "checkbox" || input.type === "radio") {
+            payload.push(String(input.checked));
+          } else {
+            payload.push(input.value);
+          }
         }
-      }
-      for (const option of options) {
-        payload.push(String(option.selected));
-      }
-      for (const textarea of textareas) {
-        payload.push(textarea.value);
+        for (const option of options) {
+          payload.push(String(option.selected));
+        }
+        for (const textarea of textareas) {
+          payload.push(textarea.value);
+        }
       }
     }
 
