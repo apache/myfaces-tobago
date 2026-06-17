@@ -234,7 +234,8 @@ test("getExecuteValues()", () => {
       + " page:mainForm:radioButtons"
       + " page:mainForm:oneListbox"
       + " page:mainForm:manyListbox"
-      + " page:mainForm:submit";
+      + " page:mainForm:submit"
+      + " invalid-id";
   const result = AjaxQueueStatic.getExecuteValues(element, execute);
   const expected: string[] = [];
   expected.push("tc:in");
