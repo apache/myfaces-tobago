@@ -54,14 +54,6 @@ export class DropdownMenu {
     this.alignment = alignment;
   }
 
-  /**
-   * Update event elements after a DOM change (Ajax request).
-   * @param eventElements element or list of elements for which the show/shown/hide/hidden event is dispatched
-   */
-  public updateEventElements(eventElements: HTMLElement | HTMLElement[]) {
-    this.eventElements = Array.isArray(eventElements) ? eventElements : [eventElements];
-  }
-
   private resizeEventListenerEvent(event: Event): void {
     this.updatePosition();
   }

@@ -53,8 +53,8 @@
   </tc:link>
 
   <tc:in id="suggestInput" label="Suggest">
+    <f:ajax event="tobago.dropdown.hidden" render="counter" listener="#{testBehaviorController.increaseSuggest}"/>
     <tc:suggest id="suggest" query="#{suggestController.query}">
-      <f:ajax event="tobago.dropdown.hidden" render="counter" listener="#{testBehaviorController.increaseSuggest}"/>
       <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
     </tc:suggest>
   </tc:in>

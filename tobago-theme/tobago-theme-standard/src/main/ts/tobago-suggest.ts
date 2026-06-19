@@ -27,6 +27,7 @@ import {OptionsControls} from "./tobago-options-controls";
 export class Suggest {
   private listeners: EventListenerStore = new EventListenerStore();
   private tobagoIn: HTMLElement;
+  private tobagoInField: HTMLInputElement;
   private dropdownMenu: DropdownMenu;
   private spinner: Spinner;
   private optionsControls: OptionsControls;
@@ -34,6 +35,7 @@ export class Suggest {
 
   constructor(tobagoIn: HTMLElement) {
     this.tobagoIn = tobagoIn;
+    this.tobagoInField = tobagoIn.querySelector("input[name='" + tobagoIn.id + "']");
   }
 
   public init(): void {
@@ -57,7 +59,7 @@ export class Suggest {
     /* eslint-enable max-len */
     this.optionsControls = new OptionsControls(this.optionsElement, this.select.bind(this));
 
-    this.dropdownMenu = new DropdownMenu(this.dropdownMenuElement, this.inputField, [this.tobagoIn, this.tobagoSuggest],
+    this.dropdownMenu = new DropdownMenu(this.dropdownMenuElement, this.inputField, [this.tobagoIn, this.tobagoInField],
         this.localMenu, DropdownMenuAlignment.centerFullWidth);
 
     this.inputField.role = "combobox";
@@ -239,17 +241,14 @@ export class Suggest {
 
   private ajaxEvent(event: faces.AjaxEvent): void {
     if (event.status === "success") {
-      setTimeout(() => { //use setTimeout with 1 ms to give time to reregister listeners to the tobago-suggest element
-        this.dropdownMenu.updateEventElements([this.tobagoIn, this.tobagoSuggest]);
-        this.optionsControls.renderRows(this.items);
-        this.spinner.hide();
+      this.optionsControls.renderRows(this.items);
+      this.spinner.hide();
 
-        if (this.items.length > 0) {
-          this.dropdownMenu.show();
-        } else {
-          this.dropdownMenu.hide();
-        }
-      }, 1);
+      if (this.items.length > 0) {
+        this.dropdownMenu.show();
+      } else {
+        this.dropdownMenu.hide();
+      }
     }
   }
 

@@ -95,7 +95,15 @@ import jakarta.faces.component.UIInput;
         @Behavior(
             name = ClientBehaviors.KEYUP),
         @Behavior(
-            name = ClientBehaviors.BLUR)
+            name = ClientBehaviors.BLUR),
+        @Behavior(name = ClientBehaviors.TOBAGO_DROPDOWN_HIDE, description = "Event is fired before the suggest"
+            + " dropdown menu is hidden. Behavior only applies if a tc:suggest is nested."),
+        @Behavior(name = ClientBehaviors.TOBAGO_DROPDOWN_HIDDEN, description = "Event is fired after the suggest"
+            + " dropdown menu is hidden. Behavior only applies if a tc:suggest is nested."),
+        @Behavior(name = ClientBehaviors.TOBAGO_DROPDOWN_SHOW, description = "Event is fired before the suggest"
+            + " dropdown menu is shown. Behavior only applies if a tc:suggest is nested."),
+        @Behavior(name = ClientBehaviors.TOBAGO_DROPDOWN_SHOWN, description = "Event is fired after the suggest"
+            + " dropdown menu is shown. Behavior only applies if a tc:suggest is nested.")
     },
     markups = {
         @Markup(
