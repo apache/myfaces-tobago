@@ -23,20 +23,10 @@ function stopHideEvent(id) {
   });
 }
 
-function observeTobagoSuggest() {
-  const observer = new MutationObserver((mutations) => {
-    for (const mutation of mutations) {
-      stopHideEvent("page:mainForm:suggest");
-    }
-  });
-  observer.observe(document.getElementById("page:mainForm:suggest").parentElement, {childList: true});
-}
-
 document.addEventListener("DOMContentLoaded", function (event) {
   stopHideEvent("page:mainForm:button");
   stopHideEvent("page:mainForm:link");
-  stopHideEvent("page:mainForm:suggest");
+  stopHideEvent("page:mainForm:suggestInput");
   stopHideEvent("page:mainForm:selectOneList");
   stopHideEvent("page:mainForm:selectManyList");
-  observeTobagoSuggest();
 });

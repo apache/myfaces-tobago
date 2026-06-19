@@ -122,8 +122,6 @@ public class SuggestRenderer<T extends AbstractUISuggest> extends RendererBase<T
     writer.writeAttribute(HtmlAttributes.NAME, clientId, false);
     writer.endElement(HtmlElements.INPUT);
 
-    encodeBehavior(writer, facesContext, component);
-
     writer.endElement(HtmlElements.TOBAGO_SUGGEST);
   }
 
