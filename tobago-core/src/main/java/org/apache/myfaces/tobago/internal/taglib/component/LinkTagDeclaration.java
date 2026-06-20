@@ -68,7 +68,16 @@ import jakarta.faces.component.UICommand;
         @Facet(
             name = Facets.CONFIRMATION,
             description = "Contains a UIOutput instance with the confirmation message.",
-            allowedChildComponents = "org.apache.myfaces.tobago.Out")},
+            allowedChildComponents = "org.apache.myfaces.tobago.Out"),
+        @Facet(name = Facets.LABEL,
+            description = "Contains some code to be placed at the label position."),
+        @Facet(name = Facets.POPOVER,
+            description = "Contains a UIPopover instance.",
+            allowedChildComponents = "org.apache.myfaces.tobago.Popover"),
+        @Facet(name = Facets.PANEL,
+            description = "Panel in a dropdown menu.",
+            allowedChildComponents = "ALL")
+    },
     behaviors = {
         @Behavior(name = ClientBehaviors.CLICK, description = "Behavior of a click event.", isDefault = true),
         @Behavior(name = ClientBehaviors.DBLCLICK),
