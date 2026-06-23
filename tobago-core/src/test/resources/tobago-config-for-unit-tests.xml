@@ -54,6 +54,9 @@
           <attribute name="messagePosition" default="buttonRight"/>
           <attribute name="helpPosition" default="buttonRight"/>
         </tag>
+        <tag name="popup">
+          <attribute name="modal" default="false"/>
+        </tag>
         <tag name="range">
           <attribute name="labelLayout" default="flexLeft"/>
           <attribute name="messagePosition" default="buttonRight"/>
@@ -84,11 +87,6 @@
           <attribute name="messagePosition" default="buttonRight"/>
           <attribute name="helpPosition" default="buttonRight"/>
         </tag>
-        <tag name="selectManyList">
-          <attribute name="labelLayout" default="flexLeft"/>
-          <attribute name="messagePosition" default="buttonRight"/>
-          <attribute name="helpPosition" default="buttonRight"/>
-        </tag>
         <tag name="selectManyShuttle">
           <attribute name="labelLayout" default="flexLeft"/>
           <attribute name="messagePosition" default="buttonRight"/>
@@ -99,12 +97,12 @@
           <attribute name="messagePosition" default="buttonRight"/>
           <attribute name="helpPosition" default="buttonRight"/>
         </tag>
-        <tag name="selectOneListbox">
+        <tag name="selectOneList">
           <attribute name="labelLayout" default="flexLeft"/>
           <attribute name="messagePosition" default="buttonRight"/>
           <attribute name="helpPosition" default="buttonRight"/>
         </tag>
-        <tag name="selectOneList">
+        <tag name="selectOneListbox">
           <attribute name="labelLayout" default="flexLeft"/>
           <attribute name="messagePosition" default="buttonRight"/>
           <attribute name="helpPosition" default="buttonRight"/>
@@ -125,8 +123,6 @@
           <attribute name="helpPosition" default="buttonRight"/>
         </tag>
       </tags>
-
     </theme-definition>
   </theme-definitions>
-
 </tobago-config>
