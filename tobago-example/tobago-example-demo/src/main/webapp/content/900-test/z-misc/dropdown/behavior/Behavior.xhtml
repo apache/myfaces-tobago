@@ -23,7 +23,7 @@
   <tc:script file="stop-show-event.js" rendered="#{testBehaviorController.cancelEvent eq 'tobago.dropdown.show'}"/>
   <tc:script file="stop-hide-event.js" rendered="#{testBehaviorController.cancelEvent eq 'tobago.dropdown.hide'}"/>
 
-  <tc:selectOneRadio id="selectPlanet" label="Cancelable event" labelLayout="top"
+  <tc:selectOneRadio id="selectEventPrevention" label="Cancelable event" labelLayout="top"
                      value="#{testBehaviorController.cancelEvent}">
     <f:selectItems value="#{testBehaviorController.cancelableEvents}"/>
     <tc:event/>

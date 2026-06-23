@@ -100,7 +100,7 @@ test.describe("900-test/z-misc/dropdown/behavior/Behavior.xhtml", () => {
   });
 
   test("Open and close every dropdown menu - show event is prevented", async ({page}) => {
-    const preventShow = page.locator("input[type='radio'][id='page:mainForm:selectPlanet::1']");
+    const preventShow = page.locator("input[type='radio'][id='page:mainForm:selectEventPrevention::1']");
     await preventShow.click();
 
     const buttonCounter = page.locator("tobago-out[id='page:mainForm:buttonCounter'] .form-control-plaintext");
@@ -162,8 +162,8 @@ test.describe("900-test/z-misc/dropdown/behavior/Behavior.xhtml", () => {
   });
 
   test("Open and close every dropdown menu - hide event is prevented", async ({page}) => {
-    const preventNone = page.locator("input[type='radio'][id='page:mainForm:selectPlanet::0']");
-    const preventHide = page.locator("input[type='radio'][id='page:mainForm:selectPlanet::2']");
+    const preventNone = page.locator("input[type='radio'][id='page:mainForm:selectEventPrevention::0']");
+    const preventHide = page.locator("input[type='radio'][id='page:mainForm:selectEventPrevention::2']");
 
     await preventHide.click();
     const buttonCounter = page.locator("tobago-out[id='page:mainForm:buttonCounter'] .form-control-plaintext");
