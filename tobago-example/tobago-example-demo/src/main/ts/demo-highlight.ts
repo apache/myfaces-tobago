@@ -15,8 +15,7 @@
  * limitations under the License.
  */
 
-// this import seems to initialize and do the highlighting?!?
-import * as Prism from "prismjs";
+import Prism from "prismjs";
 
 class DemoHighlight extends HTMLElement {
 
