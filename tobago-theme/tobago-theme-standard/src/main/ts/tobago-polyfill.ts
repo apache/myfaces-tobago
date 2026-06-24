@@ -34,7 +34,7 @@ try {
     const matchesWithScope = polyfill(Element.prototype.matches);
     Element.prototype.matches = function matches(selectors: string): boolean {
       return matchesWithScope.apply(this, arguments);
-    };
+    } as Element["matches"];
   }
 
   if (Element.prototype.closest) {

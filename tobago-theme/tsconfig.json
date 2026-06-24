@@ -1,18 +1,14 @@
 {
   "compilerOptions": {
-    "module": "es6",
-    "target": "ES2015",
-    "noImplicitAny": false,
-    "rootDir": "tobago-theme-standard/src/main/ts",
-    "sourceRoot": "../ts",
-    "outDir": "tobago-theme-standard/src/main/js",
-    "sourceMap": true,
-    "inlineSources": true,
-    "removeComments": false,
+    "target": "es2016",
     "strict": false,
+    "skipLibCheck": true,
     "types": [
       "jest",
       "jsf.js_next_gen"
     ]
-  }
+  },
+  "include": [
+    "tobago-theme-standard/src/main/ts/**/*.ts"
+  ]
 }
