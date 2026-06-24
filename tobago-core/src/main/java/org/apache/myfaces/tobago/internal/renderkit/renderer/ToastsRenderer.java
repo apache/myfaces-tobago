@@ -180,10 +180,11 @@ public class ToastsRenderer<T extends AbstractUIToasts> extends RendererBase<T> 
             BootstrapClass.TOAST,
             component.getCustomClass(),
             markup.contains(Markup.HIDE_CLOSE_BUTTON) ? TobagoClass.HIDE_CLOSE_BUTTON : null);
-        writer.writeAttribute(HtmlAttributes.NAME, toastId, false);
+        writer.writeAttribute(HtmlAttributes.NAME, toastId, false); //todo remove NAME because it's not allowed for DIV
         writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.ALERT.toString(), false);
         writer.writeAttribute(Arias.LIVE, "assertive", false);
         writer.writeAttribute(Arias.ATOMIC, true);
+        writer.writeAttribute(DataAttributes.FOR, toastId, false);
         writer.writeAttribute(DataAttributes.PLACEMENT, placement.name(), false);
 
         if (stateData.state.equals(StateEnum.created)) {
