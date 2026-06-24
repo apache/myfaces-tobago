@@ -60,12 +60,12 @@ class Toasts extends HTMLElement {
     return this.querySelector("input[name='" + this.id + "::states']");
   }
 
-  get states(): Map<string, StateData> {
-    return new Map(Object.entries(JSON.parse(this.statesInput.value)));
+  get states(): Record<string, StateData> {
+    return JSON.parse(this.statesInput.value) as Record<string, StateData>;
   }
 
-  set states(states: Map<string, StateData>) {
-    this.statesInput.value = JSON.stringify(Object.fromEntries(states));
+  set states(states: Record<string, StateData>) {
+    this.statesInput.value = JSON.stringify(states);
   }
 
   connectedCallback(): void {
@@ -116,7 +116,7 @@ class Toasts extends HTMLElement {
 
     const toast = new Toast(localToast, {autohide: disposeDelay > 0, delay: Math.max(disposeDelay, 0)});
     const id = localToast.dataset.tobagoFor;
-    const stateData = this.states.get(id);
+    const stateData = this.states[id];
 
     if (stateData.state === StateEnum.created) {
       toast.show();
@@ -136,7 +136,7 @@ class Toasts extends HTMLElement {
     const id = toast.dataset.tobagoFor;
     toast.addEventListener("show.bs.toast", () => {
       const states = this.states;
-      states.get(id).state = StateEnum.showed;
+      states[id].state = StateEnum.showed;
       this.states = states;
       tobago.ajax.request(this.id, null, {
         params: {
@@ -152,7 +152,7 @@ class Toasts extends HTMLElement {
     const id = toast.dataset.tobagoFor;
     toast.addEventListener("hide.bs.toast", () => {
       const states = this.states;
-      states.get(id).state = StateEnum.closed;
+      states[id].state = StateEnum.closed;
       this.states = states;
       tobago.ajax.request(this.id, null, {
         params: {
