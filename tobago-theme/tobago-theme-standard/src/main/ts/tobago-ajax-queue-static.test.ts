@@ -738,3 +738,69 @@ test("Ignore and remove unconnected queue item", () => {
   expectQueue = [];
   expect(queue).toEqual(expectQueue);
 });
+
+test("tobago-toast: close all three toasts before the first Ajax request is finished", () => {
+  const queue: QueueItem[] = [];
+
+  document.querySelector("body").replaceChildren(); //fresh body
+  const domWrapperElement = `
+<tobago-toasts id="toastsId">
+  <input id="toastsId::states" name="toastsId" type="hidden"
+  value="{'toast-id-1':{'state':'showed','hideTime':null},'toast-id-2':{'state':'showed','hideTime':null},'toast-id-3':{'state':'showed','hideTime':null}}">
+</tobago-toasts>
+`;
+  document.querySelector("body").insertAdjacentHTML("afterbegin", domWrapperElement);
+
+  const facesAjaxRequestFunction = () => console.log("faces.ajax.request");
+  const toasts = document.querySelector("tobago-toasts");
+  const statesInputField: HTMLInputElement = toasts.querySelector("input[id='toastsId::states']");
+
+  //close toast-1
+  statesInputField.value = "{'toast-id-1':{'state':'closed','hideTime':null},'toast-id-2':{'state':'showed','hideTime':null},'toast-id-3':{'state':'showed','hideTime':null}}";
+  AjaxQueueStatic.request(queue, toasts, null, {execute: "toastsId"}, facesAjaxRequestFunction);
+  let expectQueue: QueueItem[] = [];
+  expectQueue.push({
+    element: toasts,
+    event: null,
+    executeValues: ["{'toast-id-1':{'state':'closed','hideTime':null},'toast-id-2':{'state':'showed','hideTime':null},'toast-id-3':{'state':'showed','hideTime':null}}"],
+    renderIds: new Set<string>(),
+    func: facesAjaxRequestFunction,
+    inProgress: true
+  });
+  expect(queue).toEqual(expectQueue);
+
+  //close toast-2
+  statesInputField.value = "{'toast-id-1':{'state':'closed','hideTime':null},'toast-id-2':{'state':'closed','hideTime':null},'toast-id-3':{'state':'showed','hideTime':null}}";
+  AjaxQueueStatic.request(queue, toasts, null, {execute: "toastsId"}, facesAjaxRequestFunction);
+  expectQueue.push({
+    element: toasts,
+    event: null,
+    executeValues: ["{'toast-id-1':{'state':'closed','hideTime':null},'toast-id-2':{'state':'closed','hideTime':null},'toast-id-3':{'state':'showed','hideTime':null}}"],
+    renderIds: new Set<string>(),
+    func: facesAjaxRequestFunction,
+    inProgress: false
+  });
+  expect(queue).toEqual(expectQueue);
+
+  //close toast-3
+  statesInputField.value = "{'toast-id-1':{'state':'closed','hideTime':null},'toast-id-2':{'state':'closed','hideTime':null},'toast-id-3':{'state':'closed','hideTime':null}}";
+  AjaxQueueStatic.request(queue, toasts, null, {execute: "toastsId"}, facesAjaxRequestFunction);
+  expectQueue = [];
+  expectQueue.push({
+    element: toasts,
+    event: null,
+    executeValues: ["{'toast-id-1':{'state':'closed','hideTime':null},'toast-id-2':{'state':'showed','hideTime':null},'toast-id-3':{'state':'showed','hideTime':null}}"],
+    renderIds: new Set<string>(),
+    func: facesAjaxRequestFunction,
+    inProgress: true
+  });
+  expectQueue.push({
+    element: toasts,
+    event: null,
+    executeValues: ["{'toast-id-1':{'state':'closed','hideTime':null},'toast-id-2':{'state':'closed','hideTime':null},'toast-id-3':{'state':'closed','hideTime':null}}"],
+    renderIds: new Set<string>(),
+    func: facesAjaxRequestFunction,
+    inProgress: false
+  });
+  expect(queue).toEqual(expectQueue);
+});
