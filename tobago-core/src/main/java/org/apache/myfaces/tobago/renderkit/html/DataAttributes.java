@@ -185,6 +185,7 @@ public enum DataAttributes implements MarkupLanguageAttributes {
   TITLE("data-title"),
 
   TO_PAGE("data-tobago-to-page"),
+  TOAST_ID("data-tobago-toast-id"),
 
   TOGGLE("data-toggle"),
 
