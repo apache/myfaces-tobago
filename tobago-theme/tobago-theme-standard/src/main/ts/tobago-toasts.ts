@@ -18,6 +18,7 @@
 import {Toast} from "bootstrap";
 import {Placement} from "./tobago-placement";
 import {Css} from "./tobago-css";
+import {EventListenerStore} from "./tobago-event-listener-store";
 
 enum StateEnum {
   created = "created",
@@ -38,53 +39,32 @@ const BootstrapToastEvent = {
 };
 
 class Toasts extends HTMLElement {
+  private listeners: EventListenerStore = new EventListenerStore();
 
   constructor() {
     super();
   }
 
-  get toastStore(): HTMLDivElement {
-    const root = document.getRootNode() as ShadowRoot | Document;
-    return root.querySelector<HTMLDivElement>(".tobago-page-toastStore");
-  }
-
-  get localToasts(): NodeListOf<HTMLDivElement> {
-    return this.querySelectorAll(".toast");
-  }
-
-  get storeToasts(): NodeListOf<HTMLDivElement> {
-    return this.toastStore.querySelectorAll(".toast[data-tobago-for^='" + this.id + "::']");
-  }
-
-  get statesInput(): HTMLInputElement {
-    return this.querySelector("input[name='" + this.id + "::states']");
-  }
-
-  get states(): Record<string, StateData> {
-    return JSON.parse(this.statesInput.value) as Record<string, StateData>;
-  }
-
-  set states(states: Record<string, StateData>) {
-    this.statesInput.value = JSON.stringify(states);
-  }
-
   connectedCallback(): void {
     for (const storeToast of this.storeToasts) {
-      const localToast = this.querySelector<HTMLDivElement>(".toast[id='" + storeToast.dataset.tobagoFor + "']");
+      const localToast = this.getRelatedLocalToast(storeToast);
       if (!localToast) {
         this.removeToast(storeToast);
       }
     }
 
     for (const localToast of this.localToasts) {
-      const storeToast = this.toastStore
-          .querySelector<HTMLDivElement>(".toast[data-tobago-for='" + localToast.id + "']");
+      const storeToast = this.getRelatedStoreToast(localToast);
       if (storeToast) {
         this.updateToast(storeToast, localToast);
       } else {
         this.showToast(localToast);
       }
     }
+  }
+
+  disconnectedCallback(): void {
+    this.listeners.disconnect();
   }
 
   private removeToast(storeToast: HTMLDivElement): void {
@@ -101,13 +81,16 @@ class Toasts extends HTMLElement {
     } else {
       storeToast.replaceChildren(localToast.querySelector("." + Css.TOAST_BODY));
     }
+
+    this.addShowEventListeners(storeToast);
+    this.addHideEventListeners(storeToast);
+    this.addHiddenEventListeners(storeToast);
   }
 
   private showToast(localToast: HTMLDivElement): void {
     const placement: Placement = Placement[localToast.dataset.tobagoPlacement];
     const disposeDelay = Number(localToast.dataset.tobagoDisposeDelay);
 
-    localToast.removeAttribute("id");
     this.getToastContainer(placement).insertAdjacentElement("beforeend", localToast);
 
     this.addShowEventListeners(localToast);
@@ -115,8 +98,7 @@ class Toasts extends HTMLElement {
     this.addHiddenEventListeners(localToast);
 
     const toast = new Toast(localToast, {autohide: disposeDelay > 0, delay: Math.max(disposeDelay, 0)});
-    const id = localToast.dataset.tobagoFor;
-    const stateData = this.states[id];
+    const stateData = this.states[localToast.dataset.tobagoToastId];
 
     if (stateData.state === StateEnum.created) {
       toast.show();
@@ -133,8 +115,8 @@ class Toasts extends HTMLElement {
   }
 
   private addShowEventListeners(toast: HTMLDivElement) {
-    const id = toast.dataset.tobagoFor;
-    toast.addEventListener("show.bs.toast", () => {
+    const id = toast.dataset.tobagoToastId;
+    this.listeners.add(toast, "show.bs.toast", () => {
       const states = this.states;
       states[id].state = StateEnum.showed;
       this.states = states;
@@ -145,12 +127,11 @@ class Toasts extends HTMLElement {
         execute: this.id
       });
     });
-
   }
 
   private addHideEventListeners(toast: HTMLDivElement) {
-    const id = toast.dataset.tobagoFor;
-    toast.addEventListener("hide.bs.toast", () => {
+    const id = toast.dataset.tobagoToastId;
+    this.listeners.add(toast, "hide.bs.toast", () => {
       const states = this.states;
       states[id].state = StateEnum.closed;
       this.states = states;
@@ -164,7 +145,7 @@ class Toasts extends HTMLElement {
   }
 
   private addHiddenEventListeners(toast: HTMLDivElement) {
-    toast.addEventListener("hidden.bs.toast", () => {
+    this.listeners.add(toast, "hidden.bs.toast", () => {
       toast.remove();
     });
   }
@@ -241,6 +222,40 @@ class Toasts extends HTMLElement {
     }
 
     return css;
+  }
+
+  private getRelatedLocalToast(storeToast: HTMLDivElement): HTMLDivElement {
+    return this.querySelector<HTMLDivElement>(`.toast[data-tobago-toast-id='${storeToast.dataset.tobagoToastId}']`);
+  }
+
+  private getRelatedStoreToast(localToast: HTMLDivElement): HTMLDivElement {
+    return this.toastStore.querySelector<HTMLDivElement>(
+        ".toast[data-tobago-for='" + this.id + "'][data-tobago-toast-id='" + localToast.dataset.tobagoToastId + "']");
+  }
+
+  get toastStore(): HTMLDivElement {
+    const root = document.getRootNode() as ShadowRoot | Document;
+    return root.querySelector<HTMLDivElement>(".tobago-page-toastStore");
+  }
+
+  get localToasts(): NodeListOf<HTMLDivElement> {
+    return this.querySelectorAll(".toast");
+  }
+
+  get storeToasts(): NodeListOf<HTMLDivElement> {
+    return this.toastStore.querySelectorAll(".toast[data-tobago-for='" + this.id + "']");
+  }
+
+  get statesInput(): HTMLInputElement {
+    return this.querySelector("input[id='" + this.id + "::states']");
+  }
+
+  get states(): Record<string, StateData> {
+    return JSON.parse(this.statesInput.value) as Record<string, StateData>;
+  }
+
+  set states(states: Record<string, StateData>) {
+    this.statesInput.value = JSON.stringify(states);
   }
 }
 

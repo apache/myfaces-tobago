@@ -55,7 +55,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.stream.Collectors;
 
 public class ToastsRenderer<T extends AbstractUIToasts> extends RendererBase<T> {
 
@@ -68,16 +67,13 @@ public class ToastsRenderer<T extends AbstractUIToasts> extends RendererBase<T> 
     super.decodeInternal(facesContext, component);
 
     final String clientId = component.getClientId(facesContext);
-    final String statesInputId = clientId + ComponentUtils.SUB_SEPARATOR + SUFFIX_STATES;
 
     final Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    if (requestParameterMap.containsKey(statesInputId)) {
-      final String json = requestParameterMap.get(statesInputId);
+    if (requestParameterMap.containsKey(clientId)) {
+      final String json = requestParameterMap.get(clientId);
       final Map<String, StateData> states = decodeStates(json);
       final Collection<Toast> toasts = component.getValue();
-      final List<String> toastIds = toasts.stream()
-          .map(toast -> clientId + ComponentUtils.SUB_SEPARATOR + toast.getId())
-          .collect(Collectors.toList());
+      final List<String> toastIds = toasts.stream().map(Toast::getId).toList();
 
       final List<String> idsForRemoval = new ArrayList<>();
       states.forEach((key, value) -> {
@@ -88,7 +84,7 @@ public class ToastsRenderer<T extends AbstractUIToasts> extends RendererBase<T> 
         }
       });
 
-      toasts.removeIf(toast -> idsForRemoval.contains(clientId + ComponentUtils.SUB_SEPARATOR + toast.getId()));
+      toasts.removeIf(toast -> idsForRemoval.contains(toast.getId()));
       states.entrySet().removeIf(entry -> idsForRemoval.contains(entry.getKey()));
 
       component.setStates(states);
@@ -167,7 +163,7 @@ public class ToastsRenderer<T extends AbstractUIToasts> extends RendererBase<T> 
           break;
         }
 
-        final String toastId = clientId + ComponentUtils.SUB_SEPARATOR + toast.getId();
+        final String toastId = toast.getId();
 
         if (!states.containsKey(toastId)) {
           states.put(toastId, new StateData(StateEnum.created, null));
@@ -175,16 +171,15 @@ public class ToastsRenderer<T extends AbstractUIToasts> extends RendererBase<T> 
         final StateData stateData = states.get(toastId);
 
         writer.startElement(HtmlElements.DIV);
-        writer.writeIdAttribute(toastId);
         writer.writeClassAttribute(
             BootstrapClass.TOAST,
             component.getCustomClass(),
             markup.contains(Markup.HIDE_CLOSE_BUTTON) ? TobagoClass.HIDE_CLOSE_BUTTON : null);
-        writer.writeAttribute(HtmlAttributes.NAME, toastId, false); //todo remove NAME because it's not allowed for DIV
+        writer.writeAttribute(DataAttributes.TOAST_ID, toastId, false);
+        writer.writeAttribute(DataAttributes.FOR, clientId, false);
         writer.writeAttribute(HtmlAttributes.ROLE, HtmlRoleValues.ALERT.toString(), false);
         writer.writeAttribute(Arias.LIVE, "assertive", false);
         writer.writeAttribute(Arias.ATOMIC, true);
-        writer.writeAttribute(DataAttributes.FOR, toastId, false);
         writer.writeAttribute(DataAttributes.PLACEMENT, placement.name(), false);
 
         if (stateData.state.equals(StateEnum.created)) {
@@ -238,7 +233,7 @@ public class ToastsRenderer<T extends AbstractUIToasts> extends RendererBase<T> 
     final String statesInputId = clientId + ComponentUtils.SUB_SEPARATOR + SUFFIX_STATES;
     writer.startElement(HtmlElements.INPUT);
     writer.writeIdAttribute(statesInputId);
-    writer.writeNameAttribute(statesInputId);
+    writer.writeNameAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN);
     writer.writeAttribute(HtmlAttributes.VALUE, encodeStates(states), false);
     writer.endElement(HtmlElements.INPUT);
