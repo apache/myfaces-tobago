@@ -14,11 +14,10 @@
   "homepage": "https://myfaces.apache.org/tobago/",
   "scripts": {
     "build": "npm-run-all --parallel ts css fa jasmine",
-    "css": "npm-run-all css-compile css-prefix css-minify",
+    "css": "npm-run-all css-compile css-postprocess",
     "css-lint": "echo 'Not implemented yet!'",
     "css-compile": "sass --style expanded --source-map --embed-sources --no-error-css --load-path=./ src/main/scss/demo.scss:src/main/webapp/css/demo.css",
-    "css-prefix": "lightningcss          --targets '>= 0.1%' --sourcemap --output-file src/main/webapp/css/demo.css     src/main/webapp/css/demo.css",
-    "css-minify": "lightningcss --minify --targets '>= 0.1%' --sourcemap --output-file src/main/webapp/css/demo.min.css src/main/webapp/css/demo.css",
+    "css-postprocess": "node lightningcss.js src/main/webapp/css",
     "css-copy-prism": "ncp node_modules/prismjs/themes/prism.css src/main/webapp/css/prism.css",
     "fa": "npm-run-all --parallel fa-css fa-fonts",
     "fa-css": "ncp node_modules/font-awesome/css/ src/main/webapp/css --filter='.*(css|font-awesome\\.).*$'",
