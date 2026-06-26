@@ -2,7 +2,6 @@
   "compilerOptions": {
     "target": "es2016",
     "strict": false,
-    "skipLibCheck": true,
     "types": [
       "jest",
       "jsf.js_next_gen"
