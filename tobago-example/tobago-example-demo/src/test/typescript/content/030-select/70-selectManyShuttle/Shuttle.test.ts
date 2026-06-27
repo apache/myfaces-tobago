@@ -98,4 +98,48 @@ test.describe("030-select/70-selectManyShuttle/Shuttle.xhtml", () => {
     const pageOverlays = page.locator("tobago-overlay");
     await expect(pageOverlays).toHaveCount(0);
   });
+
+  test("Orderable Selection: addAll, removeAll, addItem0to4, removeItem2to3", async ({page}) => {
+    const unselectedOptions = page.locator("[id='page:mainForm:favoriteExample::unselected'] option");
+    const selectedOptions = page.locator("[id='page:mainForm:favoriteExample::selected'] option");
+    const addAllButton = page.locator("[id='page:mainForm:favoriteExample::addAll']");
+    const topButton = page.locator("[id='page:mainForm:favoriteExample::top']");
+    const upButton = page.locator("[id='page:mainForm:favoriteExample::up']");
+    const downButton = page.locator("[id='page:mainForm:favoriteExample::down']");
+    const bottomButton = page.locator("[id='page:mainForm:favoriteExample::bottom']");
+    const output = page.locator("[id='page:mainForm:favoriteOutput'] .form-control-plaintext");
+    const submitButton = page.locator("[id='page:mainForm:submitButton']");
+
+    await expect(output).toHaveText("[]");
+    await addAllButton.click();
+    await expect(unselectedOptions).toHaveCount(0);
+    await expect(selectedOptions).toHaveCount(9);
+    await submitButton.click();
+    await expect(output).toHaveText("[Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto]");
+
+    //Neptun, Pluto -> top
+    await page.locator("[id='page:mainForm:favoriteExample::selected']").selectOption([{index: 7}, {index: 8}]);
+    await topButton.click();
+    await submitButton.click();
+    await expect(output).toHaveText("[Neptune, Pluto, Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus]");
+
+    //Earth -> 2 times up
+    await page.locator("[id='page:mainForm:favoriteExample::selected']").selectOption([{index: 4}]);
+    await upButton.click();
+    await upButton.click();
+    await submitButton.click();
+    await expect(output).toHaveText("[Neptune, Pluto, Earth, Mercury, Venus,  Mars, Jupiter, Saturn, Uranus]");
+
+    //Venus, Mars -> 1 times down
+    await page.locator("[id='page:mainForm:favoriteExample::selected']").selectOption([{index: 4}, {index: 5}]);
+    await downButton.click();
+    await submitButton.click();
+    await expect(output).toHaveText("[Neptune, Pluto, Earth, Mercury, Jupiter, Venus, Mars, Saturn, Uranus]");
+
+    //Mercury -> bottom
+    await page.locator("[id='page:mainForm:favoriteExample::selected']").selectOption([{index: 3}]);
+    await bottomButton.click();
+    await submitButton.click();
+    await expect(output).toHaveText("[Neptune, Pluto, Earth, Jupiter, Venus, Mars, Saturn, Uranus, Mercury]");
+  });
 });
