@@ -1,4 +1,4 @@
-/*
+<!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -13,16 +13,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+-->
 
-import {querySelectorFn} from "/script/tobago-test.js";
-import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
-
-it("Attribute 'level'", function (done) {
-  let sectionLevel5Fn = querySelectorFn("#page\\:mainForm\\:sectionLevel5");
-  let header5 = sectionLevel5Fn().querySelector("h5");
-
-  let test = new JasmineTestTool(done);
-  test.do(() =>  expect(header5).not.toBe(null));
-  test.start();
-});
+<tobago-section id='id' class='tobago-auto-spacing' data-tobago-level='5'>
+<div class='tobago-header'>
+<h5>
+<span>label</span></h5></div>
+<div class='tobago-section-content'></div></tobago-section>

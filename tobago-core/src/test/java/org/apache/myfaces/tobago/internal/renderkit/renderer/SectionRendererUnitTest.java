@@ -74,4 +74,50 @@ public class SectionRendererUnitTest extends RendererTestBase {
 
     Assertions.assertEquals(loadHtml("renderer/section/section-icon.html"), formattedResult());
   }
+
+  @Test
+  public void sectionLevel5() throws IOException {
+    final UISection s = (UISection) ComponentUtils.createComponent(
+        facesContext, Tags.section.componentType(), RendererTypes.Section, "id");
+    s.setLabel("label");
+    s.setLevel(5);
+    s.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/section/section-level5.html"), formattedResult());
+  }
+
+  @Test
+  public void cascading() throws IOException {
+    final UISection s1 = (UISection) ComponentUtils.createComponent(
+        facesContext, Tags.section.componentType(), RendererTypes.Section, "s1");
+    s1.setLabel("label");
+    final UISection s2 = (UISection) ComponentUtils.createComponent(
+        facesContext, Tags.section.componentType(), RendererTypes.Section, "s2");
+    s2.setLabel("label");
+    final UISection s3 = (UISection) ComponentUtils.createComponent(
+        facesContext, Tags.section.componentType(), RendererTypes.Section, "s3");
+    s3.setLabel("label");
+    final UISection s4 = (UISection) ComponentUtils.createComponent(
+        facesContext, Tags.section.componentType(), RendererTypes.Section, "s4");
+    s4.setLabel("label");
+    final UISection s5 = (UISection) ComponentUtils.createComponent(
+        facesContext, Tags.section.componentType(), RendererTypes.Section, "s5");
+    s5.setLabel("label");
+    final UISection s6 = (UISection) ComponentUtils.createComponent(
+        facesContext, Tags.section.componentType(), RendererTypes.Section, "s6");
+    s6.setLabel("label");
+    final UISection s7 = (UISection) ComponentUtils.createComponent(
+        facesContext, Tags.section.componentType(), RendererTypes.Section, "s7");
+    s7.setLabel("label");
+
+    s6.getChildren().add(s7);
+    s5.getChildren().add(s6);
+    s4.getChildren().add(s5);
+    s3.getChildren().add(s4);
+    s2.getChildren().add(s3);
+    s1.getChildren().add(s2);
+    s1.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/section/cascading.html"), formattedResult());
+  }
 }
