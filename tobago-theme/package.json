@@ -68,7 +68,7 @@
     "bootstrap-icons": "1.13.1",
     "jsf.js_next_gen": "4.1.0-beta.22",
     "lit-html": "3.3.3",
-    "tabbable": "^6.4.0"
+    "tabbable": "^6.5.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
