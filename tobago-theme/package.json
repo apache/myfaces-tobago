@@ -75,7 +75,7 @@
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/bootstrap": "^5.2.11",
     "@types/jest": "^30.0.0",
-    "autoprefixer": "^10.5.0",
+    "autoprefixer": "^10.5.2",
     "esbuild": "^0.28.1",
     "eslint": "^10.5.0",
     "jest": "^30.4.2",
