@@ -60,7 +60,7 @@ pipeline {
                 stages {
                     stage('BuildAndTest') {
                         steps {
-                            sh "mvn clean package checkstyle:check apache-rat:check dependency-check:check -Ddependency-check.skip=true -Pgenerate-assembly -Pfrontend"
+                            sh "mvn clean package checkstyle:check apache-rat:check dependency-check:check -Pgenerate-assembly -Pfrontend"
                         }
                         post {
                             always {
