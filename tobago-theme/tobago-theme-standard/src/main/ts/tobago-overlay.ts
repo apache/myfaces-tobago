@@ -93,19 +93,22 @@ export class Overlay extends HTMLElement {
   }
 
   private timeout;
+  private resizeObserver: ResizeObserver;
 
   constructor() {
     super();
   }
 
   connectedCallback(): void {
-    const resizeObserver = new ResizeObserver(() => this.updatePosition());
-    resizeObserver.observe(this.forElement);
+    this.resizeObserver = new ResizeObserver(() => this.updatePosition());
+    this.resizeObserver.observe(this.forElement);
+    this.resizeObserver.observe(document.body); //indicates size change of other elements or browser window
     this.timeout = setTimeout(this.render.bind(this), this.delay);
   }
 
   disconnectedCallback() {
     clearTimeout(this.timeout);
+    this.resizeObserver.disconnect();
     this.showScrollbar();
   }
 
