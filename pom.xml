@@ -782,6 +782,7 @@
           <artifactId>dependency-check-maven</artifactId>
           <version>12.2.2</version>
           <configuration>
+            <nodeAuditAnalyzerEnabled>false</nodeAuditAnalyzerEnabled> <!-- https://github.com/dependency-check/DependencyCheck/issues/8422 -->
             <failBuildOnCVSS>0</failBuildOnCVSS>
             <suppressionFile>tobago/dependency-check-suppression-for-tobago-6.x.xml</suppressionFile>
             <!-- nvdApiKey can be set in your settings.xml -->
