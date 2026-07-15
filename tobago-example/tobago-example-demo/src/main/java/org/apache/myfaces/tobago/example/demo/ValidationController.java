@@ -86,7 +86,6 @@ public class ValidationController implements Serializable {
     }
 
     if (!password.equals(confirmationFieldValue)) {
-      confirmationField.setValid(false);
       final FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Passwords must match.", null);
       facesContext.addMessage(confirmationField.getClientId(facesContext), msg);
       facesContext.validationFailed();
