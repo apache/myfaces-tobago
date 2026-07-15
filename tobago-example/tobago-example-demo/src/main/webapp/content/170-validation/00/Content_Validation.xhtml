@@ -113,7 +113,7 @@
   </tc:section>
 
   <tc:section label="Two Field Validation">
-    <p>A validator check the password against the confirmation field.
+    <p>A validator compares the password against the confirmation field.
       To get access to the confirmation field from the validator a binding with the <code>binding</code> attribute
       and the <code class="language-markup">&lt;f:attribute/></code> tag is created.</p>
     <demo-highlight language="markup">&lt;tc:in label="Password" validator="\#{validationController.passwordValidator}">

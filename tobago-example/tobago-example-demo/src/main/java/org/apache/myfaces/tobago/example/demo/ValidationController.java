@@ -68,7 +68,18 @@ public class ValidationController implements Serializable {
     final String password = value.toString();
 
     final UIInput confirmationField = (UIInput) component.getAttributes().get("confirmationField");
-    final String confirmationFieldValue = confirmationField.getSubmittedValue().toString();
+    if (confirmationField == null) {
+      return;
+    }
+
+    String confirmationFieldValue;
+    final Object submitted = confirmationField.getSubmittedValue();
+    if (submitted != null) {
+      confirmationFieldValue = submitted.toString();
+    } else {
+      final Object current = confirmationField.getValue();
+      confirmationFieldValue = current.toString();
+    }
 
     if (password.isEmpty() || confirmationFieldValue.isEmpty()) {
       return;
@@ -76,7 +87,9 @@ public class ValidationController implements Serializable {
 
     if (!password.equals(confirmationFieldValue)) {
       confirmationField.setValid(false);
-      throw new ValidatorException(new FacesMessage("Passwords must match."));
+      final FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Passwords must match.", null);
+      facesContext.addMessage(confirmationField.getClientId(facesContext), msg);
+      facesContext.validationFailed();
     }
   }
 }
