@@ -671,8 +671,8 @@ tobago-file {
 
   .input-group {
     > .form-control-sm ~ .input-group-text {
-      padding: .25rem .5rem;
-      font-size: .875rem;
+      padding: $input-padding-y-sm $input-padding-x-sm;
+      @include font-size($input-font-size-sm);
     }
   }
 }
