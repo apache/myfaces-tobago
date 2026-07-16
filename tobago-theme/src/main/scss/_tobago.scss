@@ -668,6 +668,13 @@ tobago-file {
   > .input-group, tobago-progress {
     flex: 1 0 0px;
   }
+
+  .input-group {
+    > .form-control-sm ~ .input-group-text {
+      padding: .25rem .5rem;
+      font-size: .875rem;
+    }
+  }
 }
 
 /* flexLayout -------------------------------------------------------------- */
