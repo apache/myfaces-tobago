@@ -1,0 +1,92 @@
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+
+
+   @Test
+  public void multipleMessages() throws IOException {
+    final UIDate d = (UIDate) ComponentUtils.createComponent(
+        facesContext, Tags.date.componentType(), RendererTypes.Date, "id");
+    d.setValue(SPUTNIK_LOCAL_DATE);
+
+    d.setValid(false);
+    facesContext.addMessage("id",
+        new FacesMessage(FacesMessage.SEVERITY_INFO, "test3", "a test3"));
+    facesContext.addMessage("id",
+        new FacesMessage(FacesMessage.SEVERITY_ERROR, "test", "a test"));
+    facesContext.addMessage("id",
+        new FacesMessage(FacesMessage.SEVERITY_FATAL, "test2", "a test2"));
+    d.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/date/multipleMessages.html"), formattedResult());
+  }
+
+    /**
+   * Hier werden die Serveritys nach wichtigkeit Sortiert und dann als
+   * Message ausgegeben
+   */
+  /*private int getHighestServerity(final FacesMessage.Severity severity) {
+      int number = severity.getOrdinal();
+      // Unzufrieden, geht so nicht
+    return switch (number) {
+      case 3 -> 3;
+      case 2 -> 2;
+      case 1 -> 1;
+      case 0 -> 0;
+      default -> 7;
+    };
+  }*/
+  private void encodeFacesMessagePopover(
+      final FacesContext facesContext, final T component, final TobagoResponseWriter writer, final FacesMessage.Severity severity,
+      final List<FacesMessage> messages, final Integer tabIndex) throws IOException {
+
+    final CssItem buttonColor = BootstrapClass.buttonColor(severity);
+    final String title = getTitle(facesContext, messages);
+    final String message = getMessage(messages);
+
+    //HIER
+    // Das Label brauche ich noch ich muss die component noch einfügen
+    // -> das label gibt gerade Null zurück
+    //  -> kann in den Test gesehen werden
+final String ariaLabel;
+final String label = ComponentUtils.getStringAttribute(component, Attributes.label);
+//getHighestServerity(severity);
+
+if (!StringUtils.isEmpty(label)){
+final Locale locale = facesContext.getViewRoot().getLocale();
+final MessageFormat ariaLabelFormat = new MessageFormat(ResourceUtils.getString(facesContext, "message.ariaLabel"), locale);
+ariaLabel = ariaLabelFormat.format(new Object[]{message});
+} else {
+final Locale locale = facesContext.getViewRoot().getLocale();
+final MessageFormat ariaLabelFormat = new MessageFormat(ResourceUtils.getString(facesContext, "message.ariaLabel.fallback"), locale);
+ariaLabel = ariaLabelFormat.format(new Object[]{title});
+}
+//BIS HIER
+final PopoverTriggers trigger = PopoverTriggers.parse("focus");
+
+//HIER
+encodePopover(writer, buttonColor, Icons.EXCLAMATION_LG, title, message, trigger, tabIndex, ariaLabel);
+//BIS HIER
+
+
+-->
+
+<tobago-date id='id' class='tobago-auto-spacing'>
+<div class='tobago-messages-container tobago-button-right' data-tobago-faces-message='a test'>
+<div class='input-group'>
+<input type='date' name='id' id='id::field' title='a test' max='9999-12-31' class='is-error form-control' autofocus='autofocus'></div>
+<tobago-popover label='Error' value='a test' trigger='focus'>
+<a tabindex='0' role='button' aria-label='Show Error message for {1}' class='btn btn-danger'><i class='bi-exclamation-lg'></i></a></tobago-popover></div></tobago-date>
+

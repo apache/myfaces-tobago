@@ -38,13 +38,13 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.util.MessageUtils;
 import org.apache.myfaces.tobago.util.ResourceUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
+import javax.print.attribute.standard.Severity;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.List;
@@ -114,7 +114,7 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
 
       switch (messagePosition) {
         case buttonLeft:
-          encodeFacesMessagePopover(facesContext, writer, severity, messages, tabIndex);
+          encodeFacesMessagePopover(facesContext,component, writer, severity, messages, tabIndex);
           break;
         case textTop:
           final CssItem feedback = BootstrapClass.feedbackColor(severity);
@@ -148,7 +148,7 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
     if (!StringUtils.isEmpty(message)) {
       switch (messagePosition) {
         case buttonRight:
-          encodeFacesMessagePopover(facesContext, writer, severity, messages, tabIndex);
+          encodeFacesMessagePopover(facesContext, component, writer, severity, messages, tabIndex);
           break;
         case tooltip:
           final CssItem tooltip = BootstrapClass.tooltipColor(severity);
@@ -282,25 +282,36 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
   }
 
   private void encodeFacesMessagePopover(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final FacesMessage.Severity severity,
+      final FacesContext facesContext, final T component, final TobagoResponseWriter writer, final FacesMessage.Severity severity,
       final List<FacesMessage> messages, final Integer tabIndex) throws IOException {
 
     final CssItem buttonColor = BootstrapClass.buttonColor(severity);
     final String title = getTitle(facesContext, messages);
     final String message = getMessage(messages);
 
+    //HIER
+    // Das Label brauche ich noch ich muss die component noch einfügen
+    // -> das label gibt gerade Null zurück
+    //  --> kann in den Test gesehen werden
     final String ariaLabel;
-    if (!StringUtils.isEmpty(title)) {
+    final String label = ComponentUtils.getStringAttribute(component, Attributes.label);
+    //getHighestServerity(severity);
+
+    if (!StringUtils.isEmpty(label)){
       final Locale locale = facesContext.getViewRoot().getLocale();
       final MessageFormat ariaLabelFormat = new MessageFormat(ResourceUtils.getString(facesContext, "message.ariaLabel"), locale);
-      ariaLabel = ariaLabelFormat.format(new Object[]{title});
+      ariaLabel = ariaLabelFormat.format(new Object[]{message});
     } else {
-      ariaLabel = ResourceUtils.getString(facesContext, "message.ariaLabel.fallback");
+      final Locale locale = facesContext.getViewRoot().getLocale();
+      final MessageFormat ariaLabelFormat = new MessageFormat(ResourceUtils.getString(facesContext, "message.ariaLabel.fallback"), locale);
+      ariaLabel = ariaLabelFormat.format(new Object[]{title});
     }
-
+    //BIS HIER
     final PopoverTriggers trigger = PopoverTriggers.parse("focus");
 
+    //HIER
     encodePopover(writer, buttonColor, Icons.EXCLAMATION_LG, title, message, trigger, tabIndex, ariaLabel);
+    //BIS HIER
   }
 
   private void encodeHelpPopover(
