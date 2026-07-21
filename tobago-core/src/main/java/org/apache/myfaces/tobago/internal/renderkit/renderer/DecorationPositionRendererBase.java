@@ -119,7 +119,7 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
 
       switch (messagePosition) {
         case buttonLeft:
-          encodeFacesMessagePopover(facesContext, writer, severity, messages, tabIndex);
+          encodeFacesMessagePopover(facesContext, component, writer, severity, messages, tabIndex);
           break;
         case textTop:
           final CssItem feedback = BootstrapClass.feedbackColor(severity);
@@ -153,7 +153,7 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
     if (!StringUtils.isEmpty(message)) {
       switch (messagePosition) {
         case buttonRight:
-          encodeFacesMessagePopover(facesContext, writer, severity, messages, tabIndex);
+          encodeFacesMessagePopover(facesContext, component, writer, severity, messages, tabIndex);
           break;
         case tooltip:
           final CssItem tooltip = BootstrapClass.tooltipColor(severity);
@@ -287,29 +287,59 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
   }
 
   private String getAriaLabel(
-      final FacesContext facesContext, final T component, final String key, final String fallbackKey) {
+      final FacesContext facesContext, final T component, final String key,
+      final String fallbackKey, final FacesMessage.Severity severity) {
 
     final String label = ComponentUtils.getStringAttribute(component, Attributes.label);
+    final Locale locale = facesContext.getViewRoot().getLocale();
 
     if (!StringUtils.isEmpty(label)) {
-      final Locale locale = facesContext.getViewRoot().getLocale();
-      final MessageFormat ariaLabelFormat = new MessageFormat(ResourceUtils.getString(facesContext, key), locale);
-      return ariaLabelFormat.format(new Object[]{label});
-    } else {
-      return ResourceUtils.getString(facesContext, fallbackKey);
+      final String template = ResourceUtils.getString(facesContext, key);
+      final MessageFormat ariaLabelFormat = new MessageFormat(template, locale);
+      if (severity != null) {
+        final String severityText = getSeverityText(facesContext, severity);
+        return ariaLabelFormat.format(new Object[]{severityText, label});
+      } else {
+        return ariaLabelFormat.format(new Object[]{label});
+      }
     }
+
+    final String fallbackTemplate = ResourceUtils.getString(facesContext, fallbackKey);
+    if (severity == null) {
+      return fallbackTemplate;
+    }
+
+    final String severityText = getSeverityText(facesContext, severity);
+    final MessageFormat ariaLabelFormat = new MessageFormat(fallbackTemplate, locale);
+    return ariaLabelFormat.format(new Object[]{severityText});
+  }
+
+  private String getSeverityText(final FacesContext facesContext, final FacesMessage.Severity severity) {
+    String propertyKey = "message.ariaLabel.severity.Info";
+
+    if (FacesMessage.SEVERITY_FATAL.equals(severity)) {
+      propertyKey = "message.ariaLabel.severity.Fatal";
+    } else if (FacesMessage.SEVERITY_ERROR.equals(severity)) {
+      propertyKey = "message.ariaLabel.severity.Error";
+    } else if (FacesMessage.SEVERITY_WARN.equals(severity)) {
+      propertyKey = "message.ariaLabel.severity.Warn";
+    }
+
+    return ResourceUtils.getString(facesContext, propertyKey);
   }
 
   private void encodeFacesMessagePopover(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final FacesMessage.Severity severity,
-      final List<FacesMessage> messages, final Integer tabIndex) throws IOException {
+      final FacesContext facesContext, final T component, final TobagoResponseWriter writer,
+      final FacesMessage.Severity severity, final List<FacesMessage> messages,
+      final Integer tabIndex) throws IOException {
 
     final CssItem buttonColor = BootstrapClass.buttonColor(severity);
     final String title = getTitle(facesContext, messages);
     final String message = getMessage(messages);
+    final String ariaLabel = getAriaLabel(facesContext, component,
+        "message.ariaLabel", "message.ariaLabel.fallback", severity);
     final PopoverTriggers trigger = PopoverTriggers.parse("focus");
-
-    encodePopover(writer, buttonColor, Icons.EXCLAMATION_LG, title, message, trigger, tabIndex, null);
+    encodePopover(writer, buttonColor, Icons.EXCLAMATION_LG, title, message, trigger, tabIndex, ariaLabel);
   }
 
   private void encodeHelpPopover(
@@ -318,7 +348,7 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
       throws IOException {
 
     final String title = ResourceUtils.getString(facesContext, "help.title");
-    final String ariaLabel = getAriaLabel(facesContext, component, "help.ariaLabel", "help.ariaLabel.fallback");
+    final String ariaLabel = getAriaLabel(facesContext, component, "help.ariaLabel", "help.ariaLabel.fallback", null);
     final PopoverTriggers trigger = component instanceof SupportsHelp
         ? ((SupportsHelp) component).getHelpTrigger() : PopoverTriggers.parse("focus");
 
@@ -338,9 +368,7 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
     writer.startElement(HtmlElements.A);
     writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex != null ? tabIndex : 0);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlButtonTypes.BUTTON);
-    if (ariaLabel != null) {
-      writer.writeAttribute(Arias.LABEL, ariaLabel, false);
-    }
+    writer.writeAttribute(Arias.LABEL, ariaLabel, false);
     writer.writeClassAttribute(BootstrapClass.BTN, buttonColor);
     writer.startElement(HtmlElements.I);
     writer.writeClassAttribute(icon);
