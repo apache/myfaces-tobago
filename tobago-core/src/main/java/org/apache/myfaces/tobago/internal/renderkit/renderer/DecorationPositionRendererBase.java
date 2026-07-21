@@ -19,12 +19,7 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import org.apache.myfaces.tobago.component.DecorationPosition;
-import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
-import org.apache.myfaces.tobago.component.SupportsDecorationPosition;
-import org.apache.myfaces.tobago.component.SupportsHelp;
-import org.apache.myfaces.tobago.component.SupportsLabelLayout;
+import org.apache.myfaces.tobago.component.*;
 import org.apache.myfaces.tobago.internal.component.AbstractUIButton;
 import org.apache.myfaces.tobago.internal.component.AbstractUIInput;
 import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
@@ -36,12 +31,14 @@ import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
+import org.apache.myfaces.tobago.renderkit.html.Arias;
 import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.MessageUtils;
 import org.apache.myfaces.tobago.util.ResourceUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -49,7 +46,9 @@ import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.List;
+import java.util.Locale;
 
 public abstract class DecorationPositionRendererBase<T extends UIComponent & SupportsLabelLayout & SupportsAutoSpacing>
     extends LabelLayoutRendererBase<T> {
@@ -289,9 +288,20 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
     final CssItem buttonColor = BootstrapClass.buttonColor(severity);
     final String title = getTitle(facesContext, messages);
     final String message = getMessage(messages);
+
+    //HIER
+    final String ariaLabel;
+    if (!StringUtils.isEmpty(title)) {
+      final Locale locale = facesContext.getViewRoot().getLocale();
+      final MessageFormat ariaLabelFormat = new MessageFormat(ResourceUtils.getString(facesContext, "message.ariaLabel"), locale);
+      ariaLabel = ariaLabelFormat.format(new Object[]{title});
+    } else {
+      ariaLabel = ResourceUtils.getString(facesContext, "message.ariaLabel.fallback");
+    }
+
     final PopoverTriggers trigger = PopoverTriggers.parse("focus");
 
-    encodePopover(writer, buttonColor, Icons.EXCLAMATION_LG, title, message, trigger, tabIndex);
+    encodePopover(writer, buttonColor, Icons.EXCLAMATION_LG, title, message, trigger, tabIndex, ariaLabel);
   }
 
   private void encodeHelpPopover(
@@ -300,15 +310,26 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
       throws IOException {
 
     final String title = ResourceUtils.getString(facesContext, "help.title");
+    final String ariaLabel;
+    final String label = ComponentUtils.getStringAttribute(component, Attributes.label);
+
+    if (!StringUtils.isEmpty(label)) {
+      final Locale locale = facesContext.getViewRoot().getLocale();
+      final MessageFormat ariaLabelFormat = new MessageFormat(ResourceUtils.getString(facesContext, "help.ariaLabel"), locale);
+      ariaLabel = ariaLabelFormat.format(new Object[]{label});
+    } else {
+      ariaLabel = ResourceUtils.getString(facesContext, "help.ariaLabel.fallback");
+    }
+
     final PopoverTriggers trigger = component instanceof SupportsHelp
         ? ((SupportsHelp) component).getHelpTrigger() : PopoverTriggers.parse("focus");
 
-    encodePopover(writer, BootstrapClass.BTN_OUTLINE_INFO, Icons.QUESTION_LG, title, helpText, trigger, tabIndex);
+    encodePopover(writer, BootstrapClass.BTN_OUTLINE_INFO, Icons.QUESTION_LG, title, helpText, trigger, tabIndex, ariaLabel);
   }
 
   private void encodePopover(
       final TobagoResponseWriter writer, final CssItem buttonColor, final Icons icon, final String title,
-      final String content, final PopoverTriggers trigger, Integer tabIndex) throws IOException {
+      final String content, final PopoverTriggers trigger, Integer tabIndex, final String ariaLabel) throws IOException {
     writer.startElement(HtmlElements.TOBAGO_POPOVER);
     writer.writeAttribute(CustomAttributes.LABEL, title, true);
     writer.writeAttribute(HtmlAttributes.VALUE, content, true);
@@ -317,6 +338,7 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
     writer.startElement(HtmlElements.A);
     writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex != null ? tabIndex : 0);
     writer.writeAttribute(HtmlAttributes.ROLE, HtmlButtonTypes.BUTTON);
+    writer.writeAttribute(Arias.LABEL, ariaLabel, false);
     writer.writeClassAttribute(BootstrapClass.BTN, buttonColor);
     writer.startElement(HtmlElements.I);
     writer.writeClassAttribute(icon);
