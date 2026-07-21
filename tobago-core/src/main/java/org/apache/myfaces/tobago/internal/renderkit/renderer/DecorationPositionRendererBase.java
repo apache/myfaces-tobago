@@ -289,7 +289,6 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
     final String title = getTitle(facesContext, messages);
     final String message = getMessage(messages);
 
-    //HIER
     final String ariaLabel;
     if (!StringUtils.isEmpty(title)) {
       final Locale locale = facesContext.getViewRoot().getLocale();
