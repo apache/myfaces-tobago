@@ -114,9 +114,8 @@ class SplitLayout extends HTMLElement {
   }
 
   stop(event: MouseEvent): void {
-    document.removeEventListener("mousemove", this.move.bind(this)); // fixme remove the real added
-    document.removeEventListener("mouseup", this.stop.bind(this)); // fixme remove the real added
     SplitLayoutMousedown.remove();
+    this.listeners.cleanup();
   }
 }
 
