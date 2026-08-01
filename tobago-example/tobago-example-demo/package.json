@@ -45,7 +45,7 @@
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.61.1",
     "@stylistic/eslint-plugin": "^5.10.0",
-    "@types/node": "^26.1.1",
+    "@types/node": "^26.1.2",
     "@types/prismjs": "^1.26.6",
     "esbuild": "^0.28.1",
     "eslint": "^10.7.0",
