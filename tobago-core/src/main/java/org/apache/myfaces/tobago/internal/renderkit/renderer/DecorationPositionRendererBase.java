@@ -31,12 +31,7 @@ import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.CssItem;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
-import org.apache.myfaces.tobago.renderkit.html.Arias;
-import org.apache.myfaces.tobago.renderkit.html.CustomAttributes;
-import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlButtonTypes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
+import org.apache.myfaces.tobago.renderkit.html.*;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.ResourceUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -44,7 +39,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
-import javax.print.attribute.standard.Severity;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.List;
@@ -281,6 +275,20 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
     return stringBuilder.toString();
   }
 
+  private String getAriaLabel(
+      final FacesContext facesContext, final T component, final String key, final String fallbackKey) {
+
+    final String label = ComponentUtils.getStringAttribute(component, Attributes.label);
+
+    if (!StringUtils.isEmpty(label)) {
+      final Locale locale = facesContext.getViewRoot().getLocale();
+      final MessageFormat ariaLabelFormat = new MessageFormat(ResourceUtils.getString(facesContext, key), locale);
+      return ariaLabelFormat.format(new Object[]{label});
+    } else {
+      return ResourceUtils.getString(facesContext, fallbackKey);
+    }
+  }
+
   private void encodeFacesMessagePopover(
       final FacesContext facesContext, final T component, final TobagoResponseWriter writer, final FacesMessage.Severity severity,
       final List<FacesMessage> messages, final Integer tabIndex) throws IOException {
@@ -288,18 +296,7 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
     final CssItem buttonColor = BootstrapClass.buttonColor(severity);
     final String title = getTitle(facesContext, messages);
     final String message = getMessage(messages);
-    final String ariaLabel;
-    final String label = ComponentUtils.getStringAttribute(component, Attributes.label);
-
-    if (!StringUtils.isEmpty(label)){
-      final Locale locale = facesContext.getViewRoot().getLocale();
-      final MessageFormat ariaLabelFormat = new MessageFormat(ResourceUtils.getString(facesContext, "message.ariaLabel"), locale);
-      ariaLabel = ariaLabelFormat.format(new Object[]{message, label});
-    } else {
-      final Locale locale = facesContext.getViewRoot().getLocale();
-      final MessageFormat ariaLabelFormat = new MessageFormat(ResourceUtils.getString(facesContext, "message.ariaLabel.fallback"), locale);
-      ariaLabel = ariaLabelFormat.format(new Object[]{message});
-    }
+    final String ariaLabel = getAriaLabel(facesContext, component, "message.ariaLabel", "message.ariaLabel.fallback");
     final PopoverTriggers trigger = PopoverTriggers.parse("focus");
     encodePopover(writer, buttonColor, Icons.EXCLAMATION_LG, title, message, trigger, tabIndex, ariaLabel);
   }
@@ -310,17 +307,7 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
       throws IOException {
 
     final String title = ResourceUtils.getString(facesContext, "help.title");
-    final String ariaLabel;
-    final String label = ComponentUtils.getStringAttribute(component, Attributes.label);
-
-    if (!StringUtils.isEmpty(label)) {
-      final Locale locale = facesContext.getViewRoot().getLocale();
-      final MessageFormat ariaLabelFormat = new MessageFormat(ResourceUtils.getString(facesContext, "help.ariaLabel"), locale);
-      ariaLabel = ariaLabelFormat.format(new Object[]{label});
-    } else {
-      ariaLabel = ResourceUtils.getString(facesContext, "help.ariaLabel.fallback");
-    }
-
+    final String ariaLabel = getAriaLabel(facesContext, component, "help.ariaLabel", "help.ariaLabel.fallback");
     final PopoverTriggers trigger = component instanceof SupportsHelp
         ? ((SupportsHelp) component).getHelpTrigger() : PopoverTriggers.parse("focus");
 
