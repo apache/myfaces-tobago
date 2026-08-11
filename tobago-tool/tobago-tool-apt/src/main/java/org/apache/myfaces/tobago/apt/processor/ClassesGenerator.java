@@ -230,7 +230,7 @@ public class ClassesGenerator extends AbstractGenerator {
   protected void addProperties(final TypeMirror typeMirror, final Map<String, PropertyInfo> properties) {
 //    info("*** 2 addProperties typeMirror " + typeMirror);
     if (typeMirror.getKind() != TypeKind.NONE) {
-      addProperties((TypeElement) (processingEnv.getTypeUtils().asElement(typeMirror)), properties);
+      addProperties((TypeElement) processingEnv.getTypeUtils().asElement(typeMirror), properties);
     }
   }
 
