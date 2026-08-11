@@ -288,30 +288,20 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
     final CssItem buttonColor = BootstrapClass.buttonColor(severity);
     final String title = getTitle(facesContext, messages);
     final String message = getMessage(messages);
-
-    //HIER
-    // Das Label brauche ich noch ich muss die component noch einfügen
-    // -> das label gibt gerade Null zurück
-    //  --> kann in den Test gesehen werden
     final String ariaLabel;
     final String label = ComponentUtils.getStringAttribute(component, Attributes.label);
-    //getHighestServerity(severity);
 
     if (!StringUtils.isEmpty(label)){
       final Locale locale = facesContext.getViewRoot().getLocale();
       final MessageFormat ariaLabelFormat = new MessageFormat(ResourceUtils.getString(facesContext, "message.ariaLabel"), locale);
-      ariaLabel = ariaLabelFormat.format(new Object[]{message});
+      ariaLabel = ariaLabelFormat.format(new Object[]{message, label});
     } else {
       final Locale locale = facesContext.getViewRoot().getLocale();
       final MessageFormat ariaLabelFormat = new MessageFormat(ResourceUtils.getString(facesContext, "message.ariaLabel.fallback"), locale);
-      ariaLabel = ariaLabelFormat.format(new Object[]{title});
+      ariaLabel = ariaLabelFormat.format(new Object[]{message});
     }
-    //BIS HIER
     final PopoverTriggers trigger = PopoverTriggers.parse("focus");
-
-    //HIER
     encodePopover(writer, buttonColor, Icons.EXCLAMATION_LG, title, message, trigger, tabIndex, ariaLabel);
-    //BIS HIER
   }
 
   private void encodeHelpPopover(
