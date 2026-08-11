@@ -764,6 +764,9 @@
 
               <!-- readme -->
               <inputExclude>**/README.md</inputExclude>
+
+              <!-- SDKMAN file to predefine Java version -->
+              <inputExclude>.sdkmanrc</inputExclude>
             </inputExcludes>
           </configuration>
         </plugin>
