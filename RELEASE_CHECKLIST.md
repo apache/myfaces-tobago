@@ -30,6 +30,7 @@ Checklist of tasks to perform for each release. For general information about Ap
   be copied to the Apache site.
 * Ensure that all open bugs and issues in [Jira](https://issues.apache.org/jira/browse/TOBAGO) have been either fixed or
   moved to another release version.
+* Ensure that the LICENSE and NOTICE files are up to date.
 * Ensure that all examples are working with the release candidate.
 * Since Tobago 5: Ensure that the script ./test-scenarios-locally.sh runs successfully.
 * Check the scheduled version number against "semantic versioning".
