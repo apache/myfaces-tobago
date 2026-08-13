@@ -42,4 +42,4 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Update Dependency-Check database
-        run: mvn -B dependency-check:update-only -f pom.xml
+        run: mvn -B dependency-check:update-only -DnvdApiKey=${{ secrets.NIST_NVD_API_KEY }} -f pom.xml
