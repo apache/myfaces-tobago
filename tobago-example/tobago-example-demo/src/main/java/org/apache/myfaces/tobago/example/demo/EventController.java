@@ -190,6 +190,7 @@ public class EventController implements Serializable {
   }
 
   public void selectComponent(final ActionEvent actionEvent) {
+    reset();
     final UIData data = ComponentUtils.findAncestor(actionEvent.getComponent(), UIData.class);
     selectedComponent = data != null ? ((EventsOnComponent) data.getRowData()) : null;
     eventName = actionEvent.getComponent().getAttributes().get("eventName").toString();
