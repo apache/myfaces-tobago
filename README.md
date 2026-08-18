@@ -20,10 +20,10 @@ cd tobago-example/tobago-example-demo
 
 Run with Java 8, JSF 2.0, CDI 1 and Jetty 9:
 ```
-mvn jetty:run
+mvn clean jetty:run
 ```
 
 Run with Java 11, JSF 2.3, CDI 2 and Jetty 10:
 ```
-mvn jetty:run -Djsf=myfaces-2.3
+mvn clean jetty:run -Djsf=myfaces-2.3
 ```
