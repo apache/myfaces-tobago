@@ -50,6 +50,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
+import javax.print.attribute.standard.Severity;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.List;
