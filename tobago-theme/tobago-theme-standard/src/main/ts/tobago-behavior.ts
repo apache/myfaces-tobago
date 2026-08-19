@@ -171,7 +171,7 @@ class Behavior extends HTMLElement {
     const page = Page.page(this);
     if (!page.submitActive) {
       page.submitActive = true;
-      const actionId = this.fieldId != null ? this.fieldId : this.clientId;
+      const actionId = this.clientId;
       const form = page.form;
       const oldTarget = form.getAttribute("target");
       const sourceHidden = document.getElementById("jakarta.faces.source") as HTMLInputElement;
