@@ -59,9 +59,6 @@ pipeline {
 
                 stages {
                     stage('BuildAndTest') {
-                        environment {
-                            NIST_NVD_API_KEY = credentials('NIST_NVD_API_KEY')
-                        }
                         steps {
                             sh "mvn clean package checkstyle:check apache-rat:check dependency-check:check -Pgenerate-assembly -Pfrontend -DnvdApiKeyEnvironmentVariable=NIST_NVD_API_KEY"
                         }
