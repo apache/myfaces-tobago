@@ -132,6 +132,9 @@ public class TobagoClientBehaviorRenderer extends jakarta.faces.render.ClientBeh
           transition = event.isTransition();
           target = event.getTarget();
           clientId = event.getClientId(facesContext);
+          if (uiComponent instanceof SupportFieldId) {
+            fieldId = ((SupportFieldId) uiComponent).getFieldId(facesContext);
+          }
           if (collapse == null) {
             collapse = createCollapsible(facesContext, event);
           }
