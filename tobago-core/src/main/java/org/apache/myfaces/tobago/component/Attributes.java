@@ -422,6 +422,7 @@ public enum Attributes {
   step,
   stopPropagation,
   style,
+  styleClass,
   switchType,
   tabChangeListener,
   tabChangeListenerExpression,

@@ -40,8 +40,17 @@ public interface IsVisual {
    * This feature should not be used imprudent.
    * Because it might be unstable against changes in the renderered HTML code.
    */
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.renderkit.css.CustomClass")
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.renderkit.css.CustomClass",
+      defaultCode =
+          "(org.apache.myfaces.tobago.renderkit.css.CustomClass) getStateHelper().eval(PropertyKeys.styleClass)")
   void setCustomClass(String customClass);
+
+  /**
+   * Set a CSS class on the component. This attribute is equivalent to <pre>&lt;tc:style customClass="..."/&gt;</pre>.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.renderkit.css.CustomClass")
+  void setStyleClass(String styleClass);
 
   /**
    * Indicate markup of this component.

@@ -68,6 +68,18 @@ public class OutRendererUnitTest extends RendererTestBase {
   }
 
   @Test
+  public void outLabelStyleClass() throws IOException {
+    final UIOut c = (UIOut) ComponentUtils.createComponent(
+        facesContext, Tags.out.componentType(), RendererTypes.Out, "id");
+    c.setValue("out");
+    c.setLabel("label");
+    c.setStyleClass(new CustomClass("custom-class"));
+    c.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/out/outLabelCustomClass.html"), formattedResult());
+  }
+
+  @Test
   public void outSanitizeAuto() throws IOException {
     final UIOut c = (UIOut) ComponentUtils.createComponent(
         facesContext, Tags.out.componentType(), RendererTypes.Out, "id");
