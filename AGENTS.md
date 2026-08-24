@@ -30,6 +30,12 @@ matching `*Renderer` class; for example, `TextareaRenderer` renders `UITextarea`
 When adding or changing a component, begin with its corresponding `*TagDeclaration` file and check the generated tag
 metadata, implementation, renderer, documentation, and examples or tests for related updates.
 
+Declare component-specific attributes and their behavior in the `*TagDeclaration` file or a shared declaration
+interface it extends (for example, `IsVisual`). Use the annotation metadata there to control the generated component
+code, including types, default values, and default code. Do not change `tobago-tool-apt` to implement behavior for a
+single component attribute; change that module only when the annotation-processing or code-generation mechanism itself
+must change for all applicable components. Add a renderer test when an attribute affects rendered output.
+
 ## Environment
 
 - Use JDK 21 or newer for builds. Maven is configured to compile with Java release 17, but the enforcer requires Java 21+.
