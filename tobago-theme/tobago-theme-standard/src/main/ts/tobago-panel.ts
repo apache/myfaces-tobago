@@ -15,7 +15,9 @@
  * limitations under the License.
  */
 
-class Panel extends HTMLElement {
+import {CollapsibleBase} from "./tobago-collapsible-base";
+
+class Panel extends CollapsibleBase {
 }
 
 document.addEventListener("tobago.init", function (event: Event): void {

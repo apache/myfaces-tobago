@@ -16,7 +16,18 @@
  */
 
 declare global {
-  const tobago: typeof faces;
+  const tobago: typeof faces & {
+    collapsible: {
+      /**
+       * Show a collapsible component.
+       */
+      show(elementOrId: Element | string): void;
+      /**
+       * Hide a collapsible component.
+       */
+      hide(elementOrId: Element | string): void;
+    };
+  };
 }
 
 export {};
