@@ -17,10 +17,9 @@
 
 import {Modal} from "bootstrap";
 import {BehaviorMode} from "./tobago-behavior-mode";
-import {Collapse} from "./tobago-collapse";
-import {EventListenerStore} from "./tobago-event-listener-store";
 import {FocusableElement, tabbable} from "tabbable";
 import {Key} from "./tobago-key";
+import {CollapsibleBase, CollapsibleEventDetail} from "./tobago-collapsible-base";
 
 const BootstrapPopupEvent = {
   HIDE: "hide.bs.modal",
@@ -30,8 +29,7 @@ const BootstrapPopupEvent = {
   SHOWN: "shown.bs.modal"
 };
 
-export class Popup extends HTMLElement {
-  private listeners: EventListenerStore = new EventListenerStore();
+export class Popup extends CollapsibleBase {
   modal: Modal;
 
   constructor() {
@@ -39,6 +37,7 @@ export class Popup extends HTMLElement {
   }
 
   connectedCallback(): void {
+    super.connectedCallback();
     this.modal = new Modal(this, {focus: false});
     this.listeners.add(this, "keydown", this.keydownEvent.bind(this));
     this.listeners.add(this, BootstrapPopupEvent.SHOWN, () => this.focus());
@@ -52,33 +51,45 @@ export class Popup extends HTMLElement {
     });
 
     if (!this.collapsed) {
-      this.clientBehaviorShow();
+      this.clientBehaviorShow(null);
     }
   }
 
   disconnectedCallback(): void {
-    this.clientBehaviorHide();
+    this.clientBehaviorHide(null);
+    super.disconnectedCallback();
     // dispose seems to make trouble here: Scrolling is out or order after this call.
     // this.modal.dispose();
-    this.listeners.disconnect();
   }
 
-  clientBehaviorShow(behaviorMode?: BehaviorMode): void { //this method must not named 'show' (TOBAGO-2148)
+  clientBehaviorShow(event: CustomEvent<CollapsibleEventDetail>): void {
+    const behaviorMode = event && event.detail ? event?.detail.behaviorMode : null;
     console.debug("show - behaviorMode:", behaviorMode);
+
+    this.collapsed = false;
+
     if (behaviorMode == null || behaviorMode == BehaviorMode.client) {
       this.modal.show();
     } else {
       // otherwise the update from server will show the popup
     }
+
+    this.fireEvent("shown", behaviorMode);
   }
 
-  clientBehaviorHide(behaviorMode?: BehaviorMode): void { //this method must not named 'hide' (TOBAGO-2148)
+  clientBehaviorHide(event: CustomEvent<CollapsibleEventDetail>): void {
+    const behaviorMode = event && event.detail ? event?.detail.behaviorMode : null;
     console.debug("hide - behaviorMode:", behaviorMode);
+
+    this.collapsed = true;
+
     if (behaviorMode == null || behaviorMode == BehaviorMode.client) {
       this.modal.hide();
     } else {
       // otherwise the update from server will hide the popup
     }
+
+    this.fireEvent("hidden", behaviorMode);
   }
 
   private keydownEvent(event: KeyboardEvent): void {
@@ -113,14 +124,6 @@ export class Popup extends HTMLElement {
 
   get bsKeyboard(): boolean {
     return this.dataset.bsKeyboard !== "false";
-  }
-
-  get collapsed(): boolean {
-    return JSON.parse(Collapse.findHidden(this).value);
-  }
-
-  set collapsed(collapsed: boolean) {
-    Collapse.findHidden(this).value = String(collapsed);
   }
 
   get connected(): boolean {

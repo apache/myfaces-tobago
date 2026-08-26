@@ -17,8 +17,7 @@
 
 import {Offcanvas as BootstrapOffcanvas} from "bootstrap";
 import {BehaviorMode} from "./tobago-behavior-mode";
-import {Collapse} from "./tobago-collapse";
-import {EventListenerStore} from "./tobago-event-listener-store";
+import {CollapsibleBase, CollapsibleEventDetail} from "./tobago-collapsible-base";
 
 const BootstrapOffcanvasEvent = {
   HIDE: "hide.bs.offcanvas",
@@ -28,8 +27,7 @@ const BootstrapOffcanvasEvent = {
   SHOWN: "shown.bs.offcanvas"
 };
 
-export class Offcanvas extends HTMLElement {
-  private listeners: EventListenerStore = new EventListenerStore();
+export class Offcanvas extends CollapsibleBase {
   private offcanvas: BootstrapOffcanvas;
 
   constructor() {
@@ -37,10 +35,11 @@ export class Offcanvas extends HTMLElement {
   }
 
   connectedCallback(): void {
+    super.connectedCallback();
     const options = {};
     this.offcanvas = new BootstrapOffcanvas(this, options);
     if (!this.collapsed) {
-      this.clientBehaviorShow();
+      this.clientBehaviorShow(null);
     }
 
     this.listeners.add(this, BootstrapOffcanvasEvent.HIDDEN, () => {
@@ -54,34 +53,38 @@ export class Offcanvas extends HTMLElement {
   }
 
   disconnectedCallback(): void {
-    this.clientBehaviorHide();
-    this.listeners.disconnect();
+    this.clientBehaviorHide(null);
+    super.disconnectedCallback();
   }
 
-  clientBehaviorShow(behaviorMode?: BehaviorMode): void { //this method must not named 'show' (TOBAGO-2148)
+  clientBehaviorShow(event: CustomEvent<CollapsibleEventDetail>): void {
+    const behaviorMode = event && event.detail ? event?.detail.behaviorMode : null;
     console.debug("show - behaviorMode:", behaviorMode);
+
+    this.collapsed = false;
+
     if (behaviorMode == null || behaviorMode == BehaviorMode.client) {
       this.offcanvas.show();
     } else {
       // otherwise the update from server will show the offcanvas
     }
+
+    this.fireEvent("shown", behaviorMode);
   }
 
-  clientBehaviorHide(behaviorMode?: BehaviorMode): void { //this method must not named 'hide' (TOBAGO-2148)
+  clientBehaviorHide(event: CustomEvent<CollapsibleEventDetail>): void {
+    const behaviorMode = event && event.detail ? event?.detail.behaviorMode : null;
     console.debug("hide - behaviorMode:", behaviorMode);
+
+    this.collapsed = true;
+
     if (behaviorMode == null || behaviorMode == BehaviorMode.client) {
       this.offcanvas.hide();
     } else {
       // otherwise the update from server will hide the offcanvas
     }
-  }
 
-  get collapsed(): boolean {
-    return JSON.parse(Collapse.findHidden(this).value);
-  }
-
-  set collapsed(collapsed: boolean) {
-    Collapse.findHidden(this).value = String(collapsed);
+    this.fireEvent("hidden", behaviorMode);
   }
 
   get connected(): boolean {

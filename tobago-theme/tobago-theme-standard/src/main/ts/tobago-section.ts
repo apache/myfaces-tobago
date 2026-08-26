@@ -15,9 +15,13 @@
  * limitations under the License.
  */
 
-export enum BehaviorMode {
-  none = "none",
-  client = "client",
-  ajax = "ajax",
-  full = "full"
+import {CollapsibleBase} from "./tobago-collapsible-base";
+
+class Section extends CollapsibleBase {
 }
+
+document.addEventListener("tobago.init", function (event: Event): void {
+  if (window.customElements.get("tobago-section") == null) {
+    window.customElements.define("tobago-section", Section);
+  }
+});
