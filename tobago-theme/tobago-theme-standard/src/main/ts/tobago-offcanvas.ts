@@ -63,7 +63,7 @@ export class Offcanvas extends HTMLElement {
     if (behaviorMode == null || behaviorMode == BehaviorMode.client) {
       this.offcanvas.show();
     } else {
-      // otherwise the update from server will show the popup
+      // otherwise the update from server will show the offcanvas
     }
   }
 
@@ -72,7 +72,7 @@ export class Offcanvas extends HTMLElement {
     if (behaviorMode == null || behaviorMode == BehaviorMode.client) {
       this.offcanvas.hide();
     } else {
-      // otherwise the update from server will hide the popup
+      // otherwise the update from server will hide the offcanvas
     }
   }
 
