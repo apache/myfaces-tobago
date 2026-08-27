@@ -22,6 +22,7 @@ formal ordering rules:
 
 // custom elements
 import "./tobago-ajax-queue";
+import "./tobago-api";
 import "./tobago-bar";
 import "./tobago-date";
 import "./tobago-dropdown";
