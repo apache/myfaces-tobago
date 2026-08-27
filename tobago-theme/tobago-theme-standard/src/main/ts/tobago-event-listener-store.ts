@@ -29,6 +29,9 @@ export class EventListenerStore {
     this.listeners.push({element, type, listener});
   }
 
+  /**
+   * Call this in disconnectedCallback();
+   */
   disconnect(): void {
     this.listeners.forEach((value) => {
       value.element.removeEventListener(value.type, value.listener);
