@@ -68,15 +68,3 @@ class AjaxQueue {
 }
 
 export const ajaxQueue = new AjaxQueue();
-
-/**
- * To use the Ajax queue from Tobago, replace "faces.ajax.request(...)" with "tobago.ajax.request(...)".
- * "tobago.ajax.request(...)" calls "faces.ajax.request(...)", so "faces.ajax.addOnEvent()" and "faces.ajax.addOnError"
- * still work.
- */
-(window as any).tobago = {
-  ajax: {
-    request: (elementOrId: Element | string, event?: Event, options?: faces.ajax.RequestOptions) =>
-        ajaxQueue.request(elementOrId, event, options)
-  }
-};
