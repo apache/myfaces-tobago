@@ -21,24 +21,25 @@ import {ajaxQueue} from "./tobago-ajax-queue";
 import {BehaviorMode} from "./tobago-behavior-mode";
 import {CollapsibleBase} from "./tobago-collapsible-base";
 
-(window as any).tobago = {
-  /**
-   * To use the Ajax queue from Tobago, replace "faces.ajax.request(...)" with "tobago.ajax.request(...)".
-   * "tobago.ajax.request(...)" calls "faces.ajax.request(...)", so "faces.ajax.addOnEvent()" and
-   * "faces.ajax.addOnError" still work.
-   */
+declare global {
+  interface Window {
+    tobago: Tobago;
+  }
+}
+
+window.tobago = {
   ajax: {
     request: (elementOrId: Element | string, event?: Event, options?: faces.ajax.RequestOptions) =>
         ajaxQueue.request(elementOrId, event, options)
   },
   collapsible: {
-    show: (elementOrId: Element | string) => {
+    show: (elementOrId: Element | string): void => {
       const element: CollapsibleBase = elementOrId instanceof Element
           ? elementOrId as CollapsibleBase
           : document.getElementById(elementOrId) as CollapsibleBase;
       element.fireEvent("show", BehaviorMode.client);
     },
-    hide: (elementOrId: Element | string,) => {
+    hide: (elementOrId: Element | string,): void => {
       const element: CollapsibleBase = elementOrId instanceof Element
           ? elementOrId as CollapsibleBase
           : document.getElementById(elementOrId) as CollapsibleBase;
