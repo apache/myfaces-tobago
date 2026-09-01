@@ -17,72 +17,61 @@
  * under the License.
  */
 
-import {EventListenerStore} from "./tobago-event-listener-store";
-import {BehaviorMode} from "./tobago-behavior-mode";
 import {Css} from "./tobago-css";
-import {CollapseOperation} from "./tobago-collapse-operation";
-
-export interface CollapsibleEventDetail {
-  behaviorMode: BehaviorMode;
-}
 
 export abstract class CollapsibleBase extends HTMLElement {
-  protected listeners: EventListenerStore = new EventListenerStore();
 
-  connectedCallback(): void {
-    this.listeners.add(this, this.showEventName, (event: CustomEvent<CollapsibleEventDetail>) => {
-      if (event.target === this) {
-        this.clientBehaviorShow(event);
-      }
-    });
-    this.listeners.add(this, this.hideEventName, (event: CustomEvent<CollapsibleEventDetail>) => {
-      if (event.target === this) {
-        this.clientBehaviorHide(event);
-      }
-    });
-  }
-
-  disconnectedCallback(): void {
-    this.listeners.disconnect();
-  }
-
-  //this method must not be named 'show' (TOBAGO-2148)
-  protected clientBehaviorShow(event: CustomEvent<CollapsibleEventDetail>): void {
-    this.classList.remove(Css.TOBAGO_COLLAPSED);
-    this.collapsed = false;
-    this.fireEvent("shown", event.detail.behaviorMode);
-  }
-
-  //this method must not be named 'hide' (TOBAGO-2148)
-  protected clientBehaviorHide(event: CustomEvent<CollapsibleEventDetail>): void {
-    this.classList.add(Css.TOBAGO_COLLAPSED);
-    this.collapsed = true;
-    this.fireEvent("hidden", event.detail.behaviorMode);
-  }
-
-  executeCollapseOperation(collapseOperation: CollapseOperation, mode: BehaviorMode): void {
-    if (CollapseOperation.show === collapseOperation
-        || (CollapseOperation.toggle === collapseOperation && this.collapsed)) {
-      this.fireEvent("show", mode);
-    } else if (CollapseOperation.hide === collapseOperation
-        || (CollapseOperation.toggle === collapseOperation && !this.collapsed)) {
-      this.fireEvent("hide", mode);
+  /**
+   * Toggle the expand/collapse state of the component.
+   * @param clientSideAnimation enabled animated collapsing in the browser (optional - default is true).
+   */
+  public toggle(clientSideAnimation: boolean = true): void {
+    if (this.collapsed) {
+      this.expand(clientSideAnimation);
+    } else {
+      this.collapse(clientSideAnimation);
     }
   }
 
-  fireEvent(eventName: string, behaviorMode: BehaviorMode) {
-    const fullEventName = this.getFullEventName(eventName);
-
-    this.dispatchEvent(new CustomEvent<CollapsibleEventDetail>(fullEventName, {
-      bubbles: true,
-      detail: {
-        behaviorMode: behaviorMode
+  /**
+   * Expand (show) the component.
+   * @param clientSideAnimation enabled animated collapsing in the browser (optional - default is true).
+   */
+  public expand(clientSideAnimation: boolean = true): void { //this method must not be named 'show' (TOBAGO-2148)
+    if (this.fireEvent("show", true)) {
+      this.collapsed = false;
+      if (clientSideAnimation) {
+        this.clientSideExpandAnimation();
       }
-    }));
+      this.fireEvent("shown", false);
+    }
   }
 
-  private getFullEventName(eventName: string): string {
-    return "tobago." + this.tagName.substring(7).toLowerCase() + "." + eventName;
+  protected clientSideExpandAnimation(): void {
+    this.classList.remove(Css.TOBAGO_COLLAPSED);
+  }
+
+  /**
+   * Collapse (hide) the component.
+   * @param clientSideAnimation enabled animated collapsing in the browser (optional - default is true).
+   */
+  public collapse(clientSideAnimation: boolean = true): void { //this method must not be named 'hide' (TOBAGO-2148)
+    if (this.fireEvent("hide", true)) {
+      this.collapsed = true;
+      if (clientSideAnimation) {
+        this.clientSideCollapseAnimation();
+      }
+      this.fireEvent("hidden", false);
+    }
+  }
+
+  protected clientSideCollapseAnimation(): void {
+    this.classList.add(Css.TOBAGO_COLLAPSED);
+  }
+
+  private fireEvent(eventName: string, cancelable: boolean): boolean {
+    const fullEventName = "tobago." + this.tagName.substring(7).toLowerCase() + "." + eventName;
+    return this.dispatchEvent(new CustomEvent(fullEventName, {bubbles: true, cancelable: cancelable}));
   }
 
   get collapsed(): boolean {
@@ -95,13 +84,5 @@ export abstract class CollapsibleBase extends HTMLElement {
 
   get collapseField(): HTMLInputElement {
     return this.querySelector("input[id$='::collapse']");
-  }
-
-  get showEventName(): string {
-    return this.getFullEventName("show");
-  }
-
-  get hideEventName(): string {
-    return this.getFullEventName("hide");
   }
 }

@@ -40,25 +40,6 @@ declare global {
           options?: faces.ajax.RequestOptions
       ): void;
     };
-    /**
-     * Handle the collapse state for collapsible components, such as tc:box, tc:panel, tc:popup, tc:offcanvas, tc:section.
-     */
-    collapsible: {
-      /**
-       * Show (expand) a collapsible component.
-       *
-       * @param {Element|string} elementOrId The root element of a collapsible component (e.g., tobago-popup for tc:popup) or its ID.
-       * @throws {TypeError} Throws an error if the element is not found or is not valid.
-       */
-      show(elementOrId: Element | string): void;
-      /**
-       * Hide (collapse) a collapsible component.
-       *
-       * @param {Element|string} elementOrId The root element of a collapsible component (e.g., tobago-popup for tc:popup) or its ID.
-       * @throws {TypeError} Throws an error if the element is not found or is not valid.
-       */
-      hide(elementOrId: Element | string): void;
-    };
   }
 
   const tobago: Tobago;

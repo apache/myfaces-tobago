@@ -96,7 +96,18 @@ class Behavior extends HTMLElement {
 
     if (this.collapseOperation && this.collapseTarget) {
       const collapseTarget: CollapsibleBase = document.getElementById(this.collapseTarget) as CollapsibleBase;
-      collapseTarget.executeCollapseOperation(this.collapseOperation, this.mode);
+      const clientSideAnimation: boolean = this.mode === BehaviorMode.client;
+      switch (this.collapseOperation) {
+        case CollapseOperation.show:
+          collapseTarget.expand(clientSideAnimation);
+          break;
+        case CollapseOperation.hide:
+          collapseTarget.collapse(clientSideAnimation);
+          break;
+        case CollapseOperation.toggle:
+          collapseTarget.toggle(clientSideAnimation);
+          break;
+      }
     }
 
     switch (this.mode) {
