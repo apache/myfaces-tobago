@@ -18,8 +18,6 @@
  */
 
 import {ajaxQueue} from "./tobago-ajax-queue";
-import {BehaviorMode} from "./tobago-behavior-mode";
-import {CollapsibleBase} from "./tobago-collapsible-base";
 
 declare global {
   interface Window {
@@ -31,19 +29,5 @@ window.tobago = {
   ajax: {
     request: (elementOrId: Element | string, event?: Event, options?: faces.ajax.RequestOptions) =>
         ajaxQueue.request(elementOrId, event, options)
-  },
-  collapsible: {
-    show: (elementOrId: Element | string): void => {
-      const element: CollapsibleBase = elementOrId instanceof Element
-          ? elementOrId as CollapsibleBase
-          : document.getElementById(elementOrId) as CollapsibleBase;
-      element.fireEvent("show", BehaviorMode.client);
-    },
-    hide: (elementOrId: Element | string,): void => {
-      const element: CollapsibleBase = elementOrId instanceof Element
-          ? elementOrId as CollapsibleBase
-          : document.getElementById(elementOrId) as CollapsibleBase;
-      element.fireEvent("hide", BehaviorMode.client);
-    }
   }
 };

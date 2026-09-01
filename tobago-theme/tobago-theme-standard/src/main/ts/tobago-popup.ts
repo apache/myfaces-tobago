@@ -16,10 +16,10 @@
  */
 
 import {Modal} from "bootstrap";
-import {BehaviorMode} from "./tobago-behavior-mode";
 import {FocusableElement, tabbable} from "tabbable";
 import {Key} from "./tobago-key";
-import {CollapsibleBase, CollapsibleEventDetail} from "./tobago-collapsible-base";
+import {CollapsibleBase} from "./tobago-collapsible-base";
+import {EventListenerStore} from "./tobago-event-listener-store";
 
 const BootstrapPopupEvent = {
   HIDE: "hide.bs.modal",
@@ -30,14 +30,14 @@ const BootstrapPopupEvent = {
 };
 
 export class Popup extends CollapsibleBase {
-  modal: Modal;
+  private listeners: EventListenerStore = new EventListenerStore();
+  private modal: Modal;
 
   constructor() {
     super();
   }
 
   connectedCallback(): void {
-    super.connectedCallback();
     this.modal = new Modal(this, {focus: false});
     this.listeners.add(this, "keydown", this.keydownEvent.bind(this));
     this.listeners.add(this, BootstrapPopupEvent.SHOWN, () => this.focus());
@@ -51,45 +51,23 @@ export class Popup extends CollapsibleBase {
     });
 
     if (!this.collapsed) {
-      this.clientBehaviorShow(null);
+      this.modal.show();
     }
   }
 
   disconnectedCallback(): void {
-    this.clientBehaviorHide(null);
-    super.disconnectedCallback();
+    this.modal.hide();
     // dispose seems to make trouble here: Scrolling is out or order after this call.
     // this.modal.dispose();
+    this.listeners.disconnect();
   }
 
-  clientBehaviorShow(event: CustomEvent<CollapsibleEventDetail>): void {
-    const behaviorMode = event && event.detail ? event?.detail.behaviorMode : null;
-    console.debug("show - behaviorMode:", behaviorMode);
-
-    this.collapsed = false;
-
-    if (behaviorMode == null || behaviorMode == BehaviorMode.client) {
-      this.modal.show();
-    } else {
-      // otherwise the update from server will show the popup
-    }
-
-    this.fireEvent("shown", behaviorMode);
+  protected clientSideExpandAnimation(): void {
+    this.modal.show();
   }
 
-  clientBehaviorHide(event: CustomEvent<CollapsibleEventDetail>): void {
-    const behaviorMode = event && event.detail ? event?.detail.behaviorMode : null;
-    console.debug("hide - behaviorMode:", behaviorMode);
-
-    this.collapsed = true;
-
-    if (behaviorMode == null || behaviorMode == BehaviorMode.client) {
-      this.modal.hide();
-    } else {
-      // otherwise the update from server will hide the popup
-    }
-
-    this.fireEvent("hidden", behaviorMode);
+  protected clientSideCollapseAnimation(): void {
+    this.modal.hide();
   }
 
   private keydownEvent(event: KeyboardEvent): void {

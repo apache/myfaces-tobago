@@ -99,8 +99,11 @@
   </tc:section>
 
   <tc:section label="JavaScript API">
-    <p>Use <code class="language-js">tobago.collapsible.show()</code> or
-      <code class="language-js">tobago.collapsible.hide()</code> to change the state of a collapsible component on the
-      client. Pass the client ID or the DOM element of the component.</p>
+    <p>All collapsible tobago-* custom elements (<code>tobago-box</code>, <code>tobago-offcanvas</code>,
+      <code>tobago-panel</code>, <code>tobago-popup</code> and <code>tobago-section</code>) provide
+      <code class="language-js">expand()</code> and <code class="language-js">collapse()</code> methods for changing
+      their collapsed state on the client.</p>
+    <p>For example, show a popup with
+      <code class="language-js">document.querySelector("tobago-popup").expand();</code></p>
   </tc:section>
 </ui:composition>
