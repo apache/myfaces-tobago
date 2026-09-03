@@ -81,7 +81,7 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final Integer tabIndex = component instanceof AbstractUIInput ? ((AbstractUIInput) component).getTabIndex() : null;
     final SupportsDecorationPosition supportsDecorationPosition = component instanceof SupportsDecorationPosition
-        ? ((SupportsDecorationPosition) component) : null;
+        ? (SupportsDecorationPosition) component : null;
 
     final DecorationPosition helpPosition = supportsDecorationPosition != null
         ? supportsDecorationPosition.getHelpPosition() : DecorationPosition.none;
@@ -139,7 +139,7 @@ public abstract class DecorationPositionRendererBase<T extends UIComponent & Sup
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
     final Integer tabIndex = component instanceof AbstractUIInput ? ((AbstractUIInput) component).getTabIndex() : null;
     final SupportsDecorationPosition supportsDecorationPosition = component instanceof SupportsDecorationPosition
-        ? ((SupportsDecorationPosition) component) : null;
+        ? (SupportsDecorationPosition) component : null;
 
     encodeEndField(facesContext, component);
 

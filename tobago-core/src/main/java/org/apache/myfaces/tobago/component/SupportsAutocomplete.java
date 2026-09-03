@@ -28,7 +28,7 @@ public interface SupportsAutocomplete {
     if (object == null) {
       return null;
     } else if (object instanceof Boolean) {
-      return ((Boolean) object) ? "on" : "off";
+      return (Boolean) object ? "on" : "off";
     } else if (object instanceof String) {
       final String string = (String) object;
       if (string.equals("true")) {
