@@ -594,7 +594,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> im
       }
 
       final Object rowRendered = sheet.getAttributes().get("rowRendered");
-      if (rowRendered instanceof Boolean && !((Boolean) rowRendered)) {
+      if (rowRendered instanceof Boolean && !(Boolean) rowRendered) {
         continue;
       }
 
