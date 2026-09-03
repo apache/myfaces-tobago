@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+  <tc:script file="javascript-api.js"/>
+
+  <tc:section label="expand/collapse on collapsible components">
+    <tc:button id="expandBoxPanelSection" label="Expand box, panel, section" omit="true"/>
+    <tc:button id="collapseBoxPanelSection" label="Collapse box, panel, section" omit="true"/>
+
+    <tc:box id="collapsibleBox" label="Box" collapsedMode="hidden">
+      <tc:out id="collapsibleBoxContent" value="Content"/>
+    </tc:box>
+    <tc:panel id="collapsiblePanel" collapsedMode="hidden">
+      <tc:out id="collapsiblePanelContent" value="Content"/>
+    </tc:panel>
+    <tc:section id="collapsibleSection" label="Section" collapsedMode="hidden">
+      <tc:out id="collapsibleSectionContent" value="Content"/>
+    </tc:section>
+
+    <tc:button id="expandPopup" label="open popup via JavaScript API" omit="true"/>
+    <tc:button id="expandOffcanvas" label="open offcanvas via JavaScript API" omit="true"/>
+
+    <tc:popup id="popup" collapsedMode="hidden">
+      <tc:out id="popupContent" value="Content"/>
+      <tc:button id="collapsePopup" label="close popup via JavaScript API" omit="true"/>
+    </tc:popup>
+    <tc:offcanvas id="offcanvas" collapsedMode="hidden">
+      <tc:out id="offcanvasContent" value="Content"/>
+      <tc:button id="collapseOffcanvas" label="close offcanvas via JavaScript API" omit="true"/>
+    </tc:offcanvas>
+  </tc:section>
+</ui:composition>
