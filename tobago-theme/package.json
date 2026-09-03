@@ -75,16 +75,16 @@
     "@types/bootstrap": "^5.2.11",
     "@types/jest": "^30.0.0",
     "esbuild": "^0.28.2",
-    "eslint": "^10.8.1",
-    "jest": "^30.4.2",
-    "jest-environment-jsdom": "^30.4.1",
+    "eslint": "^10.9.1",
+    "jest": "^30.5.1",
+    "jest-environment-jsdom": "^30.5.1",
     "lightningcss-cli": "^1.33.0",
     "ncp": "^2.0.0",
     "npm-run-all": "^4.1.5",
-    "sass": "^1.102.0",
+    "sass": "^1.103.1",
     "ts-jest": "^29.4.12",
     "tslib": "^2.8.1",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.67.0"
+    "typescript-eslint": "^8.69.0"
   }
 }
