@@ -40,9 +40,9 @@ jobs:
       - name: Cache Maven packages
         uses: actions/cache@v6
         with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-m2-repository-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: ${{ runner.os }}-m2-repository-
       - name: Build with Maven
 #         -DossindexAnalyzerEnabled=false to ignore Sonatype OSS (when it is out of order)
         run: |
