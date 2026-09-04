@@ -640,7 +640,7 @@ public class SheetRenderer extends RendererBase {
       }
 
       final Object rowRendered = sheet.getAttributes().get("rowRendered");
-      if (rowRendered instanceof Boolean && !((Boolean) rowRendered)) {
+      if (rowRendered instanceof Boolean && !(Boolean) rowRendered) {
         continue;
       }
 
