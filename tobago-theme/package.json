@@ -75,7 +75,7 @@
     "@types/bootstrap": "^5.2.11",
     "@types/jest": "^30.0.0",
     "esbuild": "^0.28.2",
-    "eslint": "^10.9.1",
+    "eslint": "^10.10.0",
     "jest": "^30.5.1",
     "jest-environment-jsdom": "^30.5.1",
     "lightningcss-cli": "^1.33.0",
