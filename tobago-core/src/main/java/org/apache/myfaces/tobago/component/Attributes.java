@@ -353,6 +353,7 @@ public enum Attributes {
   rowSpan,
   rowSpacing,
   rows,
+  sandbox,
   sanitize,
   scriptFiles,
   scrollbarHeight,
