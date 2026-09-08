@@ -19,16 +19,19 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import jakarta.faces.component.behavior.AjaxBehavior;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.component.UIOut;
+import org.apache.myfaces.tobago.component.UIStyle;
+import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.Position;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import jakarta.faces.component.behavior.AjaxBehavior;
 import java.io.IOException;
 import java.util.Collections;
 
@@ -256,5 +259,29 @@ public class ButtonRendererUnitTest extends RendererTestBase {
     b.encodeAll(facesContext);
 
     Assertions.assertEquals(loadHtml("renderer/button/panel-facet.html"), formattedResult());
+  }
+
+  @Test
+  public void panelFacetAndTcStyle() throws IOException {
+    final UIButton b = (UIButton) ComponentUtils.createComponent(
+        facesContext, Tags.button.componentType(), RendererTypes.Button, "id");
+    b.setLabel("Panel-Facet");
+    b.setOmit(true);
+
+    final UIStyle style = (UIStyle) ComponentUtils.createComponent(
+        facesContext, Tags.style.componentType(), RendererTypes.Style, "style");
+    style.setPosition(Position.fixed);
+    style.setLeft(Measure.valueOf("60", Measure.Unit.PX));
+    b.getChildren().add(style);
+
+    final UIOut o = (UIOut) ComponentUtils.createComponent(
+        facesContext, Tags.out.componentType(), RendererTypes.Out, "out");
+    o.setValue("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut"
+        + " labore et dolore magna aliquyam erat, sed diam voluptua.");
+    b.getFacets().put("panel", o);
+
+    b.encodeAll(facesContext);
+
+    Assertions.assertEquals(loadHtml("renderer/button/panel-facet_tc-style.html"), formattedResult());
   }
 }
