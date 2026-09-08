@@ -154,6 +154,10 @@ export class DropdownMenu {
   private updatePosition(): void {
     const refElementRect = this.referenceElement.getBoundingClientRect();
 
+    /* After updating the position, max-height is set as an inline-style. Make sure no CSS class set max-height for this
+       calculation. see: TOBAGO-2541 */
+    this.dropdownMenuElement.style.maxHeight = "initial";
+
     //calc horizontal positioning and max-width
     switch (this.alignment) {
       case DropdownMenuAlignment.start:
@@ -245,7 +249,8 @@ export class DropdownMenu {
 
   private get dropdownContentFit(): boolean {
     const element = this.dropdownMenuElement;
-    return element.scrollWidth <= element.clientWidth && element.offsetWidth <= parseFloat(element.style.maxWidth);
+    return element.scrollWidth <= element.clientWidth
+        && element.getBoundingClientRect().width <= parseFloat(element.style.maxWidth);
   }
 
   private get fixedFooter(): HTMLElement {
