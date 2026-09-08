@@ -19,14 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
-import jakarta.faces.FacesException;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIParameter;
-import jakarta.faces.component.visit.VisitCallback;
-import jakarta.faces.component.visit.VisitContext;
-import jakarta.faces.component.visit.VisitResult;
-import jakarta.faces.context.FacesContext;
-
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.Visual;
@@ -58,6 +50,13 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import jakarta.faces.FacesException;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIParameter;
+import jakarta.faces.component.visit.VisitCallback;
+import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitResult;
+import jakarta.faces.context.FacesContext;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
@@ -212,6 +211,12 @@ public abstract class CommandRendererBase<T extends AbstractUICommand> extends D
       writer.endElement(HtmlElements.DIV);
 
       writer.endElement(HtmlElements.DIV);
+
+      for (UIComponent child : component.getChildren()) {
+        if (child instanceof AbstractUIStyle) {
+          child.encodeAll(facesContext);
+        }
+      }
     } else if (parentOfCommands) {
 
       writer.startElement(HtmlElements.DIV);
