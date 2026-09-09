@@ -22,20 +22,19 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="jakarta.faces.facelets">
 
-  <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
-           link="#{apiController.tobagoTld}/tc/config.html"/>
-
-  <tc:section label="Configuration of application and page behavior">
+  <p>Configuration of application and page behavior.</p>
+  <p><tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
+           link="#{apiController.tobagoTld}/tc/config.html"/></p>
 
     <tc:section label="Application based">
-      Application based configurations can be defined in
+      <p>Application based configurations can be defined in
       <code>/WEB-INF/tobago-config.xml</code> in a web-application or in
-      <code>/META-INF/tobago-config.xml</code> in jar libraries.
+        <code>/META-INF/tobago-config.xml</code> in jar libraries.</p>
     </tc:section>
 
     <tc:section label="Page based">
-      Page based configurations, which are used in the browser
-      can be defined with the <code>&lt;tc:config&gt;</code>
+      <p>Page based configurations, which are used in the browser
+        can be defined with the <code>&lt;tc:config&gt;</code></p>
       <tc:section label="Focus on error">
         <p>
           The default behavior in case of re-rendering a page, because of
@@ -62,7 +61,5 @@
         </p>
       </tc:section>
     </tc:section>
-
-  </tc:section>
 
 </ui:composition>
