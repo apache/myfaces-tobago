@@ -25,17 +25,24 @@ test.describe("900-test/event/Event.xhtml", () => {
     await page.goto("/content/900-test/event/Event.xhtml");
   });
 
-  test("tc:button", async ({page}) => {
-    const eventComponent = page.locator("[id='page:mainForm:buttonevent']");
-    const ajaxComponent = page.locator("[id='page:mainForm:buttonajax']");
-
-    await runStep(page, "button", "click", eventComponent, ajaxComponent, false,
+  test("tc:button - click", async ({page}) => {
+    await runStep(page, "button", "click", false,
+        page.locator("[id='page:mainForm:buttonevent']"), page.locator("[id='page:mainForm:buttonajax']"),
         async (component: Locator) => await component.click());
-    await runStep(page, "button", "dblclick", eventComponent, ajaxComponent, false,
+  });
+  test("tc:button - dblclick", async ({page}) => {
+    await runStep(page, "button", "dblclick", false,
+        page.locator("[id='page:mainForm:buttonevent']"), page.locator("[id='page:mainForm:buttonajax']"),
         async (component: Locator) => await component.dblclick());
-    await runStep(page, "button", "focus", eventComponent, ajaxComponent, false,
+  });
+  test("tc:button - focus", async ({page}) => {
+    await runStep(page, "button", "focus", false,
+        page.locator("[id='page:mainForm:buttonevent']"), page.locator("[id='page:mainForm:buttonajax']"),
         async (component: Locator) => await component.focus());
-    await runStep(page, "button", "blur", eventComponent, ajaxComponent, false,
+  });
+  test("tc:button - blur", async ({page}) => {
+    await runStep(page, "button", "blur", false,
+        page.locator("[id='page:mainForm:buttonevent']"), page.locator("[id='page:mainForm:buttonajax']"),
         async (component: Locator) => {
           const testBoxHeader = component.page().locator("[id='page:mainForm:compTestBox'] .tobago-box-header").first();
           await component.focus();
@@ -45,61 +52,79 @@ test.describe("900-test/event/Event.xhtml", () => {
         });
   });
 
-  test("tc:in", async ({page}) => {
-    const eventComponent = page.locator("[id='page:mainForm:inevent::field']");
-    const ajaxComponent = page.locator("[id='page:mainForm:inajax::field']");
-
-    await runStep(page, "in", "change", eventComponent, ajaxComponent, true,
+  test("tc:in - change", async ({page}) => {
+    await runStep(page, "in", "change", true,
+        page.locator("[id='page:mainForm:inevent::field']"), page.locator("[id='page:mainForm:inajax::field']"),
         async (component: Locator) => {
           await component.fill("Alice");
           await component.blur();
         });
-    await runStep(page, "in", "click", eventComponent, ajaxComponent, true,
+  });
+  test("tc:in - click", async ({page}) => {
+    await runStep(page, "in", "click", true,
+        page.locator("[id='page:mainForm:inevent::field']"), page.locator("[id='page:mainForm:inajax::field']"),
         async (component: Locator) => {
           await component.fill("Bob");
           await component.click();
         });
-    await runStep(page, "in", "dblclick", eventComponent, ajaxComponent, true,
+  });
+  test("tc:in - dblclick", async ({page}) => {
+    await runStep(page, "in", "dblclick", true,
+        page.locator("[id='page:mainForm:inevent::field']"), page.locator("[id='page:mainForm:inajax::field']"),
         async (component: Locator) => {
           await component.fill("Charlie");
           await component.dblclick();
         });
-    await runStep(page, "in", "focus", eventComponent, ajaxComponent, true,
+  });
+  test("tc:in - focus", async ({page}) => {
+    await runStep(page, "in", "focus", true,
+        page.locator("[id='page:mainForm:inevent::field']"), page.locator("[id='page:mainForm:inajax::field']"),
         async (component: Locator) => {
           await component.evaluate((element) => (element as HTMLInputElement).value = "David");
           await component.focus();
         });
-    await runStep(page, "in", "blur", eventComponent, ajaxComponent, true,
+  });
+  test("tc:in - blur", async ({page}) => {
+    await runStep(page, "in", "blur", true,
+        page.locator("[id='page:mainForm:inevent::field']"), page.locator("[id='page:mainForm:inajax::field']"),
         async (component: Locator) => {
           await component.fill("Eve");
           await component.blur();
         });
   });
 
-  test("tc:row", async ({page}) => {
-    const eventComponent = page.locator("[id='page:mainForm:sheetevent:0:selectPlanet']");
-    const ajaxComponent = page.locator("[id='page:mainForm:sheetajax:0:selectPlanet']");
-
-    await runStep(page, "row", "click", eventComponent, ajaxComponent, false,
+  test("tc:row - click", async ({page}) => {
+    await runStep(page, "row", "click", false,
+        page.locator("[id='page:mainForm:sheetevent:0:selectPlanet']"), page.locator("[id='page:mainForm:sheetajax:0:selectPlanet']"),
         async (component: Locator) => await component.click());
-    await runStep(page, "row", "dblclick", eventComponent, ajaxComponent, false,
+  });
+  test("tc:row - dblclick", async ({page}) => {
+    await runStep(page, "row", "dblclick", false,
+        page.locator("[id='page:mainForm:sheetevent:0:selectPlanet']"), page.locator("[id='page:mainForm:sheetajax:0:selectPlanet']"),
         async (component: Locator) => await component.dblclick());
   });
 
-  test("tc:selectBooleanCheckbox", async ({page}) => {
-    const eventComponent = page.locator("[id='page:mainForm:selectBooleanCheckboxevent::field']");
-    const ajaxComponent = page.locator("[id='page:mainForm:selectBooleanCheckboxajax::field']");
-
-    await runStep(page, "selectBooleanCheckbox", "change", eventComponent, ajaxComponent, true,
+  test("tc:selectBooleanCheckbox - change", async ({page}) => {
+    await runStep(page, "selectBooleanCheckbox", "change", true,
+        page.locator("[id='page:mainForm:selectBooleanCheckboxevent::field']"), page.locator("[id='page:mainForm:selectBooleanCheckboxajax::field']"),
         async (component: Locator) => await component.click());
-    await runStep(page, "selectBooleanCheckbox", "click", eventComponent, ajaxComponent, true,
+  });
+  test("tc:selectBooleanCheckbox - click", async ({page}) => {
+    await runStep(page, "selectBooleanCheckbox", "click", true,
+        page.locator("[id='page:mainForm:selectBooleanCheckboxevent::field']"), page.locator("[id='page:mainForm:selectBooleanCheckboxajax::field']"),
         async (component: Locator) => await component.click());
-    await runStep(page, "selectBooleanCheckbox", "dblclick", eventComponent, ajaxComponent, true,
+  });
+  test("tc:selectBooleanCheckbox - dblclick", async ({page}) => {
+    await runStep(page, "selectBooleanCheckbox", "dblclick", true,
+        page.locator("[id='page:mainForm:selectBooleanCheckboxevent::field']"), page.locator("[id='page:mainForm:selectBooleanCheckboxajax::field']"),
         async (component: Locator) => {
           await component.click();
           await component.dblclick();
         });
-    await runStep(page, "selectBooleanCheckbox", "focus", eventComponent, ajaxComponent, true,
+  });
+  test("tc:selectBooleanCheckbox - focus", async ({page}) => {
+    await runStep(page, "selectBooleanCheckbox", "focus", true,
+        page.locator("[id='page:mainForm:selectBooleanCheckboxevent::field']"), page.locator("[id='page:mainForm:selectBooleanCheckboxajax::field']"),
         async (component: Locator) => {
           const oldCheckboxValue: boolean = await component.isChecked();
           const newCheckboxValue: boolean = !oldCheckboxValue;
@@ -113,7 +138,10 @@ test.describe("900-test/event/Event.xhtml", () => {
           }
           await component.focus();
         });
-    await runStep(page, "selectBooleanCheckbox", "blur", eventComponent, ajaxComponent, true,
+  });
+  test("tc:selectBooleanCheckbox - blur", async ({page}) => {
+    await runStep(page, "selectBooleanCheckbox", "blur", true,
+        page.locator("[id='page:mainForm:selectBooleanCheckboxevent::field']"), page.locator("[id='page:mainForm:selectBooleanCheckboxajax::field']"),
         async (component: Locator) => {
           await component.click();
           await component.focus(); // call .focus() explicit, because .click() is insufficient for Safari
@@ -123,36 +151,32 @@ test.describe("900-test/event/Event.xhtml", () => {
         });
   });
 
-  test("tc:selectOneList", async ({page}) => {
-    await selectCompEvent(page, "selectOneList", "change");
-
-    await runStep(page, "selectOneList", "change",
-        page.locator("[id='page:mainForm:selectOneListevent'] tr[data-tobago-value='alpha']"),
-        page.locator("[id='page:mainForm:selectOneListajax'] tr[data-tobago-value='alpha']"),
-        true,
+  test("tc:selectOneList - change", async ({page}) => {
+    await runStep(page, "selectOneList", "change", true,
+        page.locator("[id='page:mainForm:selectOneListevent'] tr[data-tobago-value='alpha']"), page.locator("[id='page:mainForm:selectOneListajax'] tr[data-tobago-value='alpha']"),
         async (component: Locator) => await component.click());
-    await runStep(page, "selectOneList", "click",
-        page.locator("[id='page:mainForm:selectOneListevent'] tr[data-tobago-value='beta']"),
-        page.locator("[id='page:mainForm:selectOneListajax'] tr[data-tobago-value='beta']"),
-        true,
+  });
+  test("tc:selectOneList - click", async ({page}) => {
+    await runStep(page, "selectOneList", "click", true,
+        page.locator("[id='page:mainForm:selectOneListevent'] tr[data-tobago-value='beta']"), page.locator("[id='page:mainForm:selectOneListajax'] tr[data-tobago-value='beta']"),
         async (component: Locator) => await component.click());
-    await runStep(page, "selectOneList", "dblclick",
-        page.locator("[id='page:mainForm:selectOneListevent'] tr[data-tobago-value='gamma']"),
-        page.locator("[id='page:mainForm:selectOneListajax'] tr[data-tobago-value='gamma']"),
-        true,
+  });
+  test("tc:selectOneList - dblclick", async ({page}) => {
+    await runStep(page, "selectOneList", "dblclick", true,
+        page.locator("[id='page:mainForm:selectOneListevent'] tr[data-tobago-value='gamma']"), page.locator("[id='page:mainForm:selectOneListajax'] tr[data-tobago-value='gamma']"),
         async (component: Locator) => {
           await component.click();
           await component.dblclick();
         });
-    await runStep(page, "selectOneList", "focus",
-        page.locator("[id='page:mainForm:selectOneListevent'] tr[data-tobago-value='delta']"),
-        page.locator("[id='page:mainForm:selectOneListajax'] tr[data-tobago-value='delta']"),
-        true,
+  });
+  test("tc:selectOneList - focus", async ({page}) => {
+    await runStep(page, "selectOneList", "focus", true,
+        page.locator("[id='page:mainForm:selectOneListevent'] tr[data-tobago-value='delta']"), page.locator("[id='page:mainForm:selectOneListajax'] tr[data-tobago-value='delta']"),
         async (component: Locator) => await component.click());
-    await runStep(page, "selectOneList", "blur",
-        page.locator("[id='page:mainForm:selectOneListevent'] tr[data-tobago-value='alpha']"),
-        page.locator("[id='page:mainForm:selectOneListajax'] tr[data-tobago-value='alpha']"),
-        true,
+  });
+  test("tc:selectOneList - blur", async ({page}) => {
+    await runStep(page, "selectOneList", "blur", true,
+        page.locator("[id='page:mainForm:selectOneListevent'] tr[data-tobago-value='alpha']"), page.locator("[id='page:mainForm:selectOneListajax'] tr[data-tobago-value='alpha']"),
         async (component: Locator) => {
           await component.click();
           const testBoxHeader = component.page().locator("[id='page:mainForm:compTestBox'] .tobago-box-header").first();
@@ -160,23 +184,31 @@ test.describe("900-test/event/Event.xhtml", () => {
         });
   });
 
-  test("tc:selectOneListbox", async ({page}) => {
-    const eventComponent = page.locator("[id='page:mainForm:selectOneListboxevent::field']");
-    const ajaxComponent = page.locator("[id='page:mainForm:selectOneListboxajax::field']");
-
-    await runStep(page, "selectOneListbox", "change", eventComponent, ajaxComponent, true,
+  test("tc:selectOneListbox - change", async ({page}) => {
+    await runStep(page, "selectOneListbox", "change", true,
+        page.locator("[id='page:mainForm:selectOneListboxevent::field']"), page.locator("[id='page:mainForm:selectOneListboxajax::field']"),
         async (component: Locator) => await component.selectOption("Alpha"));
-    await runStep(page, "selectOneListbox", "click", eventComponent, ajaxComponent, true,
+  });
+  test("tc:selectOneListbox - click", async ({page}) => {
+    await runStep(page, "selectOneListbox", "click", true,
+        page.locator("[id='page:mainForm:selectOneListboxevent::field']"), page.locator("[id='page:mainForm:selectOneListboxajax::field']"),
         async (component: Locator) => await component.click());
-
+  });
+  test("tc:selectOneListbox - dblclick", async ({page}) => {
     // hasValueChangeListener=false because dblclick didn't trigger the valueChangeListener
-    await runStep(page, "selectOneListbox", "dblclick", eventComponent, ajaxComponent, false,
+    await runStep(page, "selectOneListbox", "dblclick", false,
+        page.locator("[id='page:mainForm:selectOneListboxevent::field']"), page.locator("[id='page:mainForm:selectOneListboxajax::field']"),
         async (component: Locator) => await component.dblclick());
-
+  });
+  test("tc:selectOneListbox - focus", async ({page}) => {
     // hasValueChangeListener=false because focus didn't trigger the valueChangeListener for Edge and Chrome/Chromium
-    await runStep(page, "selectOneListbox", "focus", eventComponent, ajaxComponent, false,
+    await runStep(page, "selectOneListbox", "focus", false,
+        page.locator("[id='page:mainForm:selectOneListboxevent::field']"), page.locator("[id='page:mainForm:selectOneListboxajax::field']"),
         async (component: Locator) => await component.focus());
-    await runStep(page, "selectOneListbox", "blur", eventComponent, ajaxComponent, true,
+  });
+  test("tc:selectOneListbox - blur", async ({page}) => {
+    await runStep(page, "selectOneListbox", "blur", true,
+        page.locator("[id='page:mainForm:selectOneListboxevent::field']"), page.locator("[id='page:mainForm:selectOneListboxajax::field']"),
         async (component: Locator) => {
           await component.selectOption("Delta");
           await component.focus();
@@ -185,44 +217,57 @@ test.describe("900-test/event/Event.xhtml", () => {
         });
   });
 
-  test("tc:textarea", async ({page}) => {
-    const eventComponent = page.locator("[id='page:mainForm:textareaevent::field']");
-    const ajaxComponent = page.locator("[id='page:mainForm:textareaajax::field']");
-
-    await runStep(page, "textarea", "change", eventComponent, ajaxComponent, true,
+  test("tc:textarea - change", async ({page}) => {
+    await runStep(page, "textarea", "change", true,
+        page.locator("[id='page:mainForm:textareaevent::field']"), page.locator("[id='page:mainForm:textareaajax::field']"),
         async (component: Locator) => {
           await component.fill("Alice");
           await component.blur();
         });
-    await runStep(page, "textarea", "click", eventComponent, ajaxComponent, true,
+  });
+  test("tc:textarea - click", async ({page}) => {
+    await runStep(page, "textarea", "click", true,
+        page.locator("[id='page:mainForm:textareaevent::field']"), page.locator("[id='page:mainForm:textareaajax::field']"),
         async (component: Locator) => {
           await component.fill("Bob");
           await component.click();
         });
-    await runStep(page, "textarea", "dblclick", eventComponent, ajaxComponent, true,
+  });
+  test("tc:textarea - dblclick", async ({page}) => {
+    await runStep(page, "textarea", "dblclick", true,
+        page.locator("[id='page:mainForm:textareaevent::field']"), page.locator("[id='page:mainForm:textareaajax::field']"),
         async (component: Locator) => {
           await component.fill("Charlie");
           await component.dblclick();
         });
-    await runStep(page, "textarea", "focus", eventComponent, ajaxComponent, true,
+  });
+  test("tc:textarea - focus", async ({page}) => {
+    await runStep(page, "textarea", "focus", true,
+        page.locator("[id='page:mainForm:textareaevent::field']"), page.locator("[id='page:mainForm:textareaajax::field']"),
         async (component: Locator) => {
           await component.evaluate((element) => (element as HTMLInputElement).value = "David");
           await component.focus();
         });
-    await runStep(page, "textarea", "blur", eventComponent, ajaxComponent, true,
+  });
+  test("tc:textarea - blur", async ({page}) => {
+    await runStep(page, "textarea", "blur", true,
+        page.locator("[id='page:mainForm:textareaevent::field']"), page.locator("[id='page:mainForm:textareaajax::field']"),
         async (component: Locator) => {
           await component.fill("Eve");
           await component.blur();
         });
-    await runStep(page, "textarea", "input", eventComponent, ajaxComponent, true,
+  });
+  test("tc:textarea - input", async ({page}) => {
+    await runStep(page, "textarea", "input", true,
+        page.locator("[id='page:mainForm:textareaevent::field']"), page.locator("[id='page:mainForm:textareaajax::field']"),
         async (component: Locator) => {
           await component.evaluate((element) => (element as HTMLInputElement).value = "Fiona");
           await component.fill("Frank");
         });
   });
 
-  async function runStep(page: Page, componentName: string, eventName: string,
-                         eventComponent: Locator, ajaxComponent: Locator, hasValueChangeListener: boolean,
+  async function runStep(page: Page, componentName: string, eventName: string, hasValueChangeListener: boolean,
+                         eventComponent: Locator, ajaxComponent: Locator,
                          eventFunction: EventFunction): Promise<void> {
     await selectCompEvent(page, componentName, eventName);
     const timestamp = page.locator("[id='page:mainForm:inTimestamp::field']");
@@ -242,6 +287,7 @@ test.describe("900-test/event/Event.xhtml", () => {
     const rowIndex = await getRowIndex(page, componentName);
     const selectorButton = page.locator(`[id='page:mainForm:componentTable:${rowIndex}:${eventName}Behavior']`);
     await selectorButton.click();
+    await expect(page.locator("[id='page:mainForm:inAction::field']")).toBeFocused(); //wait for Tobago re-focus mechanism
     await expect(timestamp).not.toHaveValue(timestampValue);
   }
 
