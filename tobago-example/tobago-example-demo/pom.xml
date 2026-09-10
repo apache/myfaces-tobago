@@ -251,7 +251,7 @@
             <artifactId>maven-failsafe-plugin</artifactId>
             <configuration>
               <includes>
-                <include>integration/*</include>
+                <include>**/integration/*</include>
               </includes>
             </configuration>
             <executions>
