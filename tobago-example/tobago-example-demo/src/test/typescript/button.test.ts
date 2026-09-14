@@ -486,4 +486,27 @@ test.describe("900-test/button/dropdown/Dropdown.xhtml", () => {
     await expect(fixedRight0Entry).not.toBeVisible();
     await expect(fixedRight0ToggleButton).toBeFocused();
   });
+
+  test("TOBAGO-2542_a: dropdown must open to the left", async ({page, browserName}) => {
+    const toggleButton = page.locator("[id='page:mainForm:dropdownFormTobago2542a::command']");
+    const dropdownMenu = page.locator(".tobago-dropdown-menu[data-tobago-for='page:mainForm:dropdownFormTobago2542a']");
+
+    await expect(dropdownMenu).not.toBeVisible();
+    await toggleButton.scrollIntoViewIfNeeded();
+    await toggleButton.click();
+    await expect(dropdownMenu).toBeVisible();
+    await expect(dropdownMenu).toHaveCSS("right", "236px");
+  });
+
+  test("TOBAGO-2542_b: dropdown must open to the left", async ({page, browserName}) => {
+    const toggleButton = page.locator("[id='page:mainForm:dropdownFormTobago2542b::command']");
+    const dropdownMenu = page.locator(".tobago-dropdown-menu[data-tobago-for='page:mainForm:dropdownFormTobago2542b']");
+
+    await expect(dropdownMenu).not.toBeVisible();
+    await expect(dropdownMenu).not.toBeVisible();
+    await toggleButton.scrollIntoViewIfNeeded();
+    await toggleButton.click();
+    await expect(dropdownMenu).toBeVisible();
+    await expect(dropdownMenu).toHaveCSS("right", "236px");
+  });
 });

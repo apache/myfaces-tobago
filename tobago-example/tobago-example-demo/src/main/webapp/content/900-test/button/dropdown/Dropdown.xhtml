@@ -21,6 +21,10 @@
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="jakarta.faces.facelets">
 
+  <tc:style file="Dropdown.css"/>
+  <tc:script file="Dropdown.js"/>
+  <div id="resolution"></div>
+
   <tc:in id="beforeComp" label="Component before"/>
 
   <tc:button id="dropdownForm" label="Form" omit="true">
@@ -170,5 +174,27 @@
     <tc:style position="fixed" right="0px" customClass="margin-tobago-dropdown-menu-offset"/>
     <tc:link id="fixedRight0Entry" label="Link" omit="true"/>
   </tc:button>
+
+  <p>TOBAGO-2542 dropdown content has scrollbars</p>
+  <tc:flowLayout textAlign="right">
+    <tc:button id="dropdownFormTobago2542a" label="TOBAGO-2542_a" omit="true">
+      <f:facet name="panel">
+        <tc:panel>
+          <tc:style customClass="tobago2542-a-content"/>
+          <p>Content</p>
+        </tc:panel>
+      </f:facet>
+    </tc:button>
+  </tc:flowLayout>
+  <tc:flowLayout textAlign="right">
+    <tc:button id="dropdownFormTobago2542b" label="TOBAGO-2542_b" omit="true">
+      <f:facet name="panel">
+        <tc:panel>
+          <tc:style customClass="tobago2542-b-content"/>
+          <p>Content</p>
+        </tc:panel>
+      </f:facet>
+    </tc:button>
+  </tc:flowLayout>
 
 </ui:composition>

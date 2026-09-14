@@ -154,9 +154,30 @@ export class DropdownMenu {
   private updatePosition(): void {
     const refElementRect = this.referenceElement.getBoundingClientRect();
 
-    /* After updating the position, max-height is set as an inline-style. Make sure no CSS class set max-height for this
-       calculation. see: TOBAGO-2541 */
-    this.dropdownMenuElement.style.maxHeight = "initial";
+    //calc vertical positioning and max-height
+    const upperBorder = this.stickyHeader ? this.stickyHeader.offsetHeight : 0;
+    const lowerBorder = this.fixedFooter ? this.fixedFooter.offsetTop : window.innerHeight;
+    const spaceAbove = refElementRect.top - upperBorder;
+    const spaceBelow = lowerBorder - refElementRect.bottom;
+    if (spaceBelow >= spaceAbove) {
+      this.dropdownMenuElement.style.marginTop = "0px";
+      this.dropdownMenuElement.style.top = "0px";
+      this.dropdownMenuElement.style.top = (refElementRect.bottom - this.dropdownRect.top) + "px";
+      this.dropdownMenuElement.style.bottom = null;
+      this.dropdownMenuElement.style.marginTop = "var(--tobago-dropdown-menu-component-offset)";
+      this.dropdownMenuElement.style.marginBottom = null;
+      this.dropdownMenuElement.style.maxHeight = spaceBelow
+          - parseFloat(getComputedStyle(this.dropdownMenuElement).marginBottom) + "px";
+    } else {
+      this.dropdownMenuElement.style.marginBottom = "0px";
+      this.dropdownMenuElement.style.top = null;
+      this.dropdownMenuElement.style.bottom = "0px";
+      this.dropdownMenuElement.style.bottom = (this.dropdownRect.bottom - refElementRect.top) + "px";
+      this.dropdownMenuElement.style.marginTop = null;
+      this.dropdownMenuElement.style.marginBottom = "var(--tobago-dropdown-menu-component-offset)";
+      this.dropdownMenuElement.style.maxHeight = spaceAbove
+          - parseFloat(getComputedStyle(this.dropdownMenuElement).marginTop) + "px";
+    }
 
     //calc horizontal positioning and max-width
     switch (this.alignment) {
@@ -181,31 +202,6 @@ export class DropdownMenu {
           }
         }
         break;
-    }
-
-    //calc vertical positioning and max-height
-    const upperBorder = this.stickyHeader ? this.stickyHeader.offsetHeight : 0;
-    const lowerBorder = this.fixedFooter ? this.fixedFooter.offsetTop : window.innerHeight;
-    const spaceAbove = refElementRect.top - upperBorder;
-    const spaceBelow = lowerBorder - refElementRect.bottom;
-    if (spaceBelow >= spaceAbove) {
-      this.dropdownMenuElement.style.marginTop = "0px";
-      this.dropdownMenuElement.style.top = "0px";
-      this.dropdownMenuElement.style.top = (refElementRect.bottom - this.dropdownRect.top) + "px";
-      this.dropdownMenuElement.style.bottom = null;
-      this.dropdownMenuElement.style.marginTop = "var(--tobago-dropdown-menu-component-offset)";
-      this.dropdownMenuElement.style.marginBottom = null;
-      this.dropdownMenuElement.style.maxHeight = spaceBelow
-          - parseFloat(getComputedStyle(this.dropdownMenuElement).marginBottom) + "px";
-    } else {
-      this.dropdownMenuElement.style.marginBottom = "0px";
-      this.dropdownMenuElement.style.top = null;
-      this.dropdownMenuElement.style.bottom = "0px";
-      this.dropdownMenuElement.style.bottom = (this.dropdownRect.bottom - refElementRect.top) + "px";
-      this.dropdownMenuElement.style.marginTop = null;
-      this.dropdownMenuElement.style.marginBottom = "var(--tobago-dropdown-menu-component-offset)";
-      this.dropdownMenuElement.style.maxHeight = spaceAbove
-          - parseFloat(getComputedStyle(this.dropdownMenuElement).marginTop) + "px";
     }
   }
 
