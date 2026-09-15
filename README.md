@@ -182,6 +182,7 @@ npm run test
 * test with Firefox`npm run test:firefox`
 * test with Google Chrome `npm run test:chrome`
 * test with different browsers on different servers `npm run test:all-servers`
+  > For Safari on macOS: The option 'Keyboard navigation' must be enabled
 
 # Issue Tracking
 
