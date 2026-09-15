@@ -24,7 +24,7 @@ import {EventListenerStore} from "./tobago-event-listener-store";
 import {ClientBehaviors} from "./tobago-client-behaviors";
 import {CollapsibleBase} from "./tobago-collapsible-base";
 
-class Behavior extends HTMLElement {
+export class Behavior extends HTMLElement {
   private listeners: EventListenerStore = new EventListenerStore();
 
   constructor() {
@@ -96,16 +96,15 @@ class Behavior extends HTMLElement {
 
     if (this.collapseOperation && this.collapseTarget) {
       const collapseTarget: CollapsibleBase = document.getElementById(this.collapseTarget) as CollapsibleBase;
-      const clientSideAnimation: boolean = this.mode === BehaviorMode.client;
       switch (this.collapseOperation) {
         case CollapseOperation.show:
-          collapseTarget.expand(clientSideAnimation);
+          collapseTarget.expand(this.clientSideAnimation);
           break;
         case CollapseOperation.hide:
-          collapseTarget.collapse(clientSideAnimation);
+          collapseTarget.collapse(this.clientSideAnimation);
           break;
         case CollapseOperation.toggle:
-          collapseTarget.toggle(clientSideAnimation);
+          collapseTarget.toggle(this.clientSideAnimation);
           break;
       }
     }
@@ -119,7 +118,7 @@ class Behavior extends HTMLElement {
               params: {
                 "jakarta.faces.behavior.event": this.event
               },
-              execute: this.execute,
+              execute: (this.collapseOperation && this.collapseTarget) ? this.collapseOperationExecute : this.execute,
               render: this.render,
               resetValues: this.resetValues,
               delay: this.delay,
@@ -247,6 +246,17 @@ class Behavior extends HTMLElement {
     }
   }
 
+  private willBeRendered(id: string): boolean {
+    const body = this.closest("body");
+
+    for (const renderId of this.render.split(" ")) {
+      if (renderId === id || body.querySelector("[id='" + renderId + "'] [id='" + id + "']") !== null) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   get mode(): BehaviorMode {
     if (this.render || this.execute) {
       return BehaviorMode.ajax;
@@ -359,6 +369,22 @@ class Behavior extends HTMLElement {
 
   set collapseTarget(collapseTarget: string) {
     this.setAttribute("collapse-target", collapseTarget);
+  }
+
+  get clientSideAnimation(): boolean {
+    return this.mode === BehaviorMode.client
+        || (this.mode === BehaviorMode.ajax && !this.willBeRendered(this.collapseTarget));
+  }
+
+  /**
+   * If {@link collapseTarget} is rendered by Ajax, the {@link collapseTarget} is added to the {@link execute} string.
+   */
+  get collapseOperationExecute(): string {
+    if (this.willBeRendered(this.collapseTarget)) {
+      return this.execute + " " + this.collapseTarget;
+    } else {
+      return this.execute;
+    }
   }
 
   get decoupled(): boolean {
