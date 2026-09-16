@@ -23,7 +23,7 @@ test.describe("900-test/panel/Panel.xhtml", () => {
     await page.goto("/content/900-test/panel/Panel.xhtml");
   });
 
-  test("Open 'Client Popup' and press 'Cancel'.", async ({page}) => {
+  test("TOBAGO-2543: Panel must be collapse/expand if f:ajax is used", async ({page}) => {
     const timestamp = page.locator("[id='page:mainForm:timestamp'] .form-control-plaintext");
     const panel = page.locator("[id='page:mainForm:tobago2543']");
     const panelHiddenCollapseInput = page.locator("[id='page:mainForm:tobago2543::collapse']");

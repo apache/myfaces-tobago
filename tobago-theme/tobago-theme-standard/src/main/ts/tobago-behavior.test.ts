@@ -139,7 +139,7 @@ test("BehaviorMode.ajax renderer='panel'", () => {
   const behavior: Behavior = document.querySelector("tobago-behavior[client-id='page:mainForm:hide']") as Behavior;
   expect(behavior).toBeInstanceOf(Behavior);
   expect(behavior.mode).toBe(BehaviorMode.ajax);
-  expect(behavior.clientSideAnimation).toBe(false);
+  expect(behavior.clientSideAnimation).toBe(true);
   expect(behavior.collapseOperationExecute).toBe("page:mainForm:hide page:mainForm:panel");
 });
 
@@ -172,7 +172,7 @@ test("BehaviorMode.ajax renderer='panel parent'", () => {
   const behavior: Behavior = document.querySelector("tobago-behavior[client-id='page:mainForm:hide']") as Behavior;
   expect(behavior).toBeInstanceOf(Behavior);
   expect(behavior.mode).toBe(BehaviorMode.ajax);
-  expect(behavior.clientSideAnimation).toBe(false);
+  expect(behavior.clientSideAnimation).toBe(true);
   expect(behavior.collapseOperationExecute).toBe("page:mainForm:hide page:mainForm:panel");
 });
 
@@ -207,6 +207,162 @@ test("BehaviorMode.ajax renderer='panel child'", () => {
   expect(behavior.mode).toBe(BehaviorMode.ajax);
   expect(behavior.clientSideAnimation).toBe(true);
   expect(behavior.collapseOperationExecute).toBe("page:mainForm:hide");
+});
+
+test("BehaviorMode.ajax renderer='timestamp'", () => {
+  document.querySelector("form").insertAdjacentHTML("beforeend", `
+<tobago-section id="page:mainForm:section" class="tobago-auto-spacing" data-tobago-level="2">
+  <div class="tobago-header">
+    <h2>
+      <span>TOBAGO-2543</span></h2></div>
+  <div class="tobago-section-content">
+    <tobago-out id="page:mainForm:timestamp" class="tobago-label-container tobago-auto-spacing"><label
+            for="page:mainForm:timestamp" class="col-form-label">Timestamp</label><span class="form-control-plaintext">1789559651034</span>
+    </tobago-out>
+    <tobago-popup id="page:mainForm:popup" class="modal fade" tabindex="-1" role="dialog">
+      <div id="page:mainForm:popup::dialog" class="modal-dialog" role="document">
+        <div class="modal-content">
+          <input type="hidden" name="page:mainForm:popup::collapse" id="page:mainForm:popup::collapse"
+                 value="true">
+          <tobago-in id="page:mainForm:popup:input" class="tobago-auto-spacing">
+            <input type="text" name="page:mainForm:popup:input"
+                   id="page:mainForm:popup:input::field" value="Content" class="form-control">
+          </tobago-in>
+        </div>
+      </div>
+    </tobago-popup>
+    <button type="button" id="page:mainForm:show" name="page:mainForm:show"
+            class="tobago-button btn btn-secondary tobago-auto-spacing">
+      <tobago-behavior event="click" client-id="page:mainForm:show" execute="page:mainForm:show"
+                       render="page:mainForm:timestamp" omit="omit" collapse-operation="show"
+                       collapse-target="page:mainForm:popup"></tobago-behavior>
+      <span>Show</span></button>
+  </div>
+</tobago-section>
+`);
+
+  const behavior: Behavior = document.querySelector("tobago-behavior[client-id='page:mainForm:show']") as Behavior;
+  expect(behavior).toBeInstanceOf(Behavior);
+  expect(behavior.mode).toBe(BehaviorMode.ajax);
+  expect(behavior.clientSideAnimation).toBe(true);
+  expect(behavior.collapseOperationExecute).toBe("page:mainForm:show");
+});
+
+test("BehaviorMode.ajax renderer='popup'", () => {
+  document.querySelector("form").insertAdjacentHTML("beforeend", `
+<tobago-section id="page:mainForm:section" class="tobago-auto-spacing" data-tobago-level="2">
+  <div class="tobago-header">
+    <h2>
+      <span>TOBAGO-2543</span></h2></div>
+  <div class="tobago-section-content">
+    <tobago-out id="page:mainForm:timestamp" class="tobago-label-container tobago-auto-spacing"><label
+            for="page:mainForm:timestamp" class="col-form-label">Timestamp</label><span class="form-control-plaintext">1789559651034</span>
+    </tobago-out>
+    <tobago-popup id="page:mainForm:popup" class="modal fade" tabindex="-1" role="dialog">
+      <div id="page:mainForm:popup::dialog" class="modal-dialog" role="document">
+        <div class="modal-content">
+          <input type="hidden" name="page:mainForm:popup::collapse" id="page:mainForm:popup::collapse"
+                 value="true">
+          <tobago-in id="page:mainForm:popup:input" class="tobago-auto-spacing">
+            <input type="text" name="page:mainForm:popup:input"
+                   id="page:mainForm:popup:input::field" value="Content" class="form-control">
+          </tobago-in>
+        </div>
+      </div>
+    </tobago-popup>
+    <button type="button" id="page:mainForm:show" name="page:mainForm:show"
+            class="tobago-button btn btn-secondary tobago-auto-spacing">
+      <tobago-behavior event="click" client-id="page:mainForm:show" execute="page:mainForm:show"
+                       render="page:mainForm:popup" omit="omit" collapse-operation="show"
+                       collapse-target="page:mainForm:popup"></tobago-behavior>
+      <span>Show</span></button>
+  </div>
+</tobago-section>
+`);
+
+  const behavior: Behavior = document.querySelector("tobago-behavior[client-id='page:mainForm:show']") as Behavior;
+  expect(behavior).toBeInstanceOf(Behavior);
+  expect(behavior.mode).toBe(BehaviorMode.ajax);
+  expect(behavior.clientSideAnimation).toBe(false);
+  expect(behavior.collapseOperationExecute).toBe("page:mainForm:show page:mainForm:popup");
+});
+
+test("BehaviorMode.ajax renderer='popup parent'", () => {
+  document.querySelector("form").insertAdjacentHTML("beforeend", `
+<tobago-section id="page:mainForm:section" class="tobago-auto-spacing" data-tobago-level="2">
+  <div class="tobago-header">
+    <h2>
+      <span>TOBAGO-2543</span></h2></div>
+  <div class="tobago-section-content">
+    <tobago-out id="page:mainForm:timestamp" class="tobago-label-container tobago-auto-spacing"><label
+            for="page:mainForm:timestamp" class="col-form-label">Timestamp</label><span class="form-control-plaintext">1789559651034</span>
+    </tobago-out>
+    <tobago-popup id="page:mainForm:popup" class="modal fade" tabindex="-1" role="dialog">
+      <div id="page:mainForm:popup::dialog" class="modal-dialog" role="document">
+        <div class="modal-content">
+          <input type="hidden" name="page:mainForm:popup::collapse" id="page:mainForm:popup::collapse"
+                 value="true">
+          <tobago-in id="page:mainForm:popup:input" class="tobago-auto-spacing">
+            <input type="text" name="page:mainForm:popup:input"
+                   id="page:mainForm:popup:input::field" value="Content" class="form-control">
+          </tobago-in>
+        </div>
+      </div>
+    </tobago-popup>
+    <button type="button" id="page:mainForm:show" name="page:mainForm:show"
+            class="tobago-button btn btn-secondary tobago-auto-spacing">
+      <tobago-behavior event="click" client-id="page:mainForm:show" execute="page:mainForm:show"
+                       render="page:mainForm:section" omit="omit" collapse-operation="show"
+                       collapse-target="page:mainForm:popup"></tobago-behavior>
+      <span>Show</span></button>
+  </div>
+</tobago-section>
+`);
+
+  const behavior: Behavior = document.querySelector("tobago-behavior[client-id='page:mainForm:show']") as Behavior;
+  expect(behavior).toBeInstanceOf(Behavior);
+  expect(behavior.mode).toBe(BehaviorMode.ajax);
+  expect(behavior.clientSideAnimation).toBe(false);
+  expect(behavior.collapseOperationExecute).toBe("page:mainForm:show page:mainForm:popup");
+});
+
+test("BehaviorMode.ajax renderer='popup child'", () => {
+  document.querySelector("form").insertAdjacentHTML("beforeend", `
+<tobago-section id="page:mainForm:section" class="tobago-auto-spacing" data-tobago-level="2">
+  <div class="tobago-header">
+    <h2>
+      <span>TOBAGO-2543</span></h2></div>
+  <div class="tobago-section-content">
+    <tobago-out id="page:mainForm:timestamp" class="tobago-label-container tobago-auto-spacing"><label
+            for="page:mainForm:timestamp" class="col-form-label">Timestamp</label><span class="form-control-plaintext">1789559651034</span>
+    </tobago-out>
+    <tobago-popup id="page:mainForm:popup" class="modal fade" tabindex="-1" role="dialog">
+      <div id="page:mainForm:popup::dialog" class="modal-dialog" role="document">
+        <div class="modal-content">
+          <input type="hidden" name="page:mainForm:popup::collapse" id="page:mainForm:popup::collapse"
+                 value="true">
+          <tobago-in id="page:mainForm:popup:input" class="tobago-auto-spacing">
+            <input type="text" name="page:mainForm:popup:input"
+                   id="page:mainForm:popup:input::field" value="Content" class="form-control">
+          </tobago-in>
+        </div>
+      </div>
+    </tobago-popup>
+    <button type="button" id="page:mainForm:show" name="page:mainForm:show"
+            class="tobago-button btn btn-secondary tobago-auto-spacing">
+      <tobago-behavior event="click" client-id="page:mainForm:show" execute="page:mainForm:show"
+                       render="page:mainForm:popup:input" omit="omit" collapse-operation="show"
+                       collapse-target="page:mainForm:popup"></tobago-behavior>
+      <span>Show</span></button>
+  </div>
+</tobago-section>
+`);
+
+  const behavior: Behavior = document.querySelector("tobago-behavior[client-id='page:mainForm:show']") as Behavior;
+  expect(behavior).toBeInstanceOf(Behavior);
+  expect(behavior.mode).toBe(BehaviorMode.ajax);
+  expect(behavior.clientSideAnimation).toBe(true);
+  expect(behavior.collapseOperationExecute).toBe("page:mainForm:show");
 });
 
 test("BehaviorMode.full", () => {
