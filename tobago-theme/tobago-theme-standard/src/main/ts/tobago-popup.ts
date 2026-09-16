@@ -57,8 +57,6 @@ export class Popup extends CollapsibleBase {
 
   disconnectedCallback(): void {
     this.modal.hide();
-    // dispose seems to make trouble here: Scrolling is out or order after this call.
-    // this.modal.dispose();
     this.listeners.disconnect();
   }
 

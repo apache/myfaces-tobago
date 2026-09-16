@@ -372,8 +372,18 @@ export class Behavior extends HTMLElement {
   }
 
   get clientSideAnimation(): boolean {
-    return this.mode === BehaviorMode.client
-        || (this.mode === BehaviorMode.ajax && !this.willBeRendered(this.collapseTarget));
+    if (this.mode === BehaviorMode.client) {
+      return true;
+    } else if (this.mode === BehaviorMode.full) {
+      return false;
+    } else {
+      const collapseElement = document.getElementById(this.collapseTarget);
+      if (collapseElement.tagName === "TOBAGO-OFFCANVAS" || collapseElement.tagName === "TOBAGO-POPUP") {
+        return !this.willBeRendered(this.collapseTarget);
+      } else {
+        return true;
+      }
+    }
   }
 
   /**
