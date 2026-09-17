@@ -18,6 +18,7 @@
  */
 
 import {expect, test} from "@playwright/test";
+import {waitUntilStable} from "./base/playwright-utils";
 
 test.describe("900-test/2100-selectManyList/deselect/deselect.xhtml", () => {
 
@@ -265,6 +266,7 @@ test.describe("900-test/selectManyList/server-side-filtering/spinner/Spinner.xht
     await expect(popup).toContainClass("show");
     await expect(collapse).toHaveValue("false");
     await expect(field).toBeVisible();
+    await waitUntilStable(popup);
 
     await filter.fill("show spinner");
     await expect(spinner).toBeVisible();

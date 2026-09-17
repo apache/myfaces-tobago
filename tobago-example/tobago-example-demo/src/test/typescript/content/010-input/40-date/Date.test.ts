@@ -40,9 +40,11 @@ test.describe("010-input/40-date/Date.xhtml", () => {
     const outputFn = page.locator("[id='page:mainForm:formSubmit:output'] .form-control-plaintext");
     const submitFn = page.locator("[id='page:mainForm:formSubmit:button']");
 
+    await expect(page.locator("[id='page:mainForm:d5::field']")).toBeFocused();
     await dateFieldFn.fill("2016-05-22");
     await submitFn.click();
     await expect(outputFn).toHaveText("2016-05-22");
+    await expect(page.locator("[id='page:mainForm:d5::field']")).toBeFocused();
     await dateFieldFn.fill("1952-07-29");
     await submitFn.click();
     await expect(outputFn).toHaveText("1952-07-29");

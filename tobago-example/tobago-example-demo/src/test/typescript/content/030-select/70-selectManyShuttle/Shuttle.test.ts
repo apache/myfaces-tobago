@@ -33,17 +33,21 @@ test.describe("030-select/70-selectManyShuttle/Shuttle.xhtml", () => {
     const submitButton = page.locator("[id='page:mainForm:submitButton']");
     const output = page.locator("[id='page:mainForm:submitExampleOutput'] .form-control-plaintext");
 
+    await expect(page.locator("[id='page:searchForm:search::field']")).toBeFocused();
     await expect(output).toHaveText("[]");
     await addAllButton.click();
     await expect(unselectedOptions).toHaveCount(0);
     await expect(selectedOptions).toHaveCount(9);
     await submitButton.click();
     await expect(output).toHaveText("[Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto]");
+    await expect(page.locator("[id='page:searchForm:search::field']")).toBeFocused();
+
     await removeAllButton.click();
     await expect(unselectedOptions).toHaveCount(9);
     await expect(selectedOptions).toHaveCount(0);
     await submitButton.click();
     await expect(output).toHaveText("[]");
+    await expect(page.locator("[id='page:searchForm:search::field']")).toBeFocused();
 
     await page.locator("[id='page:mainForm:submitExample::unselected']").selectOption([{index: 0}, {index: 1}, {index: 2}, {index: 3}, {index: 4}]);
     await addButton.click();
@@ -51,6 +55,7 @@ test.describe("030-select/70-selectManyShuttle/Shuttle.xhtml", () => {
     await expect(selectedOptions).toHaveCount(5);
     await submitButton.click();
     await expect(output).toHaveText("[Mercury, Venus, Earth, Mars, Jupiter]");
+    await expect(page.locator("[id='page:searchForm:search::field']")).toBeFocused();
 
     await page.locator("[id='page:mainForm:submitExample::selected']").selectOption([{index: 2}, {index: 3}]);
     await removeButton.click();
@@ -58,6 +63,7 @@ test.describe("030-select/70-selectManyShuttle/Shuttle.xhtml", () => {
     await expect(selectedOptions).toHaveCount(3);
     await submitButton.click();
     await expect(output).toHaveText("[Mercury, Venus, Jupiter]");
+    await expect(page.locator("[id='page:searchForm:search::field']")).toBeFocused();
 
     const pageOverlays = page.locator("tobago-overlay");
     await expect(pageOverlays).toHaveCount(0);

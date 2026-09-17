@@ -272,10 +272,15 @@ test.describe("900-test/event/Event.xhtml", () => {
     await selectCompEvent(page, componentName, eventName);
     const timestamp = page.locator("[id='page:mainForm:inTimestamp::field']");
     let timestampValue = await timestamp.inputValue();
+    await eventComponent.scrollIntoViewIfNeeded();
+    await expect(eventComponent).toBeVisible();
     await eventFunction(eventComponent);
     await expect(timestamp).not.toHaveValue(timestampValue);
+    await expect(page.locator("[id='page:mainForm:inAction::field']")).toBeFocused(); //wait for Tobago re-focus mechanism
     await expectCount(page, 1, 1, 0, hasValueChangeListener ? 1 : 0);
     timestampValue = await timestamp.inputValue();
+    await ajaxComponent.scrollIntoViewIfNeeded();
+    await expect(ajaxComponent).toBeVisible();
     await eventFunction(ajaxComponent);
     await expect(timestamp).not.toHaveValue(timestampValue);
     await expectCount(page, 1, 1, 1, hasValueChangeListener ? 2 : 0);
@@ -287,8 +292,8 @@ test.describe("900-test/event/Event.xhtml", () => {
     const rowIndex = await getRowIndex(page, componentName);
     const selectorButton = page.locator(`[id='page:mainForm:componentTable:${rowIndex}:${eventName}Behavior']`);
     await selectorButton.click();
-    await expect(page.locator("[id='page:mainForm:inAction::field']")).toBeFocused(); //wait for Tobago re-focus mechanism
     await expect(timestamp).not.toHaveValue(timestampValue);
+    await expect(page.locator("[id='page:mainForm:inAction::field']")).toBeFocused(); //wait for Tobago re-focus mechanism
   }
 
   async function getRowIndex(page: Page, componentName: string): Promise<string> {
