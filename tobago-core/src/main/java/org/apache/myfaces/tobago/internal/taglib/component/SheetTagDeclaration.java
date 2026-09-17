@@ -19,7 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.taglib.component;
 
-import jakarta.faces.component.UIData;
 import org.apache.myfaces.tobago.apt.annotation.Behavior;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
@@ -40,6 +39,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
 import org.apache.myfaces.tobago.layout.PaginatorMode;
 import org.apache.myfaces.tobago.layout.ShowPosition;
 import org.apache.myfaces.tobago.model.Selectable;
+
+import jakarta.faces.component.UIData;
 
 /**
  * Render a sheet element.
@@ -294,8 +295,12 @@ public interface SheetTagDeclaration
   void setLazy(String lazy);
 
   /**
-   * Indicate how many rows must be loaded when lazy loading is enabled and how many rows are loaded at once.
-   * Default is 50.
+   * <p>Indicate the number of rows that are guaranteed to be loaded (including visible rows) and the number of rows
+   * which are loaded in one batch.</p>
+   * <p>For example, if 12 rows are visible and lazy-rows=20, then all 12 rows are loaded plus the remaining 8 which are
+   * added before and after the visible rows equally.
+   * If a new batch of rows must be loaded, it will contain 20 rows.</p>
+   * <p>Default is 50.</p>
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "50")
