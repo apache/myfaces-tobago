@@ -18,6 +18,7 @@
  */
 
 import {expect, test} from "@playwright/test";
+import {waitUntilStable} from "./base/playwright-utils";
 
 test.describe("900-test/selectOneList/dropdown-form/Dropdown_form.xhtml", () => {
 
@@ -165,6 +166,7 @@ test.describe("900-test/selectOneList/server-side-filtering/spinner/Spinner.xhtm
     await expect(popup).toContainClass("show");
     await expect(collapse).toHaveValue("false");
     await expect(field).toBeVisible();
+    await waitUntilStable(popup);
 
     await filter.fill("show spinner");
     await expect(spinner).toBeVisible();
