@@ -191,8 +191,8 @@ public enum Release {
   v6_9_1("12356478"),
   v6_10_0("12356699"),
   v6_11_0("12356805"),
-  v6_12_0("12357051",  true),
-  v6_12_1("12357518",  false, true);
+  v6_12_0("12357051"),
+  v6_12_1("12357518", true);
 
   private final String jira;
   private final String version;
