@@ -15,15 +15,19 @@
  * limitations under the License.
  */
 
-import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
-import {elementByIdFn} from "/script/tobago-test.js";
+import {expect, test} from "@playwright/test";
 
-it("test width of grid layout and 'auto' button", function (done) {
-  let gridLayoutFn = elementByIdFn("page:mainForm:grid");
-  let buttonAutoFn = elementByIdFn("page:mainForm:buttonAuto");
+test.describe("900-test/gridLayout/100-auto-column/Auto-Column.xhtml", () => {
 
-  let test = new JasmineTestTool(done);
-  test.do(() => expect(gridLayoutFn().offsetWidth).toEqual(266));
-  test.do(() => expect(buttonAutoFn().offsetWidth).toBeLessThan(65));
-  test.start();
+  test.beforeEach(async ({page}) => {
+    await page.goto("/content/900-test/gridLayout/100-auto-column/Auto-Column.xhtml");
+  });
+
+  test("test width of grid layout and 'auto' button", async ({page}) => {
+    const gridLayout = page.locator("[id='page:mainForm:grid']");
+    const buttonAuto = page.locator("[id='page:mainForm:buttonAuto']");
+
+    expect((await gridLayout.boundingBox())?.width).toBe(266);
+    expect((await buttonAuto.boundingBox())?.width).toBeLessThan(65);
+  });
 });
