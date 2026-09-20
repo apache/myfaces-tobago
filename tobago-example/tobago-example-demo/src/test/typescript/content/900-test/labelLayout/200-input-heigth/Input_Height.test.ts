@@ -15,11 +15,20 @@
  * limitations under the License.
  */
 
-import {querySelectorFn} from "/script/tobago-test.js";
+import {expect, test} from "@playwright/test";
 
-it("Color of no-entries footer", function () {
-  const reference = querySelectorFn("#page\\:mainForm\\:tertiaryColorText .text-tertiary-color.form-control-plaintext");
-  const noEntriesFooter = querySelectorFn(".tobago-dropdown-menu[name='page:mainForm:selectOneList'] .tobago-no-entries td");
+test.describe("900-test/labelLayout/200-input-heigth/Input_Height.xhtml", () => {
 
-  expect(getComputedStyle(noEntriesFooter()).color).toEqual(getComputedStyle(reference()).color)
+  test.beforeEach(async ({page}) => {
+    await page.goto("/content/900-test/labelLayout/200-input-heigth/Input_Height.xhtml");
+  });
+
+  test("height of input fields must be the same", async ({page}) => {
+    const first = page.locator("[id='page:mainForm:first::field']");
+    const second = page.locator("[id='page:mainForm:second::field']");
+
+    const firstHeight = (await first.boundingBox())?.height as number;
+    const secondHeight = (await second.boundingBox())?.height as number;
+    await expect(secondHeight).toBe(firstHeight);
+  });
 });
