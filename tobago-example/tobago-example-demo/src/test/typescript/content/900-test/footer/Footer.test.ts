@@ -15,19 +15,23 @@
  * limitations under the License.
  */
 
-import {JasmineTestTool} from "/tobago/test/tobago-test-tool.js";
-import {elementByIdFn, querySelectorFn} from "/script/tobago-test.js";
+import {expect, test} from "@playwright/test";
 
-it("Body margin-bottom equals fixed footer height", function (done) {
-  const nonFixedFooterFn = elementByIdFn("page:mainForm:nonfixedFooter");
-  const fixedFooterFn = elementByIdFn("page:mainForm:fixedFooter");
+test.describe("900-test/footer/Footer.xhtml", () => {
 
-  const test = new JasmineTestTool(done);
-  test.do(() => expect(fixedFooterFn().offsetHeight).toBeLessThan(nonFixedFooterFn().offsetHeight));
-  test.do(() => expect(fixedFooterFn().offsetHeight).toBe(bodyMarginBottom()));
-  test.start();
+  test.beforeEach(async ({page}) => {
+    await page.goto("/content/900-test/footer/Footer.xhtml");
+  });
+
+  test("Body margin-bottom equals fixed footer height", async ({page}) => {
+    const body = page.locator("body");
+    const nonFixedFooter = page.locator("[id='page:mainForm:nonfixedFooter']");
+    const fixedFooter = page.locator("[id='page:mainForm:fixedFooter']");
+
+    const nonFixedFooterHeight = (await nonFixedFooter.boundingBox())?.height as number;
+    const fixedFooterHeight = (await fixedFooter.boundingBox())?.height as number;
+
+    expect(fixedFooterHeight).toBeLessThan(nonFixedFooterHeight);
+    expect(body).toHaveCSS("margin-bottom", fixedFooterHeight + "px");
+  });
 });
-
-function bodyMarginBottom() {
-  return Number.parseInt(querySelectorFn("body")().style.marginBottom);
-}
