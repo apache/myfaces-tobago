@@ -145,3 +145,30 @@ test.describe("900-test/button/Button.xhtml", () => {
     expect(buttonBoundingBox?.width).toEqual(200);
   });
 });
+
+test.describe("900-test/button/dropdown/selectManyCheckbox/selectManyCheckbox.xhtml", () => {
+
+  test.beforeEach(async ({page}) => {
+    await page.goto("/content/900-test/button/dropdown/selectManyCheckbox/selectManyCheckbox.xhtml");
+  });
+
+  test("Standard Action Button", async ({page}) => {
+    const dropdownButton = page.locator("[id='page:mainForm:dropdown::command']");
+    const checkbox0 = page.locator("[id='page:mainForm:selectManyCheckbox::0']");
+    const checkbox1 = page.locator("[id='page:mainForm:selectManyCheckbox::1']");
+    const output = page.locator("[id='page:mainForm:output'] .form-control-plaintext");
+
+    await expect(output).toHaveText("0");
+    await dropdownButton.focus();
+
+    await page.keyboard.press("ArrowDown");
+    await expect(checkbox0).toBeFocused();
+    await page.keyboard.press("Space");
+    await expect(output).toHaveText("1");
+
+    await page.keyboard.press("ArrowDown");
+    await expect(checkbox1).toBeFocused();
+    await page.keyboard.press("Space");
+    await expect(output).toHaveText("3");
+  });
+});

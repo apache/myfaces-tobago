@@ -42,22 +42,33 @@ class AjaxQueue {
   request(elementOrId: Element | string, event?: Event, options: faces.ajax.RequestOptions = {}): void {
     const element = elementOrId instanceof Element ? elementOrId : document.getElementById(elementOrId);
 
-    const currentOnEvent = options.onevent;
-    options.onevent = (data: faces.AjaxEvent) => {
-      if (currentOnEvent) {
-        currentOnEvent(data);
-      }
-      this.ajaxEventListener(data.source, data.type, data.status);
-    };
-    const currentOnError = options.onerror;
-    options.onerror = (data: faces.AjaxError) => {
-      if (currentOnError) {
-        currentOnError(data);
-      }
-      this.ajaxEventListener(data.source, data.type, data.status);
-    };
+    if (element) {
+      const currentOnEvent = options.onevent;
+      options.onevent = (data: faces.AjaxEvent) => {
+        if (currentOnEvent) {
+          currentOnEvent(data);
+        }
+        this.ajaxEventListener(data.source, data.type, data.status);
+      };
+      const currentOnError = options.onerror;
+      options.onerror = (data: faces.AjaxError) => {
+        if (currentOnError) {
+          currentOnError(data);
+        }
+        this.ajaxEventListener(data.source, data.type, data.status);
+      };
 
-    AjaxQueueStatic.request(this.queue, element, event, options, () => faces.ajax.request(element, event, options));
+      AjaxQueueStatic.request(this.queue, element, event, options, () => faces.ajax.request(element, event, options));
+    } else {
+      if (typeof elementOrId === "string") {
+        console.warn("[tobago-ajax-queue] Could not not find element for '" + elementOrId + "'."
+            + " Skip Tobago Ajax queue and call faces.ajax.request() directly as a fallback.");
+      } else {
+        console.warn("[tobago-ajax-queue] elementOrId='" + elementOrId + "';"
+            + " Skip Tobago Ajax queue and call faces.ajax.request() directly as a fallback.");
+      }
+      faces.ajax.request(element, event, options);
+    }
   }
 
   private ajaxEventListener(source: Element,
