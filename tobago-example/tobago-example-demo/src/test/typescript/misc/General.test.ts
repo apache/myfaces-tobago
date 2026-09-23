@@ -57,6 +57,18 @@ for (const url of getUrls(webappDir, contentDir)) {
       expect(duplicateIds, `Found duplicate IDs on ${url}: ${duplicateIds.join(", ")}`).toHaveLength(0);
     });
 
+    test("Client-id must exist for Ajax tobago-behavior", async ({page}) => {
+      const missingClientIds = await page.evaluate(() => {
+        return Array.from(document.querySelectorAll("tobago-behavior"))
+            .filter(tobagoBehavior => tobagoBehavior.hasAttribute("execute")
+                || tobagoBehavior.hasAttribute("render"))
+            .map(behavior => behavior.getAttribute("client-id"))
+            .filter(clientId => clientId === null || document.getElementById(clientId) === null);
+      });
+
+      expect(missingClientIds, `Missing behavior client IDs on ${url}: ${missingClientIds.join(", ")}`).toHaveLength(0);
+    });
+
     test("test '???", async ({page}) => {
       const textContent = await page.evaluate(() => {
         return document.querySelector("html").textContent;
