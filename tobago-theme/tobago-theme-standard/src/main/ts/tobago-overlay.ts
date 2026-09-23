@@ -68,16 +68,17 @@ export class Overlay extends HTMLElement {
   static render(id: string, type: OverlayType, delay: number = Page
       .page(document.querySelector("tobago-page")).waitOverlayDelayAjax): void {
     const element = document.getElementById(id);
+    if (element) {
+      const currentOverlay = element.querySelector(":scope > tobago-overlay");
+      const currentOverlayType: OverlayType = currentOverlay?.getAttribute("type") as OverlayType;
 
-    const currentOverlay = element.querySelector(":scope > tobago-overlay");
-    const currentOverlayType: OverlayType = currentOverlay?.getAttribute("type") as OverlayType;
-
-    if (currentOverlay === null) {
-      element.insertAdjacentHTML("beforeend", Overlay.htmlText(id, type,
-          delay ? delay : Page.page(document.querySelector("tobago-page")).waitOverlayDelayAjax));
-    } else if (currentOverlayType !== type) {
-      currentOverlay?.remove();
-      element.insertAdjacentHTML("beforeend", Overlay.htmlText(id, type, 0));
+      if (currentOverlay === null) {
+        element.insertAdjacentHTML("beforeend", Overlay.htmlText(id, type,
+            delay ? delay : Page.page(document.querySelector("tobago-page")).waitOverlayDelayAjax));
+      } else if (currentOverlayType !== type) {
+        currentOverlay?.remove();
+        element.insertAdjacentHTML("beforeend", Overlay.htmlText(id, type, 0));
+      }
     }
   }
 
