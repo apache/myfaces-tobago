@@ -104,47 +104,7 @@ test("getActionOnArrowLeft", () => {
   expect(TreeStatic.getActionOnArrowLeft(false)).toBe("parent");
 });
 
-/**
-test("getActionOnArrowRight", () => {
-  // Node ist expandierbar und zugeklappt -> expandieren
-  expect(TreeStatic.getActionOnArrowRight(true, false)).toBe("expand");
 
-  // Node ist expandierbar und expandiert -> zum Kind springen
-  expect(TreeStatic.getActionOnArrowRight(true, true)).toBe("child");
-
-  // Node ist nicht expandierbar und zugeklappt -> null
-  expect(TreeStatic.getActionOnArrowRight(false, false)).toBe(null);
-
-  // Node ist nicht expandierbar aber irgendwie expandiert -> null
-  expect(TreeStatic.getActionOnArrowRight(false, true)).toBe(null);
-});
-
-test("shouldClickToggleOnArrowKeys", () => {
-  // ArrowRight: expandierbar, zugeklappt -> Toggle sollte geclickt werden
-  expect(TreeStatic.shouldClickToggleOnArrowKeys(true, false, "expand")).toBe(true);
-
-  // ArrowLeft: expandiert -> Toggle sollte geclickt werden (zum Einklappen)
-  expect(TreeStatic.shouldClickToggleOnArrowKeys(true, true, "collapse")).toBe(true);
-
-  // ArrowRight: expandierbar, aber bereits expandiert -> kein Click
-  expect(TreeStatic.shouldClickToggleOnArrowKeys(true, true, "expand")).toBe(false);
-
-  // ArrowLeft: zugeklappt -> kein Click (zum Parent springen stattdessen)
-  expect(TreeStatic.shouldClickToggleOnArrowKeys(true, false, "parent")).toBe(false);
-
-  // ArrowRight: nicht expandierbar -> kein Click
-  expect(TreeStatic.shouldClickToggleOnArrowKeys(false, false, "expand")).toBe(false);
-
-  // ArrowLeft: nicht expandierbar -> kein Click
-  expect(TreeStatic.shouldClickToggleOnArrowKeys(false, true, "collapse")).toBe(false);
-
-  // "child" Aktion -> kein Click (zum Kind springen stattdessen)
-  expect(TreeStatic.shouldClickToggleOnArrowKeys(true, true, "child")).toBe(false);
-
-  // null Aktion -> kein Click
-  expect(TreeStatic.shouldClickToggleOnArrowKeys(true, false, null)).toBe(false);
-});
-*/
 test("shouldToggleCheckboxOnSpaceOrEnter", () => {
   // Space/Enter sollte immer die Checkbox toggeln
   expect(TreeStatic.shouldToggleCheckboxOnSpaceOrEnter()).toBe(true);

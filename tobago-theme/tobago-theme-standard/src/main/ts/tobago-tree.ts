@@ -184,12 +184,8 @@ export class Tree extends HTMLElement {
 
     const toggle = node.querySelector(".tobago-toggle") as HTMLElement;
     const input = node.querySelector("input[type=checkbox], input[type=radio]") as HTMLInputElement;
-    const isInputTarget = target.tagName === "INPUT";
 
     if (["Space", "Enter"].includes(key)) {
-      if (this.hasAttribute("data-debug")) {
-        console.debug("tobago-tree keydown", key, "on node", node.id);
-      }
       event.preventDefault();
       if (input) {
         input.checked = input.type === "radio" ? true : !input.checked;
@@ -215,8 +211,9 @@ export class Tree extends HTMLElement {
 
       const next = isUp ? all[idx - 1] : all[idx + 1];
       if (next) {
-        const hasNextToggle = next.querySelector(".tobago-toggle") !== null;
-        const preferCheckbox = this.hasCheckboxes && (!target.classList.contains("tobago-toggle") || !hasNextToggle);
+        const nextHasCheckbox = next.querySelector("input[type=checkbox], input[type=radio]") !== null;
+        const nextHasToggle = next.querySelector(".tobago-toggle") !== null;
+        const preferCheckbox = this.hasCheckboxes && (nextHasCheckbox || !nextHasToggle);
         this.focusNode(next, preferCheckbox);
       }
       return;
@@ -229,18 +226,17 @@ export class Tree extends HTMLElement {
       if (toggle) {
         if (expanded) {
           toggle.click();
+          if (this.hasCheckboxes && input) {
+            setTimeout(() => input.focus(), 0);
+          }
           return;
         }
-        //if (this.hasCheckboxes && isInputTarget) {
-        //  toggle.focus();
-        //  return;
-        //}
       }
 
       const parentId = node.getAttribute("parent");
       if (parentId) {
         const parent = this.querySelector(`tobago-tree-node[id="${parentId}"]`) as HTMLElement;
-        this.focusNode(parent, false);
+        this.focusNode(parent, this.hasCheckboxes);
       }
       return;
     }

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import {test} from "@playwright/test";
+import {expect, test} from "@playwright/test";
 
 test.describe("090-tree/01-select/Tree_Select_Keyboard_singleLeafOnly.xhtml", () => {
 
@@ -23,31 +23,132 @@ test.describe("090-tree/01-select/Tree_Select_Keyboard_singleLeafOnly.xhtml", ()
     await page.goto("/content/090-tree/01-select/Tree_Select.xhtml");
   });
 
-  test("singleLeafOnly: ÄNDERN", async ({page}) => {
+  test("singleLeafOnly: Select Sports, Select Movies", async ({page}) => {
     const radios = page.locator("[id='page:mainForm:categoriesTree'] input[type=radio]");
-    const selectableSingle = page.locator("[id='page:mainForm:selectable::1']");
-    const category = page.locator("[id='page:mainForm:categoriesTree:0:select']");
+    const selectableSingleLeaf = page.locator("[id='page:mainForm:selectable::2']");
+    const output = page.locator("[id='page:mainForm:selectedNodesOutput'] .form-control-plaintext");
+
+
+    const category = page.locator("[id='page:mainForm:categoriesTree:0:j_id_3f']");
     const sports = page.locator("[id='page:mainForm:categoriesTree:1:select']");
     const movies = page.locator("[id='page:mainForm:categoriesTree:2:select']");
-    const music = page.locator("[id='page:mainForm:categoriesTree:3:select']");
+    const music = page.locator("[id='page:mainForm:categoriesTree:3:j_id_3f']");
     const classic = page.locator("[id='page:mainForm:categoriesTree:4:select']");
     const pop = page.locator("[id='page:mainForm:categoriesTree:5:select']");
-    const world = page.locator("[id='page:mainForm:categoriesTree:6:select']");
+    const world = page.locator("[id='page:mainForm:categoriesTree:6:j_id_3f']");
     const carib = page.locator("[id='page:mainForm:categoriesTree:7:select']");
     const africa = page.locator("[id='page:mainForm:categoriesTree:8:select']");
     const games = page.locator("[id='page:mainForm:categoriesTree:9:select']");
-    const science = page.locator("[id='page:mainForm:categoriesTree:10:select']");
-    const mathematics = page.locator("[id='page:mainForm:categoriesTree:11:select']");
-    const geography = page.locator("[id='page:mainForm:categoriesTree:12:select']");
-    const astronomy = page.locator("[id='page:mainForm:categoriesTree:13:select']");
-    const analysis = page.locator("[id='page:mainForm:categoriesTree:14:select']");
-    const algebra = page.locator("[id='page:mainForm:categoriesTree:15:select']");
+    const science = page.locator("[id='page:mainForm:categoriesTree:10:j_id_3f']");
+    const mathematics = page.locator("[id='page:mainForm:categoriesTree:11:j_id_3f']");
+    const analysis = page.locator("[id='page:mainForm:categoriesTree:12:select']");
+    const algebra = page.locator("[id='page:mainForm:categoriesTree:13:select']");
+    const geography = page.locator("[id='page:mainForm:categoriesTree:14:select']");
+    const astronomy = page.locator("[id='page:mainForm:categoriesTree:15:j_id_3f']");
     const education = page.locator("[id='page:mainForm:categoriesTree:16:select']");
-    const pictures = page.locator("[id='page:mainForm:categoriesTree:17:select']");
+    const pictures = page.locator("[id='page:mainForm:categoriesTree:17:j_id_3f']");
     const ngc = page.locator("[id='page:mainForm:categoriesTree:18:select']");
     const messier = page.locator("[id='page:mainForm:categoriesTree:19:select']");
 
-    const output = page.locator("[id='page:mainForm:selectedNodesOutput'] .form-control-plaintext");
+    await selectableSingleLeaf.check();
+    await expect(radios).toHaveCount(6);
 
+    await sports.check();
+    await expect(output).toHaveText("Sports");
+    await page.keyboard.press("ArrowUp");
+    await expect(category).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(sports).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(movies).toBeFocused();
+    await page.keyboard.press("Enter");               //Check Movies
+    await expect(output).toHaveText("Movies");
+    await page.keyboard.press("ArrowDown");
+    await expect(music).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(classic).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(pop).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(world).toBeFocused();
+    await page.keyboard.press("Space");               //Check World
+    await expect(output).not.toHaveText("World");
+    await page.keyboard.press("ArrowRight");
+    await expect(world).toBeFocused();
+    await expect(radios).toHaveCount(8);
+    await page.keyboard.press("ArrowDown");
+    await expect(carib).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(africa).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(games).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(science).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(mathematics).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expect(mathematics).toBeFocused();
+    await expect(radios).toHaveCount(10);
+    await page.keyboard.press("ArrowDown");
+    await expect(analysis).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(algebra).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(geography).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(astronomy).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expect(astronomy).toBeFocused();
+    await expect(radios).toHaveCount(11);
+    await page.keyboard.press("ArrowDown");
+    await expect(education).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(pictures).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expect(pictures).toBeFocused();
+    await expect(radios).toHaveCount(13);
+    await page.keyboard.press("ArrowDown");
+    await expect(ngc).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(messier).toBeFocused();
+    await page.keyboard.press("Enter");               //Check Messier
+    await expect(output).toHaveText("Messier");
+    // Und dann alles in Tree_Select.test.ts
+
+    await page.keyboard.press("ArrowLeft");
+    await expect(pictures).toBeFocused();
+    await page.keyboard.press("ArrowLeft");
+    await expect(pictures).toBeFocused();
+    await page.keyboard.press("ArrowLeft");
+    await expect(astronomy).toBeFocused();
+    await page.keyboard.press("ArrowLeft");
+    await expect(astronomy).toBeFocused();
+    await page.keyboard.press("ArrowLeft");
+    await expect(science).toBeFocused();
+    await page.keyboard.press("ArrowLeft");
+    await expect(science).toBeFocused();
+    await page.keyboard.press("ArrowUp");
+    await page.keyboard.press("ArrowUp");
+    await page.keyboard.press("ArrowLeft");
+    await expect(world).toBeFocused();
+    await page.keyboard.press("ArrowLeft");
+    await expect(world).toBeFocused();
+    await page.keyboard.press("ArrowLeft");
+    await expect(music).toBeFocused();
+    await page.keyboard.press("ArrowLeft");
+    await expect(music).toBeFocused();
+    await page.keyboard.press("Enter");          //Check Music
+    await expect(output).toHaveText("Messier");
+    await page.keyboard.press("ArrowUp");
+    await expect(movies).toBeFocused();
+    await page.keyboard.press("Enter");          //Check Movies
+
+
+    //This output should be "Movies" because the selection mode is singleLeafOnly and the last selected leaf node is "Movies"
+    //But because of Issue "TOBAGO-2558" the last picked leaf node "Messier" is not deselected
+    //So now we have to outputs, with only one allowed
+    await expect(output).toHaveText("Movies, Messier");
   });
 });
+
+// Und dann alles in Tree_Select.test.ts

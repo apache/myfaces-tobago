@@ -48,11 +48,17 @@ test.describe("090-tree/01-select/Tree_Select_Keyboard_multi.xhtml", () => {
     const ngc = page.locator("[id='page:mainForm:categoriesTree:18:select']");
     const messier = page.locator("[id='page:mainForm:categoriesTree:19:select']");
 
-    const expandableMusic = page.locator("[id='page:mainForm:categoriesTree:3:j_id_3f']");
-    const expandableWorld = page.locator("[id='page:mainForm:categoriesTree:6:j_id_3f']");
-    const expandableScience = page.locator("[id='page:mainForm:categoriesTree:10:j_id_3f']");
-    const expandableAstronomy = page.locator("[id='page:mainForm:categoriesTree:15:j_id_3f']");
-    const expandablePictures = page.locator("[id='page:mainForm:categoriesTree:17:j_id_3f']");
+    const classicColapse = page.locator("[id='page:mainForm:categoriesTree:4:node']");
+    const popColapse = page.locator("[id='page:mainForm:categoriesTree:5:node']");
+    const worldColapse = page.locator("[id='page:mainForm:categoriesTree:6:node']");
+    const caribColapse = page.locator("[id='page:mainForm:categoriesTree:7:node']");
+    const africaColapse = page.locator("[id='page:mainForm:categoriesTree:8:node']");
+    const mathematicsColapse = page.locator("[id='page:mainForm:categoriesTree:11:node']");
+    const astronomyColapse = page.locator("[id='page:mainForm:categoriesTree:15:node']");
+    const educationColapse = page.locator("[id='page:mainForm:categoriesTree:16:node']");
+    const picturesColapse = page.locator("[id='page:mainForm:categoriesTree:17:node']");
+    const ngcColapse = page.locator("[id='page:mainForm:categoriesTree:18:node']");
+    const messierColapse = page.locator("[id='page:mainForm:categoriesTree:19:node']");
 
     // selectable=multi is already set
     await expect(checkboxes).toHaveCount(12);
@@ -83,7 +89,6 @@ test.describe("090-tree/01-select/Tree_Select_Keyboard_multi.xhtml", () => {
     await expect(world).toBeFocused();
     await page.keyboard.press("ArrowRight");
     await expect(world).toBeFocused();
-    // To be sure it is expanded and all checkboxes are visible (older Pcs may need more time to expand the tree)
     await expect(checkboxes).toHaveCount(14);
     await page.keyboard.press("ArrowDown");
     await expect(carib).toBeFocused();
@@ -97,7 +102,6 @@ test.describe("090-tree/01-select/Tree_Select_Keyboard_multi.xhtml", () => {
     await expect(mathematics).toBeFocused();
     await page.keyboard.press("ArrowRight");
     await expect(mathematics).toBeFocused();
-    // To be sure it is expanded and all checkboxes are visible (older Pcs may need more time to expand the tree)
     await expect(checkboxes).toHaveCount(16);
     await page.keyboard.press("ArrowDown");
     await expect(analysis).toBeFocused();
@@ -111,7 +115,6 @@ test.describe("090-tree/01-select/Tree_Select_Keyboard_multi.xhtml", () => {
     await expect(astronomy).toBeFocused();
     await page.keyboard.press("ArrowRight");
     await expect(astronomy).toBeFocused();
-    // To be sure it is expanded and all checkboxes are visible (older Pcs may need more time to expand the tree)
     await expect(checkboxes).toHaveCount(18);
     await page.keyboard.press("ArrowDown");
     await expect(education).toBeFocused();
@@ -119,7 +122,6 @@ test.describe("090-tree/01-select/Tree_Select_Keyboard_multi.xhtml", () => {
     await expect(pictures).toBeFocused();
     await page.keyboard.press("ArrowRight");
     await expect(pictures).toBeFocused();
-    // To be sure it is expanded and all checkboxes are visible (older Pcs may need more time to expand the tree)
     await expect(checkboxes).toHaveCount(20);
     await page.keyboard.press("ArrowDown");
     await expect(ngc).toBeFocused();
@@ -128,33 +130,40 @@ test.describe("090-tree/01-select/Tree_Select_Keyboard_multi.xhtml", () => {
 
     //Now Bottom to Top to Uncheck Music
     await page.keyboard.press("ArrowLeft");
-    await expect(expandablePictures).toBeFocused();
+    await expect(pictures).toBeFocused();
     await page.keyboard.press("ArrowLeft");
-    await expect(expandablePictures).toBeFocused();
+    await expect(pictures).toBeFocused();
+    await expect(ngcColapse).toHaveCSS("display", "none");
+    await expect(messierColapse).toHaveCSS("display", "none");
     await page.keyboard.press("ArrowLeft");
-    await expect(expandableAstronomy).toBeFocused();
+    await expect(astronomy).toBeFocused();
     await page.keyboard.press("ArrowLeft");
-    await expect(expandableAstronomy).toBeFocused();
+    await expect(astronomy).toBeFocused();
+    await expect(picturesColapse).toHaveCSS("display", "none");
+    await expect(educationColapse).toHaveCSS("display", "none");
     await page.keyboard.press("ArrowLeft");
-    await expect(expandableScience).toBeFocused();
-    await page.keyboard.press("ArrowLeft");
-    await expect(expandableScience).toBeFocused();
-    await page.keyboard.press("Tab");
     await expect(science).toBeFocused();
+    await page.keyboard.press("ArrowLeft");
+    await expect(science).toBeFocused();
+    await expect(mathematicsColapse).toHaveCSS("display", "none");
+    await expect(astronomyColapse).toHaveCSS("display", "none");
     await page.keyboard.press("ArrowUp");
     await expect(games).toBeFocused();
     await page.keyboard.press("ArrowUp");
     await expect(africa).toBeFocused();
     await page.keyboard.press("ArrowLeft");
-    await expect(expandableWorld).toBeFocused();
+    await expect(world).toBeFocused();
     await page.keyboard.press("ArrowLeft");
-    await expect(expandableWorld).toBeFocused();
+    await expect(world).toBeFocused();
+    await expect(caribColapse).toHaveCSS("display", "none");
+    await expect(africaColapse).toHaveCSS("display", "none");
     await page.keyboard.press("ArrowLeft");
-    await expect(expandableMusic).toBeFocused();
-    await page.keyboard.press("ArrowLeft");
-    await expect(expandableMusic).toBeFocused();
-    await page.keyboard.press("Tab");
     await expect(music).toBeFocused();
+    await page.keyboard.press("ArrowLeft");
+    await expect(music).toBeFocused();
+    await expect(classicColapse).toHaveCSS("display", "none");
+    await expect(popColapse).toHaveCSS("display", "none");
+    await expect(worldColapse).toHaveCSS("display", "none");
     await page.keyboard.press("Space");             //Uncheck Music
     await expect(output).toHaveText("Geography");
   });
