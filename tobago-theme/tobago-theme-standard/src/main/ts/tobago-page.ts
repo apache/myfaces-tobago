@@ -48,7 +48,6 @@ export class Page extends HTMLElement {
   connectedCallback(): void {
     this.registerAjaxListener();
     this.listeners.add(this.form, "submit", this.beforeSubmit.bind(this));
-    this.listeners.add(window, "unload", this.beforeUnload.bind(this));
     this.listeners.add(window, "keydown", (event: KeyboardEvent): boolean => {
       if (event.key === Key.ENTER) {
         const target = event.target as HTMLElement;
@@ -86,14 +85,6 @@ export class Page extends HTMLElement {
           Overlay.htmlText(this.id, OverlayType.submit, this.waitOverlayDelayFull));
     }
     console.debug(this.body.querySelector("tobago-overlay"));
-  }
-
-  /**
-   * Wrapper function to call application generated onunload function
-   */
-  beforeUnload(): void {
-    console.debug("unload");
-    // todo: here me may check, if user will loose its edit state on the page
   }
 
   registerAjaxListener(): void {

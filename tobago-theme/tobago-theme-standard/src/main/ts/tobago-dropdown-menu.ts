@@ -154,31 +154,6 @@ export class DropdownMenu {
   private updatePosition(): void {
     const refElementRect = this.referenceElement.getBoundingClientRect();
 
-    //calc horizontal positioning and max-width
-    switch (this.alignment) {
-      case DropdownMenuAlignment.start:
-        this.calcHorizontalPositioningAndMaxWidth(DropdownMenuAlignment.start, false, refElementRect);
-        if (!this.dropdownContentFit) {
-          this.calcHorizontalPositioningAndMaxWidth(DropdownMenuAlignment.end, false, refElementRect);
-          if (!this.dropdownContentFit) {
-            this.calcHorizontalPositioningAndMaxWidth(DropdownMenuAlignment.start, true, refElementRect);
-          }
-        }
-        break;
-      case DropdownMenuAlignment.centerFullWidth:
-        this.calcHorizontalPositioningAndMaxWidth(DropdownMenuAlignment.centerFullWidth, null, refElementRect);
-        break;
-      case DropdownMenuAlignment.end:
-        this.calcHorizontalPositioningAndMaxWidth(DropdownMenuAlignment.end, false, refElementRect);
-        if (!this.dropdownContentFit) {
-          this.calcHorizontalPositioningAndMaxWidth(DropdownMenuAlignment.start, false, refElementRect);
-          if (!this.dropdownContentFit) {
-            this.calcHorizontalPositioningAndMaxWidth(DropdownMenuAlignment.end, true, refElementRect);
-          }
-        }
-        break;
-    }
-
     //calc vertical positioning and max-height
     const upperBorder = this.stickyHeader ? this.stickyHeader.offsetHeight : 0;
     const lowerBorder = this.fixedFooter ? this.fixedFooter.offsetTop : window.innerHeight;
@@ -202,6 +177,31 @@ export class DropdownMenu {
       this.dropdownMenuElement.style.marginBottom = "var(--tobago-dropdown-menu-component-offset)";
       this.dropdownMenuElement.style.maxHeight = spaceAbove
           - parseFloat(getComputedStyle(this.dropdownMenuElement).marginTop) + "px";
+    }
+
+    //calc horizontal positioning and max-width
+    switch (this.alignment) {
+      case DropdownMenuAlignment.start:
+        this.calcHorizontalPositioningAndMaxWidth(DropdownMenuAlignment.start, false, refElementRect);
+        if (!this.dropdownContentFit) {
+          this.calcHorizontalPositioningAndMaxWidth(DropdownMenuAlignment.end, false, refElementRect);
+          if (!this.dropdownContentFit) {
+            this.calcHorizontalPositioningAndMaxWidth(DropdownMenuAlignment.start, true, refElementRect);
+          }
+        }
+        break;
+      case DropdownMenuAlignment.centerFullWidth:
+        this.calcHorizontalPositioningAndMaxWidth(DropdownMenuAlignment.centerFullWidth, null, refElementRect);
+        break;
+      case DropdownMenuAlignment.end:
+        this.calcHorizontalPositioningAndMaxWidth(DropdownMenuAlignment.end, false, refElementRect);
+        if (!this.dropdownContentFit) {
+          this.calcHorizontalPositioningAndMaxWidth(DropdownMenuAlignment.start, false, refElementRect);
+          if (!this.dropdownContentFit) {
+            this.calcHorizontalPositioningAndMaxWidth(DropdownMenuAlignment.end, true, refElementRect);
+          }
+        }
+        break;
     }
   }
 
@@ -245,7 +245,8 @@ export class DropdownMenu {
 
   private get dropdownContentFit(): boolean {
     const element = this.dropdownMenuElement;
-    return element.scrollWidth <= element.clientWidth && element.offsetWidth <= parseFloat(element.style.maxWidth);
+    return element.scrollWidth <= element.clientWidth
+        && element.getBoundingClientRect().width <= parseFloat(element.style.maxWidth);
   }
 
   private get fixedFooter(): HTMLElement {

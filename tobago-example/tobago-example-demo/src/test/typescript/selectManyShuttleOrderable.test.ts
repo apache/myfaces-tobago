@@ -23,18 +23,15 @@ import {SelectManyShuttleDetail} from "../../../../../tobago-theme/tobago-theme-
 test.describe("900-test/selectManyShuttle/SelectManyShuttleOrderable.xhtml", () => {
 
   test.beforeEach(async ({page}, testInfo) => {
-    await page.goto("/content/900-test/selectManyShuttle/SelectManyShuttleOrderable.xhtml");
+    await page.goto("/content/900-test/selectManyShuttle/orderable/Orderable.xhtml");
   });
 
   test("JavaScript 'change' event", async ({page}) => {
     const shuttle = page.locator("tobago-select-many-shuttle[id='page:mainForm:shuttle']");
     await  expect(shuttle).toBeVisible();
-    const unselect = shuttle.locator(".tobago-unselected");
     const select = shuttle.locator(".tobago-selected");
     const addAll = shuttle.locator("button[id='page:mainForm:shuttle::addAll']");
-    const add = shuttle.locator("button[id='page:mainForm:shuttle::add']");
     const remove = shuttle.locator("button[id='page:mainForm:shuttle::remove']");
-    const removeAll = shuttle.locator("button[id='page:mainForm:shuttle::removeAll']");
     const top = shuttle.locator("button[id='page:mainForm:shuttle::top']");
     const up = shuttle.locator("button[id='page:mainForm:shuttle::up']");
     const down = shuttle.locator("button[id='page:mainForm:shuttle::down']");

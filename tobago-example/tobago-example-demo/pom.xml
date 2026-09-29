@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-example</artifactId>
-    <version>6.12.0-SNAPSHOT</version>
+    <version>6.12.3-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-example-demo</artifactId>
   <packaging>war</packaging>
@@ -50,7 +50,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>xml-maven-plugin</artifactId>
-        <version>1.2.1</version>
+        <version>1.2.2</version>
         <executions>
           <execution>
             <goals>
@@ -136,7 +136,7 @@
       <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-java</artifactId>
-        <version>4.48.0</version>
+        <version>4.49.0</version>
       </dependency>
       <dependency>
         <groupId>com.google.guava</groupId>
@@ -251,7 +251,7 @@
             <artifactId>maven-failsafe-plugin</artifactId>
             <configuration>
               <includes>
-                <include>integration/*</include>
+                <include>**/integration/*</include>
               </includes>
             </configuration>
             <executions>
@@ -729,6 +729,6 @@
   </profiles>
 
   <scm>
-    <tag>tobago-6.9.0</tag>
+    <tag>tobago-6.12.0</tag>
   </scm>
 </project>

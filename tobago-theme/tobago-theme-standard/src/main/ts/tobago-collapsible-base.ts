@@ -75,14 +75,20 @@ export abstract class CollapsibleBase extends HTMLElement {
   }
 
   get collapsed(): boolean {
-    return this.collapseField.value === "true";
+    return this.collapseField?.value === "true";
   }
 
   set collapsed(value: boolean) {
-    this.collapseField.value = String(value);
+    if (this.collapseField) {
+      this.collapseField.value = String(value);
+    }
   }
 
-  get collapseField(): HTMLInputElement {
-    return this.querySelector("input[id$='::collapse']");
+  private get collapseField(): HTMLInputElement {
+    const collapseField = this.querySelector("input[id$='::collapse']") as HTMLInputElement;
+    if (collapseField === null) {
+      console.warn("Collapsible status field not found. Is 'collapsed mode = hidden/absent' set?");
+    }
+    return collapseField;
   }
 }

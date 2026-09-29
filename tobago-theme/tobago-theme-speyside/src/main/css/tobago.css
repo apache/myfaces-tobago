@@ -13508,6 +13508,7 @@ tobago-dropdown > .tobago-dropdown-menu {
 
 tobago-dropdown > .tobago-dropdown-menu .tobago-panel-facet {
   padding: var(--bs-dropdown-item-padding-y) var(--bs-dropdown-item-padding-x);
+  display: inline-block;
 }
 
 tobago-dropdown > .tobago-dropdown-menu .form-check {
@@ -14419,6 +14420,7 @@ tobago-page .tobago-page-menuStore > .tobago-dropdown-menu {
 
 tobago-page .tobago-page-menuStore > .tobago-dropdown-menu .tobago-panel-facet {
   padding: var(--bs-dropdown-item-padding-y) var(--bs-dropdown-item-padding-x);
+  display: inline-block;
 }
 
 tobago-page .tobago-page-menuStore > .tobago-dropdown-menu .form-check {

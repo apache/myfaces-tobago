@@ -25,7 +25,7 @@
   <cc:attribute name="action" method-signature="java.lang.String action()"/>
 </cc:interface>
 <cc:implementation>
-  <tc:out id="out" label="#{cc.attrs.label}" value="#{cc.attrs.controller.time}"/>
+  <tc:out id="out" label="#{cc.attrs.label}" value="#{cc.attrs.controller.timestamp}"/>
   <tc:button id="submit" label="Reload 1" action="#{cc.attrs.controller.refreshTime}"/>
   <tc:button id="submit2" label="Reload 2" action="#{cc.attrs.action}"/>
 </cc:implementation>

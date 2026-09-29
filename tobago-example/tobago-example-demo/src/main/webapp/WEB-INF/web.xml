@@ -79,6 +79,12 @@
     <param-value>url</param-value>
   </context-param>
 
+  <context-param>
+    <!-- fix Docker Open Liberty, which don't scan the "/WEB-INF/classes/META-INF/" directory -->
+    <param-name>jakarta.faces.FACELETS_LIBRARIES</param-name>
+    <param-value>/WEB-INF/classes/META-INF/tobago-example-demo.taglib.xml</param-value>
+  </context-param>
+
   <listener>
     <listener-class>org.apache.myfaces.tobago.example.demo.info.ActivitySessionListener</listener-class>
   </listener>

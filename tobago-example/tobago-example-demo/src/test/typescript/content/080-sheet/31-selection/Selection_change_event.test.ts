@@ -72,6 +72,7 @@ test.describe("080-sheet/31-selection/Selection_change_event.xhtml", () => {
 
     await resetSelected.click();
     await expect(hiddenSelectedField).toHaveValue("[]");
+    await expect(page.locator("[id='page:searchForm:search::field']")).toBeFocused(); //wait for main.xhtml behavior
 
     await sunCheckbox.focus();
     await expect(sunCheckbox).toBeFocused();

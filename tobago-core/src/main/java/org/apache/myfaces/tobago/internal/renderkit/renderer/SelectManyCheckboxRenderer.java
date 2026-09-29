@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.model.SelectItem;
+
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectManyCheckbox;
 import org.apache.myfaces.tobago.internal.component.AbstractUISelectReference;
@@ -60,6 +61,9 @@ public class SelectManyCheckboxRenderer<T extends AbstractUISelectManyCheckbox> 
     final boolean isInsideCommand = isInside(facesContext, HtmlElements.COMMAND);
 
     writer.startElement(getTag(facesContext));
+    if (isInsideCommand) {
+      writer.writeIdAttribute(id);
+    }
     writer.writeClassAttribute(
         inline ? BootstrapClass.FORM_CHECK_INLINE : null,
         component.getCustomClass());

@@ -23,7 +23,7 @@ import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import java.io.Serializable;
-import java.time.LocalTime;
+import java.time.Instant;
 
 @SessionScoped
 @Named
@@ -31,7 +31,7 @@ public class RoleController implements Serializable {
 
   private String text;
   private static final String OUTCOME_ADMIN = "admin";
-  private String time;
+  private long timestamp;
 
   public String getText() {
     return text;
@@ -56,13 +56,13 @@ public class RoleController implements Serializable {
     return OUTCOME_ADMIN;
   }
 
-  public String getTime() {
-    return time;
+  public long getTimestamp() {
+    return timestamp;
   }
 
   @RolesAllowed({"demo-admin", "demo-guest"})
   public String refreshTime() {
-    time = LocalTime.now().toString();
+    timestamp = Instant.now().toEpochMilli();
     return null;
   }
 }

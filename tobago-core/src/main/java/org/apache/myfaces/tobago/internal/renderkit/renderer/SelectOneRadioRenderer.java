@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.internal.renderkit.renderer;
 
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.model.SelectItem;
+
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFormBase;
@@ -112,6 +113,9 @@ public class SelectOneRadioRenderer<T extends AbstractUISelectOneRadio> extends 
     final String name = getDecodingId(facesContext, component);
 
     writer.startElement(getTag(facesContext));
+    if (isInsideCommand) {
+      writer.writeIdAttribute(id);
+    }
     writer.writeClassAttribute(
         inline ? BootstrapClass.FORM_CHECK_INLINE : null,
         component.getCustomClass());

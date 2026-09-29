@@ -90,6 +90,7 @@ $icon-sort-numbers: (
     @include tobagoDropdownMenuValues();
 
     .tobago-panel-facet {
+      display: inline-block;
       padding: var(--#{$prefix}dropdown-item-padding-y) var(--#{$prefix}dropdown-item-padding-x);
     }
 
