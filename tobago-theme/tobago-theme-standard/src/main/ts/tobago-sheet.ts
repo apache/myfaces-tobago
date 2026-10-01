@@ -501,7 +501,7 @@ Type: ${data.type}`);
     console.debug("down");
     this.headerCols.forEach((col, i) => {
       if (!col.classList.contains(Css.TOBAGO_ROW_FILLER) && !col.classList.contains(Css.TOBAGO_BEHAVIOR_CONTAINER)) {
-        col.style.width = getComputedStyle(col).width;
+        col.style.width = col.offsetWidth + "px";
       } else if (col.classList.contains(Css.TOBAGO_ROW_FILLER)) {
         col.style.width = "auto";
       }
@@ -514,7 +514,7 @@ Type: ${data.type}`);
     this.mousemoveData = {
       columnIndex: columnIndex,
       originalClientX: event.clientX,
-      originalHeaderColumnWidth: parseInt(getComputedStyle(headerColumn).width),
+      originalHeaderColumnWidth: headerColumn.offsetWidth,
       mousemoveListener: this.mousemove.bind(this),
       mouseupListener: this.mouseup.bind(this)
     };
@@ -544,7 +544,7 @@ Type: ${data.type}`);
 
     this.headerCols.forEach((col, i) => {
       if (!col.classList.contains(Css.TOBAGO_ROW_FILLER) && !col.classList.contains(Css.TOBAGO_BEHAVIOR_CONTAINER)) {
-        renderedColWidths[i] = parseInt(getComputedStyle(col).width);
+        renderedColWidths[i] = col.offsetWidth;
       }
     });
 

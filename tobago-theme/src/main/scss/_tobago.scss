@@ -1667,9 +1667,9 @@ tobago-sheet {
 
   .tobago-resize {
     position: absolute;
-    right: -5px;
+    right: 0;
     top: 0;
-    width: 10px;
+    width: 5px;
     height: 100%;
     z-index: 1;
     cursor: col-resize;
@@ -1779,7 +1779,7 @@ tobago-sheet {
 
   header th, .tobago-body th, .tobago-body td {
     &.tobago-behavior-container {
-      display: none;
+      width: 0; //"width: 0", because in Safari "auto"-columns don't have the correct width with "display: none;".
     }
   }
 
