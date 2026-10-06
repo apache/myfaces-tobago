@@ -494,76 +494,81 @@ Type: ${data.type}`);
   }
 
   mousedown(event: MouseEvent): void {
+    if (event.button === 0) { //primary mouse button
+      Page.page(this).dataset.SheetMousedownData = this.id;
 
-    Page.page(this).dataset.SheetMousedownData = this.id;
+      // begin resizing
+      console.debug("down");
+      this.headerCols.forEach((col, i) => {
+        if (!col.classList.contains(Css.TOBAGO_ROW_FILLER) && !col.classList.contains(Css.TOBAGO_BEHAVIOR_CONTAINER)) {
+          col.style.width = col.offsetWidth + "px";
+        } else if (col.classList.contains(Css.TOBAGO_ROW_FILLER)) {
+          col.style.width = "auto";
+        }
+        this.bodyCols.item(i).style.width = col.style.width;
+      });
 
-    // begin resizing
-    console.debug("down");
-    this.headerCols.forEach((col, i) => {
-      if (!col.classList.contains(Css.TOBAGO_ROW_FILLER) && !col.classList.contains(Css.TOBAGO_BEHAVIOR_CONTAINER)) {
-        col.style.width = col.offsetWidth + "px";
-      } else if (col.classList.contains(Css.TOBAGO_ROW_FILLER)) {
-        col.style.width = "auto";
-      }
-      this.bodyCols.item(i).style.width = col.style.width;
-    });
+      const resizeElement = event.currentTarget as HTMLElement;
+      const columnIndex = parseInt(resizeElement.dataset.tobagoColumnIndex);
+      const headerColumn = this.headerCols.item(columnIndex);
+      this.mousemoveData = {
+        columnIndex: columnIndex,
+        originalClientX: event.clientX,
+        originalHeaderColumnWidth: headerColumn.offsetWidth,
+        mousemoveListener: this.mousemove.bind(this),
+        mouseupListener: this.mouseup.bind(this)
+      };
 
-    const resizeElement = event.currentTarget as HTMLElement;
-    const columnIndex = parseInt(resizeElement.dataset.tobagoColumnIndex);
-    const headerColumn = this.headerCols.item(columnIndex);
-    this.mousemoveData = {
-      columnIndex: columnIndex,
-      originalClientX: event.clientX,
-      originalHeaderColumnWidth: headerColumn.offsetWidth,
-      mousemoveListener: this.mousemove.bind(this),
-      mouseupListener: this.mouseup.bind(this)
-    };
-
-    document.addEventListener("mousemove", this.mousemoveData.mousemoveListener);
-    document.addEventListener("mouseup", this.mousemoveData.mouseupListener);
+      document.addEventListener("mousemove", this.mousemoveData.mousemoveListener);
+      document.addEventListener("mouseup", this.mousemoveData.mouseupListener);
+    }
   }
 
   private mousemove(event: MouseEvent): void {
-    let delta = event.clientX - this.mousemoveData.originalClientX;
-    delta = -Math.min(-delta, this.mousemoveData.originalHeaderColumnWidth - 10);
-    const columnWidth = this.mousemoveData.originalHeaderColumnWidth + delta;
-    this.headerCols.item(this.mousemoveData.columnIndex).style.width = columnWidth + "px";
-    this.bodyCols.item(this.mousemoveData.columnIndex).style.width = columnWidth + "px";
-    if (window.getSelection) {
-      window.getSelection().removeAllRanges();
+    if (event.button === 0) { //primary mouse button
+      let delta = event.clientX - this.mousemoveData.originalClientX;
+      delta = -Math.min(-delta, this.mousemoveData.originalHeaderColumnWidth - 10);
+      const columnWidth = this.mousemoveData.originalHeaderColumnWidth + delta;
+      this.headerCols.item(this.mousemoveData.columnIndex).style.width = columnWidth + "px";
+      this.bodyCols.item(this.mousemoveData.columnIndex).style.width = columnWidth + "px";
+      if (window.getSelection) {
+        window.getSelection().removeAllRanges();
+      }
     }
   }
 
   private mouseup(event: MouseEvent): void {
-    console.debug("up");
+    if (event.button === 0) { //primary mouse button
+      console.debug("up");
 
-    // switch off the mouse move listener
-    document.removeEventListener("mousemove", this.mousemoveData.mousemoveListener);
-    document.removeEventListener("mouseup", this.mousemoveData.mouseupListener);
-    const renderedColWidths: number[] = [];
+      // switch off the mouse move listener
+      document.removeEventListener("mousemove", this.mousemoveData.mousemoveListener);
+      document.removeEventListener("mouseup", this.mousemoveData.mouseupListener);
+      const renderedColWidths: number[] = [];
 
-    this.headerCols.forEach((col, i) => {
-      if (!col.classList.contains(Css.TOBAGO_ROW_FILLER) && !col.classList.contains(Css.TOBAGO_BEHAVIOR_CONTAINER)) {
-        renderedColWidths[i] = col.offsetWidth;
-      }
-    });
+      this.headerCols.forEach((col, i) => {
+        if (!col.classList.contains(Css.TOBAGO_ROW_FILLER) && !col.classList.contains(Css.TOBAGO_BEHAVIOR_CONTAINER)) {
+          renderedColWidths[i] = col.offsetWidth;
+        }
+      });
 
-    const oldWidth: number[] = this.hiddenInputWidthValue;
-    const newWidth: number[] = [];
+      const oldWidth: number[] = this.hiddenInputWidthValue;
+      const newWidth: number[] = [];
 
-    let renderedColWidthsIndex = 0;
-    this.hiddenInputRenderedValue.forEach((rendered, index) => {
-      if (rendered) {
-        newWidth[index] = renderedColWidths[renderedColWidthsIndex];
-        renderedColWidthsIndex++;
-      } else if (oldWidth[index]) {
-        newWidth[index] = oldWidth[index];
-      } else {
-        newWidth[index] = -1;
-      }
-    });
+      let renderedColWidthsIndex = 0;
+      this.hiddenInputRenderedValue.forEach((rendered, index) => {
+        if (rendered) {
+          newWidth[index] = renderedColWidths[renderedColWidthsIndex];
+          renderedColWidthsIndex++;
+        } else if (oldWidth[index]) {
+          newWidth[index] = oldWidth[index];
+        } else {
+          newWidth[index] = -1;
+        }
+      });
 
-    this.hiddenInputWidthValue = newWidth;
+      this.hiddenInputWidthValue = newWidth;
+    }
   }
 
   scrollAction(event: Event): void {
