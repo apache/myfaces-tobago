@@ -67,6 +67,31 @@ test.describe("900-test/sheet/20-sheet-column-width/Sheet_Column_Width.xhtml", (
     await expect(columnHeads.nth(1)).toHaveCSS("width", "315px");
   });
 
+  test("Primary and secondary mouse button", async ({page}) => {
+    const columnHeads = page.locator("[id='page:mainForm:columnRenderedFalse'] header table thead tr th");
+
+    await expect(page.locator("[id='page:searchForm:search::field']")).toBeFocused();
+    await expect(columnHeads).toHaveCount(5);
+    await expect(columnHeads.nth(0)).toHaveCSS("width", "100px");
+    await expect(columnHeads.nth(1)).toHaveCSS("width", "200px");
+    await expect(columnHeads.nth(2)).toHaveCSS("width", "300px");
+
+    await resize(columnHeads.nth(0), +5, "left");
+    await expect(columnHeads.nth(0)).toHaveCSS("width", "105px");
+    await expect(columnHeads.nth(1)).toHaveCSS("width", "200px");
+    await expect(columnHeads.nth(2)).toHaveCSS("width", "300px");
+
+    await resize(columnHeads.nth(1), +16, "right");
+    await expect(columnHeads.nth(0)).toHaveCSS("width", "105px");
+    await expect(columnHeads.nth(1)).toHaveCSS("width", "200px");
+    await expect(columnHeads.nth(2)).toHaveCSS("width", "300px");
+
+    await resize(columnHeads.nth(2), -30, "left");
+    await expect(columnHeads.nth(0)).toHaveCSS("width", "105px");
+    await expect(columnHeads.nth(1)).toHaveCSS("width", "200px");
+    await expect(columnHeads.nth(2)).toHaveCSS("width", "270px");
+  });
+
   test("Only pixel values set", async ({page}) => {
     const columnHeads = page.locator("[id='page:mainForm:pixelOnly'] header table thead tr th");
     await expect(columnHeads.nth(0)).toHaveCSS("width", "100px");
@@ -111,7 +136,7 @@ test.describe("900-test/sheet/20-sheet-column-width/Sheet_Column_Width.xhtml", (
     expect(await body.evaluate(e => e.clientWidth >= e.scrollWidth)).toBeTruthy();
   });
 
-  async function resize(columnHead: Locator, movePx: number) {
+  async function resize(columnHead: Locator, movePx: number, mouseButton: "left" | "right" | "middle" = "left") {
     const page = columnHead.page();
     const resizeElement = columnHead.locator(".tobago-resize");
 
@@ -124,8 +149,8 @@ test.describe("900-test/sheet/20-sheet-column-width/Sheet_Column_Width.xhtml", (
 
     await expect(resizeElement).toBeVisible();
     await page.mouse.move(x, y);
-    await page.mouse.down();
+    await page.mouse.down({button: mouseButton});
     await page.mouse.move(x + movePx, y);
-    await page.mouse.up();
+    await page.mouse.up({button: mouseButton});
   }
 });
