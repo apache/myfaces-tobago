@@ -15690,11 +15690,11 @@ tobago-sheet header:hover .tobago-resize {
 tobago-sheet .tobago-resize {
   z-index: 1;
   cursor: col-resize;
-  width: 10px;
+  width: 5px;
   height: 100%;
   position: absolute;
   top: 0;
-  right: -5px;
+  right: 0;
 }
 
 tobago-sheet .tobago-sortable:after {
@@ -15922,7 +15922,7 @@ tobago-sheet .tobago-body .table td > tobago-tree-node .tobago-toggle {
 }
 
 tobago-sheet header th.tobago-behavior-container, tobago-sheet .tobago-body th.tobago-behavior-container, tobago-sheet .tobago-body td.tobago-behavior-container {
-  display: none;
+  width: 0;
 }
 
 tobago-sheet tobago-paginator-panel {
