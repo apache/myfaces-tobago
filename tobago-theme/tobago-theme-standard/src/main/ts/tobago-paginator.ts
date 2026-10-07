@@ -96,13 +96,13 @@ export class TobagoPaginator extends HTMLElement {
     tobago.ajax.request(
         this.id,
         null,
-        Overlay.getEnhancedRequestOptions({
+        {
           params: {
             "jakarta.faces.behavior.event": "reload"
           },
           execute: sheet.id,
           render: sheet.id
-        }));
+        });
   }
 
   get text(): HTMLElement {

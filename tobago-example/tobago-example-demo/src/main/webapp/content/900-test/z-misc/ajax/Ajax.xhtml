@@ -42,4 +42,18 @@
 
   <tc:out id="timestamp" label="Timestamp" value="#{ajaxSpecialCharacterController.timestamp}"/>
 
+  <tc:section label="Test overlay">
+    <p>An overlay should be shown if an Ajax request takes longer than one second. If an overlay is shown, it must stay,
+      till the corresponding render id is removed from the Tobago Ajax queue.</p>
+
+    <tc:in id="overlayTestInput" value="change text to force next ajax request into queue"/>
+    <tc:out id="overlayTestOutput" value="#{partialReloadController.currentDate}">
+      <f:convertDateTime pattern="HH:MM:ss.SSS"/>
+    </tc:out>
+
+    <tc:button id="overlayTestButton" label="Reload (wait 3 s)" action="#{partialReloadController.waitAndReload3}">
+      <f:ajax execute="overlayTestInput" render="overlayTestOutput"/>
+    </tc:button>
+  </tc:section>
+
 </ui:composition>

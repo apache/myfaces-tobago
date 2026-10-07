@@ -56,4 +56,29 @@ test.describe("900-test/z-misc/ajax/Ajax.xhtml", () => {
     await expect(html).toHaveCount(1);
     await expect(body).not.toHaveCSS("overflow", "hidden");
   });
+
+  test("Tobago Ajax queue overlay", async ({page}) => {
+    const input = page.locator("[id='page:mainForm:overlayTestInput::field']");
+    const output = page.locator("[id='page:mainForm:overlayTestOutput']");
+    const text = output.locator(".form-control-plaintext");
+    const overlay = output.locator("tobago-overlay");
+    const button = page.locator("[id='page:mainForm:overlayTestButton']");
+
+    let textValue = (await text.textContent())!;
+
+    await expect(overlay).not.toBeVisible();
+    await expect(text).toHaveText(textValue);
+
+    await button.click(); //click has a delay of 3 seconds
+    await expect(text).toHaveText(textValue);
+    await expect(overlay).toContainClass("show");
+
+    await input.fill("Bob");
+    await button.click(); //add another 3 seconds to queue
+    await expect(text).toHaveText(textValue); //text value not changed means, the first Ajax request is still running
+    await expect(overlay).toContainClass("show");
+
+    await expect(text).not.toHaveText(textValue); //second Ajax request is running
+    await expect(overlay).toContainClass("show", {timeout: 500}); //timeout must be < 1 s, because after that the new overlay is shown
+  });
 });

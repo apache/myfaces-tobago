@@ -1155,9 +1155,12 @@ tobago-overlay {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color .15s linear; //similar to .fade from Bootstrap
   overflow: hidden;
   z-index: 5; //set to "5", because this is the highest fixed value in Bootstrap
+
+  &.fade {
+    transition: background-color .15s linear; //similar to .fade from Bootstrap
+  }
 
   &.show {
     background-color: rgba(var(--#{$prefix}body-bg-rgb), 90%);
