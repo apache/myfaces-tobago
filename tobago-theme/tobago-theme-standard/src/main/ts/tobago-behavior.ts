@@ -114,7 +114,7 @@ export class Behavior extends HTMLElement {
         tobago.ajax.request(
             this.actionElement,
             event,
-            Overlay.getEnhancedRequestOptions({
+            {
               params: {
                 "jakarta.faces.behavior.event": this.event
               },
@@ -162,7 +162,7 @@ export class Behavior extends HTMLElement {
                   }
                 }
               }
-            }));
+            });
         break;
       case BehaviorMode.full:
         setTimeout(this.submit.bind(this), this.delay);

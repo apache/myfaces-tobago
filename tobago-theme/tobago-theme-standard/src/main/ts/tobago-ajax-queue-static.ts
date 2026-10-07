@@ -18,6 +18,7 @@
  */
 
 import {QueueItem} from "./tobago-ajax-queue";
+import {Overlay} from "./tobago-overlay";
 
 /**
  * Static logic for AjaxQueue class for better testing.
@@ -44,6 +45,7 @@ export class AjaxQueueStatic {
       func: facesAjaxRequest,
       inProgress: false
     });
+    Overlay.initAjaxQueueOverlays(queue, options);
     this.processQueue(queue);
   }
 
