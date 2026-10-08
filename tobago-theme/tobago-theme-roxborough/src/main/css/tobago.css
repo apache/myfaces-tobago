@@ -14714,10 +14714,13 @@ tobago-overlay {
   z-index: 5;
   justify-content: center;
   align-items: center;
-  transition: background-color .15s linear;
   display: flex;
   position: absolute;
   overflow: hidden;
+}
+
+tobago-overlay.fade {
+  transition: background-color .15s linear;
 }
 
 tobago-overlay.show {
