@@ -149,4 +149,18 @@
       </tc:column>
     </tc:sheet>
   </tc:section>
+
+  <tc:section label="Test: Sheet without 'column' attribute">
+    <tc:sheet id="noColumnAttribute" value="#{columnWidthController.solarList}" var="luminary" rows="2">
+      <tc:column label="Name">
+        <tc:out value="#{luminary.name}"/>
+      </tc:column>
+      <tc:column label="Orbit">
+        <tc:out value="#{luminary.orbit}"/>
+      </tc:column>
+      <tc:column label="Period (Days)">
+        <tc:out value="#{luminary.period}"/>
+      </tc:column>
+    </tc:sheet>
+  </tc:section>
 </ui:composition>
