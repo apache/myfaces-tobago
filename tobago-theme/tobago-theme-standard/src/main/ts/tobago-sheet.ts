@@ -212,6 +212,7 @@ export class Sheet extends HTMLElement {
           null,
           {
             params: {
+              tobagoSkipOverlay: true,
               "jakarta.faces.behavior.event": "lazy",
               "tobago.sheet.lazyFirstRow": next.from,
               "tobago.sheet.lazyLastRow": next.to + 1 //to+1, because the to-row should also be loaded

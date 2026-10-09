@@ -45,7 +45,12 @@ export class AjaxQueueStatic {
       func: facesAjaxRequest,
       inProgress: false
     });
-    Overlay.initAjaxQueueOverlays(queue, options);
+
+    if (options && !options.params?.tobagoSkipOverlay) {
+      //undocumented way to skip the overlay; need official way, see TOBAGO-2553
+      Overlay.initAjaxQueueOverlays(queue, options);
+    }
+
     this.processQueue(queue);
   }
 
