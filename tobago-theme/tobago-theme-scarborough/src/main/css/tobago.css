@@ -15930,6 +15930,7 @@ tobago-sheet .tobago-body .table td > tobago-tree-node .tobago-toggle {
 
 tobago-sheet header th.tobago-behavior-container, tobago-sheet .tobago-body th.tobago-behavior-container, tobago-sheet .tobago-body td.tobago-behavior-container {
   width: 0;
+  padding: 0;
 }
 
 tobago-sheet tobago-paginator-panel {
