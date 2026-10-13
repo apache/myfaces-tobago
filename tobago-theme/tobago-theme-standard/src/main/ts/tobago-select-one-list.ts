@@ -111,6 +111,8 @@ class SelectOneList extends SelectListBase {
         row.classList.remove(Css.TABLE_PRIMARY); // remove highlight list row
       }
     });
+
+    this.filterInput.classList.toggle(Css.TOBAGO_HIDE_PLACEHOLDER, this.hiddenSelect.value.length > 0);
   }
 
   protected leaveComponent(): void {

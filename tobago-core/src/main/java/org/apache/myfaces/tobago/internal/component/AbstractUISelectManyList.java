@@ -19,9 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import jakarta.faces.component.behavior.ClientBehaviorHolder;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.model.SelectItem;
 import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.component.SupportsAutoSpacing;
 import org.apache.myfaces.tobago.component.SupportsFilter;
@@ -35,6 +32,9 @@ import org.apache.myfaces.tobago.util.SearchOnce;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.SelectItem;
 import java.lang.invoke.MethodHandles;
 import java.util.Collection;
 import java.util.List;
@@ -79,6 +79,8 @@ public abstract class AbstractUISelectManyList extends AbstractUISelectManyBase
   public abstract boolean isLocalMenu();
 
   public abstract String getFooter();
+
+  public abstract String getPlaceholder();
 
   public boolean isReadonlyState() {
     final String filter = getFilter();

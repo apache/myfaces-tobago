@@ -205,6 +205,9 @@ public class SelectOneListRenderer<T extends AbstractUISelectOneList> extends Se
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
+    if (!disabled && !component.isReadonly()) {
+      writer.writeAttribute(HtmlAttributes.PLACEHOLDER, component.getPlaceholder(), true);
+    }
     renderFocus(clientId, component.isFocus(), component.isError(), facesContext, writer);
 
     writer.endElement(HtmlElements.INPUT);

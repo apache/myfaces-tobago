@@ -316,9 +316,19 @@ $icon-sort-numbers: (
       }
 
       &:read-only {
-        width: 0;
-        min-width: 0;
-        flex-grow: 0;
+        cursor: default;
+      }
+
+      &.tobago-hide-placeholder { //.tobago-filter is also used to show the placeholder for tc:selectList components
+        &::placeholder {
+          color: transparent;
+        }
+
+        &:read-only {
+          width: 0;
+          min-width: 0;
+          flex-grow: 0;
+        }
       }
     }
   }
