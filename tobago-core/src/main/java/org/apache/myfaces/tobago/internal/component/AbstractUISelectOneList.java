@@ -19,8 +19,6 @@
 
 package org.apache.myfaces.tobago.internal.component;
 
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.model.SelectItem;
 import org.apache.myfaces.tobago.component.SupportFieldId;
 import org.apache.myfaces.tobago.internal.util.SelectItemUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -28,6 +26,8 @@ import org.apache.myfaces.tobago.util.SearchOnce;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.SelectItem;
 import java.lang.invoke.MethodHandles;
 import java.util.List;
 
@@ -49,6 +49,8 @@ public abstract class AbstractUISelectOneList extends AbstractUISelectOneBase im
   public abstract boolean isLocalMenu();
 
   public abstract String getFooter();
+
+  public abstract String getPlaceholder();
 
   public boolean isReadonlyState() {
     final String filter = getFilter();

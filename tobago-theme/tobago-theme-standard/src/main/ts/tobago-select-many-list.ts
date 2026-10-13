@@ -128,6 +128,8 @@ class SelectManyList extends SelectListBase {
       }
       this.filterInput.disabled = this.badgeCloseButtons.length > 0;
     }
+
+    this.filterInput.classList.toggle(Css.TOBAGO_HIDE_PLACEHOLDER, this.hiddenSelect.value.length > 0);
   }
 
   private iconTemplate(icon: string): HTMLTemplateResult {
