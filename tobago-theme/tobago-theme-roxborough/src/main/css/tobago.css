@@ -15206,6 +15206,18 @@ tobago-select-one-list .tobago-select-field .tobago-filter:focus {
 }
 
 tobago-select-one-list .tobago-select-field .tobago-filter:read-only {
+  cursor: default;
+}
+
+tobago-select-one-list .tobago-select-field .tobago-filter.tobago-hide-placeholder::-ms-input-placeholder {
+  color: rgba(0, 0, 0, 0);
+}
+
+tobago-select-one-list .tobago-select-field .tobago-filter.tobago-hide-placeholder::placeholder {
+  color: rgba(0, 0, 0, 0);
+}
+
+tobago-select-one-list .tobago-select-field .tobago-filter.tobago-hide-placeholder:read-only {
   flex-grow: 0;
   width: 0;
   min-width: 0;
@@ -15459,6 +15471,18 @@ tobago-select-many-list .tobago-select-field .tobago-filter:focus {
 }
 
 tobago-select-many-list .tobago-select-field .tobago-filter:read-only {
+  cursor: default;
+}
+
+tobago-select-many-list .tobago-select-field .tobago-filter.tobago-hide-placeholder::-ms-input-placeholder {
+  color: rgba(0, 0, 0, 0);
+}
+
+tobago-select-many-list .tobago-select-field .tobago-filter.tobago-hide-placeholder::placeholder {
+  color: rgba(0, 0, 0, 0);
+}
+
+tobago-select-many-list .tobago-select-field .tobago-filter.tobago-hide-placeholder:read-only {
   flex-grow: 0;
   width: 0;
   min-width: 0;
