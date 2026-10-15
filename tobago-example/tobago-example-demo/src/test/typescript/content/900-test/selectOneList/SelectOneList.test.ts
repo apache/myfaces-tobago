@@ -235,4 +235,42 @@ test.describe("900-test/selectOneList/SelectOneList.xhtml", () => {
     await expect(readonlyFilter).not.toHaveAttribute("placeholder");
     await expect(disabledFilter).not.toHaveAttribute("placeholder");
   });
+
+  test("Close menu after selection", async ({page}) => {
+    const selectField = page.locator("[id='page:mainForm:basic:selectedStandard::selectField']");
+    const selectFieldValue = page.locator("[id='page:mainForm:basic:selectedStandard::selectField'] span");
+    const options = page.locator(".tobago-options[data-tobago-for='page:mainForm:basic:selectedStandard']");
+    const neptuneRow = page.locator(".tobago-options[name='page:mainForm:basic:selectedStandard'] tr[data-tobago-value='Neptune']");
+
+    await expect(page.locator("[id='page:searchForm:search::field']")).toBeFocused();
+    await expect(selectFieldValue).toHaveText("Neptune");
+    await expect(options).not.toBeVisible();
+
+    //test mouse
+    await selectField.click();
+    await expect(options).toBeVisible();
+    await neptuneRow.click();
+    await expect(selectFieldValue).toHaveText("");
+    await expect(options).not.toBeVisible();
+
+    await selectField.click();
+    await expect(options).toBeVisible();
+    await neptuneRow.click();
+    await expect(selectFieldValue).toHaveText("Neptune");
+    await expect(options).not.toBeVisible();
+
+    //test keyboard
+    await page.keyboard.press("ArrowUp");
+    await expect(options).toBeVisible();
+    await page.keyboard.press("ArrowUp");
+    await page.keyboard.press("Enter");
+    await expect(selectFieldValue).toHaveText("");
+    await expect(options).not.toBeVisible();
+
+    await page.keyboard.press("ArrowDown");
+    await expect(options).toBeVisible();
+    await page.keyboard.press("Space");
+    await expect(selectFieldValue).toHaveText("Mercury");
+    await expect(options).not.toBeVisible();
+  });
 });

@@ -42,10 +42,7 @@ class SelectOneList extends SelectListBase {
         }
         this.dropdownMenu?.show();
       } else if (this.isPartOfTobagoOptions(event.target as HTMLElement)) {
-        if (!this.filterInput.disabled) {
-          this.filterInput.focus();
-        }
-        this.dropdownMenu?.hide();
+        this.closeDropdownMenu();
       } else {
         this.leaveComponent();
       }
@@ -83,6 +80,7 @@ class SelectOneList extends SelectListBase {
     const option: HTMLOptionElement = this.hiddenSelect.querySelector(`[value="${itemValue}"]`);
     option.selected = this.hiddenSelect.required ? true : !option.selected;
     this.filterInput.value = null;
+    this.closeDropdownMenu();
 
     if (this.serverSideFiltering) {
       tobago.ajax.request(
@@ -113,6 +111,14 @@ class SelectOneList extends SelectListBase {
     });
 
     this.filterInput.classList.toggle(Css.TOBAGO_HIDE_PLACEHOLDER, this.hiddenSelect.value.length > 0);
+  }
+
+  private closeDropdownMenu(): void {
+    if (!this.filterInput.disabled) {
+      this.filterInput.focus();
+    }
+    this.dropdownMenu?.hide();
+    this.optionsControls.removePreselection();
   }
 
   protected leaveComponent(): void {
