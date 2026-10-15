@@ -249,4 +249,47 @@ test.describe("900-test/selectManyList/SelectManyList.xhtml", () => {
     await expect(readonlyFilter).not.toHaveAttribute("placeholder");
     await expect(disabledFilter).not.toHaveAttribute("placeholder");
   });
+
+  test("Menu stays open after selection", async ({page}) => {
+    const firstBadge = page.locator("[id='page:mainForm:basic:selectedStandard::selectField'] .tobago-badges tobago-badge");
+    const firstCloseButton = page.locator("[id='page:mainForm:basic:selectedStandard::selectField'] .tobago-badges .tobago-button.badge").first();
+    const options = page.locator(".tobago-options[data-tobago-for='page:mainForm:basic:selectedStandard']");
+    const venusRow = page.locator(".tobago-options[name='page:mainForm:basic:selectedStandard'] tr[data-tobago-value='Venus']");
+
+    await expect(page.locator("[id='page:searchForm:search::field']")).toBeFocused();
+    await expect(firstBadge).toHaveCount(3);
+    await expect(options).not.toBeVisible();
+
+    //preparation
+    await firstCloseButton.click();
+    await expect(firstBadge).toHaveCount(2);
+    await firstCloseButton.click();
+    await expect(firstBadge).toHaveCount(1);
+    await firstCloseButton.click();
+    await expect(firstBadge).toHaveCount(0);
+
+    //test keyboard
+    await page.keyboard.press("ArrowDown");
+    await expect(options).toBeVisible();
+    await page.keyboard.press("Enter");
+    await expect(firstBadge).toHaveText("Mercury");
+    await expect(options).toBeVisible();
+    await page.keyboard.press("Enter");
+    await expect(firstBadge).toHaveCount(0);
+    await expect(options).toBeVisible();
+    await page.keyboard.press("Space");
+    await expect(firstBadge).toHaveText("Mercury");
+    await expect(options).toBeVisible();
+    await page.keyboard.press("Space");
+    await expect(firstBadge).toHaveCount(0);
+    await expect(options).toBeVisible();
+
+    //test mouse
+    await venusRow.click();
+    await expect(firstBadge).toHaveText("Venus");
+    await expect(options).toBeVisible();
+    await venusRow.click();
+    await expect(firstBadge).toHaveCount(0);
+    await expect(options).toBeVisible();
+  });
 });
