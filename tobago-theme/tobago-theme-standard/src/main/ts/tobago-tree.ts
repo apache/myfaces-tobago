@@ -110,7 +110,7 @@ export class Tree extends HTMLElement {
   }
 
   get visibleNodes(): TreeNode[] {
-    return Array.from(this.nodes).filter(node => (node as HTMLElement).offsetParent !== null) as TreeNode[];
+    return Array.from(this.nodes).filter(node => !(node as HTMLElement).classList.contains(".d-none")) as TreeNode[];
   }
 
   private get hasCheckboxes(): boolean {
@@ -119,7 +119,6 @@ export class Tree extends HTMLElement {
 
   connectedCallback(): void {
     for (const node of Array.from(this.nodes)) {
-      (node as HTMLElement).setAttribute("tabindex", "-1");
 
       const subElements = node.querySelectorAll(".tobago-toggle, input[type=checkbox], input[type=radio]");
       subElements.forEach(el => el.setAttribute("tabindex", "0"));
@@ -133,11 +132,8 @@ export class Tree extends HTMLElement {
         if (subEl) {
           subEl.focus();
         }
-        this.addEventListener("keydown", this.handleKeydown);
-        return;
       }
     }
-
     this.addEventListener("keydown", this.handleKeydown);
   }
 
