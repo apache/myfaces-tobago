@@ -20,14 +20,18 @@
 package org.apache.myfaces.tobago.util;
 
 import org.apache.myfaces.test.config.ResourceBundleVarNames;
+import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.context.TobagoContext;
 import org.apache.myfaces.tobago.internal.config.AbstractTobagoTestBase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import jakarta.faces.context.FacesContext;
+import jakarta.servlet.ServletContext;
 import java.util.Locale;
 import java.util.MissingResourceException;
 
-import static org.apache.myfaces.tobago.util.ResourceUtils.TOBAGO_RESOURCE_BUNDLE;
+import static org.apache.myfaces.tobago.config.TobagoConfig.TOBAGO_CONFIG;
 
 public class ResourcesUtilsUnitTest extends AbstractTobagoTestBase {
 
@@ -55,66 +59,64 @@ public class ResourcesUtilsUnitTest extends AbstractTobagoTestBase {
   }
 
   @Test
-  public void testCustomTobagoResourceBundle() {
-    ResourceBundleVarNames.addVarName(TOBAGO_RESOURCE_BUNDLE,
-        "org.apache.myfaces.tobago.alternate.TobagoResourceBundle");
-    Assertions.assertEquals("First Page from test bundle (default)", ResourceUtils.getString("sheet.first"));
-  }
+  public void test4Bundle() {
+    final TobagoConfig tobagoConfig =
+        new TobagoConfig((ServletContext) facesContext.getExternalContext().getContext(),
+            "theme-config4.xml", "theme-config3.xml", "theme-config2.xml", "theme-config.xml");
+    servletContext.setAttribute(TOBAGO_CONFIG, tobagoConfig);
+    facesContext.getExternalContext().getApplicationMap().put(TOBAGO_CONFIG, tobagoConfig);
+    final TobagoContext tobagoContext = new TobagoContext();
+    tobagoContext.setTheme(tobagoConfig.getDefaultTheme());
+    request.setAttribute(TobagoContext.BEAN_NAME, tobagoContext);
+    ResourceBundleVarNames.addVarName("test4Bundle", "org.apache.myfaces.tobago.theme.test4Bundle");
+    ResourceBundleVarNames.addVarName("test3Bundle", "org.apache.myfaces.tobago.theme.test3Bundle");
+    ResourceBundleVarNames.addVarName("testBundle", "org.apache.myfaces.tobago.theme.resourcesUtilsTestBundle");
 
-  @Test
-  public void testCustomTobagoResourceBundleGermany() {
-    ResourceBundleVarNames.addVarName(TOBAGO_RESOURCE_BUNDLE,
-        "org.apache.myfaces.tobago.alternate.TobagoResourceBundle");
+    Assertions.assertEquals("test4", TobagoContext.getInstance(FacesContext.getCurrentInstance()).getTheme().getName());
+    Assertions.assertEquals("First Page test4Bundle (default)", ResourceUtils.getString("sheet.first"));
+
     facesContext.getViewRoot().setLocale(Locale.GERMANY);
-    Assertions.assertEquals("erste Seite vom Test-Bundle (DE)", ResourceUtils.getString("sheet.first"));
-  }
+    Assertions.assertEquals("erste Seite test4Bundle (DE)", ResourceUtils.getString("sheet.first"));
 
-  @Test
-  public void testCustomTobagoResourceBundleSpanish() {
-    ResourceBundleVarNames.addVarName(TOBAGO_RESOURCE_BUNDLE,
-        "org.apache.myfaces.tobago.alternate.TobagoResourceBundle");
     facesContext.getViewRoot().setLocale(Locale.forLanguageTag("es"));
-    Assertions.assertEquals("First Page from test bundle (default)", ResourceUtils.getString("sheet.first"));
-  }
+    Assertions.assertEquals("First Page test4Bundle (default)", ResourceUtils.getString("sheet.first"));
 
-  @Test
-  public void testCustomTobagoResourceBundleFallback() {
-    ResourceBundleVarNames.addVarName(TOBAGO_RESOURCE_BUNDLE,
-        "org.apache.myfaces.tobago.alternate.TobagoResourceBundle");
-    Assertions.assertEquals("Last Page", ResourceUtils.getString("sheet.last"));
-  }
+    facesContext.getViewRoot().setLocale(Locale.ENGLISH);
+    Assertions.assertEquals("Last Page testBundle (EN)", ResourceUtils.getString("sheet.last"));
 
-  @Test
-  public void testThemeResourceBundle() {
-    ResourceBundleVarNames.addVarName("speysideResourceBundle",
-        "org.apache.myfaces.tobago.alternate.TobagoResourceBundle");
-    Assertions.assertEquals("First Page from test bundle (default)",
-        ResourceUtils.getString("speysideResourceBundle", "sheet.first"));
-  }
-
-  @Test
-  public void testThemeResourceBundleGermany() {
-    ResourceBundleVarNames.addVarName("speysideResourceBundle",
-        "org.apache.myfaces.tobago.alternate.TobagoResourceBundle");
     facesContext.getViewRoot().setLocale(Locale.GERMANY);
-    Assertions.assertEquals("erste Seite vom Test-Bundle (DE)",
-        ResourceUtils.getString("speysideResourceBundle", "sheet.first"));
-  }
+    Assertions.assertEquals("letzte Seite testBundle (DE)", ResourceUtils.getString("sheet.last"));
 
-  @Test
-  public void testThemeResourceBundleSpanish() {
-    ResourceBundleVarNames.addVarName("speysideResourceBundle",
-        "org.apache.myfaces.tobago.alternate.TobagoResourceBundle");
     facesContext.getViewRoot().setLocale(Locale.forLanguageTag("es"));
-    Assertions.assertEquals("First Page from test bundle (default)",
-        ResourceUtils.getString("speysideResourceBundle", "sheet.first"));
+    Assertions.assertEquals(Locale.US, Locale.getDefault());
+    Assertions.assertEquals("Last Page testBundle (EN)", ResourceUtils.getString("sheet.last")); //because of Locale.US
+
+    facesContext.getViewRoot().setLocale(Locale.ENGLISH);
+    Assertions.assertEquals("Ascending", ResourceUtils.getString("sheet.ascending"));
+
+    facesContext.getViewRoot().setLocale(Locale.GERMANY);
+    Assertions.assertEquals("aufsteigend sortiert resourcesUtilsTestBundle_de",
+        ResourceUtils.getString("sheet.ascending"));
+
+    facesContext.getViewRoot().setLocale(Locale.forLanguageTag("es"));
+    Assertions.assertEquals("Ascendente resourcesUtilsTestBundle_es", ResourceUtils.getString("sheet.ascending"));
   }
 
   @Test
-  public void testThemeResourceBundleFallback() {
-    ResourceBundleVarNames.addVarName("speysideResourceBundle",
-        "org.apache.myfaces.tobago.alternate.TobagoResourceBundle");
+  public void testCustomResourceBundle() {
+    ResourceBundleVarNames.addVarName("customBundle", "org.apache.myfaces.tobago.theme.test4Bundle");
+
+    facesContext.getViewRoot().setLocale(Locale.ENGLISH);
+    Assertions.assertEquals("First Page test4Bundle (default)", ResourceUtils.getString("customBundle", "sheet.first"));
+
+    facesContext.getViewRoot().setLocale(Locale.GERMANY);
+    Assertions.assertEquals("erste Seite test4Bundle (DE)", ResourceUtils.getString("customBundle", "sheet.first"));
+
+    facesContext.getViewRoot().setLocale(Locale.forLanguageTag("es"));
+    Assertions.assertEquals("First Page test4Bundle (default)", ResourceUtils.getString("customBundle", "sheet.first"));
+
+    facesContext.getViewRoot().setLocale(Locale.ENGLISH);
     Assertions.assertThrows(MissingResourceException.class,
-        () -> ResourceUtils.getString("speysideResourceBundle", "sheet.last"));
+        () -> ResourceUtils.getString("customBundle", "sheet.last"));
   }
 }
