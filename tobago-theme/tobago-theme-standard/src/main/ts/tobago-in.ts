@@ -28,7 +28,7 @@ export class In extends HTMLElement {
   }
 
   connectedCallback(): void {
-    this.listeners.add(this.input, "focus", Focus.setLastFocusId);
+    this.listeners.add(this.field, "focus", Focus.setLastFocusId);
     if (this.querySelector("tobago-suggest")) {
       this.suggest = new Suggest(this);
       this.suggest.init();
@@ -40,7 +40,7 @@ export class In extends HTMLElement {
     this.listeners.disconnect();
   }
 
-  get input(): HTMLInputElement {
+  get field(): HTMLInputElement {
     const rootNode = this.getRootNode() as ShadowRoot | Document;
     return rootNode.getElementById(this.id + "::field") as HTMLInputElement;
   }
