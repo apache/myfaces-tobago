@@ -19,6 +19,7 @@
 
 <ui:composition template="/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="jakarta.faces.core"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
@@ -27,4 +28,20 @@
       <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
     </tc:suggest>
   </tc:in>
+
+  <tc:section label="Suggest in before-facet of a input group with tc:suggest">
+    <tc:in id="inputGroup">
+      <f:facet name="before">
+        <tc:in id="inputBeforeFacet">
+          <tc:suggest id="inputBeforeFacetSuggest" query="#{suggestController.query}">
+            <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
+          </tc:suggest>
+        </tc:in>
+      </f:facet>
+
+      <tc:suggest id="inputGroupSuggest" query="#{suggestController.query}">
+        <tc:selectItems value="#{suggestController.solarObjects}" var="name" itemValue="#{name}"/>
+      </tc:suggest>
+    </tc:in>
+  </tc:section>
 </ui:composition>
