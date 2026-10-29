@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -23,53 +22,172 @@
                 xmlns:ui="jakarta.faces.facelets"
                 xmlns:f="jakarta.faces.core">
 
-  <p>Tobago supports a big variety of displaying controls, so called designs or themes.</p>
+  <p>Tobago comes with several predefined themes, but implementing a custom theme is also possible.</p>
 
-  <p>It comes with several predefined themes, each with its own visual characteristics:</p>
+  <tc:section label="Predefined themes">
+    <ul>
+      <li>
+        <b>Standard Theme</b> - The default theme by Bootstrap to have a clean base to abstract from.
+      </li>
+      <li>
+        <b>Scarborough</b> - Minimalistic standard theme with basic changes from the Standard Theme.
+      </li>
+      <li>
+        <b>Speyside</b> - A nature-inspired theme with warm and earthy tones.
+      </li>
+      <li>
+        <b>Roxborough</b> - A dark theme with high color contrast and bright accents.
+      </li>
+      <li>
+        <b>Charlotteville</b> - A theme that comes with blue color tones which resemble the sky.
+      </li>
+    </ul>
+    <tc:form id="theme">
+      <tc:section label="Change Theme">
+        <p>Choosing of themes can be application wide, user or group specific.
+          Images and other resources can be theme dependant as well as the application pages can be designed separately
+          for each supported theme.</p>
+        <tc:selectOneChoice label="Theme" value="#{themeController.theme}">
+          <f:selectItems value="#{themeController.themeItems}"/>
+          <tc:event action="#{themeController.submit}"/>
+        </tc:selectOneChoice>
 
-  <ul>
-    <li>
-      <b>Standard Theme</b> - The default theme by Bootstrap to have a clean base to abstract from.
-    </li>
-    <li>
-      <b>Scarborough</b> - Minimalistic standard theme with basic changes from the Standard Theme.
-    </li>
-    <li>
-      <b>Speyside</b> - A nature-inspired theme with warm and earthy tones.
-    </li>
-    <li>
-      <b>Roxborough</b> - A dark theme with high color contrast and bright accents.
-    </li>
-    <li>
-      <b>Charlotteville</b> - A theme that comes with blue color tones which resemble the sky.
-    </li>
-  </ul>
+        <tc:separator/>
+        <tc:figure label="#{themeController.getLocalizedString('theme_photo')}">
+          <tc:image value="/image/#{tobagoContext.theme.name}/theme-photo.jpg"/>
+        </tc:figure>
+      </tc:section>
+    </tc:form>
 
-  <tc:form id="theme">
-    <tc:section label="Change Theme">
-      <p>Choosing of themes can be application wide, user or group specific.
-        Images and other resources can be theme dependant as well as the application pages can be designed separately
-        for each supported theme.</p>
-      <tc:selectOneChoice label="Theme" value="#{themeController.theme}">
-        <f:selectItems value="#{themeController.themeItems}"/>
-        <tc:event action="#{themeController.submit}"/>
-      </tc:selectOneChoice>
-
-      <tc:separator/>
-      <tc:figure label="#{themeController.getLocalizedString('theme_photo')}">
-        <tc:image value="/image/#{tobagoContext.theme.name}/theme-photo.jpg"/>
-      </tc:figure>
-    </tc:section>
-  </tc:form>
-
-  <tc:section label="Configuration">
-    <p>In Tobago it's easy to give an application a well designed look. You can use prepared themes like 'speyside' or
-      'scarborough', just to name two. The only thing you have to do is configure them in the 'tobago-config.xml'.</p>
-
-    <demo-highlight language="markup">&lt;tobago-config>
+    <tc:section label="Configuration">
+      <p>To use a predefined theme like "speyside", it has to be configured in the <code>tobago-config.xml</code>.</p>
+      <demo-highlight language="markup">&lt;tobago-config>
   &lt;theme-config>
     &lt;default-theme>speyside&lt;/default-theme>
   &lt;/theme-config>
 &lt;/tobago-config></demo-highlight>
+    </tc:section>
+  </tc:section>
+
+  <tc:section label="Custom theming">
+    <tc:style marginTop="3rem"/>
+    <p>Besides the predefined themes, Tobago allows you to create your own theme for your project.
+      This page explains the steps that are needed to define, build and use a custom theme.</p>
+
+    <tc:section label="Dependency: tobago-theme-standard">
+      <p>A custom theme is based on the Tobago standard theme. The standard theme provides the JavaScript and the icons
+        which are needed by Tobago. So the <code>tobago-theme-standard</code> must be a dependency of your project.</p>
+      <demo-highlight language="markup">&lt;dependency>
+  &lt;groupId>org.apache.myfaces.tobago&lt;/groupId>
+  &lt;artifactId>tobago-theme-standard&lt;/artifactId>
+  &lt;version>[Tobago-Version]&lt;/version>
+&lt;/dependency></demo-highlight>
+    </tc:section>
+
+    <tc:section label="Theme Definition: tobago-config.xml">
+      <p>The custom theme must be defined in a <code>tobago-config.xml</code> (e.g. in <code>WEB-INF/</code> or in
+        <code>META-INF/</code> of a JAR). The theme needs its own name and uses the standard theme as fallback.
+        The CSS of the standard theme is replaced by your own CSS file. Use the <code>default-theme</code> element of
+        the <code>theme-config</code> to activate the theme.</p>
+      <demo-highlight language="markup">&lt;tobago-config
+    xmlns="http://myfaces.apache.org/tobago/tobago-config"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://myfaces.apache.org/tobago/tobago-config http://myfaces.apache.org/tobago/tobago-config-5.1.xsd"
+    version="5.1">
+  &lt;name>my-project&lt;/name>
+  &lt;ordering>
+    &lt;after>
+      &lt;name>tobago-theme-standard&lt;/name>
+    &lt;/after>
+  &lt;/ordering>
+
+  &lt;theme-config>
+    &lt;default-theme>customTheme&lt;/default-theme>
+  &lt;/theme-config>
+
+  &lt;theme-definitions>
+    &lt;theme-definition>
+      &lt;name>customTheme&lt;/name>
+      &lt;display-name>My Theme&lt;/display-name>
+      &lt;fallback>standard&lt;/fallback>
+      &lt;version>1.0.0&lt;/version>
+      &lt;resources production="true">
+        &lt;includes>
+          &lt;style name="/tobago/customTheme/1.0.0/css/tobago.min.css"/>
+        &lt;/includes>
+        &lt;excludes>
+          &lt;style name="/tobago/standard/[Tobago-Version]/css/tobago.min.css"/>
+        &lt;/excludes>
+      &lt;/resources>
+      &lt;resources production="false">
+        &lt;includes>
+          &lt;style name="/tobago/customTheme/1.0.0/css/tobago.css"/>
+        &lt;/includes>
+        &lt;excludes>
+          &lt;style name="/tobago/standard/[Tobago-Version]/css/tobago.css"/>
+        &lt;/excludes>
+      &lt;/resources>
+    &lt;/theme-definition>
+  &lt;/theme-definitions>
+&lt;/tobago-config></demo-highlight>
+    </tc:section>
+
+    <tc:section label="Build the CSS with NPM/Node">
+      <p>The CSS of the theme can be built from SCSS with NPM/Node. For this, the <code>_tobago.scss</code> file is
+        needed, which contains all the Tobago specific styles. You can get it by adding the GitHub repository of
+        MyFaces Tobago as a dependency to your <code>package.json</code>. Use the tag that matches your Tobago version.
+      </p>
+      <p>Tobago is based on Bootstrap, so Bootstrap is also needed as a dependency.
+        <b>The Bootstrap version must always be the same as the Bootstrap version used by Tobago.</b>
+        You can find the version in the <code>tobago-theme/package.json</code> of the corresponding Tobago release.</p>
+      <demo-highlight language="javascript">{
+  "name": "my-custom-theme",
+  "scripts": {
+    ...
+  },
+  "dependencies": {
+    "bootstrap": "5.3.8",
+    "myfaces-tobago": "apache/myfaces-tobago#tobago-[Tobago-Version]"
+  },
+  "devDependencies": {
+    ...
+  }
+}</demo-highlight>
+      <p>The main SCSS file defines your own variables first, then imports Bootstrap and <code>_tobago.scss</code>.
+        Your own styles and overwrites are added at the end.</p>
+      <demo-highlight language="css">// src/main/scss/my-custom-theme.scss
+
+// own variables, e.g. colors (overwrites Bootstrap defaults)
+$primary: #3a2564;
+
+@import "node_modules/bootstrap/scss/bootstrap";
+@import "node_modules/myfaces-tobago/tobago-theme/src/main/scss/_tobago";
+
+// overwrite styles
+tobago-progress {
+  &amp;.progress {
+    border-style: dotted;
+  }
+}</demo-highlight>
+    </tc:section>
+
+    <tc:section label="Optional: Overwrite Texts of the tobagoResourceBundle">
+      <p>If some texts of the <code>tobagoResourceBundle</code> should be different in your theme, you can create a
+        theme specific bundle named <code>[themeName]Bundle</code>. Tobago looks up the keys in this bundle first and
+        uses the <code>tobagoResourceBundle</code> as fallback.</p>
+      <demo-highlight language="markup"># src/main/resources/com/example/customThemeBundle.properties
+sheet.empty=There is nothing to show here.
+alert.close=Dismiss</demo-highlight>
+      <p>Don't forget to register the bundle in the <code>faces-config.xml</code>. The <code>var</code> must be the name
+        of the theme followed by <code>Bundle</code>.</p>
+      <demo-highlight language="markup">&lt;faces-config ...>
+  &lt;application>
+    &lt;resource-bundle>
+      &lt;base-name>com.example.customThemeBundle&lt;/base-name>
+      &lt;var>customThemeBundle&lt;/var>
+    &lt;/resource-bundle>
+  &lt;/application>
+&lt;/faces-config></demo-highlight>
+    </tc:section>
   </tc:section>
 </ui:composition>
