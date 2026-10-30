@@ -41,7 +41,7 @@
         This is the content of the column panel.
         Here e.g. can be placed some information about each entry, in this case
         over the planet or moon.
-        It was discovered by #{object.discoverer} in the year #{object.discoverYear}.
+        It was discovered by #{object.discoverer} in the year #{object.discoveryDate}.
       </tc:columnPanel>
     </tc:sheet>
   </tc:section>
@@ -71,12 +71,12 @@
       </tc:column>
       <tc:column label="Year">
         <tc:style customClass="d-none d-md-table-cell"/>
-        <tc:out value="#{object.discoverYear}" labelLayout="skip"/>
+        <tc:out value="#{object.discoveryDate}" labelLayout="skip"/>
       </tc:column>
       <tc:columnPanel>
         <tc:style customClass="d-table-row d-md-none"/>
         <tc:in label="Discoverer" value="#{object.discoverer}" readonly="true"/>
-        <tc:in label="Year" value="#{object.discoverYear}" readonly="true"/>
+        <tc:in label="Year" value="#{object.discoveryDate}" readonly="true"/>
       </tc:columnPanel>
     </tc:sheet>
   </tc:section>

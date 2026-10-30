@@ -49,8 +49,8 @@
       <tc:out value="#{object.discoverer}" labelLayout="skip"/>
     </tc:column>
     <tc:column label="Year">
-      <tc:style customClass="#{object.discoverYear le 1900 ? 'old-planet' : ''}"/>
-      <tc:out value="#{object.discoverYear}" labelLayout="skip"/>
+      <tc:style customClass="#{not empty object.discoveryDate and object.discoveryDate.year le 1900 ? 'old-planet' : ''}"/>
+      <tc:out value="#{object.discoveryDate}" labelLayout="skip"/>
     </tc:column>
   </tc:sheet>
 

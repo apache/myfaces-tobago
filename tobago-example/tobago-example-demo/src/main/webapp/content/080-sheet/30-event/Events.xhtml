@@ -87,7 +87,7 @@
           <tc:in label="Obliquity" value="#{sheetController.selectedSolarObject.incl}"/>
           <tc:in label="Eccentricity" value="#{sheetController.selectedSolarObject.eccen}"/>
           <tc:in label="Discoverer" value="#{sheetController.selectedSolarObject.discoverer}"/>
-          <tc:in label="Discover Year" value="#{sheetController.selectedSolarObject.discoverYear}"/>
+          <tc:in label="Discover Year" value="#{sheetController.selectedSolarObject.discoveryDate}"/>
         </tc:panel>
 
         <tc:panel rendered="#{sheetController.selectedSolarObject == null}">
@@ -108,7 +108,7 @@
           <tc:in label="Obliquity" value="#{sheetController.selectedSolarObject.incl}"/>
           <tc:in label="Eccentricity" value="#{sheetController.selectedSolarObject.eccen}"/>
           <tc:in label="Discoverer" value="#{sheetController.selectedSolarObject.discoverer}"/>
-          <tc:in label="Discover Year" value="#{sheetController.selectedSolarObject.discoverYear}"/>
+          <tc:in label="Discover Year" value="#{sheetController.selectedSolarObject.discoveryDate}"/>
           <tc:buttons>
             <tc:button id="submit" label="Submit" action="#{popupController.closePopup1}">
               <f:ajax execute="popup" render=":::example"/>
