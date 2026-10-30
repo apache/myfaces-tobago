@@ -36,6 +36,7 @@ import jakarta.inject.Named;
 
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -63,8 +64,8 @@ public class SheetFilterController implements Serializable {
   private String orbit;
   private DistanceRange distance;
   private String discoverer;
-  private Integer minYear;
-  private Integer maxYear;
+  private LocalDate minYear;
+  private LocalDate maxYear;
 
   private String nameSuggestionQuery;
 
@@ -81,11 +82,11 @@ public class SheetFilterController implements Serializable {
         new SelectItem(new DistanceRange(1000000, Integer.MAX_VALUE), "1000000 < x")
     };
 
-    final Set<Integer> years = new TreeSet<>();
+    final Set<LocalDate> years = new TreeSet<>();
     // todo: use lambda
     for (final SolarObject solarObject : astroData.findAll().collect(Collectors.toList())) {
-      if (solarObject.getDiscoverYear() != null) {
-        years.add(solarObject.getDiscoverYear());
+      if (solarObject.getDiscoveryDate() != null) {
+        years.add(solarObject.getDiscoveryDate());
       }
     }
     minYearItems = new SelectItem[years.size() + 1];
@@ -93,7 +94,7 @@ public class SheetFilterController implements Serializable {
     minYearItems[0] = new SelectItem(0, "min");
     maxYearItems[0] = new SelectItem(Integer.MAX_VALUE, "max");
     int i = 1;
-    for (final Integer year : years) {
+    for (final LocalDate year : years) {
       final SelectItem selectItem = new SelectItem(year, String.valueOf(year));
 
       minYearItems[i] = selectItem;
@@ -122,22 +123,22 @@ public class SheetFilterController implements Serializable {
       discoverer = "";
     }
     if (minYear == null) {
-      minYear = 0;
+      minYear = LocalDate.of(0, 1, 1);
     }
     if (maxYear == null) {
-      maxYear = Integer.MAX_VALUE;
+      maxYear = LocalDate.of(9999, 12, 31);
     }
     // todo: use lambda
     for (final SolarObject solarObject : astroData.findAll().collect(Collectors.toList())) {
-      int discoverYear = 0;
-      if (solarObject.getDiscoverYear() != null) {
-        discoverYear = solarObject.getDiscoverYear();
-      }
+      LocalDate discoveryDate = solarObject.getDiscoveryDate() != null
+          ? solarObject.getDiscoveryDate()
+          : LocalDate.of(0, 1, 1);
+
       if (StringUtils.containsIgnoreCase(solarObject.getName(), name)
           && StringUtils.containsIgnoreCase(solarObject.getOrbit(), orbit)
           && distance.getMin() < solarObject.getDistance() && solarObject.getDistance() <= distance.getMax()
           && StringUtils.containsIgnoreCase(solarObject.getDiscoverer(), discoverer)
-          && minYear <= discoverYear && discoverYear <= maxYear) {
+          && minYear.isBefore(discoveryDate) && maxYear.isAfter(discoveryDate)) {
         filteredSolarList.add(solarObject);
       }
     }
@@ -200,19 +201,19 @@ public class SheetFilterController implements Serializable {
     this.discoverer = discoverer;
   }
 
-  public Integer getMinYear() {
+  public LocalDate getMinYear() {
     return minYear;
   }
 
-  public void setMinYear(final Integer minYear) {
+  public void setMinYear(final LocalDate minYear) {
     this.minYear = minYear;
   }
 
-  public Integer getMaxYear() {
+  public LocalDate getMaxYear() {
     return maxYear;
   }
 
-  public void setMaxYear(final Integer maxYear) {
+  public void setMaxYear(final LocalDate maxYear) {
     this.maxYear = maxYear;
   }
 
