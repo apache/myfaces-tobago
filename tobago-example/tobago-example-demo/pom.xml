@@ -89,7 +89,7 @@
         <!-- TODO test glassfish -->
         <groupId>org.glassfish.embedded</groupId>
         <artifactId>maven-embedded-glassfish-plugin</artifactId>
-        <version>5.1</version>
+        <version>8.1</version>
         <configuration>
           <port>8080</port>
           <contextRoot>/</contextRoot>
