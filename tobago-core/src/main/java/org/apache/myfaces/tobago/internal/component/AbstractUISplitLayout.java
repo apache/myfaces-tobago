@@ -43,6 +43,6 @@ public abstract class AbstractUISplitLayout extends AbstractUIFlexLayout {
 
   public AlignItems getAlignItems() {
     return null; // TBD
-  };
+  }
 
 }
