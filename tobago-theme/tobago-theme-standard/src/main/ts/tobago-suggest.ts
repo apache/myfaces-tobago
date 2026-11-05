@@ -23,19 +23,18 @@ import {ClientBehaviors} from "./tobago-client-behaviors";
 import {Spinner} from "./tobago-spinner";
 import {EventListenerStore} from "./tobago-event-listener-store";
 import {OptionsControls} from "./tobago-options-controls";
+import {In} from "./tobago-in";
 
 export class Suggest {
   private listeners: EventListenerStore = new EventListenerStore();
-  private tobagoIn: HTMLElement;
-  private tobagoInField: HTMLInputElement;
+  private tobagoIn: In;
   private dropdownMenu: DropdownMenu;
   private spinner: Spinner;
   private optionsControls: OptionsControls;
   private timeout: number;
 
-  constructor(tobagoIn: HTMLElement) {
+  constructor(tobagoIn: In) {
     this.tobagoIn = tobagoIn;
-    this.tobagoInField = tobagoIn.querySelector("input[name='" + tobagoIn.id + "']");
   }
 
   public init(): void {
@@ -44,7 +43,7 @@ export class Suggest {
       return;
     }
     this.tobagoSuggest.insertAdjacentHTML("beforebegin", `<div class="${Css.SPINNER}"/>`);
-    this.spinner = new Spinner(this.inputField, this.spinnerDiv);
+    this.spinner = new Spinner(this.tobagoIn.field, this.spinnerDiv);
 
     /* eslint-disable max-len */
     this.tobagoSuggest.insertAdjacentHTML("beforebegin", `<div class="${Css.TOBAGO_DROPDOWN_MENU_ANCHOR}">
@@ -59,24 +58,24 @@ export class Suggest {
     /* eslint-enable max-len */
     this.optionsControls = new OptionsControls(this.optionsElement, this.select.bind(this));
 
-    this.dropdownMenu = new DropdownMenu(this.dropdownMenuElement, this.inputField, [this.tobagoIn, this.tobagoInField],
-        this.localMenu, DropdownMenuAlignment.centerFullWidth);
+    this.dropdownMenu = new DropdownMenu(this.dropdownMenuElement, this.tobagoIn.field,
+        [this.tobagoIn, this.tobagoIn.field], this.localMenu, DropdownMenuAlignment.centerFullWidth);
 
-    this.inputField.role = "combobox";
-    this.inputField.autocomplete = "off";
-    this.inputField.autocapitalize = "off";
-    this.inputField.spellcheck = false;
-    this.inputField.ariaAutoComplete = "list";
-    this.inputField.ariaHasPopup = "listbox";
-    this.inputField.setAttribute("aria-owns", this.dropdownMenuElement.id);
+    this.tobagoIn.field.role = "combobox";
+    this.tobagoIn.field.autocomplete = "off";
+    this.tobagoIn.field.autocapitalize = "off";
+    this.tobagoIn.field.spellcheck = false;
+    this.tobagoIn.field.ariaAutoComplete = "list";
+    this.tobagoIn.field.ariaHasPopup = "listbox";
+    this.tobagoIn.field.setAttribute("aria-owns", this.dropdownMenuElement.id);
 
     this.listeners.add(document, "click", this.globalClickEvent.bind(this));
     this.listeners.add(this.tobagoIn, ClientBehaviors.TOBAGO_DROPDOWN_HIDDEN, this.deleteResults.bind(this));
-    this.listeners.add(this.inputField, "input", this.inputEvent.bind(this));
-    this.listeners.add(this.inputField, "keydown", this.keydownEvent.bind(this));
+    this.listeners.add(this.tobagoIn.field, "input", this.inputEvent.bind(this));
+    this.listeners.add(this.tobagoIn.field, "keydown", this.keydownEvent.bind(this));
     this.listeners.add(this.dropdownMenuElement, "keydown", this.keydownEvent.bind(this));
-    this.listeners.add(this.inputField, "focus", this.focusEvent.bind(this));
-    this.listeners.add(this.inputField, "blur", this.blurEvent.bind(this));
+    this.listeners.add(this.tobagoIn.field, "focus", this.focusEvent.bind(this));
+    this.listeners.add(this.tobagoIn.field, "blur", this.blurEvent.bind(this));
     this.listeners.add(this.dropdownMenuElement, "blur", this.blurEvent.bind(this));
 
     if (!this.update) { //client side filtering
@@ -99,7 +98,7 @@ export class Suggest {
   }
 
   protected globalClickEvent(event: MouseEvent): void {
-    if (!this.inputField.disabled) {
+    if (!this.tobagoIn.field.disabled) {
       if (!this.isPartOfSuggest(event.relatedTarget as HTMLElement)) {
         this.dropdownMenu.hide();
       }
@@ -128,7 +127,7 @@ export class Suggest {
 
   private isPartOfSuggest(element: HTMLElement): boolean {
     if (element) {
-      if (this.inputField.id === element.id || this.tobagoSuggest.id === element.dataset.tobagoFor) {
+      if (this.tobagoIn.field.id === element.id || this.tobagoSuggest.id === element.dataset.tobagoFor) {
         return true;
       } else {
         return element.parentElement ? this.isPartOfSuggest(element.parentElement) : false;
@@ -139,9 +138,9 @@ export class Suggest {
   }
 
   private select(row: HTMLTableRowElement): void {
-    this.inputField.value = row.cells.item(0).textContent;
+    this.tobagoIn.field.value = row.cells.item(0).textContent;
     this.dropdownMenu.hide();
-    this.inputField.focus();
+    this.tobagoIn.field.focus();
   }
 
   private keydownEvent(event: KeyboardEvent): void {
@@ -167,7 +166,7 @@ export class Suggest {
       }
       case Key.ENTER:
         if (!this.dropdownMenu.visible) {
-          this.processInputValue(this.inputField.value);
+          this.processInputValue(this.tobagoIn.field.value);
         }
       case Key.SPACE:
         if (this.optionsControls.preselectedRow) {
@@ -176,7 +175,7 @@ export class Suggest {
         }
         break;
       case Key.ESCAPE:
-        this.inputField.focus();
+        this.tobagoIn.field.focus();
         if (this.dropdownMenuElement && this.dropdownMenu.visible) {
           this.dropdownMenu?.hide();
           event.stopPropagation(); //prevent closing a parent dropdown form menu
@@ -258,17 +257,12 @@ export class Suggest {
     }
   }
 
-  private get inputField(): HTMLInputElement {
-    const root = this.tobagoIn.getRootNode() as ShadowRoot | Document;
-    return root.getElementById(this.tobagoSuggest.getAttribute("for")) as HTMLInputElement;
-  }
-
   private get spinnerDiv(): HTMLDivElement {
-    return this.tobagoIn.querySelector<HTMLDivElement>(`.${Css.SPINNER}`);
+    return this.tobagoIn.querySelector<HTMLDivElement>(`:scope > .${Css.SPINNER}`);
   }
 
   private get dropdownMenuAnchor(): HTMLDivElement {
-    return this.tobagoIn.querySelector<HTMLDivElement>(`.${Css.TOBAGO_DROPDOWN_MENU_ANCHOR}`);
+    return this.tobagoIn.querySelector<HTMLDivElement>(`:scope > .${Css.TOBAGO_DROPDOWN_MENU_ANCHOR}`);
   }
 
   private get optionsElement(): HTMLDivElement {
@@ -276,7 +270,7 @@ export class Suggest {
   }
 
   private get tobagoSuggest(): HTMLElement {
-    return this.tobagoIn.querySelector("tobago-suggest");
+    return this.tobagoIn.querySelector(":scope > tobago-suggest");
   }
 
   private get minChars(): number {

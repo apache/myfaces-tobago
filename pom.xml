@@ -38,9 +38,9 @@
     <frontend.skip>true</frontend.skip>
     <myfaces40.version>4.0.4</myfaces40.version>
     <myfaces41.version>4.1.2</myfaces41.version>
-    <mojarra40.version>4.0.27</mojarra40.version>
+    <mojarra40.version>4.0.28</mojarra40.version>
     <slf4j.version>2.0.20</slf4j.version>
-    <logback.version>1.6.5</logback.version>
+    <logback.version>1.6.6</logback.version>
     <maven.compiler.release>17</maven.compiler.release>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -374,7 +374,7 @@
           <dependency>
             <groupId>com.puppycrawl.tools</groupId>
             <artifactId>checkstyle</artifactId>
-            <version>14.3.0</version>
+            <version>14.4.0</version>
           </dependency>
         </dependencies>
       </plugin>
@@ -382,7 +382,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.6.3</version>
+        <version>3.7.0</version>
         <executions>
           <execution>
             <id>enforce</id>
@@ -559,7 +559,6 @@
                 <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
               </manifest>
               <manifestEntries>
-                <Revision>${scm.revision}</Revision>
                 <Build-Time>${maven.build.timestamp}</Build-Time>
               </manifestEntries>
               <manifestSections>
@@ -594,7 +593,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
-          <version>3.6.0</version>
+          <version>3.6.1</version>
           <configuration>
             <argLine>-Duser.language=en -Duser.region=US</argLine>
             <!--
@@ -610,7 +609,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-failsafe-plugin</artifactId>
-          <version>3.6.0</version>
+          <version>3.6.1</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -956,7 +955,7 @@
 
             <!-- optional -->
             <configuration>
-              <nodeVersion>v24.19.0</nodeVersion>
+              <nodeVersion>v24.22.1</nodeVersion>
 
               <!-- optional: Where to download Node.js binary from. Defaults to http://nodejs.org/dist/ -->
               <!--<nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>-->

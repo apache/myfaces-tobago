@@ -48,7 +48,7 @@
         <!-- Jakarta Bean Validation 3.0 implementation -->
         <groupId>org.hibernate.validator</groupId>
         <artifactId>hibernate-validator</artifactId>
-        <version>7.0.5.Final</version>
+        <version>7.0.7.Final</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -296,7 +296,7 @@
             -->
             <groupId>org.codehaus.cargo</groupId>
             <artifactId>cargo-maven3-plugin</artifactId>
-            <version>1.10.29</version>
+            <version>1.10.30</version>
             <configuration>
               <container>
                 <containerId>tomcat10x</containerId>
