@@ -36,23 +36,23 @@ test.describe("900-test/sheet/columnSelector/Column_Selector.xhtml", () => {
     const row4 = page.locator("tr[row-index='4']");
     const firstPageButton = page.locator("#page\\:mainForm\\:sheet [data-tobago-action*='first']");
 
-    await expect(rows).toHaveValue("5");
-    await expect(lazy).not.toBeChecked();
-    await expect(sheetSelectable).toHaveValue("multi");
-    await expect(columnSelectorRendered).toBeChecked();
-    await expect(columnPanelRendered).not.toBeChecked();
+    await expectDefaultSheet(page);
 
     await setupDefaultSheet.click();
-    await expect(firstPageButton).toBeDisabled();
 
     await expect(rows).toHaveValue("5");
     await expect(lazy).not.toBeChecked();
     await expect(sheetSelectable).toHaveValue("multi");
     await expect(columnSelectorRendered).not.toBeChecked();
     await expect(columnPanelRendered).not.toBeChecked();
+    await expect(firstPageButton).toBeDisabled();
+
 
     await expect(row2).not.toHaveClass(/tobago-selected/);
+    expect(await isSelected(page, 2)).toBe(false);
     await expect(row4).not.toHaveClass(/tobago-selected/);
+    expect(await isSelected(page, 4)).toBe(false);
+
 
     await row2.click();
     await expect(row2).toHaveClass(/tobago-selected/);
@@ -71,6 +71,8 @@ test.describe("900-test/sheet/columnSelector/Column_Selector.xhtml", () => {
     const columnPanelRendered = page.locator("[id='page:mainForm:columnPanelRendered::field']");
     const setupSelectableNone = page.locator("[id='page:mainForm:selectableNone']");
     const row3 = page.locator("tr[row-index='3']");
+    const firstPageButton = page.locator("#page\\:mainForm\\:sheet [data-tobago-action*='first']");
+
 
     await expectDefaultSheet(page);
 
@@ -81,9 +83,11 @@ test.describe("900-test/sheet/columnSelector/Column_Selector.xhtml", () => {
     await expect(sheetSelectable).toHaveValue("none");
     await expect(columnSelectorRendered).not.toBeChecked();
     await expect(columnPanelRendered).not.toBeChecked();
+    await expect(firstPageButton).toBeDisabled();
 
     await row3.click();
     await expect(row3).not.toHaveClass(/tobago-selected/);
+    expect(await isSelected(page, 3)).toBe(false);
   });
 
   test("selectable=single: page 1; select row 3; page 4; select row 18; page 1", async ({page}) => {
@@ -437,7 +441,7 @@ test.describe("900-test/sheet/columnSelector/Column_Selector.xhtml", () => {
     expect(await isSelected(page, 4)).toBe(true);
     expect(await isSelected(page, 17)).toBe(false);
 
-    await row17.click();
+    await columnPanel17.click();
     await expect(row17).toBeVisible();
     await expect(row17).toContainClass("tobago-selected");
     await expect(columnPanel17).toContainClass("tobago-selected");
@@ -482,6 +486,7 @@ test.describe("900-test/sheet/columnSelector/Column_Selector.xhtml", () => {
     const row10 = row(page, 10);
     await focusRowIndex(page, 10);
     await expect(row10).toBeVisible();
+    await expect(row10).not.toHaveAttribute("dummy", "true");
 
     const row12 = row(page, 12);
     await focusRowIndex(page, 12);
@@ -552,13 +557,14 @@ test.describe("900-test/sheet/columnSelector/Column_Selector.xhtml", () => {
     const row10 = row(page, 10);
     await focusRowIndex(page, 10);
     await expect(row10).toBeVisible();
+    await expect(row10).not.toHaveAttribute("dummy", "true");
 
     await expect(row3).not.toContainClass("tobago-selected");
     await expect(columnPanel3).not.toContainClass("tobago-selected");
     await expect(row17).not.toContainClass("tobago-selected");
     await expect(columnPanel17).not.toContainClass("tobago-selected");
 
-    await row17.click();
+    await columnPanel17.click();
     await expect(row3).not.toContainClass("tobago-selected");
     await expect(columnPanel3).not.toContainClass("tobago-selected");
     await expect(row17).toContainClass("tobago-selected");

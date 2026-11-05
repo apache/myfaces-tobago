@@ -21,39 +21,47 @@ package org.apache.myfaces.tobago.util;
 
 import jakarta.faces.application.Application;
 import jakarta.faces.context.FacesContext;
-
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ResourceUtils {
 
   public static final String TOBAGO_RESOURCE_BUNDLE = "tobagoResourceBundle";
+  private static final String TOBAGO_RESOURCE_BUNDLE_BASE_NAME =
+      "org.apache.myfaces.tobago.context.TobagoResourceBundle";
 
   public static String getString(final String key) {
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
-    final Application application = facesContext.getApplication();
-    final ResourceBundle resourceBundle = application.getResourceBundle(facesContext, TOBAGO_RESOURCE_BUNDLE);
-    return resourceBundle.getString(key);
+    return getString(TOBAGO_RESOURCE_BUNDLE, key);
   }
 
   public static String getString(final FacesContext facesContext, final String key) {
-    return facesContext.getApplication().getResourceBundle(facesContext, TOBAGO_RESOURCE_BUNDLE).getString(key);
+    return getString(facesContext, TOBAGO_RESOURCE_BUNDLE, key);
   }
 
   public static String getString(final FacesContext facesContext, final Application application, final String key) {
-    return application.getResourceBundle(facesContext, TOBAGO_RESOURCE_BUNDLE).getString(key);
+    return getString(facesContext, application, TOBAGO_RESOURCE_BUNDLE, key);
   }
 
   public static String getString(final String bundle, final String key) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
-    return facesContext.getApplication().getResourceBundle(facesContext, bundle).getString(key);
+    return getString(facesContext, bundle, key);
   }
 
   public static String getString(final FacesContext facesContext, final String bundle, final String key) {
-    return facesContext.getApplication().getResourceBundle(facesContext, bundle).getString(key);
+    return getString(facesContext, facesContext.getApplication(), bundle, key);
   }
 
   public static String getString(
       final FacesContext facesContext, final Application application, final String bundle, final String key) {
-    return application.getResourceBundle(facesContext, bundle).getString(key);
+    final ResourceBundle resourceBundle = application.getResourceBundle(facesContext, bundle);
+
+    if (resourceBundle.containsKey(key) || !TOBAGO_RESOURCE_BUNDLE.equals(bundle)) {
+      return resourceBundle.getString(key);
+    } else {
+      final Locale locale = facesContext.getViewRoot().getLocale();
+      final ResourceBundle defaultBundle = ResourceBundle.getBundle(
+          TOBAGO_RESOURCE_BUNDLE_BASE_NAME, locale, ResourceUtils.class.getClassLoader());
+      return defaultBundle.getString(key);
+    }
   }
 }
