@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.myfaces</groupId>
@@ -81,10 +81,8 @@
       <post>List for posting questions about how to use myfaces projects. Subscribe to this list before posting</post>
       <archive>https://lists.apache.org/list.html?user@myfaces.apache.org</archive>
       <otherArchives>
-        <otherArchive>http://mail-archives.apache.org/mod_mbox/myfaces-users</otherArchive>
-        <otherArchive>http://www.mail-archive.com/users@myfaces.apache.org/</otherArchive>
-        <otherArchive>http://myfaces.10567.n7.nabble.com/MyFaces-Users-f57691.html</otherArchive>
-        <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.users</otherArchive>
+        <otherArchive>https://mail-archives.apache.org/mod_mbox/myfaces-users</otherArchive>
+        <otherArchive>https://www.mail-archive.com/users@myfaces.apache.org/</otherArchive>
       </otherArchives>
     </mailingList>
     <mailingList>
@@ -96,10 +94,8 @@
       </post>
       <archive>https://lists.apache.org/list.html?dev@myfaces.apache.org</archive>
       <otherArchives>
-        <otherArchive>http://mail-archives.apache.org/mod_mbox/myfaces-dev</otherArchive>
-        <otherArchive>http://www.mail-archive.com/dev@myfaces.apache.org/</otherArchive>
-        <otherArchive>http://myfaces.10567.n7.nabble.com/My-Faces-Dev-f3.html</otherArchive>
-        <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.dev</otherArchive>
+        <otherArchive>https://mail-archives.apache.org/mod_mbox/myfaces-dev</otherArchive>
+        <otherArchive>https://www.mail-archive.com/dev@myfaces.apache.org/</otherArchive>
       </otherArchives>
     </mailingList>
     <mailingList>
@@ -108,10 +104,6 @@
       <unsubscribe>commits-unsubscribe@myfaces.apache.org</unsubscribe>
       <post>do not post</post>
       <archive>https://lists.apache.org/list.html?commits@myfaces.apache.org</archive>
-      <otherArchives>
-        <otherArchive>http://mail-archives.apache.org/mod_mbox/myfaces-commits</otherArchive>
-        <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.commits</otherArchive>
-      </otherArchives>
     </mailingList>
     <mailingList>
       <name>Myfaces Notifications List</name>
@@ -119,11 +111,6 @@
       <unsubscribe>notifications-unsubscribe@myfaces.apache.org</unsubscribe>
       <post>do not post</post>
       <archive>https://lists.apache.org/list.html?notifications@myfaces.apache.org</archive>
-      <otherArchives>
-        <otherArchive>http://mail-archives.apache.org/mod_mbox/myfaces-notifications</otherArchive>
-        <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.notifications
-        </otherArchive>
-      </otherArchives>
     </mailingList>
     <mailingList>
       <name>Myfaces Announcements List</name>
@@ -131,10 +118,6 @@
       <unsubscribe>announce-unsubscribe@myfaces.apache.org</unsubscribe>
       <post>do not post</post>
       <archive>https://lists.apache.org/list.html?announce@myfaces.apache.org</archive>
-      <otherArchives>
-        <otherArchive>http://mail-archives.apache.org/mod_mbox/myfaces-announce</otherArchive>
-        <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.announce</otherArchive>
-      </otherArchives>
     </mailingList>
     <mailingList>
       <name>Myfaces Private (PMC) List</name>
@@ -464,7 +447,7 @@
             in multi-module Maven projects where only some modules have the
             dependency to which the signature file(s) apply.
 
-            This settings prints no warning at all, so verify the signatures
+            This setting prints no warning at all, so verify the signatures
             at least once with full dependencies.
           -->
           <!--          <ignoreSignaturesOfMissingClasses>true</ignoreSignaturesOfMissingClasses>-->
@@ -582,7 +565,7 @@
             <showWarnings>true</showWarnings>
             <useIncrementalCompilation>false</useIncrementalCompilation><!-- see MCOMPILER-209 -->
             <!--fork>true</fork-->
-            <!-- <compilerArgument>-Xlint:all,-serial,-fallthrough</ Argument>-->
+            <!-- <compilerArgument>-Xlint:all,-serial,-fallthrough</compilerArgument> -->
           </configuration>
         </plugin>
         <plugin>
@@ -679,7 +662,7 @@
               <inputExclude>**/faces.js</inputExclude>
               <inputExclude>**/tobago.js</inputExclude>
 
-              <!-- jettykeystore -->
+              <!-- jetty keystore -->
               <inputExclude>**/jettykeystore</inputExclude>
 
               <!-- prism (tobago-example-demo) -->
@@ -804,7 +787,7 @@
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
@@ -832,7 +815,7 @@
   </distributionManagement>
 
   <!-- Use this to include the staging repository for testing a new unreleased myfaces core.
-  Change the number 1100 the the current for that. -->
+  Change the number 1100 to the current for that. -->
   <!--
     <repositories>
       <repository>
@@ -858,7 +841,7 @@
            <profile>
              <id>apache-release</id>
              <properties>
-               <gpg.passphrase>thephrase</gpg.passphrase>
+               <gpg.passphrase>the_phrase</gpg.passphrase>
              </properties>
            </profile>
        -->
@@ -950,14 +933,13 @@
             <artifactId>frontend-maven-plugin</artifactId>
             <version>2.0.2</version>
 
-            <!-- optional -->
             <configuration>
               <nodeVersion>v24.22.1</nodeVersion>
 
-              <!-- optional: Where to download Node.js binary from. Defaults to http://nodejs.org/dist/ -->
+              <!-- optional: Where to download Node.js binary from. Defaults to https://nodejs.org/dist/ -->
               <!--<nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>-->
 
-              <!-- optional: Where to download NPM binary from. Defaults to http://registry.npmjs.org/npm/-/ -->
+              <!-- optional: Where to download NPM binary from. -->
               <!--<npmDownloadRoot>https://registry.npmjs.org/npm/-/</npmDownloadRoot>-->
 
               <!-- optional: Registry override, passed as the registry option during npm install if set. -->
@@ -1087,7 +1069,7 @@
       <name>Helmut Swaczinna</name>
       <email>swaczinna@wlp-systems.de</email>
       <organization>WLP Systems GmbH</organization>
-      <organizationUrl>http://www.wlp-systems.de/</organizationUrl>
+      <organizationUrl>https://www.wlp-systems.de/</organizationUrl>
       <timezone>+1</timezone>
     </contributor>
   </contributors>
