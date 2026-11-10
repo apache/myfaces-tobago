@@ -111,12 +111,12 @@ async function isSelected(page: Page, number: number): Promise<boolean> {
   return selectedSet.has(number);
 }
 
-async function expectSelection(page: Page, mercury: boolean, venus: boolean, nam: string): Promise<void> {
+async function expectSelection(page: Page, mercury: boolean, venus: boolean, name: string): Promise<void> {
   const mercuryCheckbox = page.locator("input[name='page:mainForm:solar_data_row_selector_1']");
   const mercuryRow = page.locator("[id='page:mainForm:solar:1:rowAjax']");
   const venusCheckbox = page.locator("input[name='page:mainForm:solar_data_row_selector_2']");
   const venusRow = page.locator("[id='page:mainForm:solar:2:rowAjax']");
-  const name = page.locator("[id='page:mainForm:name::field']");
+  const nameValue = page.locator("[id='page:mainForm:name::field']");
 
   await expect(mercuryCheckbox).toBeChecked({checked: mercury});
   await expect(venusCheckbox).toBeChecked({checked: venus});
@@ -124,7 +124,7 @@ async function expectSelection(page: Page, mercury: boolean, venus: boolean, nam
   expect(await isSelected(page, 2)).toBe(venus);
   await expectRowSelected(mercuryRow, mercury);
   await expectRowSelected(venusRow, venus);
-  await expect(name).toHaveValue(nam);
+  await expect(nameValue).toHaveValue(name);
 }
 
 async function expectRowSelected(row: Locator, selected: boolean): Promise<void> {
