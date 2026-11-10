@@ -411,6 +411,7 @@ export class Sheet extends HTMLElement {
       }
 
       this.lazyActive = false;
+      this.syncSelected(null);
     }
   }
 
@@ -701,7 +702,7 @@ Type: ${data.type}`);
   }
 
   private syncSelected(event: CustomEvent) {
-    const selected = event ? event.detail.selection : this.selected;
+    const selected: Set<number> = event ? event.detail.selection : this.selected;
 
     const tableRows = this.rowElements;
     tableRows.forEach((rowElement) => {

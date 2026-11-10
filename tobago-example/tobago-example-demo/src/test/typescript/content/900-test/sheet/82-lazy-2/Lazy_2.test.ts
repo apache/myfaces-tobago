@@ -89,6 +89,25 @@ test.describe("900-test/sheet/82-lazy-2/Lazy_2.xhtml", () => {
     await expect(row800).toBeVisible();
   });
 
+  test("Select all via column selector, scroll down", async ({page}) => {
+    const sheet = page.locator("[id='page:mainForm:sheet']");
+    const columnSelectorSelectAllCheckbox = sheet.locator("[name='page:mainForm:sheet::columnSelector']");
+    const hiddenInputSelected = sheet.locator("[id='page:mainForm:sheet::selected']");
+    const tobagoSelectedRows = sheet.locator(".tobago-body tr.tobago-selected");
+    const row30 = sheet.locator("tbody tr[row-index='30']");
+
+    await expect(tobagoSelectedRows).toHaveCount(0);
+    await expect(hiddenInputSelected).toHaveValue("[]");
+    await columnSelectorSelectAllCheckbox.check();
+    await expect(tobagoSelectedRows).toHaveCount(10000);
+    await expect(hiddenInputSelected).toHaveValue(JSON.stringify(Array.from({length: 10000}, (_, i) => i)));
+
+    await expect(row30).toHaveAttribute("dummy");
+    await focusRowIndex(page, 30);
+    await expect(row30).not.toHaveAttribute("dummy");
+    await expect(tobagoSelectedRows).toHaveCount(10000);
+  });
+
   async function testLoadedState(page: Page, loaded: boolean, startRow: number, endRow?: number): Promise<void> {
     if (endRow === undefined) {
       endRow = startRow;
