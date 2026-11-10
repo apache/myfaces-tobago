@@ -15,8 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.myfaces</groupId>
@@ -34,7 +33,7 @@
   <prerequisites>
     <maven>${required.maven.version}</maven>
   </prerequisites>
-  <url>http://myfaces.apache.org/tobago</url>
+  <url>https://myfaces.apache.org/#/tobago</url>
   <inceptionYear>2002</inceptionYear>
 
   <properties>
@@ -88,11 +87,10 @@
       <subscribe>users-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>users-unsubscribe@myfaces.apache.org</unsubscribe>
       <post>List for posting questions about how to use myfaces projects. Subscribe to this list before posting</post>
-      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-users</archive>
+      <archive>https://lists.apache.org/list.html?user@myfaces.apache.org</archive>
       <otherArchives>
-        <otherArchive>http://www.mail-archive.com/users@myfaces.apache.org/</otherArchive>
-        <otherArchive>http://myfaces.10567.n7.nabble.com/MyFaces-Users-f57691.html</otherArchive>
-        <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.users</otherArchive>
+        <otherArchive>https://mail-archives.apache.org/mod_mbox/myfaces-users</otherArchive>
+        <otherArchive>https://www.mail-archive.com/users@myfaces.apache.org/</otherArchive>
       </otherArchives>
     </mailingList>
     <mailingList>
@@ -102,11 +100,10 @@
       <post>List for posting patches and discussing internal code implementation issues. Subscribe to this list before
         posting
       </post>
-      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-dev</archive>
+      <archive>https://lists.apache.org/list.html?dev@myfaces.apache.org</archive>
       <otherArchives>
-        <otherArchive>http://www.mail-archive.com/dev@myfaces.apache.org/</otherArchive>
-        <otherArchive>http://myfaces.10567.n7.nabble.com/My-Faces-Dev-f3.html</otherArchive>
-        <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.dev</otherArchive>
+        <otherArchive>https://mail-archives.apache.org/mod_mbox/myfaces-dev</otherArchive>
+        <otherArchive>https://www.mail-archive.com/dev@myfaces.apache.org/</otherArchive>
       </otherArchives>
     </mailingList>
     <mailingList>
@@ -114,31 +111,21 @@
       <subscribe>commits-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>commits-unsubscribe@myfaces.apache.org</unsubscribe>
       <post>do not post</post>
-      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-commits</archive>
-      <otherArchives>
-        <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.commits</otherArchive>
-      </otherArchives>
+      <archive>https://lists.apache.org/list.html?commits@myfaces.apache.org</archive>
     </mailingList>
     <mailingList>
       <name>Myfaces Notifications List</name>
       <subscribe>notifications-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>notifications-unsubscribe@myfaces.apache.org</unsubscribe>
       <post>do not post</post>
-      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-notifications</archive>
-      <otherArchives>
-        <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.notifications
-        </otherArchive>
-      </otherArchives>
+      <archive>https://lists.apache.org/list.html?notifications@myfaces.apache.org</archive>
     </mailingList>
     <mailingList>
       <name>Myfaces Announcements List</name>
       <subscribe>announce-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>announce-unsubscribe@myfaces.apache.org</unsubscribe>
       <post>do not post</post>
-      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-announce</archive>
-      <otherArchives>
-        <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.announce</otherArchive>
-      </otherArchives>
+      <archive>https://lists.apache.org/list.html?announce@myfaces.apache.org</archive>
     </mailingList>
     <mailingList>
       <name>Myfaces Private (PMC) List</name>
@@ -471,21 +458,6 @@
           </execution>
         </executions>
       </plugin>-->
-      <!--plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>ianal-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>verify-legal-files</goal>
-            </goals>
-            <configuration>
-              <- Fail the build if any artifacts are missing legal files ->
-              <strict>false</strict>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin-->
       <plugin>
         <groupId>org.apache.rat</groupId>
         <artifactId>apache-rat-plugin</artifactId>
@@ -862,7 +834,7 @@
            <profile>
              <id>apache-release</id>
              <properties>
-               <gpg.passphrase>thephrase</gpg.passphrase>
+               <gpg.passphrase>the_phrase</gpg.passphrase>
              </properties>
            </profile>
        -->
@@ -1291,7 +1263,7 @@
       <name>Helmut Swaczinna</name>
       <email>swaczinna@wlp-systems.de</email>
       <organization>WLP Systems GmbH</organization>
-      <organizationUrl>http://www.wlp-systems.de/</organizationUrl>
+      <organizationUrl>https://www.wlp-systems.de/</organizationUrl>
       <timezone>+1</timezone>
     </contributor>
   </contributors>
