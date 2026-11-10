@@ -86,5 +86,12 @@
     "tslib": "^2.9.1",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.2"
+  },
+  "overrides": {
+    "glob@>=9.0.0 <=14.0.1": "^14.0.4",
+    "jest-config": {
+      "deepmerge": "npm:@shivammathur/deepmerge@4.3.2"
+    },
+    "minimatch@^10.2.2": "^11.0.1"
   }
 }
