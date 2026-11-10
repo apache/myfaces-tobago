@@ -37,16 +37,16 @@ test.describe("900-test/sheet/columnSelector/selectable-use-case/selectable-use-
     await selectSingle.click();
     await expect(checkSelectable).toHaveValue("single");
     await expect(selectAllCheckbox).toBeHidden();
-    await expectSelection(page, {mercury: false, venus: false, name: "Sun"});
+    await expectSelection(page, false, false, "Sun");
 
     await mercuryCheckbox.click();
-    await expectSelection(page, {mercury: true, venus: false, name: "Sun"});
+    await expectSelection(page, true, false, "Sun");
 
     await venusCheckbox.click();
-    await expectSelection(page, {mercury: false, venus: true, name: "Sun"});
+    await expectSelection(page, false, true, "Sun");
 
     await page.getByText('Venus').click();
-    await expectSelection(page, {mercury: false, venus: true, name: "Venus"});
+    await expectSelection(page, false, true, "Venus");
   });
 
   test("AJAX, selectable=singleOrNone", async ({page}) => {
@@ -61,19 +61,19 @@ test.describe("900-test/sheet/columnSelector/selectable-use-case/selectable-use-
     await selectSingleOrNone.click();
     await expect(checkSelectable).toHaveValue("singleOrNone");
     await expect(selectAllCheckbox).toBeHidden();
-    await expectSelection(page, {mercury: false, venus: false, name: "Sun"});
+    await expectSelection(page, false, false, "Sun");
 
     await mercuryCheckbox.click();
-    await expectSelection(page, {mercury: true, venus: false, name: "Sun"});
+    await expectSelection(page, true, false, "Sun");
 
     await venusCheckbox.click();
-    await expectSelection(page, {mercury: false, venus: true, name: "Sun"});
+    await expectSelection(page, false, true, "Sun");
 
     await venusCheckbox.click();
-    await expectSelection(page, {mercury: false, venus: false, name: "Sun"});
+    await expectSelection(page, false, false, "Sun");
 
     await page.getByText('Venus').click();
-    await expectSelection(page, {mercury: false, venus: false, name: "Venus"});
+    await expectSelection(page, false, false, "Venus");
   });
 
   test("AJAX, selectable=multi", async ({page}) => {
@@ -88,19 +88,19 @@ test.describe("900-test/sheet/columnSelector/selectable-use-case/selectable-use-
     await selectMulti.click();
     await expect(checkSelectable).toHaveValue("multi");
     await expect(selectAllCheckbox).toHaveAttribute("type", "checkbox");
-    await expectSelection(page, {mercury: false, venus: false, name: "Sun"});
+    await expectSelection(page, false, false, "Sun");
 
     await mercuryCheckbox.click();
-    await expectSelection(page, {mercury: true, venus: false, name: "Sun"});
+    await expectSelection(page, true, false, "Sun");
 
     await venusCheckbox.click();
-    await expectSelection(page, {mercury: true, venus: true, name: "Sun"});
+    await expectSelection(page, true, true, "Sun");
 
     await venusCheckbox.click();
-    await expectSelection(page, {mercury: true, venus: false, name: "Sun"});
+    await expectSelection(page, true, false, "Sun");
 
     await page.getByText('Venus').click();
-    await expectSelection(page, {mercury: true, venus: false, name: "Venus"})
+    await expectSelection(page, true, false, "Venus")
   });
 });
 
@@ -111,26 +111,20 @@ async function isSelected(page: Page, number: number): Promise<boolean> {
   return selectedSet.has(number);
 }
 
-type SelectionExpectation = {
-  mercury: boolean;
-  venus: boolean;
-  name: string;
-};
-
-async function expectSelection(page: Page, expected: SelectionExpectation): Promise<void> {
+async function expectSelection(page: Page, mercury: boolean, venus: boolean, nam: string): Promise<void> {
   const mercuryCheckbox = page.locator("input[name='page:mainForm:solar_data_row_selector_1']");
   const mercuryRow = page.locator("[id='page:mainForm:solar:1:rowAjax']");
   const venusCheckbox = page.locator("input[name='page:mainForm:solar_data_row_selector_2']");
   const venusRow = page.locator("[id='page:mainForm:solar:2:rowAjax']");
   const name = page.locator("[id='page:mainForm:name::field']");
 
-  await expect(mercuryCheckbox).toBeChecked({checked: expected.mercury});
-  await expect(venusCheckbox).toBeChecked({checked: expected.venus});
-  expect(await isSelected(page, 1)).toBe(expected.mercury);
-  expect(await isSelected(page, 2)).toBe(expected.venus);
-  await expectRowSelected(mercuryRow, expected.mercury);
-  await expectRowSelected(venusRow, expected.venus);
-  await expect(name).toHaveValue(expected.name);
+  await expect(mercuryCheckbox).toBeChecked({checked: mercury});
+  await expect(venusCheckbox).toBeChecked({checked: venus});
+  expect(await isSelected(page, 1)).toBe(mercury);
+  expect(await isSelected(page, 2)).toBe(venus);
+  await expectRowSelected(mercuryRow, mercury);
+  await expectRowSelected(venusRow, venus);
+  await expect(name).toHaveValue(nam);
 }
 
 async function expectRowSelected(row: Locator, selected: boolean): Promise<void> {
