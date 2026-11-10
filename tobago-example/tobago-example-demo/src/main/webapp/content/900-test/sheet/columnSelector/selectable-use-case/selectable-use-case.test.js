@@ -28,9 +28,9 @@ it("Full server request, selectable=single", function (done) {
   const checkSelectable = elementByIdFn("page:mainForm:checkSelectable::field");
   const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:solar::columnSelector']");
   const mercuryCheckbox = querySelectorFn("input[name='page:mainForm:solar_data_row_selector_1']");
-  const mercuryRow = elementByIdFn("page:mainForm:solar:1:rowAjax"); // Wie hat das Funktioniert? Das müsste eigentlich rowFSR sein.
+  const mercuryRow = elementByIdFn("page:mainForm:solar:1:rowAjax"); // How did this work? This should be rowFSR.
   const venusCheckbox = querySelectorFn("input[name='page:mainForm:solar_data_row_selector_2']");
-  const venusRow = elementByIdFn("page:mainForm:solar:2:rowAjax"); // Wie hat das Funktioniert? Das müsste eigentlich rowFSR sein.
+  const venusRow = elementByIdFn("page:mainForm:solar:2:rowAjax"); // How did this work? This should be rowFSR.
   const name = elementByIdFn("page:mainForm:name::field");
 
   const test = new JasmineTestTool(done);
@@ -84,9 +84,9 @@ it("Full server request, selectable=singleOrNone", function (done) {
   const checkSelectable = elementByIdFn("page:mainForm:checkSelectable::field");
   const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:solar::columnSelector']");
   const mercuryCheckbox = querySelectorFn("input[name='page:mainForm:solar_data_row_selector_1']");
-  const mercuryRow = elementByIdFn("page:mainForm:solar:1:rowAjax"); // Wie hat das Funktioniert? Das müsste eigentlich rowFSR sein.
+  const mercuryRow = elementByIdFn("page:mainForm:solar:1:rowAjax"); // How did this work? This should be rowFSR.
   const venusCheckbox = querySelectorFn("input[name='page:mainForm:solar_data_row_selector_2']");
-  const venusRow = elementByIdFn("page:mainForm:solar:2:rowAjax"); // Wie hat das Funktioniert? Das müsste eigentlich rowFSR sein.
+  const venusRow = elementByIdFn("page:mainForm:solar:2:rowAjax"); // How did this work? This should be rowFSR.
   const name = elementByIdFn("page:mainForm:name::field");
 
   const test = new JasmineTestTool(done);
@@ -149,9 +149,9 @@ it("Full server request, selectable=multi", function (done) {
   const checkSelectable = elementByIdFn("page:mainForm:checkSelectable::field");
   const selectAllCheckbox = querySelectorFn("input[name='page:mainForm:solar::columnSelector']");
   const mercuryCheckbox = querySelectorFn("input[name='page:mainForm:solar_data_row_selector_1']");
-  const mercuryRow = elementByIdFn("page:mainForm:solar:1:rowAjax"); // Wie hat das Funktioniert? Das müsste eigentlich rowFSR sein.
+  const mercuryRow = elementByIdFn("page:mainForm:solar:1:rowAjax"); // How did this work? This should be rowFSR.
   const venusCheckbox = querySelectorFn("input[name='page:mainForm:solar_data_row_selector_2']");
-  const venusRow = elementByIdFn("page:mainForm:solar:2:rowAjax"); // Wie hat das Funktioniert? Das müsste eigentlich rowFSR sein.
+  const venusRow = elementByIdFn("page:mainForm:solar:2:rowAjax"); // How did this work? This should be rowFSR.
   const name = elementByIdFn("page:mainForm:name::field");
 
   const test = new JasmineTestTool(done);
