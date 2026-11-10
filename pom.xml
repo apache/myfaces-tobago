@@ -16,7 +16,7 @@
  * limitations under the License.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.myfaces</groupId>
@@ -32,7 +32,7 @@
     The goal of Tobago is to provide the community with a well-designed set of user interface components
     based on JSF and run on MyFaces.
   </description>
-  <url>http://myfaces.apache.org/tobago</url>
+  <url>https://myfaces.apache.org/#/tobago</url>
   <inceptionYear>2002</inceptionYear>
 
   <properties>
@@ -83,26 +83,21 @@
       <post>List for posting questions about how to use myfaces projects. Subscribe to this list before posting</post>
       <archive>https://lists.apache.org/list.html?user@myfaces.apache.org</archive>
       <otherArchives>
-        <otherArchive>http://mail-archives.apache.org/mod_mbox/myfaces-users</otherArchive>
-        <otherArchive>http://www.mail-archive.com/users@myfaces.apache.org/</otherArchive>
-        <otherArchive>http://myfaces.10567.n7.nabble.com/MyFaces-Users-f57691.html</otherArchive>
-        <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.users</otherArchive>
+        <otherArchive>https://mail-archives.apache.org/mod_mbox/myfaces-users</otherArchive>
+        <otherArchive>https://www.mail-archive.com/users@myfaces.apache.org/</otherArchive>
       </otherArchives>
     </mailingList>
     <mailingList>
       <name>Myfaces Developer List (use [Tobago] prefix)</name>
       <subscribe>dev-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>dev-unsubscribe@myfaces.apache.org</unsubscribe>
-      <post>
-        List for posting patches and discussing internal code implementation issues.
-        Subscribe to this list before posting
+      <post>List for posting patches and discussing internal code implementation issues. Subscribe to this list before
+        posting
       </post>
       <archive>https://lists.apache.org/list.html?dev@myfaces.apache.org</archive>
       <otherArchives>
-        <otherArchive>http://mail-archives.apache.org/mod_mbox/myfaces-dev</otherArchive>
-        <otherArchive>http://www.mail-archive.com/dev@myfaces.apache.org/</otherArchive>
-        <otherArchive>http://myfaces.10567.n7.nabble.com/My-Faces-Dev-f3.html</otherArchive>
-        <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.dev</otherArchive>
+        <otherArchive>https://mail-archives.apache.org/mod_mbox/myfaces-dev</otherArchive>
+        <otherArchive>https://www.mail-archive.com/dev@myfaces.apache.org/</otherArchive>
       </otherArchives>
     </mailingList>
     <mailingList>
@@ -111,10 +106,6 @@
       <unsubscribe>commits-unsubscribe@myfaces.apache.org</unsubscribe>
       <post>do not post</post>
       <archive>https://lists.apache.org/list.html?commits@myfaces.apache.org</archive>
-      <otherArchives>
-        <otherArchive>http://mail-archives.apache.org/mod_mbox/myfaces-commits</otherArchive>
-        <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.commits</otherArchive>
-      </otherArchives>
     </mailingList>
     <mailingList>
       <name>Myfaces Notifications List</name>
@@ -122,11 +113,6 @@
       <unsubscribe>notifications-unsubscribe@myfaces.apache.org</unsubscribe>
       <post>do not post</post>
       <archive>https://lists.apache.org/list.html?notifications@myfaces.apache.org</archive>
-      <otherArchives>
-        <otherArchive>http://mail-archives.apache.org/mod_mbox/myfaces-notifications</otherArchive>
-        <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.notifications
-        </otherArchive>
-      </otherArchives>
     </mailingList>
     <mailingList>
       <name>Myfaces Announcements List</name>
@@ -134,10 +120,6 @@
       <unsubscribe>announce-unsubscribe@myfaces.apache.org</unsubscribe>
       <post>do not post</post>
       <archive>https://lists.apache.org/list.html?announce@myfaces.apache.org</archive>
-      <otherArchives>
-        <otherArchive>http://mail-archives.apache.org/mod_mbox/myfaces-announce</otherArchive>
-        <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.announce</otherArchive>
-      </otherArchives>
     </mailingList>
     <mailingList>
       <name>Myfaces Private (PMC) List</name>
@@ -388,7 +370,7 @@
           <dependency>
             <groupId>com.puppycrawl.tools</groupId>
             <artifactId>checkstyle</artifactId>
-            <version>14.3.0</version>
+            <version>14.4.0</version>
           </dependency>
         </dependencies>
       </plugin>
@@ -553,7 +535,6 @@
                 <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
               </manifest>
               <manifestEntries>
-                <Revision>${scm.revision}</Revision>
                 <Build-Time>${maven.build.timestamp}</Build-Time>
               </manifestEntries>
               <manifestSections>
@@ -581,7 +562,7 @@
             <showWarnings>true</showWarnings>
             <useIncrementalCompilation>false</useIncrementalCompilation><!-- see MCOMPILER-209 -->
             <!--fork>true</fork-->
-            <!-- <compilerArgument>-Xlint:all,-serial,-fallthrough</compilerArgument>-->
+            <!-- <compilerArgument>-Xlint:all,-serial,-fallthrough</compilerArgument> -->
           </configuration>
         </plugin>
         <plugin>
@@ -615,13 +596,10 @@
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>3.12.0</version>
           <configuration>
-            <!-- switched off check in Java 8 -->
-            <additionalparam>
-              -Xdoclint:accessibility
-              -Xdoclint:html
-              -Xdoclint:reference
-              -Xdoclint:syntax
-            </additionalparam>
+            <doclint>all</doclint>
+            <sourcepath>
+              ${project.basedir}/src/main/java:${project.build.directory}/generated
+            </sourcepath>
           </configuration>
         </plugin>
         <plugin>
@@ -788,7 +766,7 @@
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>versions-maven-plugin</artifactId>
-          <version>2.23.0</version>
+          <version>2.24.0</version>
         </plugin>
         <plugin>
           <groupId>org.owasp</groupId>
@@ -818,7 +796,7 @@
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
@@ -850,7 +828,7 @@
   </distributionManagement>
 
   <!-- Use this to include the staging repository for testing a new unreleased myfaces core.
-  Change the number 1100 the the current for that. -->
+  Change the number 1100 to the current for that. -->
   <!--
     <repositories>
       <repository>
@@ -865,7 +843,6 @@
       </pluginRepository>
     </pluginRepositories>
   -->
-
   <profiles>
     <profile>
       <id>apache-release</id>
@@ -877,12 +854,12 @@
            <profile>
              <id>apache-release</id>
              <properties>
-               <gpg.passphrase>thephrase</gpg.passphrase>
+               <gpg.passphrase>the_phrase</gpg.passphrase>
              </properties>
            </profile>
        -->
       <properties>
-        <required.maven.version>3.3.1</required.maven.version>
+        <required.maven.version>3.9.1</required.maven.version>
       </properties>
       <build>
         <plugins>
@@ -1221,7 +1198,7 @@
       <name>Helmut Swaczinna</name>
       <email>swaczinna@wlp-systems.de</email>
       <organization>WLP Systems GmbH</organization>
-      <organizationUrl>http://www.wlp-systems.de/</organizationUrl>
+      <organizationUrl>https://www.wlp-systems.de/</organizationUrl>
       <timezone>+1</timezone>
     </contributor>
   </contributors>
