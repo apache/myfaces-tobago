@@ -38,7 +38,7 @@
     <frontend.skip>true</frontend.skip>
     <myfaces40.version>4.0.4</myfaces40.version>
     <myfaces41.version>4.1.2</myfaces41.version>
-    <mojarra40.version>4.0.28</mojarra40.version>
+    <mojarra40.version>4.0.29</mojarra40.version>
     <slf4j.version>2.0.20</slf4j.version>
     <logback.version>1.6.6</logback.version>
     <maven.compiler.release>17</maven.compiler.release>
@@ -270,7 +270,7 @@
         <!-- jsoup HTML parser library -->
         <groupId>org.jsoup</groupId>
         <artifactId>jsoup</artifactId>
-        <version>1.23.2</version>
+        <version>1.24.1</version>
       </dependency>
       <dependency>
         <groupId>org.apache.myfaces.core</groupId>
@@ -509,7 +509,7 @@
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>build-helper-maven-plugin</artifactId>
-          <version>3.6.2</version>
+          <version>3.7.0</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -616,13 +616,10 @@
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>3.12.0</version>
           <configuration>
-            <!-- switched off check in Java 8 -->
-            <additionalparam>
-              -Xdoclint:accessibility
-              -Xdoclint:html
-              -Xdoclint:reference
-              -Xdoclint:syntax
-            </additionalparam>
+            <doclint>all</doclint>
+            <sourcepath>
+              ${project.basedir}/src/main/java:${project.build.directory}/generated
+            </sourcepath>
           </configuration>
         </plugin>
         <plugin>
@@ -774,7 +771,7 @@
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>versions-maven-plugin</artifactId>
-          <version>2.23.0</version>
+          <version>2.24.0</version>
         </plugin>
         <plugin>
           <groupId>org.owasp</groupId>

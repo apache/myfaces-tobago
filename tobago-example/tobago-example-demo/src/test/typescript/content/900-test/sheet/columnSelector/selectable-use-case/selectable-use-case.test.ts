@@ -38,44 +38,42 @@ test.describe("900-test/sheet/columnSelector/selectable-use-case/selectable-use-
     const venusRow = page.locator("[id='page:mainForm:solar:2:rowAjax']");
     const name = page.locator("[id='page:mainForm:name::field']");
 
-
-    await expect (checkAjax).toBeChecked();
+    await expect(checkAjax).toBeChecked();
     await selectSingle.click();
-    await expect (checkSelectable).toHaveValue("single");
+    await expect(checkSelectable).toHaveValue("single");
 
-    await expect (selectAllCheckbox).toBeHidden();
+    await expect(selectAllCheckbox).toBeHidden();
     await checkForDefault(page);
     expect(await isSelected(page, 1)).toBe(false);
     expect(await isSelected(page, 2)).toBe(false);
 
-
     await mercuryCheckbox.click();
-    await expect (mercuryCheckbox).toBeChecked();
-    await expect (venusCheckbox).not.toBeChecked();
+    await expect(mercuryCheckbox).toBeChecked();
+    await expect(venusCheckbox).not.toBeChecked();
     expect(await isSelected(page, 1)).toBe(true);
     expect(await isSelected(page, 2)).toBe(false);
-    await expect (mercuryRow).toHaveClass(/tobago-selected/);
-    await expect (venusRow).not.toHaveClass(/tobago-selected/);
-    await expect (name).toHaveValue("Sun");
+    await expect(mercuryRow).toHaveClass(/tobago-selected/);
+    await expect(venusRow).not.toHaveClass(/tobago-selected/);
+    await expect(name).toHaveValue("Sun");
 
     await venusCheckbox.click();
-    await expect (mercuryCheckbox).not.toBeChecked();
-    await expect (venusCheckbox).toBeChecked();
+    await expect(mercuryCheckbox).not.toBeChecked();
+    await expect(venusCheckbox).toBeChecked();
     expect(await isSelected(page, 1)).toBe(false);
     expect(await isSelected(page, 2)).toBe(true);
-    await expect (mercuryRow).not.toHaveClass(/tobago-selected/);
-    await expect (venusRow).toHaveClass(/tobago-selected/);
-    await expect (name).toHaveValue("Sun");
+    await expect(mercuryRow).not.toHaveClass(/tobago-selected/);
+    await expect(venusRow).toHaveClass(/tobago-selected/);
+    await expect(name).toHaveValue("Sun");
 
     //await venusRow.click();
     await page.getByText('Venus').click();
-    await expect (mercuryCheckbox).not.toBeChecked();
-    await expect (venusCheckbox).toBeChecked();
+    await expect(mercuryCheckbox).not.toBeChecked();
+    await expect(venusCheckbox).toBeChecked();
     expect(await isSelected(page, 1)).toBe(false);
     expect(await isSelected(page, 2)).toBe(true);
-    await expect (mercuryRow).not.toHaveClass(/tobago-selected/);
-    await expect (venusRow).toHaveClass(/tobago-selected/);
-    await expect (name).toHaveValue("Venus");
+    await expect(mercuryRow).not.toHaveClass(/tobago-selected/);
+    await expect(venusRow).toHaveClass(/tobago-selected/);
+    await expect(name).toHaveValue("Venus");
   });
 
   test("AJAX, selectable=singleOrNone", async ({page}) => {
@@ -91,32 +89,32 @@ test.describe("900-test/sheet/columnSelector/selectable-use-case/selectable-use-
     const venusRow = page.locator("[id='page:mainForm:solar:2:rowAjax']");
     const name = page.locator("[id='page:mainForm:name::field']");
 
-    await expect (checkAjax).toBeChecked();
+    await expect(checkAjax).toBeChecked();
     await selectSingleOrNone.click();
-    await expect (checkSelectable).toHaveValue("singleOrNone");
+    await expect(checkSelectable).toHaveValue("singleOrNone");
 
-    await expect (selectAllCheckbox).toBeHidden();
+    await expect(selectAllCheckbox).toBeHidden();
     await checkForDefault(page);
     expect(await isSelected(page, 1)).toBe(false);
     expect(await isSelected(page, 2)).toBe(false);
 
     await mercuryCheckbox.click();
-    await expect (mercuryCheckbox).toBeChecked();
-    await expect (venusCheckbox).not.toBeChecked();
+    await expect(mercuryCheckbox).toBeChecked();
+    await expect(venusCheckbox).not.toBeChecked();
     expect(await isSelected(page, 1)).toBe(true);
     expect(await isSelected(page, 2)).toBe(false);
-    await expect (mercuryRow).toHaveClass(/tobago-selected/);
-    await expect (venusRow).not.toHaveClass(/tobago-selected/);
-    await expect (name).toHaveValue("Sun");
+    await expect(mercuryRow).toHaveClass(/tobago-selected/);
+    await expect(venusRow).not.toHaveClass(/tobago-selected/);
+    await expect(name).toHaveValue("Sun");
 
     await venusCheckbox.click();
-    await expect (mercuryCheckbox).not.toBeChecked();
-    await expect (venusCheckbox).toBeChecked();
+    await expect(mercuryCheckbox).not.toBeChecked();
+    await expect(venusCheckbox).toBeChecked();
     expect(await isSelected(page, 1)).toBe(false);
     expect(await isSelected(page, 2)).toBe(true);
-    await expect (mercuryRow).not.toHaveClass(/tobago-selected/);
-    await expect (venusRow).toHaveClass(/tobago-selected/);
-    await expect (name).toHaveValue("Sun");
+    await expect(mercuryRow).not.toHaveClass(/tobago-selected/);
+    await expect(venusRow).toHaveClass(/tobago-selected/);
+    await expect(name).toHaveValue("Sun");
 
     await venusCheckbox.click();
     await checkForDefault(page);
@@ -125,13 +123,13 @@ test.describe("900-test/sheet/columnSelector/selectable-use-case/selectable-use-
 
     //await venusRow.click();
     await page.getByText('Venus').click();
-    await expect (mercuryCheckbox).not.toBeChecked();
-    await expect (venusCheckbox).not.toBeChecked();
+    await expect(mercuryCheckbox).not.toBeChecked();
+    await expect(venusCheckbox).not.toBeChecked();
     expect(await isSelected(page, 1)).toBe(false);
     expect(await isSelected(page, 2)).toBe(false);
-    await expect (mercuryRow).not.toHaveClass(/tobago-selected/);
-    await expect (venusRow).not.toHaveClass(/tobago-selected/);
-    await expect (name).toHaveValue("Venus");
+    await expect(mercuryRow).not.toHaveClass(/tobago-selected/);
+    await expect(venusRow).not.toHaveClass(/tobago-selected/);
+    await expect(name).toHaveValue("Venus");
   });
 
   test("AJAX, selectable=multi", async ({page}) => {
@@ -147,9 +145,9 @@ test.describe("900-test/sheet/columnSelector/selectable-use-case/selectable-use-
     const venusRow = page.locator("[id='page:mainForm:solar:2:rowAjax']");
     const name = page.locator("[id='page:mainForm:name::field']");
 
-    await expect (checkAjax).toBeChecked();
+    await expect(checkAjax).toBeChecked();
     await selectMulti.click();
-    await expect (checkSelectable).toHaveValue("multi");
+    await expect(checkSelectable).toHaveValue("multi");
 
     await expect(selectAllCheckbox).toHaveAttribute("type", "checkbox");
     await checkForDefault(page);
@@ -157,41 +155,41 @@ test.describe("900-test/sheet/columnSelector/selectable-use-case/selectable-use-
     expect(await isSelected(page, 2)).toBe(false);
 
     await mercuryCheckbox.click();
-    await expect (mercuryCheckbox).toBeChecked();
-    await expect (venusCheckbox).not.toBeChecked();
+    await expect(mercuryCheckbox).toBeChecked();
+    await expect(venusCheckbox).not.toBeChecked();
     expect(await isSelected(page, 1)).toBe(true);
     expect(await isSelected(page, 2)).toBe(false);
-    await expect (mercuryRow).toHaveClass(/tobago-selected/);
-    await expect (venusRow).not.toHaveClass(/tobago-selected/);
-    await expect (name).toHaveValue("Sun");
+    await expect(mercuryRow).toHaveClass(/tobago-selected/);
+    await expect(venusRow).not.toHaveClass(/tobago-selected/);
+    await expect(name).toHaveValue("Sun");
 
     await venusCheckbox.click();
-    await expect (mercuryCheckbox).toBeChecked();
-    await expect (venusCheckbox).toBeChecked();
+    await expect(mercuryCheckbox).toBeChecked();
+    await expect(venusCheckbox).toBeChecked();
     expect(await isSelected(page, 1)).toBe(true);
     expect(await isSelected(page, 2)).toBe(true);
-    await expect (mercuryRow).toHaveClass(/tobago-selected/);
-    await expect (venusRow).toHaveClass(/tobago-selected/);
-    await expect (name).toHaveValue("Sun");
+    await expect(mercuryRow).toHaveClass(/tobago-selected/);
+    await expect(venusRow).toHaveClass(/tobago-selected/);
+    await expect(name).toHaveValue("Sun");
 
     await venusCheckbox.click();
-    await expect (mercuryCheckbox).toBeChecked();
-    await expect (venusCheckbox).not.toBeChecked();
+    await expect(mercuryCheckbox).toBeChecked();
+    await expect(venusCheckbox).not.toBeChecked();
     expect(await isSelected(page, 1)).toBe(true);
     expect(await isSelected(page, 2)).toBe(false);
-    await expect (mercuryRow).toHaveClass(/tobago-selected/);
-    await expect (venusRow).not.toHaveClass(/tobago-selected/);
-    await expect (name).toHaveValue("Sun");
+    await expect(mercuryRow).toHaveClass(/tobago-selected/);
+    await expect(venusRow).not.toHaveClass(/tobago-selected/);
+    await expect(name).toHaveValue("Sun");
 
     //await venusRow.click();
     await page.getByText('Venus').click();
-    await expect (mercuryCheckbox).toBeChecked();
-    await expect (venusCheckbox).not.toBeChecked();
+    await expect(mercuryCheckbox).toBeChecked();
+    await expect(venusCheckbox).not.toBeChecked();
     expect(await isSelected(page, 1)).toBe(true);
     expect(await isSelected(page, 2)).toBe(false);
-    await expect (mercuryRow).toHaveClass(/tobago-selected/);
-    await expect (venusRow).not.toHaveClass(/tobago-selected/);
-    await expect (name).toHaveValue("Venus");
+    await expect(mercuryRow).toHaveClass(/tobago-selected/);
+    await expect(venusRow).not.toHaveClass(/tobago-selected/);
+    await expect(name).toHaveValue("Venus");
   });
 });
 
@@ -209,10 +207,9 @@ async function checkForDefault(page: Page) {
   const venusRow = page.locator("[id='page:mainForm:solar:2:rowAjax']");
   const name = page.locator("[id='page:mainForm:name::field']");
 
-
-  await expect (mercuryCheckbox).not.toBeChecked();
-  await expect (venusCheckbox).not.toBeChecked();
-  await expect (mercuryRow).not.toHaveClass(/tobago-selected/);
-  await expect (venusRow).not.toHaveClass(/tobago-selected/);
-  await expect (name).toHaveValue("Sun");
+  await expect(mercuryCheckbox).not.toBeChecked();
+  await expect(venusCheckbox).not.toBeChecked();
+  await expect(mercuryRow).not.toHaveClass(/tobago-selected/);
+  await expect(venusRow).not.toHaveClass(/tobago-selected/);
+  await expect(name).toHaveValue("Sun");
 }
