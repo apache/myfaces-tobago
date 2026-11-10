@@ -616,13 +616,10 @@
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>3.12.0</version>
           <configuration>
-            <!-- switched off check in Java 8 -->
-            <additionalparam>
-              -Xdoclint:accessibility
-              -Xdoclint:html
-              -Xdoclint:reference
-              -Xdoclint:syntax
-            </additionalparam>
+            <doclint>all</doclint>
+            <sourcepath>
+              ${project.basedir}/src/main/java:${project.build.directory}/generated
+            </sourcepath>
           </configuration>
         </plugin>
         <plugin>
