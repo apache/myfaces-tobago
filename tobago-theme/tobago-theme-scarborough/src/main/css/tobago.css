@@ -15952,6 +15952,10 @@ tobago-sheet .tobago-body .table td > tobago-tree-node .tobago-toggle {
   padding-right: 5px;
 }
 
+tobago-sheet header th.tobago-row-filler, tobago-sheet .tobago-body th.tobago-row-filler, tobago-sheet .tobago-body td.tobago-row-filler {
+  padding: 0;
+}
+
 tobago-sheet header th.tobago-behavior-container, tobago-sheet .tobago-body th.tobago-behavior-container, tobago-sheet .tobago-body td.tobago-behavior-container {
   width: 0;
   padding: 0;
