@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-example</artifactId>
-    <version>6.10.0-SNAPSHOT</version>
+    <version>6.13.0-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-example-quarkus</artifactId>
   <packaging>jar</packaging>
@@ -33,15 +33,23 @@
     <compiler-plugin.version>3.13.0</compiler-plugin.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-    <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-    <quarkus.platform.version>3.18.2</quarkus.platform.version>
-    <quarkus.version>3.32.0</quarkus.version>
+    <myfaces-quarkus.version>${myfaces41.version}</myfaces-quarkus.version>
+    <quarkus.version>3.40.1.1</quarkus.version>
     <skipITs>true</skipITs>
   </properties>
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>org.apache.myfaces.core</groupId>
+        <artifactId>myfaces-api</artifactId>
+        <version>${myfaces41.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.myfaces.core</groupId>
+        <artifactId>myfaces-impl</artifactId>
+        <version>${myfaces41.version}</version>
+      </dependency>
       <dependency>
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-bom</artifactId>
@@ -56,7 +64,7 @@
     <dependency>
       <groupId>org.apache.myfaces.core.extensions.quarkus</groupId>
       <artifactId>myfaces-quarkus</artifactId>
-      <version>${myfaces40.version}</version>
+      <version>${myfaces-quarkus.version}</version>
       <exclusions>
         <exclusion>
           <groupId>org.apache.tomcat</groupId>
@@ -68,7 +76,7 @@
     <dependency>
       <groupId>org.apache.tomcat</groupId>
       <artifactId>tomcat-jasper-el</artifactId>
-      <version>10.1.52</version>
+      <version>10.1.61</version>
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
@@ -120,6 +128,7 @@
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-maven-plugin</artifactId>
         <version>${quarkus.version}</version>
+        <extensions>true</extensions>
         <executions>
           <execution>
             <goals>
