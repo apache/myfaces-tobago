@@ -37,7 +37,8 @@
   <properties>
     <frontend.skip>true</frontend.skip>
     <myfaces40.version>4.0.4</myfaces40.version>
-    <myfaces41.version>4.1.2</myfaces41.version>
+    <myfaces41.version>4.1.4</myfaces41.version>
+    <myfaces-quarkus.version>4.0.3</myfaces-quarkus.version>
     <mojarra40.version>4.0.29</mojarra40.version>
     <slf4j.version>2.0.20</slf4j.version>
     <logback.version>1.6.6</logback.version>
@@ -764,6 +765,7 @@
             <nodeAuditAnalyzerEnabled>false</nodeAuditAnalyzerEnabled> <!-- https://github.com/dependency-check/DependencyCheck/issues/8422 -->
             <failBuildOnCVSS>0</failBuildOnCVSS>
             <suppressionFile>tobago/dependency-check-suppression-for-tobago-6.x.xml</suppressionFile>
+            <!-- <ossIndexServerId>ossindex</ossIndexServerId> -->
             <!-- nvdApiKey can be set in your settings.xml -->
             <!--            <nvdApiKey>${nvdApiKey}</nvdApiKey>-->
           </configuration>

@@ -54,7 +54,6 @@ See `tobago-example` directory for some simple examples on how to use Tobago:
 
 ```shell
 mvn clean install
-cd tobago-example/tobago-example-demo
 ```
 
 ### Jetty, MyFaces and Weld
@@ -62,7 +61,8 @@ cd tobago-example/tobago-example-demo
 If you want to run the demo locally you need to run the following command:
 
 ```shell
-mvn jetty:run -Pjetty -Pdev
+cd tobago-example/tobago-example-demo
+mvn clean package jetty:run -Pjetty -Pdev
 ```
 
 Browse to the local URL http://localhost:8080/
@@ -72,13 +72,15 @@ Browse to the local URL http://localhost:8080/
 Run the demo with Jakarta EE 11 which includes Faces 4.1.
 
 ```shell
-mvn jetty:run -Pjetty-ee11 -Pdev -Djsf=myfaces-4.1
+cd tobago-example/tobago-example-demo
+mvn clean package jetty:run -Pjetty-ee11 -Pdev -Djsf=myfaces-4.1
 ```
 
 ### Jetty, Mojarra and Weld
 
 ```shell
-mvn jetty:run -Pjetty -Pdev -Djsf=mojarra-4.0
+cd tobago-example/tobago-example-demo
+mvn clean package jetty:run -Pjetty -Pdev -Djsf=mojarra-4.0
 ```
 
 Browse to the local URL http://localhost:8080/
@@ -86,6 +88,7 @@ Browse to the local URL http://localhost:8080/
 ### Tomcat, MyFaces and Weld
 
 ```shell
+cd tobago-example/tobago-example-demo
 mvn cargo:run -Ptomcat
 ```
 
@@ -94,7 +97,8 @@ Browse to the local URL http://localhost:8080/tobago-example-demo/
 ### TomEE
 
 ```shell
-mvn tomee:run -Ptomee
+cd tobago-example/tobago-example-demo
+mvn clean package tomee:run -Ptomee
 ```
 
 Browse to the local URL http://localhost:8080/
@@ -102,7 +106,8 @@ Browse to the local URL http://localhost:8080/
 ### Open Liberty
 
 ```shell
-mvn liberty:run -Pliberty
+cd tobago-example/tobago-example-demo
+mvn clean package liberty:run -Pliberty
 ```
 
 Browse to the local URL http://localhost:9080/
@@ -110,7 +115,6 @@ Browse to the local URL http://localhost:9080/
 ### Quarkus
 
 ```shell
-mvn clean install
 cd tobago-example/tobago-example-quarkus
 mvn clean package quarkus:dev
 ```
@@ -120,7 +124,6 @@ Browse to the local URL http://localhost:8080/
 ### Spring Boot 3
 
 ```shell
-mvn clean install
 cd tobago-example/tobago-example-spring-boot
 mvn clean package -Pspring-boot-3 spring-boot:run
 ```
@@ -130,7 +133,6 @@ Browse to the local URL http://localhost:8080/
 ### Spring Boot 4
 
 ```shell
-mvn clean install
 cd tobago-example/tobago-example-spring-boot
 mvn clean package -Pspring-boot-4 spring-boot:run
 ```
@@ -147,7 +149,7 @@ docker run -p 8080:8080 myfaces/tobago-example-demo:latest
 
 Browse to the local URL http://localhost:8080/
 
-### Docker compose
+### Docker Compose
 
 ```shell
 cd tobago-example
