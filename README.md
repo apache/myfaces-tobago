@@ -116,7 +116,7 @@ Browse to the local URL http://localhost:9080/
 
 ```shell
 cd tobago-example/tobago-example-quarkus
-mvn clean package quarkus:dev
+mvn clean package quarkus:dev -Djsf=myfaces-4.1
 ```
 
 Browse to the local URL http://localhost:8080/
