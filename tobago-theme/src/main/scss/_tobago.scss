@@ -1791,6 +1791,10 @@ tobago-sheet {
   }
 
   header th, .tobago-body th, .tobago-body td {
+    &.tobago-row-filler {
+      padding: 0; //padding: 0; Firefox calculates the padding to the width, even if width is set to 0 in colgroup.
+    }
+
     &.tobago-behavior-container {
       width: 0; //"width: 0", because in Safari "auto"-columns don't have the correct width with "display: none;".
       padding: 0;
