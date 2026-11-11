@@ -17,9 +17,9 @@
 
 import {expect, test} from "@playwright/test";
 
-test.describe("900-test/selectManyList/deselect/Deselect.xhtml", () => {
+test.describe("900-test/selectManyList/deselect/deselect.xhtml", () => {
   test.beforeEach(async ({page}) => {
-    await page.goto("/content/900-test/selectManyList/deselect/Deselect.xhtml");
+    await page.goto("/content/900-test/selectManyList/deselect/deselect.xhtml");
   });
 
   test("disabled selectItem", async ({page}) => {
