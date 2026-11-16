@@ -71,7 +71,7 @@ Checklist of tasks to perform for each release. For general information about Ap
   ```
   mvn release:perform
   ```
-* Commit: "chore(release): set next SNAPSHOT version" - set next SNAPSHOT version in:
+* Commit and push: "chore(release): set next SNAPSHOT version" - set next SNAPSHOT version in:
   * package.json
   * package-lock.json
   * package-info.java
@@ -127,6 +127,7 @@ the staging location).
     * Edit versions in:
       * tobago/tobago-vm/apache-proxy/index.html
       * tobago/tobago-vm/docker-compose.yml
+      * tobago/tobago-vm/setup.sh
   * Updating Tag Library Documentation (TLD).
     * generate in myfaces-tobago folder with:<br/>
       ```
