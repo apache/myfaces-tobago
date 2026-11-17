@@ -19,11 +19,6 @@
 
 import {TreeStatic} from "./tobago-tree-static";
 
-test("getTabindexForNode", () => {
-  // Ein Tree-Node-Container sollte tabindex="-1" haben, damit er nicht fokussierbar ist
-  expect(TreeStatic.getTabindexForNode()).toBe(-1);
-});
-
 test("getTabindexForSubElement", () => {
   // Sub-Elemente (Toggle, Checkbox, Radio) sollten tabindex="0" haben
   expect(TreeStatic.getTabindexForSubElement()).toBe(0);

@@ -61,6 +61,33 @@ export class TreeStatic {
   }
 
   /**
+   * Gibt den Tabindex für den Tree-Node-Container zurück.
+   * Nodes selbst sind nicht fokussierbar.
+   */
+  static getTabindexForNode(): number {
+    return -1;
+  }
+
+  /**
+   * Gibt den Tabindex für fokussierbare Sub-Elemente (Toggle, Checkbox, Radio) zurück.
+   */
+  static getTabindexForSubElement(): number {
+    return 0;
+  }
+
+  /**
+   * Bestimmt, ob bei der Tastaturnavigation der Fokus auf die Checkbox/Radio gesetzt werden soll.
+   *
+   * @param hasCheckboxes - ob der Tree Checkboxen/Radio-Inputs nutzt
+   * @param isCurrentToggle - ob der aktuell fokussierte Node ein Toggle ist
+   * @param hasNextToggle - ob der nächste sichtbare Node ebenfalls ein Toggle hat
+   * @returns true, wenn der Fokus auf das Checkbox/Radio-Element gesetzt werden soll
+   */
+  static shouldFocusCheckbox(hasCheckboxes: boolean, isCurrentToggle: boolean, hasNextToggle: boolean): boolean {
+    return hasCheckboxes && (!hasNextToggle || isCurrentToggle);
+  }
+
+  /**
    * Bestimmt, ob die rechte Pfeiltaste das Node expandieren soll oder ein Kind besuchen.
    * - Wenn zugeklappt und expandierbar: expandieren
    * - Wenn expandiert: zum ersten Kind springen
