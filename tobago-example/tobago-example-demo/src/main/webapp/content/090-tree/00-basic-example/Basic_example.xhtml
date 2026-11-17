@@ -75,23 +75,29 @@
 
   <tc:section label="Icon">
     <p>An icon can be added to a node with
-      <code
-          class="language-markup">&lt;tc:treeIcon value="image/feather-leaf.png" closed="image/feather-closed.png" open="image/feather-open.png"/></code>.
-      In this case, the targeted image is 'feather-leaf.png'. It is displayed for leaf nodes.
-      For open or closed folder there are explicit attributes.
-      If these attributes are not used, defaults are used.</p>
-    <tc:tree value="#{treeController.sample}" var="node">
-      <tc:treeNode>
-        <tc:treeIndent/>
-        <tc:treeIcon value="#{request.contextPath}/image/feather-leaf.png"
-                     closed="#{request.contextPath}/image/feather-closed.png"
-                     open="#{request.contextPath}/image/feather-open.png"/>
-        <tc:treeIcon value="bi-file-earmark"
-                     closed="bi-folder2"
-                     open="bi-folder2-open"/>
-        <tc:treeLabel value="#{node.userObject.name}"/>
-      </tc:treeNode>
-    </tc:tree>
+      <code class="language-markup">&lt;tc:treeIcon value="..." closed="..." open="..."/></code>
+      where the values could be an icon or a URL to an image.</p>
+    <tc:segmentLayout medium="6seg">
+      <tc:tree value="#{treeController.sample}" var="node">
+        <tc:treeNode>
+          <tc:treeIndent/>
+          <tc:treeIcon closed="#{request.contextPath}/image/feather-closed.png"
+                       open="#{request.contextPath}/image/feather-open.png"/>
+          <tc:treeLabel value="#{node.userObject.name}"/>
+        </tc:treeNode>
+      </tc:tree>
+
+      <tc:tree value="#{treeController.sample}" var="node">
+        <tc:treeNode>
+          <tc:treeIndent/>
+          <tc:treeIcon value="bi-file-earmark"
+                       closed="bi-folder2"
+                       open="bi-folder2-open"/>
+          <tc:treeLabel value="#{node.userObject.name}"/>
+        </tc:treeNode>
+      </tc:tree>
+    </tc:segmentLayout>
+
   </tc:section>
 
   <tc:section label="Additional Attributes">
