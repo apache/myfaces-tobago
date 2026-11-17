@@ -444,7 +444,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> im
       encodeHiddenInput(writer, state.getLazyScrollPosition().encode(), sheetId + SUFFIX_LAZY_SCROLL_POSITION);
     }
 
-    final List<Integer> expandedValue = component.isTreeModel() ? new ArrayList<>() : null;
+    final StringBuilder expandedValue = component.isTreeModel() ? new StringBuilder() : null;
 
     encodeTableHeader(facesContext, component, writer, columnWidths, columns, autoLayout);
     encodeTableBody(
@@ -463,7 +463,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> im
       writer.writeNameAttribute(expandedId);
       writer.writeIdAttribute(expandedId);
       writer.writeClassAttribute(TobagoClass.EXPANDED);
-      writer.writeAttribute(HtmlAttributes.VALUE, JsonUtils.encode(expandedValue), false);
+      writer.writeAttribute(HtmlAttributes.VALUE, expandedValue.toString(), false);
       writer.endElement(HtmlElements.INPUT);
     }
 
@@ -526,7 +526,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> im
       final FacesContext facesContext, final AbstractUISheet sheet,
       final TobagoResponseWriter writer, final String sheetId, final Selectable selectable,
       final List<Integer> columnWidths, final List<Integer> selectedRows, final List<AbstractUIColumnBase> columns,
-      final boolean autoLayout, final List<Integer> expandedValue) throws IOException {
+      final boolean autoLayout, final StringBuilder expandedValue) throws IOException {
 
     final boolean showHeader = sheet.isShowHeader();
     final Markup sheetMarkup = sheet.getMarkup() != null ? sheet.getMarkup() : Markup.NULL;
@@ -606,7 +606,7 @@ public class SheetRenderer<T extends AbstractUISheet> extends RendererBase<T> im
       }
 
       if (sheet.isTreeModel() && sheet.isFolder() && sheet.getExpandedState().isExpanded(sheet.getPath())) {
-        expandedValue.add(rowIndex);
+        expandedValue.append(sheet.getPath().toString());
       }
 
       writer.startElement(HtmlElements.TR);

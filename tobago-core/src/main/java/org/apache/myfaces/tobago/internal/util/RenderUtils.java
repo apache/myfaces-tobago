@@ -150,11 +150,8 @@ public final class RenderUtils {
       return;
     }
 
-    // selected
     final List<Integer> selectedIndices = decodeIndices(facesContext, data, AbstractUIData.SUFFIX_SELECTED);
-
-    // expanded
-    final List<Integer> expandedIndices = decodeIndices(facesContext, data, AbstractUIData.SUFFIX_EXPANDED);
+    final String expandedPaths = decodeExpandedPaths(facesContext, data);
 
     final int last = data.isRowsUnlimited() ? Integer.MAX_VALUE : data.getFirst() + data.getRows();
     for (int rowIndex = data.getFirst(); rowIndex < last; rowIndex++) {
@@ -192,10 +189,10 @@ public final class RenderUtils {
       }
 
       // expanded
-      if (expandedIndices != null) {
+      if (expandedPaths != null) {
         final ExpandedState expandedState = data.getExpandedState();
         final boolean oldExpanded = expandedState.isExpanded(path);
-        final boolean newExpanded = expandedIndices.contains(rowIndex);
+        final boolean newExpanded = expandedPaths.contains(path.toString());
         if (newExpanded != oldExpanded) {
           if (newExpanded) {
             expandedState.expand(path);
@@ -219,6 +216,18 @@ public final class RenderUtils {
     } catch (final Exception e) {
       // should not happen
       LOG.warn("Can't parse " + suffix + ": '" + string + "' from parameter '" + key + "'", e);
+    }
+    return null;
+  }
+
+  private static String decodeExpandedPaths(final FacesContext facesContext, final AbstractUIData data) {
+    String string = null;
+    final String key = data.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + AbstractUIData.SUFFIX_EXPANDED;
+    try {
+      return facesContext.getExternalContext().getRequestParameterMap().get(key);
+    } catch (final Exception e) {
+      // should not happen
+      LOG.warn("Can't parse " + AbstractUIData.SUFFIX_EXPANDED + ": '" + string + "' from parameter '" + key + "'", e);
     }
     return null;
   }

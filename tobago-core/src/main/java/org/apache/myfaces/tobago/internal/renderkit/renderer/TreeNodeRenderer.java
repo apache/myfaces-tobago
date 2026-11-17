@@ -161,6 +161,7 @@ public class TreeNodeRenderer<T extends AbstractUITreeNode> extends RendererBase
         writer.writeAttribute(DataAttributes.TREE_PARENT, parentId, false);
         writer.writeAttribute(CustomAttributes.PARENT, parentId, false);
       }
+      writer.writeAttribute(DataAttributes.PATH, path.toString(), false);
       writer.writeAttribute(DataAttributes.LEVEL, data.isShowRoot() ? component.getLevel() : component.getLevel() - 1);
     }
   }
