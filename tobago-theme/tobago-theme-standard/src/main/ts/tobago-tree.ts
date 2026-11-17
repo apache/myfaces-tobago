@@ -16,9 +16,13 @@
  */
 
 import {Selectable} from "./tobago-selectable";
+import {Key} from "./tobago-key";
 import {TreeNode} from "./tobago-tree-node";
+import {EventListenerStore} from "./tobago-event-listener-store";
 
 export class Tree extends HTMLElement {
+
+  private listeners: EventListenerStore = new EventListenerStore();
 
   /** ID des zuletzt fokussierten Tree-Nodes (wird über AJAX-Updates hinweg gespeichert) */
   private static focusedNodeId: string | null = null;
@@ -29,7 +33,10 @@ export class Tree extends HTMLElement {
     super();
 
     this.handleKeydown = this.handleKeydown.bind(this);
-    this.addEventListener("focusout", (event) => {
+  }
+
+  connectedCallback(): void {
+    this.listeners.add(this, "focusout", (event: FocusEvent) => {
       const target = event.target as HTMLElement;
       const node = target.closest("tobago-tree-node") as HTMLElement;
       if (node && node.id) {
@@ -41,6 +48,22 @@ export class Tree extends HTMLElement {
         }
       }
     });
+
+    if (Tree.focusedNodeId) {
+      const savedNode = this.querySelector(`tobago-tree-node[id="${Tree.focusedNodeId}"]`) as HTMLElement;
+      if (savedNode) {
+        const targetSelector = Tree.focusedSubElementClass || ".tobago-toggle, input";
+        const subEl = savedNode.querySelector(targetSelector) as HTMLElement;
+        if (subEl) {
+          subEl.focus();
+        }
+      }
+    }
+    this.listeners.add(this, "keydown", this.handleKeydown);
+  }
+
+  disconnectedCallback(): void {
+    this.listeners.disconnect();
   }
 
   clearSelectedNodes(): void {
@@ -110,38 +133,14 @@ export class Tree extends HTMLElement {
   }
 
   get visibleNodes(): TreeNode[] {
-    return Array.from(this.nodes).filter(node => !(node as HTMLElement).classList.contains(".d-none")) as TreeNode[];
+    return Array.from(this.nodes).filter(node => !node.classList.contains("d-none"));
   }
 
   private get hasCheckboxes(): boolean {
     return this.querySelector("input[type=checkbox], input[type=radio]") !== null;
   }
 
-  connectedCallback(): void {
-    for (const node of Array.from(this.nodes)) {
-
-      const subElements = node.querySelectorAll(".tobago-toggle, input[type=checkbox], input[type=radio]");
-      subElements.forEach(el => el.setAttribute("tabindex", "0"));
-    }
-
-    if (Tree.focusedNodeId) {
-      const savedNode = this.querySelector(`tobago-tree-node[id="${Tree.focusedNodeId}"]`) as HTMLElement;
-      if (savedNode) {
-        const targetSelector = Tree.focusedSubElementClass || ".tobago-toggle, input";
-        const subEl = savedNode.querySelector(targetSelector) as HTMLElement;
-        if (subEl) {
-          subEl.focus();
-        }
-      }
-    }
-    this.addEventListener("keydown", this.handleKeydown);
-  }
-
-  disconnectedCallback(): void {
-    this.removeEventListener("keydown", this.handleKeydown);
-  }
-
-  focusNode(node: TreeNode | HTMLElement, preferCheckbox: boolean = false): void {
+  focusNode(node: HTMLElement): void {
     if (!node) {
       return;
     }
@@ -149,22 +148,14 @@ export class Tree extends HTMLElement {
     const toggle = node.querySelector(".tobago-toggle") as HTMLElement;
     const input = node.querySelector("input[type=checkbox], input[type=radio]") as HTMLInputElement;
 
-    if (!this.hasCheckboxes && toggle) {
-      toggle.focus();
-      return;
-    }
-
-    if (input && (preferCheckbox || !toggle)) {
+    if (input) {
       input.focus();
     } else if (toggle) {
       toggle.focus();
-    } else if (input) {
-      input.focus();
     }
   }
 
   private handleKeydown(event: KeyboardEvent): void {
-    const key = event.key || (event as any).key || "";
     const target = event.target as HTMLElement;
     if (!target) {
       return;
@@ -181,86 +172,93 @@ export class Tree extends HTMLElement {
     const toggle = node.querySelector(".tobago-toggle") as HTMLElement;
     const input = node.querySelector("input[type=checkbox], input[type=radio]") as HTMLInputElement;
 
-    if (["Space", "Enter"].includes(key)) {
-      event.preventDefault();
-      if (input) {
-        input.checked = input.type === "radio" ? true : !input.checked;
-        input.dispatchEvent(new Event("change", {bubbles: true}));
+    switch (event.key) {
+      case Key.SPACE:
+      case "Space":
+      case Key.ENTER:
+        this.handleSelectionKeydown(event, input);
+        break;
+      case Key.ARROW_UP:
+        this.handleVerticalNavigation(event, node, -1);
+        break;
+      case Key.ARROW_DOWN:
+        this.handleVerticalNavigation(event, node, 1);
+        break;
+      case Key.ARROW_LEFT:
+        this.handleArrowLeft(event, node, toggle, input);
+        break;
+      case Key.ARROW_RIGHT:
+        this.handleArrowRight(event, target, node, toggle, input);
+        break;
+    }
+  }
+
+  private handleSelectionKeydown(event: KeyboardEvent, input: HTMLInputElement): void {
+    event.preventDefault();
+    if (input) {
+      input.checked = input.type === "radio" || !input.checked;
+      input.dispatchEvent(new Event("change", {bubbles: true}));
+    }
+  }
+
+  private handleVerticalNavigation(event: KeyboardEvent, node: HTMLElement, direction: -1 | 1): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const all = this.visibleNodes;
+    const index = all.indexOf(node as TreeNode);
+    if (index === -1) {
+      return;
+    }
+
+    const next = all[index + direction];
+    if (next) {
+      this.focusNode(next);
+    }
+  }
+
+  private handleArrowLeft(event: KeyboardEvent, node: HTMLElement, toggle: HTMLElement, input: HTMLInputElement): void {
+    event.preventDefault();
+    const expanded = node.classList.contains("tobago-expanded");
+
+    if (toggle && expanded) {
+      toggle.click();
+      if (this.hasCheckboxes && input) {
+        setTimeout(() => input.focus(), 0);
       }
       return;
     }
 
-    const isUp = key === "ArrowUp";
-    const isDown = key === "ArrowDown";
-    const isLeft = key === "ArrowLeft";
-    const isRight = key === "ArrowRight";
+    const parentId = node.getAttribute("parent");
+    if (parentId) {
+      const parent = this.querySelector(`tobago-tree-node[id="${parentId}"]`) as HTMLElement;
+      this.focusNode(parent);
+    }
+  }
 
-    if (isUp || isDown) {
-      event.preventDefault();
-      event.stopPropagation();
+  private handleArrowRight(event: KeyboardEvent, target: HTMLElement, node: HTMLElement,
+                           toggle: HTMLElement, input: HTMLInputElement): void {
+    event.preventDefault();
 
-      const all = this.visibleNodes;
-      const idx = all.indexOf(node as any);
-      if (idx === -1) {
-        return;
-      }
+    const expandable = node.getAttribute("expandable") === "expandable" || node.classList.contains("tobago-expandable");
+    const expanded = node.classList.contains("tobago-expanded");
 
-      const next = isUp ? all[idx - 1] : all[idx + 1];
-      if (next) {
-        const nextHasCheckbox = next.querySelector("input[type=checkbox], input[type=radio]") !== null;
-        const nextHasToggle = next.querySelector(".tobago-toggle") !== null;
-        const preferCheckbox = this.hasCheckboxes && (nextHasCheckbox || !nextHasToggle);
-        this.focusNode(next, preferCheckbox);
+    if (expandable && !expanded && toggle) {
+      toggle.click();
+      if (this.hasCheckboxes && input) {
+        setTimeout(() => input.focus(), 150);
       }
       return;
     }
 
-    if (isLeft) {
-      event.preventDefault();
-      const expanded = node.classList.contains("tobago-expanded");
-
-      if (toggle) {
-        if (expanded) {
-          toggle.click();
-          if (this.hasCheckboxes && input) {
-            setTimeout(() => input.focus(), 0);
-          }
-          return;
-        }
-      }
-
-      const parentId = node.getAttribute("parent");
-      if (parentId) {
-        const parent = this.querySelector(`tobago-tree-node[id="${parentId}"]`) as HTMLElement;
-        this.focusNode(parent, this.hasCheckboxes);
-      }
+    if (this.hasCheckboxes && target.classList.contains("tobago-toggle") && input) {
+      input.focus();
       return;
     }
 
-    if (isRight) {
-      event.preventDefault();
-
-      const expandable = node.getAttribute("expandable") === "expandable" || node.classList.contains("tobago-expandable");
-      const expanded = node.classList.contains("tobago-expanded");
-
-      if (expandable && !expanded && toggle) {
-        toggle.click();
-        if (this.hasCheckboxes && input) {
-          setTimeout(() => input.focus(), 150);
-        }
-        return;
-      }
-
-      if (this.hasCheckboxes && target.classList.contains("tobago-toggle") && input) {
-        input.focus();
-        return;
-      }
-
-      const child = this.querySelector(`tobago-tree-node[parent="${node.id}"]`) as HTMLElement;
-      if (child && (child as any).offsetParent !== null) {
-        this.focusNode(child, this.hasCheckboxes);
-      }
-      return;
+    const child = this.querySelector(`tobago-tree-node[parent="${node.id}"]`) as HTMLElement;
+    if (child && (child as any).offsetParent !== null) {
+      this.focusNode(child);
     }
   }
 }
