@@ -27,7 +27,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 
 /**
- * An operation describes an Tobago command, which will usually executed on client side.
+ * Change the collapse state of a component defined by the "for"-attribute. The operation must be placed inside a
+ * command. Usually a &lt;tc:button&gt;. If used inside a &lt;tc:row&gt;, the operation must be wrapped by a
+ * &lt;tc:event&gt; tag.
  *
  * ********************* &lt;br/&gt;
  * WARNING &lt;br/&gt;

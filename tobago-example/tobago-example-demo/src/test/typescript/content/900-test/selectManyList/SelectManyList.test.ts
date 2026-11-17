@@ -29,7 +29,6 @@ test.describe("900-test/selectManyList/SelectManyList.xhtml", () => {
     const omitButton = page.locator("[id='page:mainForm:omit']");
     const selectField = page.locator("[id='page:mainForm:component::selectField']");
     const badges = page.locator("[id='page:mainForm:component::selectField'] .btn-group");
-    const filterInput = page.locator("[id='page:mainForm:component::filter']");
     const dropdownMenu = page.locator(".tobago-options.tobago-dropdown-menu[name='page:mainForm:component']");
     const entryOne = page.locator(".tobago-options.tobago-dropdown-menu[name='page:mainForm:component'] td[value='one']");
 
@@ -42,9 +41,13 @@ test.describe("900-test/selectManyList/SelectManyList.xhtml", () => {
     await expect(dropdownMenu).not.toBeVisible();
   });
 
-  test("width of filter input field must be '0px'", async ({page}) => {
+  test("TOBAGO-2279: make sure menu opens on click on filter input element'", async ({page}) => {
     const filterInput = page.locator("[id='page:mainForm:component::filter']");
-    await expect(filterInput).toHaveCSS("width", "0px");
+    const options = page.locator(".tobago-options[data-tobago-for='page:mainForm:component']");
+
+    await expect(options).not.toBeVisible();
+    await filterInput.click();
+    await expect(options).toBeVisible();
   });
 
   test("Standard: remove 'Earth'", async ({page}) => {
@@ -178,5 +181,115 @@ test.describe("900-test/selectManyList/SelectManyList.xhtml", () => {
     await expect(selectField).toHaveCSS("border-bottom-left-radius", "0px");
     await expect(selectField).toHaveCSS("border-top-right-radius", "0px");
     await expect(selectField).toHaveCSS("border-bottom-right-radius", "0px");
+  });
+
+  test("Placeholder (no filter)", async ({page}) => {
+    const selectField = page.locator("[id='page:mainForm:placeholderNoFilter::selectField']");
+    const filter = page.locator("[id='page:mainForm:placeholderNoFilter::filter']");
+    const options = page.locator(".tobago-options[data-tobago-for='page:mainForm:placeholderNoFilter']");
+    const earthRow = page.locator(".tobago-options[name='page:mainForm:placeholderNoFilter'] tr[data-tobago-value='Earth']");
+
+    await expect(page.locator("[id='page:searchForm:search::field']")).toBeFocused();
+    await expect(filter).toHaveAttribute("placeholder", "placeholder text");
+    await expect(filter).not.toContainClass("tobago-hide-placeholder");
+
+    await selectField.scrollIntoViewIfNeeded();
+    await selectField.click();
+    await expect(options).toBeVisible();
+    await expect(filter).not.toContainClass("tobago-hide-placeholder");
+
+    await earthRow.click();
+    await expect(options).toBeVisible();
+    await expect(filter).toContainClass("tobago-hide-placeholder");
+
+    await earthRow.click();
+    await expect(filter).not.toContainClass("tobago-hide-placeholder");
+  });
+
+  test("Placeholder (with filter)", async ({page}) => {
+    const selectField = page.locator("[id='page:mainForm:placeholderWithFilter::selectField']");
+    const filter = page.locator("[id='page:mainForm:placeholderWithFilter::filter']");
+    const options = page.locator(".tobago-options[data-tobago-for='page:mainForm:placeholderWithFilter']");
+    const earthRow = page.locator(".tobago-options[name='page:mainForm:placeholderWithFilter'] tr[data-tobago-value='Earth']");
+    const visibleResults = page.locator(".tobago-options[name='page:mainForm:placeholderWithFilter'] tr:not(.d-none)");
+
+    await expect(page.locator("[id='page:searchForm:search::field']")).toBeFocused();
+    await expect(filter).toHaveAttribute("placeholder", "placeholder text");
+    await expect(filter).not.toContainClass("tobago-hide-placeholder");
+
+    await selectField.scrollIntoViewIfNeeded();
+    await selectField.click();
+    await expect(options).toBeVisible();
+    await expect(visibleResults).toHaveCount(9);
+    await expect(filter).not.toContainClass("tobago-hide-placeholder");
+
+    await filter.fill("E");
+    await expect(options).toBeVisible();
+    await expect(visibleResults).toHaveCount(5);
+
+    await earthRow.click();
+    await expect(options).toBeVisible();
+    await expect(filter).toHaveValue("E");
+    await expect(filter).toContainClass("tobago-hide-placeholder");
+
+    await filter.fill("a");
+    await expect(options).toBeVisible();
+    await expect(visibleResults).toHaveCount(4);
+
+    await earthRow.click();
+    await expect(options).toBeVisible();
+    await expect(filter).toHaveValue("a");
+    await expect(filter).not.toContainClass("tobago-hide-placeholder");
+  });
+
+  test("No placeholder for readonly or disabled", async ({page}) => {
+    const readonlyFilter = page.locator("[id='page:mainForm:placeholderReadonly::filter']");
+    const disabledFilter = page.locator("[id='page:mainForm:placeholderDisabled::filter']");
+
+    await expect(readonlyFilter).not.toHaveAttribute("placeholder");
+    await expect(disabledFilter).not.toHaveAttribute("placeholder");
+  });
+
+  test("Menu stays open after selection", async ({page}) => {
+    const firstBadge = page.locator("[id='page:mainForm:basic:selectedStandard::selectField'] .tobago-badges tobago-badge");
+    const firstCloseButton = page.locator("[id='page:mainForm:basic:selectedStandard::selectField'] .tobago-badges .tobago-button.badge").first();
+    const options = page.locator(".tobago-options[data-tobago-for='page:mainForm:basic:selectedStandard']");
+    const venusRow = page.locator(".tobago-options[name='page:mainForm:basic:selectedStandard'] tr[data-tobago-value='Venus']");
+
+    await expect(page.locator("[id='page:searchForm:search::field']")).toBeFocused();
+    await expect(firstBadge).toHaveCount(3);
+    await expect(options).not.toBeVisible();
+
+    //preparation
+    await firstCloseButton.click();
+    await expect(firstBadge).toHaveCount(2);
+    await firstCloseButton.click();
+    await expect(firstBadge).toHaveCount(1);
+    await firstCloseButton.click();
+    await expect(firstBadge).toHaveCount(0);
+
+    //test keyboard
+    await page.keyboard.press("ArrowDown");
+    await expect(options).toBeVisible();
+    await page.keyboard.press("Enter");
+    await expect(firstBadge).toHaveText("Mercury");
+    await expect(options).toBeVisible();
+    await page.keyboard.press("Enter");
+    await expect(firstBadge).toHaveCount(0);
+    await expect(options).toBeVisible();
+    await page.keyboard.press("Space");
+    await expect(firstBadge).toHaveText("Mercury");
+    await expect(options).toBeVisible();
+    await page.keyboard.press("Space");
+    await expect(firstBadge).toHaveCount(0);
+    await expect(options).toBeVisible();
+
+    //test mouse
+    await venusRow.click();
+    await expect(firstBadge).toHaveText("Venus");
+    await expect(options).toBeVisible();
+    await venusRow.click();
+    await expect(firstBadge).toHaveCount(0);
+    await expect(options).toBeVisible();
   });
 });

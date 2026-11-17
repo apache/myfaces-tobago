@@ -65,4 +65,26 @@
       <tc:selectItem itemValue="two"/>
     </tc:selectManyList>
   </tc:section>
+
+  <tc:section label="Placeholder">
+    <tc:selectManyList id="placeholderNoFilter" label="Placeholder (no filter)" placeholder="placeholder text">
+      <tc:selectItems value="#{selectOneListController.planets}"
+                      var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+    </tc:selectManyList>
+    <tc:selectManyList id="placeholderWithFilter" label="Placeholder (with filter)" placeholder="placeholder text"
+                       filter="contains">
+      <tc:selectItems value="#{selectOneListController.planets}"
+                      var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+    </tc:selectManyList>
+    <tc:selectManyList id="placeholderReadonly" label="No placeholder for readonly"
+                       placeholder="This placeholde should not be visibled" readonly="true">
+      <tc:selectItems value="#{selectOneListController.planets}"
+                      var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+    </tc:selectManyList>
+    <tc:selectManyList id="placeholderDisabled" label="No placeholder for disabled"
+                       placeholder="This placeholde should not be visibled" disabled="true">
+      <tc:selectItems value="#{selectOneListController.planets}"
+                      var="planet" itemLabel="#{planet.name}" itemValue="#{planet}"/>
+    </tc:selectManyList>
+  </tc:section>
 </ui:composition>

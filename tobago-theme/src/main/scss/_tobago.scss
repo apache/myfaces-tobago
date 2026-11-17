@@ -316,9 +316,19 @@ $icon-sort-numbers: (
       }
 
       &:read-only {
-        width: 0;
-        min-width: 0;
-        flex-grow: 0;
+        cursor: default;
+      }
+
+      &.tobago-hide-placeholder { //.tobago-filter is also used to show the placeholder for tc:selectList components
+        &::placeholder {
+          color: transparent;
+        }
+
+        &:read-only {
+          width: 0;
+          min-width: 0;
+          flex-grow: 0;
+        }
       }
     }
   }
@@ -1155,9 +1165,12 @@ tobago-overlay {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color .15s linear; //similar to .fade from Bootstrap
   overflow: hidden;
   z-index: 5; //set to "5", because this is the highest fixed value in Bootstrap
+
+  &.fade {
+    transition: background-color .15s linear; //similar to .fade from Bootstrap
+  }
 
   &.show {
     background-color: rgba(var(--#{$prefix}body-bg-rgb), 90%);
@@ -1667,9 +1680,9 @@ tobago-sheet {
 
   .tobago-resize {
     position: absolute;
-    right: -5px;
+    right: 0;
     top: 0;
-    width: 10px;
+    width: 5px;
     height: 100%;
     z-index: 1;
     cursor: col-resize;
@@ -1778,8 +1791,13 @@ tobago-sheet {
   }
 
   header th, .tobago-body th, .tobago-body td {
+    &.tobago-row-filler {
+      padding: 0; //padding: 0; Firefox calculates the padding to the width, even if width is set to 0 in colgroup.
+    }
+
     &.tobago-behavior-container {
-      display: none;
+      width: 0; //"width: 0", because in Safari "auto"-columns don't have the correct width with "display: none;".
+      padding: 0;
     }
   }
 

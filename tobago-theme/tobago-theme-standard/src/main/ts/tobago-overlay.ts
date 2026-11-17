@@ -22,47 +22,66 @@
 import {Page} from "./tobago-page";
 import {OverlayType} from "./tobago-overlay-type";
 import {Css} from "./tobago-css";
+import {QueueItem} from "./tobago-ajax-queue";
 
 export class Overlay extends HTMLElement {
+  private static overlayWasShown = new Set<string>();
 
   /**
-   * Enhance or create faces.ajax.RequestOptions to use an overlay for the Ajax request.
+   * Enhance faces.ajax.RequestOptions to handle overlays for the Tobago Ajax queue.
+   *
+   * If an Ajax request is executed, a tobago-overlay component is set for all render Ids of the Tobago Ajax queue. If
+   * an overlay is shown, it keeps showing till the corresponding renderId is not in the Tobago Ajax queue anymore.
+   *
+   * @param queue Tobago Ajax queue
+   * @param options faces.ajax.RequestOptions
    */
-  static getEnhancedRequestOptions(options: faces.ajax.RequestOptions = {}): faces.ajax.RequestOptions {
-    const renderIds = new Set<string>();
-    if (options.render) {
-      for (const id of options.render.split(" ")) {
-        renderIds.add(id);
-      }
+  static initAjaxQueueOverlays(queue: QueueItem[], options: faces.ajax.RequestOptions): void {
+    if (options) {
+      const requestOptionsRenderIds = new Set<string>(options.render ? options.render.split(" ") : []);
+      const ajaxQueueRenderIds = new Set<string>(queue.flatMap(queueItem => [...queueItem.renderIds]));
+
+      const currentOnEvent = options.onevent;
+      options.onevent = (data: faces.AjaxEvent) => {
+        if (currentOnEvent) {
+          currentOnEvent(data);
+        }
+
+        if (data.status === "begin") {
+          for (const renderId of ajaxQueueRenderIds) {
+            if (this.overlayWasShown.has(renderId)) {
+              Overlay.render(renderId, OverlayType.ajax, 0);
+            } else {
+              Overlay.render(renderId, OverlayType.ajax);
+            }
+          }
+        } else if (data.status === "complete") {
+          for (const renderId of ajaxQueueRenderIds) {
+            const overlay = document.querySelector("[id='" + renderId + "'] tobago-overlay");
+            if (overlay.classList.contains(Css.SHOW)) {
+              this.overlayWasShown.add(renderId);
+            }
+          }
+        } else if (data.status === "success") {
+          for (const renderId of requestOptionsRenderIds) {
+            Overlay.remove(renderId);
+          }
+          if (queue.length === 0) {
+            this.overlayWasShown.clear();
+          }
+        }
+      };
+      const currentOnError = options.onerror;
+      options.onerror = (data: faces.AjaxError) => {
+        if (currentOnError) {
+          currentOnError(data);
+        }
+
+        for (const renderId of requestOptionsRenderIds) {
+          Overlay.render(renderId, OverlayType.error);
+        }
+      };
     }
-
-    const currentOnEvent = options.onevent;
-    options.onevent = (data: faces.AjaxEvent) => {
-      if (currentOnEvent) {
-        currentOnEvent(data);
-      }
-
-      if (data.status === "begin") {
-        for (const renderId of renderIds) {
-          Overlay.render(renderId, OverlayType.ajax);
-        }
-      } else if (data.status === "success") {
-        for (const renderId of renderIds) {
-          Overlay.remove(renderId);
-        }
-      }
-    };
-    const currentOnError = options.onerror;
-    options.onerror = (data: faces.AjaxError) => {
-      if (currentOnError) {
-        currentOnError(data);
-      }
-
-      for (const renderId of renderIds) {
-        Overlay.render(renderId, OverlayType.error);
-      }
-    };
-    return options;
   }
 
   static render(id: string, type: OverlayType, delay: number = Page
@@ -74,7 +93,7 @@ export class Overlay extends HTMLElement {
 
       if (currentOverlay === null) {
         element.insertAdjacentHTML("beforeend", Overlay.htmlText(id, type,
-            delay ? delay : Page.page(document.querySelector("tobago-page")).waitOverlayDelayAjax));
+            delay >= 0 ? delay : Page.page(document.querySelector("tobago-page")).waitOverlayDelayAjax));
       } else if (currentOverlayType !== type) {
         currentOverlay?.remove();
         element.insertAdjacentHTML("beforeend", Overlay.htmlText(id, type, 0));
@@ -89,8 +108,8 @@ export class Overlay extends HTMLElement {
   }
 
   static htmlText(id: string, type: OverlayType, delay: number): string {
-    return `<tobago-overlay type='${type}' for='${id}' delay='${delay}' class='fade${type === OverlayType.error
-        ? " text-danger" : ""}'/>`;
+    return `<tobago-overlay type='${type}' for='${id}' delay='${delay}' class='${delay > 0
+        ? "fade" : ""}${type === OverlayType.error ? " text-danger" : ""}'/>`;
   }
 
   private timeout;

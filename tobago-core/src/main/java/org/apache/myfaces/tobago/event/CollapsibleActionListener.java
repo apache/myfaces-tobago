@@ -57,12 +57,14 @@ public class CollapsibleActionListener implements ActionListener, StateHolder {
     if (viewRoot != null) {
       final String forClientId = ComponentUtils.evaluateClientId(facesContext, actionEvent.getComponent(), forId);
 
-      final UIComponent component = viewRoot.findComponent(forClientId);
-      if (component instanceof AbstractUICollapsiblePanel) {
-        ((AbstractUICollapsiblePanel) component).processState();
-      } else {
-        LOG.error("Wrong component class for id: '{}'. Type is {} but expected type is {}",
-            forClientId, component.getClass().getName(), AbstractUICollapsiblePanel.class.getName());
+      if (forClientId != null) {
+        final UIComponent component = viewRoot.findComponent(forClientId);
+        if (component instanceof AbstractUICollapsiblePanel) {
+          ((AbstractUICollapsiblePanel) component).processState();
+        } else {
+          LOG.error("Wrong component class for id: '{}'. Type is {} but expected type is {}",
+              forClientId, component.getClass().getName(), AbstractUICollapsiblePanel.class.getName());
+        }
       }
     }
   }

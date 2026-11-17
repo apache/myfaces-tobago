@@ -187,6 +187,9 @@ updates:
       - dependency-name: "org.apache.meecrowave:meecrowave-maven-plugin"
         versions:
           - ">= 2.0.0"
+      - dependency-name: "org.glassfish.embedded:maven-embedded-glassfish-plugin"
+        versions: # GlassFish 6.x is Jakarta EE 9
+          - ">= 6.0"
 
   - package-ecosystem: "maven"
     directory: "/"

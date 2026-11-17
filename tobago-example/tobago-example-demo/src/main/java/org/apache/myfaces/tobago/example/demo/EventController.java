@@ -83,6 +83,7 @@ import jakarta.faces.event.AjaxBehaviorEvent;
 import jakarta.faces.event.ValueChangeEvent;
 import jakarta.inject.Named;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -166,8 +167,10 @@ public class EventController implements Serializable {
     planets.add(new SolarObject("Mars", "IV", "Sun", 227940, 686.98, 1.85, 0.09, "-", null));
     planets.add(new SolarObject("Jupiter", "V", "Sun", 778330, 4332.71, 1.31, 0.05, "-", null));
     planets.add(new SolarObject("Saturn", "VI", "Sun", 1429400, 10759.50, 2.49, 0.06, "-", null));
-    planets.add(new SolarObject("Uranus", "VII", "Sun", 2870990, 30685.0, 0.77, 0.05, "Herschel", 1781));
-    planets.add(new SolarObject("Neptune", "VIII", "Sun", 4504300, 60190.0, 1.77, 0.01, "Adams", 1846));
+    planets.add(new SolarObject("Uranus", "VII", "Sun", 2870990, 30685.0, 0.77, 0.05, "Herschel",
+        LocalDate.of(1781, 3, 13)));
+    planets.add(new SolarObject("Neptune", "VIII", "Sun", 4504300, 60190.0, 1.77, 0.01, "Adams",
+        LocalDate.of(1846, 9, 23)));
   }
 
   public void reset() {

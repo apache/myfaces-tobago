@@ -19,9 +19,12 @@
 
 package org.apache.myfaces.tobago.util;
 
+import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.context.TobagoContext;
+
 import jakarta.faces.application.Application;
 import jakarta.faces.context.FacesContext;
-
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ResourceUtils {
@@ -29,31 +32,54 @@ public class ResourceUtils {
   public static final String TOBAGO_RESOURCE_BUNDLE = "tobagoResourceBundle";
 
   public static String getString(final String key) {
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
-    final Application application = facesContext.getApplication();
-    final ResourceBundle resourceBundle = application.getResourceBundle(facesContext, TOBAGO_RESOURCE_BUNDLE);
-    return resourceBundle.getString(key);
+    return getString(TOBAGO_RESOURCE_BUNDLE, key);
   }
 
   public static String getString(final FacesContext facesContext, final String key) {
-    return facesContext.getApplication().getResourceBundle(facesContext, TOBAGO_RESOURCE_BUNDLE).getString(key);
+    return getString(facesContext, TOBAGO_RESOURCE_BUNDLE, key);
   }
 
   public static String getString(final FacesContext facesContext, final Application application, final String key) {
-    return application.getResourceBundle(facesContext, TOBAGO_RESOURCE_BUNDLE).getString(key);
+    return getString(facesContext, application, TOBAGO_RESOURCE_BUNDLE, key);
   }
 
   public static String getString(final String bundle, final String key) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
-    return facesContext.getApplication().getResourceBundle(facesContext, bundle).getString(key);
+    return getString(facesContext, bundle, key);
   }
 
   public static String getString(final FacesContext facesContext, final String bundle, final String key) {
-    return facesContext.getApplication().getResourceBundle(facesContext, bundle).getString(key);
+    return getString(facesContext, facesContext.getApplication(), bundle, key);
   }
 
   public static String getString(
       final FacesContext facesContext, final Application application, final String bundle, final String key) {
-    return application.getResourceBundle(facesContext, bundle).getString(key);
+
+    if (TOBAGO_RESOURCE_BUNDLE.equals(bundle)) {
+      final Theme theme = TobagoContext.getInstance(facesContext).getTheme();
+      final String string = getString(facesContext, application, theme, key);
+      if (string != null) {
+        return string;
+      }
+    }
+
+    final ResourceBundle resourceBundle = application.getResourceBundle(facesContext, bundle);
+    return resourceBundle.getString(key);
+  }
+
+  public static String getString(
+      final FacesContext facesContext, final Application application, final Theme theme, final String key) {
+
+    final ResourceBundle themeBundle = application.getResourceBundle(facesContext, theme.getName() + "Bundle");
+    if (themeBundle != null && themeBundle.containsKey(key)) {
+      return themeBundle.getString(key);
+    } else {
+      List<Theme> fallbackList = theme.getFallbackList();
+      if (fallbackList.size() > 1) {
+        return getString(facesContext, application, theme.getFallbackList().get(1), key);
+      } else {
+        return null;
+      }
+    }
   }
 }

@@ -26,6 +26,7 @@ import jakarta.faces.event.AjaxBehaviorEvent;
 
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,7 +53,7 @@ public class SolarObject implements Serializable {
 
   private String discoverer;
 
-  private Integer discoverYear;
+  private LocalDate discoveryDate;
 
   private String population;
 
@@ -62,7 +63,7 @@ public class SolarObject implements Serializable {
 
   public SolarObject(
       final String name, final String number, final String orbit, final Integer distance, final Double period,
-      final Double incl, final Double eccen, final String discoverer, final Integer discoverYear) {
+      final Double incl, final Double eccen, final String discoverer, final LocalDate discoveryDate) {
     this.name = name;
     this.number = number;
     this.orbit = orbit;
@@ -71,7 +72,7 @@ public class SolarObject implements Serializable {
     this.incl = incl;
     this.eccen = eccen;
     this.discoverer = discoverer;
-    this.discoverYear = discoverYear;
+    this.discoveryDate = discoveryDate;
     this.population = "Earth".equals(name) ? "~ 8.000.000.000" : "0";
   }
 
@@ -84,7 +85,7 @@ public class SolarObject implements Serializable {
     this.incl = solarObject.getIncl();
     this.eccen = solarObject.getEccen();
     this.discoverer = solarObject.getDiscoverer();
-    this.discoverYear = solarObject.getDiscoverYear();
+    this.discoveryDate = solarObject.getDiscoveryDate();
     this.population = getPopulation();
     this.chemicalComposition = chemicalComposition != null
         ? chemicalComposition.stream().map(Element::new).collect(Collectors.toList())
@@ -183,12 +184,12 @@ public class SolarObject implements Serializable {
     this.discoverer = discoverer;
   }
 
-  public Integer getDiscoverYear() {
-    return discoverYear;
+  public LocalDate getDiscoveryDate() {
+    return discoveryDate;
   }
 
-  public void setDiscoverYear(final Integer discoverYear) {
-    this.discoverYear = discoverYear;
+  public void setDiscoveryDate(final LocalDate discoveryDate) {
+    this.discoveryDate = discoveryDate;
   }
 
   public String getPopulation() {

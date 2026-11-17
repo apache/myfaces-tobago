@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:ui="jakarta.faces.facelets">
+
+  <p>Tobago offers several ways to adjust the look of individual components beyond what the theme provides.</p>
+
+  <tc:section label="tc:style tag">
+    <p>
+      <tc:link label="Tag Library Documentation" image="#{request.contextPath}/image/feather-leaf.png"
+               link="#{apiController.tobagoTld}/tc/style.html"/>
+    </p>
+    <p>
+      The <code>&lt;tc:style&gt;</code> tag is used inside visual components (the component implements the
+      <tc:link label="Visual" image="#{request.contextPath}/image/feather-leaf.png"
+               link="#{apiController.apiBase}/latest/org/apache/myfaces/tobago/component/Visual.html"/>
+      interface).
+    </p>
+    <ul>
+      <li>
+        With the attribute <code>customClass</code> a CSS class can be set.
+        Since Tobago 6.12.0 the
+        <code>styleClass</code> attribute can be used directly on a component instead of usind the
+        style tag.
+      </li>
+      <li>
+        The attribute <code>file</code> includes a CSS file into the page.
+      </li>
+      <li>
+        Apart from the generic attributes <code>binding</code> and <code>id</code>
+        all other attributes are CSS properties. These properties will be set in
+        the parent component with respect to
+        <tc:link label="Content Security Policy"
+                 outcome="/content/280-security/05-csp/Content_Security_Policy.xhtml"/> (CSP).
+      </li>
+    </ul>
+  </tc:section>
+
+  <tc:section label="Bootstrap" icon="bi-bootstrap">
+    <tc:style marginTop="3rem"/>
+    <p>Because Tobago themes are based on
+      <tc:link label="Bootstrap" icon="bi-bootstrap" link="https://getbootstrap.com/"/>, Bootstrap CSS classes like the
+      <tc:link label="Display property" link="https://getbootstrap.com/docs/5.3/utilities/display/"/> are available.</p>
+
+    <p>The following example shows a <code>tc:sheet</code> in which some columns are visible or hidden depending on the
+      size of the browser window.</p>
+
+    <demo-highlight language="markup">&lt;tc:badge value="small" styleClass="d-none d-sm-inline"&gt;</demo-highlight>
+
+    <tc:badge value="normal"/> 
+    <tc:badge value="small" styleClass="d-none d-sm-inline"/> 
+    <tc:badge value="medium" styleClass="d-none d-md-inline"/> 
+    <tc:badge value="large" styleClass="d-none d-lg-inline"/> 
+    <tc:badge value="xl" styleClass="d-none d-xl-inline"/> 
+    <tc:badge value="xxl" styleClass="d-none d-xxl-inline"/>
+
+    <tc:sheet id="sheet" value="#{sheetController.solarList}" var="object" rows="4">
+      <tc:style maxHeight="500px"/>
+      <tc:column label="normal">
+        <tc:out value="#{object.name}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="small" styleClass="d-none d-sm-table-cell">
+        <tc:out value="#{object.orbit}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="medium" styleClass="d-none d-md-table-cell">
+        <tc:out value="#{object.period}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="large" styleClass="d-none d-lg-table-cell">
+        <tc:out value="#{object.distance}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="xl" styleClass="d-none d-xl-table-cell">
+        <tc:out value="#{object.discoverer}" labelLayout="skip"/>
+      </tc:column>
+      <tc:column label="xxl" styleClass="d-none d-xxl-table-cell">
+        <tc:out value="#{object.discoveryDate}" labelLayout="skip"/>
+      </tc:column>
+    </tc:sheet>
+  </tc:section>
+
+  <tc:section label="Application icons">
+    <tc:style marginTop="3rem"/>
+    <p>
+      For application icons, usually shown in browser tabs or bookmarks, use the
+      <code class="language-markup">&lt;tc:metaLink></code> tag. It will be rendered as an HTML
+      <code class="language-markup">&lt;link></code> tag inside
+      the <code class="language-markup">&lt;head></code> tag.
+    </p>
+    <p>
+      There are different formats for different devices possible. Especially for mobile devices
+      there are a lot of possibilities.
+      In the <tc:link link="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link"
+                      label="MDN Web Docs"/> you may find further information.
+    </p>
+    <p>
+      In this demo it is used in the template file <code class="bash-markup">main.xhtml</code>.
+      Example:
+      <demo-highlight language="markup">
+        &lt;tc:metaLink href="\#{request.contextPath}/image/feather.svg" rel="shortcut icon"/>
+&lt;tc:metaLink href="\#{request.contextPath}/image/feather.svg" rel="apple-touch-icon"/>
+      </demo-highlight>
+    </p>
+  </tc:section>
+</ui:composition>

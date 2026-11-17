@@ -15,12 +15,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago</artifactId>
-    <version>6.12.3-SNAPSHOT</version>
+    <version>6.13.1-SNAPSHOT</version>
   </parent>
   <packaging>pom</packaging>
   <name>Tobago Examples</name>
@@ -33,7 +33,7 @@
   <modules>
     <module>tobago-example-blank</module>
     <module>tobago-example-demo</module>
-<!--    <module>tobago-example-quarkus</module>-->
+    <module>tobago-example-quarkus</module>
     <module>tobago-example-spring-boot</module>
   </modules>
 
@@ -48,7 +48,7 @@
         <!-- Jakarta Bean Validation 3.0 implementation -->
         <groupId>org.hibernate.validator</groupId>
         <artifactId>hibernate-validator</artifactId>
-        <version>7.0.5.Final</version>
+        <version>7.0.7.Final</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -296,7 +296,7 @@
             -->
             <groupId>org.codehaus.cargo</groupId>
             <artifactId>cargo-maven3-plugin</artifactId>
-            <version>1.10.29</version>
+            <version>1.10.30</version>
             <configuration>
               <container>
                 <containerId>tomcat10x</containerId>
@@ -355,7 +355,7 @@
           <plugin>
             <groupId>org.apache.tomee.maven</groupId>
             <artifactId>tomee-maven-plugin</artifactId>
-            <version>10.2.0</version>
+            <version>10.3.0</version>
             <configuration>
               <tomeeClassifier>plus</tomeeClassifier>
               <!--<tomeeHttpPort>9090</tomeeHttpPort>-->
@@ -375,7 +375,7 @@
           <plugin>
             <groupId>io.openliberty.tools</groupId>
             <artifactId>liberty-maven-plugin</artifactId>
-            <version>3.12.3</version>
+            <version>3.12.5</version>
             <configuration>
               <serverXmlFile>${project.basedir}/src/test/liberty/config/server.xml</serverXmlFile>
             </configuration>

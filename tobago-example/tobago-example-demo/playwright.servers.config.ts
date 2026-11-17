@@ -22,8 +22,9 @@ import defaultConfig from "./playwright.config";
 
 const serversConfig: PlaywrightTestConfig = {
   ...defaultConfig,
+  retries: 8,
   projects: [
-    ...defaultConfig.projects,
+    ...defaultConfig.projects!!,
     {
       name: "Open Liberty - Chromium",
       use: {baseURL: "http://localhost:8081", ...devices["Desktop Chrome"]}

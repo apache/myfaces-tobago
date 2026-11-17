@@ -48,14 +48,14 @@ class AjaxQueue {
         if (currentOnEvent) {
           currentOnEvent(data);
         }
-        this.ajaxEventListener(data.source, data.type, data.status);
+        AjaxQueueStatic.ajaxEventListener(this.queue, data.source, data.type, data.status);
       };
       const currentOnError = options.onerror;
       options.onerror = (data: faces.AjaxError) => {
         if (currentOnError) {
           currentOnError(data);
         }
-        this.ajaxEventListener(data.source, data.type, data.status);
+        AjaxQueueStatic.ajaxEventListener(this.queue, data.source, data.type, data.status);
       };
 
       AjaxQueueStatic.request(this.queue, element, event, options, () => faces.ajax.request(element, event, options));
@@ -69,12 +69,6 @@ class AjaxQueue {
       }
       faces.ajax.request(element, event, options);
     }
-  }
-
-  private ajaxEventListener(source: Element,
-                            type: "event" | "error",
-                            status: faces.AjaxEventStatus | faces.AjaxErrorStatus | "clientError" | "timeout"): void {
-    AjaxQueueStatic.ajaxEventListener(this.queue, source, type, status);
   }
 }
 

@@ -103,7 +103,7 @@
     "incl": 0.77,
     "eccen": 0.05,
     "discoverer": "Herschel",
-    "discoverYear": 1781
+    "discoveryDate": "1781-03-13"
   },
   {
     "name": "Neptune",
@@ -114,18 +114,18 @@
     "incl": 1.77,
     "eccen": 0.01,
     "discoverer": "Adams",
-    "discoverYear": 1846
+    "discoveryDate": "1846-09-23"
   },
   {
     "name": "Pluto",
-    "number": "IX",
+    "number": "",
     "orbit": "Sun",
     "distance": 5913520,
     "period": 90800.0,
     "incl": 17.15,
     "eccen": 0.25,
     "discoverer": "Tombaugh",
-    "discoverYear": 1930
+    "discoveryDate": "1930-01-23"
   },
   {
     "name": "Moon",
@@ -160,7 +160,7 @@
     "incl": 1.0,
     "eccen": 0.02,
     "discoverer": "Hall",
-    "discoverYear": 1877
+    "discoveryDate": "1877-08-18"
   },
   {
     "name": "Deimos",
@@ -171,7 +171,7 @@
     "incl": 1.8,
     "eccen": 0.0,
     "discoverer": "Hall",
-    "discoverYear": 1877
+    "discoveryDate": "1877-08-12"
   },
   {
     "name": "Metis",
@@ -182,7 +182,7 @@
     "incl": 0.0,
     "eccen": 0.0,
     "discoverer": "Synnott",
-    "discoverYear": 1979
+    "discoveryDate": "1979-03-04"
   },
   {
     "name": "Adrastea",
@@ -193,7 +193,7 @@
     "incl": 0.0,
     "eccen": 0.0,
     "discoverer": "Jewitt",
-    "discoverYear": 1979
+    "discoveryDate": "1979-07-08"
   },
   {
     "name": "Amalthea",
@@ -204,7 +204,7 @@
     "incl": 0.4,
     "eccen": 0.0,
     "discoverer": "Barnard",
-    "discoverYear": 1892
+    "discoveryDate": "1892-09-09"
   },
   {
     "name": "Thebe",
@@ -215,7 +215,7 @@
     "incl": 0.8,
     "eccen": 0.02,
     "discoverer": "Synnott",
-    "discoverYear": 1979
+    "discoveryDate": "1979-03-05"
   },
   {
     "name": "Io",
@@ -226,7 +226,7 @@
     "incl": 0.04,
     "eccen": 0.0,
     "discoverer": "Galileo",
-    "discoverYear": 1610
+    "discoveryDate": "1610-01-08"
   },
   {
     "name": "Europa",
@@ -237,7 +237,7 @@
     "incl": 0.47,
     "eccen": 0.01,
     "discoverer": "Galileo",
-    "discoverYear": 1610
+    "discoveryDate": "1610-01-08"
   },
   {
     "name": "Ganymede",
@@ -248,7 +248,7 @@
     "incl": 0.19,
     "eccen": 0.0,
     "discoverer": "Galileo",
-    "discoverYear": 1610
+    "discoveryDate": "1610-01-07"
   },
   {
     "name": "Callisto",
@@ -259,7 +259,7 @@
     "incl": 0.28,
     "eccen": 0.01,
     "discoverer": "Galileo",
-    "discoverYear": 1610
+    "discoveryDate": "1610-01-07"
   },
   {
     "name": "Themisto",
@@ -267,8 +267,8 @@
     "orbit": "Jupiter",
     "distance": 7507,
     "period": 130.02,
-    "discoverer": "Sheppard",
-    "discoverYear": 2000
+    "discoverer": "Kowal",
+    "discoveryDate": "1975-09-30"
   },
   {
     "name": "Leda",
@@ -279,7 +279,7 @@
     "incl": 27.0,
     "eccen": 0.15,
     "discoverer": "Kowal",
-    "discoverYear": 1974
+    "discoveryDate": "1974-09-11"
   },
   {
     "name": "Himalia",
@@ -290,7 +290,7 @@
     "incl": 28.0,
     "eccen": 0.16,
     "discoverer": "Perrine",
-    "discoverYear": 1904
+    "discoveryDate": "1904-12-03"
   },
   {
     "name": "Lysithea",
@@ -301,7 +301,7 @@
     "incl": 29.0,
     "eccen": 0.11,
     "discoverer": "Nicholson",
-    "discoverYear": 1938
+    "discoveryDate": "1938-07-06"
   },
   {
     "name": "Elara",
@@ -312,7 +312,7 @@
     "incl": 28.0,
     "eccen": 0.21,
     "discoverer": "Perrine",
-    "discoverYear": 1905
+    "discoveryDate": "1905-01-02"
   },
   {
     "name": "Ananke",
@@ -323,7 +323,7 @@
     "incl": 147.0,
     "eccen": 0.17,
     "discoverer": "Nicholson",
-    "discoverYear": 1951
+    "discoveryDate": "1951-09-28"
   },
   {
     "name": "Carme",
@@ -334,7 +334,7 @@
     "incl": 163.0,
     "eccen": 0.21,
     "discoverer": "Nicholson",
-    "discoverYear": 1938
+    "discoveryDate": "1938-07-30"
   },
   {
     "name": "Pasiphae",
@@ -345,7 +345,7 @@
     "incl": 147.0,
     "eccen": 0.38,
     "discoverer": "Melotte",
-    "discoverYear": 1908
+    "discoveryDate": "1908-01-27"
   },
   {
     "name": "Sinope",
@@ -356,7 +356,7 @@
     "incl": 153.0,
     "eccen": 0.28,
     "discoverer": "Nicholson",
-    "discoverYear": 1914
+    "discoveryDate": "1914-07-21"
   },
   {
     "name": "Iocaste",
@@ -365,7 +365,7 @@
     "distance": 20216,
     "period": 631.5,
     "discoverer": "Sheppard",
-    "discoverYear": 2000
+    "discoveryDate": "2000-11-23"
   },
   {
     "name": "Harpalyke",
@@ -374,7 +374,7 @@
     "distance": 21132,
     "period": 623.3,
     "discoverer": "Sheppard",
-    "discoverYear": 2000
+    "discoveryDate": "2000-11-23"
   },
   {
     "name": "Praxidike",
@@ -383,7 +383,7 @@
     "distance": 20964,
     "period": 625.3,
     "discoverer": "Sheppard",
-    "discoverYear": 2000
+    "discoveryDate": "2000-11-23"
   },
   {
     "name": "Taygete",
@@ -392,7 +392,7 @@
     "distance": 23312,
     "period": 732.2,
     "discoverer": "Sheppard",
-    "discoverYear": 2000
+    "discoveryDate": "2000-11-25"
   },
   {
     "name": "Chaldene",
@@ -401,7 +401,7 @@
     "distance": 23387,
     "period": 723.8,
     "discoverer": "Sheppard",
-    "discoverYear": 2000
+    "discoveryDate": "2000-11-26"
   },
   {
     "name": "Kalyke",
@@ -410,7 +410,7 @@
     "distance": 23745,
     "period": 743.0,
     "discoverer": "Sheppard",
-    "discoverYear": 2000
+    "discoveryDate": "2000-11-23"
   },
   {
     "name": "Callirrhoe",
@@ -419,7 +419,7 @@
     "distance": 24100,
     "period": 758.8,
     "discoverer": "Sheppard",
-    "discoverYear": 2000
+    "discoveryDate": "1999-10-06"
   },
   {
     "name": "Megaclite",
@@ -428,7 +428,7 @@
     "distance": 23911,
     "period": 752.8,
     "discoverer": "Sheppard",
-    "discoverYear": 2000
+    "discoveryDate": "2000-11-25"
   },
   {
     "name": "Isonoe",
@@ -437,7 +437,7 @@
     "distance": 23078,
     "period": 725.5,
     "discoverer": "Sheppard",
-    "discoverYear": 2000
+    "discoveryDate": "2000-11-23"
   },
   {
     "name": "Erinome",
@@ -446,7 +446,7 @@
     "distance": 23168,
     "period": 728.3,
     "discoverer": "Sheppard",
-    "discoverYear": 2000
+    "discoveryDate": "2000-11-23"
   },
   {
     "name": "Pan",
@@ -457,7 +457,7 @@
     "incl": 0.0,
     "eccen": 0.0,
     "discoverer": "Showalter",
-    "discoverYear": 1990
+    "discoveryDate": "1990-07-16"
   },
   {
     "name": "Atlas",
@@ -468,7 +468,7 @@
     "incl": 0.0,
     "eccen": 0.0,
     "discoverer": "Terrile",
-    "discoverYear": 1980
+    "discoveryDate": "1980-11-13"
   },
   {
     "name": "Prometheus",
@@ -479,7 +479,7 @@
     "incl": 0.0,
     "eccen": 0.0,
     "discoverer": "Collins",
-    "discoverYear": 1980
+    "discoveryDate": "1980-10-31"
   },
   {
     "name": "Pandora",
@@ -490,7 +490,7 @@
     "incl": 0.0,
     "eccen": 0.0,
     "discoverer": "Collins",
-    "discoverYear": 1980
+    "discoveryDate": "1980-10-31"
   },
   {
     "name": "Epimetheus",
@@ -501,7 +501,7 @@
     "incl": 0.34,
     "eccen": 0.01,
     "discoverer": "Walker",
-    "discoverYear": 1980
+    "discoveryDate": "1980-02-26"
   },
   {
     "name": "Janus",
@@ -512,7 +512,7 @@
     "incl": 0.14,
     "eccen": 0.01,
     "discoverer": "Dollfus",
-    "discoverYear": 1966
+    "discoveryDate": "1980-02-19"
   },
   {
     "name": "Mimas",
@@ -523,7 +523,7 @@
     "incl": 1.53,
     "eccen": 0.02,
     "discoverer": "Herschel",
-    "discoverYear": 1789
+    "discoveryDate": "1789-09-17"
   },
   {
     "name": "Enceladus",
@@ -534,7 +534,7 @@
     "incl": 0.02,
     "eccen": 0.0,
     "discoverer": "Herschel",
-    "discoverYear": 1789
+    "discoveryDate": "1789-08-28"
   },
   {
     "name": "Tethys",
@@ -545,7 +545,7 @@
     "incl": 1.09,
     "eccen": 0.0,
     "discoverer": "Cassini",
-    "discoverYear": 1684
+    "discoveryDate": "1684-03-21"
   },
   {
     "name": "Telesto",
@@ -556,7 +556,7 @@
     "incl": 0.0,
     "eccen": 0.0,
     "discoverer": "Smith",
-    "discoverYear": 1980
+    "discoveryDate": "1980-04-08"
   },
   {
     "name": "Calypso",
@@ -567,7 +567,7 @@
     "incl": 0.0,
     "eccen": 0.0,
     "discoverer": "Pascu",
-    "discoverYear": 1980
+    "discoveryDate": "1980-03-13"
   },
   {
     "name": "Dione",
@@ -578,7 +578,7 @@
     "incl": 0.02,
     "eccen": 0.0,
     "discoverer": "Cassini",
-    "discoverYear": 1684
+    "discoveryDate": "1684-03-21"
   },
   {
     "name": "Helene",
@@ -589,7 +589,7 @@
     "incl": 0.2,
     "eccen": 0.01,
     "discoverer": "Laques",
-    "discoverYear": 1980
+    "discoveryDate": "1980-03-01"
   },
   {
     "name": "Rhea",
@@ -600,7 +600,7 @@
     "incl": 0.35,
     "eccen": 0.0,
     "discoverer": "Cassini",
-    "discoverYear": 1672
+    "discoveryDate": "1672-12-23"
   },
   {
     "name": "Titan",
@@ -611,7 +611,7 @@
     "incl": 0.33,
     "eccen": 0.03,
     "discoverer": "Huygens",
-    "discoverYear": 1655
+    "discoveryDate": "1655-03-25"
   },
   {
     "name": "Hyperion",
@@ -622,7 +622,7 @@
     "incl": 0.43,
     "eccen": 0.1,
     "discoverer": "Bond",
-    "discoverYear": 1848
+    "discoveryDate": "1848-09-16"
   },
   {
     "name": "Iapetus",
@@ -633,7 +633,7 @@
     "incl": 14.72,
     "eccen": 0.03,
     "discoverer": "Cassini",
-    "discoverYear": 1671
+    "discoveryDate": "1671-10-25"
   },
   {
     "name": "Phoebe",
@@ -644,7 +644,7 @@
     "incl": 175.3,
     "eccen": 0.16,
     "discoverer": "Pickering",
-    "discoverYear": 1898
+    "discoveryDate": "1898-08-16"
   },
   {
     "name": "Cordelia",
@@ -655,7 +655,7 @@
     "incl": 0.14,
     "eccen": 0.0,
     "discoverer": "Voyager 2",
-    "discoverYear": 1986
+    "discoveryDate": "1986-01-20"
   },
   {
     "name": "Ophelia",
@@ -666,7 +666,7 @@
     "incl": 0.09,
     "eccen": 0.0,
     "discoverer": "Voyager 2",
-    "discoverYear": 1986
+    "discoveryDate": "1986-01-20"
   },
   {
     "name": "Bianca",
@@ -677,7 +677,7 @@
     "incl": 0.16,
     "eccen": 0.0,
     "discoverer": "Voyager 2",
-    "discoverYear": 1986
+    "discoveryDate": "1986-01-23"
   },
   {
     "name": "Cressida",
@@ -688,7 +688,7 @@
     "incl": 0.04,
     "eccen": 0.0,
     "discoverer": "Voyager 2",
-    "discoverYear": 1986
+    "discoveryDate": "1986-01-09"
   },
   {
     "name": "Desdemona",
@@ -699,7 +699,7 @@
     "incl": 0.16,
     "eccen": 0.0,
     "discoverer": "Voyager 2",
-    "discoverYear": 1986
+    "discoveryDate": "1986-01-13"
   },
   {
     "name": "Juliet",
@@ -710,7 +710,7 @@
     "incl": 0.06,
     "eccen": 0.0,
     "discoverer": "Voyager 2",
-    "discoverYear": 1986
+    "discoveryDate": "1986-01-03"
   },
   {
     "name": "Portia",
@@ -721,7 +721,7 @@
     "incl": 0.09,
     "eccen": 0.0,
     "discoverer": "Voyager 2",
-    "discoverYear": 1986
+    "discoveryDate": "1986-01-03"
   },
   {
     "name": "Rosalind",
@@ -732,7 +732,7 @@
     "incl": 0.28,
     "eccen": 0.0,
     "discoverer": "Voyager 2",
-    "discoverYear": 1986
+    "discoveryDate": "1986-01-13"
   },
   {
     "name": "Belinda",
@@ -743,7 +743,7 @@
     "incl": 0.03,
     "eccen": 0.0,
     "discoverer": "Voyager 2",
-    "discoverYear": 1986
+    "discoveryDate": "1986-01-13"
   },
   {
     "name": "1986U10",
@@ -752,7 +752,7 @@
     "distance": 76,
     "period": 0.64,
     "discoverer": "Karkoschka",
-    "discoverYear": 1999
+    "discoveryDate": "1999-05-18"
   },
   {
     "name": "Puck",
@@ -763,7 +763,7 @@
     "incl": 0.31,
     "eccen": 0.0,
     "discoverer": "Voyager 2",
-    "discoverYear": 1985
+    "discoveryDate": "1985-12-30"
   },
   {
     "name": "Miranda",
@@ -774,7 +774,7 @@
     "incl": 4.22,
     "eccen": 0.0,
     "discoverer": "Kuiper",
-    "discoverYear": 1948
+    "discoveryDate": "1948-02-16"
   },
   {
     "name": "Ariel",
@@ -785,7 +785,7 @@
     "incl": 0.0,
     "eccen": 0.0,
     "discoverer": "Lassell",
-    "discoverYear": 1851
+    "discoveryDate": "1851-10-24"
   },
   {
     "name": "Umbriel",
@@ -796,7 +796,7 @@
     "incl": 0.0,
     "eccen": 0.0,
     "discoverer": "Lassell",
-    "discoverYear": 1851
+    "discoveryDate": "1851-10-24"
   },
   {
     "name": "Titania",
@@ -807,7 +807,7 @@
     "incl": 0.0,
     "eccen": 0.0,
     "discoverer": "Herschel",
-    "discoverYear": 1787
+    "discoveryDate": "1787-01-11"
   },
   {
     "name": "Oberon",
@@ -818,7 +818,7 @@
     "incl": 0.0,
     "eccen": 0.0,
     "discoverer": "Herschel",
-    "discoverYear": 1787
+    "discoveryDate": "1787-01-11"
   },
   {
     "name": "Caliban",
@@ -829,7 +829,7 @@
     "incl": 140.0,
     "eccen": 0.08,
     "discoverer": "Gladman",
-    "discoverYear": 1997
+    "discoveryDate": "1997-09-06"
   },
   {
     "name": "Stephano",
@@ -840,7 +840,7 @@
     "incl": 143.0,
     "eccen": 0.24,
     "discoverer": "Gladman",
-    "discoverYear": 1999
+    "discoveryDate": "1999-07-18"
   },
   {
     "name": "Sycorax",
@@ -851,7 +851,7 @@
     "incl": 153.0,
     "eccen": 0.51,
     "discoverer": "Nicholson",
-    "discoverYear": 1997
+    "discoveryDate": "1997-09-06"
   },
   {
     "name": "Prospero",
@@ -862,7 +862,7 @@
     "incl": 152.0,
     "eccen": 0.44,
     "discoverer": "Holman",
-    "discoverYear": 1999
+    "discoveryDate": "1999-07-18"
   },
   {
     "name": "Setebos",
@@ -873,7 +873,7 @@
     "incl": 158.0,
     "eccen": 0.57,
     "discoverer": "Kavelaars",
-    "discoverYear": 1999
+    "discoveryDate": "1999-07-18"
   },
   {
     "name": "Naiad",
@@ -884,7 +884,7 @@
     "incl": 0.0,
     "eccen": 0.0,
     "discoverer": "Voyager 2",
-    "discoverYear": 1989
+    "discoveryDate": "1989-09-18"
   },
   {
     "name": "Thalassa",
@@ -895,7 +895,7 @@
     "incl": 4.5,
     "eccen": 0.0,
     "discoverer": "Voyager 2",
-    "discoverYear": 1989
+    "discoveryDate": "1989-09-18"
   },
   {
     "name": "Despina",
@@ -906,7 +906,7 @@
     "incl": 0.0,
     "eccen": 0.0,
     "discoverer": "Voyager 2",
-    "discoverYear": 1989
+    "discoveryDate": "1989-07-28"
   },
   {
     "name": "Galatea",
@@ -917,7 +917,7 @@
     "incl": 0.0,
     "eccen": 0.0,
     "discoverer": "Voyager 2",
-    "discoverYear": 1989
+    "discoveryDate": "1989-07-28"
   },
   {
     "name": "Larissa",
@@ -928,7 +928,7 @@
     "incl": 0.0,
     "eccen": 0.0,
     "discoverer": "Reitsema",
-    "discoverYear": 1989
+    "discoveryDate": "1989-07-28"
   },
   {
     "name": "Proteus",
@@ -939,7 +939,7 @@
     "incl": 0.0,
     "eccen": 0.0,
     "discoverer": "Voyager 2",
-    "discoverYear": 1989
+    "discoveryDate": "1989-06-16"
   },
   {
     "name": "Triton",
@@ -950,7 +950,7 @@
     "incl": 157.0,
     "eccen": 0.0,
     "discoverer": "Lassell",
-    "discoverYear": 1846
+    "discoveryDate": "1846-10-10"
   },
   {
     "name": "Nereid",
@@ -961,7 +961,7 @@
     "incl": 29.0,
     "eccen": 0.75,
     "discoverer": "Kuiper",
-    "discoverYear": 1949
+    "discoveryDate": "1949-05-01"
   },
   {
     "name": "Charon",
@@ -972,6 +972,6 @@
     "incl": 98.8,
     "eccen": 0.0,
     "discoverer": "Christy",
-    "discoverYear": 1978
+    "discoveryDate": "1978-04-13"
   }
 ]

@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.example.demo;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.reflect.TypeToken;
 import org.apache.myfaces.tobago.model.SelectItem;
 
@@ -30,6 +31,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -57,7 +59,11 @@ public class AstroData implements Serializable {
     final InputStreamReader reader
         = new InputStreamReader(AstroData.class.getResourceAsStream("astro-data.json"), StandardCharsets.UTF_8);
 
-    Gson gson = new GsonBuilder().create();
+    final JsonDeserializer<LocalDate> localDateDeserializer =
+        (json, type, context) -> LocalDate.parse(json.getAsString());
+    Gson gson = new GsonBuilder()
+        .registerTypeAdapter(LocalDate.class, localDateDeserializer)
+        .create();
     dataList = gson.fromJson(reader, new TypeToken<ArrayList<SolarObject>>() {
     }.getType());
     dataMap = new HashMap<>(dataList.size());

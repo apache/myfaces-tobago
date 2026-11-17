@@ -65,7 +65,8 @@ public class SegmentLayoutRenderer<T extends AbstractUISegmentLayout> extends Re
     writer.writeClassAttribute(
         BootstrapClass.ROW,
         segmentJustify != null ? BootstrapClass.segmentJustify(segmentJustify) : null,
-        markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null);
+        markup != null && markup.contains(Markup.SPREAD) ? TobagoClass.SPREAD : null,
+        component.getCustomClass());
 //    writer.writeClassAttribute(Classes.create(layout), BootstrapClass.FORM_GROUP);
   }
 

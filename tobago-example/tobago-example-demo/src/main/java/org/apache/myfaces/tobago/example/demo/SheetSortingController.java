@@ -34,6 +34,7 @@ import jakarta.inject.Named;
 
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -77,7 +78,7 @@ public class SheetSortingController implements Serializable {
     } else if ("customColumnPeriod".equals(columnId)) {
       list.sort(Comparator.comparing(d -> Math.abs(d.getPeriod())));
     } else if ("customColumnYear".equals(columnId)) {
-      list.sort(Comparator.comparing(d -> d.getDiscoverYear() != null ? d.getDiscoverYear() : 0));
+      list.sort(Comparator.comparing(d -> d.getDiscoveryDate() != null ? d.getDiscoveryDate() : LocalDate.of(0, 1, 1)));
     }
 
     if (!sheetState.isAscending()) {
