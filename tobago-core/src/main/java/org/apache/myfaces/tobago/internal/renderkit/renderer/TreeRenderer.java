@@ -110,7 +110,7 @@ public class TreeRenderer<T extends AbstractUITree> extends RendererBase<T> {
     final List<Integer> selectedValue = new ArrayList<>();
 
     final ExpandedState expandedState = component.getExpandedState();
-    final List<Integer> expandedValue = new ArrayList<>();
+    final StringBuilder expandedValue = new StringBuilder();
 
     final int last = component.isRowsUnlimited() ? Integer.MAX_VALUE : component.getFirst() + component.getRows();
     for (int rowIndex = component.getFirst(); rowIndex < last; rowIndex++) {
@@ -126,7 +126,7 @@ public class TreeRenderer<T extends AbstractUITree> extends RendererBase<T> {
       }
 
       if (component.isFolder() && expandedState.isExpanded(path)) {
-        expandedValue.add(rowIndex);
+        expandedValue.append(path.toString());
       }
 
       for (final UIComponent child : component.getChildren()) {
@@ -154,7 +154,7 @@ public class TreeRenderer<T extends AbstractUITree> extends RendererBase<T> {
     writer.writeNameAttribute(expandedId);
     writer.writeIdAttribute(expandedId);
     writer.writeClassAttribute(TobagoClass.EXPANDED);
-    writer.writeAttribute(HtmlAttributes.VALUE, JsonUtils.encode(expandedValue), false);
+    writer.writeAttribute(HtmlAttributes.VALUE, expandedValue.toString(), false);
     writer.endElement(HtmlElements.INPUT);
 
     writer.startElement(HtmlElements.TOBAGO_SCROLL);

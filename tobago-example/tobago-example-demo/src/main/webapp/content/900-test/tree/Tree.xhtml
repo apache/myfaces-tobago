@@ -45,4 +45,13 @@
       </tc:panel>
     </tc:segmentLayout>
   </tc:section>
+
+  <tc:section label="showRoot=true">
+    <tc:tree id="treeShowRoot" value="#{treeController.sample}" var="node" showRoot="true">
+      <tc:treeNode>
+        <tc:treeIndent id="simpleTreeIndent"/>
+        <tc:treeLabel value="#{node.userObject.name}"/>
+      </tc:treeNode>
+    </tc:tree>
+  </tc:section>
 </ui:composition>

@@ -51,7 +51,7 @@ export class TreeNode extends HTMLElement {
         }
       }
 
-      this.deleteExpandedNode(this.index);
+      this.deleteExpandedNode();
       this.classList.remove(Css.TOBAGO_EXPANDED);
 
       this.hideNodes(this.treeChildNodes);
@@ -73,7 +73,7 @@ export class TreeNode extends HTMLElement {
         }
       }
 
-      this.addExpandedNode(this.index);
+      this.addExpandedNode();
       this.classList.add(Css.TOBAGO_EXPANDED);
 
       this.showNodes(this.treeChildNodes);
@@ -124,16 +124,19 @@ export class TreeNode extends HTMLElement {
     }
   }
 
-  private addExpandedNode(expandedNode: number): void {
-    const expandedNodes = new Set(JSON.parse(this.hiddenInputExpanded.value));
-    expandedNodes.add(expandedNode);
-    this.hiddenInputExpanded.value = JSON.stringify(Array.from(expandedNodes));
+  private addExpandedNode(): void {
+    if (!this.expanded) {
+      this.hiddenInputExpanded.value += this.dataset.path;
+    }
   }
 
-  private deleteExpandedNode(expandedNode: number): void {
-    const expandedNodes = new Set(JSON.parse(this.hiddenInputExpanded.value));
-    expandedNodes.delete(expandedNode);
-    this.hiddenInputExpanded.value = JSON.stringify(Array.from(expandedNodes));
+  private deleteExpandedNode(): void {
+    const path = this.dataset.path;
+    const value = this.hiddenInputExpanded.value;
+    const indexOf = value.indexOf(this.dataset.path);
+    if (indexOf >= 0) {
+      this.hiddenInputExpanded.value = value.substring(0, indexOf) + value.substring(indexOf + path.length);
+    }
   }
 
   get tree(): Tree {
@@ -149,12 +152,7 @@ export class TreeNode extends HTMLElement {
   }
 
   private get expanded(): boolean {
-    for (const expandedNodeIndex of this.expandedNodes) {
-      if (expandedNodeIndex === this.index) {
-        return true;
-      }
-    }
-    return false;
+    return this.hiddenInputExpanded.value.indexOf(this.dataset.path) >= 0;
   }
 
   private get expandedNodes(): Set<number> {

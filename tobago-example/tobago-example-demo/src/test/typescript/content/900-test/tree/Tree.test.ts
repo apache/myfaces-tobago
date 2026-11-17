@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import {expect, test} from "@playwright/test";
+import {expect, Locator, test} from "@playwright/test";
 
 test.describe("900-test/tree/Tree.xhtml", () => {
 
@@ -29,4 +29,125 @@ test.describe("900-test/tree/Tree.xhtml", () => {
 
     await expect(links).toHaveCount(12);
   });
+
+  test("treeShowRoot: Open and close Mathematics, then open Astronomy", async ({page}) => {
+    const tree = page.locator("tobago-tree[id='page:mainForm:treeShowRoot']");
+    const mathematicsNode = tree.locator("tobago-tree-node").filter({hasText: "Mathematics"});
+    const mathematicsToggle = mathematicsNode.locator(".tobago-toggle");
+    const astronomyNode = tree.locator("tobago-tree-node").filter({hasText: "Astronomy"});
+    const astronomyToggle = astronomyNode.locator(".tobago-toggle");
+
+    await checkTreeExpandingState(tree, true, true, true, false, true, false, false, false);
+    await mathematicsToggle.click();
+    await checkTreeExpandingState(tree, true, true, true, false, true, true, false, false);
+    await mathematicsToggle.click();
+    await checkTreeExpandingState(tree, true, true, true, false, true, false, false, false);
+    await astronomyToggle.click();
+    await checkTreeExpandingState(tree, true, true, true, false, true, false, true, false);
+  });
+
+  test("treeShowRoot: Open and close World, then open Mathematics", async ({page}) => {
+    const tree = page.locator("tobago-tree[id='page:mainForm:treeShowRoot']");
+    const worldNode = tree.locator("tobago-tree-node").filter({hasText: "World"});
+    const worldToggle = worldNode.locator(".tobago-toggle");
+    const mathematicsNode = tree.locator("tobago-tree-node").filter({hasText: "Mathematics"});
+    const mathematicsToggle = mathematicsNode.locator(".tobago-toggle");
+
+    await checkTreeExpandingState(tree, true, true, true, false, true, false, false, false);
+    await worldToggle.click();
+    await checkTreeExpandingState(tree, true, true, true, true, true, false, false, false);
+    await worldToggle.click();
+    await checkTreeExpandingState(tree, true, true, true, false, true, false, false, false);
+    await mathematicsToggle.click();
+    await checkTreeExpandingState(tree, true, true, true, false, true, true, false, false);
+  });
+
+  test("treeShowRoot: Close and open Category (root)", async ({page}) => {
+    const tree = page.locator("tobago-tree[id='page:mainForm:treeShowRoot']");
+    const categoryNode = tree.locator("tobago-tree-node").filter({hasText: "Category"});
+    const categoryToggle = categoryNode.locator(".tobago-toggle");
+
+    await checkTreeExpandingState(tree, true, true, true, false, true, false, false, false);
+    await categoryToggle.click();
+    await checkTreeExpandingState(tree, true, false, false, false, false, false, false, false);
+    await categoryToggle.click();
+    await checkTreeExpandingState(tree, true, true, true, false, true, false, false, false);
+  });
+
+  async function checkTreeExpandingState(tree: Locator, showRoot: boolean,
+                                         categoryExpanded: boolean,
+                                         musicExpanded: boolean, worldExpanded: boolean,
+                                         scienceExpanded: boolean, mathematicsExpanded: boolean,
+                                         astronomyExpanded: boolean, picturesExpanded: boolean): Promise<void> {
+
+    const categoryNode = tree.locator("tobago-tree-node").filter({hasText: "Category"});
+    const categoryToggleIcon = categoryNode.locator(".tobago-toggle i");
+    const sportsNode = tree.locator("tobago-tree-node").filter({hasText: "Sports"});
+    const moviesNode = tree.locator("tobago-tree-node").filter({hasText: "Movies"});
+    const musicNode = tree.locator("tobago-tree-node").filter({hasText: "Music"});
+    const musicToggleIcon = musicNode.locator(".tobago-toggle i");
+    const classicNode = tree.locator("tobago-tree-node").filter({hasText: "Classic"});
+    const popNode = tree.locator("tobago-tree-node").filter({hasText: "Pop"});
+    const worldNode = tree.locator("tobago-tree-node").filter({hasText: "World"});
+    const worldToggleIcon = worldNode.locator(".tobago-toggle i");
+    const caribNode = tree.locator("tobago-tree-node").filter({hasText: "Carib"});
+    const africaNode = tree.locator("tobago-tree-node").filter({hasText: "Africa"});
+    const gamesNode = tree.locator("tobago-tree-node").filter({hasText: "Games"});
+    const scienceNode = tree.locator("tobago-tree-node").filter({hasText: "Science"});
+    const scienceToggleIcon = scienceNode.locator(".tobago-toggle i");
+    const mathematicsNode = tree.locator("tobago-tree-node").filter({hasText: "Mathematics"});
+    const mathematicsToggleIcon = mathematicsNode.locator(".tobago-toggle i");
+    const analysisNode = tree.locator("tobago-tree-node").filter({hasText: "Analysis"});
+    const algebraNode = tree.locator("tobago-tree-node").filter({hasText: "Algebra"});
+    const geographyNode = tree.locator("tobago-tree-node").filter({hasText: "Geography"});
+    const astronomyNode = tree.locator("tobago-tree-node").filter({hasText: "Astronomy"});
+    const astronomyToggleIcon = astronomyNode.locator(".tobago-toggle i");
+    const educationNode = tree.locator("tobago-tree-node").filter({hasText: "Education"});
+    const picturesNode = tree.locator("tobago-tree-node").filter({hasText: "Pictures"});
+    const picturesToggleIcon = picturesNode.locator(".tobago-toggle i");
+    const ngcNode = tree.locator("tobago-tree-node").filter({hasText: "NGC"});
+    const messierNode = tree.locator("tobago-tree-node").filter({hasText: "Messier"});
+
+    await expect(categoryNode).toBeVisible({visible: showRoot});
+    if (showRoot) {
+      await expect(categoryToggleIcon).toHaveClass(categoryExpanded ? "bi-dash-square" : "bi-plus-square");
+    }
+    await expect(sportsNode).toBeVisible({visible: categoryExpanded});
+    await expect(moviesNode).toBeVisible({visible: categoryExpanded});
+    await expect(musicNode).toBeVisible({visible: categoryExpanded});
+    if (categoryExpanded) {
+      await expect(musicToggleIcon).toHaveClass(musicExpanded ? "bi-dash-square" : "bi-plus-square");
+    }
+    await expect(classicNode).toBeVisible({visible: categoryExpanded && musicExpanded});
+    await expect(popNode).toBeVisible({visible: categoryExpanded && musicExpanded});
+    await expect(worldNode).toBeVisible({visible: categoryExpanded && musicExpanded});
+    if (categoryExpanded && musicExpanded) {
+      await expect(worldToggleIcon).toHaveClass(worldExpanded ? "bi-dash-square" : "bi-plus-square");
+    }
+    await expect(caribNode).toBeVisible({visible: categoryExpanded && musicExpanded && worldExpanded});
+    await expect(africaNode).toBeVisible({visible: categoryExpanded && musicExpanded && worldExpanded});
+    await expect(gamesNode).toBeVisible({visible: categoryExpanded});
+    await expect(scienceNode).toBeVisible({visible: categoryExpanded});
+    if (categoryExpanded) {
+      await expect(scienceToggleIcon).toHaveClass(scienceExpanded ? "bi-dash-square" : "bi-plus-square");
+    }
+    await expect(mathematicsNode).toBeVisible({visible: categoryExpanded && scienceExpanded});
+    if (categoryExpanded && scienceExpanded) {
+      await expect(mathematicsToggleIcon).toHaveClass(mathematicsExpanded ? "bi-dash-square" : "bi-plus-square");
+    }
+    await expect(analysisNode).toBeVisible({visible: categoryExpanded && scienceExpanded && mathematicsExpanded});
+    await expect(algebraNode).toBeVisible({visible: categoryExpanded && scienceExpanded && mathematicsExpanded});
+    await expect(geographyNode).toBeVisible({visible: categoryExpanded && scienceExpanded});
+    await expect(astronomyNode).toBeVisible({visible: categoryExpanded && scienceExpanded});
+    if (categoryExpanded && scienceExpanded) {
+      await expect(astronomyToggleIcon).toHaveClass(astronomyExpanded ? "bi-dash-square" : "bi-plus-square");
+    }
+    await expect(educationNode).toBeVisible({visible: categoryExpanded && scienceExpanded && astronomyExpanded});
+    await expect(picturesNode).toBeVisible({visible: categoryExpanded && scienceExpanded && astronomyExpanded});
+    if (categoryExpanded && scienceExpanded && astronomyExpanded) {
+      await expect(picturesToggleIcon).toHaveClass(picturesExpanded ? "bi-dash-square" : "bi-plus-square");
+    }
+    await expect(ngcNode).toBeVisible({visible: categoryExpanded && scienceExpanded && astronomyExpanded && picturesExpanded});
+    await expect(messierNode).toBeVisible({visible: categoryExpanded && scienceExpanded && astronomyExpanded && picturesExpanded});
+  }
 });

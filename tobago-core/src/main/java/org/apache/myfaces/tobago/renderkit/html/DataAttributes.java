@@ -141,7 +141,7 @@ public enum DataAttributes implements MarkupLanguageAttributes {
   PARTIAL_IDS("data-tobago-partial-ids"),
 
   PARTIAL_ACTION("data-tobago-partial-action"),
-
+  PATH("data-path"),
   /**
    * Custom attribute to describe a pattern, e.g. for an date input field.
    */
