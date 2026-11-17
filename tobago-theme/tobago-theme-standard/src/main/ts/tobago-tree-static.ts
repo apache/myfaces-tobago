@@ -18,60 +18,6 @@
  */
 
 export class TreeStatic {
-
-  /**
-   * Bestimmt den Tabindex-Wert für einen Tree-Node-Container.
-   * Tree-Nodes selbst sollten nicht im Tab-Fokus liegen (tabindex="-1"),
-   * nur die Sub-Elemente (Toggle, Checkbox, Radio).
-   * @returns -1 für den Node-Container
-   */
-  static getTabindexForNode(): number {
-    return -1;
-  }
-
-  /**
-   * Bestimmt den Tabindex-Wert für Sub-Elemente eines Nodes (Toggle, Checkbox, Radio).
-   * Diese sind normalerweise tabbbar und erhalten tabindex="0".
-   * @returns 0 für sub-Elemente, die tabbbar sein sollen
-   */
-  static getTabindexForSubElement(): number {
-    return 0;
-  }
-
-  /**
-   * Bestimmt, ob eine Checkbox/Radio bei der Navigation fokussiert werden soll.
-   * Dies hängt davon ab, ob Checkboxen im Tree vorhanden sind,
-   * welches Element aktuell fokussiert ist (Toggle oder Input),
-   * und ob der nächste Node ein Toggle hat.
-   *
-   * @param hasCheckboxes - ob der Tree Checkboxes/Radios enthält
-   * @param currentTargetIsToggle - ob das aktuelle fokussierte Element ein Toggle ist
-   * @param nextNodeHasToggle - ob der nächste Node ein Toggle hat
-   * @returns true, wenn die Checkbox fokussiert werden soll, false für Toggle
-   */
-  static shouldFocusCheckbox(
-      hasCheckboxes: boolean,
-      currentTargetIsToggle: boolean,
-      nextNodeHasToggle: boolean
-  ): boolean {
-    // Wenn keine Checkboxen existieren -> Toggle fokussieren (return false)
-    if (!hasCheckboxes) {
-      return false;
-    }
-
-    // Wenn das nächste Node kein Toggle hat -> Checkbox fokussieren (return true)
-    if (!nextNodeHasToggle) {
-      return true;
-    }
-
-    // Wenn aktuell das Toggle fokussiert war und das nächste Node auch ein Toggle hat -> Checkbox fokussieren
-    if (currentTargetIsToggle && nextNodeHasToggle) {
-      return true;
-    }
-
-    return false;
-  }
-
   /**
    * Bestimmt den Index des nächsten sichtbaren Nodes für die Pfeil-Oben-Taste.
    * Gibt -1 zurück, wenn es keinen vorherigen sichtbaren Node gibt.
