@@ -39,7 +39,7 @@
     <myfaces40.version>4.0.4</myfaces40.version>
     <myfaces41.version>4.1.4</myfaces41.version>
     <myfaces-quarkus.version>4.0.3</myfaces-quarkus.version>
-    <mojarra40.version>4.0.29</mojarra40.version>
+    <mojarra40.version>4.0.30</mojarra40.version>
     <slf4j.version>2.0.20</slf4j.version>
     <logback.version>1.6.7</logback.version>
     <maven.compiler.release>17</maven.compiler.release>
