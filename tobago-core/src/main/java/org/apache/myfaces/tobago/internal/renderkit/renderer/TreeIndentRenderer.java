@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -60,6 +61,7 @@ public class TreeIndentRenderer<T extends AbstractUITreeIndent> extends Renderer
 
     writer.startElement(HtmlElements.SPAN);
     writer.writeIdAttribute(component.getClientId(facesContext));
+    writer.writeAttribute(HtmlAttributes.TABINDEX, 0);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     writer.writeClassAttribute(
         TobagoClass.TOGGLE,

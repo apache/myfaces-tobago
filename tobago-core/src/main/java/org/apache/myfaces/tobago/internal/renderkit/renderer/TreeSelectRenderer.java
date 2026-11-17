@@ -128,6 +128,7 @@ public class TreeSelectRenderer<T extends AbstractUITreeSelect> extends Renderer
         writer.writeNameAttribute(id);
       }
       writer.writeAttribute(HtmlAttributes.VALUE, id, false);
+      writer.writeAttribute(HtmlAttributes.TABINDEX, 0);
       // TODO: ID must be at the outer tag
       writer.writeIdAttribute(id);
       writer.writeAttribute(HtmlAttributes.CHECKED, checked);
