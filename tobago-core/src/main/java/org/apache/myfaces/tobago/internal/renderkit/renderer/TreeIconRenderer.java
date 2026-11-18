@@ -80,6 +80,7 @@ public class TreeIconRenderer<T extends AbstractUITreeIcon> extends RendererBase
 
     writer.startElement(HtmlElements.SPAN);
     writer.writeIdAttribute(component.getClientId());
+    writer.writeAttribute(HtmlAttributes.TABINDEX, 0);
     writer.writeClassAttribute(
         TobagoClass.TOGGLE,
         component.getCustomClass());
