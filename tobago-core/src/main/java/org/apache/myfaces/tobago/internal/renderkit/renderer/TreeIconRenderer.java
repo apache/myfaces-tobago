@@ -83,24 +83,26 @@ public class TreeIconRenderer<T extends AbstractUITreeIcon> extends RendererBase
         folder ? TobagoClass.TOGGLE : null,
         component.getCustomClass());
 
-    if (Icons.matches(source)) {
-      writer.startElement(HtmlElements.I);
-      writer.writeClassAttribute(Icons.custom(source));
-      if (folder) {
-        writer.writeAttribute(DataAttributes.OPEN, open, true);
-        writer.writeAttribute(DataAttributes.CLOSED, closed, true);
+    if (source != null && !source.isEmpty()) {
+      if (Icons.matches(source)) {
+        writer.startElement(HtmlElements.I);
+        writer.writeClassAttribute(Icons.custom(source));
+        if (folder) {
+          writer.writeAttribute(DataAttributes.OPEN, open, true);
+          writer.writeAttribute(DataAttributes.CLOSED, closed, true);
+        }
+        writer.endElement(HtmlElements.I);
+      } else {
+        writer.startElement(HtmlElements.IMG);
+        HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
+        writer.writeAttribute(HtmlAttributes.SRC, source, true);
+        if (folder) {
+          writer.writeAttribute(DataAttributes.OPEN, open, true);
+          writer.writeAttribute(DataAttributes.CLOSED, closed, true);
+        }
+        writer.writeAttribute(HtmlAttributes.ALT, "", false);
+        writer.endElement(HtmlElements.IMG);
       }
-      writer.endElement(HtmlElements.I);
-    } else {
-      writer.startElement(HtmlElements.IMG);
-      HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
-      writer.writeAttribute(HtmlAttributes.SRC, source, true);
-      if (folder) {
-        writer.writeAttribute(DataAttributes.OPEN, open, true);
-        writer.writeAttribute(DataAttributes.CLOSED, closed, true);
-      }
-      writer.writeAttribute(HtmlAttributes.ALT, "", false);
-      writer.endElement(HtmlElements.IMG);
     }
 
     writer.endElement(HtmlElements.SPAN);
