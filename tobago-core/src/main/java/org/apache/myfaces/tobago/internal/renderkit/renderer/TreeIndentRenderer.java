@@ -33,7 +33,6 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import jakarta.faces.context.FacesContext;
-
 import java.io.IOException;
 
 public class TreeIndentRenderer<T extends AbstractUITreeIndent> extends RendererBase<T> {
@@ -62,7 +61,7 @@ public class TreeIndentRenderer<T extends AbstractUITreeIndent> extends Renderer
     writer.writeIdAttribute(component.getClientId(facesContext));
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
     writer.writeClassAttribute(
-        TobagoClass.TOGGLE,
+        folder ? TobagoClass.TOGGLE : null,
         !folder ? BootstrapClass.INVISIBLE : null,
         component.getCustomClass());
 

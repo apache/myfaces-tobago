@@ -33,7 +33,6 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import jakarta.faces.context.FacesContext;
-
 import java.io.IOException;
 
 public class TreeIconRenderer<T extends AbstractUITreeIcon> extends RendererBase<T> {
@@ -81,7 +80,7 @@ public class TreeIconRenderer<T extends AbstractUITreeIcon> extends RendererBase
     writer.startElement(HtmlElements.SPAN);
     writer.writeIdAttribute(component.getClientId());
     writer.writeClassAttribute(
-        TobagoClass.TOGGLE,
+        folder ? TobagoClass.TOGGLE : null,
         component.getCustomClass());
 
     if (Icons.matches(source)) {
