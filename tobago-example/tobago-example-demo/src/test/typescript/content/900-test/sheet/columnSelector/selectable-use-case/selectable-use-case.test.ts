@@ -103,6 +103,100 @@ test.describe("900-test/sheet/columnSelector/selectable-use-case/selectable-use-
     await expectSelection(page, true, false, "Venus");
   });
 
+  test("Full server request, selectable=single", async ({page}) => {
+    const fsrOption = page.locator("[id='page:mainForm:changeAjaxOrFsr::1']");
+    const selectableSingleOption = page.locator("[id='page:mainForm:changeSelectable::0']");
+    const fsrCheckbox = page.locator("[id='page:mainForm:checkFullServerRequest::field']");
+    const selectableReadonlyInput = page.locator("[id='page:mainForm:checkSelectable::field']");
+    const sheet = page.locator("tobago-sheet[id='page:mainForm:solar']");
+    const hiddenSelectedField = sheet.locator("[id='page:mainForm:solar::selected']");
+    const selectAllCheckbox = sheet.locator("input[name='page:mainForm:solar::columnSelector']");
+    const mercuryOption = sheet.locator("input[name='page:mainForm:solar_data_row_selector_1']");
+    const venusOption = sheet.locator("input[name='page:mainForm:solar_data_row_selector_2']");
+    const selectedOutput = page.locator("[id='page:mainForm:selected'] .form-control-plaintext");
+
+    await fsrOption.click();
+    await expect(fsrCheckbox).toBeChecked();
+    await selectableSingleOption.click();
+    await expect(selectableReadonlyInput).toHaveValue("single");
+    await expect(selectAllCheckbox).not.toBeVisible();
+    await expect(hiddenSelectedField).toHaveValue("[]");
+    await expect(selectedOutput).toHaveText("[]");
+
+    await mercuryOption.click();
+    await expectSelection(page, true, false, "Sun");
+
+    await venusOption.click();
+    await expectSelection(page, false, true, "Sun");
+
+    await sheet.getByText("Venus").click();
+    await expectSelection(page, false, true, "Venus");
+  });
+
+  test("Full server request, selectable=singleOrNone", async ({page}) => {
+    const fsrOption = page.locator("[id='page:mainForm:changeAjaxOrFsr::1']");
+    const selectableSingleOrNoneOption = page.locator("[id='page:mainForm:changeSelectable::1']");
+    const fsrCheckbox = page.locator("[id='page:mainForm:checkFullServerRequest::field']");
+    const selectableReadonlyInput = page.locator("[id='page:mainForm:checkSelectable::field']");
+    const sheet = page.locator("tobago-sheet[id='page:mainForm:solar']");
+    const hiddenSelectedField = sheet.locator("[id='page:mainForm:solar::selected']");
+    const selectAllCheckbox = sheet.locator("input[name='page:mainForm:solar::columnSelector']");
+    const mercuryOption = sheet.locator("input[name='page:mainForm:solar_data_row_selector_1']");
+    const venusOption = sheet.locator("input[name='page:mainForm:solar_data_row_selector_2']");
+    const selectedOutput = page.locator("[id='page:mainForm:selected'] .form-control-plaintext");
+
+    await fsrOption.click();
+    await expect(fsrCheckbox).toBeChecked();
+    await selectableSingleOrNoneOption.click();
+    await expect(selectableReadonlyInput).toHaveValue("singleOrNone");
+    await expect(selectAllCheckbox).not.toBeVisible();
+    await expect(hiddenSelectedField).toHaveValue("[]");
+    await expect(selectedOutput).toHaveText("[]");
+
+    await mercuryOption.click();
+    await expectSelection(page, true, false, "Sun");
+
+    await venusOption.click();
+    await expectSelection(page, false, true, "Sun");
+
+    await venusOption.click();
+    await expectSelection(page, false, false, "Sun");
+
+    await sheet.getByText("Venus").click();
+    await expectSelection(page, false, false, "Venus");
+  });
+
+  test("Full server request, selectable=multi", async ({page}) => {
+    const fsrOption = page.locator("[id='page:mainForm:changeAjaxOrFsr::1']");
+    const fsrCheckbox = page.locator("[id='page:mainForm:checkFullServerRequest::field']");
+    const selectableReadonlyInput = page.locator("[id='page:mainForm:checkSelectable::field']");
+    const sheet = page.locator("tobago-sheet[id='page:mainForm:solar']");
+    const hiddenSelectedField = sheet.locator("[id='page:mainForm:solar::selected']");
+    const selectAllCheckbox = sheet.locator("input[name='page:mainForm:solar::columnSelector']");
+    const mercuryOption = sheet.locator("input[name='page:mainForm:solar_data_row_selector_1']");
+    const venusOption = sheet.locator("input[name='page:mainForm:solar_data_row_selector_2']");
+    const selectedOutput = page.locator("[id='page:mainForm:selected'] .form-control-plaintext");
+
+    await fsrOption.click();
+    await expect(fsrCheckbox).toBeChecked();
+    await expect(selectableReadonlyInput).toHaveValue("multi");
+    await expect(selectAllCheckbox).toBeVisible();
+    await expect(hiddenSelectedField).toHaveValue("[]");
+    await expect(selectedOutput).toHaveText("[]");
+
+    await mercuryOption.click();
+    await expectSelection(page, true, false, "Sun");
+
+    await venusOption.click();
+    await expectSelection(page, true, true, "Sun");
+
+    await venusOption.click();
+    await expectSelection(page, true, false, "Sun");
+
+    await sheet.getByText("Venus").click();
+    await expectSelection(page, true, false, "Venus");
+  });
+
   async function expectSelection(page: Page, mercury: boolean, venus: boolean, name: string): Promise<void> {
     const sheet = page.locator("tobago-sheet[id='page:mainForm:solar']");
     const hiddenSelectedField = sheet.locator("[id='page:mainForm:solar::selected']");
@@ -110,15 +204,18 @@ test.describe("900-test/sheet/columnSelector/selectable-use-case/selectable-use-
     const mercuryRow = sheet.locator("tr[row-index='1']");
     const venusCheckbox = sheet.locator("input[name='page:mainForm:solar_data_row_selector_2']");
     const venusRow = sheet.locator("tr[row-index='2']");
+    const selectedOutput = page.locator("[id='page:mainForm:selected'] .form-control-plaintext");
     const detailsName = page.locator("[id='page:mainForm:name::field']");
 
     expect(new Set(JSON.parse(await hiddenSelectedField.inputValue())).has(1)).toBe(mercury);
     await expect(mercuryCheckbox).toBeChecked({checked: mercury});
     await (mercury ? expect(mercuryRow) : expect(mercuryRow).not).toContainClass("tobago-selected");
+    await expect.poll(async () => new Set(JSON.parse(await selectedOutput.textContent() as string)).has(1)).toBe(mercury);
 
     expect(new Set(JSON.parse(await hiddenSelectedField.inputValue())).has(2)).toBe(venus);
     await expect(venusCheckbox).toBeChecked({checked: venus});
     await (venus ? expect(venusRow) : expect(venusRow).not).toContainClass("tobago-selected");
+    await expect.poll(async () => new Set(JSON.parse(await selectedOutput.textContent() as string)).has(2)).toBe(venus);
 
     await expect(detailsName).toHaveValue(name);
 
@@ -126,10 +223,12 @@ test.describe("900-test/sheet/columnSelector/selectable-use-case/selectable-use-
     expect(new Set(JSON.parse(await hiddenSelectedField.inputValue())).has(1)).toBe(mercury);
     await expect(mercuryCheckbox).toBeChecked({checked: mercury});
     await (mercury ? expect(mercuryRow) : expect(mercuryRow).not).toContainClass("tobago-selected");
+    await expect.poll(async () => new Set(JSON.parse(await selectedOutput.textContent() as string)).has(1)).toBe(mercury);
 
     expect(new Set(JSON.parse(await hiddenSelectedField.inputValue())).has(2)).toBe(venus);
     await expect(venusCheckbox).toBeChecked({checked: venus});
     await (venus ? expect(venusRow) : expect(venusRow).not).toContainClass("tobago-selected");
+    await expect.poll(async () => new Set(JSON.parse(await selectedOutput.textContent() as string)).has(2)).toBe(venus);
 
     await expect(detailsName).toHaveValue(name);
   }
