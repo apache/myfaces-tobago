@@ -43,9 +43,9 @@
   <tc:segmentLayout id="example" medium="5seg 7seg">
     <tc:box label="Solar Objects">
       <tc:selectBooleanCheckbox id="checkAjax" value="#{selectableUseCaseController.columnEvent == 'ajax'}"
-                                itemLabel="AJAX"/>
+                                itemLabel="AJAX" readonly="true"/>
       <tc:selectBooleanCheckbox id="checkFullServerRequest" value="#{selectableUseCaseController.columnEvent == 'fsr'}"
-                                itemLabel="Full server request"/>
+                                itemLabel="Full server request" readonly="true"/>
       <tc:in id="checkSelectable" value="#{selectableUseCaseController.selectable}" readonly="true">
         <f:facet name="before">selectable</f:facet>
       </tc:in>
@@ -53,8 +53,9 @@
       <tc:sheet id="solar" value="#{selectableUseCaseController.solarList}" var="object" columns="auto 1fr"
                 state="#{selectableUseCaseController.sheetState}"
                 markup="small" selectable="none">
-        <tc:style maxHeight="486px"/>
+        <tc:style maxHeight="254px"/>
         <tc:columnSelector selectable="#{selectableUseCaseController.selectable}"/>
+        <f:ajax event="tobago.sheet.rowSelectionChange" render="::selected"/>
         <tc:column label="Name">
           <tc:out value="#{object.name}" id="t_name" labelLayout="skip"/>
         </tc:column>
@@ -69,6 +70,8 @@
           </tc:event>
         </tc:row>
       </tc:sheet>
+
+      <tc:out id="selected" label="Selected" value="#{selectableUseCaseController.sheetState.selectedRows}"/>
     </tc:box>
 
     <tc:box id="detail" label="Details">
