@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import {expect, type Locator, type Page, test} from "@playwright/test";
+import {expect, type Page, test} from "@playwright/test";
 
 test.describe("900-test/sheet/columnSelector/selectable-use-case/selectable-use-case.xhtml", () => {
 
@@ -45,7 +45,7 @@ test.describe("900-test/sheet/columnSelector/selectable-use-case/selectable-use-
     await venusCheckbox.click();
     await expectSelection(page, false, true, "Sun");
 
-    await page.getByText('Venus').click();
+    await page.getByText("Venus").click();
     await expectSelection(page, false, true, "Venus");
   });
 
@@ -72,7 +72,7 @@ test.describe("900-test/sheet/columnSelector/selectable-use-case/selectable-use-
     await venusCheckbox.click();
     await expectSelection(page, false, false, "Sun");
 
-    await page.getByText('Venus').click();
+    await page.getByText("Venus").click();
     await expectSelection(page, false, false, "Venus");
   });
 
@@ -99,38 +99,38 @@ test.describe("900-test/sheet/columnSelector/selectable-use-case/selectable-use-
     await venusCheckbox.click();
     await expectSelection(page, true, false, "Sun");
 
-    await page.getByText('Venus').click();
-    await expectSelection(page, true, false, "Venus")
+    await page.getByText("Venus").click();
+    await expectSelection(page, true, false, "Venus");
   });
-});
 
-async function isSelected(page: Page, number: number): Promise<boolean> {
-  const hiddenSelectedField = page.locator("[id='page:mainForm:solar::selected']");
-  const value = await hiddenSelectedField.inputValue();
-  const selectedSet = new Set(JSON.parse(value));
-  return selectedSet.has(number);
-}
+  async function expectSelection(page: Page, mercury: boolean, venus: boolean, name: string): Promise<void> {
+    const sheet = page.locator("tobago-sheet[id='page:mainForm:solar']");
+    const hiddenSelectedField = sheet.locator("[id='page:mainForm:solar::selected']");
+    const mercuryCheckbox = sheet.locator("input[name='page:mainForm:solar_data_row_selector_1']");
+    const mercuryRow = sheet.locator("tr[row-index='1']");
+    const venusCheckbox = sheet.locator("input[name='page:mainForm:solar_data_row_selector_2']");
+    const venusRow = sheet.locator("tr[row-index='2']");
+    const detailsName = page.locator("[id='page:mainForm:name::field']");
 
-async function expectSelection(page: Page, mercury: boolean, venus: boolean, name: string): Promise<void> {
-  const mercuryCheckbox = page.locator("input[name='page:mainForm:solar_data_row_selector_1']");
-  const mercuryRow = page.locator("[id='page:mainForm:solar:1:rowAjax']");
-  const venusCheckbox = page.locator("input[name='page:mainForm:solar_data_row_selector_2']");
-  const venusRow = page.locator("[id='page:mainForm:solar:2:rowAjax']");
-  const nameValue = page.locator("[id='page:mainForm:name::field']");
+    expect(new Set(JSON.parse(await hiddenSelectedField.inputValue())).has(1)).toBe(mercury);
+    await expect(mercuryCheckbox).toBeChecked({checked: mercury});
+    await (mercury ? expect(mercuryRow) : expect(mercuryRow).not).toContainClass("tobago-selected");
 
-  await expect(mercuryCheckbox).toBeChecked({checked: mercury});
-  await expect(venusCheckbox).toBeChecked({checked: venus});
-  expect(await isSelected(page, 1)).toBe(mercury);
-  expect(await isSelected(page, 2)).toBe(venus);
-  await expectRowSelected(mercuryRow, mercury);
-  await expectRowSelected(venusRow, venus);
-  await expect(nameValue).toHaveValue(name);
-}
+    expect(new Set(JSON.parse(await hiddenSelectedField.inputValue())).has(2)).toBe(venus);
+    await expect(venusCheckbox).toBeChecked({checked: venus});
+    await (venus ? expect(venusRow) : expect(venusRow).not).toContainClass("tobago-selected");
 
-async function expectRowSelected(row: Locator, selected: boolean): Promise<void> {
-  if (selected) {
-    await expect(row).toHaveClass(/tobago-selected/);
-  } else {
-    await expect(row).not.toHaveClass(/tobago-selected/);
+    await expect(detailsName).toHaveValue(name);
+
+    //second time to make sure ordering of the checks didn't matter
+    expect(new Set(JSON.parse(await hiddenSelectedField.inputValue())).has(1)).toBe(mercury);
+    await expect(mercuryCheckbox).toBeChecked({checked: mercury});
+    await (mercury ? expect(mercuryRow) : expect(mercuryRow).not).toContainClass("tobago-selected");
+
+    expect(new Set(JSON.parse(await hiddenSelectedField.inputValue())).has(2)).toBe(venus);
+    await expect(venusCheckbox).toBeChecked({checked: venus});
+    await (venus ? expect(venusRow) : expect(venusRow).not).toContainClass("tobago-selected");
+
+    await expect(detailsName).toHaveValue(name);
   }
-}
+});
