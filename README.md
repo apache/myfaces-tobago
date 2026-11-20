@@ -143,8 +143,9 @@ Browse to the local URL http://localhost:8080/
 ### Tomcat in Docker
 
 ```
-mvn clean package -Pdocker
-docker run -p 8080:8080 myfaces/tobago-example-demo:latest
+cd tobago-example/tobago-example-demo
+mvn clean package -Pdocker-tomcat
+docker run -p 8080:8080 myfaces/tobago-example-demo:tomcat
 ```
 
 Browse to the local URL http://localhost:8080/
@@ -160,18 +161,7 @@ docker compose up
 Browse to the local URL http://localhost:8080/
 The different server can be accessed by increasing the port number by 1.
 
-### Integration tests
-
-Currently, not all integration tests are migrated to Playwright. So there are Jasmine and Playwright tests.
-
-#### Jasmine
-
-```shell
-cd tobago-example/tobago-example-demo
-mvn clean verify -Pdocker -Pintegration-tests
-```
-
-#### Playwright
+### Playwright
 
 Start servers as described in [Docker compose](#Docker-compose).
 
