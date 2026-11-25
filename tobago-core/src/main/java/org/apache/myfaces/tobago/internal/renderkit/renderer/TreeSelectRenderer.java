@@ -90,6 +90,9 @@ public class TreeSelectRenderer<T extends AbstractUITreeSelect> extends Renderer
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
 
+    final String label = component.getLabel();
+    final boolean hasLabelValue = label != null && !label.isEmpty();
+
     if (data instanceof AbstractUITreeListbox) {
       writer.write(StringUtils.defaultString(component.getLabel()));
       return;
@@ -113,8 +116,8 @@ public class TreeSelectRenderer<T extends AbstractUITreeSelect> extends Renderer
     writer.writeClassAttribute(
         component.getCustomClass(),
         showFormCheck ? BootstrapClass.FORM_CHECK_INLINE : null,
-        showFormCheck && selectable.isMulti() ? BootstrapClass.FORM_CHECK : null,
-        showFormCheck && selectable.isSingle() ? BootstrapClass.FORM_CHECK : null);
+        showFormCheck && selectable.isMulti() && hasLabelValue ? BootstrapClass.FORM_CHECK : null,
+        showFormCheck && selectable.isSingle() && hasLabelValue ? BootstrapClass.FORM_CHECK : null);
     HtmlRendererUtils.writeDataAttributes(facesContext, writer, component);
 
     if (showFormCheck) {
@@ -135,16 +138,17 @@ public class TreeSelectRenderer<T extends AbstractUITreeSelect> extends Renderer
       writer.endElement(HtmlElements.INPUT);
     }
 
-    final String label = component.getLabel();
-    writer.startElement(HtmlElements.LABEL);
-    writer.writeClassAttribute(showFormCheck ? BootstrapClass.FORM_CHECK_LABEL : null);
-    final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
-    if (title != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+    if (hasLabelValue) {
+      writer.startElement(HtmlElements.LABEL);
+      writer.writeClassAttribute(showFormCheck ? BootstrapClass.FORM_CHECK_LABEL : null);
+      final String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
+      if (title != null) {
+        writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+      }
+      writer.writeAttribute(HtmlAttributes.FOR, id, false);
+      writer.writeText(label);
+      writer.endElement(HtmlElements.LABEL);
     }
-    writer.writeAttribute(HtmlAttributes.FOR, id, false);
-    writer.writeText(label);
-    writer.endElement(HtmlElements.LABEL);
 
     if (showFormCheck) {
       final CommandMap behaviorCommands = getBehaviorCommands(facesContext, component);
