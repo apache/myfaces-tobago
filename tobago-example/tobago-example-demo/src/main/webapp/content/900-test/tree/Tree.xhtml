@@ -54,4 +54,28 @@
       </tc:treeNode>
     </tc:tree>
   </tc:section>
+
+  <tc:section label="toggle icons; tabindex">
+    <p>Control the focusability for toggle icons via tabindex.</p>
+    <tc:segmentLayout medium="6seg">
+      <tc:tree id="treeIndentWithIcon" value="#{treeController.sample}" var="node">
+        <tc:treeNode>
+          <tc:treeIndent/>
+          <tc:treeIcon value="bi-file-earmark"
+                       closed="bi-folder2"
+                       open="bi-folder2-open"/>
+          <tc:treeLabel value="#{node.userObject.name}"/>
+        </tc:treeNode>
+      </tc:tree>
+
+      <tc:tree id="treeIconWithoutIndent" value="#{treeController.sample}" var="node">
+        <tc:treeNode>
+          <tc:treeIcon closed="#{request.contextPath}/image/feather-closed.png"
+                       open="#{request.contextPath}/image/feather-open.png"
+                       tabIndex="0"/>
+          <tc:treeLabel value="#{node.userObject.name}"/>
+        </tc:treeNode>
+      </tc:tree>
+    </tc:segmentLayout>
+  </tc:section>
 </ui:composition>

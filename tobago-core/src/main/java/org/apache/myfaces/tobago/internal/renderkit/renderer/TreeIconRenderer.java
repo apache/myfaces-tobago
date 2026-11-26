@@ -84,6 +84,8 @@ public class TreeIconRenderer<T extends AbstractUITreeIcon> extends RendererBase
         component.getCustomClass());
 
     if (source != null && !source.isEmpty()) {
+      writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
+
       if (Icons.matches(source)) {
         writer.startElement(HtmlElements.I);
         writer.writeClassAttribute(Icons.custom(source));

@@ -150,4 +150,66 @@ test.describe("900-test/tree/Tree.xhtml", () => {
     await expect(ngcNode).toBeVisible({visible: categoryExpanded && scienceExpanded && astronomyExpanded && picturesExpanded});
     await expect(messierNode).toBeVisible({visible: categoryExpanded && scienceExpanded && astronomyExpanded && picturesExpanded});
   }
+
+  test("treeIndentWithIcon: tab through", async ({page}) => {
+    const tree = page.locator("tobago-tree[id='page:mainForm:treeIndentWithIcon']");
+    const musicToggle = tree.locator("tobago-tree-node").filter({hasText: "Music"}).locator(".tobago-toggle").first();
+    const worldToggle = tree.locator("tobago-tree-node").filter({hasText: "World"}).locator(".tobago-toggle").first();
+    const scienceToggle = tree.locator("tobago-tree-node").filter({hasText: "Science"}).locator(".tobago-toggle").first();
+    const mathematicsToggle = tree.locator("tobago-tree-node").filter({hasText: "Mathematics"}).locator(".tobago-toggle").first();
+    const astronomyToggle = tree.locator("tobago-tree-node").filter({hasText: "Astronomy"}).locator(".tobago-toggle").first();
+
+    await musicToggle.focus();
+    await expect(musicToggle).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(worldToggle).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(scienceToggle).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(mathematicsToggle).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(astronomyToggle).toBeFocused();
+
+    await page.keyboard.down("Shift");
+    await page.keyboard.press("Tab");
+    await expect(mathematicsToggle).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(scienceToggle).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(worldToggle).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(musicToggle).toBeFocused();
+    await page.keyboard.up("Shift");
+  });
+
+  test("treeIconWithoutIndent: tab through", async ({page}) => {
+    const tree = page.locator("tobago-tree[id='page:mainForm:treeIconWithoutIndent']");
+    const musicToggle = tree.locator("tobago-tree-node").filter({hasText: "Music"}).locator(".tobago-toggle").first();
+    const worldToggle = tree.locator("tobago-tree-node").filter({hasText: "World"}).locator(".tobago-toggle").first();
+    const scienceToggle = tree.locator("tobago-tree-node").filter({hasText: "Science"}).locator(".tobago-toggle").first();
+    const mathematicsToggle = tree.locator("tobago-tree-node").filter({hasText: "Mathematics"}).locator(".tobago-toggle").first();
+    const astronomyToggle = tree.locator("tobago-tree-node").filter({hasText: "Astronomy"}).locator(".tobago-toggle").first();
+
+    await musicToggle.focus();
+    await expect(musicToggle).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(worldToggle).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(scienceToggle).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(mathematicsToggle).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(astronomyToggle).toBeFocused();
+
+    await page.keyboard.down("Shift");
+    await page.keyboard.press("Tab");
+    await expect(mathematicsToggle).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(scienceToggle).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(worldToggle).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(musicToggle).toBeFocused();
+    await page.keyboard.up("Shift");
+  });
 });

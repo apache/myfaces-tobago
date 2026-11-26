@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.renderkit.css.BootstrapClass;
 import org.apache.myfaces.tobago.renderkit.css.Icons;
 import org.apache.myfaces.tobago.renderkit.css.TobagoClass;
 import org.apache.myfaces.tobago.renderkit.html.DataAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -64,6 +65,7 @@ public class TreeIndentRenderer<T extends AbstractUITreeIndent> extends Renderer
         folder ? TobagoClass.TOGGLE : null,
         !folder ? BootstrapClass.INVISIBLE : null,
         component.getCustomClass());
+    writer.writeAttribute(HtmlAttributes.TABINDEX, component.getTabIndex());
 
     // encode tree junction
     if (!showJunctions) {
