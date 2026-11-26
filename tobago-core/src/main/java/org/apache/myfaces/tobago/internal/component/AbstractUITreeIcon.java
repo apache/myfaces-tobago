@@ -27,4 +27,6 @@ public abstract class AbstractUITreeIcon extends AbstractUIImage {
   public abstract String getOpen();
 
   public abstract String getClosed();
+
+  public abstract Integer getTabIndex();
 }

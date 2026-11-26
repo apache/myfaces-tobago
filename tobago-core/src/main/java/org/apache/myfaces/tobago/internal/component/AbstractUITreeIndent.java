@@ -29,4 +29,6 @@ import jakarta.faces.component.UIGraphic;
 public abstract class AbstractUITreeIndent extends UIGraphic implements Visual {
 
   public abstract boolean isShowJunctions();
+
+  public abstract Integer getTabIndex();
 }

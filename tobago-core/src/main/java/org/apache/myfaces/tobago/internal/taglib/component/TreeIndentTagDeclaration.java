@@ -52,4 +52,12 @@ public interface TreeIndentTagDeclaration extends HasIdBindingAndRendered, HasTi
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setShowJunctions(String showJunctions);
+
+  /**
+   * Controls the navigation of the focus through the input controls on a page with the Tab-Key.
+   * Default value for treeIndent is "0".
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "0")
+  void setTabIndex(String tabIndex);
 }

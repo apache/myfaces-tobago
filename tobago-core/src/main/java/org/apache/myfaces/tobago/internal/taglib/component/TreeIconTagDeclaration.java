@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasAlt;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasTabIndex;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsVisual;
@@ -46,7 +47,8 @@ import jakarta.faces.component.UIGraphic;
         "jakarta.faces.component.behavior.ClientBehaviorHolder"
     },
     allowedChildComponents = "NONE")
-public interface TreeIconTagDeclaration extends HasIdBindingAndRendered, HasTip, IsDisabled, IsVisual, HasAlt {
+public interface TreeIconTagDeclaration extends HasIdBindingAndRendered, HasTip, IsDisabled, IsVisual, HasAlt,
+    HasTabIndex {
 
   /**
    * Name of the icon.
