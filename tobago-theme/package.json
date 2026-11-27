@@ -63,7 +63,7 @@
     "dev-ts-cp": "ncp tobago-theme-standard/src/main/js ../tobago-example/tobago-example-demo/target/tobago-theme-standard/META-INF/resources/tobago/standard/${npm_package_version}/js"
   },
   "dependencies": {
-    "bootstrap": "5.3.8",
+    "bootstrap": "5.3.9",
     "bootstrap-icons": "1.13.2",
     "jsf.js_next_gen": "4.5.0",
     "lit-html": "3.3.3",
